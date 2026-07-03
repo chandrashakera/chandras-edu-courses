@@ -77,13 +77,10 @@
 
   // Get redirect target — default to index.html (NOT login.html to prevent loop)
   const params   = new URLSearchParams(location.search);
-  const redirect = params.get('redirect') || '../index.html';
+  const redirect = params.get('redirect') || 'index.html';
 
   onAuth(user => {
-    if (user) {
-    // Already logged in — go to courses, not back to login
-      window.location.replace(redirect);
-    }
+    if (user) window.location.replace('index.html');
   });
 
   const showErr = (id, msg) => {
