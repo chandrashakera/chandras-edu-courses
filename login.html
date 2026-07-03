@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login — Chandras EDU</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<nav class="nav"><div id="main-nav"></div></nav>
+
+<div class="auth-wrap">
+
+  <!-- LOGIN CARD -->
+  <div class="auth-card" id="login-card">
+    <h1>Welcome back</h1>
+    <p>Login to access full lessons, quizzes, and track your progress.</p>
+    <div class="error-msg" id="login-err"></div>
+
+    <button class="btn btn-outline" style="width:100%;justify-content:center" id="google-btn">
+      <img src="https://www.google.com/favicon.ico" width="16" height="16" alt=""> Continue with Google
+    </button>
+
+    <div class="divider">or use email</div>
+
+    <div class="form-group">
+      <label>Email</label>
+      <input type="email" id="email" placeholder="you@example.com">
+    </div>
+    <div class="form-group">
+      <label>Password</label>
+      <input type="password" id="password" placeholder="••••••••">
+    </div>
+    <button class="btn btn-primary" style="width:100%;justify-content:center" id="login-btn">Login</button>
+    <div class="auth-footer">No account? <a href="#" id="to-register">Register free</a></div>
+  </div>
+
+  <!-- REGISTER CARD -->
+  <div class="auth-card" id="register-card" style="display:none">
+    <h1>Create account</h1>
+    <p>Free access to all courses, quizzes, and progress tracking.</p>
+    <div class="error-msg" id="reg-err"></div>
+
+    <button class="btn btn-outline" style="width:100%;justify-content:center" id="google-reg-btn">
+      <img src="https://www.google.com/favicon.ico" width="16" height="16" alt=""> Continue with Google
+    </button>
+
+    <div class="divider">or use email</div>
+
+    <div class="form-group">
+      <label>Email</label>
+      <input type="email" id="reg-email" placeholder="you@example.com">
+    </div>
+    <div class="form-group">
+      <label>Password <span style="font-weight:400;color:var(--text-3)">(min 6 chars)</span></label>
+      <input type="password" id="reg-pass" placeholder="••••••••">
+    </div>
+    <div class="form-group">
+      <label>Confirm Password</label>
+      <input type="password" id="reg-confirm" placeholder="••••••••">
+    </div>
+    <button class="btn btn-primary" style="width:100%;justify-content:center" id="reg-btn">Create Account</button>
+    <div class="auth-footer">Already have an account? <a href="#" id="to-login">Login</a></div>
+  </div>
+
+</div>
+
+<script type="module">
+  import { initNav, onAuth, loginGoogle, loginEmail, registerEmail } from './js/firebase-config.js';
+  import { initNav as nav } from './js/nav.js';
+  nav(0);
+
+  const params   = new URLSearchParams(location.search);
+  const redirect = params.get('redirect') || 'index.html';
+
+  onAuth(user => { if (user) location.href = redirect; });
+
+  const showErr = (id, msg) => { const e = document.getElementById(id); e.textContent = msg; e.style.display = 'block'; };
+  const hideErr = (id) => document.getElementById(id).style.display = 'none';
+
+  // Switch cards
+  document.getElementById('to-register').onclick = e => { e.preventDefault(); document.getElementById('login-card').style.display='none'; document.getElementById('register-card').style.display='block'; };
+  document.getElementById('to-login').onclick    = e => { e.preventDefault(); document.getElementById('register-card').style.display='none'; document.getElementById('login-card').style.display='block'; };
+
+  // Google
+  const doGoogle = async () => { try { await loginGoogle(); } catch { showErr('login-err','Google login failed. Try again.'); } };
+  document.getElementById('google-btn').onclick     = doGoogle;
+  document.getElementById('google-reg-btn').onclick = doGoogle;
+
+  // Email login
+  document.getElementById('login-btn').onclick = async () => {
+    hideErr('login-err');
+    const e = document.getElementById('email').value;
+    const p = document.getElementById('password').value;
+    if (!e||!p) return showErr('login-err','Please fill in all fields.');
+    try { await loginEmail(e,p); }
+    catch { showErr('login-err','Invalid email or password.'); }
+  };
+
+  // Email register
+  document.getElementById('reg-btn').onclick = async () => {
+    hideErr('reg-err');
+    const e  = document.getElementById('reg-email').value;
+    const p  = document.getElementById('reg-pass').value;
+    const c  = document.getElementById('reg-confirm').value;
+    if (!e||!p) return showErr('reg-err','Please fill in all fields.');
+    if (p!==c)  return showErr('reg-err','Passwords do not match.');
+    if (p.length<6) return showErr('reg-err','Password must be at least 6 characters.');
+    try { await registerEmail(e,p); }
+    catch(err) { showErr('reg-err', err.code==='auth/email-already-in-use' ? 'Email already registered.' : 'Registration failed. Try again.'); }
+  };
+</script>
+</body>
+</html>

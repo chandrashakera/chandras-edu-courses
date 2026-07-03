@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Unit 1 — Data Representation | COA | Chandras EDU</title>
+  <meta name="description" content="COA Unit 1: Data types, number systems, complements, fixed-point and floating-point representation. Free B.Tech course notes with quizzes.">
+  <link rel="canonical" href="https://courses.chandrashaker.in/academic/coa/unit1/">
+  <link rel="stylesheet" href="../../../css/style.css">
+</head>
+<body>
+<nav class="nav"><div id="main-nav"></div></nav>
+
+<div class="page">
+  <nav class="breadcrumb">
+    <a href="../../../index.html">Courses</a><span class="sep">/</span>
+    <a href="../index.html">COA</a><span class="sep">/</span>
+    <span class="cur">Unit 1</span>
+  </nav>
+
+  <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:1rem;margin-bottom:1.5rem">
+    <div>
+      <span class="badge badge-blue" style="margin-bottom:.5rem;display:inline-block">Unit 1</span>
+      <h1 style="font-size:1.5rem;font-weight:800">Data Representation &amp; Digital Fundamentals</h1>
+      <p style="color:var(--text-2);font-size:.9rem;margin-top:.35rem">4 topics · Approx. 3 hours</p>
+    </div>
+    <div id="unit-progress" style="min-width:180px;display:none">
+      <div class="progress-wrap">
+        <div class="progress-label"><span>Your progress</span><span id="pct">0%</span></div>
+        <div class="progress-bar"><div class="progress-fill" id="pfill" style="width:0%"></div></div>
+      </div>
+      <div style="font-size:.78rem;color:var(--text-3);margin-top:.35rem" id="plabel">0 / 4 topics complete</div>
+    </div>
+  </div>
+
+  <div class="ad-slot">Advertisement</div>
+
+  <div class="topic-list" id="topic-list"></div>
+
+  <div id="login-nudge" style="display:none;margin-top:1.25rem;background:#eff6ff;border:1px solid #bfdbfe;border-radius:var(--radius-lg);padding:1rem;text-align:center;font-size:.9rem;color:#1e40af">
+    <a href="../../../login.html" style="font-weight:600">Login</a> to save your progress and quiz scores — and pick up right where you left off.
+  </div>
+
+  <div class="ad-slot" style="margin-top:1.5rem">Advertisement</div>
+</div>
+
+<footer class="footer">© 2026 Chandra Shaker · <a href="https://chandrashaker.in">chandrashaker.in</a></footer>
+
+<script type="module">
+  import { initNav } from '../../../js/nav.js';
+  import { onAuth, getAllProgress } from '../../../js/firebase-config.js';
+  initNav(3);
+
+  const COURSE_ID = 'coa';
+  const TOPICS = [
+    { id:'data-types-number-systems',    title:'Data Types & Number Systems',    desc:'Radix systems, decimal↔binary↔octal↔hex conversion, bit grouping.',                       time:'40 min', href:'data-types-number-systems.html' },
+    { id:'complements',                  title:'Complements',                    desc:"(r−1)'s complement and r's complement; subtraction via complement addition.",              time:'45 min', href:'complements.html' },
+    { id:'fixed-point-representation',   title:'Fixed-Point Representation',     desc:"Signed-magnitude, 1's & 2's complement; addition rules; overflow detection.",             time:'50 min', href:'fixed-point-representation.html' },
+    { id:'floating-point-representation',title:'Floating-Point Representation',  desc:'Mantissa & exponent fields; normalization; zero convention; IEEE 754 overview.',          time:'40 min', href:'floating-point-representation.html' },
+  ];
+
+  function render(prog = {}) {
+    document.getElementById('topic-list').innerHTML = TOPICS.map((t, i) => {
+      const p    = prog[t.id];
+      const done = p?.completed;
+      return `
+        <a href="${t.href}" class="topic-card">
+          <div class="topic-num ${done?'done':''}">${done?'✓':i+1}</div>
+          <div class="topic-info">
+            <div class="topic-title">${t.title}</div>
+            <div class="topic-desc">${t.desc}</div>
+            <div class="topic-meta">
+              <span>⏱ ${t.time}</span>
+              ${done ? `<span class="score">Quiz: ${p.percent}%</span>` : ''}
+            </div>
+          </div>
+          <div class="topic-arrow">→</div>
+        </a>`;
+    }).join('');
+  }
+
+  function updateProgress(prog) {
+    const done = TOPICS.filter(t => prog[t.id]?.completed).length;
+    const pct  = Math.round((done / TOPICS.length) * 100);
+    document.getElementById('unit-progress').style.display = 'block';
+    document.getElementById('pct').textContent    = pct + '%';
+    document.getElementById('pfill').style.width  = pct + '%';
+    document.getElementById('pfill').className    = 'progress-fill' + (pct===100?' done':'');
+    document.getElementById('plabel').textContent = `${done} / ${TOPICS.length} topics complete`;
+  }
+
+  onAuth(async user => {
+    if (user) {
+      const prog = await getAllProgress(user.uid, COURSE_ID, TOPICS.map(t=>t.id));
+      render(prog);
+      updateProgress(prog);
+    } else {
+      render();
+      document.getElementById('login-nudge').style.display = 'block';
+    }
+  });
+</script>
+</body>
+</html>

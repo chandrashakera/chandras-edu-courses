@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- ✏️ EDIT: title and description for each topic -->
+  <title>Complements — COA Unit 1 | Chandras EDU</title>
+  <meta name="description" content="Learn r's complement and (r-1)'s complement. Perform subtraction using complement addition with worked examples and quiz.">
+  <link rel="canonical" href="https://courses.chandrashaker.in/academic/coa/unit1/complements.html">
+  <link rel="stylesheet" href="../../../css/style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+<nav class="nav"><div id="main-nav"></div></nav>
+
+<!-- Top Ad -->
+<div style="max-width:800px;margin:.75rem auto;padding:0 1.5rem"><div class="ad-slot">Advertisement</div></div>
+
+<div class="page-narrow">
+
+  <!-- Breadcrumb -->
+  <nav class="breadcrumb">
+    <a href="../../../index.html">Courses</a><span class="sep">/</span>
+    <a href="../index.html">COA</a><span class="sep">/</span>
+    <a href="index.html">Unit 1</a><span class="sep">/</span>
+    <!-- ✏️ EDIT: topic name -->
+    <span class="cur">Complements</span>
+  </nav>
+
+  <!-- ✏️ EDIT: topic title -->
+  <h1 style="font-size:1.7rem;font-weight:800;margin-bottom:1.5rem">Complements</h1>
+
+  <!-- ══════════════════════════════════════════════════════
+       FREE SECTION — visible to ALL visitors (no login)
+       ══════════════════════════════════════════════════════ -->
+  <div class="lesson" id="free-content">
+
+    <!-- ✏️ EDIT: learning objectives -->
+    <h2>Learning Objectives</h2>
+    <ul>
+      <li>Define (r−1)'s complement and r's complement for any base</li>
+      <li>Compute 9's, 10's, 1's, and 2's complements</li>
+      <li>Perform subtraction using r's complement addition</li>
+      <li>Correctly interpret end-carry presence or absence</li>
+    </ul>
+
+    <!-- ✏️ EDIT: free preview content (1-2 sections) -->
+    <h2>1. Why Complements?</h2>
+    <p>
+      Complements let digital hardware perform <strong>subtraction using only an adder</strong> plus
+      a complementing step, avoiding a dedicated subtractor circuit. Every base <em>r</em> system
+      defines two complements: the <strong>(r − 1)'s complement</strong> and the <strong>r's complement</strong>.
+    </p>
+
+    <h2>2. (r − 1)'s Complement</h2>
+    <div class="box box-eg">
+      <strong>Formula:</strong>
+      <pre>(r − 1)'s complement of N = (rⁿ − 1) − N</pre>
+    </div>
+    <table>
+      <thead><tr><th>System</th><th>Name</th><th>Method</th><th>Example</th></tr></thead>
+      <tbody>
+        <tr><td>Decimal</td><td>9's complement</td><td>Subtract each digit from 9</td><td>999999 − 546700 = <strong>453299</strong></td></tr>
+        <tr><td>Binary</td><td>1's complement</td><td>Toggle every bit (0→1, 1→0)</td><td>1011001 → <strong>0100110</strong></td></tr>
+      </tbody>
+    </table>
+
+  </div><!-- end free-content -->
+
+  <!-- Mid Ad -->
+  <div class="ad-slot">Advertisement</div>
+
+  <!-- ══════════════════════════════════════════════════════
+       GATE — shown to non-logged-in visitors
+       ══════════════════════════════════════════════════════ -->
+  <div id="gate-section" style="display:none">
+    <div class="gate">
+      <div class="gate-blur">
+        <div class="lesson">
+          <h2>3. r's Complement</h2>
+          <p>The r's complement of N equals the (r−1)'s complement plus 1...</p>
+          <h2>4. Subtraction Using r's Complement</h2>
+          <p>To compute M − N for unsigned n-digit numbers, add M to the r's complement of N...</p>
+        </div>
+      </div>
+      <div class="gate-overlay">
+        <div class="gate-box">
+          <div class="lock">🔒</div>
+          <h3>Login to continue</h3>
+          <p>Create a free account to access the full lesson, worked examples, and quiz.</p>
+          <div class="gate-btns">
+            <a href="../../../login.html" class="btn btn-primary btn-sm">Login</a>
+            <a href="../../../login.html" class="btn btn-outline btn-sm">Register Free</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════
+       FULL CONTENT — shown only after login
+       ══════════════════════════════════════════════════════ -->
+  <div class="lesson" id="full-content" style="display:none">
+
+    <!-- ✏️ EDIT: full lesson content (remaining sections) -->
+    <h2>3. r's Complement</h2>
+    <div class="box box-eg">
+      <strong>Formula:</strong>
+      <pre>r's complement of N = rⁿ − N = (r−1)'s complement + 1</pre>
+    </div>
+    <div class="box box-eg">
+      <pre>10's complement of 2389:
+  9's complement = 7610
+  Add 1          = 7611  ✓
+
+2's complement of 101100:
+  1's complement = 010011
+  Add 1          = 010100  ✓</pre>
+    </div>
+
+    <h2>4. Subtraction Using r's Complement</h2>
+    <p>To compute <strong>M − N</strong>: add M to the r's complement of N, then interpret the result.</p>
+    <div class="box box-tip">
+      💡 <strong>Rule:</strong> End carry present → positive result, discard carry.
+      No end carry → negative result, take complement of result and attach minus sign.
+    </div>
+
+    <h3>Worked Example 1 — Decimal, M ≥ N</h3>
+    <div class="box box-eg">
+      <pre>72532 − 13250
+10's complement of 13250 = 86750
+Sum = 72532 + 86750     = 159282
+Discard end carry       → 59282  ✓ (positive)</pre>
+    </div>
+
+    <h3>Worked Example 2 — Decimal, M &lt; N</h3>
+    <div class="box box-eg">
+      <pre>13250 − 72532
+10's complement of 72532 = 27468
+Sum = 13250 + 27468     = 40718
+No end carry → negative
+10's complement of 40718 = 59282
+Result = −59282  ✓</pre>
+    </div>
+
+    <h3>Worked Example 3 — Binary</h3>
+    <div class="box box-eg">
+      <pre>X = 1010100 (84),  Y = 1000011 (67)
+
+X − Y:
+  2's complement of Y = 0111101
+  Sum = 1010100 + 0111101 = 10010001
+  Discard end carry → 0010001 = +17  ✓
+
+Y − X:
+  2's complement of X = 0101100
+  Sum = 1000011 + 0101100 = 1101111
+  No end carry → take 2's complement → 0010001
+  Result = −17  ✓</pre>
+    </div>
+
+    <h2>Common Pitfalls</h2>
+    <ul>
+      <li>The (r−1)'s complement is bit-wise only; r's complement needs an extra "+1" — conflating them is the most common error.</li>
+      <li>End-carry interpretation is counter-intuitive: carry present = positive (discard it); no carry = negative (complement the result).</li>
+      <li>Always decide the digit width <em>n</em> before complementing.</li>
+    </ul>
+
+    <h2>Summary</h2>
+    <table>
+      <thead><tr><th>Complement</th><th>Formula</th><th>Binary shortcut</th></tr></thead>
+      <tbody>
+        <tr><td>(r−1)'s</td><td>(rⁿ−1) − N</td><td>Toggle all bits</td></tr>
+        <tr><td>r's</td><td>rⁿ − N</td><td>Toggle all bits + 1</td></tr>
+      </tbody>
+    </table>
+    <table>
+      <thead><tr><th>M − N result</th><th>End carry?</th><th>Interpretation</th></tr></thead>
+      <tbody>
+        <tr><td>M ≥ N</td><td>Yes</td><td>Positive — discard carry</td></tr>
+        <tr><td>M &lt; N</td><td>No</td><td>Negative — complement result, attach −</td></tr>
+      </tbody>
+    </table>
+
+  </div><!-- end full-content -->
+
+  <!-- Pre-quiz Ad -->
+  <div class="ad-slot" id="ad-prequiz" style="display:none">Advertisement</div>
+
+  <!-- ══════════════════════════════════════════════════════
+       QUIZ — shown only after login
+       ══════════════════════════════════════════════════════ -->
+  <div class="quiz" id="quiz-section" style="display:none">
+    <div class="quiz-title">📝 Quiz — 5 Questions</div>
+    <div id="quiz-body"></div>
+    <button class="btn btn-primary" id="submit-btn" disabled>Submit Quiz</button>
+    <div class="quiz-result" id="quiz-result" style="display:none"></div>
+  </div>
+
+  <!-- Prev / Next -->
+  <div class="topic-nav">
+    <!-- ✏️ EDIT: previous and next links -->
+    <a href="data-types-number-systems.html">
+      <div class="nav-dir">← Previous</div>
+      <div class="nav-title">Data Types &amp; Number Systems</div>
+    </a>
+    <a href="fixed-point-representation.html" class="next">
+      <div class="nav-dir">Next →</div>
+      <div class="nav-title">Fixed-Point Representation</div>
+    </a>
+  </div>
+
+</div><!-- end page-narrow -->
+
+<div style="max-width:800px;margin:.75rem auto;padding:0 1.5rem"><div class="ad-slot">Advertisement</div></div>
+<footer class="footer">© 2026 Chandra Shaker · <a href="https://chandrashaker.in">chandrashaker.in</a></footer>
+
+<script type="module">
+  import { initNav } from '../../../js/nav.js';
+  import { onAuth, logout, saveProgress, getProgress } from '../../../js/firebase-config.js';
+  initNav(3);
+
+  // ✏️ EDIT these three values for each topic
+  const COURSE_ID = 'coa';
+  const TOPIC_ID  = 'complements';
+  const QUIZ = [
+    {
+      q: "What is the 9's complement of 546700?",
+      options: ["453299","453300","453200","543299"],
+      answer: 0,
+      explanation: "9's complement = 999999 − 546700 = 453299"
+    },
+    {
+      q: "What is the 2's complement of 101100?",
+      options: ["010011","010100","010010","011100"],
+      answer: 1,
+      explanation: "1's complement = 010011. Add 1 → 010100."
+    },
+    {
+      q: "When computing M − N using r's complement, if there IS an end carry:",
+      options: ["Result is negative — take complement","Result is positive — discard the carry","Result overflows","Add the carry back"],
+      answer: 1,
+      explanation: "End carry present means M ≥ N. Result is positive — discard the carry."
+    },
+    {
+      q: "The r's complement equals:",
+      options: ["(r−1)'s complement","(r−1)'s complement − 1","(r−1)'s complement + 1","rⁿ + N"],
+      answer: 2,
+      explanation: "r's complement = (r−1)'s complement + 1."
+    },
+    {
+      q: "Binary subtraction X − Y via 2's complement with no end carry means:",
+      options: ["Result is positive","Result is zero","Result is negative — take 2's complement and attach minus sign","Add Y again"],
+      answer: 2,
+      explanation: "No end carry means X < Y. Take 2's complement of result, attach minus sign."
+    }
+  ];
+  // ✏️ END EDIT ─────────────────────────────────────────────
+
+  const LABELS = ['A','B','C','D'];
+  let selected = {}, submitted = false;
+
+  function buildQuiz() {
+    document.getElementById('quiz-body').innerHTML = QUIZ.map((q, qi) => `
+      <div class="question">
+        <div class="question-text">Q${qi+1}. ${q.q}</div>
+        <div class="options">
+          ${q.options.map((o, oi) => `
+            <div class="option" data-qi="${qi}" data-oi="${oi}">
+              <span class="option-lbl">${LABELS[oi]}</span>${o}
+            </div>`).join('')}
+        </div>
+        <div class="explanation" id="exp${qi}" style="display:none">💡 ${q.explanation}</div>
+      </div>`).join('');
+
+    document.querySelectorAll('.option').forEach(el => {
+      el.onclick = () => {
+        if (submitted) return;
+        const qi = +el.dataset.qi, oi = +el.dataset.oi;
+        selected[qi] = oi;
+        document.querySelectorAll(`[data-qi="${qi}"]`).forEach(o => o.classList.remove('selected'));
+        el.classList.add('selected');
+        document.getElementById('submit-btn').disabled = Object.keys(selected).length < QUIZ.length;
+      };
+    });
+  }
+
+  async function submitQuiz(uid) {
+    submitted = true;
+    let score = 0;
+    QUIZ.forEach((q, qi) => {
+      const correct = q.answer, chosen = selected[qi];
+      document.querySelectorAll(`[data-qi="${qi}"]`).forEach(o => {
+        const oi = +o.dataset.oi;
+        if (oi === correct) o.classList.add('correct');
+        else if (oi === chosen) o.classList.add('wrong');
+      });
+      document.getElementById(`exp${qi}`).style.display = 'block';
+      if (chosen === correct) score++;
+    });
+    document.getElementById('submit-btn').style.display = 'none';
+    const pct = Math.round((score / QUIZ.length) * 100);
+    const pass = pct >= 60;
+    const res = document.getElementById('quiz-result');
+    res.style.display = 'block';
+    res.className = `quiz-result ${pass?'pass':'fail'}`;
+    res.innerHTML = `
+      <div class="quiz-score">${pass?'🎉':'📖'} Score: ${score}/${QUIZ.length} (${pct}%)</div>
+      <div class="quiz-msg">${pct>=80?'Excellent! Move to the next topic.':pct>=60?'Good. Review the sections you missed.':'Review the lesson and try again.'}</div>`;
+    if (uid) await saveProgress(uid, COURSE_ID, TOPIC_ID, score, QUIZ.length);
+  }
+
+  onAuth(async user => {
+    if (user) {
+      // Show full content
+      document.getElementById('gate-section').style.display = 'none';
+      document.getElementById('full-content').style.display  = 'block';
+      document.getElementById('ad-prequiz').style.display    = 'block';
+      document.getElementById('quiz-section').style.display  = 'block';
+      buildQuiz();
+      document.getElementById('submit-btn').onclick = () => submitQuiz(user.uid);
+
+      // Show prior score if already completed
+      const prog = await getProgress(user.uid, COURSE_ID, TOPIC_ID);
+      if (prog?.completed) {
+        const res = document.getElementById('quiz-result');
+        res.style.display = 'block';
+        res.className = 'quiz-result pass';
+        res.innerHTML = `<div class="quiz-score">✅ Already completed — Best score: ${prog.percent}%</div>
+          <div class="quiz-msg">You can retake the quiz anytime.</div>`;
+      }
+    } else {
+      document.getElementById('gate-section').style.display = 'block';
+    }
+  });
+</script>
+</body>
+</html>
