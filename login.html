@@ -81,7 +81,7 @@
 
   // Only redirect if already logged in AND we're not already going somewhere safe
   onAuth(user => {
-    if (user && redirect !== 'login.html') {
+    if (user) {
       location.href = redirect;
     }
   });
