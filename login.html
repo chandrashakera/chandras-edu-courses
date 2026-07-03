@@ -79,14 +79,12 @@
   const params   = new URLSearchParams(location.search);
   const redirect = params.get('redirect') || '../index.html';
 
-  // Prevent redirect loop
-  if (document.referrer.includes('login.html')) {
-  // Don't redirect back
-  } else {
-    onAuth(user => {
-      if (user) window.location.replace(redirect);
-    });
-  }
+  onAuth(user => {
+    if (user) {
+    // Already logged in — go to courses, not back to login
+      window.location.replace(redirect);
+    }
+  });
 
   const showErr = (id, msg) => {
     const e = document.getElementById(id);
