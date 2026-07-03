@@ -3,11 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Generative AI for Professionals — Chandras EDU</title>
-  <meta name="description" content="Free GenAI professional course for IT professionals. Covers AI/ML, US stock investing, and career guidance. Certificate on completion.">
+  <title>Generative AI: Zero to Job-Ready — Chandras EDU</title>
+  <meta name="description" content="Free Generative AI course for IT professionals — learn prompt engineering, LLMs, AI tools and career skills. 5 units, 20 modules. Certificate on completion.">
+  <meta property="og:title" content="Generative AI: Zero to Job-Ready — Chandras EDU">
   <link rel="canonical" href="https://courses.chandrashaker.in/professional/genai/">
   <link rel="stylesheet" href="../../css/style.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Course",
+    "name": "Generative AI: Zero to Job-Ready",
+    "description": "Free course covering Generative AI, Prompt Engineering, LLMs, AI agents and career guidance for IT professionals.",
+    "url": "https://courses.chandrashaker.in/professional/genai/",
+    "provider": { "@type": "Person", "name": "Chandra Shaker", "url": "https://chandrashaker.in" },
+    "isAccessibleForFree": true,
+    "educationalLevel": "Beginner",
+    "inLanguage": "en-IN"
+  }
+  </script>
 </head>
 <body>
 <nav class="nav"><div id="main-nav"></div></nav>
@@ -21,12 +35,12 @@
   <!-- Hero -->
   <div class="hero" style="background:linear-gradient(135deg,#f5f3ff,#ede9fe);border-color:#ddd6fe">
     <div style="font-size:2.5rem;margin-bottom:.75rem">🤖</div>
-    <h1>Generative AI for Professionals</h1>
-    <p>A practical course for Indian IT professionals covering AI/ML fundamentals, US stock investing, and career growth strategies. <strong>Certificate awarded on completion.</strong></p>
-    <div class="hero-meta" style="--primary:#6d28d9">
-      <span style="background:#ede9fe;color:#6d28d9">🤖 AI/ML Track</span>
-      <span style="background:#ede9fe;color:#6d28d9">📈 Finance Track</span>
-      <span style="background:#ede9fe;color:#6d28d9">🚀 Career Track</span>
+    <h1>Generative AI: Zero to Job-Ready</h1>
+    <p>A free, self-paced course for IT professionals. Learn how LLMs work, write effective prompts, apply AI tools in your daily workflow, and future-proof your career. <strong>Certificate on completion.</strong></p>
+    <div class="hero-meta">
+      <span style="background:#ede9fe;color:#6d28d9">📚 5 Units</span>
+      <span style="background:#ede9fe;color:#6d28d9">📄 20 Modules</span>
+      <span style="background:#ede9fe;color:#6d28d9">⏱ ~20 hours</span>
       <span style="background:#ede9fe;color:#6d28d9">🏆 Certificate</span>
       <span style="background:#ede9fe;color:#6d28d9">🆓 Free</span>
     </div>
@@ -34,39 +48,68 @@
 
   <div class="ad-slot">Advertisement</div>
 
-  <!-- Login nudge -->
+  <!-- Login nudge for guests -->
   <div id="login-nudge" style="display:none;background:#f5f3ff;border:1px solid #ddd6fe;border-radius:var(--radius-lg);padding:1rem;text-align:center;font-size:.9rem;color:#6d28d9;margin-bottom:1.5rem">
-    <a href="../../login.html" style="font-weight:600;color:#6d28d9">Login</a> to track your progress and earn your certificate.
+    <a href="../../login.html" style="font-weight:600;color:#6d28d9">Login</a> to save your progress and earn your certificate on completion.
   </div>
 
-  <!-- Overall progress -->
+  <!-- Progress bar (logged in users) -->
   <div id="course-progress" style="display:none;background:var(--bg-2);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.25rem;margin-bottom:1.5rem">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.75rem">
-      <span style="font-weight:700">Course Progress</span>
-      <span id="prog-text" style="font-size:.85rem;color:var(--text-2)">0 / 9 modules</span>
+      <span style="font-weight:700">Your Progress</span>
+      <span id="prog-text" style="font-size:.85rem;color:var(--text-2)">0 / 20 modules</span>
     </div>
     <div class="progress-bar"><div class="progress-fill" id="prog-fill" style="width:0%"></div></div>
   </div>
 
-  <!-- TRACK 1: AI/ML -->
-  <div class="section-head">🤖 Track 1 — AI & Machine Learning</div>
-  <div id="track-aiml"></div>
-
-  <!-- TRACK 2: Finance -->
-  <div class="section-head">📈 Track 2 — Finance for IT Professionals</div>
-  <div id="track-finance"></div>
-
-  <!-- TRACK 3: Career -->
-  <div class="section-head">🚀 Track 3 — Career Growth</div>
-  <div id="track-career"></div>
+  <!-- UNITS -->
+  <div id="units-container"></div>
 
   <div class="ad-slot" style="margin-top:1.5rem">Advertisement</div>
 
-  <!-- Certificate section -->
-  <div id="cert-section" class="cert-wrap" style="display:none">
+  <!-- What you will learn -->
+  <div style="margin-top:2rem">
+    <h2 style="font-size:1.1rem;font-weight:700;margin-bottom:1rem">What you will learn</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:.6rem">
+      <div style="display:flex;gap:.6rem;background:var(--bg-2);border:1px solid var(--border);border-radius:var(--radius);padding:.75rem .9rem;font-size:.87rem;color:var(--text-2)"><span style="color:var(--success);font-weight:700">✓</span> Explain how Generative AI and LLMs work in plain language</div>
+      <div style="display:flex;gap:.6rem;background:var(--bg-2);border:1px solid var(--border);border-radius:var(--radius);padding:.75rem .9rem;font-size:.87rem;color:var(--text-2)"><span style="color:var(--success);font-weight:700">✓</span> Write effective prompts using zero-shot, few-shot, and CoT techniques</div>
+      <div style="display:flex;gap:.6rem;background:var(--bg-2);border:1px solid var(--border);border-radius:var(--radius);padding:.75rem .9rem;font-size:.87rem;color:var(--text-2)"><span style="color:var(--success);font-weight:700">✓</span> Use ChatGPT, Claude, and Gemini strategically for your specific role</div>
+      <div style="display:flex;gap:.6rem;background:var(--bg-2);border:1px solid var(--border);border-radius:var(--radius);padding:.75rem .9rem;font-size:.87rem;color:var(--text-2)"><span style="color:var(--success);font-weight:700">✓</span> Build a personal prompt library tailored to your daily tasks</div>
+      <div style="display:flex;gap:.6rem;background:var(--bg-2);border:1px solid var(--border);border-radius:var(--radius);padding:.75rem .9rem;font-size:.87rem;color:var(--text-2)"><span style="color:var(--success);font-weight:700">✓</span> Understand RAG, AI agents, and automation workflows</div>
+      <div style="display:flex;gap:.6rem;background:var(--bg-2);border:1px solid var(--border);border-radius:var(--radius);padding:.75rem .9rem;font-size:.87rem;color:var(--text-2)"><span style="color:var(--success);font-weight:700">✓</span> Position your GenAI skills on your resume and LinkedIn</div>
+      <div style="display:flex;gap:.6rem;background:var(--bg-2);border:1px solid var(--border);border-radius:var(--radius);padding:.75rem .9rem;font-size:.87rem;color:var(--text-2)"><span style="color:var(--success);font-weight:700">✓</span> Identify freelancing and career opportunities in the Indian AI market</div>
+      <div style="display:flex;gap:.6rem;background:var(--bg-2);border:1px solid var(--border);border-radius:var(--radius);padding:.75rem .9rem;font-size:.87rem;color:var(--text-2)"><span style="color:var(--success);font-weight:700">✓</span> Leave with real deliverables — prompt library, AI workflow, AI Toolkit</div>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <div style="margin-top:2rem">
+    <h2 style="font-size:1.1rem;font-weight:700;margin-bottom:1rem">Frequently Asked Questions</h2>
+    <div style="display:flex;flex-direction:column;gap:.5rem">
+      <details style="background:var(--bg-2);border:1px solid var(--border);border-radius:var(--radius);padding:.9rem 1rem">
+        <summary style="font-weight:600;font-size:.92rem;cursor:pointer">Is this course really free?</summary>
+        <p style="margin-top:.6rem;font-size:.88rem;color:var(--text-2)">Yes, completely free. No hidden fees or paid upgrades.</p>
+      </details>
+      <details style="background:var(--bg-2);border:1px solid var(--border);border-radius:var(--radius);padding:.9rem 1rem">
+        <summary style="font-weight:600;font-size:.92rem;cursor:pointer">Do I need coding experience?</summary>
+        <p style="margin-top:.6rem;font-size:.88rem;color:var(--text-2)">No. Designed for all IT professionals including non-developers. Unit 3 has a dedicated developer module if you code.</p>
+      </details>
+      <details style="background:var(--bg-2);border:1px solid var(--border);border-radius:var(--radius);padding:.9rem 1rem">
+        <summary style="font-weight:600;font-size:.92rem;cursor:pointer">Which AI tools do I need?</summary>
+        <p style="margin-top:.6rem;font-size:.88rem;color:var(--text-2)">A free ChatGPT account is enough to complete all assignments. Claude and Gemini both have free tiers. No paid subscriptions required.</p>
+      </details>
+      <details style="background:var(--bg-2);border:1px solid var(--border);border-radius:var(--radius);padding:.9rem 1rem">
+        <summary style="font-weight:600;font-size:.92rem;cursor:pointer">Will I get a certificate?</summary>
+        <p style="margin-top:.6rem;font-size:.88rem;color:var(--text-2)">Yes — complete all 20 modules to unlock your PDF certificate and shareable link.</p>
+      </details>
+    </div>
+  </div>
+
+  <!-- Certificate section (shown on 100% completion) -->
+  <div id="cert-section" class="cert-wrap" style="display:none;margin-top:2rem">
     <div style="font-size:2.5rem">🏆</div>
     <h2>Course Complete — Congratulations!</h2>
-    <p style="color:var(--text-2);margin-top:.5rem">You have completed all modules of the Generative AI for Professionals course.</p>
+    <p style="color:var(--text-2);margin-top:.5rem">You have completed all 20 modules. Download your certificate.</p>
     <div class="cert-actions">
       <button class="btn btn-success" id="dl-cert">⬇ Download Certificate (PDF)</button>
       <button class="btn btn-outline" id="share-cert">🔗 Copy Shareable Link</button>
@@ -75,54 +118,99 @@
 
 </div>
 
-<footer class="footer">© 2026 Chandra Shaker · <a href="https://chandrashaker.in">chandrashaker.in</a></footer>
+<footer class="footer">
+  © 2026 Chandra Shaker · <a href="https://chandrashaker.in">chandrashaker.in</a> ·
+  <a href="https://chandrashaker.in/privacy-policy/">Privacy</a>
+</footer>
 
 <script type="module">
   import { initNav } from '../../js/nav.js';
-  import { onAuth, logout, getAllProgress, markModuleComplete } from '../../js/firebase-config.js';
+  import { onAuth, getAllProgress, markModuleComplete } from '../../js/firebase-config.js';
   import { generateCertificate, getShareableLink } from '../../js/certificate.js';
   initNav(2);
 
   const COURSE_ID = 'genai';
 
-  const TRACKS = {
-    'track-aiml': [
-      { id:'genai-intro',         title:'Introduction to Generative AI',    desc:'What is GenAI, LLMs, GPT, Claude, Gemini — how they work and what they can do.',  time:'30 min' },
-      { id:'prompt-engineering',  title:'Prompt Engineering for Professionals', desc:'Techniques to get better outputs from AI tools for coding, writing, and analysis.',time:'45 min' },
-      { id:'ai-tools-workflow',   title:'AI Tools for IT Professionals',    desc:'GitHub Copilot, Claude, Perplexity, Cursor — integrating AI into your daily workflow.', time:'40 min' },
-    ],
-    'track-finance': [
-      { id:'us-stocks-intro',     title:'US Stock Market for Indians',      desc:'How to invest in US stocks from India — platforms, taxes, and basics.',            time:'45 min' },
-      { id:'portfolio-strategy',  title:'Building a Portfolio',             desc:'Index funds, ETFs, diversification strategy for Indian IT professionals.',          time:'40 min' },
-      { id:'tax-implications',    title:'Tax & Compliance for US Stocks',   desc:'ITR filing, Schedule FA, Form 67, LTCG/STCG for foreign investments.',             time:'35 min' },
-    ],
-    'track-career': [
-      { id:'linkedin-branding',   title:'LinkedIn Personal Branding',       desc:'Building your professional presence — profile, content strategy, and networking.',  time:'35 min' },
-      { id:'salary-negotiation',  title:'Salary Negotiation for IT Pros',   desc:'How to negotiate salary, appraisals, and job offers effectively.',                 time:'30 min' },
-      { id:'ai-career-future',    title:'Future-Proofing Your Career',      desc:'Which skills to build, which roles AI will impact, and how to stay ahead.',        time:'40 min' },
-    ],
-  };
+  const UNITS = [
+    {
+      num: 1, title: 'Understanding GenAI', sub: 'What LLMs are and why they matter for your career',
+      modules: [
+        { id:'m-1-1', label:'1.1', title:'What is Generative AI',               href:'modules/module-1-1-what-is-generative-ai.html' },
+        { id:'m-1-2', label:'1.2', title:'ChatGPT vs Claude vs Gemini',          href:'modules/module-1-2-chatgpt-vs-claude-vs-gemini.html' },
+        { id:'m-1-3', label:'1.3', title:'How Indian companies use GenAI',       href:'modules/module-1-3-how-indian-companies-use-genai.html' },
+        { id:'m-1-4', label:'1.4', title:'Risks and responsible use',            href:'modules/module-1-4-risks-and-responsible-use.html' },
+      ]
+    },
+    {
+      num: 2, title: 'Prompt Engineering Basics', sub: 'Write prompts that actually work',
+      modules: [
+        { id:'m-2-1', label:'2.1', title:'Anatomy of a good prompt',             href:'modules/module-2-1-anatomy-of-a-good-prompt.html' },
+        { id:'m-2-2', label:'2.2', title:'Zero-shot, few-shot, CoT',             href:'modules/module-2-2-zero-shot-few-shot-cot.html' },
+        { id:'m-2-3', label:'2.3', title:'Role prompting and personas',          href:'modules/module-2-3-role-prompting-personas.html' },
+        { id:'m-2-4', label:'2.4', title:'Common prompt mistakes',               href:'modules/module-2-4-common-prompt-mistakes.html' },
+      ]
+    },
+    {
+      num: 3, title: 'GenAI for Your Job', sub: 'Practical AI for developers, analysts and managers',
+      modules: [
+        { id:'m-3-1', label:'3.1', title:'GenAI for developers',                 href:'modules/module-3-1-genai-for-developers.html' },
+        { id:'m-3-2', label:'3.2', title:'GenAI for analysts',                   href:'modules/module-3-2-genai-for-analysts.html' },
+        { id:'m-3-3', label:'3.3', title:'GenAI for managers',                   href:'modules/module-3-3-genai-for-managers.html' },
+        { id:'m-3-4', label:'3.4', title:'Your prompt library',                  href:'modules/module-3-4-prompt-library.html' },
+      ]
+    },
+    {
+      num: 4, title: 'Advanced Techniques', sub: 'RAG, AI agents and automation workflows',
+      modules: [
+        { id:'m-4-1', label:'4.1', title:'RAG explained simply',                 href:'modules/module-4-1-rag-explained.html' },
+        { id:'m-4-2', label:'4.2', title:'AI agents and workflows',              href:'modules/module-4-2-ai-agents-workflows.html' },
+        { id:'m-4-3', label:'4.3', title:'Fine-tuning vs prompting',             href:'modules/module-4-3-finetuning-vs-prompting.html' },
+        { id:'m-4-4', label:'4.4', title:'No-code AI tools',                     href:'modules/module-4-4-nocode-ai-tools.html' },
+      ]
+    },
+    {
+      num: 5, title: 'Career and India Context', sub: 'Certifications, resume, freelancing and final project',
+      modules: [
+        { id:'m-5-1', label:'5.1', title:'Certifications worth getting',         href:'modules/module-5-1-genai-certifications.html' },
+        { id:'m-5-2', label:'5.2', title:'Resume, LinkedIn and Naukri',          href:'modules/module-5-2-resume-linkedin-naukri.html' },
+        { id:'m-5-3', label:'5.3', title:'Freelancing with AI in India',         href:'modules/module-5-3-ai-freelancing-india.html' },
+        { id:'m-5-4', label:'5.4', title:'Final project — Your AI Toolkit',      href:'modules/module-5-4-final-project.html' },
+      ]
+    }
+  ];
 
-  const ALL_IDS = Object.values(TRACKS).flat().map(m => m.id);
+  const ALL_IDS = UNITS.flatMap(u => u.modules.map(m => m.id));
 
-  function renderTrack(containerId, modules, prog = {}) {
-    document.getElementById(containerId).innerHTML = modules.map((m, i) => {
-      const done = prog[m.id]?.completed;
+  function renderUnits(prog = {}) {
+    document.getElementById('units-container').innerHTML = UNITS.map(u => {
+      const modules = u.modules.map((m, i) => {
+        const done = prog[m.id]?.completed;
+        return `
+          <a href="${m.href}" class="module-card ${done ? 'completed' : ''}">
+            <div style="display:flex;align-items:center;gap:.75rem">
+              <div style="width:30px;height:30px;border-radius:50%;background:${done ? '#dcfce7' : 'var(--bg-3)'};border:1px solid ${done ? '#86efac' : 'var(--border)'};display:flex;align-items:center;justify-content:center;font-size:.82rem;font-weight:700;color:${done ? 'var(--success)' : 'var(--text-3)'};flex-shrink:0">
+                ${done ? '✓' : m.label}
+              </div>
+              <div style="flex:1">
+                <div style="font-weight:600;font-size:.9rem">${m.title}</div>
+              </div>
+              <div style="color:var(--text-3);font-size:.9rem">→</div>
+            </div>
+            <div class="module-status ${done ? 'done' : 'pending'}" style="margin-left:2.5rem">${done ? '✅ Completed' : 'Not started'}</div>
+          </a>`;
+      }).join('');
+
       return `
-        <a href="module-${m.id}.html" class="module-card ${done?'completed':''}">
-          <div style="display:flex;align-items:center;gap:.75rem">
-            <div style="width:32px;height:32px;border-radius:50%;background:${done?'#dcfce7':'var(--bg-3)'};border:1px solid ${done?'#86efac':'var(--border)'};display:flex;align-items:center;justify-content:center;font-size:.85rem;font-weight:700;color:${done?'var(--success)':'var(--text-3)'};flex-shrink:0">
-              ${done?'✓':i+1}
+        <div style="background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.25rem;margin-bottom:.75rem">
+          <div style="display:flex;align-items:center;gap:.75rem;margin-bottom:1rem">
+            <div style="width:36px;height:36px;border-radius:var(--radius);background:#6d28d9;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.9rem;flex-shrink:0">${u.num}</div>
+            <div>
+              <div style="font-weight:700;font-size:.95rem">${u.title}</div>
+              <div style="font-size:.8rem;color:var(--text-3)">${u.sub}</div>
             </div>
-            <div style="flex:1">
-              <div style="font-weight:600;font-size:.93rem">${m.title}</div>
-              <div style="font-size:.82rem;color:var(--text-3);margin-top:.2rem">${m.desc}</div>
-              <div style="font-size:.77rem;color:var(--text-3);margin-top:.3rem">⏱ ${m.time}</div>
-            </div>
-            <div style="color:var(--text-3)">→</div>
           </div>
-          <div class="module-status ${done?'done':'pending'}">${done?'✅ Completed':'Not started'}</div>
-        </a>`;
+          ${modules}
+        </div>`;
     }).join('');
   }
 
@@ -132,25 +220,30 @@
     document.getElementById('course-progress').style.display = 'block';
     document.getElementById('prog-text').textContent = `${done} / ${ALL_IDS.length} modules`;
     document.getElementById('prog-fill').style.width = pct + '%';
-    document.getElementById('prog-fill').className = 'progress-fill' + (pct===100?' done':'');
+    document.getElementById('prog-fill').className = 'progress-fill' + (pct === 100 ? ' done' : '');
     if (pct === 100) document.getElementById('cert-section').style.display = 'block';
   }
 
   onAuth(async user => {
     if (user) {
       const prog = await getAllProgress(user.uid, COURSE_ID, ALL_IDS);
-      Object.entries(TRACKS).forEach(([id, modules]) => renderTrack(id, modules, prog));
+      renderUnits(prog);
       updateProgress(prog);
 
       const name = user.displayName || user.email.split('@')[0];
       document.getElementById('dl-cert').onclick = () =>
-        generateCertificate({ name, course: 'Generative AI for Professionals', subtitle: 'AI/ML · Finance · Career Growth', date: new Date().toLocaleDateString('en-IN') });
+        generateCertificate({
+          name,
+          course: 'Generative AI: Zero to Job-Ready',
+          subtitle: 'Prompt Engineering · AI Tools · Career Growth',
+          date: new Date().toLocaleDateString('en-IN')
+        });
       document.getElementById('share-cert').onclick = () => {
-        const link = getShareableLink('genai', name);
-        navigator.clipboard.writeText(link).then(() => alert('Certificate link copied to clipboard!'));
+        navigator.clipboard.writeText(getShareableLink('genai', name))
+          .then(() => alert('Certificate link copied!'));
       };
     } else {
-      Object.entries(TRACKS).forEach(([id, modules]) => renderTrack(id, modules));
+      renderUnits();
       document.getElementById('login-nudge').style.display = 'block';
     }
   });
