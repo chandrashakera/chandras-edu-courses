@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Module 2.3: Role Prompting and Personas — Generative AI | Chandras EDU</title>
+  <meta name="description" content="Module 2.3 of Generative AI: Zero to Job-Ready. Role Prompting and Personas — free course for IT professionals.">
+  <link rel="canonical" href="https://courses.chandrashaker.in/professional/genai/modules/module-2-3-role-prompting-personas.html">
+  <link rel="stylesheet" href="../../../css/style.css">
+</head>
+<body>
+<nav class="nav"><div id="main-nav"></div></nav>
+
+<div style="max-width:800px;margin:.5rem auto;padding:0 1.5rem">
+  <div class="ad-slot">Advertisement</div>
+</div>
+
+<div class="page-narrow">
+  <nav class="breadcrumb">
+    <a href="../../../index.html">Courses</a><span class="sep">/</span>
+    <a href="../index.html">Generative AI</a><span class="sep">/</span>
+    <span class="cur">Module 2.3: Role Prompting and Personas</span>
+  </nav>
+
+  <!-- Module header -->
+  <div style="background:#6d28d9;border-radius:var(--radius-lg);padding:1.25rem 1.5rem;margin-bottom:1.75rem;color:#fff">
+    <div style="font-size:.78rem;opacity:.75;margin-bottom:.35rem">GENERATIVE AI: ZERO TO JOB-READY › Unit 2: Prompt Engineering › MODULE 2.3</div>
+    <h1 style="font-size:1.4rem;font-weight:700;margin-bottom:.6rem;color:#fff">Role Prompting and Personas</h1>
+    <div style="display:flex;gap:.75rem;flex-wrap:wrap">
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.78rem">⏱ 12 min read</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.78rem">📝 Assignment inside</span>
+    </div>
+  </div>
+
+  <!-- FREE CONTENT -->
+  <div class="lesson" id="free-content">
+
+
+</p>
+<p>  </p>
+<p>  </p>
+<p>  </p>
+<p>  </p>
+
+</p>
+<p>  </p>
+
+<p>You have already been using role prompting since Module 2.1 — every time you wrote "You are a senior Python developer..." at the start of a prompt, that was role prompting. This module goes deeper: what exactly makes a role effective, when it genuinely improves output, and — critically — when it can actually hurt the quality of your results.</p>
+
+<p>This is one of the most misunderstood techniques in prompt engineering. Used correctly, it is highly effective. Used blindly, it can reduce accuracy. By the end of this module you will know the difference.</p>
+
+<hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
+
+<h2>What is role prompting?
+
+<p>The key insight from recent research: role prompting works by shifting the model's <em>style and framing</em> — not by giving it new knowledge it did not have before. This distinction determines when to use it and when not to.</p>
+
+<hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
+
+  </div>
+
+  <div class="ad-slot">Advertisement</div>
+
+  <!-- GATE for non-logged users -->
+  <div id="gate-section" style="display:none">
+    <div class="gate">
+      <div class="gate-blur">
+        <div class="lesson"><h2>Continuing...</h2><p>The rest of this module includes detailed examples, practical tips, and your assignment...</p></div>
+      </div>
+      <div class="gate-overlay">
+        <div class="gate-box">
+          <div class="lock">🔒</div>
+          <h3>Login to continue</h3>
+          <p>Create a free account to access the full module and track your progress.</p>
+          <div class="gate-btns">
+            <a href="../../../login.html" class="btn btn-primary btn-sm">Login</a>
+            <a href="../../../login.html" class="btn btn-outline btn-sm">Register Free</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FULL CONTENT (logged in) -->
+  <div class="lesson" id="full-content" style="display:none">
+<h2>Anatomy of an effective role
+
+<p>Not all role prompts are equal. A weak role ("You are an expert") adds almost nothing. A strong role provides four specific elements:</p>
+
+</p>
+<p>  </p>
+<p>  </p>
+
+</p>
+<p>  </p>
+<p>  </p>
+
+</p>
+<p>  </p>
+<p>  </p>
+
+</p>
+<p>  </p>
+<p>  </p>
+
+<strong>Weak vs strong role — the difference:</strong>
+
+</p>
+<p>  </p>
+<p>  </p>
+<p>    "Expert" gives the model no useful signal. Expert in what context? For whom? At what depth? The model defaults to a generic Wikipedia-style explanation. Research confirms that vague expert personas can actually reduce accuracy compared to no persona at all.</p>
+<p>  </p>
+
+</p>
+<p>  </p>
+<p>  </p>
+<p>    Profession (backend architect), domain (Indian IT services), behavioural trait (practical, analogy-based, no jargon), audience (final-year placement prep). The output will be precisely calibrated to the student's need — not a generic textbook explanation.</p>
+<p>  </p>
+
+<hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
+
+<h2>When role prompting genuinely helps
+
+<p>Research published in 2026 tested persona prompting across eight categories of tasks. Persona prompts were a win in five out of eight categories — extraction (+0.65 score increase), STEM (+0.60), reasoning (+0.40), writing (improved through better stylistic adaptation), and role-playing a domain expert (improved through better tone matching). These categories benefited because they are more about style and clarity rather than whether the answer is factually correct.</p>
+
+</p>
+<p>  </p>
+<p>    <ul><li>Writing tasks — emails, reports, documentation, LinkedIn posts</li></ul></p>
+<p>    <ul><li>Teaching and explanation — calibrating depth and vocabulary for an audience</li></ul></p>
+<p>    <ul><li>Code review — shifting from "what is wrong" to "how would a senior engineer see this"</li></ul></p>
+<p>    <ul><li>Interview preparation — simulating an interviewer's perspective</li></ul></p>
+<p>    <ul><li>Creative brainstorming — getting a specific perspective or industry lens</li></ul></p>
+<p>    <ul><li>Feedback and critique — getting honest, domain-specific evaluation</li></ul></p>
+<p>    <ul><li>Tone matching — formal vs casual, technical vs non-technical communication</li></ul></p>
+<p>  </ul></p>
+
+</p>
+<p>  </p>
+<p>    <ul><li>Factual accuracy — "You are a doctor" does not give the model medical knowledge it does not have</li></ul></p>
+<p>    <ul><li>Current information — a "financial analyst" persona cannot access today's stock prices</li></ul></p>
+<p>    <ul><li>Legal or regulatory precision — "You are a lawyer in India" does not make the output legally reliable</li></ul></p>
+<p>    <ul><li>Mathematical correctness — role framing does not improve arithmetic accuracy</li></ul></p>
+<p>    <ul><li>Verified citations — a "researcher" persona still hallucinates paper titles</li></ul></p>
+<p>  </ul></p>
+
+<hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
+
+<h2>Practical role library for Indian IT students
+
+<p>Here are eight ready-to-use role prompts covering the most common tasks you will face as a student and fresher. Copy and adapt these directly.</p>
+
+</p>
+<p>    </p>
+<p>    </p>
+<p>  </p>
+
+<p>  </p>
+<p>    </p>
+<p>    </p>
+<p>  </p>
+
+<p>  </p>
+<p>    </p>
+<p>    </p>
+<p>  </p>
+
+<p>  </p>
+<p>    </p>
+<p>    </p>
+<p>  </p>
+
+<p>  </p>
+<p>    </p>
+<p>    </p>
+<p>  </p>
+
+<p>  </p>
+<p>    </p>
+<p>    </p>
+<p>  </p>
+
+<p>  </p>
+<p>    </p>
+<p>    </p>
+<p>  </p>
+
+<p>  </p>
+<p>    </p>
+<p>    </p>
+<p>  </p>
+
+<hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
+
+<h2>The audience persona technique
+
+<p>A powerful variation of role prompting is specifying the <em>audience</em> rather than (or in addition to) a role for the model. This is particularly effective when you need content calibrated to a specific reader.</p>
+
+<p>The same underlying question — "how do APIs work" — produces three fundamentally different responses based purely on the audience specification. This technique is especially useful when you are writing educational content, documentation, or explanations for others.</p>
+
+<hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
+
+<h2>Combining role with the other techniques
+
+<p>Role prompting is most powerful when combined with the techniques from Modules 2.1 and 2.2:</p>
+
+</p>
+<p>  </p>
+<p>  </p>
+<p>    The role (Wipro interviewer) sets the tone and depth. The example shows the model exactly how to open a design interview. The CoT trigger makes the model evaluate answers carefully rather than giving generic feedback. Together these three techniques produce a genuinely useful mock interview experience — not a simulation that just agrees with everything you say.</p>
+<p>  </p>
+
+<hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
+
+<h2>Common role prompting mistakes
+
+<hr style="border:none;border-top:1px solid var(--border);margin:1.
+
+    <!-- Assignment -->
+    <div style="background:#fffbeb;border:1px solid #fcd34d;border-radius:var(--radius-lg);padding:1.25rem 1.5rem;margin-top:2rem">
+      <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.75rem">
+        <span style="font-size:1.1rem">✏️</span>
+        <span style="font-weight:700;color:#92400e">Assignment 2.3</span>
+      </div>
+      <p style="color:#78350f;font-size:.9rem">Complete the practical assignment for this module to reinforce your learning. Mark this module as complete when done.</p>
+      <button class="btn btn-success btn-sm" id="mark-done-btn" style="margin-top:.75rem">✅ Mark as Complete</button>
+      <div id="done-msg" style="display:none;color:var(--success);font-size:.88rem;margin-top:.5rem;font-weight:600">✅ Module completed! Great work.</div>
+    </div>
+  </div>
+
+  <!-- Prev / Next -->
+  <div class="topic-nav">
+    <a href="module-2-2-zero-shot-few-shot-cot.html"><div class="nav-dir">← Previous</div><div class="nav-title">Zero-Shot, Few-Shot, CoT</div></a>
+    <a href="module-2-4-common-prompt-mistakes.html" class="next"><div class="nav-dir">Next →</div><div class="nav-title">Common Prompt Mistakes</div></a>
+  </div>
+</div>
+
+<div style="max-width:800px;margin:.5rem auto;padding:0 1.5rem">
+  <div class="ad-slot">Advertisement</div>
+</div>
+<footer class="footer">© 2026 Chandra Shaker · <a href="https://chandrashaker.in">chandrashaker.in</a></footer>
+
+<script type="module">
+  import { initNav } from '../../../js/nav.js';
+  import { onAuth, logout, markModuleComplete, getProgress } from '../../../js/firebase-config.js';
+  initNav(3);
+
+  const COURSE_ID = 'genai';
+  const MODULE_ID = 'm-2-3';
+
+  onAuth(async user => {
+    if (user) {
+      document.getElementById('gate-section').style.display  = 'none';
+      document.getElementById('full-content').style.display  = 'block';
+
+      const prog = await getProgress(user.uid, COURSE_ID, MODULE_ID);
+      if (prog?.completed) {
+        document.getElementById('mark-done-btn').style.display = 'none';
+        document.getElementById('done-msg').style.display = 'block';
+      }
+
+      document.getElementById('mark-done-btn').onclick = async () => {
+        await markModuleComplete(user.uid, COURSE_ID, MODULE_ID);
+        document.getElementById('mark-done-btn').style.display = 'none';
+        document.getElementById('done-msg').style.display = 'block';
+      };
+    } else {
+      document.getElementById('gate-section').style.display = 'block';
+    }
+  });
+</script>
+</body>
+</html>
