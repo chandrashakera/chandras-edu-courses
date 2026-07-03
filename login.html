@@ -7,7 +7,14 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-<nav class="nav"><div id="main-nav"></div></nav>
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-brand">Chandras <span>EDU</span></a>
+    <div class="nav-links">
+      <a href="https://chandrashaker.in" class="hide-mobile" target="_blank" rel="noopener">Blog</a>
+    </div>
+  </div>
+</nav>
 
 <div class="auth-wrap">
 
@@ -66,48 +73,71 @@
 </div>
 
 <script type="module">
-  import { initNav, onAuth, loginGoogle, loginEmail, registerEmail } from './js/firebase-config.js';
-  import { initNav as nav } from './js/nav.js';
-  nav(0);
+  import { onAuth, loginGoogle, loginEmail, registerEmail } from './js/firebase-config.js';
 
+  // Get redirect target — default to index.html (NOT login.html to prevent loop)
   const params   = new URLSearchParams(location.search);
   const redirect = params.get('redirect') || 'index.html';
 
-  onAuth(user => { if (user) location.href = redirect; });
+  // Only redirect if already logged in AND we're not already going somewhere safe
+  onAuth(user => {
+    if (user && redirect !== 'login.html') {
+      location.href = redirect;
+    }
+  });
 
-  const showErr = (id, msg) => { const e = document.getElementById(id); e.textContent = msg; e.style.display = 'block'; };
-  const hideErr = (id) => document.getElementById(id).style.display = 'none';
+  const showErr = (id, msg) => {
+    const e = document.getElementById(id);
+    e.textContent = msg;
+    e.style.display = 'block';
+  };
+  const hideErr = id => document.getElementById(id).style.display = 'none';
 
-  // Switch cards
-  document.getElementById('to-register').onclick = e => { e.preventDefault(); document.getElementById('login-card').style.display='none'; document.getElementById('register-card').style.display='block'; };
-  document.getElementById('to-login').onclick    = e => { e.preventDefault(); document.getElementById('register-card').style.display='none'; document.getElementById('login-card').style.display='block'; };
+  // Switch between login/register
+  document.getElementById('to-register').onclick = e => {
+    e.preventDefault();
+    document.getElementById('login-card').style.display = 'none';
+    document.getElementById('register-card').style.display = 'block';
+  };
+  document.getElementById('to-login').onclick = e => {
+    e.preventDefault();
+    document.getElementById('register-card').style.display = 'none';
+    document.getElementById('login-card').style.display = 'block';
+  };
 
-  // Google
-  const doGoogle = async () => { try { await loginGoogle(); } catch { showErr('login-err','Google login failed. Try again.'); } };
+  // Google login
+  const doGoogle = async () => {
+    try { await loginGoogle(); }
+    catch { showErr('login-err', 'Google login failed. Please try again.'); }
+  };
   document.getElementById('google-btn').onclick     = doGoogle;
   document.getElementById('google-reg-btn').onclick = doGoogle;
 
   // Email login
   document.getElementById('login-btn').onclick = async () => {
     hideErr('login-err');
-    const e = document.getElementById('email').value;
+    const e = document.getElementById('email').value.trim();
     const p = document.getElementById('password').value;
-    if (!e||!p) return showErr('login-err','Please fill in all fields.');
-    try { await loginEmail(e,p); }
-    catch { showErr('login-err','Invalid email or password.'); }
+    if (!e || !p) return showErr('login-err', 'Please fill in all fields.');
+    try { await loginEmail(e, p); }
+    catch { showErr('login-err', 'Invalid email or password.'); }
   };
 
   // Email register
   document.getElementById('reg-btn').onclick = async () => {
     hideErr('reg-err');
-    const e  = document.getElementById('reg-email').value;
-    const p  = document.getElementById('reg-pass').value;
-    const c  = document.getElementById('reg-confirm').value;
-    if (!e||!p) return showErr('reg-err','Please fill in all fields.');
-    if (p!==c)  return showErr('reg-err','Passwords do not match.');
-    if (p.length<6) return showErr('reg-err','Password must be at least 6 characters.');
-    try { await registerEmail(e,p); }
-    catch(err) { showErr('reg-err', err.code==='auth/email-already-in-use' ? 'Email already registered.' : 'Registration failed. Try again.'); }
+    const e = document.getElementById('reg-email').value.trim();
+    const p = document.getElementById('reg-pass').value;
+    const c = document.getElementById('reg-confirm').value;
+    if (!e || !p) return showErr('reg-err', 'Please fill in all fields.');
+    if (p !== c)  return showErr('reg-err', 'Passwords do not match.');
+    if (p.length < 6) return showErr('reg-err', 'Password must be at least 6 characters.');
+    try { await registerEmail(e, p); }
+    catch (err) {
+      showErr('reg-err', err.code === 'auth/email-already-in-use'
+        ? 'Email already registered. Please login.'
+        : 'Registration failed. Please try again.');
+    }
   };
 </script>
 </body>
