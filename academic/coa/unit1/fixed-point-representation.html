@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fixed-Point Representation — COA Unit 1 | Chandras EDU</title>
+  <meta name="description" content="Signed-magnitude, 1's complement, and 2's complement explained simply, with worked examples and overflow detection. COA Unit 1, Data Representation.">
+  <link rel="canonical" href="https://courses.chandrashaker.in/academic/coa/unit1/fixed-point-representation.html">
+  <link rel="stylesheet" href="../../../css/style.css">
+</head>
+<body>
+<nav class="nav"><div id="main-nav"></div></nav>
+
+<div style="max-width:820px;margin:.5rem auto;padding:0 1.25rem">
+  <div class="ad-slot">Advertisement</div>
+</div>
+
+<div class="page-narrow">
+
+  <nav class="breadcrumb">
+    <a href="../../../index.html">Courses</a><span class="sep">/</span>
+    <a href="../index.html">COA</a><span class="sep">/</span>
+    <a href="index.html">Unit 1</a><span class="sep">/</span>
+    <a href="data-representation.html">Data Representation</a><span class="sep">/</span>
+    <span class="cur">Fixed-Point Representation</span>
+  </nav>
+
+  <div style="background:var(--primary);border-radius:var(--radius-lg);padding:1.1rem 1.4rem;margin-bottom:1.5rem;color:#fff">
+    <div style="font-size:.75rem;opacity:.75;margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.05em">COA › Unit 1: Data Representation › Topic 3</div>
+    <h1 style="font-size:1.4rem;font-weight:700;color:#fff;margin-bottom:.5rem">Fixed-Point Representation</h1>
+    <div style="display:flex;gap:.75rem;flex-wrap:wrap">
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">⏱ 20 min read</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📝 Quiz inside</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📖 Mano Ch. 1</span>
+    </div>
+  </div>
+
+  <!-- FREE SECTION -->
+  <div class="lesson">
+    <p>Think about how you write a negative number on paper: you just put a minus sign in front of it, like −14. Easy. Now imagine you're a computer, and you only have two symbols in your entire universe: 0 and 1. There's no minus-sign key. So how do you tell the difference between +14 and −14 using nothing but 0s and 1s? That's the whole problem this page solves — and it turns out there are three different ways to solve it, with one clear winner.</p>
+
+    <h2>The Problem: No Minus Sign in Hardware</h2>
+    <p>Every value stored in a computer's memory is just a row of 0s and 1s — nothing else. If we want to store negative numbers too, we need to agree on a rule for how a 0/1 pattern can <em>mean</em> "this is negative." The simplest possible fix — and the one every computer actually uses — is:</p>
+    <div class="box box-tip">
+      <strong>Use the very first bit (the leftmost one) of the number as a sign flag: 0 means positive, 1 means negative.</strong>
+    </div>
+    <p>So in an 8-bit number, you're really only left with 7 bits to store the actual value, and the 8th bit just answers the yes/no question "is this negative?"</p>
+
+    <h2>The Basic Idea: Fixed-Point</h2>
+    <p>You already know that numbers can have a decimal point (like 3.14). Binary numbers can have a "binary point" the same way. The name <strong>fixed-point</strong> means: everyone agrees in advance exactly where that point goes, and it never moves. Two simple choices are possible:</p>
+    <ul>
+      <li>Put the point at the <strong>far left</strong> → every stored number is treated as a fraction (like 0.1101).</li>
+      <li>Put the point at the <strong>far right</strong> → every stored number is treated as a whole number (like 1101).</li>
+    </ul>
+    <p>This page uses the second choice, since that's what you'll use almost everywhere in this course. One more important detail: <strong>the point itself is never actually stored as a bit</strong> — it's just an agreement everyone remembers, like knowing that "Rs." in front of a number means rupees without writing it every time.</p>
+  </div>
+
+  <div class="ad-slot">Advertisement</div>
+
+  <!-- GATE for non-logged users -->
+  <div id="gate-section">
+    <div class="gate">
+      <div class="gate-blur">
+        <div class="lesson">
+          <h2>Three Ways to Write a Negative Number</h2>
+          <p>Once we've set aside the first bit as the sign, we still need to decide how to write the rest of the number when it's negative. There are three competing methods...</p>
+          <h2>Adding Signed Numbers</h2>
+          <p>Here's where the three methods stop being "just different spellings" of the same idea, and one of them clearly wins...</p>
+        </div>
+      </div>
+      <div class="gate-overlay">
+        <div class="gate-box">
+          <div class="lock">🔒</div>
+          <h3>Login to continue</h3>
+          <p>Create a free account to access worked examples, the addition rules, overflow detection, and quiz.</p>
+          <div class="gate-btns">
+            <a href="../../../login.html" class="btn btn-primary btn-sm">Login</a>
+            <a href="../../../login.html" class="btn btn-outline btn-sm">Register Free</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FULL CONTENT — shown after login -->
+  <div class="lesson" id="full-content" style="display:none">
+
+    <h2>Three Ways to Write a Negative Number</h2>
+    <p>Once we've set aside the first bit as the sign, we still need to decide <em>how</em> to write the rest of the number when it's negative. There are three competing methods. All three agree completely on positive numbers — they only disagree once a number goes negative.</p>
+    <ul>
+      <li><strong>Method 1 — Signed-Magnitude:</strong> keep the number exactly as it looks in ordinary binary, and just flip the sign bit to 1.</li>
+      <li><strong>Method 2 — Signed-1's-Complement:</strong> flip <em>every</em> bit of the positive version.</li>
+      <li><strong>Method 3 — Signed-2's-Complement:</strong> take the 1's complement, then add 1 to it.</li>
+    </ul>
+
+    <div style="text-align:center;margin:1.25rem 0">
+      <img src="../../../images/coa/fig3_signed_representations.png"
+           alt="An 8-bit register holding -14 under the three signed conventions, compared to +14"
+           style="max-width:100%;border-radius:6px;border:1px solid #e0e0e0">
+      <div style="font-size:.78rem;color:#777;margin-top:.4rem">Fig 1: −14 in an 8-bit register under all three conventions (compare +14 = 00001110)</div>
+    </div>
+
+    <h3>More Worked Examples — Writing −20, −50, and −100 in 8 Bits</h3>
+    <div class="box box-eg">
+      <table>
+        <thead><tr><th>Number</th><th>Positive version</th><th>Signed-magnitude</th><th>1's complement</th><th>2's complement</th></tr></thead>
+        <tbody>
+          <tr><td>−20</td><td>00010100</td><td>10010100</td><td>11101011</td><td>11101100</td></tr>
+          <tr><td>−50</td><td>00110010</td><td>10110010</td><td>11001101</td><td>11001110</td></tr>
+          <tr><td>−100</td><td>01100100</td><td>11100100</td><td>10011011</td><td>10011100</td></tr>
+        </tbody>
+      </table>
+      <p style="margin-top:.75rem">Steps for −20: 1) write +20 as 00010100  2) signed-mag: flip only the sign bit → 10010100  3) 1's comp: flip every bit → 11101011  4) 2's comp: add 1 to that → 11101100</p>
+    </div>
+
+    <h2>Adding Signed Numbers</h2>
+    <p><strong>Signed-magnitude addition</strong> mirrors how you'd add by hand: if the signs match, add the magnitudes and keep that sign; if they don't match, subtract the smaller magnitude from the larger and keep the sign of the bigger number. That means the hardware needs a comparator <em>and</em> a subtractor, on top of an adder.</p>
+    <p><strong>2's-complement addition</strong> needs none of that. Add the two numbers — sign bits included — exactly like normal addition, and if a carry pops out of the leftmost position, just throw it away. One simple rule, one piece of hardware. <strong>This is the entire reason 2's complement is used in every real computer you've ever touched.</strong></p>
+
+    <div class="box box-eg">
+      <table>
+        <thead><tr><th>What we're adding</th><th>In 8-bit binary</th><th>Result</th><th>Matches normal math?</th></tr></thead>
+        <tbody>
+          <tr><td>(+6) + (+13)</td><td>00000110 + 00001101</td><td>00010011</td><td>= +19 ✓</td></tr>
+          <tr><td>(−6) + (+13)</td><td>11111010 + 00001101</td><td>00000111</td><td>= +7 ✓</td></tr>
+          <tr><td>(+6) + (−13)</td><td>00000110 + 11110011</td><td>11111001</td><td>= −7 ✓</td></tr>
+          <tr><td>(−6) + (−13)</td><td>11111010 + 11110011</td><td>11101101 (carry dropped)</td><td>= −19 ✓</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>One More Worked Example — (+30) + (−12)</h3>
+    <div class="box box-eg">
+      <pre>  +30  =  00011110
+  −12  =  11110100
+  --------------------
+  sum  =  100010010    ← 9 bits! drop the leading carry
+  keep =  00010010     =  +18</pre>
+      <p style="margin-top:.5rem">Check: 30 − 12 = 18. It matches, using nothing but plain addition.</p>
+    </div>
+
+    <h2>Overflow: When the Answer Doesn't Fit</h2>
+    <p>An 8-bit signed register can only hold numbers from −128 to +127. If the true answer falls outside that range, it's called <strong>overflow</strong>.</p>
+    <ul>
+      <li>For <strong>unsigned</strong> numbers, overflow is easy to spot: an extra carry pops out of the very last bit.</li>
+      <li>For <strong>signed</strong> numbers: overflow happens exactly when <strong>the carry going into the sign bit doesn't match the carry coming out of it.</strong> Also — adding a positive number to a negative number can <em>never</em> overflow; only two positives or two negatives together can.</li>
+    </ul>
+    <div class="box box-eg">
+      <pre>  +70  =  01000110
+  +80  =  01010000
+  --------------------
+  sum  =  10010110   ← this LOOKS negative, but we added two positives!</pre>
+      <p style="margin-top:.5rem">That mismatch — a negative-looking result from two positive numbers — signals overflow. 150 doesn't fit in 8 signed bits (max is +127).</p>
+    </div>
+
+    <div class="box box-warn">
+      ⚠️ A quick note on decimal (BCD) numbers: the same sign-and-complement idea works digit by digit for BCD, with the sign stored as 0000 for positive and 1001 for negative. This comes back properly in the Computer Arithmetic unit.
+    </div>
+
+    <h2>Common Pitfalls</h2>
+    <ul>
+      <li><strong>Don't split the sign bit out before adding, in 2's complement.</strong> It's added along with everything else in one step — treating it specially is a signed-magnitude habit that doesn't apply here.</li>
+      <li><strong>Signed overflow and unsigned overflow are checked differently.</strong> Using the unsigned "extra carry" trick on signed numbers gives the wrong answer.</li>
+      <li><strong>Signed-magnitude needs an extra comparison step before adding or subtracting</strong> — forgetting this and just adding the raw bits gives a wrong result when signs differ.</li>
+    </ul>
+
+    <h2>Applications</h2>
+    <ul>
+      <li><strong>Every processor you've ever used</strong> — in your phone, laptop, or a microwave's control chip — stores negative numbers using 2's complement.</li>
+      <li><strong>Compilers</strong> generate 2's-complement arithmetic instructions automatically — you're using this every time you write <code>x - y</code> in code.</li>
+      <li><strong>Embedded and signal-processing chips</strong> often use fixed-point 2's-complement math instead of floating-point, since it's cheaper and faster in simple hardware.</li>
+    </ul>
+
+    <h2>Summary</h2>
+    <table>
+      <thead><tr><th>Representation</th><th>How to get it</th><th>Used for addition?</th></tr></thead>
+      <tbody>
+        <tr><td>Signed-magnitude</td><td>Flip only the sign bit</td><td>No — needs comparator + subtractor</td></tr>
+        <tr><td>1's complement</td><td>Flip every bit</td><td>Rarely, on its own</td></tr>
+        <tr><td>2's complement</td><td>Flip every bit, then add 1</td><td>Yes — universal in real CPUs</td></tr>
+      </tbody>
+    </table>
+
+  </div><!-- end full-content -->
+
+  <div class="ad-slot" id="ad-quiz" style="display:none">Advertisement</div>
+
+  <!-- QUIZ -->
+  <div class="quiz" id="quiz-section" style="display:none">
+    <div class="quiz-title">📝 Quick Quiz — 5 Questions</div>
+    <div id="quiz-body"></div>
+    <button class="btn btn-primary" id="submit-btn" disabled>Submit Quiz</button>
+    <div class="quiz-result" id="quiz-result" style="display:none"></div>
+  </div>
+
+  <div class="topic-nav">
+    <a href="complements.html">
+      <div class="nav-dir">← Previous</div>
+      <div class="nav-title">Complements</div>
+    </a>
+    <a href="floating-point-representation.html" class="next">
+      <div class="nav-dir">Next →</div>
+      <div class="nav-title">Floating-Point Representation</div>
+    </a>
+  </div>
+
+</div>
+
+<div style="max-width:820px;margin:.5rem auto;padding:0 1.25rem">
+  <div class="ad-slot">Advertisement</div>
+</div>
+<footer class="footer">© 2026 Chandra Shaker · <a href="https://chandrashaker.in">chandrashaker.in</a> · <em>Reference: M. Morris Mano, Digital Design, 3rd ed.</em></footer>
+
+<script type="module">
+  import { initNav } from '../../../js/nav.js';
+  import { onAuth, saveProgress, getProgress } from '../../../js/firebase-config.js';
+  initNav(3);
+
+  const COURSE_ID = 'coa';
+  const TOPIC_ID  = 'fixed-point-representation';
+  const LABELS    = ['A','B','C','D'];
+  const QUIZ = [
+    { q:"What is the 2's complement representation of −20 in 8 bits?", options:["11101100","11101011","10010100","11101101"], answer:0, explanation:"+20=00010100. 1's comp=11101011. Add 1 → 11101100." },
+    { q:"Add (+11) and (−5) in 8-bit 2's complement. What is the result?", options:["00000110 (+6)","00010000 (+16)","11111011 (−5)","00000101 (+5)"], answer:0, explanation:"00001011+11111011=100000110 → drop the 9th-bit carry → 00000110 = +6." },
+    { q:"Does (+90) + (+60) overflow an 8-bit signed register?", options:["No, 150 fits fine","Yes — 150 exceeds the max value of +127","Yes, because both numbers are even","No — overflow only happens with negative numbers"], answer:1, explanation:"Sum=10010110, a negative-looking result from two positives. 150 > 127, the 8-bit signed max." },
+    { q:"Why does 2's-complement addition never need a separate subtractor circuit?", options:["Subtracting is just adding a complemented value, so one adder handles both","2's complement numbers can't be subtracted","Subtraction is done in software only","The sign bit is ignored during addition"], answer:0, explanation:"M − N = M + (2's complement of N), so the same adder circuit performs both addition and subtraction." },
+    { q:"True or false: adding a positive number and a negative number in 2's complement can overflow.", options:["True","False"], answer:1, explanation:"Opposite-sign sums always land inside the valid range — only two same-signed numbers added together can overflow." }
+  ];
+
+  let selected = {}, submitted = false;
+
+  function buildQuiz() {
+    document.getElementById('quiz-body').innerHTML = QUIZ.map((q, qi) => `
+      <div class="question">
+        <div class="question-text">Q${qi+1}. ${q.q}</div>
+        <div class="options">
+          ${q.options.map((o, oi) => `<div class="option" data-qi="${qi}" data-oi="${oi}"><span class="option-lbl">${LABELS[oi]}</span>${o}</div>`).join('')}
+        </div>
+        <div class="explanation" id="exp${qi}" style="display:none">💡 ${q.explanation}</div>
+      </div>`).join('');
+    document.querySelectorAll('.option').forEach(el => {
+      el.onclick = () => {
+        if (submitted) return;
+        const qi = +el.dataset.qi, oi = +el.dataset.oi;
+        selected[qi] = oi;
+        document.querySelectorAll(`[data-qi="${qi}"]`).forEach(o => o.classList.remove('selected'));
+        el.classList.add('selected');
+        document.getElementById('submit-btn').disabled = Object.keys(selected).length < QUIZ.length;
+      };
+    });
+  }
+
+  async function submitQuiz(uid) {
+    submitted = true; let score = 0;
+    QUIZ.forEach((q, qi) => {
+      const correct = q.answer, chosen = selected[qi];
+      document.querySelectorAll(`[data-qi="${qi}"]`).forEach(o => {
+        const oi = +o.dataset.oi;
+        if (oi === correct) o.classList.add('correct');
+        else if (oi === chosen) o.classList.add('wrong');
+      });
+      document.getElementById(`exp${qi}`).style.display = 'block';
+      if (chosen === correct) score++;
+    });
+    document.getElementById('submit-btn').style.display = 'none';
+    const pct = Math.round((score / QUIZ.length) * 100);
+    const res = document.getElementById('quiz-result');
+    res.style.display = 'block';
+    res.className = `quiz-result ${pct >= 60 ? 'pass' : 'fail'}`;
+    res.innerHTML = `<div class="quiz-score">${pct >= 60 ? '🎉' : '📖'} Score: ${score}/${QUIZ.length} (${pct}%)</div>
+      <div class="quiz-msg">${pct >= 80 ? 'Excellent! Move to the next topic.' : pct >= 60 ? 'Good. Review what you missed.' : 'Review the lesson and try again.'}</div>`;
+    if (uid) await saveProgress(uid, COURSE_ID, TOPIC_ID, score, QUIZ.length);
+  }
+
+  onAuth(async user => {
+    const gate = document.getElementById('gate-section');
+    const full  = document.getElementById('full-content');
+    const adQ   = document.getElementById('ad-quiz');
+    const quiz  = document.getElementById('quiz-section');
+    if (user) {
+      gate.style.display = 'none';
+      full.style.display = 'block';
+      adQ.style.display  = 'block';
+      quiz.style.display = 'block';
+      buildQuiz();
+      document.getElementById('submit-btn').onclick = () => submitQuiz(user.uid);
+      const prog = await getProgress(user.uid, COURSE_ID, TOPIC_ID);
+      if (prog?.completed) {
+        const res = document.getElementById('quiz-result');
+        res.style.display = 'block';
+        res.className = 'quiz-result pass';
+        res.innerHTML = `<div class="quiz-score">✅ Completed — Best score: ${prog.percent}%</div>
+          <div class="quiz-msg">You can retake the quiz anytime.</div>`;
+      }
+    }
+  });
+</script>
+</body>
+</html>
