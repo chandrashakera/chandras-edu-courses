@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Digital Logic Gates — COA Unit 1 | Chandras EDU</title>
+  <meta name="description" content="AND, OR, NOT, NAND, NOR, XOR, XNOR gate symbols and truth tables, DeMorgan's theorem, and NAND/NOR universal gates explained with worked examples.">
+  <link rel="canonical" href="https://courses.chandrashaker.in/academic/coa/unit1/digital-logic-gates.html">
+  <link rel="stylesheet" href="../../../css/style.css">
+</head>
+<body>
+<nav class="nav"><div id="main-nav"></div></nav>
+
+<div style="max-width:820px;margin:.5rem auto;padding:0 1.25rem">
+  <div class="ad-slot">Advertisement</div>
+</div>
+
+<div class="page-narrow">
+
+  <nav class="breadcrumb">
+    <a href="../../../index.html">Courses</a><span class="sep">/</span>
+    <a href="../index.html">COA</a><span class="sep">/</span>
+    <a href="index.html">Unit 1</a><span class="sep">/</span>
+    <a href="boolean-algebra-logic-gates.html">Boolean Algebra &amp; Logic Gates</a><span class="sep">/</span>
+    <span class="cur">Digital Logic Gates</span>
+  </nav>
+
+  <div style="background:var(--primary);border-radius:var(--radius-lg);padding:1.1rem 1.4rem;margin-bottom:1.5rem;color:#fff">
+    <div style="font-size:.75rem;opacity:.75;margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.05em">COA › Unit 1: Boolean Algebra &amp; Logic Gates › Topic 4</div>
+    <h1 style="font-size:1.4rem;font-weight:700;color:#fff;margin-bottom:.5rem">Digital Logic Gates</h1>
+    <div style="display:flex;gap:.75rem;flex-wrap:wrap">
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">⏱ 20 min read</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📝 Quiz inside</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📖 Mano Ch. 2</span>
+    </div>
+  </div>
+
+  <!-- FULL LESSON — visible to everyone -->
+  <div class="lesson">
+    <p>Binary Logic introduced AND, OR, and NOT as abstract operations on true/false values. This page turns them into physical circuits — the standard gate symbols you'll be drawing for the rest of this course — and adds the operations that make real circuit design possible: NAND, NOR, XOR, XNOR, and the one algebraic rule that ties them all together, DeMorgan's theorem.</p>
+
+    <h2>The Seven Basic Gates</h2>
+    <p>A <strong>logic gate</strong> is the physical circuit realization of a Boolean operator. Beyond the three basic operations, four more gates round out the standard set:</p>
+    <ul>
+      <li><strong>AND, OR, NOT</strong> — the three you already know, now with formal circuit symbols.</li>
+      <li><strong>NAND</strong> (NOT-AND) and <strong>NOR</strong> (NOT-OR) — an AND or OR followed by an inversion.</li>
+      <li><strong>XOR</strong> (exclusive-OR) — 1 when the inputs <em>differ</em>.</li>
+      <li><strong>XNOR</strong> (exclusive-NOR) — 1 when the inputs <em>match</em>.</li>
+    </ul>
+
+    <div style="text-align:center;margin:1.25rem 0">
+      <img src="../../../images/coa/fig6_logic_gates_reference.png"
+           alt="Reference sheet: symbol, Boolean expression, and truth table for each basic gate"
+           style="max-width:100%;border-radius:6px;border:1px solid #e0e0e0">
+      <div style="font-size:.78rem;color:#777;margin-top:.4rem">Fig 1: Symbol, expression, and truth table for each of the seven basic gates</div>
+    </div>
+
+    <p>Every gate symbol follows the same visual grammar: the small bubble on a gate's output means "inverted" — that's the entire visual difference between AND and NAND, and between OR and NOR.</p>
+
+    <h2>DeMorgan's Theorem</h2>
+    <p>DeMorgan's theorem is the single most useful algebraic identity in digital design:</p>
+    <div class="box box-tip">
+      <strong>(A + B)′ = A′ · B′</strong> &nbsp;&nbsp;&nbsp; <strong>(A · B)′ = A′ + B′</strong>
+    </div>
+    <p>In words: complementing an expression flips the operator (+ becomes ·, and vice versa) <strong>and</strong> complements every individual literal — not just the outer expression.</p>
+    <div class="box box-eg">
+      <pre>Check for A=0, B=1:
+  (A+B)' = (0+1)' = 1' = 0
+  A'·B'  = 1·0    = 0
+  Match! (True for all 4 input combinations, which is what makes it a theorem.)</pre>
+    </div>
+
+    <h2>NAND and NOR: Universal Gates</h2>
+    <p>NAND and NOR are called <strong>universal gates</strong> because either one, by itself, can build every other gate — NOT, AND, and OR included. This is a major reason real chips are built almost entirely from NAND (or NOR) gates: manufacturing one gate type repeatedly is far cheaper than manufacturing several different types.</p>
+
+    <div style="text-align:center;margin:1.25rem 0">
+      <img src="../../../images/coa/fig7_nand_universal.png"
+           alt="Building NOT, AND, and OR using only NAND gates"
+           style="max-width:100%;border-radius:6px;border:1px solid #e0e0e0">
+      <div style="font-size:.78rem;color:#777;margin-top:.4rem">Fig 2: NOT, AND, and OR, each built using only NAND gates</div>
+    </div>
+
+    <ul>
+      <li><strong>NOT from NAND:</strong> tie both inputs of a NAND gate together — NAND(A,A) = (A·A)′ = A′.</li>
+      <li><strong>AND from NAND:</strong> a NAND gate, followed by a second NAND wired as a NOT.</li>
+      <li><strong>OR from NAND:</strong> DeMorgan's theorem in physical form — invert both inputs first, then NAND them: (A′·B′)′ = A+B.</li>
+    </ul>
+
+    <h2>Canonical Form — a Preview</h2>
+    <p>A <strong>minterm</strong> is a product (AND) term that includes every variable of a function exactly once — uncomplemented if that variable is 1 in a given truth-table row, complemented if it's 0. Writing a function as the OR of all the minterms where it equals 1 is called the <strong>canonical sum-of-products (SOP)</strong> form.</p>
+    <div class="box box-eg">
+      <pre>F(A,B,C) is 1 for rows 1, 3, 5, 6 → F = Σm(1,3,5,6)
+
+F = A'B'C + A'BC + AB'C + ABC'</pre>
+    </div>
+    <p>This form is guaranteed correct but rarely minimal — it's the direct starting point for the graphical simplification method on the next page, Karnaugh Maps.</p>
+
+    <h2>Common Pitfalls</h2>
+    <ul>
+      <li><strong>DeMorgan's flips the operator AND complements every literal</strong> — complementing only the outer expression is the most common mistake.</li>
+      <li><strong>The bubble is the only visual difference</strong> between a gate and its complemented version — AND vs. NAND, OR vs. NOR look identical except for that one bubble.</li>
+      <li><strong>"Universal" means one gate type can build everything</strong> — it doesn't mean NAND and NOR are interchangeable with each other without redesigning the circuit.</li>
+      <li><strong>Minterm numbering follows the truth-table row's binary value directly</strong> — row 5 (A=1,B=0,C=1) is minterm m5, not an arbitrary label.</li>
+    </ul>
+
+    <h2>Applications</h2>
+    <ul>
+      <li><strong>Every IC datasheet</strong> you'll ever open describes circuits using these seven gate symbols — the actual visual language of digital design.</li>
+      <li><strong>NAND-based design</strong> dominates real chip fabrication because of the universal-gate property.</li>
+      <li><strong>XOR gates</strong> are the core building block of binary adders and simple parity generators.</li>
+    </ul>
+
+    <h2>Summary</h2>
+    <table>
+      <thead><tr><th>Gate</th><th>Expression</th><th>Output is 1 when...</th></tr></thead>
+      <tbody>
+        <tr><td>AND</td><td>A·B</td><td>Both inputs are 1</td></tr>
+        <tr><td>OR</td><td>A+B</td><td>At least one input is 1</td></tr>
+        <tr><td>NOT</td><td>A′</td><td>Input is 0</td></tr>
+        <tr><td>NAND</td><td>(A·B)′</td><td>NOT both inputs are 1</td></tr>
+        <tr><td>NOR</td><td>(A+B)′</td><td>All inputs are 0</td></tr>
+        <tr><td>XOR</td><td>A⊕B</td><td>Inputs differ</td></tr>
+        <tr><td>XNOR</td><td>(A⊕B)′</td><td>Inputs match</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="ad-slot">Advertisement</div>
+
+  <!-- QUIZ GATE -->
+  <div id="gate-section">
+    <div class="gate">
+      <div class="gate-blur">
+        <div class="quiz">
+          <div class="quiz-title">📝 Quick Quiz — 5 Questions</div>
+        </div>
+      </div>
+      <div class="gate-overlay">
+        <div class="gate-box">
+          <div class="lock">🔒</div>
+          <h3>Login to take the quiz</h3>
+          <p>Create a free account to take the quiz and track your progress across all topics.</p>
+          <div class="gate-btns">
+            <a href="../../../login.html" class="btn btn-primary btn-sm">Login</a>
+            <a href="../../../login.html" class="btn btn-outline btn-sm">Register Free</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="quiz" id="quiz-section" style="display:none">
+    <div class="quiz-title">📝 Quick Quiz — 5 Questions</div>
+    <div id="quiz-body"></div>
+    <button class="btn btn-primary" id="submit-btn" disabled>Submit Quiz</button>
+    <div class="quiz-result" id="quiz-result" style="display:none"></div>
+  </div>
+
+  <div class="topic-nav">
+    <a href="binary-logic.html">
+      <div class="nav-dir">← Previous</div>
+      <div class="nav-title">Binary Logic</div>
+    </a>
+    <a href="k-map-representation.html" class="next">
+      <div class="nav-dir">Next →</div>
+      <div class="nav-title">K-Map Representation</div>
+    </a>
+  </div>
+
+</div>
+
+<div style="max-width:820px;margin:.5rem auto;padding:0 1.25rem">
+  <div class="ad-slot">Advertisement</div>
+</div>
+<footer class="footer">© 2026 Chandra Shaker · <a href="https://chandrashaker.in">chandrashaker.in</a> · <em>Reference: M. Morris Mano, Digital Design, 3rd ed.</em></footer>
+
+<script type="module">
+  import { initNav } from '../../../js/nav.js';
+  import { onAuth, saveProgress, getProgress } from '../../../js/firebase-config.js';
+  initNav(3);
+
+  const COURSE_ID = 'coa';
+  const TOPIC_ID  = 'digital-logic-gates';
+  const LABELS    = ['A','B','C','D'];
+  const QUIZ = [
+    { q:"What is the output of a NOR gate when both inputs are 0?", options:["0","1","Undefined","Depends on a third input"], answer:1, explanation:"NOR is 1 only when every input is 0, which is the case here." },
+    { q:"Apply DeMorgan's theorem to simplify (A' + B)'.", options:["A + B'","A' · B","A · B'","A' + B'"], answer:2, explanation:"(A'+B)' = (A')'·B' = A·B', applying DeMorgan's and then involution." },
+    { q:"How would you build a NOT gate using only a NAND gate?", options:["Tie both NAND inputs to the same signal A","Connect a NAND gate to a NOR gate","Use two separate NAND gates with different inputs","It's impossible with only NAND"], answer:0, explanation:"NAND(A,A) = (A·A)' = A'." },
+    { q:"Write the canonical SOP for a function that is 1 for minterms 0, 2, and 7 of a 3-variable truth table.", options:["A'B'C' + A'BC' + ABC","A'B'C + A'BC + ABC'","AB'C' + ABC' + A'B'C","A'B'C' + AB'C' + A'BC"], answer:0, explanation:"m0=A'B'C', m2=A'BC', m7=ABC → F = A'B'C' + A'BC' + ABC." },
+    { q:"Why is manufacturing chips almost entirely from NAND gates cheaper than mixing gate types?", options:["NAND gates use less electricity","A single gate design can be manufactured and tested repeatedly at scale instead of maintaining several production processes","NAND gates are smaller than all other gates","It isn't actually cheaper"], answer:1, explanation:"Because NAND is universal, one gate design covers every circuit need, simplifying manufacturing and testing." }
+  ];
+
+  let selected = {}, submitted = false;
+
+  function buildQuiz() {
+    document.getElementById('quiz-body').innerHTML = QUIZ.map((q, qi) => `
+      <div class="question">
+        <div class="question-text">Q${qi+1}. ${q.q}</div>
+        <div class="options">
+          ${q.options.map((o, oi) => `<div class="option" data-qi="${qi}" data-oi="${oi}"><span class="option-lbl">${LABELS[oi]}</span>${o}</div>`).join('')}
+        </div>
+        <div class="explanation" id="exp${qi}" style="display:none">💡 ${q.explanation}</div>
+      </div>`).join('');
+    document.querySelectorAll('.option').forEach(el => {
+      el.onclick = () => {
+        if (submitted) return;
+        const qi = +el.dataset.qi, oi = +el.dataset.oi;
+        selected[qi] = oi;
+        document.querySelectorAll(`[data-qi="${qi}"]`).forEach(o => o.classList.remove('selected'));
+        el.classList.add('selected');
+        document.getElementById('submit-btn').disabled = Object.keys(selected).length < QUIZ.length;
+      };
+    });
+  }
+
+  async function submitQuiz(uid) {
+    submitted = true; let score = 0;
+    QUIZ.forEach((q, qi) => {
+      const correct = q.answer, chosen = selected[qi];
+      document.querySelectorAll(`[data-qi="${qi}"]`).forEach(o => {
+        const oi = +o.dataset.oi;
+        if (oi === correct) o.classList.add('correct');
+        else if (oi === chosen) o.classList.add('wrong');
+      });
+      document.getElementById(`exp${qi}`).style.display = 'block';
+      if (chosen === correct) score++;
+    });
+    document.getElementById('submit-btn').style.display = 'none';
+    const pct = Math.round((score / QUIZ.length) * 100);
+    const res = document.getElementById('quiz-result');
+    res.style.display = 'block';
+    res.className = `quiz-result ${pct >= 60 ? 'pass' : 'fail'}`;
+    res.innerHTML = `<div class="quiz-score">${pct >= 60 ? '🎉' : '📖'} Score: ${score}/${QUIZ.length} (${pct}%)</div>
+      <div class="quiz-msg">${pct >= 80 ? 'Excellent! Move to the next topic.' : pct >= 60 ? 'Good. Review what you missed.' : 'Review the lesson and try again.'}</div>`;
+    if (uid) await saveProgress(uid, COURSE_ID, TOPIC_ID, score, QUIZ.length);
+  }
+
+  onAuth(async user => {
+    const gate = document.getElementById('gate-section');
+    const quiz  = document.getElementById('quiz-section');
+    if (user) {
+      gate.style.display = 'none';
+      quiz.style.display = 'block';
+      buildQuiz();
+      document.getElementById('submit-btn').onclick = () => submitQuiz(user.uid);
+      const prog = await getProgress(user.uid, COURSE_ID, TOPIC_ID);
+      if (prog?.completed) {
+        const res = document.getElementById('quiz-result');
+        res.style.display = 'block';
+        res.className = 'quiz-result pass';
+        res.innerHTML = `<div class="quiz-score">✅ Completed — Best score: ${prog.percent}%</div>
+          <div class="quiz-msg">You can retake the quiz anytime.</div>`;
+      }
+    }
+  });
+</script>
+</body>
+</html>

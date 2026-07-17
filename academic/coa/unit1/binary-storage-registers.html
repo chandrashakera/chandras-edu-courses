@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Binary Storage & Registers — COA Unit 1 | Chandras EDU</title>
+  <meta name="description" content="What a flip-flop storage cell is, how registers group them together, and why 2^n possible values matters. COA Unit 1, Boolean Algebra and Logic Gates.">
+  <link rel="canonical" href="https://courses.chandrashaker.in/academic/coa/unit1/binary-storage-registers.html">
+  <link rel="stylesheet" href="../../../css/style.css">
+</head>
+<body>
+<nav class="nav"><div id="main-nav"></div></nav>
+
+<div style="max-width:820px;margin:.5rem auto;padding:0 1.25rem">
+  <div class="ad-slot">Advertisement</div>
+</div>
+
+<div class="page-narrow">
+
+  <nav class="breadcrumb">
+    <a href="../../../index.html">Courses</a><span class="sep">/</span>
+    <a href="../index.html">COA</a><span class="sep">/</span>
+    <a href="index.html">Unit 1</a><span class="sep">/</span>
+    <a href="boolean-algebra-logic-gates.html">Boolean Algebra &amp; Logic Gates</a><span class="sep">/</span>
+    <span class="cur">Binary Storage &amp; Registers</span>
+  </nav>
+
+  <div style="background:var(--primary);border-radius:var(--radius-lg);padding:1.1rem 1.4rem;margin-bottom:1.5rem;color:#fff">
+    <div style="font-size:.75rem;opacity:.75;margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.05em">COA › Unit 1: Boolean Algebra &amp; Logic Gates › Topic 2</div>
+    <h1 style="font-size:1.4rem;font-weight:700;color:#fff;margin-bottom:.5rem">Binary Storage &amp; Registers</h1>
+    <div style="display:flex;gap:.75rem;flex-wrap:wrap">
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">⏱ 10 min read</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📝 Quiz inside</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📖 Mano Ch. 1</span>
+    </div>
+  </div>
+
+  <!-- FULL LESSON — visible to everyone -->
+  <div class="lesson">
+    <p>Every code and number system covered so far describes how to <em>interpret</em> a pattern of bits — but where do those bits actually live between the moment they're written and the moment they're read again? This short page covers the physical side: the storage cell that holds one bit, and the register that groups many of them together.</p>
+
+    <h2>The Storage Cell</h2>
+    <p>A <strong>binary storage cell</strong> is a circuit called a <strong>flip-flop</strong> — a device with exactly two stable electrical states. Whichever state it's currently sitting in <em>is</em> the bit it's storing: one state means 0, the other means 1. Crucially, a flip-flop <strong>holds</strong> its state — it doesn't need continuous input to keep remembering a 0 or a 1, unlike a plain wire, which only carries a signal while something is actively driving it.</p>
+    <div class="box box-tip">How a flip-flop is actually built from logic gates, and how it changes state, is covered properly in the Sequential Circuits unit later in this course. For now, treat it as a labelled box: it stores one bit.</div>
+
+    <h2>Registers</h2>
+    <p>A <strong>register</strong> is simply an ordered group of storage cells acting together. An 8-bit register is 8 flip-flops side by side, together holding one 8-bit value at any given moment — exactly the kind of value you've been converting between number systems on earlier pages.</p>
+
+    <div style="text-align:center;margin:1.25rem 0">
+      <img src="../../../images/coa/fig_register_storage.png"
+           alt="An 8-bit register made of 8 individual storage cells"
+           style="max-width:100%;border-radius:6px;border:1px solid #e0e0e0">
+      <div style="font-size:.78rem;color:#777;margin-top:.4rem">Fig 1: A register is a group of storage cells; n cells hold one of 2ⁿ possible values</div>
+    </div>
+
+    <p>A register of <em>n</em> cells can hold any one of <strong>2ⁿ</strong> possible values at a time — the same counting principle behind every number system you've already seen. An 8-bit register holds 2⁸ = 256 possible values; a 32-bit register holds 2³² (over 4 billion) possible values.</p>
+
+    <h2>Register Transfer — a Preview</h2>
+    <p>Computers work by moving values between registers and combining them — copying a value from one register into another, or feeding two registers into a circuit that computes their sum. This movement is called a <strong>register transfer</strong>, and it's important enough to get its own dedicated topic (Register Transfer Language) later in this course. For now, the only thing to take away is the vocabulary: a register <em>holds</em> a value, and a transfer <em>moves or copies</em> that value somewhere else without necessarily destroying the original.</p>
+
+    <h2>Common Pitfalls</h2>
+    <ul>
+      <li><strong>A storage cell and a wire are not the same thing.</strong> A wire only carries a value while something drives it; a flip-flop actively holds its state.</li>
+      <li><strong>"Register" refers to the group, not a single bit.</strong> A single storage cell holds one bit; a register is the collection that holds a whole value.</li>
+      <li><strong>2ⁿ counts <em>possible</em> values, not currently used ones.</strong> An 8-bit register can represent 256 different values, but at any instant it's holding exactly one of them.</li>
+    </ul>
+
+    <h2>Applications</h2>
+    <ul>
+      <li><strong>CPU registers</strong> are the fastest storage a processor has — every arithmetic operation reads its inputs from registers and writes its result back to one.</li>
+      <li><strong>Pipeline stages</strong> in modern CPUs use registers between stages to hold intermediate values while the next instruction is already being processed.</li>
+      <li><strong>Memory cells</strong> in RAM are built on the same core idea — a circuit that holds a bit — just organized differently for density instead of speed.</li>
+    </ul>
+
+    <h2>Summary</h2>
+    <table>
+      <thead><tr><th>Term</th><th>Meaning</th></tr></thead>
+      <tbody>
+        <tr><td>Storage cell / flip-flop</td><td>Holds exactly one bit, indefinitely, without continuous input</td></tr>
+        <tr><td>Register</td><td>An ordered group of storage cells holding one value</td></tr>
+        <tr><td>n-bit register capacity</td><td>2ⁿ possible values</td></tr>
+        <tr><td>Register transfer</td><td>Moving/copying a value from one register to another</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="ad-slot">Advertisement</div>
+
+  <!-- QUIZ GATE -->
+  <div id="gate-section">
+    <div class="gate">
+      <div class="gate-blur">
+        <div class="quiz">
+          <div class="quiz-title">📝 Quick Quiz — 5 Questions</div>
+        </div>
+      </div>
+      <div class="gate-overlay">
+        <div class="gate-box">
+          <div class="lock">🔒</div>
+          <h3>Login to take the quiz</h3>
+          <p>Create a free account to take the quiz and track your progress across all topics.</p>
+          <div class="gate-btns">
+            <a href="../../../login.html" class="btn btn-primary btn-sm">Login</a>
+            <a href="../../../login.html" class="btn btn-outline btn-sm">Register Free</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="quiz" id="quiz-section" style="display:none">
+    <div class="quiz-title">📝 Quick Quiz — 5 Questions</div>
+    <div id="quiz-body"></div>
+    <button class="btn btn-primary" id="submit-btn" disabled>Submit Quiz</button>
+    <div class="quiz-result" id="quiz-result" style="display:none"></div>
+  </div>
+
+  <div class="topic-nav">
+    <a href="binary-codes.html">
+      <div class="nav-dir">← Previous</div>
+      <div class="nav-title">Binary Codes</div>
+    </a>
+    <a href="binary-logic.html" class="next">
+      <div class="nav-dir">Next →</div>
+      <div class="nav-title">Binary Logic</div>
+    </a>
+  </div>
+
+</div>
+
+<div style="max-width:820px;margin:.5rem auto;padding:0 1.25rem">
+  <div class="ad-slot">Advertisement</div>
+</div>
+<footer class="footer">© 2026 Chandra Shaker · <a href="https://chandrashaker.in">chandrashaker.in</a> · <em>Reference: M. Morris Mano, Digital Design, 3rd ed.</em></footer>
+
+<script type="module">
+  import { initNav } from '../../../js/nav.js';
+  import { onAuth, saveProgress, getProgress } from '../../../js/firebase-config.js';
+  initNav(3);
+
+  const COURSE_ID = 'coa';
+  const TOPIC_ID  = 'binary-storage-registers';
+  const LABELS    = ['A','B','C','D'];
+  const QUIZ = [
+    { q:"What is the defining property of a flip-flop that makes it useful as a storage cell?", options:["It has two stable states and holds one without needing continuous input","It can only store the value 1","It requires constant power fluctuation to remember data","It automatically resets every clock cycle"], answer:0, explanation:"A flip-flop holds whichever of its two stable states it's currently in, without needing ongoing input to remember it." },
+    { q:"How many possible values can a 4-bit register hold?", options:["4","8","16","32"], answer:2, explanation:"2⁴ = 16 possible values." },
+    { q:"True or false: a register and a single storage cell are the same thing.", options:["True","False"], answer:1, explanation:"A storage cell holds one bit; a register is a group of storage cells holding a whole value together." },
+    { q:"What is a \"register transfer\"?", options:["Deleting a register's contents","Moving or copying a value from one register to another","Converting a register's value to decimal","Adding two registers permanently"], answer:1, explanation:"A register transfer is the basic mechanism computers use to move or copy stored values between registers or into circuits." },
+    { q:"Why can't a plain wire, by itself, serve as a storage cell?", options:["Wires are too slow","A wire only carries a value while something actively drives it — it can't hold a value on its own","Wires can only carry the value 0","Wires require a login to store data"], answer:1, explanation:"A flip-flop actively holds its state without ongoing input; a plain wire only carries whatever is currently driving it." }
+  ];
+
+  let selected = {}, submitted = false;
+
+  function buildQuiz() {
+    document.getElementById('quiz-body').innerHTML = QUIZ.map((q, qi) => `
+      <div class="question">
+        <div class="question-text">Q${qi+1}. ${q.q}</div>
+        <div class="options">
+          ${q.options.map((o, oi) => `<div class="option" data-qi="${qi}" data-oi="${oi}"><span class="option-lbl">${LABELS[oi]}</span>${o}</div>`).join('')}
+        </div>
+        <div class="explanation" id="exp${qi}" style="display:none">💡 ${q.explanation}</div>
+      </div>`).join('');
+    document.querySelectorAll('.option').forEach(el => {
+      el.onclick = () => {
+        if (submitted) return;
+        const qi = +el.dataset.qi, oi = +el.dataset.oi;
+        selected[qi] = oi;
+        document.querySelectorAll(`[data-qi="${qi}"]`).forEach(o => o.classList.remove('selected'));
+        el.classList.add('selected');
+        document.getElementById('submit-btn').disabled = Object.keys(selected).length < QUIZ.length;
+      };
+    });
+  }
+
+  async function submitQuiz(uid) {
+    submitted = true; let score = 0;
+    QUIZ.forEach((q, qi) => {
+      const correct = q.answer, chosen = selected[qi];
+      document.querySelectorAll(`[data-qi="${qi}"]`).forEach(o => {
+        const oi = +o.dataset.oi;
+        if (oi === correct) o.classList.add('correct');
+        else if (oi === chosen) o.classList.add('wrong');
+      });
+      document.getElementById(`exp${qi}`).style.display = 'block';
+      if (chosen === correct) score++;
+    });
+    document.getElementById('submit-btn').style.display = 'none';
+    const pct = Math.round((score / QUIZ.length) * 100);
+    const res = document.getElementById('quiz-result');
+    res.style.display = 'block';
+    res.className = `quiz-result ${pct >= 60 ? 'pass' : 'fail'}`;
+    res.innerHTML = `<div class="quiz-score">${pct >= 60 ? '🎉' : '📖'} Score: ${score}/${QUIZ.length} (${pct}%)</div>
+      <div class="quiz-msg">${pct >= 80 ? 'Excellent! Move to the next topic.' : pct >= 60 ? 'Good. Review what you missed.' : 'Review the lesson and try again.'}</div>`;
+    if (uid) await saveProgress(uid, COURSE_ID, TOPIC_ID, score, QUIZ.length);
+  }
+
+  onAuth(async user => {
+    const gate = document.getElementById('gate-section');
+    const quiz  = document.getElementById('quiz-section');
+    if (user) {
+      gate.style.display = 'none';
+      quiz.style.display = 'block';
+      buildQuiz();
+      document.getElementById('submit-btn').onclick = () => submitQuiz(user.uid);
+      const prog = await getProgress(user.uid, COURSE_ID, TOPIC_ID);
+      if (prog?.completed) {
+        const res = document.getElementById('quiz-result');
+        res.style.display = 'block';
+        res.className = 'quiz-result pass';
+        res.innerHTML = `<div class="quiz-score">✅ Completed — Best score: ${prog.percent}%</div>
+          <div class="quiz-msg">You can retake the quiz anytime.</div>`;
+      }
+    }
+  });
+</script>
+</body>
+</html>
