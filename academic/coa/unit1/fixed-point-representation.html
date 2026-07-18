@@ -7,6 +7,81 @@
   <meta name="description" content="Signed-magnitude, 1's complement, and 2's complement explained simply, with worked examples and overflow detection. COA Unit 1, Data Representation.">
   <link rel="canonical" href="https://courses.chandrashaker.in/academic/coa/unit1/fixed-point-representation.html">
   <link rel="stylesheet" href="../../../css/style.css">
+
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Chandras EDU">
+  <meta property="og:title" content="Fixed-Point Representation — COA Unit 1 | Chandras EDU">
+  <meta property="og:description" content="Signed-magnitude, 1's complement, and 2's complement explained simply, with worked examples and overflow detection. COA Unit 1, Data Representation.">
+  <meta property="og:url" content="https://courses.chandrashaker.in/academic/coa/unit1/fixed-point-representation.html">
+  <meta property="og:image" content="https://courses.chandrashaker.in/images/coa/fig3_signed_representations.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Fixed-Point Representation — COA Unit 1 | Chandras EDU">
+  <meta name="twitter:description" content="Signed-magnitude, 1's complement, and 2's complement explained simply, with worked examples and overflow detection. COA Unit 1, Data Representation.">
+  <meta name="twitter:image" content="https://courses.chandrashaker.in/images/coa/fig3_signed_representations.png">
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Courses",
+      "item": "https://courses.chandrashaker.in/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "COA",
+      "item": "https://courses.chandrashaker.in/academic/coa/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Unit 1",
+      "item": "https://courses.chandrashaker.in/academic/coa/unit1/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "name": "Fixed-Point Representation"
+    }
+  ]
+}
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LearningResource",
+  "name": "Fixed-Point Representation",
+  "description": "Signed-magnitude, 1's complement, and 2's complement explained simply, with worked examples and overflow detection. COA Unit 1, Data Representation.",
+  "url": "https://courses.chandrashaker.in/academic/coa/unit1/fixed-point-representation.html",
+  "image": "https://courses.chandrashaker.in/images/coa/fig3_signed_representations.png",
+  "learningResourceType": "Lesson",
+  "educationalLevel": "Undergraduate",
+  "about": {
+    "@type": "Thing",
+    "name": "Computer Organization and Architecture"
+  },
+  "isPartOf": {
+    "@type": "Course",
+    "name": "Computer Organization and Architecture",
+    "provider": {
+      "@type": "Organization",
+      "name": "Chandras EDU",
+      "url": "https://chandrashaker.in"
+    }
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Chandras EDU",
+    "url": "https://chandrashaker.in"
+  }
+}
+  </script>
 </head>
 <body>
 <nav class="nav"><div id="main-nav"></div></nav>
@@ -58,32 +133,8 @@
   <div class="ad-slot">Advertisement</div>
 
   <!-- GATE for non-logged users -->
-  <div id="gate-section">
-    <div class="gate">
-      <div class="gate-blur">
-        <div class="lesson">
-          <h2>Three Ways to Write a Negative Number</h2>
-          <p>Once we've set aside the first bit as the sign, we still need to decide how to write the rest of the number when it's negative. There are three competing methods...</p>
-          <h2>Adding Signed Numbers</h2>
-          <p>Here's where the three methods stop being "just different spellings" of the same idea, and one of them clearly wins...</p>
-        </div>
-      </div>
-      <div class="gate-overlay">
-        <div class="gate-box">
-          <div class="lock">🔒</div>
-          <h3>Login to continue</h3>
-          <p>Create a free account to access worked examples, the addition rules, overflow detection, and quiz.</p>
-          <div class="gate-btns">
-            <a href="../../../login.html" class="btn btn-primary btn-sm">Login</a>
-            <a href="../../../login.html" class="btn btn-outline btn-sm">Register Free</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- FULL CONTENT — shown after login -->
-  <div class="lesson" id="full-content" style="display:none">
+  <!-- FULL CONTENT — visible to everyone, including search engines -->
+  <div class="lesson">
 
     <h2>Three Ways to Write a Negative Number</h2>
     <p>Once we've set aside the first bit as the sign, we still need to decide <em>how</em> to write the rest of the number when it's negative. There are three competing methods. All three agree completely on positive numbers — they only disagree once a number goes negative.</p>
@@ -181,11 +232,32 @@
       </tbody>
     </table>
 
-  </div><!-- end full-content -->
+  </div><!-- end lesson -->
 
-  <div class="ad-slot" id="ad-quiz" style="display:none">Advertisement</div>
+  <div class="ad-slot">Advertisement</div>
 
-  <!-- QUIZ -->
+  <!-- QUIZ GATE — only the interactive quiz requires login -->
+  <div id="gate-section">
+    <div class="gate">
+      <div class="gate-blur">
+        <div class="quiz">
+          <div class="quiz-title">📝 Quick Quiz — 5 Questions</div>
+        </div>
+      </div>
+      <div class="gate-overlay">
+        <div class="gate-box">
+          <div class="lock">🔒</div>
+          <h3>Login to take the quiz</h3>
+          <p>Create a free account to take the quiz and track your progress across all topics.</p>
+          <div class="gate-btns">
+            <a href="../../../login.html" class="btn btn-primary btn-sm">Login</a>
+            <a href="../../../login.html" class="btn btn-outline btn-sm">Register Free</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="quiz" id="quiz-section" style="display:none">
     <div class="quiz-title">📝 Quick Quiz — 5 Questions</div>
     <div id="quiz-body"></div>
@@ -274,13 +346,9 @@
 
   onAuth(async user => {
     const gate = document.getElementById('gate-section');
-    const full  = document.getElementById('full-content');
-    const adQ   = document.getElementById('ad-quiz');
     const quiz  = document.getElementById('quiz-section');
     if (user) {
       gate.style.display = 'none';
-      full.style.display = 'block';
-      adQ.style.display  = 'block';
       quiz.style.display = 'block';
       buildQuiz();
       document.getElementById('submit-btn').onclick = () => submitQuiz(user.uid);
