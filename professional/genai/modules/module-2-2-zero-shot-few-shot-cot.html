@@ -32,180 +32,77 @@
     </div>
   </div>
 
-  <!-- FREE CONTENT -->
-  <div class="lesson" id="free-content">
-
-
+  <!-- FULL LESSON — visible to everyone, including search engines -->
+  <div class="lesson">
 </p>
-<p>  </p>
-<p>  </p>
-<p>  </p>
-<p>  </p>
-
 </p>
-<p>  </p>
-
 <p>In Module 2.1 you learned the six components of a well-structured prompt. This module teaches three specific techniques that sit on top of that foundation — the highest-impact methods professional prompt engineers use every day.</p>
 
 <p>These are not advanced or theoretical. They are practical patterns you can start using in your next AI session. By the end of this module you will know exactly when to use each technique and how to combine them.</p>
 
 <hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
 
-<h2>The three techniques — quick overview
+<h2>The three techniques — quick overview</h2>
 
 <hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
 
-  </div>
-
-  <div class="ad-slot">Advertisement</div>
-
-  <!-- GATE for non-logged users -->
-  <div id="gate-section" style="display:none">
-    <div class="gate">
-      <div class="gate-blur">
-        <div class="lesson"><h2>Continuing...</h2><p>The rest of this module includes detailed examples, practical tips, and your assignment...</p></div>
-      </div>
-      <div class="gate-overlay">
-        <div class="gate-box">
-          <div class="lock">🔒</div>
-          <h3>Login to continue</h3>
-          <p>Create a free account to access the full module and track your progress.</p>
-          <div class="gate-btns">
-            <a href="../../../login.html" class="btn btn-primary btn-sm">Login</a>
-            <a href="../../../login.html" class="btn btn-outline btn-sm">Register Free</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- FULL CONTENT (logged in) -->
-  <div class="lesson" id="full-content" style="display:none">
-<h2>Technique 1 — Zero-Shot Prompting
+<h2>Technique 1 — Zero-Shot Prompting</h2>
 
 <p>Zero-shot means asking the model to do something directly, without providing any examples. You describe the task and let the model use its training to handle it.</p>
 
 </p>
-<p>  </p>
-
 </p>
-<p>    </p>
-<p>    </p>
 <p>      Role + task + constraint ("no jargon") + the code itself as context. The model has everything it needs. No example of the output style was needed because "line by line, plain English" is clear enough.</p>
-<p>    </p>
-<p>  </p>
-
-<p>  </p>
-<p>    </p>
-<p>    </p>
 <p>      Context (Wipro, API integration, vendor delay), task (draft email), format (under 120 words), constraint (no apology in subject). Zero-shot is completely sufficient here — the model knows what a professional email looks like.</p>
-<p>    </p>
-<p>  </p>
-
-<p>  </p>
-
 <hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
 
-<h2>Technique 2 — Few-Shot Prompting
+<h2>Technique 2 — Few-Shot Prompting</h2>
 
 <p>Few-shot means providing 1–3 examples of the input-output pattern you want before stating your actual task. The model learns the pattern from your examples and applies it.</p>
 
 </p>
-<p>  </p>
-
 </p>
-<p>    </p>
-<p>    </p>
 <p>      Without examples, the model would produce a generic "I'm excited to share..." LinkedIn post. With two examples, it learns your exact style — punchy numbered lists, conversational tone, India-specific references, ending with a hook. The output will sound like you, not like AI.</p>
-<p>    </p>
-<p>  </p>
-
-<p>  </p>
-<p>    </p>
-<p>    </p>
 <p>      The example defines both the exact format and the level of technical precision needed. Zero-shot with just "write a bug report" would give you a generic format. One example gives you your exact team format every time.</p>
-<p>    </p>
-<p>  </p>
-
-<p>  </p>
-<p>    </p>
-<p>    </p>
 <p>      The single example defines three things at once — the Q&A format, the depth of explanation expected, and the "why it matters" framing. The model replicates all three for every subsequent question. This technique saves hours when building interview prep materials.</p>
-<p>    </p>
-<p>  </p>
-
 <hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
 
-<h2>Technique 3 — Chain-of-Thought (CoT) Prompting
+<h2>Technique 3 — Chain-of-Thought (CoT) Prompting</h2>
 
 <p>Chain-of-thought prompting asks the model to show its reasoning step by step before giving a final answer. This dramatically improves accuracy on problems that require reasoning, analysis, or multi-step logic.</p>
 
 </p>
-<p>  </p>
-
 </p>
-<p>    </p>
-<p>    </p>
 <p>      "Think through this step by step" is the simplest CoT trigger. Without it, the model often jumps to a number directly — and gets it wrong. With it, the model works out the rates (1/6 + 1/4 + 1/12 = 2/12 + 3/12 + 1/12 = 6/12 = 1/2 per day → 2 days), shows the working, and arrives at the correct answer.</p>
-<p>    </p>
-<p>  </p>
-
-<p>  </p>
-<p>    </p>
-<p>    </p>
 <p>      The numbered steps force the model to evaluate each dimension before concluding. Without this, the model typically jumps to "use AWS" based on training patterns — missing the budget and team-size constraints entirely. The explicit "do not give the recommendation until..." instruction prevents premature conclusions.</p>
-<p>    </p>
-<p>  </p>
-
-<p>  </p>
-<p>    </p>
-<p>    </p>
 <p>      Career decisions with Indian-specific context (LPA, city preferences, family expectations around stability vs startup risk) benefit enormously from CoT. The model considers multiple dimensions before concluding — giving you a genuinely reasoned answer, not just "follow your passion."</p>
-<p>    </p>
-<p>  </p>
-
 <hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
 
-<h2>Combining the three techniques
+<h2>Combining the three techniques</h2>
 
 <p>The real power comes from combining techniques. Here is a complete example that uses all three — zero-shot structure, few-shot for style, and CoT for the analysis:</p>
 
 </p>
-<p>  </p>
-
 <p>This single prompt will produce a structured, interview-ready answer that follows your preferred format, covers the right depth, and shows reasoning at each step. This is the level of prompting that separates good AI users from great ones.</p>
 
 <hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
 
-<h2>When to use which technique
+<h2>When to use which technique</h2>
 
 <hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
 
-<h2>Quick reference — technique comparison
+<h2>Quick reference — technique comparison</h2>
 
 </p>
-<p>    </p>
-<p>    </p>
-<p>  </p>
-<p>  </p>
-<p>    </p>
-<p>    </p>
-<p>  </p>
-<p>  </p>
-<p>    </p>
-<p>    </p>
-<p>  </p>
+<hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
+
+<h2>Tool-specific notes for 2026</h2>
 
 <hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
 
-<h2>Tool-specific notes for 2026
-
-<hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
-
-<h2>The three things to remember
+<h2>The three things to remember</h2>
 
 </p>
-<p>  </p>
 <p>    <ul><li><strong>Zero-shot first, always</strong> — most well-structured prompts work without examples. Only add examples (few-shot) or reasoning steps (CoT) when zero-shot output is not good enough. Adding complexity before it is needed slows you down.</li></ul></p>
 <p>    <ul><li><strong>Few-shot is about style, not information</strong> — use it when you want the model to match a specific format, tone, or structure. One well-chosen example beats three paragraphs of format instructions every time.</li></ul></p>
 <p>    <ul><li><strong>Chain-of-thought prevents wrong answers on h
@@ -220,9 +117,11 @@
       <button class="btn btn-success btn-sm" id="mark-done-btn" style="margin-top:.75rem">✅ Mark as Complete</button>
       <div id="done-msg" style="display:none;color:var(--success);font-size:.88rem;margin-top:.5rem;font-weight:600">✅ Module completed! Great work.</div>
     </div>
-  </div>
+  </div><!-- end lesson -->
 
-  <!-- Prev / Next -->
+  <div class="ad-slot">Advertisement</div>
+
+<!-- Prev / Next -->
   <div class="topic-nav">
     <a href="module-2-1-anatomy-of-a-good-prompt.html"><div class="nav-dir">← Previous</div><div class="nav-title">Anatomy of a Good Prompt</div></a>
     <a href="module-2-3-role-prompting-personas.html" class="next"><div class="nav-dir">Next →</div><div class="nav-title">Role Prompting and Personas</div></a>
@@ -244,9 +143,6 @@
 
   onAuth(async user => {
     if (user) {
-      document.getElementById('gate-section').style.display  = 'none';
-      document.getElementById('full-content').style.display  = 'block';
-
       const prog = await getProgress(user.uid, COURSE_ID, MODULE_ID);
       if (prog?.completed) {
         document.getElementById('mark-done-btn').style.display = 'none';
@@ -258,9 +154,9 @@
         document.getElementById('mark-done-btn').style.display = 'none';
         document.getElementById('done-msg').style.display = 'block';
       };
-    } else {
-      document.getElementById('gate-section').style.display = 'block';
     }
+    // Content is always visible. Logged-out users simply won't see
+    // their completion status or be able to mark modules complete.
   });
 </script>
 </body>

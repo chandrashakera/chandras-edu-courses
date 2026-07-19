@@ -32,99 +32,43 @@
     </div>
   </div>
 
-  <!-- FREE CONTENT -->
-  <div class="lesson" id="free-content">
-
-
+  <!-- FULL LESSON — visible to everyone, including search engines -->
+  <div class="lesson">
 </p>
-<p>  </p>
-<p>  </p>
-<p>  </p>
-<p>  </p>
-
 </p>
-<p>  </p>
-
 <p>You have already been using role prompting since Module 2.1 — every time you wrote "You are a senior Python developer..." at the start of a prompt, that was role prompting. This module goes deeper: what exactly makes a role effective, when it genuinely improves output, and — critically — when it can actually hurt the quality of your results.</p>
 
 <p>This is one of the most misunderstood techniques in prompt engineering. Used correctly, it is highly effective. Used blindly, it can reduce accuracy. By the end of this module you will know the difference.</p>
 
 <hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
 
-<h2>What is role prompting?
+<h2>What is role prompting?</h2>
 
 <p>The key insight from recent research: role prompting works by shifting the model's <em>style and framing</em> — not by giving it new knowledge it did not have before. This distinction determines when to use it and when not to.</p>
 
 <hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
 
-  </div>
-
-  <div class="ad-slot">Advertisement</div>
-
-  <!-- GATE for non-logged users -->
-  <div id="gate-section" style="display:none">
-    <div class="gate">
-      <div class="gate-blur">
-        <div class="lesson"><h2>Continuing...</h2><p>The rest of this module includes detailed examples, practical tips, and your assignment...</p></div>
-      </div>
-      <div class="gate-overlay">
-        <div class="gate-box">
-          <div class="lock">🔒</div>
-          <h3>Login to continue</h3>
-          <p>Create a free account to access the full module and track your progress.</p>
-          <div class="gate-btns">
-            <a href="../../../login.html" class="btn btn-primary btn-sm">Login</a>
-            <a href="../../../login.html" class="btn btn-outline btn-sm">Register Free</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- FULL CONTENT (logged in) -->
-  <div class="lesson" id="full-content" style="display:none">
-<h2>Anatomy of an effective role
+<h2>Anatomy of an effective role</h2>
 
 <p>Not all role prompts are equal. A weak role ("You are an expert") adds almost nothing. A strong role provides four specific elements:</p>
 
 </p>
-<p>  </p>
-<p>  </p>
-
 </p>
-<p>  </p>
-<p>  </p>
-
 </p>
-<p>  </p>
-<p>  </p>
-
 </p>
-<p>  </p>
-<p>  </p>
-
 <strong>Weak vs strong role — the difference:</strong>
 
 </p>
-<p>  </p>
-<p>  </p>
 <p>    "Expert" gives the model no useful signal. Expert in what context? For whom? At what depth? The model defaults to a generic Wikipedia-style explanation. Research confirms that vague expert personas can actually reduce accuracy compared to no persona at all.</p>
-<p>  </p>
-
 </p>
-<p>  </p>
-<p>  </p>
 <p>    Profession (backend architect), domain (Indian IT services), behavioural trait (practical, analogy-based, no jargon), audience (final-year placement prep). The output will be precisely calibrated to the student's need — not a generic textbook explanation.</p>
-<p>  </p>
-
 <hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
 
-<h2>When role prompting genuinely helps
+<h2>When role prompting genuinely helps</h2>
 
 <p>Research published in 2026 tested persona prompting across eight categories of tasks. Persona prompts were a win in five out of eight categories — extraction (+0.65 score increase), STEM (+0.60), reasoning (+0.40), writing (improved through better stylistic adaptation), and role-playing a domain expert (improved through better tone matching). These categories benefited because they are more about style and clarity rather than whether the answer is factually correct.</p>
 
 </p>
-<p>  </p>
 <p>    <ul><li>Writing tasks — emails, reports, documentation, LinkedIn posts</li></ul></p>
 <p>    <ul><li>Teaching and explanation — calibrating depth and vocabulary for an audience</li></ul></p>
 <p>    <ul><li>Code review — shifting from "what is wrong" to "how would a senior engineer see this"</li></ul></p>
@@ -135,7 +79,6 @@
 <p>  </ul></p>
 
 </p>
-<p>  </p>
 <p>    <ul><li>Factual accuracy — "You are a doctor" does not give the model medical knowledge it does not have</li></ul></p>
 <p>    <ul><li>Current information — a "financial analyst" persona cannot access today's stock prices</li></ul></p>
 <p>    <ul><li>Legal or regulatory precision — "You are a lawyer in India" does not make the output legally reliable</li></ul></p>
@@ -145,53 +88,14 @@
 
 <hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
 
-<h2>Practical role library for Indian IT students
+<h2>Practical role library for Indian IT students</h2>
 
 <p>Here are eight ready-to-use role prompts covering the most common tasks you will face as a student and fresher. Copy and adapt these directly.</p>
 
 </p>
-<p>    </p>
-<p>    </p>
-<p>  </p>
-
-<p>  </p>
-<p>    </p>
-<p>    </p>
-<p>  </p>
-
-<p>  </p>
-<p>    </p>
-<p>    </p>
-<p>  </p>
-
-<p>  </p>
-<p>    </p>
-<p>    </p>
-<p>  </p>
-
-<p>  </p>
-<p>    </p>
-<p>    </p>
-<p>  </p>
-
-<p>  </p>
-<p>    </p>
-<p>    </p>
-<p>  </p>
-
-<p>  </p>
-<p>    </p>
-<p>    </p>
-<p>  </p>
-
-<p>  </p>
-<p>    </p>
-<p>    </p>
-<p>  </p>
-
 <hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
 
-<h2>The audience persona technique
+<h2>The audience persona technique</h2>
 
 <p>A powerful variation of role prompting is specifying the <em>audience</em> rather than (or in addition to) a role for the model. This is particularly effective when you need content calibrated to a specific reader.</p>
 
@@ -199,19 +103,15 @@
 
 <hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
 
-<h2>Combining role with the other techniques
+<h2>Combining role with the other techniques</h2>
 
 <p>Role prompting is most powerful when combined with the techniques from Modules 2.1 and 2.2:</p>
 
 </p>
-<p>  </p>
-<p>  </p>
 <p>    The role (Wipro interviewer) sets the tone and depth. The example shows the model exactly how to open a design interview. The CoT trigger makes the model evaluate answers carefully rather than giving generic feedback. Together these three techniques produce a genuinely useful mock interview experience — not a simulation that just agrees with everything you say.</p>
-<p>  </p>
-
 <hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
 
-<h2>Common role prompting mistakes
+<h2>Common role prompting mistakes</h2>
 
 <hr style="border:none;border-top:1px solid var(--border);margin:1.
 
@@ -225,9 +125,11 @@
       <button class="btn btn-success btn-sm" id="mark-done-btn" style="margin-top:.75rem">✅ Mark as Complete</button>
       <div id="done-msg" style="display:none;color:var(--success);font-size:.88rem;margin-top:.5rem;font-weight:600">✅ Module completed! Great work.</div>
     </div>
-  </div>
+  </div><!-- end lesson -->
 
-  <!-- Prev / Next -->
+  <div class="ad-slot">Advertisement</div>
+
+<!-- Prev / Next -->
   <div class="topic-nav">
     <a href="module-2-2-zero-shot-few-shot-cot.html"><div class="nav-dir">← Previous</div><div class="nav-title">Zero-Shot, Few-Shot, CoT</div></a>
     <a href="module-2-4-common-prompt-mistakes.html" class="next"><div class="nav-dir">Next →</div><div class="nav-title">Common Prompt Mistakes</div></a>
@@ -249,9 +151,6 @@
 
   onAuth(async user => {
     if (user) {
-      document.getElementById('gate-section').style.display  = 'none';
-      document.getElementById('full-content').style.display  = 'block';
-
       const prog = await getProgress(user.uid, COURSE_ID, MODULE_ID);
       if (prog?.completed) {
         document.getElementById('mark-done-btn').style.display = 'none';
@@ -263,9 +162,9 @@
         document.getElementById('mark-done-btn').style.display = 'none';
         document.getElementById('done-msg').style.display = 'block';
       };
-    } else {
-      document.getElementById('gate-section').style.display = 'block';
     }
+    // Content is always visible. Logged-out users simply won't see
+    // their completion status or be able to mark modules complete.
   });
 </script>
 </body>
