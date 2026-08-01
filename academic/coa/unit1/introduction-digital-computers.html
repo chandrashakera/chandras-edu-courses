@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Introduction to Digital Computers — COA Unit 1 | Chandras EDU</title>
+  <meta name="description" content="What 'digital' really means, why computers use binary, and the hardware/software and system/application software distinctions.">
+  <link rel="canonical" href="https://courses.chandrashaker.in/academic/coa/unit1/introduction-digital-computers.html">
+  <link rel="stylesheet" href="../../../css/style.css">
+
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Chandras EDU">
+  <meta property="og:title" content="Introduction to Digital Computers — COA Unit 1 | Chandras EDU">
+  <meta property="og:description" content="What 'digital' really means, why computers use binary, and the hardware/software and system/application software distinctions.">
+  <meta property="og:url" content="https://courses.chandrashaker.in/academic/coa/unit1/introduction-digital-computers.html">
+  <meta property="og:image" content="https://courses.chandrashaker.in/images/coa/fig_block_diagram.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Introduction to Digital Computers — COA Unit 1 | Chandras EDU">
+  <meta name="twitter:description" content="What 'digital' really means, why computers use binary, and the hardware/software and system/application software distinctions.">
+  <meta name="twitter:image" content="https://courses.chandrashaker.in/images/coa/fig_block_diagram.png">
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Courses",
+      "item": "https://courses.chandrashaker.in/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "COA",
+      "item": "https://courses.chandrashaker.in/academic/coa/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Unit 1",
+      "item": "https://courses.chandrashaker.in/academic/coa/unit1/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "name": "Introduction to Digital Computers"
+    }
+  ]
+}
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LearningResource",
+  "name": "Introduction to Digital Computers",
+  "description": "What 'digital' really means, why computers use binary, and the hardware/software and system/application software distinctions.",
+  "url": "https://courses.chandrashaker.in/academic/coa/unit1/introduction-digital-computers.html",
+  "image": "https://courses.chandrashaker.in/images/coa/fig_block_diagram.png",
+  "learningResourceType": "Lesson",
+  "educationalLevel": "Undergraduate",
+  "about": {
+    "@type": "Thing",
+    "name": "Computer Organization and Architecture"
+  },
+  "isPartOf": {
+    "@type": "Course",
+    "name": "Computer Organization and Architecture",
+    "provider": {
+      "@type": "Organization",
+      "name": "Chandras EDU",
+      "url": "https://chandrashaker.in"
+    }
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Chandras EDU",
+    "url": "https://chandrashaker.in"
+  }
+}
+  </script>
+</head>
+<body>
+<nav class="nav"><div id="main-nav"></div></nav>
+
+<div style="max-width:820px;margin:.5rem auto;padding:0 1.25rem">
+  <div class="ad-slot">Advertisement</div>
+</div>
+
+<div class="page-narrow" role="main">
+
+  <nav class="breadcrumb">
+    <a href="../../../index.html">Courses</a><span class="sep">/</span>
+    <a href="../index.html">COA</a><span class="sep">/</span>
+    <a href="index.html">Unit 1</a><span class="sep">/</span>
+    <a href="digital-computers.html">Digital Computers</a><span class="sep">/</span>
+    <span class="cur">Introduction to Digital Computers</span>
+  </nav>
+
+  <div style="background:var(--primary);border-radius:var(--radius-lg);padding:1.1rem 1.4rem;margin-bottom:1.5rem;color:#fff">
+    <div style="font-size:.75rem;opacity:.75;margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.05em">COA › Unit 1: Digital Computers › Topic 1</div>
+    <h1 style="font-size:1.4rem;font-weight:700;color:#fff;margin-bottom:.5rem">Introduction to Digital Computers</h1>
+    <div style="display:flex;gap:.75rem;flex-wrap:wrap">
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">⏱ 12 min read</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📝 Quiz inside</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📖 Mano Ch. 1</span>
+    </div>
+  </div>
+
+  <!-- FULL LESSON — visible to everyone -->
+  <div class="lesson">
+    <p>Every topic in this course so far — number systems, complements, Boolean algebra, logic gates — has been a building block. This page is where those blocks start assembling into an actual machine.</p>
+
+    <h2>What Does "Digital" Actually Mean?</h2>
+    <p>A <strong>digital computer</strong> is a digital system that performs various computational tasks. The word <em>digital</em> means the information inside the computer is represented by variables that take a <strong>limited number of discrete values</strong> — the decimal digits 0 through 9, for instance, give 10 discrete values.</p>
+    <p>The earliest electronic digital computers, built in the late 1940s, were used mainly for numerical computation — the discrete elements literally were digits, which is exactly where the term "digital computer" comes from.</p>
+
+    <h2>Why Binary, Specifically?</h2>
+    <p>In practice, digital computers work more reliably with just <strong>two</strong> states rather than ten or more. Two reasons converge here: physical electronic components are constrained to distinguish states more reliably when there are fewer of them, and human logic itself tends to be binary — true-or-false, yes-or-no. Components restricted to two discrete values are called <strong>binary</strong>.</p>
+    <p>Digital computers use the binary number system: two digits, 0 and 1. A single binary digit is called a <strong>bit</strong>, and information is represented internally in groups of bits.</p>
+
+    <div class="box box-eg">
+      <pre>Binary 1001011 as a number:
+1×2⁶ + 0×2⁵ + 0×2⁴ + 1×2³ + 0×2² + 1×2¹ + 1×2⁰
+= 64 + 0 + 0 + 8 + 0 + 2 + 1  =  75</pre>
+    </div>
+
+    <p>Here's the genuinely interesting part, straight from the textbook: <strong>those same seven bits, 1001011, could just as easily represent the letter "K"</strong> if interpreted using a binary code for the alphabet instead of as a plain number — or a completely different control code, in another context. Groups of bits don't inherently mean anything; meaning comes entirely from the coding scheme applied to them. It's the same idea as how the same 26 letters build entirely different languages, like English and French — the symbols are shared, the interpretation isn't.</p>
+
+    <h2>Hardware and Software</h2>
+    <p>A computer system splits into two functional entities:</p>
+    <ul>
+      <li><strong>Hardware</strong> — all the electronic components and electromechanical devices that make up the physical machine.</li>
+      <li><strong>Software</strong> — the instructions and data the computer manipulates to perform data-processing tasks. A sequence of instructions is called a <strong>program</strong>; the data a program manipulates is its <strong>data base</strong>.</li>
+    </ul>
+    <p>Software itself splits further: <strong>system software</strong> (the operating system) is a collection of programs that exist to make more effective use of the computer, distinct from <strong>application programs</strong> written by users to solve their own specific problems. A compiler that translates a high-level language into machine language is system software; the program a user writes in that high-level language is an application program.</p>
+
+    <div class="box box-tip">
+      A computer buyer needs both — the hardware alone is useless without the system software that bridges the gap between what a user needs and what raw hardware can actually do.
+    </div>
+
+    <div class="box box-tip">
+      🚀 <strong>Beyond the textbook:</strong> binary's two-state reliability is why it has dominated computing for 80 years, but it isn't the only paradigm possible. <strong>Quantum computers</strong>, an active research and early-commercial technology today, use <em>qubits</em> that can hold 0 and 1 simultaneously (superposition) rather than being strictly one or the other. This doesn't replace binary computing for everyday tasks — it's suited to specific problems like cryptography and molecular simulation — but it's a useful contrast for understanding exactly what binary's "two clean, discrete states" assumption actually buys us.
+    </div>
+
+    <h2>A Preview of What's Next</h2>
+    <p>The hardware of a computer is usually divided into three major parts — a structure captured in a single figure that the next page in this unit builds on directly. Understanding that structure, and the three different lenses (organization, design, and architecture) used to study it, is where the rest of this unit is headed.</p>
+
+    <h2>Common Pitfalls</h2>
+    <ul>
+      <li><strong>"Digital" describes discreteness of representation, not speed or capability.</strong> A basic calculator and a supercomputer are equally "digital" in this exact sense.</li>
+      <li><strong>Bits carry no inherent meaning.</strong> The same bit pattern can be a number, a letter, or a control code — the coding scheme in use determines the interpretation, not the bits themselves.</li>
+      <li><strong>System software and application software are not the same thing.</strong> A compiler is system software; the program compiled with it is an application program — a distinction worth keeping straight.</li>
+    </ul>
+
+    <h2>Applications</h2>
+    <ul>
+      <li><strong>Every modern computing device</strong> — from embedded microcontrollers to data-center servers — represents information the same discrete, binary way described here.</li>
+      <li><strong>Character encoding standards</strong> (ASCII, Unicode) are direct real-world examples of "the same bits, different meaning depending on the code" — exactly the letter-'K' example above.</li>
+      <li><strong>Operating systems</strong> are the clearest everyday example of system software — Windows, Linux, and Android all exist purely to make the hardware more usable, without being the applications users actually want to run.</li>
+    </ul>
+
+    <h2>Summary</h2>
+    <table>
+      <thead><tr><th>Concept</th><th>Meaning</th></tr></thead>
+      <tbody>
+        <tr><td>Digital</td><td>Information represented by a limited number of discrete values</td></tr>
+        <tr><td>Binary</td><td>Two discrete states (0 and 1) — more reliable than more states, and matches binary human logic</td></tr>
+        <tr><td>Bit</td><td>A single binary digit; information is stored in groups of bits</td></tr>
+        <tr><td>Hardware / Software</td><td>Physical components vs. instructions (program) + data</td></tr>
+        <tr><td>System software / application software</td><td>Makes the hardware usable (OS, compiler) vs. solves the user's specific problem</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="ad-slot">Advertisement</div>
+
+
+  <!-- QUIZ GATE -->
+  <div id="gate-section">
+    <div class="gate">
+      <div class="gate-blur">
+        <div class="quiz">
+          <div class="quiz-title">📝 Quick Quiz — 5 Questions</div>
+        </div>
+      </div>
+      <div class="gate-overlay">
+        <div class="gate-box">
+          <div class="lock">🔒</div>
+          <h3>Login to take the quiz</h3>
+          <p>Create a free account to take the quiz and track your progress across all topics.</p>
+          <div class="gate-btns">
+            <a href="../../../login.html" class="btn btn-primary btn-sm">Login</a>
+            <a href="../../../login.html" class="btn btn-outline btn-sm">Register Free</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="quiz" id="quiz-section" style="display:none">
+    <div class="quiz-title">📝 Quick Quiz — 5 Questions</div>
+    <div id="quiz-body"></div>
+    <button class="btn btn-primary" id="submit-btn" disabled>Submit Quiz</button>
+    <div class="quiz-result" id="quiz-result" style="display:none"></div>
+  </div>
+
+  <div class="topic-nav">
+    <a href="k-map-representation.html">
+      <div class="nav-dir">← Previous</div>
+      <div class="nav-title">K-Map Representation</div>
+    </a>
+    <a href="block-diagram-digital-computer.html" class="next">
+      <div class="nav-dir">Next →</div>
+      <div class="nav-title">Block Diagram of a Digital Computer</div>
+    </a>
+  </div>
+
+</div>
+
+<div style="max-width:820px;margin:.5rem auto;padding:0 1.25rem">
+  <div class="ad-slot">Advertisement</div>
+</div>
+<footer class="footer">© 2026 Chandra Shaker · <a href="https://chandrashaker.in">chandrashaker.in</a> · <em>Reference: M. Morris Mano, Computer System Architecture, 3rd ed.</em></footer>
+
+<script type="module">
+  import { initNav } from '../../../js/nav.js';
+  import { onAuth, saveProgress, getProgress } from '../../../js/firebase-config.js';
+  initNav(3);
+
+  const COURSE_ID = 'coa';
+  const TOPIC_ID  = 'introduction-digital-computers';
+  const LABELS    = ['A','B','C','D'];
+  const QUIZ = [
+    { q:"What does the word \"digital\" mean in \"digital computer\"?", options:["The computer uses touchscreens", "Information is represented by variables taking a limited number of discrete values", "The computer counts using fingers", "The computer is very fast"], answer:1, explanation:"Digital means information is represented by discrete values — like the 10 discrete values of decimal digits 0-9 — rather than continuously varying quantities." },
+    { q:"Why do digital computers use binary (two states) rather than ten or more?", options:["Binary is easier for humans to read", "Physical components are more reliable with fewer states, and binary matches true/false human logic", "Binary computers are always cheaper", "It's simply a historical accident with no real reason"], answer:1, explanation:"Two converging reasons: components distinguish states more reliably when there are fewer of them, and binary logic mirrors the true/false, yes/no structure of human reasoning." },
+    { q:"The bit pattern 1001011 equals 75 as a binary number. What is the deeper point the textbook makes with this example?", options:["1001011 can only ever mean the number 75", "The same bit pattern can mean a number, a letter, or a control code — meaning comes from the coding scheme, not the bits themselves", "Binary numbers are always 7 bits long", "This pattern is a special error-checking code"], answer:1, explanation:"The same seven bits could represent the letter 'K' under an alphabet code — bits carry no inherent meaning without an agreed interpretation." },
+    { q:"What is the difference between system software and application software?", options:["There is no real difference", "System software (like an OS or compiler) makes the computer more usable; application software solves the user's specific problem", "Application software is always more expensive", "System software only runs during setup"], answer:1, explanation:"A compiler is system software; the program a user writes and compiles is application software — solving their own specific problem." },
+    { q:"What are the two functional entities a computer system splits into?", options:["Input and output", "Hardware and software", "Analog and digital", "Data and instructions only"], answer:1, explanation:"Hardware is the physical electronic components; software is the instructions (programs) and data the computer manipulates." }
+  ];
+
+  let selected = {}, submitted = false;
+
+  function buildQuiz() {
+    document.getElementById('quiz-body').innerHTML = QUIZ.map((q, qi) => `
+      <div class="question">
+        <div class="question-text">Q${qi+1}. ${q.q}</div>
+        <div class="options">
+          ${q.options.map((o, oi) => `<div class="option" data-qi="${qi}" data-oi="${oi}"><span class="option-lbl">${LABELS[oi]}</span>${o}</div>`).join('')}
+        </div>
+        <div class="explanation" id="exp${qi}" style="display:none">💡 ${q.explanation}</div>
+      </div>`).join('');
+    document.querySelectorAll('.option').forEach(el => {
+      el.onclick = () => {
+        if (submitted) return;
+        const qi = +el.dataset.qi, oi = +el.dataset.oi;
+        selected[qi] = oi;
+        document.querySelectorAll(`[data-qi="${qi}"]`).forEach(o => o.classList.remove('selected'));
+        el.classList.add('selected');
+        document.getElementById('submit-btn').disabled = Object.keys(selected).length < QUIZ.length;
+      };
+    });
+  }
+
+  async function submitQuiz(uid) {
+    submitted = true; let score = 0;
+    QUIZ.forEach((q, qi) => {
+      const correct = q.answer, chosen = selected[qi];
+      document.querySelectorAll(`[data-qi="${qi}"]`).forEach(o => {
+        const oi = +o.dataset.oi;
+        if (oi === correct) o.classList.add('correct');
+        else if (oi === chosen) o.classList.add('wrong');
+      });
+      document.getElementById(`exp${qi}`).style.display = 'block';
+      if (chosen === correct) score++;
+    });
+    document.getElementById('submit-btn').style.display = 'none';
+    const pct = Math.round((score / QUIZ.length) * 100);
+    const res = document.getElementById('quiz-result');
+    res.style.display = 'block';
+    res.className = `quiz-result ${pct >= 60 ? 'pass' : 'fail'}`;
+    res.innerHTML = `<div class="quiz-score">${pct >= 60 ? '🎉' : '📖'} Score: ${score}/${QUIZ.length} (${pct}%)</div>
+      <div class="quiz-msg">${pct >= 80 ? 'Excellent! Move to the next topic.' : pct >= 60 ? 'Good. Review what you missed.' : 'Review the lesson and try again.'}</div>`;
+    if (uid) await saveProgress(uid, COURSE_ID, TOPIC_ID, score, QUIZ.length);
+  }
+
+  onAuth(async user => {
+    const gate = document.getElementById('gate-section');
+    const quiz  = document.getElementById('quiz-section');
+    if (user) {
+      gate.style.display = 'none';
+      quiz.style.display = 'block';
+      buildQuiz();
+      document.getElementById('submit-btn').onclick = () => submitQuiz(user.uid);
+      const prog = await getProgress(user.uid, COURSE_ID, TOPIC_ID);
+      if (prog?.completed) {
+        const res = document.getElementById('quiz-result');
+        res.style.display = 'block';
+        res.className = 'quiz-result pass';
+        res.innerHTML = `<div class="quiz-score">✅ Completed — Best score: ${prog.percent}%</div>
+          <div class="quiz-msg">You can retake the quiz anytime.</div>`;
+      }
+    }
+  });
+</script>
+</body>
+</html>

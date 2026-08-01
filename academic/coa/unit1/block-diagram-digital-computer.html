@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Block Diagram of a Digital Computer — COA Unit 1 | Chandras EDU</title>
+  <meta name="description" content="The block diagram of a digital computer: the CPU (ALU, registers, control), Memory (RAM), and the I/O Processor, and how they connect.">
+  <link rel="canonical" href="https://courses.chandrashaker.in/academic/coa/unit1/block-diagram-digital-computer.html">
+  <link rel="stylesheet" href="../../../css/style.css">
+
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Chandras EDU">
+  <meta property="og:title" content="Block Diagram of a Digital Computer — COA Unit 1 | Chandras EDU">
+  <meta property="og:description" content="The block diagram of a digital computer: the CPU (ALU, registers, control), Memory (RAM), and the I/O Processor, and how they connect.">
+  <meta property="og:url" content="https://courses.chandrashaker.in/academic/coa/unit1/block-diagram-digital-computer.html">
+  <meta property="og:image" content="https://courses.chandrashaker.in/images/coa/fig_block_diagram.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Block Diagram of a Digital Computer — COA Unit 1 | Chandras EDU">
+  <meta name="twitter:description" content="The block diagram of a digital computer: the CPU (ALU, registers, control), Memory (RAM), and the I/O Processor, and how they connect.">
+  <meta name="twitter:image" content="https://courses.chandrashaker.in/images/coa/fig_block_diagram.png">
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Courses",
+      "item": "https://courses.chandrashaker.in/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "COA",
+      "item": "https://courses.chandrashaker.in/academic/coa/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Unit 1",
+      "item": "https://courses.chandrashaker.in/academic/coa/unit1/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "name": "Block Diagram of a Digital Computer"
+    }
+  ]
+}
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LearningResource",
+  "name": "Block Diagram of a Digital Computer",
+  "description": "The block diagram of a digital computer: the CPU (ALU, registers, control), Memory (RAM), and the I/O Processor, and how they connect.",
+  "url": "https://courses.chandrashaker.in/academic/coa/unit1/block-diagram-digital-computer.html",
+  "image": "https://courses.chandrashaker.in/images/coa/fig_block_diagram.png",
+  "learningResourceType": "Lesson",
+  "educationalLevel": "Undergraduate",
+  "about": {
+    "@type": "Thing",
+    "name": "Computer Organization and Architecture"
+  },
+  "isPartOf": {
+    "@type": "Course",
+    "name": "Computer Organization and Architecture",
+    "provider": {
+      "@type": "Organization",
+      "name": "Chandras EDU",
+      "url": "https://chandrashaker.in"
+    }
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Chandras EDU",
+    "url": "https://chandrashaker.in"
+  }
+}
+  </script>
+</head>
+<body>
+<nav class="nav"><div id="main-nav"></div></nav>
+
+<div style="max-width:820px;margin:.5rem auto;padding:0 1.25rem">
+  <div class="ad-slot">Advertisement</div>
+</div>
+
+<div class="page-narrow" role="main">
+
+  <nav class="breadcrumb">
+    <a href="../../../index.html">Courses</a><span class="sep">/</span>
+    <a href="../index.html">COA</a><span class="sep">/</span>
+    <a href="index.html">Unit 1</a><span class="sep">/</span>
+    <a href="digital-computers.html">Digital Computers</a><span class="sep">/</span>
+    <span class="cur">Block Diagram of a Digital Computer</span>
+  </nav>
+
+  <div style="background:var(--primary);border-radius:var(--radius-lg);padding:1.1rem 1.4rem;margin-bottom:1.5rem;color:#fff">
+    <div style="font-size:.75rem;opacity:.75;margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.05em">COA › Unit 1: Digital Computers › Topic 2</div>
+    <h1 style="font-size:1.4rem;font-weight:700;color:#fff;margin-bottom:.5rem">Block Diagram of a Digital Computer</h1>
+    <div style="display:flex;gap:.75rem;flex-wrap:wrap">
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">⏱ 15 min read</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📝 Quiz inside</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📖 Mano Ch. 1</span>
+    </div>
+  </div>
+
+  <!-- FULL LESSON — visible to everyone -->
+  <div class="lesson">
+    <p>The previous page mentioned that computer hardware is usually divided into three major parts. This page is that division, drawn out and explained.</p>
+
+    <h2>The Three Major Hardware Parts</h2>
+    <ul>
+      <li><strong>Central Processing Unit (CPU)</strong> — contains an arithmetic and logic unit for manipulating data, a number of registers for storing data, and control circuits for fetching and executing instructions. All three of these live inside the CPU as one package.</li>
+      <li><strong>Memory</strong> — contains storage for instructions and data. It's called <strong>random-access memory (RAM)</strong> because the CPU can access any location in memory at random and retrieve the binary information within a fixed interval of time, regardless of which location it is.</li>
+      <li><strong>Input-Output Processor (IOP)</strong> — contains the electronic circuits for communicating and controlling the transfer of information between the computer and the outside world. The actual input and output devices — keyboards, printers, terminals, magnetic disk drives — connect to the computer through the IOP.</li>
+    </ul>
+
+    <div style="text-align:center;margin:1.25rem 0">
+      <img src="../../../images/coa/fig_block_diagram.png"
+           alt="Block diagram of a digital computer showing the Central Processing Unit (containing ALU, Registers, and Control circuits), Memory, and the Input-Output Processor connecting to external devices"
+           style="max-width:100%;border-radius:6px;border:1px solid #e0e0e0">
+      <div style="font-size:.78rem;color:#777;margin-top:.4rem">Fig 1: Block diagram of a digital computer — three major parts, with the CPU's internal components shown</div>
+    </div>
+
+    <h2>Inside the CPU</h2>
+    <p>The CPU is where the actual "thinking" happens, and it has three distinct jobs bundled together:</p>
+    <ul>
+      <li><strong>Arithmetic and Logic Unit (ALU)</strong> — manipulates data: the arithmetic and logic operations built up from the logic gates covered earlier in this unit.</li>
+      <li><strong>Registers</strong> — small, extremely fast storage locations inside the CPU itself, used for data currently being worked on.</li>
+      <li><strong>Control circuits</strong> — responsible for fetching instructions from memory and executing them, in the correct sequence.</li>
+    </ul>
+
+    <h2>Why "Random-Access" Memory?</h2>
+    <p>The name isn't about the data being random — it's about the <em>access pattern</em>. The CPU can jump to any memory location directly, in the same fixed amount of time, regardless of which location it is or which location was accessed just before it. This is worth contrasting later with storage media that must be accessed sequentially (like older tape drives), where reaching a distant location takes longer than reaching a nearby one.</p>
+
+    <div class="box box-tip">
+      🚀 <strong>Beyond the textbook:</strong> this three-part model still holds up conceptually, but real hardware has grown well past it. Modern CPUs pack <strong>multiple cores</strong> — each with its own ALU, registers, and control circuits — onto a single chip, and insert a fast <strong>cache hierarchy</strong> (L1/L2/L3) between the CPU and main memory to hide RAM's relatively slow access time. Magnetic disk drives have largely given way to <strong>SSDs</strong>, and the IOP's job — moving data to/from the outside world — is now handled by high-speed buses like <strong>PCIe, USB, and NVMe</strong>, often with dedicated DMA (Direct Memory Access) hardware so the CPU itself isn't tied up managing the transfer.
+    </div>
+
+    <h2>A Broader View: the Five-Unit Model</h2>
+    <p><em>Beyond this textbook's own treatment, for additional clarity:</em> many computer organization texts (including a separate, related textbook — Mano's <em>Digital Design</em>) present a more granular five-unit model — separating Input, Output, Memory, the Arithmetic/Logic Unit, and the Control Unit as five distinct top-level blocks, rather than bundling ALU/registers/control inside one CPU box and routing I/O through a dedicated processor. Both views describe the same underlying reality; the three-part IOP-centric model above is this course's assigned framing.</p>
+
+    <h2>Common Pitfalls</h2>
+    <ul>
+      <li><strong>The ALU, registers, and control circuits are not three separate top-level units</strong> in this textbook's model — they are all sub-components packaged inside the CPU.</li>
+      <li><strong>"Random-access" describes access time, not randomness of content.</strong> Any memory location takes the same fixed time to reach, regardless of position.</li>
+      <li><strong>Input and output devices don't connect directly to the CPU</strong> in this model — they connect through the IOP, which handles the communication and transfer control.</li>
+    </ul>
+
+    <h2>Applications</h2>
+    <ul>
+      <li><strong>Every CPU architecture</strong> you'll encounter later in this course — from the Basic Computer model in Unit 3 to real modern processors — elaborates on this same three-part structure.</li>
+      <li><strong>Modern I/O controllers and DMA (Direct Memory Access) hardware</strong> are direct descendants of the IOP concept — dedicated circuitry that manages data transfer without tying up the CPU itself.</li>
+      <li><strong>RAM technology</strong> (DRAM, SRAM) in every device you own implements exactly this random-access guarantee — constant-time access regardless of address.</li>
+    </ul>
+
+    <h2>Summary</h2>
+    <table>
+      <thead><tr><th>Part</th><th>Contains / Role</th></tr></thead>
+      <tbody>
+        <tr><td>CPU</td><td>ALU (computation) + Registers (fast storage) + Control circuits (fetch/execute)</td></tr>
+        <tr><td>Memory (RAM)</td><td>Storage for instructions and data; any location reachable in fixed time</td></tr>
+        <tr><td>I/O Processor (IOP)</td><td>Manages communication and transfer between the computer and external devices</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="ad-slot">Advertisement</div>
+
+  <!-- QUIZ GATE -->
+  <div id="gate-section">
+    <div class="gate">
+      <div class="gate-blur">
+        <div class="quiz">
+          <div class="quiz-title">📝 Quick Quiz — 5 Questions</div>
+        </div>
+      </div>
+      <div class="gate-overlay">
+        <div class="gate-box">
+          <div class="lock">🔒</div>
+          <h3>Login to take the quiz</h3>
+          <p>Create a free account to take the quiz and track your progress across all topics.</p>
+          <div class="gate-btns">
+            <a href="../../../login.html" class="btn btn-primary btn-sm">Login</a>
+            <a href="../../../login.html" class="btn btn-outline btn-sm">Register Free</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="quiz" id="quiz-section" style="display:none">
+    <div class="quiz-title">📝 Quick Quiz — 5 Questions</div>
+    <div id="quiz-body"></div>
+    <button class="btn btn-primary" id="submit-btn" disabled>Submit Quiz</button>
+    <div class="quiz-result" id="quiz-result" style="display:none"></div>
+  </div>
+
+  <div class="topic-nav">
+    <a href="introduction-digital-computers.html">
+      <div class="nav-dir">← Previous</div>
+      <div class="nav-title">Introduction to Digital Computers</div>
+    </a>
+    <a href="computer-organization-vs-architecture.html" class="next">
+      <div class="nav-dir">Next →</div>
+      <div class="nav-title">Computer Organization vs Architecture</div>
+    </a>
+  </div>
+
+</div>
+
+<div style="max-width:820px;margin:.5rem auto;padding:0 1.25rem">
+  <div class="ad-slot">Advertisement</div>
+</div>
+<footer class="footer">© 2026 Chandra Shaker · <a href="https://chandrashaker.in">chandrashaker.in</a> · <em>Reference: M. Morris Mano, Computer System Architecture, 3rd ed.</em></footer>
+
+<script type="module">
+  import { initNav } from '../../../js/nav.js';
+  import { onAuth, saveProgress, getProgress } from '../../../js/firebase-config.js';
+  initNav(3);
+
+  const COURSE_ID = 'coa';
+  const TOPIC_ID  = 'block-diagram-digital-computer';
+  const LABELS    = ['A','B','C','D'];
+  const QUIZ = [
+    { q:"According to the textbook's block diagram, what three components does the CPU contain?", options:["Input, Output, and Memory", "An arithmetic and logic unit, registers, and control circuits", "Keyboard, printer, and disk drive", "RAM, ROM, and cache only"], answer:1, explanation:"The CPU contains an ALU for manipulating data, registers for storing data, and control circuits for fetching and executing instructions — all three bundled into one component." },
+    { q:"Why is computer memory called \"random-access\" memory (RAM)?", options:["Because its contents are randomly generated", "Because the CPU can access any location in a fixed amount of time, regardless of which location it is", "Because it randomly deletes old data", "Because it's used for random number generation"], answer:1, explanation:"\"Random-access\" describes the access pattern — any location is reachable in the same fixed time — not randomness of the data itself." },
+    { q:"What does the I/O Processor (IOP) do?", options:["It performs all arithmetic operations", "It contains circuits for communicating and controlling the transfer of information between the computer and the outside world", "It stores the program instructions", "It replaces the need for a CPU"], answer:1, explanation:"The IOP manages communication with external input/output devices like keyboards, printers, terminals, and disk drives." },
+    { q:"In this textbook's model, how do input and output devices connect to the computer?", options:["Directly to the CPU", "Directly to Memory", "Through the I/O Processor (IOP)", "They don't connect to any specific unit"], answer:2, explanation:"Input/output devices — keyboards, printers, terminals, disk drives — connect to the computer through the IOP." },
+    { q:"True or false: in this block diagram, the ALU, registers, and control circuits are three separate top-level blocks alongside Memory and the IOP.", options:["True", "False — they are all sub-components bundled inside the CPU, which is one of only three major parts"], answer:1, explanation:"The CPU is one of three major parts (with Memory and the IOP); ALU, registers, and control circuits are internal components of the CPU, not separate top-level units in this model." }
+  ];
+
+  let selected = {}, submitted = false;
+
+  function buildQuiz() {
+    document.getElementById('quiz-body').innerHTML = QUIZ.map((q, qi) => `
+      <div class="question">
+        <div class="question-text">Q${qi+1}. ${q.q}</div>
+        <div class="options">
+          ${q.options.map((o, oi) => `<div class="option" data-qi="${qi}" data-oi="${oi}"><span class="option-lbl">${LABELS[oi]}</span>${o}</div>`).join('')}
+        </div>
+        <div class="explanation" id="exp${qi}" style="display:none">💡 ${q.explanation}</div>
+      </div>`).join('');
+    document.querySelectorAll('.option').forEach(el => {
+      el.onclick = () => {
+        if (submitted) return;
+        const qi = +el.dataset.qi, oi = +el.dataset.oi;
+        selected[qi] = oi;
+        document.querySelectorAll(`[data-qi="${qi}"]`).forEach(o => o.classList.remove('selected'));
+        el.classList.add('selected');
+        document.getElementById('submit-btn').disabled = Object.keys(selected).length < QUIZ.length;
+      };
+    });
+  }
+
+  async function submitQuiz(uid) {
+    submitted = true; let score = 0;
+    QUIZ.forEach((q, qi) => {
+      const correct = q.answer, chosen = selected[qi];
+      document.querySelectorAll(`[data-qi="${qi}"]`).forEach(o => {
+        const oi = +o.dataset.oi;
+        if (oi === correct) o.classList.add('correct');
+        else if (oi === chosen) o.classList.add('wrong');
+      });
+      document.getElementById(`exp${qi}`).style.display = 'block';
+      if (chosen === correct) score++;
+    });
+    document.getElementById('submit-btn').style.display = 'none';
+    const pct = Math.round((score / QUIZ.length) * 100);
+    const res = document.getElementById('quiz-result');
+    res.style.display = 'block';
+    res.className = `quiz-result ${pct >= 60 ? 'pass' : 'fail'}`;
+    res.innerHTML = `<div class="quiz-score">${pct >= 60 ? '🎉' : '📖'} Score: ${score}/${QUIZ.length} (${pct}%)</div>
+      <div class="quiz-msg">${pct >= 80 ? 'Excellent! Move to the next topic.' : pct >= 60 ? 'Good. Review what you missed.' : 'Review the lesson and try again.'}</div>`;
+    if (uid) await saveProgress(uid, COURSE_ID, TOPIC_ID, score, QUIZ.length);
+  }
+
+  onAuth(async user => {
+    const gate = document.getElementById('gate-section');
+    const quiz  = document.getElementById('quiz-section');
+    if (user) {
+      gate.style.display = 'none';
+      quiz.style.display = 'block';
+      buildQuiz();
+      document.getElementById('submit-btn').onclick = () => submitQuiz(user.uid);
+      const prog = await getProgress(user.uid, COURSE_ID, TOPIC_ID);
+      if (prog?.completed) {
+        const res = document.getElementById('quiz-result');
+        res.style.display = 'block';
+        res.className = 'quiz-result pass';
+        res.innerHTML = `<div class="quiz-score">✅ Completed — Best score: ${prog.percent}%</div>
+          <div class="quiz-msg">You can retake the quiz anytime.</div>`;
+      }
+    }
+  });
+</script>
+</body>
+</html>

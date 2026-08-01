@@ -79,6 +79,30 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://courses.chandrashaker.in/academic/coa/unit1/introduction-digital-computers.html</loc>
+    <lastmod>2026-08-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://courses.chandrashaker.in/academic/coa/unit1/block-diagram-digital-computer.html</loc>
+    <lastmod>2026-08-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://courses.chandrashaker.in/academic/coa/unit1/computer-organization-vs-architecture.html</loc>
+    <lastmod>2026-08-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://courses.chandrashaker.in/academic/coa/unit1/computer-design.html</loc>
+    <lastmod>2026-08-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://courses.chandrashaker.in/professional/</loc>
     <lastmod>2026-08-01</lastmod>
     <changefreq>weekly</changefreq>
