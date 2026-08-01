@@ -1,0 +1,20 @@
+# Chandras EDU
+
+> Free engineering and professional courses with quizzes, progress tracking, and certificates. Part of the Chandra Shaker (chandrashaker.in) education brand.
+
+Chandras EDU offers two course tracks: Academic engineering subjects for B.Tech students, and Professional job-readiness courses for working professionals. All content is free to read; login is required to save quiz progress and earn certificates.
+
+## Academic
+
+- [Computer Organization and Architecture](https://courses.chandrashaker.in/academic/coa/index.html): Number systems, logic gates, combinational and sequential circuits, CPU design, memory hierarchy, and I/O organization.
+- [COA Unit 1 — Number Systems & Logic](https://courses.chandrashaker.in/academic/coa/unit1/index.html): Data types, complements, fixed/floating-point representation, binary codes, binary logic, storage registers, logic gates, and K-map representation.
+
+## Professional
+
+- [Generative AI: Zero to Job-Ready](https://courses.chandrashaker.in/professional/genai/index.html): A 20-module course covering GenAI foundations, prompt engineering, applied AI for developers/analysts/managers, RAG and agents, and career growth strategies.
+
+## Other
+
+- [Homepage](https://courses.chandrashaker.in/index.html)
+- [Sitemap](https://courses.chandrashaker.in/sitemap.xml)
+- [Main blog — chandrashaker.in](https://chandrashaker.in)

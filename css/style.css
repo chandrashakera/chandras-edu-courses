@@ -4,11 +4,12 @@
 :root {
   --primary:    #1565C0;   /* blog nav blue */
   --primary-dk: #0d47a1;   /* hover */
-  --accent:     #FF8C00;   /* blog orange accent */
+  --accent:     #FF8C00;   /* blog orange accent — decorative use (borders, icons, backgrounds) only, fails AA as text on light or dark bg */
   --accent-dk:  #e65c00;
+  --accent-text:#b35900;   /* AA-safe darker orange for accent-colored text on light backgrounds */
   --text:       #1a1a1a;
   --text-2:     #444444;
-  --text-3:     #777777;
+  --text-3:     #666666;   /* darkened from #777 to clear 4.5:1 AA on --bg-2/--bg-3 */
   --bg:         #ffffff;
   --bg-2:       #f9f9f9;
   --bg-3:       #f0f0f0;
@@ -52,7 +53,7 @@ a:hover { text-decoration: underline; color: var(--primary-dk); }
   font-size: 1rem; font-weight: 700;
   color: #fff; text-decoration: none; letter-spacing: .02em;
 }
-.nav-brand span { color: var(--accent); }
+.nav-brand span { color: #fff; opacity: .85; }
 .nav-links { display: flex; align-items: center; gap: 1.25rem; }
 .nav-links a {
   font-size: .88rem; color: rgba(255,255,255,.9);
@@ -60,7 +61,7 @@ a:hover { text-decoration: underline; color: var(--primary-dk); }
 }
 .nav-links a:hover { color: var(--accent); text-decoration: none; }
 .nav-btn {
-  background: var(--accent); color: #fff !important;
+  background: var(--accent); color: var(--text) !important;
   padding: .3rem .85rem; border-radius: var(--radius);
   font-size: .82rem; font-weight: 700; text-transform: uppercase;
 }
@@ -129,10 +130,10 @@ a:hover { text-decoration: underline; color: var(--primary-dk); }
 .course-card.professional { border-top-color: var(--accent); }
 .course-card.professional:hover { border-color: var(--accent); }
 .course-card h2 { font-size: 1rem; color: var(--primary); margin: .6rem 0 .4rem; font-weight: 700; }
-.course-card.professional h2 { color: var(--accent); }
+.course-card.professional h2 { color: var(--accent-text); }
 .course-card p { font-size: .85rem; color: var(--text-2); margin-bottom: .85rem; line-height: 1.6; }
 .course-card .cta { font-weight: 700; font-size: .85rem; color: var(--primary); }
-.course-card.professional .cta { color: var(--accent); }
+.course-card.professional .cta { color: var(--accent-text); }
 
 /* ── TOPIC LIST ──────────────────────────────────────────────── */
 .topic-list { display: flex; flex-direction: column; gap: .5rem; }
@@ -202,13 +203,13 @@ a:hover { text-decoration: underline; color: var(--primary-dk); }
 .btn-primary { background: var(--primary); color: #fff; }
 .btn-outline  { background: var(--bg); color: var(--primary); border: 2px solid var(--primary); }
 .btn-success  { background: var(--success); color: #fff; }
-.btn-accent   { background: var(--accent); color: #fff; }
+.btn-accent   { background: var(--accent); color: var(--text); }
 .btn-sm { padding: .3rem .8rem; font-size: .8rem; }
 .btn:disabled { opacity: .45; cursor: not-allowed; }
 
 /* ── QUIZ ────────────────────────────────────────────────────── */
 .quiz { background: var(--bg-2); border: 1px solid var(--border); border-top: 3px solid var(--accent); border-radius: var(--radius-lg); padding: 1.5rem; margin-top: 1.75rem; }
-.quiz-title { font-size: .95rem; font-weight: 700; margin-bottom: 1.25rem; color: var(--accent); text-transform: uppercase; letter-spacing: .04em; }
+.quiz-title { font-size: .95rem; font-weight: 700; margin-bottom: 1.25rem; color: var(--accent-text); text-transform: uppercase; letter-spacing: .04em; }
 .question { margin-bottom: 1.5rem; }
 .question-text { font-weight: 600; margin-bottom: .65rem; line-height: 1.5; color: var(--text); }
 .options { display: flex; flex-direction: column; gap: .4rem; }
@@ -262,7 +263,7 @@ a:hover { text-decoration: underline; color: var(--primary-dk); }
 /* ── BADGE ───────────────────────────────────────────────────── */
 .badge { display: inline-block; padding: .18rem .6rem; border-radius: 3px; font-size: .75rem; font-weight: 700; text-transform: uppercase; letter-spacing: .03em; }
 .badge-blue   { background: var(--primary); color: #fff; }
-.badge-orange { background: var(--accent); color: #fff; }
+.badge-orange { background: var(--accent); color: var(--text); }
 .badge-green  { background: var(--success); color: #fff; }
 .badge-grey   { background: var(--bg-3); color: var(--text-3); }
 
