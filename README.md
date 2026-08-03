@@ -1,4 +1,4 @@
-# Chandras EDU — Course Platform
+# ChandraS EDU — Course Platform
 ## courses.chandrashaker.in
 
 Pure HTML + Firebase + Cloudflare Pages. No build step needed.
