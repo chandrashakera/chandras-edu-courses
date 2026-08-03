@@ -53,7 +53,8 @@ a:hover { text-decoration: underline; color: var(--primary-dk); }
   font-size: 1rem; font-weight: 700;
   color: #fff; text-decoration: none; letter-spacing: .02em;
 }
-.nav-brand span { color: #fff; opacity: .85; }
+.nav-brand:hover { color: #fff; text-decoration: none; }
+.nav-brand span { color: #fff; }
 .nav-links { display: flex; align-items: center; gap: 1.25rem; }
 .nav-links a {
   font-size: .88rem; color: rgba(255,255,255,.9);
