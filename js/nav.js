@@ -7,7 +7,7 @@ export function initNav(depth = 0) {
   if (nav) {
     nav.innerHTML = `
       <div class="nav-inner">
-        <a href="${root}/index.html" class="nav-brand">Chandras <span>EDU</span></a>
+        <a href="${root}/index.html" class="nav-brand">CHANDRAS <span>EDU</span></a>
         <div class="nav-links">
           <a href="https://chandrashaker.in" class="hide-mobile" target="_blank" rel="noopener">Blog</a>
           <span class="nav-user" id="nav-user"></span>
