@@ -1,8 +1,8 @@
-# ChandraS EDU
+# Chandras EDU
 
 > Free engineering and professional courses with quizzes, progress tracking, and certificates. Part of the Chandra Shaker (chandrashaker.in) education brand.
 
-ChandraS EDU offers two course tracks: Academic engineering subjects for B.Tech students, and Professional job-readiness courses for working professionals. All content is free to read; login is required to save quiz progress and earn certificates.
+Chandras EDU offers two course tracks: Academic engineering subjects for B.Tech students, and Professional job-readiness courses for working professionals. All content is free to read; login is required to save quiz progress and earn certificates.
 
 ## Academic
 
