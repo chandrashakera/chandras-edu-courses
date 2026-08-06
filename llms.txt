@@ -8,6 +8,7 @@ Chandras EDU offers two course tracks: Academic engineering subjects for B.Tech 
 
 - [Computer Organization and Architecture](https://courses.chandrashaker.in/academic/coa/index.html): Number systems, logic gates, combinational and sequential circuits, CPU design, memory hierarchy, and I/O organization.
 - [COA Unit 1 — Number Systems & Logic](https://courses.chandrashaker.in/academic/coa/unit1/index.html): Data types, complements, fixed/floating-point representation, binary codes, binary logic, storage registers, logic gates, and K-map representation.
+- [COA Unit 2 — Combinational Logic](https://courses.chandrashaker.in/academic/coa/unit2/index.html): Combinational circuit analysis and design, binary adders and subtractors, multipliers, magnitude comparators, decoders, encoders, and multiplexers.
 
 ## Professional
 
