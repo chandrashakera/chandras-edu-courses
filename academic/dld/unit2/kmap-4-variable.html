@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>4-Variable K-Maps — DLD Unit 2 | Chandras EDU</title>
+  <meta name="description" content="Extending Karnaugh maps to 16 cells and 4 variables, with wraparound adjacency in both directions — including the four corners, which are all mutually adjacent.">
+  <link rel="canonical" href="https://courses.chandrashaker.in/academic/dld/unit2/kmap-4-variable.html">
+  <link rel="stylesheet" href="../../../css/style.css">
+
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Chandras EDU">
+  <meta property="og:title" content="4-Variable K-Maps — DLD Unit 2 | Chandras EDU">
+  <meta property="og:description" content="Extending Karnaugh maps to 16 cells and 4 variables, with wraparound adjacency in both directions — including the four corners, which are all mutually adjacent.">
+  <meta property="og:url" content="https://courses.chandrashaker.in/academic/dld/unit2/kmap-4-variable.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="4-Variable K-Maps — DLD Unit 2 | Chandras EDU">
+  <meta name="twitter:description" content="Extending Karnaugh maps to 16 cells and 4 variables, with wraparound adjacency in both directions — including the four corners, which are all mutually adjacent.">
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Courses", "item": "https://courses.chandrashaker.in/" },
+    { "@type": "ListItem", "position": 2, "name": "DLD", "item": "https://courses.chandrashaker.in/academic/dld/" },
+    { "@type": "ListItem", "position": 3, "name": "Unit 2", "item": "https://courses.chandrashaker.in/academic/dld/unit2/" },
+    { "@type": "ListItem", "position": 4, "name": "4-Variable K-Maps" }
+  ]
+}
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LearningResource",
+  "name": "4-Variable K-Maps",
+  "description": "Extending Karnaugh maps to 16 cells and 4 variables, with wraparound adjacency in both directions — including the four corners, which are all mutually adjacent.",
+  "url": "https://courses.chandrashaker.in/academic/dld/unit2/kmap-4-variable.html",
+  "learningResourceType": "Lesson",
+  "educationalLevel": "Undergraduate",
+  "about": { "@type": "Thing", "name": "Digital Logic Design" },
+  "isPartOf": {
+    "@type": "Course",
+    "name": "Digital Logic Design",
+    "provider": { "@type": "Organization", "name": "Chandras EDU", "url": "https://chandrashaker.in" }
+  },
+  "publisher": { "@type": "Organization", "name": "Chandras EDU", "url": "https://chandrashaker.in" }
+}
+  </script>
+  <link rel="icon" href="/favicon.ico">
+  <style>
+    .kmap-wrap { display:flex; justify-content:center; margin:1.25rem 0; overflow-x:auto; }
+    .kmap-table { border-collapse:collapse; font-size:.85rem; }
+    .kmap-table th, .kmap-table td { border:1px solid var(--border); width:52px; height:44px; text-align:center; padding:0; }
+    .kmap-table th { background:var(--bg-3); font-weight:700; color:var(--text-2); font-size:.78rem; }
+    .kmap-table .corner { font-size:.68rem; color:var(--text-3); font-weight:600; }
+    .kmap-table td .val { font-weight:700; font-size:1rem; }
+    .kmap-table td .idx { display:block; font-size:.62rem; color:var(--text-3); }
+    .kmap-table td.one { background:#e8f5e9; }
+    .kmap-table td.one .val { color:var(--success); }
+    .kmap-table td.zero .val { color:var(--text-3); }
+    .kmap-table td.grp2 { background:#e3f2fd; }
+    .kmap-table td.grp2 .val { color:var(--primary); }
+  </style>
+</head>
+<body>
+<nav class="nav"><div id="main-nav"></div></nav>
+
+<div style="max-width:820px;margin:.5rem auto;padding:0 1.25rem">
+  <div class="ad-slot">Advertisement</div>
+</div>
+
+<div class="page-narrow" role="main">
+
+  <nav class="breadcrumb">
+    <a href="../../../index.html">Courses</a><span class="sep">/</span>
+    <a href="../../dld/index.html">DLD</a><span class="sep">/</span>
+    <a href="index.html">Unit 2</a><span class="sep">/</span>
+    <span>K-Map Minimization</span><span class="sep">/</span>
+    <span class="cur">4-Variable K-Maps</span>
+  </nav>
+
+  <div style="background:var(--primary);border-radius:var(--radius-lg);padding:1.1rem 1.4rem;margin-bottom:1.5rem;color:#fff">
+    <div style="font-size:.75rem;opacity:.75;margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.05em">DLD › Unit 2: K-Map Minimization › Topic 2</div>
+    <h1 style="font-size:1.4rem;font-weight:700;color:#fff;margin-bottom:.5rem">4-Variable K-Maps</h1>
+    <div style="display:flex;gap:.75rem;flex-wrap:wrap">
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">⏱ 20 min read</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📝 Quiz inside</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📖 Mano &amp; Ciletti Ch. 3</span>
+    </div>
+  </div>
+
+  <!-- FULL LESSON — visible to everyone -->
+  <div class="lesson">
+    <p>Everything from the previous page — Gray-code headers, power-of-2 groups, wraparound adjacency — carries over directly to 4 variables. The only real difference is scale: a 4-variable map has 16 cells instead of 8, arranged as a 4×4 grid, and the wraparound now happens in <strong>two directions at once</strong>.</p>
+
+    <h2>The Grid Layout</h2>
+    <p>Both the rows (AB) and the columns (CD) use Gray-code order: 00, 01, 11, 10. That means rows wrap top-to-bottom (row 00 is adjacent to row 10), <em>and</em> columns wrap left-to-right (column 00 is adjacent to column 10) — the map behaves like the surface of a torus, not a flat rectangle.</p>
+
+    <h3>Worked Example — F(A,B,C,D) = Σm(0,2,5,7,8,10,13,15)</h3>
+    <div class="kmap-wrap">
+      <table class="kmap-table">
+        <tr><th class="corner">AB\CD</th><th>00</th><th>01</th><th>11</th><th>10</th></tr>
+        <tr><th>00</th>
+          <td class="one"><span class="val">1</span><span class="idx">m0</span></td>
+          <td class="zero"><span class="val">0</span><span class="idx">m1</span></td>
+          <td class="zero"><span class="val">0</span><span class="idx">m3</span></td>
+          <td class="one"><span class="val">1</span><span class="idx">m2</span></td>
+        </tr>
+        <tr><th>01</th>
+          <td class="zero"><span class="val">0</span><span class="idx">m4</span></td>
+          <td class="grp2"><span class="val">1</span><span class="idx">m5</span></td>
+          <td class="grp2"><span class="val">1</span><span class="idx">m7</span></td>
+          <td class="zero"><span class="val">0</span><span class="idx">m6</span></td>
+        </tr>
+        <tr><th>11</th>
+          <td class="zero"><span class="val">0</span><span class="idx">m12</span></td>
+          <td class="grp2"><span class="val">1</span><span class="idx">m13</span></td>
+          <td class="grp2"><span class="val">1</span><span class="idx">m15</span></td>
+          <td class="zero"><span class="val">0</span><span class="idx">m14</span></td>
+        </tr>
+        <tr><th>10</th>
+          <td class="one"><span class="val">1</span><span class="idx">m8</span></td>
+          <td class="zero"><span class="val">0</span><span class="idx">m9</span></td>
+          <td class="zero"><span class="val">0</span><span class="idx">m11</span></td>
+          <td class="one"><span class="val">1</span><span class="idx">m10</span></td>
+        </tr>
+      </table>
+    </div>
+    <p>Two groups, each shown in a different shade above. The green cells — m0, m2, m8, m10 — are the map's <strong>four corners</strong>. In a 4-variable map, all four corners are mutually adjacent: row 00/row 10 wrap vertically, and column 00/column 10 wrap horizontally, at the same time. That makes the four corners a single valid quad:</p>
+    <div class="box box-eg">
+      <pre>Corners {m0, m2, m8, m10} (B=0, D=0 in all four; A and C both vary): term = B′D′
+Blue quad {m5, m7, m13, m15} (B=1, D=1 in all four; A and C both vary): term = BD
+
+F = B′D′ + BD</pre>
+    </div>
+    <p>Every 1 in the map is covered by exactly one of these two quads, so F = B′D′ + BD is fully minimal.</p>
+
+    <div class="box box-tip">
+      🚀 <strong>Beyond the textbook:</strong> B′D′ + BD is exactly the definition of <strong>B XNOR D</strong> — this function is 1 precisely when B and D agree (both 0 or both 1), regardless of A and C. K-map groupings frequently reveal a recognizable named function hiding inside a longer minterm list, the same way Unit 2 of the Combinational Logic unit's XOR example did.
+    </div>
+
+    <h2>Grouping Sizes at 4 Variables</h2>
+    <table>
+      <thead><tr><th>Group size</th><th>Variables eliminated</th><th>Term length</th></tr></thead>
+      <tbody>
+        <tr><td>1 cell</td><td>0</td><td>4 literals (the full minterm)</td></tr>
+        <tr><td>2 cells (pair)</td><td>1</td><td>3 literals</td></tr>
+        <tr><td>4 cells (quad)</td><td>2</td><td>2 literals</td></tr>
+        <tr><td>8 cells (octet)</td><td>3</td><td>1 literal</td></tr>
+        <tr><td>16 cells (whole map)</td><td>4</td><td>F = 1 (constant)</td></tr>
+      </tbody>
+    </table>
+    <p>The pattern from the 3-variable page continues exactly: each doubling of group size eliminates exactly one more variable from the resulting term.</p>
+
+    <h2>Common Pitfalls</h2>
+    <ul>
+      <li><strong>Missing the corner-wraparound group.</strong> The four corners being mutually adjacent is the single most commonly overlooked adjacency in a 4-variable map — always check them explicitly before finalizing a grouping.</li>
+      <li><strong>Only checking one direction of wraparound.</strong> Both the row wraparound (top edge ↔ bottom edge) and the column wraparound (left edge ↔ right edge) apply simultaneously — checking only one direction misses valid groups.</li>
+      <li><strong>Trying to draw non-rectangular or non-square groups.</strong> Every valid K-map group forms a rectangle (accounting for wraparound) — an L-shape or diagonal set of cells is never a single valid group, no matter how many of them are 1.</li>
+    </ul>
+
+    <h2>Applications</h2>
+    <ul>
+      <li><strong>4-variable functions are extremely common in real combinational design</strong> — a 4-bit adder's carry logic, a hex-digit decoder, and small ALU control logic all routinely need 4-variable minimization.</li>
+      <li><strong>Beyond 4 variables, K-maps become impractical by hand</strong> (a 5-variable map needs two overlaid 4-variable maps, or a 3D visualization) — this is exactly where automated tabular methods (Quine-McCluskey) and software logic synthesis take over.</li>
+      <li><strong>The corner-wraparound pattern specifically</strong> reappears in memory address decoding, where the highest and lowest addresses in a block can end up logically adjacent in exactly this way.</li>
+    </ul>
+  </div>
+
+  <div class="ad-slot">Advertisement</div>
+
+  <!-- QUIZ GATE -->
+  <div id="gate-section">
+    <div class="gate">
+      <div class="gate-blur">
+        <div class="quiz">
+          <div class="quiz-title">📝 Quick Quiz — 5 Questions</div>
+        </div>
+      </div>
+      <div class="gate-overlay">
+        <div class="gate-box">
+          <div class="lock">🔒</div>
+          <h3>Login to take the quiz</h3>
+          <p>Create a free account to take the quiz and track your progress across all topics.</p>
+          <div class="gate-btns">
+            <a href="../../../login.html" class="btn btn-primary btn-sm">Login</a>
+            <a href="../../../login.html" class="btn btn-outline btn-sm">Register Free</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="quiz" id="quiz-section" style="display:none">
+    <div class="quiz-title">📝 Quick Quiz — 5 Questions</div>
+    <div id="quiz-body"></div>
+    <button class="btn btn-primary" id="submit-btn" disabled>Submit Quiz</button>
+    <div class="quiz-result" id="quiz-result" style="display:none"></div>
+  </div>
+
+  <div class="topic-nav">
+    <a href="kmap-2-3-variable.html">
+      <div class="nav-dir">← Previous</div>
+      <div class="nav-title">K-Maps: 2 &amp; 3 Variables</div>
+    </a>
+    <a href="pos-simplification.html" class="next">
+      <div class="nav-dir">Next →</div>
+      <div class="nav-title">Product-of-Sums (POS) Simplification</div>
+    </a>
+  </div>
+
+</div>
+
+<div style="max-width:820px;margin:.5rem auto;padding:0 1.25rem">
+  <div class="ad-slot">Advertisement</div>
+</div>
+<footer class="footer">© 2026 Chandra Shaker · <a href="https://chandrashaker.in">chandrashaker.in</a> · <em>Reference: M. Morris Mano &amp; Michael D. Ciletti, Digital Design with an Introduction to the Verilog HDL, 6th ed. — Gate-Level Minimization.</em></footer>
+
+<script type="module">
+  import { initNav } from '../../../js/nav.js';
+  import { onAuth, saveProgress, getProgress } from '../../../js/firebase-config.js';
+  initNav(3);
+
+  const COURSE_ID = 'dld';
+  const TOPIC_ID  = 'kmap-4-variable';
+  const LABELS    = ['A','B','C','D'];
+  const QUIZ = [
+    { q:"In a 4-variable K-map, why are the four corner cells considered mutually adjacent?", options:["Because the rows wrap top-to-bottom AND the columns wrap left-to-right simultaneously, at Gray-code distance 1 in both directions", "Because all four corners happen to always contain the value 1", "Corners are never actually adjacent in a K-map — this is a common misconception", "Because the map is drawn on a physical torus-shaped surface"], answer:0, explanation:"With Gray-code row and column headers, the top row wraps to the bottom row, and the leftmost column wraps to the rightmost column — both happening at once means all four corners are mutually one Gray-code step apart." },
+    { q:"A group of 8 cells (an octet) in a 4-variable K-map eliminates how many variables from the resulting term?", options:["3", "2", "4", "1"], answer:0, explanation:"Each doubling of group size eliminates one more variable. 8 cells = 2³, so 3 variables are eliminated, leaving a single-literal term." },
+    { q:"For the K-map with minterms {0,2,5,7,8,10,13,15}, the four corners {0,2,8,10} form one quad. What term does this quad produce?", options:["B′D′", "A′C′", "BD", "AC"], answer:0, explanation:"At all four corners, B=0 and D=0 (A and C both vary across the group), so the term is B′D′." },
+    { q:"Which of these is a valid K-map grouping shape?", options:["A rectangle of cells (accounting for wraparound), with a power-of-2 size", "An L-shaped group of 4 cells", "A diagonal line of adjacent-looking cells", "Any arbitrary set of cells that are all 1, regardless of shape"], answer:0, explanation:"Valid K-map groups must always form a rectangle (possibly wrapping around the map's edges) with a size that's a power of 2 — L-shapes, diagonals, and irregular shapes are never valid single groups." },
+    { q:"Why do K-maps become impractical for functions with more than about 4-5 variables?", options:["The grid can no longer be drawn as a simple flat 2D layout that a person can visually scan for adjacency — larger functions need automated methods like Quine-McCluskey or software synthesis instead", "K-maps mathematically only work for up to 4 variables and produce wrong answers beyond that", "There's no way to represent more than 16 minterms in any format", "Gray code stops working correctly beyond 4 bits"], answer:0, explanation:"K-maps rely on visually scanning a 2D (or slightly extended) grid — beyond 4-5 variables this becomes impractical by hand, which is why larger designs shift to tabular methods (Quine-McCluskey) or automated logic synthesis." }
+  ];
+
+  let selected = {}, submitted = false;
+
+  function buildQuiz() {
+    document.getElementById('quiz-body').innerHTML = QUIZ.map((q, qi) => `
+      <div class="question">
+        <div class="question-text">Q${qi+1}. ${q.q}</div>
+        <div class="options">
+          ${q.options.map((o, oi) => `<div class="option" data-qi="${qi}" data-oi="${oi}"><span class="option-lbl">${LABELS[oi]}</span>${o}</div>`).join('')}
+        </div>
+        <div class="explanation" id="exp${qi}" style="display:none">💡 ${q.explanation}</div>
+      </div>`).join('');
+    document.querySelectorAll('.option').forEach(el => {
+      el.onclick = () => {
+        if (submitted) return;
+        const qi = +el.dataset.qi, oi = +el.dataset.oi;
+        selected[qi] = oi;
+        document.querySelectorAll(`[data-qi="${qi}"]`).forEach(o => o.classList.remove('selected'));
+        el.classList.add('selected');
+        document.getElementById('submit-btn').disabled = Object.keys(selected).length < QUIZ.length;
+      };
+    });
+  }
+
+  async function submitQuiz(uid) {
+    submitted = true; let score = 0;
+    QUIZ.forEach((q, qi) => {
+      const correct = q.answer, chosen = selected[qi];
+      document.querySelectorAll(`[data-qi="${qi}"]`).forEach(o => {
+        const oi = +o.dataset.oi;
+        if (oi === correct) o.classList.add('correct');
+        else if (oi === chosen) o.classList.add('wrong');
+      });
+      document.getElementById(`exp${qi}`).style.display = 'block';
+      if (chosen === correct) score++;
+    });
+    document.getElementById('submit-btn').style.display = 'none';
+    const pct = Math.round((score / QUIZ.length) * 100);
+    const res = document.getElementById('quiz-result');
+    res.style.display = 'block';
+    res.className = `quiz-result ${pct >= 60 ? 'pass' : 'fail'}`;
+    res.innerHTML = `<div class="quiz-score">${pct >= 60 ? '🎉' : '📖'} Score: ${score}/${QUIZ.length} (${pct}%)</div>
+      <div class="quiz-msg">${pct >= 80 ? 'Excellent! Move to the next topic.' : pct >= 60 ? 'Good. Review what you missed.' : 'Review the lesson and try again.'}</div>`;
+    if (uid) await saveProgress(uid, COURSE_ID, TOPIC_ID, score, QUIZ.length);
+  }
+
+  onAuth(async user => {
+    const gate = document.getElementById('gate-section');
+    const quiz  = document.getElementById('quiz-section');
+    if (user) {
+      gate.style.display = 'none';
+      quiz.style.display = 'block';
+      buildQuiz();
+      document.getElementById('submit-btn').onclick = () => submitQuiz(user.uid);
+      const prog = await getProgress(user.uid, COURSE_ID, TOPIC_ID);
+      if (prog?.completed) {
+        const res = document.getElementById('quiz-result');
+        res.style.display = 'block';
+        res.className = 'quiz-result pass';
+        res.innerHTML = `<div class="quiz-score">✅ Completed — Best score: ${prog.percent}%</div>
+          <div class="quiz-msg">You can retake the quiz anytime.</div>`;
+      }
+    }
+  });
+</script>
+</body>
+</html>

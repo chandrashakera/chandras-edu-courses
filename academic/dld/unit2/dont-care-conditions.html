@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Don't-Care Conditions — DLD Unit 2 | Chandras EDU</title>
+  <meta name="description" content="Using input combinations that never occur in practice to simplify a K-map even further — with a worked BCD example that collapses to a single variable.">
+  <link rel="canonical" href="https://courses.chandrashaker.in/academic/dld/unit2/dont-care-conditions.html">
+  <link rel="stylesheet" href="../../../css/style.css">
+
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Chandras EDU">
+  <meta property="og:title" content="Don't-Care Conditions — DLD Unit 2 | Chandras EDU">
+  <meta property="og:description" content="Using input combinations that never occur in practice to simplify a K-map even further — with a worked BCD example that collapses to a single variable.">
+  <meta property="og:url" content="https://courses.chandrashaker.in/academic/dld/unit2/dont-care-conditions.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Don't-Care Conditions — DLD Unit 2 | Chandras EDU">
+  <meta name="twitter:description" content="Using input combinations that never occur in practice to simplify a K-map even further — with a worked BCD example that collapses to a single variable.">
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Courses", "item": "https://courses.chandrashaker.in/" },
+    { "@type": "ListItem", "position": 2, "name": "DLD", "item": "https://courses.chandrashaker.in/academic/dld/" },
+    { "@type": "ListItem", "position": 3, "name": "Unit 2", "item": "https://courses.chandrashaker.in/academic/dld/unit2/" },
+    { "@type": "ListItem", "position": 4, "name": "Don't-Care Conditions" }
+  ]
+}
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LearningResource",
+  "name": "Don't-Care Conditions",
+  "description": "Using input combinations that never occur in practice to simplify a K-map even further — with a worked BCD example that collapses to a single variable.",
+  "url": "https://courses.chandrashaker.in/academic/dld/unit2/dont-care-conditions.html",
+  "learningResourceType": "Lesson",
+  "educationalLevel": "Undergraduate",
+  "about": { "@type": "Thing", "name": "Digital Logic Design" },
+  "isPartOf": {
+    "@type": "Course",
+    "name": "Digital Logic Design",
+    "provider": { "@type": "Organization", "name": "Chandras EDU", "url": "https://chandrashaker.in" }
+  },
+  "publisher": { "@type": "Organization", "name": "Chandras EDU", "url": "https://chandrashaker.in" }
+}
+  </script>
+  <link rel="icon" href="/favicon.ico">
+  <style>
+    .kmap-wrap { display:flex; justify-content:center; margin:1.25rem 0; overflow-x:auto; }
+    .kmap-table { border-collapse:collapse; font-size:.82rem; }
+    .kmap-table th, .kmap-table td { border:1px solid var(--border); width:50px; height:42px; text-align:center; padding:0; }
+    .kmap-table th { background:var(--bg-3); font-weight:700; color:var(--text-2); font-size:.75rem; }
+    .kmap-table .corner { font-size:.65rem; color:var(--text-3); font-weight:600; }
+    .kmap-table td .val { font-weight:700; font-size:1rem; }
+    .kmap-table td .idx { display:block; font-size:.6rem; color:var(--text-3); }
+    .kmap-table td.one { background:#e8f5e9; }
+    .kmap-table td.one .val { color:var(--success); }
+    .kmap-table td.zero .val { color:var(--text-3); }
+    .kmap-table td.dc { background:#fff8e1; }
+    .kmap-table td.dc .val { color:#e65100; }
+  </style>
+</head>
+<body>
+<nav class="nav"><div id="main-nav"></div></nav>
+
+<div style="max-width:820px;margin:.5rem auto;padding:0 1.25rem">
+  <div class="ad-slot">Advertisement</div>
+</div>
+
+<div class="page-narrow" role="main">
+
+  <nav class="breadcrumb">
+    <a href="../../../index.html">Courses</a><span class="sep">/</span>
+    <a href="../../dld/index.html">DLD</a><span class="sep">/</span>
+    <a href="index.html">Unit 2</a><span class="sep">/</span>
+    <span>K-Map Minimization</span><span class="sep">/</span>
+    <span class="cur">Don't-Care Conditions</span>
+  </nav>
+
+  <div style="background:var(--primary);border-radius:var(--radius-lg);padding:1.1rem 1.4rem;margin-bottom:1.5rem;color:#fff">
+    <div style="font-size:.75rem;opacity:.75;margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.05em">DLD › Unit 2: K-Map Minimization › Topic 4</div>
+    <h1 style="font-size:1.4rem;font-weight:700;color:#fff;margin-bottom:.5rem">Don't-Care Conditions</h1>
+    <div style="display:flex;gap:.75rem;flex-wrap:wrap">
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">⏱ 18 min read</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📝 Quiz inside</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📖 Mano &amp; Ciletti Ch. 3</span>
+    </div>
+  </div>
+
+  <!-- FULL LESSON — visible to everyone -->
+  <div class="lesson">
+    <p>Every truth table so far has specified an output for <em>every</em> possible input combination. But some real circuits are only ever fed a limited subset of the theoretically-possible inputs — and for the input combinations that genuinely can't occur, the designer is free to assign whichever output value makes the resulting circuit simplest.</p>
+
+    <h2>What a Don't-Care Is</h2>
+    <p>A <strong>don't-care condition</strong> is an input combination whose output value is unspecified — either because that input never actually occurs in the system, or because the application genuinely doesn't care what the output is when it does. Recall Unit 1's Binary Codes coverage: BCD only ever uses the bit patterns 0000 through 1001 — patterns 1010 through 1111 are <strong>invalid BCD digits</strong> that a correctly-functioning system will never actually produce. Any circuit built to process BCD digits can treat those six patterns as don't-cares.</p>
+    <p>Don't-cares are marked with an <strong>X</strong> (or sometimes <em>d</em>) in a truth table or K-map, distinct from both 0 and 1.</p>
+
+    <h2>Using Don't-Cares in a K-Map</h2>
+    <p>The rule is simple, and powerful: when forming a group, <strong>treat each X as either a 0 or a 1 — whichever produces a larger, more useful group</strong> — decided independently for each group. An X doesn't have to be included in any group at all if it doesn't help; it's genuinely optional, used only where it makes the result better.</p>
+
+    <h3>Worked Example — F(A,B,C,D) = Σm(1,3,5,7,9) + d(10,11,12,13,14,15)</h3>
+    <p>This function is 1 for the odd BCD digits 1, 3, 5, 7, 9, and 0 for the even BCD digits 0, 2, 4, 6, 8. The six invalid BCD patterns (10-15) are marked as don't-cares.</p>
+    <div class="kmap-wrap">
+      <table class="kmap-table">
+        <tr><th class="corner">AB\CD</th><th>00</th><th>01</th><th>11</th><th>10</th></tr>
+        <tr><th>00</th>
+          <td class="zero"><span class="val">0</span><span class="idx">m0</span></td>
+          <td class="one"><span class="val">1</span><span class="idx">m1</span></td>
+          <td class="one"><span class="val">1</span><span class="idx">m3</span></td>
+          <td class="zero"><span class="val">0</span><span class="idx">m2</span></td>
+        </tr>
+        <tr><th>01</th>
+          <td class="zero"><span class="val">0</span><span class="idx">m4</span></td>
+          <td class="one"><span class="val">1</span><span class="idx">m5</span></td>
+          <td class="one"><span class="val">1</span><span class="idx">m7</span></td>
+          <td class="zero"><span class="val">0</span><span class="idx">m6</span></td>
+        </tr>
+        <tr><th>11</th>
+          <td class="dc"><span class="val">X</span><span class="idx">m12</span></td>
+          <td class="dc"><span class="val">X</span><span class="idx">m13</span></td>
+          <td class="dc"><span class="val">X</span><span class="idx">m15</span></td>
+          <td class="dc"><span class="val">X</span><span class="idx">m14</span></td>
+        </tr>
+        <tr><th>10</th>
+          <td class="zero"><span class="val">0</span><span class="idx">m8</span></td>
+          <td class="one"><span class="val">1</span><span class="idx">m9</span></td>
+          <td class="dc"><span class="val">X</span><span class="idx">m11</span></td>
+          <td class="dc"><span class="val">X</span><span class="idx">m10</span></td>
+        </tr>
+      </table>
+    </div>
+    <p><strong>Without</strong> using any don't-cares, m9 is nearly isolated — its only same-value neighbor among the defined 1s and 0s is nothing, forcing a large 4-literal term just for m9 alone. <strong>With</strong> the don't-cares, a much better grouping appears: treat m11, m13, and m15 as 1s (they're free to be anything), and the four cells {m9, m11, m13, m15} — all with A=1, D=1 — form a full quad.</p>
+    <div class="box box-eg">
+      <pre>Quad {m1, m3, m5, m7} (A=0, D=1; B and C both vary):     term = A′D
+Quad {m9, m11(X→1), m13(X→1), m15(X→1)} (A=1, D=1; B,C vary): term = AD
+
+F = A′D + AD = D(A′ + A) = D</pre>
+    </div>
+    <p>The entire function collapses to a <strong>single variable</strong>, F = D — a dramatically simpler circuit than what plain minterms alone would have produced, made possible entirely by choosing don't-care values strategically.</p>
+
+    <div class="box box-tip">
+      🚀 <strong>Verify it:</strong> F=D must equal 0 for every specified 0 (the even digits 0,2,4,6,8 — and indeed D=0 for all of them) and 1 for every specified 1 (the odd digits 1,3,5,7,9 — D=1 for all of them). The don't-care cells (10-15) are free to be whatever D happens to be there, which is exactly the point — since those inputs never occur, it doesn't matter.
+    </div>
+
+    <h2>Don't-Cares Apply to POS Too</h2>
+    <p>The same freedom applies when minimizing a POS expression from the same K-map: each X can independently be treated as a 0 (joining a 0-group) or a 1 (excluded from consideration), whichever produces the largest, most useful 0-groups.</p>
+
+    <h2>Common Pitfalls</h2>
+    <ul>
+      <li><strong>Treating every don't-care the same way throughout the whole map.</strong> Different groups are free to use the same X cell differently — one group might treat a given X as a 1, while a different group (or no group at all) simply ignores it. There's no requirement to be globally consistent about a single X's "value."</li>
+      <li><strong>Forgetting that don't-cares are optional, not mandatory.</strong> An X never needs to be circled if doing so doesn't help form a larger group — including an unhelpful X can even make the expression more complicated, not less.</li>
+      <li><strong>Confusing "don't-care" with "unknown but real."</strong> A don't-care specifically means the input combination never occurs (or its output truly doesn't matter) — it's a deliberate design freedom, not a gap in the specification that needs to be filled in "correctly."</li>
+    </ul>
+
+    <h2>Applications</h2>
+    <ul>
+      <li><strong>BCD-based circuits</strong> (seven-segment display decoders, BCD arithmetic units) are the textbook example — the six invalid BCD patterns are essentially always treated as don't-cares in real designs.</li>
+      <li><strong>State machine design</strong> (covered later in this course) routinely produces don't-cares for unused binary state codes — if a machine only needs 5 of 8 possible states from 3 flip-flops, the 3 unused state codes become don't-cares in the next-state logic.</li>
+      <li><strong>Any sensor or input system with a physically limited input range</strong> (e.g., a rotary switch with only 10 valid positions, but 4 bits of encoding that could represent 16) naturally produces don't-cares for the unreachable positions.</li>
+    </ul>
+  </div>
+
+  <div class="ad-slot">Advertisement</div>
+
+  <!-- QUIZ GATE -->
+  <div id="gate-section">
+    <div class="gate">
+      <div class="gate-blur">
+        <div class="quiz">
+          <div class="quiz-title">📝 Quick Quiz — 5 Questions</div>
+        </div>
+      </div>
+      <div class="gate-overlay">
+        <div class="gate-box">
+          <div class="lock">🔒</div>
+          <h3>Login to take the quiz</h3>
+          <p>Create a free account to take the quiz and track your progress across all topics.</p>
+          <div class="gate-btns">
+            <a href="../../../login.html" class="btn btn-primary btn-sm">Login</a>
+            <a href="../../../login.html" class="btn btn-outline btn-sm">Register Free</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="quiz" id="quiz-section" style="display:none">
+    <div class="quiz-title">📝 Quick Quiz — 5 Questions</div>
+    <div id="quiz-body"></div>
+    <button class="btn btn-primary" id="submit-btn" disabled>Submit Quiz</button>
+    <div class="quiz-result" id="quiz-result" style="display:none"></div>
+  </div>
+
+  <div class="topic-nav">
+    <a href="pos-simplification.html">
+      <div class="nav-dir">← Previous</div>
+      <div class="nav-title">POS Simplification</div>
+    </a>
+    <a href="nand-nor-implementation.html" class="next">
+      <div class="nav-dir">Next →</div>
+      <div class="nav-title">NAND/NOR Implementation</div>
+    </a>
+  </div>
+
+</div>
+
+<div style="max-width:820px;margin:.5rem auto;padding:0 1.25rem">
+  <div class="ad-slot">Advertisement</div>
+</div>
+<footer class="footer">© 2026 Chandra Shaker · <a href="https://chandrashaker.in">chandrashaker.in</a> · <em>Reference: M. Morris Mano &amp; Michael D. Ciletti, Digital Design with an Introduction to the Verilog HDL, 6th ed. — Gate-Level Minimization.</em></footer>
+
+<script type="module">
+  import { initNav } from '../../../js/nav.js';
+  import { onAuth, saveProgress, getProgress } from '../../../js/firebase-config.js';
+  initNav(3);
+
+  const COURSE_ID = 'dld';
+  const TOPIC_ID  = 'dont-care-conditions';
+  const LABELS    = ['A','B','C','D'];
+  const QUIZ = [
+    { q:"What is a don't-care condition in a K-map?", options:["An input combination that never occurs in practice, or whose output value doesn't matter, marked with an X", "An input combination where the output is always 0", "An input combination where the circuit malfunctions", "A cell that must always be treated as 1 during grouping"], answer:0, explanation:"A don't-care marks an input combination that either can't occur in the real system, or whose output truly doesn't matter — it's a deliberate design freedom, marked X rather than 0 or 1." },
+    { q:"When forming K-map groups, how should a don't-care (X) cell be treated?", options:["As either 0 or 1, whichever produces a larger and more useful group — decided independently for each group", "Always as a 1, without exception", "Always as a 0, without exception", "Don't-cares must be excluded from every group entirely"], answer:0, explanation:"Each X is free to be treated as whatever value (0 or 1) helps form the largest, most useful group — and different groups can even treat the same X differently." },
+    { q:"Why are BCD codes 1010 through 1111 commonly treated as don't-cares in BCD-processing circuits?", options:["Because those bit patterns are invalid BCD digits that a correctly functioning system never actually produces", "Because those patterns always represent the number zero", "Because BCD circuits are incapable of processing 4-bit inputs", "Because those patterns are reserved for parity checking only"], answer:0, explanation:"BCD only uses patterns 0000-1001 for digits 0-9; patterns 1010-1111 never occur in valid BCD data, so a BCD circuit's designer is free to assign them whatever output value simplifies the circuit." },
+    { q:"In the worked example F(A,B,C,D)=Σm(1,3,5,7,9)+d(10,11,12,13,14,15), what does the function simplify to when the don't-cares are used strategically?", options:["F = D", "F = A′D", "F = AD", "F cannot be simplified further even with don't-cares"], answer:0, explanation:"Treating m11, m13, m15 as 1s forms the quad AD (with m9), which combines with quad A′D (from m1,3,5,7) to give A′D+AD = D — the whole function collapses to the single variable D." },
+    { q:"Is it required that every don't-care cell in a K-map be included in some group?", options:["No — a don't-care is only used where it helps form a larger group; it's entirely optional", "Yes — every X must be circled in at least one group, or the simplification is considered incomplete", "Yes, but only in 4-variable maps", "No — don't-cares must never be included in any group"], answer:0, explanation:"Don't-cares are optional by definition. An X should only be included in a group if doing so produces a larger or more useful grouping — including an unhelpful X can even make the result worse." }
+  ];
+
+  let selected = {}, submitted = false;
+
+  function buildQuiz() {
+    document.getElementById('quiz-body').innerHTML = QUIZ.map((q, qi) => `
+      <div class="question">
+        <div class="question-text">Q${qi+1}. ${q.q}</div>
+        <div class="options">
+          ${q.options.map((o, oi) => `<div class="option" data-qi="${qi}" data-oi="${oi}"><span class="option-lbl">${LABELS[oi]}</span>${o}</div>`).join('')}
+        </div>
+        <div class="explanation" id="exp${qi}" style="display:none">💡 ${q.explanation}</div>
+      </div>`).join('');
+    document.querySelectorAll('.option').forEach(el => {
+      el.onclick = () => {
+        if (submitted) return;
+        const qi = +el.dataset.qi, oi = +el.dataset.oi;
+        selected[qi] = oi;
+        document.querySelectorAll(`[data-qi="${qi}"]`).forEach(o => o.classList.remove('selected'));
+        el.classList.add('selected');
+        document.getElementById('submit-btn').disabled = Object.keys(selected).length < QUIZ.length;
+      };
+    });
+  }
+
+  async function submitQuiz(uid) {
+    submitted = true; let score = 0;
+    QUIZ.forEach((q, qi) => {
+      const correct = q.answer, chosen = selected[qi];
+      document.querySelectorAll(`[data-qi="${qi}"]`).forEach(o => {
+        const oi = +o.dataset.oi;
+        if (oi === correct) o.classList.add('correct');
+        else if (oi === chosen) o.classList.add('wrong');
+      });
+      document.getElementById(`exp${qi}`).style.display = 'block';
+      if (chosen === correct) score++;
+    });
+    document.getElementById('submit-btn').style.display = 'none';
+    const pct = Math.round((score / QUIZ.length) * 100);
+    const res = document.getElementById('quiz-result');
+    res.style.display = 'block';
+    res.className = `quiz-result ${pct >= 60 ? 'pass' : 'fail'}`;
+    res.innerHTML = `<div class="quiz-score">${pct >= 60 ? '🎉' : '📖'} Score: ${score}/${QUIZ.length} (${pct}%)</div>
+      <div class="quiz-msg">${pct >= 80 ? 'Excellent! Move to the next topic.' : pct >= 60 ? 'Good. Review what you missed.' : 'Review the lesson and try again.'}</div>`;
+    if (uid) await saveProgress(uid, COURSE_ID, TOPIC_ID, score, QUIZ.length);
+  }
+
+  onAuth(async user => {
+    const gate = document.getElementById('gate-section');
+    const quiz  = document.getElementById('quiz-section');
+    if (user) {
+      gate.style.display = 'none';
+      quiz.style.display = 'block';
+      buildQuiz();
+      document.getElementById('submit-btn').onclick = () => submitQuiz(user.uid);
+      const prog = await getProgress(user.uid, COURSE_ID, TOPIC_ID);
+      if (prog?.completed) {
+        const res = document.getElementById('quiz-result');
+        res.style.display = 'block';
+        res.className = 'quiz-result pass';
+        res.innerHTML = `<div class="quiz-score">✅ Completed — Best score: ${prog.percent}%</div>
+          <div class="quiz-msg">You can retake the quiz anytime.</div>`;
+      }
+    }
+  });
+</script>
+</body>
+</html>

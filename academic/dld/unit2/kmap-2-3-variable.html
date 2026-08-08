@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>K-Maps: 2 & 3 Variables — DLD Unit 2 | Chandras EDU</title>
+  <meta name="description" content="The Karnaugh map grid, Gray-code adjacency, and the grouping rules for reading a minimal SOP expression straight off a 2- or 3-variable K-map.">
+  <link rel="canonical" href="https://courses.chandrashaker.in/academic/dld/unit2/kmap-2-3-variable.html">
+  <link rel="stylesheet" href="../../../css/style.css">
+
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Chandras EDU">
+  <meta property="og:title" content="K-Maps: 2 & 3 Variables — DLD Unit 2 | Chandras EDU">
+  <meta property="og:description" content="The Karnaugh map grid, Gray-code adjacency, and the grouping rules for reading a minimal SOP expression straight off a 2- or 3-variable K-map.">
+  <meta property="og:url" content="https://courses.chandrashaker.in/academic/dld/unit2/kmap-2-3-variable.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="K-Maps: 2 & 3 Variables — DLD Unit 2 | Chandras EDU">
+  <meta name="twitter:description" content="The Karnaugh map grid, Gray-code adjacency, and the grouping rules for reading a minimal SOP expression straight off a 2- or 3-variable K-map.">
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Courses", "item": "https://courses.chandrashaker.in/" },
+    { "@type": "ListItem", "position": 2, "name": "DLD", "item": "https://courses.chandrashaker.in/academic/dld/" },
+    { "@type": "ListItem", "position": 3, "name": "Unit 2", "item": "https://courses.chandrashaker.in/academic/dld/unit2/" },
+    { "@type": "ListItem", "position": 4, "name": "K-Maps: 2 & 3 Variables" }
+  ]
+}
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LearningResource",
+  "name": "K-Maps: 2 & 3 Variables",
+  "description": "The Karnaugh map grid, Gray-code adjacency, and the grouping rules for reading a minimal SOP expression straight off a 2- or 3-variable K-map.",
+  "url": "https://courses.chandrashaker.in/academic/dld/unit2/kmap-2-3-variable.html",
+  "learningResourceType": "Lesson",
+  "educationalLevel": "Undergraduate",
+  "about": { "@type": "Thing", "name": "Digital Logic Design" },
+  "isPartOf": {
+    "@type": "Course",
+    "name": "Digital Logic Design",
+    "provider": { "@type": "Organization", "name": "Chandras EDU", "url": "https://chandrashaker.in" }
+  },
+  "publisher": { "@type": "Organization", "name": "Chandras EDU", "url": "https://chandrashaker.in" }
+}
+  </script>
+  <link rel="icon" href="/favicon.ico">
+  <style>
+    .kmap-wrap { display:flex; justify-content:center; margin:1.25rem 0; overflow-x:auto; }
+    .kmap-table { border-collapse:collapse; font-size:.85rem; }
+    .kmap-table th, .kmap-table td { border:1px solid var(--border); width:52px; height:44px; text-align:center; padding:0; }
+    .kmap-table th { background:var(--bg-3); font-weight:700; color:var(--text-2); font-size:.78rem; }
+    .kmap-table .corner { font-size:.68rem; color:var(--text-3); font-weight:600; }
+    .kmap-table td .val { font-weight:700; font-size:1rem; }
+    .kmap-table td .idx { display:block; font-size:.62rem; color:var(--text-3); }
+    .kmap-table td.one { background:#e8f5e9; }
+    .kmap-table td.one .val { color:var(--success); }
+    .kmap-table td.zero .val { color:var(--text-3); }
+  </style>
+</head>
+<body>
+<nav class="nav"><div id="main-nav"></div></nav>
+
+<div style="max-width:820px;margin:.5rem auto;padding:0 1.25rem">
+  <div class="ad-slot">Advertisement</div>
+</div>
+
+<div class="page-narrow" role="main">
+
+  <nav class="breadcrumb">
+    <a href="../../../index.html">Courses</a><span class="sep">/</span>
+    <a href="../../dld/index.html">DLD</a><span class="sep">/</span>
+    <a href="index.html">Unit 2</a><span class="sep">/</span>
+    <span>K-Map Minimization</span><span class="sep">/</span>
+    <span class="cur">K-Maps: 2 &amp; 3 Variables</span>
+  </nav>
+
+  <div style="background:var(--primary);border-radius:var(--radius-lg);padding:1.1rem 1.4rem;margin-bottom:1.5rem;color:#fff">
+    <div style="font-size:.75rem;opacity:.75;margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.05em">DLD › Unit 2: K-Map Minimization › Topic 1</div>
+    <h1 style="font-size:1.4rem;font-weight:700;color:#fff;margin-bottom:.5rem">K-Maps: 2 &amp; 3 Variables</h1>
+    <div style="display:flex;gap:.75rem;flex-wrap:wrap">
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">⏱ 20 min read</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📝 Quiz inside</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📖 Mano &amp; Ciletti Ch. 3</span>
+    </div>
+  </div>
+
+  <!-- FULL LESSON — visible to everyone -->
+  <div class="lesson">
+    <p>Unit 1 showed how to write any Boolean function as a canonical sum of minterms, straight from a truth table — mechanical, but rarely minimal. Algebraic simplification (also from Unit 1) can shrink it, but requires spotting the right theorem to apply at each step, and it's easy to stop too early or make a mistake. The <strong>Karnaugh map (K-map)</strong> replaces that trial-and-error with a visual procedure: arrange the truth table into a grid where the answer becomes something you can basically just <em>see</em>.</p>
+
+    <h2>The Key Idea: Adjacency</h2>
+    <p>A K-map arranges every row of a truth table into a grid, laid out so that <strong>physically adjacent cells differ in exactly one variable</strong>. That's not a coincidence — the row and column headers are deliberately written in <strong>Gray code order</strong> (00, 01, 11, 10 — never plain binary counting order 00, 01, 10, 11), specifically so neighboring cells are always exactly one bit-flip apart. Two cells that differ in exactly one variable can always be combined algebraically, since that differing variable cancels out (x + x′ = 1) — a K-map just lets you <em>see</em> which cells qualify, instead of hunting for the right algebraic step by hand.</p>
+
+    <h2>2-Variable K-Map</h2>
+    <p>A 2-variable map has 4 cells — one per row of a 2-variable truth table.</p>
+
+    <h3>Worked Example — F(A,B) = Σm(0,1,3)</h3>
+    <div class="kmap-wrap">
+      <table class="kmap-table">
+        <tr><th class="corner">A\B</th><th>0</th><th>1</th></tr>
+        <tr><th>0</th>
+          <td class="one"><span class="val">1</span><span class="idx">m0</span></td>
+          <td class="one"><span class="val">1</span><span class="idx">m1</span></td>
+        </tr>
+        <tr><th>1</th>
+          <td class="zero"><span class="val">0</span><span class="idx">m2</span></td>
+          <td class="one"><span class="val">1</span><span class="idx">m3</span></td>
+        </tr>
+      </table>
+    </div>
+    <p>Two groups of adjacent 1s are visible: the top row (m0, m1 — both A=0) and the right column (m1, m3 — both B=1). Each group's size-2 means one variable drops out, leaving only the variable(s) that stay constant across the whole group:</p>
+    <div class="box box-eg">
+      <pre>Top row (A=0, B varies):     term = A′
+Right column (B=1, A varies): term = B
+
+F = A′ + B</pre>
+    </div>
+    <p>Notice cell m1 belongs to <em>both</em> groups — that's completely normal. A K-map group only needs to cover a 1; nothing stops a 1 from being covered by more than one group if that produces fewer, larger groups overall.</p>
+
+    <h2>3-Variable K-Map</h2>
+    <p>A 3-variable map has 8 cells: 2 rows (for the first variable) by 4 columns, with the column header in Gray-code order — 00, 01, 11, 10, <em>not</em> 00, 01, 10, 11. This means the <strong>leftmost and rightmost columns are also adjacent</strong> (both differ from each other in exactly one bit), wrapping the grid around like a cylinder.</p>
+
+    <h3>Worked Example — F(A,B,C) = Σm(0,1,2,3,5)</h3>
+    <div class="kmap-wrap">
+      <table class="kmap-table">
+        <tr><th class="corner">A\BC</th><th>00</th><th>01</th><th>11</th><th>10</th></tr>
+        <tr><th>0</th>
+          <td class="one"><span class="val">1</span><span class="idx">m0</span></td>
+          <td class="one"><span class="val">1</span><span class="idx">m1</span></td>
+          <td class="one"><span class="val">1</span><span class="idx">m3</span></td>
+          <td class="one"><span class="val">1</span><span class="idx">m2</span></td>
+        </tr>
+        <tr><th>1</th>
+          <td class="zero"><span class="val">0</span><span class="idx">m4</span></td>
+          <td class="one"><span class="val">1</span><span class="idx">m5</span></td>
+          <td class="zero"><span class="val">0</span><span class="idx">m7</span></td>
+          <td class="zero"><span class="val">0</span><span class="idx">m6</span></td>
+        </tr>
+      </table>
+    </div>
+    <p>Two groups cover every 1: the entire top row (a group of 4, since the whole A=0 row is 1s) and a pair {m1, m5} (both B=0, C=1, differing only in A). Reading each group's constant variables:</p>
+    <div class="box box-eg">
+      <pre>Top row, all 4 cells (A=0, B and C both vary): term = A′
+Pair {m1, m5} (B=0, C=1, A varies):            term = B′C
+
+F = A′ + B′C</pre>
+    </div>
+    <p>Check against the canonical form: minterms 0,1,2,3 are exactly the A=0 row (A′), and minterm 5 is covered by B′C — together, {0,1,2,3,5} matches the target exactly. ✓</p>
+
+    <div class="box box-tip">
+      🚀 A group's size is always a <strong>power of 2</strong> — 1, 2, 4, 8... A group of size 2ⁿ eliminates exactly <em>n</em> variables from the term. A single isolated 1 (group of 1) keeps every variable; a group covering the whole map (size 2ᵏ for a k-variable map) means the function is simply <strong>1</strong>, with every variable eliminated.
+    </div>
+
+    <h2>Grouping Rules, Stated Precisely</h2>
+    <ul>
+      <li><strong>Every group's size must be a power of 2</strong> — 1, 2, 4, 8. Groups of 3, 5, 6, or 7 cells are not valid.</li>
+      <li><strong>Every 1 in the map must be covered by at least one group</strong> — an uncovered 1 means the resulting expression is wrong (missing a term).</li>
+      <li><strong>Make groups as large as possible.</strong> A bigger valid group always produces a shorter term (fewer literals) than covering the same cells with several smaller groups.</li>
+      <li><strong>Use the fewest groups that cover every 1.</strong> Overlap between groups is fine and often necessary — just don't add a group that's not covering any 1 that isn't already covered elsewhere.</li>
+    </ul>
+
+    <h2>Common Pitfalls</h2>
+    <ul>
+      <li><strong>Writing column/row headers in plain binary order instead of Gray code.</strong> This breaks the entire premise of the K-map — adjacent cells would no longer differ in exactly one bit, and the visual grouping technique stops being valid.</li>
+      <li><strong>Forgetting wraparound adjacency.</strong> In a 3-variable map, column 00 and column 10 (the leftmost and rightmost) are adjacent — a common mistake is treating the map as a flat, non-wrapping grid.</li>
+      <li><strong>Making a group that isn't a power-of-2 size</strong> — e.g., grouping 3 cells together. If a grouping doesn't cleanly divide into 1, 2, 4, or 8, it isn't a valid K-map group, even if all those cells happen to be 1.</li>
+    </ul>
+
+    <h2>Applications</h2>
+    <ul>
+      <li><strong>Every combinational circuit design</strong> in the rest of this course, and in real digital design workflows, starts with exactly this kind of minimization before a gate-level circuit gets drawn.</li>
+      <li><strong>Manual minimization for small functions</strong> (up to 4-5 variables) is still routinely done with K-maps in coursework and quick hardware prototyping, even though larger designs use automated logic synthesis tools.</li>
+      <li><strong>The same adjacency principle</strong> — Gray code ensuring single-bit transitions — is reused directly in Unit 4's counter and encoder designs, where Gray code sequencing prevents multiple bits from changing simultaneously.</li>
+    </ul>
+  </div>
+
+  <div class="ad-slot">Advertisement</div>
+
+  <!-- QUIZ GATE -->
+  <div id="gate-section">
+    <div class="gate">
+      <div class="gate-blur">
+        <div class="quiz">
+          <div class="quiz-title">📝 Quick Quiz — 5 Questions</div>
+        </div>
+      </div>
+      <div class="gate-overlay">
+        <div class="gate-box">
+          <div class="lock">🔒</div>
+          <h3>Login to take the quiz</h3>
+          <p>Create a free account to take the quiz and track your progress across all topics.</p>
+          <div class="gate-btns">
+            <a href="../../../login.html" class="btn btn-primary btn-sm">Login</a>
+            <a href="../../../login.html" class="btn btn-outline btn-sm">Register Free</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="quiz" id="quiz-section" style="display:none">
+    <div class="quiz-title">📝 Quick Quiz — 5 Questions</div>
+    <div id="quiz-body"></div>
+    <button class="btn btn-primary" id="submit-btn" disabled>Submit Quiz</button>
+    <div class="quiz-result" id="quiz-result" style="display:none"></div>
+  </div>
+
+  <div class="topic-nav">
+    <a href="index.html">
+      <div class="nav-dir">← Back</div>
+      <div class="nav-title">Unit 2 Overview</div>
+    </a>
+    <a href="kmap-4-variable.html" class="next">
+      <div class="nav-dir">Next →</div>
+      <div class="nav-title">4-Variable K-Maps</div>
+    </a>
+  </div>
+
+</div>
+
+<div style="max-width:820px;margin:.5rem auto;padding:0 1.25rem">
+  <div class="ad-slot">Advertisement</div>
+</div>
+<footer class="footer">© 2026 Chandra Shaker · <a href="https://chandrashaker.in">chandrashaker.in</a> · <em>Reference: M. Morris Mano &amp; Michael D. Ciletti, Digital Design with an Introduction to the Verilog HDL, 6th ed. — Gate-Level Minimization.</em></footer>
+
+<script type="module">
+  import { initNav } from '../../../js/nav.js';
+  import { onAuth, saveProgress, getProgress } from '../../../js/firebase-config.js';
+  initNav(3);
+
+  const COURSE_ID = 'dld';
+  const TOPIC_ID  = 'kmap-2-3-variable';
+  const LABELS    = ['A','B','C','D'];
+  const QUIZ = [
+    { q:"Why are K-map row/column headers written in Gray code order (00,01,11,10) instead of plain binary order (00,01,10,11)?", options:["So that physically adjacent cells always differ in exactly one variable, which is what makes algebraic combination valid", "Gray code order is purely a stylistic convention with no functional purpose", "Because Gray code allows more than 2 variables to be shown per axis", "Plain binary order would make the map too large to draw"], answer:0, explanation:"Gray-code ordering guarantees any two physically neighboring cells differ in exactly one bit — exactly the condition needed for the group's differing variable to cancel out algebraically." },
+    { q:"In a 3-variable K-map with column headers 00, 01, 11, 10, which columns are adjacent to each other?", options:["Every pair of horizontally neighboring columns, AND the leftmost (00) and rightmost (10) columns via wraparound", "Only horizontally neighboring columns — there is no wraparound in a 3-variable map", "Only the two middle columns (01 and 11)", "All four columns are mutually adjacent to each other"], answer:0, explanation:"Gray code adjacency applies between neighbors AND wraps around: column 00 and column 10 differ in exactly one bit (the leftmost bit), so they're adjacent despite being at opposite ends of the row." },
+    { q:"A K-map grouping covers 3 cells that are all 1. Is this a valid K-map group?", options:["No — every group's size must be a power of 2 (1, 2, 4, 8...); 3 is not a valid group size", "Yes, as long as all 3 cells are physically adjacent to each other", "Yes, but only in a 3-variable map specifically", "It depends on which 3 cells are chosen"], answer:0, explanation:"K-map groups must always have a size that's a power of 2. A 3-cell grouping is never valid, regardless of adjacency, because 3 isn't a power of 2." },
+    { q:"For F(A,B,C)=Σm(0,1,2,3,5), one valid grouping combines the entire top row (A=0, all 4 cells) into a single group. What term does this group produce?", options:["A′", "A′B′C′", "B+C", "A"], answer:0, explanation:"A group of size 4 (the whole A=0 row) eliminates 2 variables (B and C both vary across the group), leaving only the one constant variable: A=0 → A′." },
+    { q:"Why must every 1 in a K-map be covered by at least one group when reading off the simplified expression?", options:["Because an uncovered 1 represents an input combination the final expression would incorrectly evaluate to 0 for", "Uncovered 1s are automatically ignored and don't affect correctness", "Only exactly half of the 1s need to be covered for a valid simplification", "Coverage only matters for 4-variable maps, not 2 or 3-variable maps"], answer:0, explanation:"The simplified SOP expression must equal 1 for every minterm in the original function. If a 1-cell isn't covered by any group, the simplified expression would wrongly output 0 for that input combination." }
+  ];
+
+  let selected = {}, submitted = false;
+
+  function buildQuiz() {
+    document.getElementById('quiz-body').innerHTML = QUIZ.map((q, qi) => `
+      <div class="question">
+        <div class="question-text">Q${qi+1}. ${q.q}</div>
+        <div class="options">
+          ${q.options.map((o, oi) => `<div class="option" data-qi="${qi}" data-oi="${oi}"><span class="option-lbl">${LABELS[oi]}</span>${o}</div>`).join('')}
+        </div>
+        <div class="explanation" id="exp${qi}" style="display:none">💡 ${q.explanation}</div>
+      </div>`).join('');
+    document.querySelectorAll('.option').forEach(el => {
+      el.onclick = () => {
+        if (submitted) return;
+        const qi = +el.dataset.qi, oi = +el.dataset.oi;
+        selected[qi] = oi;
+        document.querySelectorAll(`[data-qi="${qi}"]`).forEach(o => o.classList.remove('selected'));
+        el.classList.add('selected');
+        document.getElementById('submit-btn').disabled = Object.keys(selected).length < QUIZ.length;
+      };
+    });
+  }
+
+  async function submitQuiz(uid) {
+    submitted = true; let score = 0;
+    QUIZ.forEach((q, qi) => {
+      const correct = q.answer, chosen = selected[qi];
+      document.querySelectorAll(`[data-qi="${qi}"]`).forEach(o => {
+        const oi = +o.dataset.oi;
+        if (oi === correct) o.classList.add('correct');
+        else if (oi === chosen) o.classList.add('wrong');
+      });
+      document.getElementById(`exp${qi}`).style.display = 'block';
+      if (chosen === correct) score++;
+    });
+    document.getElementById('submit-btn').style.display = 'none';
+    const pct = Math.round((score / QUIZ.length) * 100);
+    const res = document.getElementById('quiz-result');
+    res.style.display = 'block';
+    res.className = `quiz-result ${pct >= 60 ? 'pass' : 'fail'}`;
+    res.innerHTML = `<div class="quiz-score">${pct >= 60 ? '🎉' : '📖'} Score: ${score}/${QUIZ.length} (${pct}%)</div>
+      <div class="quiz-msg">${pct >= 80 ? 'Excellent! Move to the next topic.' : pct >= 60 ? 'Good. Review what you missed.' : 'Review the lesson and try again.'}</div>`;
+    if (uid) await saveProgress(uid, COURSE_ID, TOPIC_ID, score, QUIZ.length);
+  }
+
+  onAuth(async user => {
+    const gate = document.getElementById('gate-section');
+    const quiz  = document.getElementById('quiz-section');
+    if (user) {
+      gate.style.display = 'none';
+      quiz.style.display = 'block';
+      buildQuiz();
+      document.getElementById('submit-btn').onclick = () => submitQuiz(user.uid);
+      const prog = await getProgress(user.uid, COURSE_ID, TOPIC_ID);
+      if (prog?.completed) {
+        const res = document.getElementById('quiz-result');
+        res.style.display = 'block';
+        res.className = 'quiz-result pass';
+        res.innerHTML = `<div class="quiz-score">✅ Completed — Best score: ${prog.percent}%</div>
+          <div class="quiz-msg">You can retake the quiz anytime.</div>`;
+      }
+    }
+  });
+</script>
+</body>
+</html>
