@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Boolean Functions: Canonical & Standard Forms — DLD Unit 1 | Chandras EDU</title>
+  <meta name="description" content="Minterms, maxterms, canonical SOP/POS forms, and the more compact standard forms — how to write any Boolean function directly from a truth table.">
+  <link rel="canonical" href="https://courses.chandrashaker.in/academic/dld/unit1/canonical-standard-forms.html">
+  <link rel="stylesheet" href="../../../css/style.css">
+
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Chandras EDU">
+  <meta property="og:title" content="Boolean Functions: Canonical & Standard Forms — DLD Unit 1 | Chandras EDU">
+  <meta property="og:description" content="Minterms, maxterms, canonical SOP/POS forms, and the more compact standard forms — how to write any Boolean function directly from a truth table.">
+  <meta property="og:url" content="https://courses.chandrashaker.in/academic/dld/unit1/canonical-standard-forms.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Boolean Functions: Canonical & Standard Forms — DLD Unit 1 | Chandras EDU">
+  <meta name="twitter:description" content="Minterms, maxterms, canonical SOP/POS forms, and the more compact standard forms — how to write any Boolean function directly from a truth table.">
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Courses", "item": "https://courses.chandrashaker.in/" },
+    { "@type": "ListItem", "position": 2, "name": "DLD", "item": "https://courses.chandrashaker.in/academic/dld/" },
+    { "@type": "ListItem", "position": 3, "name": "Unit 1", "item": "https://courses.chandrashaker.in/academic/dld/unit1/" },
+    { "@type": "ListItem", "position": 4, "name": "Canonical & Standard Forms" }
+  ]
+}
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LearningResource",
+  "name": "Boolean Functions: Canonical & Standard Forms",
+  "description": "Minterms, maxterms, canonical SOP/POS forms, and the more compact standard forms — how to write any Boolean function directly from a truth table.",
+  "url": "https://courses.chandrashaker.in/academic/dld/unit1/canonical-standard-forms.html",
+  "learningResourceType": "Lesson",
+  "educationalLevel": "Undergraduate",
+  "about": { "@type": "Thing", "name": "Digital Logic Design" },
+  "isPartOf": {
+    "@type": "Course",
+    "name": "Digital Logic Design",
+    "provider": { "@type": "Organization", "name": "Chandras EDU", "url": "https://chandrashaker.in" }
+  },
+  "publisher": { "@type": "Organization", "name": "Chandras EDU", "url": "https://chandrashaker.in" }
+}
+  </script>
+  <link rel="icon" href="/favicon.ico">
+</head>
+<body>
+<nav class="nav"><div id="main-nav"></div></nav>
+
+<div style="max-width:820px;margin:.5rem auto;padding:0 1.25rem">
+  <div class="ad-slot">Advertisement</div>
+</div>
+
+<div class="page-narrow" role="main">
+
+  <nav class="breadcrumb">
+    <a href="../../../index.html">Courses</a><span class="sep">/</span>
+    <a href="../../dld/index.html">DLD</a><span class="sep">/</span>
+    <a href="index.html">Unit 1</a><span class="sep">/</span>
+    <span>Boolean Algebra &amp; Logic Gates</span><span class="sep">/</span>
+    <span class="cur">Canonical &amp; Standard Forms</span>
+  </nav>
+
+  <div style="background:var(--primary);border-radius:var(--radius-lg);padding:1.1rem 1.4rem;margin-bottom:1.5rem;color:#fff">
+    <div style="font-size:.75rem;opacity:.75;margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.05em">DLD › Unit 1: Boolean Algebra &amp; Logic Gates › Topic 6</div>
+    <h1 style="font-size:1.4rem;font-weight:700;color:#fff;margin-bottom:.5rem">Boolean Functions: Canonical &amp; Standard Forms</h1>
+    <div style="display:flex;gap:.75rem;flex-wrap:wrap">
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">⏱ 20 min read</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📝 Quiz inside</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📖 Mano &amp; Ciletti Ch. 2</span>
+    </div>
+  </div>
+
+  <!-- FULL LESSON — visible to everyone -->
+  <div class="lesson">
+    <p>Given a truth table, is there a mechanical, no-judgment-required way to write down the exact Boolean expression it describes? Yes — that's exactly what <strong>canonical forms</strong> give you. This page covers how to build one directly from a truth table, and the more compact "standard forms" used once you're ready to simplify.</p>
+
+    <h2>Minterms and Maxterms</h2>
+    <p>For <em>n</em> Boolean variables, a <strong>minterm</strong> is an AND term that includes every one of the n variables exactly once — uncomplemented if that variable is 1 in a given row, complemented if it's 0. A <strong>maxterm</strong> is the dual idea: an OR term including every variable, uncomplemented if 0 in that row, complemented if 1.</p>
+    <table>
+      <thead><tr><th>A</th><th>B</th><th>C</th><th>Minterm</th><th>Maxterm</th></tr></thead>
+      <tbody>
+        <tr><td>0</td><td>0</td><td>0</td><td>m₀ = A′B′C′</td><td>M₀ = A+B+C</td></tr>
+        <tr><td>0</td><td>0</td><td>1</td><td>m₁ = A′B′C</td><td>M₁ = A+B+C′</td></tr>
+        <tr><td>0</td><td>1</td><td>0</td><td>m₂ = A′BC′</td><td>M₂ = A+B′+C</td></tr>
+        <tr><td>0</td><td>1</td><td>1</td><td>m₃ = A′BC</td><td>M₃ = A+B′+C′</td></tr>
+        <tr><td>1</td><td>0</td><td>0</td><td>m₄ = AB′C′</td><td>M₄ = A′+B+C</td></tr>
+        <tr><td>1</td><td>0</td><td>1</td><td>m₅ = AB′C</td><td>M₅ = A′+B+C′</td></tr>
+        <tr><td>1</td><td>1</td><td>0</td><td>m₆ = ABC′</td><td>M₆ = A′+B′+C</td></tr>
+        <tr><td>1</td><td>1</td><td>1</td><td>m₇ = ABC</td><td>M₇ = A′+B′+C′</td></tr>
+      </tbody>
+    </table>
+    <p>Notice the pattern: <strong>mᵢ = Mᵢ′</strong> for every row — a minterm and its same-numbered maxterm are complements of each other. This isn't a coincidence; it's exactly what DeMorgan's law produces when you complement an AND-of-literals into an OR-of-complemented-literals.</p>
+
+    <h2>Canonical Sum-of-Products (SOP)</h2>
+    <p>The <strong>canonical SOP</strong> form of a function is the OR of the minterms corresponding to every row where the function equals 1. Read directly off a truth table with zero algebraic work.</p>
+
+    <h3>Worked Example — Canonical SOP</h3>
+    <p>F(A,B,C) is 1 for rows 1, 4, and 7 (using the row numbering above: A′B′C, AB′C′, ABC):</p>
+    <p style="text-align:center;font-size:1.05rem;font-weight:700;color:var(--primary);margin:1rem 0">F = A′B′C + AB′C′ + ABC = Σm(1,4,7)</p>
+    <p>The Σm(...) shorthand — "sum of minterms" — just lists the row numbers where the function is 1, without writing out every term longhand.</p>
+
+    <h2>Canonical Product-of-Sums (POS)</h2>
+    <p>The <strong>canonical POS</strong> form is the AND of the maxterms corresponding to every row where the function equals <strong>0</strong> — the mirror image of canonical SOP.</p>
+
+    <h3>Worked Example — Canonical POS (Same Function)</h3>
+    <p>The same F above is 0 for rows 0, 2, 3, 5, 6:</p>
+    <p style="text-align:center;font-size:1.05rem;font-weight:700;color:var(--primary);margin:1rem 0">F = M₀·M₂·M₃·M₅·M₆ = ΠM(0,2,3,5,6)</p>
+    <p>The ΠM(...) shorthand — "product of maxterms" — lists the row numbers where the function is 0. Notice the two forms are complementary lists: SOP lists where F=1, POS lists where F=0, and together they cover every row exactly once.</p>
+
+    <div class="box box-tip">
+      🚀 Both canonical forms describe the <em>exact same function</em> — they're not two different functions, just two different (and fully mechanical) ways of writing the same truth table algebraically. Either one can be derived directly from the other just by knowing which rows aren't listed.
+    </div>
+
+    <h2>Standard Forms</h2>
+    <p>Canonical forms are useful precisely because they're mechanical — but they're rarely the <em>simplest</em> expression, since every single term must include every variable, even when a shorter term would do. A <strong>standard SOP</strong> is any sum of AND terms where each term doesn't necessarily include all the variables (a mix of minterms and shorter product terms); a <strong>standard POS</strong> is the equivalent for OR terms. Standard forms are what you actually get <em>after</em> simplification (algebraic or K-map, covered in Unit 2) — canonical forms are the unsimplified starting point.</p>
+
+    <h3>Worked Example — Canonical vs. Standard SOP</h3>
+    <div class="box box-eg">
+      <pre>Canonical SOP:  F = A′B′C + AB′C′ + AB′C
+Standard SOP:   F = A′B′C + AB′        (AB′C′ + AB′C = AB′(C′+C) = AB′)</pre>
+    </div>
+    <p>Same function, fewer literals — the standard form dropped from 9 literals to 5 by combining two minterms that differ in only one variable, exactly the kind of pattern K-maps are built to spot automatically.</p>
+
+    <h2>Common Pitfalls</h2>
+    <ul>
+      <li><strong>Forgetting that a minterm and its same-index maxterm are complements</strong> — mᵢ and Mᵢ are related but not interchangeable; mixing them up when converting between canonical SOP and POS produces a wrong expression.</li>
+      <li><strong>Listing the wrong rows for POS.</strong> Canonical POS uses the maxterms for rows where F=<strong>0</strong>, not where F=1 — the easiest way to get this backwards is applying the SOP mental model (list where F=1) to POS by habit.</li>
+      <li><strong>Treating a standard form as if it were unique.</strong> Unlike canonical forms (exactly one canonical SOP and one canonical POS per function), there are many valid standard forms for the same function — different, equally-correct simplification paths can land on different (but equivalent) standard expressions.</li>
+    </ul>
+
+    <h2>Applications</h2>
+    <ul>
+      <li><strong>Canonical SOP is the direct starting point for decoder-based circuit implementation</strong> (covered in Unit 3) — each decoder output line IS one minterm, generated in hardware.</li>
+      <li><strong>Truth-table-to-equation conversion tools</strong> (in HDL synthesis, spreadsheet logic tools, and digital design software) mechanically generate canonical SOP or POS internally as a first step, before any minimization runs.</li>
+      <li><strong>K-map minimization (Unit 2)</strong> takes a canonical form's minterms as its direct input — the Σm(...) shorthand on this page is exactly the notation used to specify which cells of a K-map get marked with a 1.</li>
+    </ul>
+  </div>
+
+  <div class="ad-slot">Advertisement</div>
+
+  <!-- QUIZ GATE -->
+  <div id="gate-section">
+    <div class="gate">
+      <div class="gate-blur">
+        <div class="quiz">
+          <div class="quiz-title">📝 Quick Quiz — 5 Questions</div>
+        </div>
+      </div>
+      <div class="gate-overlay">
+        <div class="gate-box">
+          <div class="lock">🔒</div>
+          <h3>Login to take the quiz</h3>
+          <p>Create a free account to take the quiz and track your progress across all topics.</p>
+          <div class="gate-btns">
+            <a href="../../../login.html" class="btn btn-primary btn-sm">Login</a>
+            <a href="../../../login.html" class="btn btn-outline btn-sm">Register Free</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="quiz" id="quiz-section" style="display:none">
+    <div class="quiz-title">📝 Quick Quiz — 5 Questions</div>
+    <div id="quiz-body"></div>
+    <button class="btn btn-primary" id="submit-btn" disabled>Submit Quiz</button>
+    <div class="quiz-result" id="quiz-result" style="display:none"></div>
+  </div>
+
+  <div class="topic-nav">
+    <a href="boolean-algebra-theorems.html">
+      <div class="nav-dir">← Previous</div>
+      <div class="nav-title">Boolean Algebra: Axioms &amp; Theorems</div>
+    </a>
+    <a href="digital-logic-gates-overview.html" class="next">
+      <div class="nav-dir">Next →</div>
+      <div class="nav-title">Digital Logic Gates Overview</div>
+    </a>
+  </div>
+
+</div>
+
+<div style="max-width:820px;margin:.5rem auto;padding:0 1.25rem">
+  <div class="ad-slot">Advertisement</div>
+</div>
+<footer class="footer">© 2026 Chandra Shaker · <a href="https://chandrashaker.in">chandrashaker.in</a> · <em>Reference: M. Morris Mano &amp; Michael D. Ciletti, Digital Design with an Introduction to the Verilog HDL, 6th ed. — Boolean Functions, Canonical and Standard Forms.</em></footer>
+
+<script type="module">
+  import { initNav } from '../../../js/nav.js';
+  import { onAuth, saveProgress, getProgress } from '../../../js/firebase-config.js';
+  initNav(3);
+
+  const COURSE_ID = 'dld';
+  const TOPIC_ID  = 'canonical-standard-forms';
+  const LABELS    = ['A','B','C','D'];
+  const QUIZ = [
+    { q:"For a 3-variable function, what is minterm m₃, corresponding to row A=0, B=1, C=1?", options:["A′BC", "ABC′", "A+B′+C′", "A′B′C′"], answer:0, explanation:"A minterm is uncomplemented where the variable is 1 and complemented where it's 0: A=0→A′, B=1→B, C=1→C, giving A′BC." },
+    { q:"What is the relationship between minterm mᵢ and maxterm Mᵢ (same index i)?", options:["mᵢ = Mᵢ′ (they are complements of each other)", "mᵢ = Mᵢ (they are identical)", "There is no relationship between them", "mᵢ is always true whenever Mᵢ is true"], answer:0, explanation:"A minterm and its same-numbered maxterm are complements — this follows directly from DeMorgan's law applied to the AND-of-literals vs OR-of-complemented-literals structure." },
+    { q:"A function F is 1 for rows 1, 4, 7 and 0 for all other rows (0,2,3,5,6) of a 3-variable truth table. What is its canonical POS form?", options:["F = M₀·M₂·M₃·M₅·M₆", "F = m₁+m₄+m₇", "F = M₁·M₄·M₇", "F = m₀+m₂+m₃+m₅+m₆"], answer:0, explanation:"Canonical POS is the product of maxterms for rows where F=0 — here rows 0,2,3,5,6, giving M₀·M₂·M₃·M₅·M₆." },
+    { q:"What's the key difference between a canonical SOP form and a standard SOP form of the same function?", options:["Canonical SOP requires every term to include all variables (as minterms); standard SOP allows terms with fewer variables, and is typically the more simplified result", "They are always identical for any function", "Standard SOP only applies to functions with 2 or fewer variables", "Canonical SOP uses OR of maxterms, not AND of minterms"], answer:0, explanation:"Canonical SOP is the unsimplified sum of full minterms (every variable in every term). Standard SOP allows shorter product terms, and is what you typically get after simplification." },
+    { q:"Why is the Σm(...) minterm-list notation directly relevant to K-map minimization (covered in Unit 2)?", options:["Because it specifies exactly which K-map cells get marked with a 1, serving as the direct input to the minimization process", "Because K-maps only work with maxterms, never minterms", "Because Σm(...) notation is unrelated to K-maps entirely", "Because K-maps convert minterms into maxterms automatically before minimization"], answer:0, explanation:"The minterm list in Σm(...) notation tells you exactly which cells of a K-map to mark as 1 — it's the direct starting point for the K-map minimization process." }
+  ];
+
+  let selected = {}, submitted = false;
+
+  function buildQuiz() {
+    document.getElementById('quiz-body').innerHTML = QUIZ.map((q, qi) => `
+      <div class="question">
+        <div class="question-text">Q${qi+1}. ${q.q}</div>
+        <div class="options">
+          ${q.options.map((o, oi) => `<div class="option" data-qi="${qi}" data-oi="${oi}"><span class="option-lbl">${LABELS[oi]}</span>${o}</div>`).join('')}
+        </div>
+        <div class="explanation" id="exp${qi}" style="display:none">💡 ${q.explanation}</div>
+      </div>`).join('');
+    document.querySelectorAll('.option').forEach(el => {
+      el.onclick = () => {
+        if (submitted) return;
+        const qi = +el.dataset.qi, oi = +el.dataset.oi;
+        selected[qi] = oi;
+        document.querySelectorAll(`[data-qi="${qi}"]`).forEach(o => o.classList.remove('selected'));
+        el.classList.add('selected');
+        document.getElementById('submit-btn').disabled = Object.keys(selected).length < QUIZ.length;
+      };
+    });
+  }
+
+  async function submitQuiz(uid) {
+    submitted = true; let score = 0;
+    QUIZ.forEach((q, qi) => {
+      const correct = q.answer, chosen = selected[qi];
+      document.querySelectorAll(`[data-qi="${qi}"]`).forEach(o => {
+        const oi = +o.dataset.oi;
+        if (oi === correct) o.classList.add('correct');
+        else if (oi === chosen) o.classList.add('wrong');
+      });
+      document.getElementById(`exp${qi}`).style.display = 'block';
+      if (chosen === correct) score++;
+    });
+    document.getElementById('submit-btn').style.display = 'none';
+    const pct = Math.round((score / QUIZ.length) * 100);
+    const res = document.getElementById('quiz-result');
+    res.style.display = 'block';
+    res.className = `quiz-result ${pct >= 60 ? 'pass' : 'fail'}`;
+    res.innerHTML = `<div class="quiz-score">${pct >= 60 ? '🎉' : '📖'} Score: ${score}/${QUIZ.length} (${pct}%)</div>
+      <div class="quiz-msg">${pct >= 80 ? 'Excellent! Move to the next topic.' : pct >= 60 ? 'Good. Review what you missed.' : 'Review the lesson and try again.'}</div>`;
+    if (uid) await saveProgress(uid, COURSE_ID, TOPIC_ID, score, QUIZ.length);
+  }
+
+  onAuth(async user => {
+    const gate = document.getElementById('gate-section');
+    const quiz  = document.getElementById('quiz-section');
+    if (user) {
+      gate.style.display = 'none';
+      quiz.style.display = 'block';
+      buildQuiz();
+      document.getElementById('submit-btn').onclick = () => submitQuiz(user.uid);
+      const prog = await getProgress(user.uid, COURSE_ID, TOPIC_ID);
+      if (prog?.completed) {
+        const res = document.getElementById('quiz-result');
+        res.style.display = 'block';
+        res.className = 'quiz-result pass';
+        res.innerHTML = `<div class="quiz-score">✅ Completed — Best score: ${prog.percent}%</div>
+          <div class="quiz-msg">You can retake the quiz anytime.</div>`;
+      }
+    }
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Boolean Algebra: Axioms, Theorems & Properties — DLD Unit 1 | Chandras EDU</title>
+  <meta name="description" content="Huntington's postulates, the core theorems of Boolean algebra, the duality principle, and DeMorgan's laws — with a worked algebraic simplification example.">
+  <link rel="canonical" href="https://courses.chandrashaker.in/academic/dld/unit1/boolean-algebra-theorems.html">
+  <link rel="stylesheet" href="../../../css/style.css">
+
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Chandras EDU">
+  <meta property="og:title" content="Boolean Algebra: Axioms, Theorems & Properties — DLD Unit 1 | Chandras EDU">
+  <meta property="og:description" content="Huntington's postulates, the core theorems of Boolean algebra, the duality principle, and DeMorgan's laws — with a worked algebraic simplification example.">
+  <meta property="og:url" content="https://courses.chandrashaker.in/academic/dld/unit1/boolean-algebra-theorems.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Boolean Algebra: Axioms, Theorems & Properties — DLD Unit 1 | Chandras EDU">
+  <meta name="twitter:description" content="Huntington's postulates, the core theorems of Boolean algebra, the duality principle, and DeMorgan's laws — with a worked algebraic simplification example.">
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Courses", "item": "https://courses.chandrashaker.in/" },
+    { "@type": "ListItem", "position": 2, "name": "DLD", "item": "https://courses.chandrashaker.in/academic/dld/" },
+    { "@type": "ListItem", "position": 3, "name": "Unit 1", "item": "https://courses.chandrashaker.in/academic/dld/unit1/" },
+    { "@type": "ListItem", "position": 4, "name": "Boolean Algebra: Axioms & Theorems" }
+  ]
+}
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LearningResource",
+  "name": "Boolean Algebra: Axioms, Theorems & Properties",
+  "description": "Huntington's postulates, the core theorems of Boolean algebra, the duality principle, and DeMorgan's laws — with a worked algebraic simplification example.",
+  "url": "https://courses.chandrashaker.in/academic/dld/unit1/boolean-algebra-theorems.html",
+  "learningResourceType": "Lesson",
+  "educationalLevel": "Undergraduate",
+  "about": { "@type": "Thing", "name": "Digital Logic Design" },
+  "isPartOf": {
+    "@type": "Course",
+    "name": "Digital Logic Design",
+    "provider": { "@type": "Organization", "name": "Chandras EDU", "url": "https://chandrashaker.in" }
+  },
+  "publisher": { "@type": "Organization", "name": "Chandras EDU", "url": "https://chandrashaker.in" }
+}
+  </script>
+  <link rel="icon" href="/favicon.ico">
+</head>
+<body>
+<nav class="nav"><div id="main-nav"></div></nav>
+
+<div style="max-width:820px;margin:.5rem auto;padding:0 1.25rem">
+  <div class="ad-slot">Advertisement</div>
+</div>
+
+<div class="page-narrow" role="main">
+
+  <nav class="breadcrumb">
+    <a href="../../../index.html">Courses</a><span class="sep">/</span>
+    <a href="../../dld/index.html">DLD</a><span class="sep">/</span>
+    <a href="index.html">Unit 1</a><span class="sep">/</span>
+    <span>Boolean Algebra &amp; Logic Gates</span><span class="sep">/</span>
+    <span class="cur">Axioms &amp; Theorems</span>
+  </nav>
+
+  <div style="background:var(--primary);border-radius:var(--radius-lg);padding:1.1rem 1.4rem;margin-bottom:1.5rem;color:#fff">
+    <div style="font-size:.75rem;opacity:.75;margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.05em">DLD › Unit 1: Boolean Algebra &amp; Logic Gates › Topic 5</div>
+    <h1 style="font-size:1.4rem;font-weight:700;color:#fff;margin-bottom:.5rem">Boolean Algebra: Axioms, Theorems &amp; Properties</h1>
+    <div style="display:flex;gap:.75rem;flex-wrap:wrap">
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">⏱ 22 min read</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📝 Quiz inside</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📖 Mano &amp; Ciletti Ch. 2</span>
+    </div>
+  </div>
+
+  <!-- FULL LESSON — visible to everyone -->
+  <div class="lesson">
+    <p>Everything about how digital circuits behave — whether a design is correct, whether two different-looking circuits compute the same thing, how far an expression can be simplified — ultimately traces back to a small, formal set of rules. That's <strong>Boolean algebra</strong>: an algebraic system built specifically for variables that take only two values, and it's the mathematical foundation this entire course sits on.</p>
+
+    <h2>Axiomatic Definition — Huntington's Postulates</h2>
+    <p>A Boolean algebra is formally defined by a set of elements, two binary operators (+ for OR, · for AND), and one unary operator (′ for NOT), satisfying a specific list of postulates (due to E.V. Huntington, 1904). The essentials:</p>
+    <table>
+      <thead><tr><th>Postulate</th><th>OR form</th><th>AND form</th></tr></thead>
+      <tbody>
+        <tr><td>Closure</td><td>x + y is in the set</td><td>x · y is in the set</td></tr>
+        <tr><td>Identity element</td><td>x + 0 = x</td><td>x · 1 = x</td></tr>
+        <tr><td>Commutative</td><td>x + y = y + x</td><td>x · y = y · x</td></tr>
+        <tr><td>Distributive</td><td>x + (y·z) = (x+y)·(x+z)</td><td>x·(y+z) = x·y + x·z</td></tr>
+        <tr><td>Complement</td><td>x + x′ = 1</td><td>x · x′ = 0</td></tr>
+      </tbody>
+    </table>
+    <p>Note the distributive law's OR form: <strong>x + (y·z) = (x+y)·(x+z)</strong> — this one has no equivalent in ordinary algebra (compare: in real-number arithmetic, a+(b×c) ≠ (a+b)×(a+c) in general). It's a genuine, defining feature of Boolean algebra specifically, not just a restatement of a familiar rule.</p>
+
+    <h2>The Duality Principle</h2>
+    <p>Every postulate above comes in a matched pair — swap every + with ·, every · with +, every 0 with 1, and every 1 with 0 in any true Boolean statement, and the result (its <strong>dual</strong>) is also guaranteed true. This isn't a coincidence to memorize separately; it falls directly out of how the postulates themselves are structured in symmetric pairs.</p>
+
+    <h2>Basic Theorems</h2>
+    <p>Theorems are derived <em>from</em> the postulates, not assumed independently — but in practice, they're used just as heavily as the postulates themselves for simplification work.</p>
+    <table>
+      <thead><tr><th>Theorem</th><th>OR form</th><th>AND form</th></tr></thead>
+      <tbody>
+        <tr><td>Idempotent</td><td>x + x = x</td><td>x · x = x</td></tr>
+        <tr><td>Null (annulment)</td><td>x + 1 = 1</td><td>x · 0 = 0</td></tr>
+        <tr><td>Involution</td><td colspan="2" style="text-align:center">(x′)′ = x</td></tr>
+        <tr><td>Associative</td><td>x + (y+z) = (x+y) + z</td><td>x·(y·z) = (x·y)·z</td></tr>
+        <tr><td>Absorption</td><td>x + xy = x</td><td>x(x+y) = x</td></tr>
+        <tr><td>DeMorgan's</td><td>(x+y)′ = x′y′</td><td>(xy)′ = x′+y′</td></tr>
+      </tbody>
+    </table>
+
+    <div class="box box-tip">
+      🚀 <strong>DeMorgan's laws in plain language:</strong> "NOT (A OR B)" is the same as "(NOT A) AND (NOT B)," and "NOT (A AND B)" is the same as "(NOT A) OR (NOT B)." In circuit terms, this is precisely why a NOR gate can be redrawn as an AND gate with both inputs inverted, and a NAND gate as an OR gate with both inputs inverted — a fact you'll use constantly once gate-level implementation comes up.
+    </div>
+
+    <h3>Proving the Absorption Theorem from the Postulates</h3>
+    <p>Theorems aren't handed down — they're provable from the postulates directly. Here's x + xy = x, proved step by step:</p>
+    <div class="box box-eg">
+      <pre>x + xy
+= x·1 + x·y        (identity: x = x·1)
+= x·(1 + y)        (distributive)
+= x·1              (null theorem: 1 + y = 1)
+= x                (identity)</pre>
+    </div>
+
+    <h2>Worked Example — Simplifying an Expression</h2>
+    <p>Simplify F = AB + AB′ + A′B using the theorems above:</p>
+    <div class="box box-eg">
+      <pre>F = AB + AB′ + A′B
+  = A(B + B′) + A′B        (distributive, factoring A out of first two terms)
+  = A·1 + A′B               (complement: B + B′ = 1)
+  = A + A′B                 (identity)
+  = A + B                   (absorption-style identity: x + x′y = x + y)</pre>
+    </div>
+    <p>Three terms and multiple gates collapsed down to a simple two-variable OR — this is exactly the kind of reduction that makes simplification worth doing before ever drawing a circuit.</p>
+
+    <h2>Common Pitfalls</h2>
+    <ul>
+      <li><strong>Applying ordinary-algebra intuition to the OR-distributive law.</strong> x + yz = (x+y)(x+z) is true in Boolean algebra but has no analogue in real-number arithmetic — don't dismiss it as "obviously wrong" just because it looks unfamiliar.</li>
+      <li><strong>Confusing the complement theorem with the null theorem.</strong> x + x′ = 1 (complement) and x + 1 = 1 (null) look superficially similar but involve different terms — mixing them up during simplification produces wrong results.</li>
+      <li><strong>Forgetting to flip both the operator AND the constants when taking a dual.</strong> The duality principle requires swapping +↔·, and 0↔1 together — swapping only the operators (or only the constants) doesn't produce a valid dual.</li>
+    </ul>
+
+    <h2>Applications</h2>
+    <ul>
+      <li><strong>Every algebraic circuit simplification</strong> in this course — and every simplification a synthesis tool performs automatically inside a chip design flow — is built entirely from repeated application of these postulates and theorems.</li>
+      <li><strong>DeMorgan's laws specifically</strong> are the algebraic justification for converting between AND/OR-based designs and NAND/NOR-based designs, which matters directly because NAND and NOR are often cheaper to fabricate than AND/OR gates.</li>
+      <li><strong>Digital design verification tools</strong> use Boolean algebra's well-defined equivalence rules to prove two circuit implementations compute the exact same function, even when their gate-level structure looks completely different.</li>
+    </ul>
+  </div>
+
+  <div class="ad-slot">Advertisement</div>
+
+  <!-- QUIZ GATE -->
+  <div id="gate-section">
+    <div class="gate">
+      <div class="gate-blur">
+        <div class="quiz">
+          <div class="quiz-title">📝 Quick Quiz — 5 Questions</div>
+        </div>
+      </div>
+      <div class="gate-overlay">
+        <div class="gate-box">
+          <div class="lock">🔒</div>
+          <h3>Login to take the quiz</h3>
+          <p>Create a free account to take the quiz and track your progress across all topics.</p>
+          <div class="gate-btns">
+            <a href="../../../login.html" class="btn btn-primary btn-sm">Login</a>
+            <a href="../../../login.html" class="btn btn-outline btn-sm">Register Free</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="quiz" id="quiz-section" style="display:none">
+    <div class="quiz-title">📝 Quick Quiz — 5 Questions</div>
+    <div id="quiz-body"></div>
+    <button class="btn btn-primary" id="submit-btn" disabled>Submit Quiz</button>
+    <div class="quiz-result" id="quiz-result" style="display:none"></div>
+  </div>
+
+  <div class="topic-nav">
+    <a href="error-detection-correction.html">
+      <div class="nav-dir">← Previous</div>
+      <div class="nav-title">Error Detection &amp; Correction</div>
+    </a>
+    <a href="canonical-standard-forms.html" class="next">
+      <div class="nav-dir">Next →</div>
+      <div class="nav-title">Canonical &amp; Standard Forms</div>
+    </a>
+  </div>
+
+</div>
+
+<div style="max-width:820px;margin:.5rem auto;padding:0 1.25rem">
+  <div class="ad-slot">Advertisement</div>
+</div>
+<footer class="footer">© 2026 Chandra Shaker · <a href="https://chandrashaker.in">chandrashaker.in</a> · <em>Reference: M. Morris Mano &amp; Michael D. Ciletti, Digital Design with an Introduction to the Verilog HDL, 6th ed. — Boolean Algebra.</em></footer>
+
+<script type="module">
+  import { initNav } from '../../../js/nav.js';
+  import { onAuth, saveProgress, getProgress } from '../../../js/firebase-config.js';
+  initNav(3);
+
+  const COURSE_ID = 'dld';
+  const TOPIC_ID  = 'boolean-algebra-theorems';
+  const LABELS    = ['A','B','C','D'];
+  const QUIZ = [
+    { q:"Which Boolean algebra postulate has no equivalent in ordinary real-number arithmetic?", options:["The OR-distributive law: x + (y·z) = (x+y)·(x+z)", "The commutative law: x + y = y + x", "The identity law: x + 0 = x", "The closure property"], answer:0, explanation:"x + (y·z) = (x+y)·(x+z) has no analogue in real-number algebra — it's a genuinely distinctive feature of Boolean algebra, not a familiar rule in disguise." },
+    { q:"What does the duality principle require you to swap when forming the dual of a Boolean statement?", options:["+ with ·, AND 0 with 1, simultaneously", "Only the + and · operators, leaving constants unchanged", "Only the 0 and 1 constants, leaving operators unchanged", "Variable names must be reversed alphabetically"], answer:0, explanation:"Duality requires swapping + with · AND 0 with 1 together — swapping only one of the two doesn't produce a valid dual statement." },
+    { q:"Using DeMorgan's law, what is the equivalent of (A + B)′?", options:["A′ · B′", "A′ + B′", "A · B", "(A′ + B′)′"], answer:0, explanation:"DeMorgan's law: (x+y)′ = x′y′, so (A+B)′ = A′B′." },
+    { q:"Simplify F = AB + AB′ + A′B using Boolean theorems. What is the simplest equivalent form?", options:["F = A + B", "F = AB", "F = A′ + B′", "F cannot be simplified further"], answer:0, explanation:"AB+AB′ factors to A(B+B′)=A·1=A, leaving A+A′B, which simplifies to A+B (since x + x′y = x + y)." },
+    { q:"Why is DeMorgan's law directly relevant to real circuit design, beyond being an algebraic identity?", options:["It justifies converting between AND/OR-based designs and NAND/NOR-based designs, which matters because NAND and NOR gates are often cheaper to fabricate", "It only applies to circuits with exactly two inputs", "It has no practical circuit application, it's purely theoretical", "It is used exclusively for simplifying arithmetic circuits, not logic circuits"], answer:0, explanation:"DeMorgan's laws are the algebraic basis for redirecting an AND/OR design into an equivalent NAND/NOR design (and vice versa) — directly useful since NAND/NOR gates are frequently cheaper to manufacture than AND/OR gates." }
+  ];
+
+  let selected = {}, submitted = false;
+
+  function buildQuiz() {
+    document.getElementById('quiz-body').innerHTML = QUIZ.map((q, qi) => `
+      <div class="question">
+        <div class="question-text">Q${qi+1}. ${q.q}</div>
+        <div class="options">
+          ${q.options.map((o, oi) => `<div class="option" data-qi="${qi}" data-oi="${oi}"><span class="option-lbl">${LABELS[oi]}</span>${o}</div>`).join('')}
+        </div>
+        <div class="explanation" id="exp${qi}" style="display:none">💡 ${q.explanation}</div>
+      </div>`).join('');
+    document.querySelectorAll('.option').forEach(el => {
+      el.onclick = () => {
+        if (submitted) return;
+        const qi = +el.dataset.qi, oi = +el.dataset.oi;
+        selected[qi] = oi;
+        document.querySelectorAll(`[data-qi="${qi}"]`).forEach(o => o.classList.remove('selected'));
+        el.classList.add('selected');
+        document.getElementById('submit-btn').disabled = Object.keys(selected).length < QUIZ.length;
+      };
+    });
+  }
+
+  async function submitQuiz(uid) {
+    submitted = true; let score = 0;
+    QUIZ.forEach((q, qi) => {
+      const correct = q.answer, chosen = selected[qi];
+      document.querySelectorAll(`[data-qi="${qi}"]`).forEach(o => {
+        const oi = +o.dataset.oi;
+        if (oi === correct) o.classList.add('correct');
+        else if (oi === chosen) o.classList.add('wrong');
+      });
+      document.getElementById(`exp${qi}`).style.display = 'block';
+      if (chosen === correct) score++;
+    });
+    document.getElementById('submit-btn').style.display = 'none';
+    const pct = Math.round((score / QUIZ.length) * 100);
+    const res = document.getElementById('quiz-result');
+    res.style.display = 'block';
+    res.className = `quiz-result ${pct >= 60 ? 'pass' : 'fail'}`;
+    res.innerHTML = `<div class="quiz-score">${pct >= 60 ? '🎉' : '📖'} Score: ${score}/${QUIZ.length} (${pct}%)</div>
+      <div class="quiz-msg">${pct >= 80 ? 'Excellent! Move to the next topic.' : pct >= 60 ? 'Good. Review what you missed.' : 'Review the lesson and try again.'}</div>`;
+    if (uid) await saveProgress(uid, COURSE_ID, TOPIC_ID, score, QUIZ.length);
+  }
+
+  onAuth(async user => {
+    const gate = document.getElementById('gate-section');
+    const quiz  = document.getElementById('quiz-section');
+    if (user) {
+      gate.style.display = 'none';
+      quiz.style.display = 'block';
+      buildQuiz();
+      document.getElementById('submit-btn').onclick = () => submitQuiz(user.uid);
+      const prog = await getProgress(user.uid, COURSE_ID, TOPIC_ID);
+      if (prog?.completed) {
+        const res = document.getElementById('quiz-result');
+        res.style.display = 'block';
+        res.className = 'quiz-result pass';
+        res.innerHTML = `<div class="quiz-score">✅ Completed — Best score: ${prog.percent}%</div>
+          <div class="quiz-msg">You can retake the quiz anytime.</div>`;
+      }
+    }
+  });
+</script>
+</body>
+</html>

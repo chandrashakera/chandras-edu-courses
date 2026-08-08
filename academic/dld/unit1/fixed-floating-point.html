@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fixed-Point & Floating-Point Representation — DLD Unit 1 | Chandras EDU</title>
+  <meta name="description" content="How digital systems represent fractional numbers with a fixed-width binary word — fixed-point's range/precision trade-off, and floating-point's sign-exponent-mantissa layout.">
+  <link rel="canonical" href="https://courses.chandrashaker.in/academic/dld/unit1/fixed-floating-point.html">
+  <link rel="stylesheet" href="../../../css/style.css">
+
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Chandras EDU">
+  <meta property="og:title" content="Fixed-Point & Floating-Point Representation — DLD Unit 1 | Chandras EDU">
+  <meta property="og:description" content="How digital systems represent fractional numbers with a fixed-width binary word — fixed-point's range/precision trade-off, and floating-point's sign-exponent-mantissa layout.">
+  <meta property="og:url" content="https://courses.chandrashaker.in/academic/dld/unit1/fixed-floating-point.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Fixed-Point & Floating-Point Representation — DLD Unit 1 | Chandras EDU">
+  <meta name="twitter:description" content="How digital systems represent fractional numbers with a fixed-width binary word — fixed-point's range/precision trade-off, and floating-point's sign-exponent-mantissa layout.">
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Courses", "item": "https://courses.chandrashaker.in/" },
+    { "@type": "ListItem", "position": 2, "name": "DLD", "item": "https://courses.chandrashaker.in/academic/dld/" },
+    { "@type": "ListItem", "position": 3, "name": "Unit 1", "item": "https://courses.chandrashaker.in/academic/dld/unit1/" },
+    { "@type": "ListItem", "position": 4, "name": "Fixed-Point & Floating-Point Representation" }
+  ]
+}
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LearningResource",
+  "name": "Fixed-Point & Floating-Point Representation",
+  "description": "How digital systems represent fractional numbers with a fixed-width binary word — fixed-point's range/precision trade-off, and floating-point's sign-exponent-mantissa layout.",
+  "url": "https://courses.chandrashaker.in/academic/dld/unit1/fixed-floating-point.html",
+  "learningResourceType": "Lesson",
+  "educationalLevel": "Undergraduate",
+  "about": { "@type": "Thing", "name": "Digital Logic Design" },
+  "isPartOf": {
+    "@type": "Course",
+    "name": "Digital Logic Design",
+    "provider": { "@type": "Organization", "name": "Chandras EDU", "url": "https://chandrashaker.in" }
+  },
+  "publisher": { "@type": "Organization", "name": "Chandras EDU", "url": "https://chandrashaker.in" }
+}
+  </script>
+  <link rel="icon" href="/favicon.ico">
+</head>
+<body>
+<nav class="nav"><div id="main-nav"></div></nav>
+
+<div style="max-width:820px;margin:.5rem auto;padding:0 1.25rem">
+  <div class="ad-slot">Advertisement</div>
+</div>
+
+<div class="page-narrow" role="main">
+
+  <nav class="breadcrumb">
+    <a href="../../../index.html">Courses</a><span class="sep">/</span>
+    <a href="../../dld/index.html">DLD</a><span class="sep">/</span>
+    <a href="index.html">Unit 1</a><span class="sep">/</span>
+    <span>Number Systems &amp; Representation</span><span class="sep">/</span>
+    <span class="cur">Fixed-Point &amp; Floating-Point Representation</span>
+  </nav>
+
+  <div style="background:var(--primary);border-radius:var(--radius-lg);padding:1.1rem 1.4rem;margin-bottom:1.5rem;color:#fff">
+    <div style="font-size:.75rem;opacity:.75;margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.05em">DLD › Unit 1: Number Systems &amp; Representation › Topic 2</div>
+    <h1 style="font-size:1.4rem;font-weight:700;color:#fff;margin-bottom:.5rem">Fixed-Point &amp; Floating-Point Representation</h1>
+    <div style="display:flex;gap:.75rem;flex-wrap:wrap">
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">⏱ 22 min read</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📝 Quiz inside</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📖 Mano &amp; Ciletti Ch. 1</span>
+    </div>
+  </div>
+
+  <!-- FULL LESSON — visible to everyone -->
+  <div class="lesson">
+    <p>So far every number on this page has been a whole number. Real digital systems constantly need to represent fractions and very large or very small magnitudes too — everything from a sensor reading of 3.14 to a distance measured in light-years. There are exactly two strategies digital hardware uses for this, and they trade off in opposite directions.</p>
+
+    <h2>Fixed-Point Representation</h2>
+    <p>A <strong>fixed-point</strong> number places the binary point at a permanently agreed-upon position within a fixed-width word — some number of bits for the integer part, the rest for the fractional part, decided once at design time and never moved. Bits to the right of the point carry <strong>negative</strong> powers of 2.</p>
+    <p style="text-align:center;font-size:1.05rem;font-weight:700;color:var(--primary);margin:1rem 0">...b₂b₁b₀ . b₋₁b₋₂b₋₃...</p>
+    <p>Each fractional bit position b₋ᵢ contributes b₋ᵢ × 2⁻ⁱ to the value — the same weighted-sum idea from the previous page, just extended to negative exponents.</p>
+
+    <h3>Worked Example — Fixed-Point Binary Fraction</h3>
+    <div class="box box-eg">
+      <pre>1011.101₂
+= (1×2² + 0×2¹ + 1×2⁰) + (1×2⁻¹ + 0×2⁻² + 1×2⁻³)
+= (4+0+1) + (0.5+0+0.125)
+= 5 + 0.625
+= 5.625₁₀</pre>
+    </div>
+
+    <p>Fixed-point's defining trade-off: with a fixed total bit width, giving more bits to the fractional part (for finer precision) means fewer bits for the integer part (smaller maximum magnitude), and vice versa. The range and precision are both <strong>locked in at design time</strong> and can't flex to the data.</p>
+
+    <h2>Floating-Point Representation</h2>
+    <p>A <strong>floating-point</strong> number instead stores a number the way scientific notation does: a sign, a <strong>mantissa</strong> (also called the significand — the significant digits), and an <strong>exponent</strong> that says how far, and in which direction, to shift the binary point. The point "floats" to wherever the exponent says it should be, rather than sitting at a fixed bit position.</p>
+    <p style="text-align:center;font-size:1.05rem;font-weight:700;color:var(--primary);margin:1rem 0">Value = (−1)<sup>sign</sup> × 1.mantissa × 2<sup>exponent − bias</sup></p>
+
+    <h3>Normalization</h3>
+    <p>A floating-point number is <strong>normalized</strong> when the mantissa is adjusted so exactly one nonzero digit sits before the binary point — in binary specifically, that leading digit is always 1, so it doesn't even need to be stored explicitly (this is the "implied leading 1" or "hidden bit" trick, used to squeeze one extra bit of precision out of the mantissa field for free).</p>
+
+    <h3>IEEE 754 Single Precision (32-bit)</h3>
+    <table>
+      <thead><tr><th>Field</th><th>Width</th><th>Purpose</th></tr></thead>
+      <tbody>
+        <tr><td>Sign</td><td>1 bit</td><td>0 = positive, 1 = negative</td></tr>
+        <tr><td>Exponent</td><td>8 bits</td><td>Stored with a bias of 127, so it can represent both positive and negative exponents using only unsigned bits</td></tr>
+        <tr><td>Mantissa (fraction)</td><td>23 bits</td><td>The bits after the implied leading 1</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Worked Example — Encoding 5.625 in IEEE 754 Single Precision</h3>
+    <div class="box box-eg">
+      <pre>5.625₁₀ = 101.101₂  (from the fixed-point example above)
+
+Normalize: 101.101₂ = 1.01101 × 2²
+
+Sign     = 0                (positive)
+Exponent = 2 + 127 = 129 = 10000001₂
+Mantissa = 01101000000000000000000  (23 bits, padded with 0s)
+
+Final layout:
+0  10000001  01101000000000000000000
+sign  exponent(8)      mantissa(23)</pre>
+    </div>
+
+    <div class="box box-tip">
+      🚀 <strong>Beyond the textbook:</strong> the bias exists specifically so exponent comparison can use ordinary unsigned integer comparison — a genuinely clever design choice baked into IEEE 754 that makes hardware comparators simpler. Also worth knowing: IEEE 754 reserves the all-0s and all-1s exponent patterns for special values — exponent all-0s (with a zero mantissa) represents ±0, and exponent all-1s represents ±infinity or NaN ("Not a Number") depending on the mantissa. These aren't arbitrary edge cases; they're a deliberate part of the standard.
+    </div>
+
+    <h2>Fixed-Point vs. Floating-Point</h2>
+    <table>
+      <thead><tr><th></th><th>Fixed-Point</th><th>Floating-Point</th></tr></thead>
+      <tbody>
+        <tr><td>Range</td><td>Fixed, limited by word width</td><td>Very wide — exponent lets it represent tiny and huge magnitudes</td></tr>
+        <tr><td>Precision</td><td>Constant across the whole range</td><td>Relative — more precise near zero, coarser for huge magnitudes</td></tr>
+        <tr><td>Hardware cost</td><td>Cheap — plain integer adders/multipliers work directly</td><td>Expensive — needs dedicated floating-point units (FPUs) for normalization and exponent alignment</td></tr>
+        <tr><td>Typical use</td><td>Embedded/DSP systems with known, bounded value ranges</td><td>General-purpose computing, scientific calculation</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Common Pitfalls</h2>
+    <ul>
+      <li><strong>Forgetting the implied leading 1</strong> when decoding a normalized floating-point number — the stored mantissa is only the bits <em>after</em> that implicit 1, not the whole significand.</li>
+      <li><strong>Adding the bias in the wrong direction.</strong> The stored exponent field is (true exponent + bias); recovering the true exponent means subtracting the bias back out, not adding it again.</li>
+      <li><strong>Assuming fixed-point precision is uniform in floating-point too.</strong> Floating-point precision is <em>relative</em> to magnitude — the gap between representable values near 1,000,000 is far larger than the gap near 1.0, even though both use the same number of mantissa bits.</li>
+    </ul>
+
+    <h2>Applications</h2>
+    <ul>
+      <li><strong>Digital signal processors (DSPs)</strong> in audio and embedded systems often use fixed-point specifically for its cheap, fast, predictable-latency arithmetic, when the value range is known in advance.</li>
+      <li><strong>Every general-purpose CPU and GPU</strong> includes hardware floating-point units implementing IEEE 754, since scientific and graphics computation needs the huge dynamic range floating-point provides.</li>
+      <li><strong>Financial software deliberately avoids floating-point</strong> for currency values (using fixed-point or decimal types instead), precisely because floating-point's relative-precision rounding is unacceptable when cents must be exact.</li>
+    </ul>
+  </div>
+
+  <div class="ad-slot">Advertisement</div>
+
+  <!-- QUIZ GATE -->
+  <div id="gate-section">
+    <div class="gate">
+      <div class="gate-blur">
+        <div class="quiz">
+          <div class="quiz-title">📝 Quick Quiz — 5 Questions</div>
+        </div>
+      </div>
+      <div class="gate-overlay">
+        <div class="gate-box">
+          <div class="lock">🔒</div>
+          <h3>Login to take the quiz</h3>
+          <p>Create a free account to take the quiz and track your progress across all topics.</p>
+          <div class="gate-btns">
+            <a href="../../../login.html" class="btn btn-primary btn-sm">Login</a>
+            <a href="../../../login.html" class="btn btn-outline btn-sm">Register Free</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="quiz" id="quiz-section" style="display:none">
+    <div class="quiz-title">📝 Quick Quiz — 5 Questions</div>
+    <div id="quiz-body"></div>
+    <button class="btn btn-primary" id="submit-btn" disabled>Submit Quiz</button>
+    <div class="quiz-result" id="quiz-result" style="display:none"></div>
+  </div>
+
+  <div class="topic-nav">
+    <a href="number-systems.html">
+      <div class="nav-dir">← Previous</div>
+      <div class="nav-title">Number Systems</div>
+    </a>
+    <a href="complements.html" class="next">
+      <div class="nav-dir">Next →</div>
+      <div class="nav-title">Complements of Numbers</div>
+    </a>
+  </div>
+
+</div>
+
+<div style="max-width:820px;margin:.5rem auto;padding:0 1.25rem">
+  <div class="ad-slot">Advertisement</div>
+</div>
+<footer class="footer">© 2026 Chandra Shaker · <a href="https://chandrashaker.in">chandrashaker.in</a> · <em>Reference: M. Morris Mano &amp; Michael D. Ciletti, Digital Design with an Introduction to the Verilog HDL, 6th ed. — Fixed-Point and Floating-Point Representations.</em></footer>
+
+<script type="module">
+  import { initNav } from '../../../js/nav.js';
+  import { onAuth, saveProgress, getProgress } from '../../../js/firebase-config.js';
+  initNav(3);
+
+  const COURSE_ID = 'dld';
+  const TOPIC_ID  = 'fixed-floating-point';
+  const LABELS    = ['A','B','C','D'];
+  const QUIZ = [
+    { q:"What is the decimal value of the fixed-point binary number 1011.101₂?", options:["5.625","11.5","5.5","11.625"], answer:0, explanation:"Integer part 1011₂=11... wait, split correctly: 101 before the point (1×4+0×2+1×1=5) and .101 after (1×0.5+0×0.25+1×0.125=0.625), giving 5.625." },
+    { q:"In fixed-point representation with a fixed total word width, what happens if you allocate more bits to the fractional part?", options:["Precision improves but the maximum representable magnitude (integer range) shrinks","Both precision and range improve simultaneously with no trade-off","Only the sign bit is affected","Nothing changes — fixed-point bit allocation is irrelevant to precision or range"], answer:0, explanation:"With a fixed total width, more fractional bits means fewer integer bits — finer precision comes directly at the cost of a smaller maximum magnitude." },
+    { q:"Why doesn't IEEE 754 need to explicitly store the leading 1 of a normalized mantissa?", options:["Because a normalized binary floating-point number's leading digit is always 1, so it can be safely implied rather than stored, gaining an extra bit of precision for free","Because the leading bit is always 0 in IEEE 754","Because normalization is optional and rarely used","Because the exponent field already encodes the leading digit"], answer:0, explanation:"Normalization in binary always produces a leading 1 (since the only nonzero binary digit is 1), so it's redundant to store — this 'hidden bit' trick effectively adds one bit of precision at no storage cost." },
+    { q:"IEEE 754 single precision stores the exponent with a bias of 127. If the stored exponent field is 130, what is the true exponent?", options:["3","127","130","257"], answer:0, explanation:"True exponent = stored value − bias = 130 − 127 = 3." },
+    { q:"Why do financial applications typically avoid floating-point for representing currency amounts?", options:["Because floating-point's precision is relative to magnitude, causing rounding behavior that's unacceptable when exact cent values matter","Because floating-point numbers can't represent values below 1.0 at all","Because floating-point hardware is too slow for financial calculations","Because IEEE 754 doesn't support decimal values"], answer:0, explanation:"Floating-point precision is relative — not every decimal fraction (like 0.10) has an exact binary floating-point representation, and small rounding errors are unacceptable for exact currency values, so fixed-point or decimal types are used instead." }
+  ];
+
+  let selected = {}, submitted = false;
+
+  function buildQuiz() {
+    document.getElementById('quiz-body').innerHTML = QUIZ.map((q, qi) => `
+      <div class="question">
+        <div class="question-text">Q${qi+1}. ${q.q}</div>
+        <div class="options">
+          ${q.options.map((o, oi) => `<div class="option" data-qi="${qi}" data-oi="${oi}"><span class="option-lbl">${LABELS[oi]}</span>${o}</div>`).join('')}
+        </div>
+        <div class="explanation" id="exp${qi}" style="display:none">💡 ${q.explanation}</div>
+      </div>`).join('');
+    document.querySelectorAll('.option').forEach(el => {
+      el.onclick = () => {
+        if (submitted) return;
+        const qi = +el.dataset.qi, oi = +el.dataset.oi;
+        selected[qi] = oi;
+        document.querySelectorAll(`[data-qi="${qi}"]`).forEach(o => o.classList.remove('selected'));
+        el.classList.add('selected');
+        document.getElementById('submit-btn').disabled = Object.keys(selected).length < QUIZ.length;
+      };
+    });
+  }
+
+  async function submitQuiz(uid) {
+    submitted = true; let score = 0;
+    QUIZ.forEach((q, qi) => {
+      const correct = q.answer, chosen = selected[qi];
+      document.querySelectorAll(`[data-qi="${qi}"]`).forEach(o => {
+        const oi = +o.dataset.oi;
+        if (oi === correct) o.classList.add('correct');
+        else if (oi === chosen) o.classList.add('wrong');
+      });
+      document.getElementById(`exp${qi}`).style.display = 'block';
+      if (chosen === correct) score++;
+    });
+    document.getElementById('submit-btn').style.display = 'none';
+    const pct = Math.round((score / QUIZ.length) * 100);
+    const res = document.getElementById('quiz-result');
+    res.style.display = 'block';
+    res.className = `quiz-result ${pct >= 60 ? 'pass' : 'fail'}`;
+    res.innerHTML = `<div class="quiz-score">${pct >= 60 ? '🎉' : '📖'} Score: ${score}/${QUIZ.length} (${pct}%)</div>
+      <div class="quiz-msg">${pct >= 80 ? 'Excellent! Move to the next topic.' : pct >= 60 ? 'Good. Review what you missed.' : 'Review the lesson and try again.'}</div>`;
+    if (uid) await saveProgress(uid, COURSE_ID, TOPIC_ID, score, QUIZ.length);
+  }
+
+  onAuth(async user => {
+    const gate = document.getElementById('gate-section');
+    const quiz  = document.getElementById('quiz-section');
+    if (user) {
+      gate.style.display = 'none';
+      quiz.style.display = 'block';
+      buildQuiz();
+      document.getElementById('submit-btn').onclick = () => submitQuiz(user.uid);
+      const prog = await getProgress(user.uid, COURSE_ID, TOPIC_ID);
+      if (prog?.completed) {
+        const res = document.getElementById('quiz-result');
+        res.style.display = 'block';
+        res.className = 'quiz-result pass';
+        res.innerHTML = `<div class="quiz-score">✅ Completed — Best score: ${prog.percent}%</div>
+          <div class="quiz-msg">You can retake the quiz anytime.</div>`;
+      }
+    }
+  });
+</script>
+</body>
+</html>
