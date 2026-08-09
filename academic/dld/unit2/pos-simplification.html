@@ -59,6 +59,10 @@
     .kmap-table td.one .val { color:var(--success); }
     .kmap-table td.zero { background:#ffebee; }
     .kmap-table td.zero .val { color:var(--error); }
+    .kmap-overlay { position:relative; display:inline-block; }
+    .kmap-overlay svg { position:absolute; top:0; left:0; pointer-events:none; }
+    .kmap-legend { display:flex; justify-content:center; gap:1.25rem; flex-wrap:wrap; margin:-.5rem 0 1rem; font-size:.8rem; color:var(--text-2); }
+    .kmap-legend span.sw { display:inline-block; width:14px; height:14px; border-radius:4px; margin-right:.35rem; vertical-align:-2px; border:2.5px solid; }
   </style>
 </head>
 <body>
@@ -107,21 +111,31 @@
     <h2>Worked Example — Same Function as the K-Map Page</h2>
     <p>Take F(A,B,C) = Σm(0,1,2,3,5) — the exact function minimized as A′ + B′C on the previous K-map page. This time, group its <strong>0-cells</strong> instead: {4, 6, 7}.</p>
     <div class="kmap-wrap">
-      <table class="kmap-table">
-        <tr><th class="corner">A\BC</th><th>00</th><th>01</th><th>11</th><th>10</th></tr>
-        <tr><th>0</th>
-          <td class="one"><span class="val">1</span><span class="idx">m0</span></td>
-          <td class="one"><span class="val">1</span><span class="idx">m1</span></td>
-          <td class="one"><span class="val">1</span><span class="idx">m3</span></td>
-          <td class="one"><span class="val">1</span><span class="idx">m2</span></td>
-        </tr>
-        <tr><th>1</th>
-          <td class="zero"><span class="val">0</span><span class="idx">m4</span></td>
-          <td class="one"><span class="val">1</span><span class="idx">m5</span></td>
-          <td class="zero"><span class="val">0</span><span class="idx">m7</span></td>
-          <td class="zero"><span class="val">0</span><span class="idx">m6</span></td>
-        </tr>
-      </table>
+      <div class="kmap-overlay">
+        <table class="kmap-table">
+          <tr><th class="corner">A\BC</th><th>00</th><th>01</th><th>11</th><th>10</th></tr>
+          <tr><th>0</th>
+            <td class="one"><span class="val">1</span><span class="idx">m0</span></td>
+            <td class="one"><span class="val">1</span><span class="idx">m1</span></td>
+            <td class="one"><span class="val">1</span><span class="idx">m3</span></td>
+            <td class="one"><span class="val">1</span><span class="idx">m2</span></td>
+          </tr>
+          <tr><th>1</th>
+            <td class="zero"><span class="val">0</span><span class="idx">m4</span></td>
+            <td class="one"><span class="val">1</span><span class="idx">m5</span></td>
+            <td class="zero"><span class="val">0</span><span class="idx">m7</span></td>
+            <td class="zero"><span class="val">0</span><span class="idx">m6</span></td>
+          </tr>
+        </table>
+        <svg width="262" height="136" viewBox="0 0 262 136">
+          <rect x="162.3" y="109.4" width="92" height="32.7" rx="8" fill="none" stroke="var(--primary)" stroke-width="3"/>
+          <rect x="58.3" y="109.4" width="40" height="32.7" rx="8" fill="none" stroke="#8e24aa" stroke-width="3"/>
+        </svg>
+      </div>
+    </div>
+    <div class="kmap-legend">
+      <span><span class="sw" style="border-color:var(--primary)"></span>Pair {m6,m7} → (A′+B′)</span>
+      <span><span class="sw" style="border-color:#8e24aa"></span>Single {m4} → (A′+B+C)</span>
     </div>
     <p>The three 0-cells (m4, m6, m7) can't all merge into one group — m4 and m7 aren't adjacent. The best grouping uses a pair plus a single: {m6, m7} pair, and {m4} alone.</p>
     <div class="box box-eg">

@@ -59,8 +59,10 @@
     .kmap-table td.one { background:#e8f5e9; }
     .kmap-table td.one .val { color:var(--success); }
     .kmap-table td.zero .val { color:var(--text-3); }
-    .kmap-table td.grp2 { background:#e3f2fd; }
-    .kmap-table td.grp2 .val { color:var(--primary); }
+    .kmap-overlay { position:relative; display:inline-block; }
+    .kmap-overlay svg { position:absolute; top:0; left:0; pointer-events:none; }
+    .kmap-legend { display:flex; justify-content:center; gap:1.25rem; flex-wrap:wrap; margin:-.5rem 0 1rem; font-size:.8rem; color:var(--text-2); }
+    .kmap-legend span.sw { display:inline-block; width:14px; height:14px; border-radius:4px; margin-right:.35rem; vertical-align:-2px; border:2.5px solid; }
   </style>
 </head>
 <body>
@@ -99,38 +101,51 @@
 
     <h3>Worked Example — F(A,B,C,D) = Σm(0,2,5,7,8,10,13,15)</h3>
     <div class="kmap-wrap">
-      <table class="kmap-table">
-        <tr><th class="corner">AB\CD</th><th>00</th><th>01</th><th>11</th><th>10</th></tr>
-        <tr><th>00</th>
-          <td class="one"><span class="val">1</span><span class="idx">m0</span></td>
-          <td class="zero"><span class="val">0</span><span class="idx">m1</span></td>
-          <td class="zero"><span class="val">0</span><span class="idx">m3</span></td>
-          <td class="one"><span class="val">1</span><span class="idx">m2</span></td>
-        </tr>
-        <tr><th>01</th>
-          <td class="zero"><span class="val">0</span><span class="idx">m4</span></td>
-          <td class="grp2"><span class="val">1</span><span class="idx">m5</span></td>
-          <td class="grp2"><span class="val">1</span><span class="idx">m7</span></td>
-          <td class="zero"><span class="val">0</span><span class="idx">m6</span></td>
-        </tr>
-        <tr><th>11</th>
-          <td class="zero"><span class="val">0</span><span class="idx">m12</span></td>
-          <td class="grp2"><span class="val">1</span><span class="idx">m13</span></td>
-          <td class="grp2"><span class="val">1</span><span class="idx">m15</span></td>
-          <td class="zero"><span class="val">0</span><span class="idx">m14</span></td>
-        </tr>
-        <tr><th>10</th>
-          <td class="one"><span class="val">1</span><span class="idx">m8</span></td>
-          <td class="zero"><span class="val">0</span><span class="idx">m9</span></td>
-          <td class="zero"><span class="val">0</span><span class="idx">m11</span></td>
-          <td class="one"><span class="val">1</span><span class="idx">m10</span></td>
-        </tr>
-      </table>
+      <div class="kmap-overlay">
+        <table class="kmap-table">
+          <tr><th class="corner">AB\CD</th><th>00</th><th>01</th><th>11</th><th>10</th></tr>
+          <tr><th>00</th>
+            <td class="one"><span class="val">1</span><span class="idx">m0</span></td>
+            <td class="zero"><span class="val">0</span><span class="idx">m1</span></td>
+            <td class="zero"><span class="val">0</span><span class="idx">m3</span></td>
+            <td class="one"><span class="val">1</span><span class="idx">m2</span></td>
+          </tr>
+          <tr><th>01</th>
+            <td class="zero"><span class="val">0</span><span class="idx">m4</span></td>
+            <td class="one"><span class="val">1</span><span class="idx">m5</span></td>
+            <td class="one"><span class="val">1</span><span class="idx">m7</span></td>
+            <td class="zero"><span class="val">0</span><span class="idx">m6</span></td>
+          </tr>
+          <tr><th>11</th>
+            <td class="zero"><span class="val">0</span><span class="idx">m12</span></td>
+            <td class="one"><span class="val">1</span><span class="idx">m13</span></td>
+            <td class="one"><span class="val">1</span><span class="idx">m15</span></td>
+            <td class="zero"><span class="val">0</span><span class="idx">m14</span></td>
+          </tr>
+          <tr><th>10</th>
+            <td class="one"><span class="val">1</span><span class="idx">m8</span></td>
+            <td class="zero"><span class="val">0</span><span class="idx">m9</span></td>
+            <td class="zero"><span class="val">0</span><span class="idx">m11</span></td>
+            <td class="one"><span class="val">1</span><span class="idx">m10</span></td>
+          </tr>
+        </table>
+        <svg width="262" height="225" viewBox="0 0 262 225">
+          <rect x="58.3" y="64.7" width="40" height="32.7" rx="8" fill="none" stroke="var(--primary)" stroke-width="3"/>
+          <rect x="214.3" y="64.7" width="40" height="32.7" rx="8" fill="none" stroke="var(--primary)" stroke-width="3"/>
+          <rect x="58.3" y="198.9" width="40" height="32.7" rx="8" fill="none" stroke="var(--primary)" stroke-width="3"/>
+          <rect x="214.3" y="198.9" width="40" height="32.7" rx="8" fill="none" stroke="var(--primary)" stroke-width="3"/>
+          <rect x="110.3" y="109.4" width="92" height="77.4" rx="10" fill="none" stroke="#8e24aa" stroke-width="3"/>
+        </svg>
+      </div>
     </div>
-    <p>Two groups, each shown in a different shade above. The green cells — m0, m2, m8, m10 — are the map's <strong>four corners</strong>. In a 4-variable map, all four corners are mutually adjacent: row 00/row 10 wrap vertically, and column 00/column 10 wrap horizontally, at the same time. That makes the four corners a single valid quad:</p>
+    <div class="kmap-legend">
+      <span><span class="sw" style="border-color:var(--primary)"></span>Four corners (wraparound) → B′D′</span>
+      <span><span class="sw" style="border-color:#8e24aa"></span>Quad {m5,m7,m13,m15} → BD</span>
+    </div>
+    <p>Two groups, each outlined above. The blue-outlined cells — m0, m2, m8, m10 — are the map's <strong>four corners</strong>, drawn as four separate boxes in the same color specifically because a wraparound group can't be enclosed by one continuous loop on a flat page — all four corners are still a single logical group. In a 4-variable map, all four corners are mutually adjacent: row 00/row 10 wrap vertically, and column 00/column 10 wrap horizontally, at the same time. That makes the four corners a single valid quad:</p>
     <div class="box box-eg">
       <pre>Corners {m0, m2, m8, m10} (B=0, D=0 in all four; A and C both vary): term = B′D′
-Blue quad {m5, m7, m13, m15} (B=1, D=1 in all four; A and C both vary): term = BD
+Purple quad {m5, m7, m13, m15} (B=1, D=1 in all four; A and C both vary): term = BD
 
 F = B′D′ + BD</pre>
     </div>

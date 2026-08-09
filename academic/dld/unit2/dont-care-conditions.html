@@ -61,6 +61,10 @@
     .kmap-table td.zero .val { color:var(--text-3); }
     .kmap-table td.dc { background:#fff8e1; }
     .kmap-table td.dc .val { color:#e65100; }
+    .kmap-overlay { position:relative; display:inline-block; }
+    .kmap-overlay svg { position:absolute; top:0; left:0; pointer-events:none; }
+    .kmap-legend { display:flex; justify-content:center; gap:1.25rem; flex-wrap:wrap; margin:-.5rem 0 1rem; font-size:.8rem; color:var(--text-2); }
+    .kmap-legend span.sw { display:inline-block; width:14px; height:14px; border-radius:4px; margin-right:.35rem; vertical-align:-2px; border:2.5px solid; }
   </style>
 </head>
 <body>
@@ -104,33 +108,43 @@
     <h3>Worked Example — F(A,B,C,D) = Σm(1,3,5,7,9) + d(10,11,12,13,14,15)</h3>
     <p>This function is 1 for the odd BCD digits 1, 3, 5, 7, 9, and 0 for the even BCD digits 0, 2, 4, 6, 8. The six invalid BCD patterns (10-15) are marked as don't-cares.</p>
     <div class="kmap-wrap">
-      <table class="kmap-table">
-        <tr><th class="corner">AB\CD</th><th>00</th><th>01</th><th>11</th><th>10</th></tr>
-        <tr><th>00</th>
-          <td class="zero"><span class="val">0</span><span class="idx">m0</span></td>
-          <td class="one"><span class="val">1</span><span class="idx">m1</span></td>
-          <td class="one"><span class="val">1</span><span class="idx">m3</span></td>
-          <td class="zero"><span class="val">0</span><span class="idx">m2</span></td>
-        </tr>
-        <tr><th>01</th>
-          <td class="zero"><span class="val">0</span><span class="idx">m4</span></td>
-          <td class="one"><span class="val">1</span><span class="idx">m5</span></td>
-          <td class="one"><span class="val">1</span><span class="idx">m7</span></td>
-          <td class="zero"><span class="val">0</span><span class="idx">m6</span></td>
-        </tr>
-        <tr><th>11</th>
-          <td class="dc"><span class="val">X</span><span class="idx">m12</span></td>
-          <td class="dc"><span class="val">X</span><span class="idx">m13</span></td>
-          <td class="dc"><span class="val">X</span><span class="idx">m15</span></td>
-          <td class="dc"><span class="val">X</span><span class="idx">m14</span></td>
-        </tr>
-        <tr><th>10</th>
-          <td class="zero"><span class="val">0</span><span class="idx">m8</span></td>
-          <td class="one"><span class="val">1</span><span class="idx">m9</span></td>
-          <td class="dc"><span class="val">X</span><span class="idx">m11</span></td>
-          <td class="dc"><span class="val">X</span><span class="idx">m10</span></td>
-        </tr>
-      </table>
+      <div class="kmap-overlay">
+        <table class="kmap-table">
+          <tr><th class="corner">AB\CD</th><th>00</th><th>01</th><th>11</th><th>10</th></tr>
+          <tr><th>00</th>
+            <td class="zero"><span class="val">0</span><span class="idx">m0</span></td>
+            <td class="one"><span class="val">1</span><span class="idx">m1</span></td>
+            <td class="one"><span class="val">1</span><span class="idx">m3</span></td>
+            <td class="zero"><span class="val">0</span><span class="idx">m2</span></td>
+          </tr>
+          <tr><th>01</th>
+            <td class="zero"><span class="val">0</span><span class="idx">m4</span></td>
+            <td class="one"><span class="val">1</span><span class="idx">m5</span></td>
+            <td class="one"><span class="val">1</span><span class="idx">m7</span></td>
+            <td class="zero"><span class="val">0</span><span class="idx">m6</span></td>
+          </tr>
+          <tr><th>11</th>
+            <td class="dc"><span class="val">X</span><span class="idx">m12</span></td>
+            <td class="dc"><span class="val">X</span><span class="idx">m13</span></td>
+            <td class="dc"><span class="val">X</span><span class="idx">m15</span></td>
+            <td class="dc"><span class="val">X</span><span class="idx">m14</span></td>
+          </tr>
+          <tr><th>10</th>
+            <td class="zero"><span class="val">0</span><span class="idx">m8</span></td>
+            <td class="one"><span class="val">1</span><span class="idx">m9</span></td>
+            <td class="dc"><span class="val">X</span><span class="idx">m11</span></td>
+            <td class="dc"><span class="val">X</span><span class="idx">m10</span></td>
+          </tr>
+        </table>
+        <svg width="252" height="221" viewBox="0 0 252 221">
+          <rect x="106.3" y="62.7" width="88" height="76.4" rx="10" fill="none" stroke="var(--primary)" stroke-width="3"/>
+          <rect x="106.3" y="151.1" width="88" height="76.4" rx="10" fill="none" stroke="#8e24aa" stroke-width="3"/>
+        </svg>
+      </div>
+    </div>
+    <div class="kmap-legend">
+      <span><span class="sw" style="border-color:var(--primary)"></span>Quad {m1,m3,m5,m7} → A′D</span>
+      <span><span class="sw" style="border-color:#8e24aa"></span>Quad {m9,d11,d13,d15} → AD</span>
     </div>
     <p><strong>Without</strong> using any don't-cares, m9 is nearly isolated — its only same-value neighbor among the defined 1s and 0s is nothing, forcing a large 4-literal term just for m9 alone. <strong>With</strong> the don't-cares, a much better grouping appears: treat m11, m13, and m15 as 1s (they're free to be anything), and the four cells {m9, m11, m13, m15} — all with A=1, D=1 — form a full quad.</p>
     <div class="box box-eg">

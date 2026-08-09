@@ -59,6 +59,10 @@
     .kmap-table td.one { background:#e8f5e9; }
     .kmap-table td.one .val { color:var(--success); }
     .kmap-table td.zero .val { color:var(--text-3); }
+    .kmap-overlay { position:relative; display:inline-block; }
+    .kmap-overlay svg { position:absolute; top:0; left:0; pointer-events:none; }
+    .kmap-legend { display:flex; justify-content:center; gap:1.25rem; flex-wrap:wrap; margin:-.5rem 0 1rem; font-size:.8rem; color:var(--text-2); }
+    .kmap-legend span.sw { display:inline-block; width:14px; height:14px; border-radius:4px; margin-right:.35rem; vertical-align:-2px; border:2.5px solid; }
   </style>
 </head>
 <body>
@@ -100,17 +104,27 @@
 
     <h3>Worked Example — F(A,B) = Σm(0,1,3)</h3>
     <div class="kmap-wrap">
-      <table class="kmap-table">
-        <tr><th class="corner">A\B</th><th>0</th><th>1</th></tr>
-        <tr><th>0</th>
-          <td class="one"><span class="val">1</span><span class="idx">m0</span></td>
-          <td class="one"><span class="val">1</span><span class="idx">m1</span></td>
-        </tr>
-        <tr><th>1</th>
-          <td class="zero"><span class="val">0</span><span class="idx">m2</span></td>
-          <td class="one"><span class="val">1</span><span class="idx">m3</span></td>
-        </tr>
-      </table>
+      <div class="kmap-overlay">
+        <table class="kmap-table">
+          <tr><th class="corner">A\B</th><th>0</th><th>1</th></tr>
+          <tr><th>0</th>
+            <td class="one"><span class="val">1</span><span class="idx">m0</span></td>
+            <td class="one"><span class="val">1</span><span class="idx">m1</span></td>
+          </tr>
+          <tr><th>1</th>
+            <td class="zero"><span class="val">0</span><span class="idx">m2</span></td>
+            <td class="one"><span class="val">1</span><span class="idx">m3</span></td>
+          </tr>
+        </table>
+        <svg width="158" height="136" viewBox="0 0 158 136">
+          <rect x="58.3" y="64.7" width="92" height="32.7" rx="10" fill="none" stroke="var(--primary)" stroke-width="3"/>
+          <rect x="110.3" y="64.7" width="40" height="77.4" rx="10" fill="none" stroke="#8e24aa" stroke-width="3"/>
+        </svg>
+      </div>
+    </div>
+    <div class="kmap-legend">
+      <span><span class="sw" style="border-color:var(--primary)"></span>Top row → A′</span>
+      <span><span class="sw" style="border-color:#8e24aa"></span>Right column → B</span>
     </div>
     <p>Two groups of adjacent 1s are visible: the top row (m0, m1 — both A=0) and the right column (m1, m3 — both B=1). Each group's size-2 means one variable drops out, leaving only the variable(s) that stay constant across the whole group:</p>
     <div class="box box-eg">
@@ -126,21 +140,31 @@ F = A′ + B</pre>
 
     <h3>Worked Example — F(A,B,C) = Σm(0,1,2,3,5)</h3>
     <div class="kmap-wrap">
-      <table class="kmap-table">
-        <tr><th class="corner">A\BC</th><th>00</th><th>01</th><th>11</th><th>10</th></tr>
-        <tr><th>0</th>
-          <td class="one"><span class="val">1</span><span class="idx">m0</span></td>
-          <td class="one"><span class="val">1</span><span class="idx">m1</span></td>
-          <td class="one"><span class="val">1</span><span class="idx">m3</span></td>
-          <td class="one"><span class="val">1</span><span class="idx">m2</span></td>
-        </tr>
-        <tr><th>1</th>
-          <td class="zero"><span class="val">0</span><span class="idx">m4</span></td>
-          <td class="one"><span class="val">1</span><span class="idx">m5</span></td>
-          <td class="zero"><span class="val">0</span><span class="idx">m7</span></td>
-          <td class="zero"><span class="val">0</span><span class="idx">m6</span></td>
-        </tr>
-      </table>
+      <div class="kmap-overlay">
+        <table class="kmap-table">
+          <tr><th class="corner">A\BC</th><th>00</th><th>01</th><th>11</th><th>10</th></tr>
+          <tr><th>0</th>
+            <td class="one"><span class="val">1</span><span class="idx">m0</span></td>
+            <td class="one"><span class="val">1</span><span class="idx">m1</span></td>
+            <td class="one"><span class="val">1</span><span class="idx">m3</span></td>
+            <td class="one"><span class="val">1</span><span class="idx">m2</span></td>
+          </tr>
+          <tr><th>1</th>
+            <td class="zero"><span class="val">0</span><span class="idx">m4</span></td>
+            <td class="one"><span class="val">1</span><span class="idx">m5</span></td>
+            <td class="zero"><span class="val">0</span><span class="idx">m7</span></td>
+            <td class="zero"><span class="val">0</span><span class="idx">m6</span></td>
+          </tr>
+        </table>
+        <svg width="262" height="136" viewBox="0 0 262 136">
+          <rect x="58.3" y="64.7" width="196" height="32.7" rx="10" fill="none" stroke="var(--primary)" stroke-width="3"/>
+          <rect x="110.3" y="64.7" width="40" height="77.4" rx="10" fill="none" stroke="#8e24aa" stroke-width="3"/>
+        </svg>
+      </div>
+    </div>
+    <div class="kmap-legend">
+      <span><span class="sw" style="border-color:var(--primary)"></span>Top row → A′</span>
+      <span><span class="sw" style="border-color:#8e24aa"></span>Pair {m1,m5} → B′C</span>
     </div>
     <p>Two groups cover every 1: the entire top row (a group of 4, since the whole A=0 row is 1s) and a pair {m1, m5} (both B=0, C=1, differing only in A). Reading each group's constant variables:</p>
     <div class="box box-eg">
