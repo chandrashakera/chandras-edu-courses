@@ -136,7 +136,7 @@
             <td class="dc"><span class="val">X</span><span class="idx">m10</span></td>
           </tr>
         </table>
-        <svg width="252" height="221" viewBox="0 0 252 221">
+        <svg width="256" height="240" viewBox="0 0 256 240">
           <rect x="106.3" y="62.7" width="88" height="76.4" rx="10" fill="none" stroke="var(--primary)" stroke-width="3"/>
           <rect x="106.3" y="151.1" width="88" height="76.4" rx="10" fill="none" stroke="#8e24aa" stroke-width="3"/>
         </svg>
@@ -149,7 +149,7 @@
     <p><strong>Without</strong> using any don't-cares, m9 is nearly isolated — its only same-value neighbor among the defined 1s and 0s is nothing, forcing a large 4-literal term just for m9 alone. <strong>With</strong> the don't-cares, a much better grouping appears: treat m11, m13, and m15 as 1s (they're free to be anything), and the four cells {m9, m11, m13, m15} — all with A=1, D=1 — form a full quad.</p>
     <div class="box box-eg">
       <pre>Quad {m1, m3, m5, m7} (A=0, D=1; B and C both vary):     term = A′D
-Quad {m9, m11(X→1), m13(X→1), m15(X→1)} (A=1, D=1; B,C vary): term = AD
+Quad {m9, m11, m13, m15} (A=1, D=1; B,C vary):                      term = AD
 
 F = A′D + AD = D(A′ + A) = D</pre>
     </div>
