@@ -148,13 +148,37 @@ Result: S=5 with Cout=1 into the next decade → "15" ✓  (8+7=15)</pre>
     <h3>Worked Example — 2-Bit × 2-Bit Multiplier</h3>
     <p>Multiply A = A₁A₀ by B = B₁B₀ (both 2-bit), producing a 4-bit product P₃P₂P₁P₀ — laid out exactly like pencil-and-paper long multiplication:</p>
     <div class="box box-eg">
-      <pre>         A₁  A₀
-       ×  B₁  B₀
-       ----------
-       A₁B₀ A₀B₀        ← partial product row 0 (× B₀)
-  A₁B₁ A₀B₁              ← partial product row 1 (× B₁), shifted left 1
-  ----------------
-   P₃   P₂   P₁   P₀</pre>
+      <div style="background:#1a237e;color:#e8eaf6;border-radius:4px;padding:.9rem;overflow-x:auto;margin-top:.5rem">
+        <table style="border-collapse:collapse;margin:0 auto;font-size:.9rem;white-space:nowrap">
+          <tr>
+            <td style="width:34px;background:#1a237e"></td><td style="width:34px;background:#1a237e"></td>
+            <td style="width:34px;text-align:center;background:#1a237e;color:#e8eaf6">A₁</td><td style="width:34px;text-align:center;background:#1a237e;color:#e8eaf6">A₀</td>
+            <td style="background:#1a237e"></td>
+          </tr>
+          <tr>
+            <td style="text-align:center;background:#1a237e;color:#e8eaf6">×</td><td style="background:#1a237e"></td>
+            <td style="text-align:center;background:#1a237e;color:#e8eaf6">B₁</td><td style="text-align:center;background:#1a237e;color:#e8eaf6">B₀</td>
+            <td style="background:#1a237e"></td>
+          </tr>
+          <tr><td colspan="4" style="border-top:1px solid #e8eaf6;padding-top:.3rem;background:#1a237e"></td><td style="background:#1a237e"></td></tr>
+          <tr>
+            <td style="background:#1a237e"></td><td style="background:#1a237e"></td>
+            <td style="text-align:center;background:#1a237e;color:#e8eaf6">A₁B₀</td><td style="text-align:center;background:#1a237e;color:#e8eaf6">A₀B₀</td>
+            <td style="padding-left:1rem;font-size:.8rem;opacity:.8;background:#1a237e;color:#e8eaf6">← partial product row 0 (×B₀)</td>
+          </tr>
+          <tr>
+            <td style="background:#1a237e"></td><td style="text-align:center;background:#1a237e;color:#e8eaf6">A₁B₁</td>
+            <td style="text-align:center;background:#1a237e;color:#e8eaf6">A₀B₁</td><td style="background:#1a237e"></td>
+            <td style="padding-left:1rem;font-size:.8rem;opacity:.8;background:#1a237e;color:#e8eaf6">← partial product row 1 (×B₁), shifted left 1</td>
+          </tr>
+          <tr><td colspan="4" style="border-top:1px solid #e8eaf6;padding-top:.3rem;background:#1a237e"></td><td style="background:#1a237e"></td></tr>
+          <tr>
+            <td style="text-align:center;font-weight:700;background:#1a237e;color:#e8eaf6">P₃</td><td style="text-align:center;font-weight:700;background:#1a237e;color:#e8eaf6">P₂</td>
+            <td style="text-align:center;font-weight:700;background:#1a237e;color:#e8eaf6">P₁</td><td style="text-align:center;font-weight:700;background:#1a237e;color:#e8eaf6">P₀</td>
+            <td style="background:#1a237e"></td>
+          </tr>
+        </table>
+      </div>
     </div>
     <p>Column P₀ is just A₀B₀ directly (nothing else lands in that column). Column P₁ has two bits to add (A₁B₀ and A₀B₁) — a half-adder, giving sum=P₁ and a carry into the next column. Column P₂ adds A₁B₁ to that carry — another half-adder, giving sum=P₂ and a final carry that becomes P₃ directly. Verify with A=11 (3), B=11 (3): A₁B₀=1, A₀B₁=1 → HA₁: sum=0, carry=1 → P₁=0. A₁B₁=1 → HA₂ adds 1+1(carry): sum=0, carry=1 → P₂=0, P₃=1. Product = 1001 (9) = 3×3. ✓</p>
     <div style="text-align:center;margin:1.25rem 0">
