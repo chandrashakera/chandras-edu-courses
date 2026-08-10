@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Decoders & Encoders — DLD Unit 3 | Chandras EDU</title>
+  <meta name="description" content="n-to-2^n decoders with enable inputs, using a decoder to implement any Boolean function directly, and encoders (including priority encoders) that go the other direction.">
+  <link rel="canonical" href="https://courses.chandrashaker.in/academic/dld/unit3/decoders-encoders.html">
+  <link rel="stylesheet" href="../../../css/style.css">
+
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Chandras EDU">
+  <meta property="og:title" content="Decoders & Encoders — DLD Unit 3 | Chandras EDU">
+  <meta property="og:description" content="n-to-2^n decoders with enable inputs, using a decoder to implement any Boolean function directly, and encoders (including priority encoders) that go the other direction.">
+  <meta property="og:url" content="https://courses.chandrashaker.in/academic/dld/unit3/decoders-encoders.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Decoders & Encoders — DLD Unit 3 | Chandras EDU">
+  <meta name="twitter:description" content="n-to-2^n decoders with enable inputs, using a decoder to implement any Boolean function directly, and encoders (including priority encoders) that go the other direction.">
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Courses", "item": "https://courses.chandrashaker.in/" },
+    { "@type": "ListItem", "position": 2, "name": "DLD", "item": "https://courses.chandrashaker.in/academic/dld/" },
+    { "@type": "ListItem", "position": 3, "name": "Unit 3", "item": "https://courses.chandrashaker.in/academic/dld/unit3/" },
+    { "@type": "ListItem", "position": 4, "name": "Decoders & Encoders" }
+  ]
+}
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LearningResource",
+  "name": "Decoders & Encoders",
+  "description": "n-to-2^n decoders with enable inputs, using a decoder to implement any Boolean function directly, and encoders (including priority encoders) that go the other direction.",
+  "url": "https://courses.chandrashaker.in/academic/dld/unit3/decoders-encoders.html",
+  "learningResourceType": "Lesson",
+  "educationalLevel": "Undergraduate",
+  "about": { "@type": "Thing", "name": "Digital Logic Design" },
+  "isPartOf": {
+    "@type": "Course",
+    "name": "Digital Logic Design",
+    "provider": { "@type": "Organization", "name": "Chandras EDU", "url": "https://chandrashaker.in" }
+  },
+  "publisher": { "@type": "Organization", "name": "Chandras EDU", "url": "https://chandrashaker.in" }
+}
+  </script>
+  <link rel="icon" href="/favicon.ico">
+  <style>
+    .truth-table { border-collapse:collapse; margin:1rem auto; font-size:.85rem; }
+    .truth-table th, .truth-table td { border:1px solid var(--border); padding:.35rem .6rem; text-align:center; }
+    .truth-table th { background:var(--bg-3); font-weight:700; }
+    .truth-table td.dc { color:#e65100; font-weight:700; }
+  </style>
+</head>
+<body>
+<nav class="nav"><div id="main-nav"></div></nav>
+
+<div style="max-width:820px;margin:.5rem auto;padding:0 1.25rem">
+  <div class="ad-slot">Advertisement</div>
+</div>
+
+<div class="page-narrow" role="main">
+
+  <nav class="breadcrumb">
+    <a href="../../../index.html">Courses</a><span class="sep">/</span>
+    <a href="../../dld/index.html">DLD</a><span class="sep">/</span>
+    <a href="index.html">Unit 3</a><span class="sep">/</span>
+    <span>Combinational Logic Circuits</span><span class="sep">/</span>
+    <span class="cur">Decoders &amp; Encoders</span>
+  </nav>
+
+  <div style="background:var(--primary);border-radius:var(--radius-lg);padding:1.1rem 1.4rem;margin-bottom:1.5rem;color:#fff">
+    <div style="font-size:.75rem;opacity:.75;margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.05em">DLD › Unit 3: Combinational Logic Circuits › Topic 5</div>
+    <h1 style="font-size:1.4rem;font-weight:700;color:#fff;margin-bottom:.5rem">Decoders &amp; Encoders</h1>
+    <div style="display:flex;gap:.75rem;flex-wrap:wrap">
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">⏱ 20 min read</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📝 Quiz inside</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📖 Mano &amp; Ciletti Ch. 4</span>
+    </div>
+  </div>
+
+  <!-- FULL LESSON — visible to everyone -->
+  <div class="lesson">
+    <p>Decoders and encoders are inverses of each other: a decoder turns a compact n-bit code into one active line out of 2ⁿ; an encoder turns one active line out of 2ⁿ back into a compact n-bit code.</p>
+
+    <h2>Decoders</h2>
+    <p>An <strong>n-to-2ⁿ decoder</strong> has n input lines and up to 2ⁿ output lines, and for every input combination, <strong>exactly one</strong> output is active (1) while all others stay 0. Each output is literally one minterm of the inputs.</p>
+    <table class="truth-table">
+      <thead><tr><th>A</th><th>B</th><th>D0</th><th>D1</th><th>D2</th><th>D3</th></tr></thead>
+      <tbody>
+        <tr><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td></tr>
+        <tr><td>0</td><td>1</td><td>0</td><td>1</td><td>0</td><td>0</td></tr>
+        <tr><td>1</td><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td></tr>
+        <tr><td>1</td><td>1</td><td>0</td><td>0</td><td>0</td><td>1</td></tr>
+      </tbody>
+    </table>
+    <div class="box box-eg">
+      <pre>D0 = A′B′   D1 = A′B   D2 = AB′   D3 = AB</pre>
+    </div>
+    <p>Most real decoder chips add an <strong>enable</strong> input E: every output AND gate gets a third input tied to E, so <em>all</em> outputs stay 0 whenever E=0, regardless of A and B. This is what makes decoders useful as chip-select logic — only the addressed chip's enable line goes active. Here's D2 = AB′E built out explicitly (the other three outputs are built identically, just with different true/complemented combinations of A and B):</p>
+    <div style="text-align:center;margin:1.25rem 0">
+      <svg viewBox="-8 -8 350 116" style="max-width:480px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
+        <text x="0" y="29" font-size="13" fill="var(--text)">A</text>
+        <line x1="14" y1="25" x2="100" y2="25" stroke="var(--primary)" stroke-width="2"/>
+
+        <text x="0" y="54" font-size="13" fill="var(--text)">B</text>
+        <line x1="14" y1="50" x2="30" y2="50" stroke="var(--primary)" stroke-width="2"/>
+        <path d="M30,35 L30,65 L64,50 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="3" stroke-linejoin="round"/>
+        <circle cx="70" cy="50" r="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="76" y1="50" x2="100" y2="50" stroke="var(--primary)" stroke-width="2"/>
+
+        <text x="0" y="79" font-size="13" fill="var(--text)">E</text>
+        <line x1="14" y1="75" x2="100" y2="75" stroke="var(--primary)" stroke-width="2"/>
+
+        <path d="M100,10 L136,10 A40,40 0 0 1 136,90 L100,90 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="3" stroke-linejoin="round"/>
+        <line x1="176" y1="50" x2="210" y2="50" stroke="var(--primary)" stroke-width="2"/>
+        <text x="214" y="54" font-size="13" fill="var(--text)">D2 = AB′E</text>
+      </svg>
+    </div>
+
+    <h3>Decoders Implement Any Boolean Function</h3>
+    <p>Since every decoder output already <em>is</em> one minterm, implementing any Boolean function of n variables is just: feed the n variables into an n-to-2ⁿ decoder, then OR together whichever decoder outputs correspond to the function's minterms. This is the canonical-SOP idea from Unit 1, built directly in hardware with zero simplification needed.</p>
+    <p><strong>Example:</strong> F(A,B) = Σm(1,2) — checking against the truth table above, m1=A′B=D1 and m2=AB′=D2, so F = D1 + D2: a single 2-input OR gate feeding off two of the decoder's outputs, no separate AND-gate array needed at all, since the decoder already built every minterm.</p>
+
+    <h2>Encoders</h2>
+    <p>An encoder does the reverse job: 2ⁿ input lines (only one active at a time) go in, and n output lines carrying that input's binary index come out. An octal-to-binary encoder (8 inputs D0–D7, one-hot; 3 outputs A2A1A0) reads each output straight off which inputs include that bit position in their index:</p>
+    <div class="box box-eg">
+      <pre>A0 = D1 + D3 + D5 + D7    (inputs whose index has bit 0 set)
+A1 = D2 + D3 + D6 + D7    (inputs whose index has bit 1 set)
+A2 = D4 + D5 + D6 + D7    (inputs whose index has bit 2 set)</pre>
+    </div>
+    <p>Each output is simply an OR of the four input lines whose index has that bit position set — a plain encoder needs no AND gates or K-maps at all, just three 4-input OR gates.</p>
+
+    <h3>Priority Encoder</h3>
+    <p>A plain encoder assumes exactly one input is ever active — which real systems can't guarantee (two devices might request service in the same cycle). A <strong>priority encoder</strong> resolves this by always encoding the <em>highest-indexed</em> active input, ignoring lower-indexed ones even if they're also active:</p>
+    <table class="truth-table">
+      <thead><tr><th>D3</th><th>D2</th><th>D1</th><th>D0</th><th>A1</th><th>A0</th><th>V</th></tr></thead>
+      <tbody>
+        <tr><td>0</td><td>0</td><td>0</td><td>0</td><td>X</td><td>X</td><td>0</td></tr>
+        <tr><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td><td>1</td></tr>
+        <tr><td>0</td><td>0</td><td>1</td><td class="dc">X</td><td>0</td><td>1</td><td>1</td></tr>
+        <tr><td>0</td><td>1</td><td class="dc">X</td><td class="dc">X</td><td>1</td><td>0</td><td>1</td></tr>
+        <tr><td>1</td><td class="dc">X</td><td class="dc">X</td><td class="dc">X</td><td>1</td><td>1</td><td>1</td></tr>
+      </tbody>
+    </table>
+    <p>The X's are don't-cares (Unit 2 again) — once D3 is known to be 1, D2/D1/D0 genuinely don't matter for the output, since D3 always wins regardless. <strong>V</strong> is a valid-output flag, 0 only when no input is active at all (needed because A1=A0=0 is otherwise ambiguous — does it mean "D0 is active" or "nothing is active"?).</p>
+
+    <h2>Common Pitfalls</h2>
+    <ul>
+      <li><strong>Forgetting the enable input disables ALL outputs, not just one.</strong> E=0 forces every decoder output to 0 simultaneously — it doesn't select a "default" output, it silences the whole decoder.</li>
+      <li><strong>Building a plain encoder when multiple inputs can be active at once.</strong> A plain encoder's outputs are undefined (or wrong) if more than one input is active simultaneously — that's exactly the situation a priority encoder is designed to handle correctly.</li>
+      <li><strong>Ignoring the valid-output flag V.</strong> Without V, a priority encoder's all-zero output is ambiguous between "input D0 is active" and "no input is active at all" — V is what disambiguates the two.</li>
+    </ul>
+
+    <h2>Applications</h2>
+    <ul>
+      <li><strong>Memory address decoding</strong> is the textbook decoder application — a CPU's high-order address bits feed a decoder whose outputs become individual chip-select lines, exactly the enable-input pattern shown above.</li>
+      <li><strong>Seven-segment display drivers</strong> are specialized decoders (BCD-to-seven-segment) that turn a 4-bit digit code into the right combination of active segments.</li>
+      <li><strong>Interrupt controllers</strong> in a CPU use priority encoders to decide which of several simultaneous interrupt requests gets serviced first, exactly the "highest index wins" behavior shown above.</li>
+    </ul>
+  </div>
+
+  <div class="ad-slot">Advertisement</div>
+
+  <!-- QUIZ GATE -->
+  <div id="gate-section">
+    <div class="gate">
+      <div class="gate-blur">
+        <div class="quiz">
+          <div class="quiz-title">📝 Quick Quiz — 5 Questions</div>
+        </div>
+      </div>
+      <div class="gate-overlay">
+        <div class="gate-box">
+          <div class="lock">🔒</div>
+          <h3>Login to take the quiz</h3>
+          <p>Create a free account to take the quiz and track your progress across all topics.</p>
+          <div class="gate-btns">
+            <a href="../../../login.html" class="btn btn-primary btn-sm">Login</a>
+            <a href="../../../login.html" class="btn btn-outline btn-sm">Register Free</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="quiz" id="quiz-section" style="display:none">
+    <div class="quiz-title">📝 Quick Quiz — 5 Questions</div>
+    <div id="quiz-body"></div>
+    <button class="btn btn-primary" id="submit-btn" disabled>Submit Quiz</button>
+    <div class="quiz-result" id="quiz-result" style="display:none"></div>
+  </div>
+
+  <div class="topic-nav">
+    <a href="magnitude-comparator.html">
+      <div class="nav-dir">← Previous</div>
+      <div class="nav-title">Magnitude Comparator</div>
+    </a>
+    <a href="multiplexers-demultiplexers.html" class="next">
+      <div class="nav-dir">Next →</div>
+      <div class="nav-title">Multiplexers &amp; Demultiplexers</div>
+    </a>
+  </div>
+
+</div>
+
+<div style="max-width:820px;margin:.5rem auto;padding:0 1.25rem">
+  <div class="ad-slot">Advertisement</div>
+</div>
+<footer class="footer">© 2026 Chandra Shaker · <a href="https://chandrashaker.in">chandrashaker.in</a> · <em>Reference: M. Morris Mano &amp; Michael D. Ciletti, Digital Design with an Introduction to the Verilog HDL, 6th ed. — Combinational Logic.</em></footer>
+
+<script type="module">
+  import { initNav } from '../../../js/nav.js';
+  import { onAuth, saveProgress, getProgress } from '../../../js/firebase-config.js';
+  initNav(3);
+
+  const COURSE_ID = 'dld';
+  const TOPIC_ID  = 'decoders-encoders';
+  const LABELS    = ['A','B','C','D'];
+  const QUIZ = [
+    { q:"In an n-to-2ⁿ decoder, how many outputs are active for any given input combination?", options:["Exactly one", "Exactly n", "All 2ⁿ outputs", "It depends on the enable input alone"], answer:0, explanation:"A decoder's defining behavior is that exactly one of its 2ⁿ outputs is active for any given input combination — each output corresponds to exactly one minterm." },
+    { q:"What does setting a decoder's enable input E=0 do?", options:["Forces every output to 0, regardless of the other inputs", "Selects a special \"default\" output", "Has no effect on the outputs", "Only disables the highest-numbered output"], answer:0, explanation:"E is ANDed into every output gate, so E=0 forces all outputs to 0 simultaneously — this is what makes decoders useful as chip-select logic." },
+    { q:"How can a decoder be used to implement an arbitrary Boolean function F(A,B) = Σm(1,2) without any additional AND gates?", options:["OR together the decoder outputs corresponding to those minterms (D1 + D2)", "Connect F directly to the enable input", "It's impossible without adding AND gates", "AND together all four decoder outputs"], answer:0, explanation:"Since every decoder output already is one minterm, ORing exactly the outputs matching the function's minterm list directly implements the function — here, D1 (=m1) and D2 (=m2)." },
+    { q:"What problem does a priority encoder solve that a plain encoder can't handle?", options:["Multiple inputs being active at the same time", "Encoding more than 8 inputs", "Working without a valid-output flag", "Handling only a single input line"], answer:0, explanation:"A plain encoder assumes exactly one input is active at a time; a priority encoder correctly handles the case where multiple inputs are active simultaneously by always encoding the highest-indexed one." },
+    { q:"In a priority encoder's truth table, why is the valid-output flag V needed?", options:["Because an all-zero output would otherwise be ambiguous between \"input D0 active\" and \"no input active\"", "Because V indicates a hardware fault", "Because V selects which input has priority", "V is not actually necessary and is omitted from real designs"], answer:0, explanation:"Without V, an all-zero (A1=A0=0) output could mean either \"D0 is the active input\" or \"nothing is active at all\" — V=0 specifically signals the latter case." }
+  ];
+
+  let selected = {}, submitted = false;
+
+  function buildQuiz() {
+    document.getElementById('quiz-body').innerHTML = QUIZ.map((q, qi) => `
+      <div class="question">
+        <div class="question-text">Q${qi+1}. ${q.q}</div>
+        <div class="options">
+          ${q.options.map((o, oi) => `<div class="option" data-qi="${qi}" data-oi="${oi}"><span class="option-lbl">${LABELS[oi]}</span>${o}</div>`).join('')}
+        </div>
+        <div class="explanation" id="exp${qi}" style="display:none">💡 ${q.explanation}</div>
+      </div>`).join('');
+    document.querySelectorAll('.option').forEach(el => {
+      el.onclick = () => {
+        if (submitted) return;
+        const qi = +el.dataset.qi, oi = +el.dataset.oi;
+        selected[qi] = oi;
+        document.querySelectorAll(`[data-qi="${qi}"]`).forEach(o => o.classList.remove('selected'));
+        el.classList.add('selected');
+        document.getElementById('submit-btn').disabled = Object.keys(selected).length < QUIZ.length;
+      };
+    });
+  }
+
+  async function submitQuiz(uid) {
+    submitted = true; let score = 0;
+    QUIZ.forEach((q, qi) => {
+      const correct = q.answer, chosen = selected[qi];
+      document.querySelectorAll(`[data-qi="${qi}"]`).forEach(o => {
+        const oi = +o.dataset.oi;
+        if (oi === correct) o.classList.add('correct');
+        else if (oi === chosen) o.classList.add('wrong');
+      });
+      document.getElementById(`exp${qi}`).style.display = 'block';
+      if (chosen === correct) score++;
+    });
+    document.getElementById('submit-btn').style.display = 'none';
+    const pct = Math.round((score / QUIZ.length) * 100);
+    const res = document.getElementById('quiz-result');
+    res.style.display = 'block';
+    res.className = `quiz-result ${pct >= 60 ? 'pass' : 'fail'}`;
+    res.innerHTML = `<div class="quiz-score">${pct >= 60 ? '🎉' : '📖'} Score: ${score}/${QUIZ.length} (${pct}%)</div>
+      <div class="quiz-msg">${pct >= 80 ? 'Excellent! Move to the next topic.' : pct >= 60 ? 'Good. Review what you missed.' : 'Review the lesson and try again.'}</div>`;
+    if (uid) await saveProgress(uid, COURSE_ID, TOPIC_ID, score, QUIZ.length);
+  }
+
+  onAuth(async user => {
+    const gate = document.getElementById('gate-section');
+    const quiz  = document.getElementById('quiz-section');
+    if (user) {
+      gate.style.display = 'none';
+      quiz.style.display = 'block';
+      buildQuiz();
+      document.getElementById('submit-btn').onclick = () => submitQuiz(user.uid);
+      const prog = await getProgress(user.uid, COURSE_ID, TOPIC_ID);
+      if (prog?.completed) {
+        const res = document.getElementById('quiz-result');
+        res.style.display = 'block';
+        res.className = 'quiz-result pass';
+        res.innerHTML = `<div class="quiz-score">✅ Completed — Best score: ${prog.percent}%</div>
+          <div class="quiz-msg">You can retake the quiz anytime.</div>`;
+      }
+    }
+  });
+</script>
+</body>
+</html>

@@ -12,6 +12,7 @@ Chandras EDU offers two course tracks: Academic engineering subjects for B.Tech 
 - [Digital Logic Design](https://courses.chandrashaker.in/academic/dld/index.html): Number systems and codes, error detection/correction, Boolean algebra, K-map minimization, combinational and sequential circuits, state machines, and PLDs.
 - [DLD Unit 1 — Number Systems, Codes & Boolean Algebra](https://courses.chandrashaker.in/academic/dld/unit1/index.html): Binary/octal/decimal/hex conversion, fixed/floating-point representation, 1's/2's complement, parity and Hamming error correction codes, Boolean algebra theorems, canonical forms, and the seven basic logic gates.
 - [DLD Unit 2 — Gate-Level Minimization (K-Maps)](https://courses.chandrashaker.in/academic/dld/unit2/index.html): 2/3/4-variable Karnaugh maps, SOP and POS simplification, don't-care conditions, and converting minimal expressions into NAND-NAND or NOR-NOR circuits.
+- [DLD Unit 3 — Combinational Logic Circuits](https://courses.chandrashaker.in/academic/dld/unit3/index.html): Combinational circuit analysis and design procedure, binary adder/subtractor, BCD adder and binary multiplier, magnitude comparator, decoders and encoders, and multiplexers/demultiplexers.
 
 ## Professional
 

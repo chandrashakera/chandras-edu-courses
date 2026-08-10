@@ -70,7 +70,21 @@
     <a href="unit2/index.html" style="display:inline-block;margin-top:.75rem;font-size:.85rem;color:var(--primary);font-weight:600">View Unit 2 →</a>
   </div>
 
-  <!-- Units 3-5 coming soon -->
+  <!-- Unit 3 — available -->
+  <div style="background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.25rem;margin-bottom:.75rem">
+    <div style="display:flex;align-items:center;gap:.75rem;margin-bottom:.75rem">
+      <span class="badge badge-blue">Unit 3</span>
+      <span style="font-weight:600">Combinational Logic Circuits</span>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.5rem">
+      <a href="unit3/index.html#combinational" style="display:flex;align-items:center;gap:.5rem;font-size:.88rem;color:var(--text-2);padding:.5rem .75rem;border-radius:var(--radius);border:1px solid var(--border)">
+        <span style="color:var(--primary)">▶</span> Combinational Logic Circuits
+      </a>
+    </div>
+    <a href="unit3/index.html" style="display:inline-block;margin-top:.75rem;font-size:.85rem;color:var(--primary);font-weight:600">View Unit 3 →</a>
+  </div>
+
+  <!-- Units 4-5 coming soon -->
   <div id="coming-soon-units"></div>
 
   <!-- Textbooks -->
@@ -94,11 +108,11 @@
   import { initNav } from '../../js/nav.js';
   initNav(2);
 
-  const comingSoon = ['Combinational Logic Circuits','Sequential Logic Circuits','State Machines &amp; PLDs'];
+  const comingSoon = ['Sequential Logic Circuits','State Machines &amp; PLDs'];
   document.getElementById('coming-soon-units').innerHTML = comingSoon.map((t,i) => `
     <div style="background:var(--bg-2);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.1rem 1.25rem;margin-bottom:.6rem;opacity:.6;display:flex;align-items:center;justify-content:space-between">
       <div style="display:flex;align-items:center;gap:.75rem">
-        <span class="badge badge-blue">Unit ${i+3}</span>
+        <span class="badge badge-blue">Unit ${i+4}</span>
         <span style="font-weight:600;font-size:.93rem">${t}</span>
       </div>
       <span style="font-size:.78rem;background:var(--bg-3);color:var(--text-3);padding:.2rem .6rem;border-radius:20px">Coming soon</span>
