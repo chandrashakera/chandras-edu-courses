@@ -158,43 +158,46 @@ Result: S=5 with Cout=1 into the next decade → "15" ✓  (8+7=15)</pre>
     </div>
     <p>Column P₀ is just A₀B₀ directly (nothing else lands in that column). Column P₁ has two bits to add (A₁B₀ and A₀B₁) — a half-adder, giving sum=P₁ and a carry into the next column. Column P₂ adds A₁B₁ to that carry — another half-adder, giving sum=P₂ and a final carry that becomes P₃ directly. Verify with A=11 (3), B=11 (3): A₁B₀=1, A₀B₁=1 → HA₁: sum=0, carry=1 → P₁=0. A₁B₁=1 → HA₂ adds 1+1(carry): sum=0, carry=1 → P₂=0, P₃=1. Product = 1001 (9) = 3×3. ✓</p>
     <div style="text-align:center;margin:1.25rem 0">
-      <svg viewBox="-10 -10 665 185" style="max-width:760px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
-        <text x="30" y="36" font-size="12" fill="var(--text)">A₀</text>
-        <line x1="44" y1="40" x2="60" y2="40" stroke="var(--primary)" stroke-width="2"/>
-        <text x="30" y="84" font-size="12" fill="var(--text)">B₀</text>
-        <line x1="44" y1="80" x2="60" y2="80" stroke="var(--primary)" stroke-width="2"/>
-        <path d="M60,40 L75,40 A20,20 0 0 1 75,80 L60,80 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="3" stroke-linejoin="round"/>
-        <line x1="95" y1="60" x2="130" y2="60" stroke="var(--primary)" stroke-width="2"/>
-        <text x="134" y="64" font-size="13" font-weight="700" fill="var(--text)">P₀</text>
+      <svg viewBox="-10 0 665 175" style="max-width:760px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
+        <text x="28" y="26" font-size="12" fill="var(--text)">A₀</text>
+        <line x1="42" y1="30" x2="60" y2="30" stroke="var(--primary)" stroke-width="2"/>
+        <text x="28" y="58" font-size="12" fill="var(--text)">B₀</text>
+        <line x1="42" y1="50" x2="60" y2="50" stroke="var(--primary)" stroke-width="2"/>
+        <path d="M60,20 L75,20 A20,20 0 0 1 75,60 L60,60 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="3" stroke-linejoin="round"/>
+        <line x1="95" y1="40" x2="130" y2="40" stroke="var(--primary)" stroke-width="2"/>
+        <text x="134" y="44" font-size="13" font-weight="700" fill="var(--text)">P₀</text>
 
-        <text x="150" y="16" font-size="12" fill="var(--text)">A₁</text>
-        <line x1="164" y1="20" x2="180" y2="20" stroke="var(--primary)" stroke-width="2"/>
-        <text x="150" y="84" font-size="12" fill="var(--text)">B₀</text>
-        <line x1="164" y1="80" x2="180" y2="80" stroke="var(--primary)" stroke-width="2"/>
-        <path d="M180,20 L195,20 A30,30 0 0 1 195,80 L180,80 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="3" stroke-linejoin="round"/>
-        <line x1="225" y1="50" x2="225" y2="108" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="225" y1="108" x2="380" y2="108" stroke="var(--primary)" stroke-width="2"/>
+        <text x="148" y="26" font-size="12" fill="var(--text)">A₁</text>
+        <line x1="162" y1="30" x2="180" y2="30" stroke="var(--primary)" stroke-width="2"/>
+        <text x="148" y="58" font-size="12" fill="var(--text)">B₀</text>
+        <line x1="162" y1="50" x2="180" y2="50" stroke="var(--primary)" stroke-width="2"/>
+        <path d="M180,20 L195,20 A20,20 0 0 1 195,60 L180,60 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="3" stroke-linejoin="round"/>
+        <line x1="215" y1="40" x2="230" y2="40" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="230" y1="40" x2="230" y2="108" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="230" y1="108" x2="380" y2="108" stroke="var(--primary)" stroke-width="2"/>
 
-        <text x="270" y="36" font-size="12" fill="var(--text)">A₀</text>
-        <line x1="284" y1="40" x2="300" y2="40" stroke="var(--primary)" stroke-width="2"/>
-        <text x="270" y="56" font-size="12" fill="var(--text)">B₁</text>
-        <line x1="284" y1="60" x2="300" y2="60" stroke="var(--primary)" stroke-width="2"/>
-        <path d="M300,40 L315,40 A10,10 0 0 1 315,60 L300,60 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="3" stroke-linejoin="round"/>
-        <line x1="325" y1="50" x2="325" y2="142" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="325" y1="142" x2="380" y2="142" stroke="var(--primary)" stroke-width="2"/>
+        <text x="268" y="26" font-size="12" fill="var(--text)">A₀</text>
+        <line x1="282" y1="30" x2="300" y2="30" stroke="var(--primary)" stroke-width="2"/>
+        <text x="268" y="58" font-size="12" fill="var(--text)">B₁</text>
+        <line x1="282" y1="50" x2="300" y2="50" stroke="var(--primary)" stroke-width="2"/>
+        <path d="M300,20 L315,20 A20,20 0 0 1 315,60 L300,60 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="3" stroke-linejoin="round"/>
+        <line x1="335" y1="40" x2="350" y2="40" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="350" y1="40" x2="350" y2="142" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="350" y1="142" x2="380" y2="142" stroke="var(--primary)" stroke-width="2"/>
 
-        <text x="390" y="16" font-size="12" fill="var(--text)">A₁</text>
-        <line x1="404" y1="20" x2="420" y2="20" stroke="var(--primary)" stroke-width="2"/>
-        <text x="390" y="56" font-size="12" fill="var(--text)">B₁</text>
-        <line x1="404" y1="60" x2="420" y2="60" stroke="var(--primary)" stroke-width="2"/>
+        <text x="388" y="26" font-size="12" fill="var(--text)">A₁</text>
+        <line x1="402" y1="30" x2="420" y2="30" stroke="var(--primary)" stroke-width="2"/>
+        <text x="388" y="58" font-size="12" fill="var(--text)">B₁</text>
+        <line x1="402" y1="50" x2="420" y2="50" stroke="var(--primary)" stroke-width="2"/>
         <path d="M420,20 L435,20 A20,20 0 0 1 435,60 L420,60 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="3" stroke-linejoin="round"/>
-        <line x1="455" y1="40" x2="455" y2="108" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="455" y1="108" x2="520" y2="108" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="455" y1="40" x2="490" y2="40" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="490" y1="40" x2="490" y2="108" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="490" y1="108" x2="520" y2="108" stroke="var(--primary)" stroke-width="2"/>
 
         <rect x="380" y="90" width="70" height="70" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
         <text x="415" y="134" font-size="15" font-weight="700" text-anchor="middle" fill="var(--text)">HA₁</text>
         <line x1="450" y1="108" x2="480" y2="108" stroke="var(--primary)" stroke-width="2"/>
-        <text x="484" y="112" font-size="13" font-weight="700" fill="var(--text)">P₁</text>
+        <text x="453" y="100" font-size="13" font-weight="700" fill="var(--text)">P₁</text>
         <line x1="450" y1="142" x2="520" y2="142" stroke="var(--primary)" stroke-width="2"/>
 
         <rect x="520" y="90" width="70" height="70" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
