@@ -148,15 +148,63 @@ Result: S=5 with Cout=1 into the next decade → "15" ✓  (8+7=15)</pre>
     <h3>Worked Example — 2-Bit × 2-Bit Multiplier</h3>
     <p>Multiply A = A₁A₀ by B = B₁B₀ (both 2-bit), producing a 4-bit product P₃P₂P₁P₀ — laid out exactly like pencil-and-paper long multiplication:</p>
     <div class="box box-eg">
-      <pre>         A1  A0
-       ×  B1  B0
+      <pre>         A₁  A₀
+       ×  B₁  B₀
        ----------
-       A1B0 A0B0        ← partial product row 0 (× B0)
-  A1B1 A0B1              ← partial product row 1 (× B1), shifted left 1
+       A₁B₀ A₀B₀        ← partial product row 0 (× B₀)
+  A₁B₁ A₀B₁              ← partial product row 1 (× B₁), shifted left 1
   ----------------
-   P3   P2   P1   P0</pre>
+   P₃   P₂   P₁   P₀</pre>
     </div>
-    <p>Column P0 is just A0B0 directly (nothing else lands in that column). Column P1 has two bits to add (A1B0 and A0B1) — a half-adder, giving sum=P1 and a carry into the next column. Column P2 adds A1B1 to that carry — another half-adder, giving sum=P2 and a final carry that becomes P3 directly. Verify with A=11 (3), B=11 (3): A1B0=1, A0B1=1 → HA1: sum=0, carry=1 → P1=0. A1B1=1 → HA2 adds 1+1(carry): sum=0, carry=1 → P2=0, P3=1. Product = 1001 (9) = 3×3. ✓</p>
+    <p>Column P₀ is just A₀B₀ directly (nothing else lands in that column). Column P₁ has two bits to add (A₁B₀ and A₀B₁) — a half-adder, giving sum=P₁ and a carry into the next column. Column P₂ adds A₁B₁ to that carry — another half-adder, giving sum=P₂ and a final carry that becomes P₃ directly. Verify with A=11 (3), B=11 (3): A₁B₀=1, A₀B₁=1 → HA₁: sum=0, carry=1 → P₁=0. A₁B₁=1 → HA₂ adds 1+1(carry): sum=0, carry=1 → P₂=0, P₃=1. Product = 1001 (9) = 3×3. ✓</p>
+    <div style="text-align:center;margin:1.25rem 0">
+      <svg viewBox="-10 -10 665 185" style="max-width:760px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
+        <text x="30" y="36" font-size="12" fill="var(--text)">A₀</text>
+        <line x1="44" y1="40" x2="60" y2="40" stroke="var(--primary)" stroke-width="2"/>
+        <text x="30" y="84" font-size="12" fill="var(--text)">B₀</text>
+        <line x1="44" y1="80" x2="60" y2="80" stroke="var(--primary)" stroke-width="2"/>
+        <path d="M60,40 L75,40 A20,20 0 0 1 75,80 L60,80 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="3" stroke-linejoin="round"/>
+        <line x1="95" y1="60" x2="130" y2="60" stroke="var(--primary)" stroke-width="2"/>
+        <text x="134" y="64" font-size="13" font-weight="700" fill="var(--text)">P₀</text>
+
+        <text x="150" y="16" font-size="12" fill="var(--text)">A₁</text>
+        <line x1="164" y1="20" x2="180" y2="20" stroke="var(--primary)" stroke-width="2"/>
+        <text x="150" y="84" font-size="12" fill="var(--text)">B₀</text>
+        <line x1="164" y1="80" x2="180" y2="80" stroke="var(--primary)" stroke-width="2"/>
+        <path d="M180,20 L195,20 A30,30 0 0 1 195,80 L180,80 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="3" stroke-linejoin="round"/>
+        <line x1="225" y1="50" x2="225" y2="108" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="225" y1="108" x2="380" y2="108" stroke="var(--primary)" stroke-width="2"/>
+
+        <text x="270" y="36" font-size="12" fill="var(--text)">A₀</text>
+        <line x1="284" y1="40" x2="300" y2="40" stroke="var(--primary)" stroke-width="2"/>
+        <text x="270" y="56" font-size="12" fill="var(--text)">B₁</text>
+        <line x1="284" y1="60" x2="300" y2="60" stroke="var(--primary)" stroke-width="2"/>
+        <path d="M300,40 L315,40 A10,10 0 0 1 315,60 L300,60 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="3" stroke-linejoin="round"/>
+        <line x1="325" y1="50" x2="325" y2="142" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="325" y1="142" x2="380" y2="142" stroke="var(--primary)" stroke-width="2"/>
+
+        <text x="390" y="16" font-size="12" fill="var(--text)">A₁</text>
+        <line x1="404" y1="20" x2="420" y2="20" stroke="var(--primary)" stroke-width="2"/>
+        <text x="390" y="56" font-size="12" fill="var(--text)">B₁</text>
+        <line x1="404" y1="60" x2="420" y2="60" stroke="var(--primary)" stroke-width="2"/>
+        <path d="M420,20 L435,20 A20,20 0 0 1 435,60 L420,60 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="3" stroke-linejoin="round"/>
+        <line x1="455" y1="40" x2="455" y2="108" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="455" y1="108" x2="520" y2="108" stroke="var(--primary)" stroke-width="2"/>
+
+        <rect x="380" y="90" width="70" height="70" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <text x="415" y="134" font-size="15" font-weight="700" text-anchor="middle" fill="var(--text)">HA₁</text>
+        <line x1="450" y1="108" x2="480" y2="108" stroke="var(--primary)" stroke-width="2"/>
+        <text x="484" y="112" font-size="13" font-weight="700" fill="var(--text)">P₁</text>
+        <line x1="450" y1="142" x2="520" y2="142" stroke="var(--primary)" stroke-width="2"/>
+
+        <rect x="520" y="90" width="70" height="70" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <text x="555" y="134" font-size="15" font-weight="700" text-anchor="middle" fill="var(--text)">HA₂</text>
+        <line x1="590" y1="108" x2="620" y2="108" stroke="var(--primary)" stroke-width="2"/>
+        <text x="624" y="112" font-size="13" font-weight="700" fill="var(--text)">P₂</text>
+        <line x1="590" y1="142" x2="620" y2="142" stroke="var(--primary)" stroke-width="2"/>
+        <text x="624" y="146" font-size="13" font-weight="700" fill="var(--text)">P₃</text>
+      </svg>
+    </div>
     <p>Wider multipliers follow the identical pattern at larger scale: more AND gates for more partial-product bits, and a bigger adder array (usually full-adders, not just half-adders, once three or more bits land in the same column) to sum them.</p>
 
     <h2>Common Pitfalls</h2>
