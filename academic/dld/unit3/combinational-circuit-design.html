@@ -58,6 +58,10 @@
     .kmap-table td.one { background:#e8f5e9; }
     .kmap-table td.one .val { color:var(--success); }
     .kmap-table td.zero .val { color:var(--text-3); }
+    .kmap-overlay { position:relative; display:inline-block; }
+    .kmap-overlay svg { position:absolute; top:0; left:0; pointer-events:none; }
+    .kmap-legend { display:flex; justify-content:center; gap:1.25rem; flex-wrap:wrap; margin:-.5rem 0 1rem; font-size:.8rem; color:var(--text-2); }
+    .kmap-legend span.sw { display:inline-block; width:14px; height:14px; border-radius:4px; margin-right:.35rem; vertical-align:-2px; border:2.5px solid; }
   </style>
 </head>
 <body>
@@ -108,16 +112,16 @@
         <line x1="14" y1="20" x2="50" y2="20" stroke="var(--primary)" stroke-width="2"/>
         <text x="0" y="84" font-size="13" fill="var(--text)">B</text>
         <line x1="14" y1="80" x2="50" y2="80" stroke="var(--primary)" stroke-width="2"/>
-        <path d="M50,10 L80,10 A35,35 0 0 1 80,90 L50,90 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="3" stroke-linejoin="round"/>
+        <path d="M50,10 L80,10 A40,40 0 0 1 80,90 L50,90 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="3" stroke-linejoin="round"/>
         <text x="90" y="44" font-size="11" fill="var(--text-2)">AB</text>
-        <line x1="115" y1="50" x2="160" y2="50" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="120" y1="50" x2="160" y2="50" stroke="var(--primary)" stroke-width="2"/>
         <line x1="160" y1="50" x2="160" y2="75" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="160" y1="75" x2="190" y2="75" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="160" y1="75" x2="199" y2="75" stroke="var(--primary)" stroke-width="2"/>
 
         <text x="0" y="144" font-size="13" fill="var(--text)">C</text>
         <line x1="14" y1="140" x2="160" y2="140" stroke="var(--primary)" stroke-width="2"/>
         <line x1="160" y1="140" x2="160" y2="105" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="160" y1="105" x2="190" y2="105" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="160" y1="105" x2="199" y2="105" stroke="var(--primary)" stroke-width="2"/>
 
         <path d="M190,60 Q214,90 190,120 Q244,120 271,90 Q244,60 190,60 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="3" stroke-linejoin="round"/>
         <line x1="271" y1="90" x2="300" y2="90" stroke="var(--primary)" stroke-width="2"/>
@@ -145,21 +149,33 @@ Step 3 — substitute:                              F = AB + C</pre>
     <p>Design a circuit with three inputs A, B, C and one output F, where F = 1 whenever a <strong>majority</strong> (2 or more) of the inputs are 1.</p>
     <p>Truth table → minterms: F is 1 for input combinations with two or three 1s: m3 (011), m5 (101), m6 (110), m7 (111). So F(A,B,C) = Σm(3,5,6,7).</p>
     <div style="display:flex;justify-content:center;margin:1.25rem 0">
-      <table class="kmap-table">
-        <tr><th class="corner">A\BC</th><th>00</th><th>01</th><th>11</th><th>10</th></tr>
-        <tr><th>0</th>
-          <td class="zero"><span class="val">0</span><span class="idx">m0</span></td>
-          <td class="zero"><span class="val">0</span><span class="idx">m1</span></td>
-          <td class="one"><span class="val">1</span><span class="idx">m3</span></td>
-          <td class="zero"><span class="val">0</span><span class="idx">m2</span></td>
-        </tr>
-        <tr><th>1</th>
-          <td class="zero"><span class="val">0</span><span class="idx">m4</span></td>
-          <td class="one"><span class="val">1</span><span class="idx">m5</span></td>
-          <td class="one"><span class="val">1</span><span class="idx">m7</span></td>
-          <td class="one"><span class="val">1</span><span class="idx">m6</span></td>
-        </tr>
-      </table>
+      <div class="kmap-overlay">
+        <table class="kmap-table">
+          <tr><th class="corner">A\BC</th><th>00</th><th>01</th><th>11</th><th>10</th></tr>
+          <tr><th>0</th>
+            <td class="zero"><span class="val">0</span><span class="idx">m0</span></td>
+            <td class="zero"><span class="val">0</span><span class="idx">m1</span></td>
+            <td class="one"><span class="val">1</span><span class="idx">m3</span></td>
+            <td class="zero"><span class="val">0</span><span class="idx">m2</span></td>
+          </tr>
+          <tr><th>1</th>
+            <td class="zero"><span class="val">0</span><span class="idx">m4</span></td>
+            <td class="one"><span class="val">1</span><span class="idx">m5</span></td>
+            <td class="one"><span class="val">1</span><span class="idx">m7</span></td>
+            <td class="one"><span class="val">1</span><span class="idx">m6</span></td>
+          </tr>
+        </table>
+        <svg width="262" height="155" viewBox="0 0 262 155">
+          <rect x="152.3" y="58.7" width="46" height="84.4" rx="10" fill="none" stroke="#2e7d32" stroke-width="3"/>
+          <rect x="104.3" y="104.9" width="92" height="36.2" rx="10" fill="none" stroke="#8e24aa" stroke-width="3"/>
+          <rect x="156.3" y="106.9" width="88" height="32.2" rx="8" fill="none" stroke="var(--primary)" stroke-width="3"/>
+        </svg>
+      </div>
+    </div>
+    <div class="kmap-legend">
+      <span><span class="sw" style="border-color:var(--primary)"></span>Pair {m6,m7} → AB</span>
+      <span><span class="sw" style="border-color:#8e24aa"></span>Pair {m5,m7} → AC</span>
+      <span><span class="sw" style="border-color:#2e7d32"></span>Pair {m3,m7} → BC</span>
     </div>
     <p>Three valid pairs exist, and each one shares cell m7 with the other two — a normal and expected overlap (recall from Unit 2: a group only needs to <em>cover</em> a 1, nothing forbids the same 1 from being covered more than once):</p>
     <div class="box box-eg">
