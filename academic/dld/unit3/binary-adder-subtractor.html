@@ -148,9 +148,10 @@
 
         <line x1="120" y1="28" x2="180" y2="28" stroke="var(--primary)" stroke-width="2"/>
         <text x="138" y="22" font-size="11" fill="var(--text-2)">S₁</text>
-        <line x1="120" y1="62" x2="120" y2="105" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="120" y1="105" x2="289" y2="105" stroke="var(--primary)" stroke-width="2"/>
-        <text x="123" y="98" font-size="11" fill="var(--text-2)">C₁</text>
+        <line x1="120" y1="62" x2="145" y2="62" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="145" y1="62" x2="145" y2="105" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="145" y1="105" x2="289" y2="105" stroke="var(--primary)" stroke-width="2"/>
+        <text x="152" y="118" font-size="11" fill="var(--text-2)">C₁</text>
 
         <text x="0" y="99" font-size="13" fill="var(--text)">Cin</text>
         <line x1="22" y1="95" x2="160" y2="95" stroke="var(--primary)" stroke-width="2"/>
@@ -162,9 +163,10 @@
 
         <line x1="250" y1="28" x2="290" y2="28" stroke="var(--primary)" stroke-width="2"/>
         <text x="294" y="32" font-size="13" fill="var(--text)">S</text>
-        <line x1="250" y1="62" x2="250" y2="135" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="250" y1="135" x2="289" y2="135" stroke="var(--primary)" stroke-width="2"/>
-        <text x="253" y="98" font-size="11" fill="var(--text-2)">C₂</text>
+        <line x1="250" y1="62" x2="265" y2="62" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="265" y1="62" x2="265" y2="135" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="265" y1="135" x2="289" y2="135" stroke="var(--primary)" stroke-width="2"/>
+        <text x="258" y="98" font-size="11" fill="var(--text-2)">C₂</text>
 
         <path d="M280,90 Q304,120 280,150 Q334,150 361,120 Q334,90 280,90 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="3" stroke-linejoin="round"/>
         <line x1="361" y1="120" x2="395" y2="120" stroke="var(--primary)" stroke-width="2"/>
@@ -177,49 +179,49 @@
     <p>Chain n full-adders together — each stage's Cout feeding directly into the next stage's Cin — and the result adds two n-bit binary numbers. The carry "ripples" from the least-significant bit up to the most-significant, one full-adder delay at a time (the one real drawback: the final, most-significant sum bit isn't valid until the carry has propagated all the way through every stage).</p>
     <div style="text-align:center;margin:1.25rem 0">
       <svg viewBox="-15 -25 500 165" style="max-width:640px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
-        <text x="24" y="-8" font-size="11" fill="var(--text-2)">A0</text>
+        <text x="24" y="-8" font-size="11" fill="var(--text-2)">A3</text>
         <line x1="35" y1="-2" x2="35" y2="10" stroke="var(--primary)" stroke-width="2"/>
-        <text x="64" y="-8" font-size="11" fill="var(--text-2)">B0</text>
+        <text x="64" y="-8" font-size="11" fill="var(--text-2)">B3</text>
         <line x1="75" y1="-2" x2="75" y2="10" stroke="var(--primary)" stroke-width="2"/>
         <rect x="20" y="10" width="70" height="70" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
-        <text x="55" y="54" font-size="14" font-weight="700" text-anchor="middle" fill="var(--text)">FA₀</text>
+        <text x="55" y="54" font-size="14" font-weight="700" text-anchor="middle" fill="var(--text)">FA₃</text>
         <line x1="55" y1="80" x2="55" y2="105" stroke="var(--primary)" stroke-width="2"/>
-        <text x="48" y="118" font-size="11" fill="var(--text-2)">S0</text>
+        <text x="48" y="118" font-size="11" fill="var(--text-2)">S3</text>
 
-        <text x="139" y="-8" font-size="11" fill="var(--text-2)">A1</text>
+        <text x="139" y="-8" font-size="11" fill="var(--text-2)">A2</text>
         <line x1="150" y1="-2" x2="150" y2="10" stroke="var(--primary)" stroke-width="2"/>
-        <text x="179" y="-8" font-size="11" fill="var(--text-2)">B1</text>
+        <text x="179" y="-8" font-size="11" fill="var(--text-2)">B2</text>
         <line x1="190" y1="-2" x2="190" y2="10" stroke="var(--primary)" stroke-width="2"/>
         <rect x="135" y="10" width="70" height="70" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
-        <text x="170" y="54" font-size="14" font-weight="700" text-anchor="middle" fill="var(--text)">FA₁</text>
+        <text x="170" y="54" font-size="14" font-weight="700" text-anchor="middle" fill="var(--text)">FA₂</text>
         <line x1="170" y1="80" x2="170" y2="105" stroke="var(--primary)" stroke-width="2"/>
-        <text x="163" y="118" font-size="11" fill="var(--text-2)">S1</text>
+        <text x="163" y="118" font-size="11" fill="var(--text-2)">S2</text>
 
-        <text x="254" y="-8" font-size="11" fill="var(--text-2)">A2</text>
+        <text x="254" y="-8" font-size="11" fill="var(--text-2)">A1</text>
         <line x1="265" y1="-2" x2="265" y2="10" stroke="var(--primary)" stroke-width="2"/>
-        <text x="294" y="-8" font-size="11" fill="var(--text-2)">B2</text>
+        <text x="294" y="-8" font-size="11" fill="var(--text-2)">B1</text>
         <line x1="305" y1="-2" x2="305" y2="10" stroke="var(--primary)" stroke-width="2"/>
         <rect x="250" y="10" width="70" height="70" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
-        <text x="285" y="54" font-size="14" font-weight="700" text-anchor="middle" fill="var(--text)">FA₂</text>
+        <text x="285" y="54" font-size="14" font-weight="700" text-anchor="middle" fill="var(--text)">FA₁</text>
         <line x1="285" y1="80" x2="285" y2="105" stroke="var(--primary)" stroke-width="2"/>
-        <text x="278" y="118" font-size="11" fill="var(--text-2)">S2</text>
+        <text x="278" y="118" font-size="11" fill="var(--text-2)">S1</text>
 
-        <text x="369" y="-8" font-size="11" fill="var(--text-2)">A3</text>
+        <text x="369" y="-8" font-size="11" fill="var(--text-2)">A0</text>
         <line x1="380" y1="-2" x2="380" y2="10" stroke="var(--primary)" stroke-width="2"/>
-        <text x="409" y="-8" font-size="11" fill="var(--text-2)">B3</text>
+        <text x="409" y="-8" font-size="11" fill="var(--text-2)">B0</text>
         <line x1="420" y1="-2" x2="420" y2="10" stroke="var(--primary)" stroke-width="2"/>
         <rect x="365" y="10" width="70" height="70" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
-        <text x="400" y="54" font-size="14" font-weight="700" text-anchor="middle" fill="var(--text)">FA₃</text>
+        <text x="400" y="54" font-size="14" font-weight="700" text-anchor="middle" fill="var(--text)">FA₀</text>
         <line x1="400" y1="80" x2="400" y2="105" stroke="var(--primary)" stroke-width="2"/>
-        <text x="393" y="118" font-size="11" fill="var(--text-2)">S3</text>
+        <text x="393" y="118" font-size="11" fill="var(--text-2)">S0</text>
 
-        <text x="-14" y="49" font-size="11" fill="var(--text-2)">C0</text>
+        <text x="-14" y="49" font-size="11" fill="var(--text-2)">C4</text>
         <line x1="0" y1="45" x2="20" y2="45" stroke="var(--primary)" stroke-width="2"/>
         <line x1="90" y1="45" x2="135" y2="45" stroke="var(--primary)" stroke-width="2"/>
         <line x1="205" y1="45" x2="250" y2="45" stroke="var(--primary)" stroke-width="2"/>
         <line x1="320" y1="45" x2="365" y2="45" stroke="var(--primary)" stroke-width="2"/>
         <line x1="435" y1="45" x2="460" y2="45" stroke="var(--primary)" stroke-width="2"/>
-        <text x="464" y="49" font-size="11" fill="var(--text-2)">C4</text>
+        <text x="464" y="49" font-size="11" fill="var(--text-2)">C0</text>
       </svg>
     </div>
 
@@ -259,7 +261,74 @@ Result: S = 1001 (9), C4 = 0 — no overflow. 6 + 3 = 9. ✓</pre>
         <text x="164" y="44" font-size="12" fill="var(--text)">Bi′ if M=1</text>
       </svg>
     </div>
-    <p>One such XOR gate sits in front of every bit of B (B0 through B3 for a 4-bit adder), all sharing the same M line, feeding into an ordinary ripple-carry adder whose Cin is also tied to M.</p>
+    <p>One such XOR gate sits in front of every bit of B (B0 through B3 for a 4-bit adder), all sharing the same M line, feeding into an ordinary ripple-carry adder whose Cin is also tied to M. Assembled into the full 4-bit circuit — same FA chain as the ripple-carry adder above, with one XOR gate (⊕) added in front of each B input:</p>
+    <div style="text-align:center;margin:1.25rem 0">
+      <svg viewBox="-15 -90 520 240" style="max-width:640px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
+        <text x="24" y="-8" font-size="11" fill="var(--text-2)">A3</text>
+        <line x1="35" y1="-2" x2="35" y2="10" stroke="var(--primary)" stroke-width="2"/>
+        <text x="61" y="-78" font-size="11" fill="var(--text-2)">B3</text>
+        <line x1="75" y1="-72" x2="75" y2="-59" stroke="var(--primary)" stroke-width="2"/>
+        <circle cx="75" cy="-45" r="14" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5"/>
+        <text x="75" y="-40" font-size="14" text-anchor="middle" fill="var(--primary)">⊕</text>
+        <line x1="75" y1="-31" x2="75" y2="10" stroke="var(--primary)" stroke-width="2"/>
+        <rect x="20" y="10" width="70" height="70" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <text x="55" y="54" font-size="14" font-weight="700" text-anchor="middle" fill="var(--text)">FA₃</text>
+        <line x1="55" y1="80" x2="55" y2="105" stroke="var(--primary)" stroke-width="2"/>
+        <text x="48" y="118" font-size="11" fill="var(--text-2)">S3</text>
+
+        <text x="139" y="-8" font-size="11" fill="var(--text-2)">A2</text>
+        <line x1="150" y1="-2" x2="150" y2="10" stroke="var(--primary)" stroke-width="2"/>
+        <text x="176" y="-78" font-size="11" fill="var(--text-2)">B2</text>
+        <line x1="190" y1="-72" x2="190" y2="-59" stroke="var(--primary)" stroke-width="2"/>
+        <circle cx="190" cy="-45" r="14" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5"/>
+        <text x="190" y="-40" font-size="14" text-anchor="middle" fill="var(--primary)">⊕</text>
+        <line x1="190" y1="-31" x2="190" y2="10" stroke="var(--primary)" stroke-width="2"/>
+        <rect x="135" y="10" width="70" height="70" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <text x="170" y="54" font-size="14" font-weight="700" text-anchor="middle" fill="var(--text)">FA₂</text>
+        <line x1="170" y1="80" x2="170" y2="105" stroke="var(--primary)" stroke-width="2"/>
+        <text x="163" y="118" font-size="11" fill="var(--text-2)">S2</text>
+
+        <text x="254" y="-8" font-size="11" fill="var(--text-2)">A1</text>
+        <line x1="265" y1="-2" x2="265" y2="10" stroke="var(--primary)" stroke-width="2"/>
+        <text x="291" y="-78" font-size="11" fill="var(--text-2)">B1</text>
+        <line x1="305" y1="-72" x2="305" y2="-59" stroke="var(--primary)" stroke-width="2"/>
+        <circle cx="305" cy="-45" r="14" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5"/>
+        <text x="305" y="-40" font-size="14" text-anchor="middle" fill="var(--primary)">⊕</text>
+        <line x1="305" y1="-31" x2="305" y2="10" stroke="var(--primary)" stroke-width="2"/>
+        <rect x="250" y="10" width="70" height="70" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <text x="285" y="54" font-size="14" font-weight="700" text-anchor="middle" fill="var(--text)">FA₁</text>
+        <line x1="285" y1="80" x2="285" y2="105" stroke="var(--primary)" stroke-width="2"/>
+        <text x="278" y="118" font-size="11" fill="var(--text-2)">S1</text>
+
+        <text x="369" y="-8" font-size="11" fill="var(--text-2)">A0</text>
+        <line x1="380" y1="-2" x2="380" y2="10" stroke="var(--primary)" stroke-width="2"/>
+        <text x="406" y="-78" font-size="11" fill="var(--text-2)">B0</text>
+        <line x1="420" y1="-72" x2="420" y2="-59" stroke="var(--primary)" stroke-width="2"/>
+        <circle cx="420" cy="-45" r="14" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5"/>
+        <text x="420" y="-40" font-size="14" text-anchor="middle" fill="var(--primary)">⊕</text>
+        <line x1="420" y1="-31" x2="420" y2="10" stroke="var(--primary)" stroke-width="2"/>
+        <rect x="365" y="10" width="70" height="70" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <text x="400" y="54" font-size="14" font-weight="700" text-anchor="middle" fill="var(--text)">FA₀</text>
+        <line x1="400" y1="80" x2="400" y2="105" stroke="var(--primary)" stroke-width="2"/>
+        <text x="393" y="118" font-size="11" fill="var(--text-2)">S0</text>
+
+        <text x="-14" y="49" font-size="11" fill="var(--text-2)">C4</text>
+        <line x1="0" y1="45" x2="20" y2="45" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="90" y1="45" x2="135" y2="45" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="205" y1="45" x2="250" y2="45" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="320" y1="45" x2="365" y2="45" stroke="var(--primary)" stroke-width="2"/>
+
+        <text x="0" y="-49" font-size="11" fill="var(--text)">M</text>
+        <line x1="14" y1="-45" x2="61" y2="-45" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="89" y1="-45" x2="176" y2="-45" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="204" y1="-45" x2="291" y2="-45" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="319" y1="-45" x2="406" y2="-45" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="434" y1="-45" x2="450" y2="-45" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="450" y1="-45" x2="450" y2="45" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="450" y1="45" x2="435" y2="45" stroke="var(--primary)" stroke-width="2"/>
+        <text x="445" y="64" font-size="11" fill="var(--text-2)">Cin (=M)</text>
+      </svg>
+    </div>
 
     <h2>Common Pitfalls</h2>
     <ul>
