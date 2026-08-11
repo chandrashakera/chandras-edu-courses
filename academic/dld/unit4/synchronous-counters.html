@@ -229,10 +229,13 @@ J<sub>B</sub> = C,  K<sub>B</sub> = C    (B's J/K columns are exactly 0 when C=0
         <text x="594" y="49" font-size="13" fill="var(--text)">A</text>
 
         <text x="-38" y="169" font-size="11" fill="var(--text-2)">CLK</text>
-        <line x1="0" y1="165" x2="480" y2="165" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="60" y1="165" x2="60" y2="85" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="225" y1="165" x2="225" y2="85" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="480" y1="165" x2="480" y2="85" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="0" y1="165" x2="468" y2="165" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="48" y1="165" x2="48" y2="85" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="48" y1="85" x2="60" y2="85" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="213" y1="165" x2="213" y2="85" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="213" y1="85" x2="225" y2="85" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="468" y1="165" x2="468" y2="85" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="468" y1="85" x2="480" y2="85" stroke="var(--primary)" stroke-width="2"/>
       </svg>
     </div>
     <p>Every clock triangle taps the same horizontal CLK line — that single shared bus is the entire structural difference from the ripple counter's staggered chain. FF(C) always toggles; FF(B)'s J and K both come straight from C; FF(A)'s J and K both come from a single AND gate combining B and C. Because a JK flip-flop's characteristic equation makes J and K always drive the toggle decision together, feeding the same signal to both pins of a stage is exactly what "toggle when this condition is true" means in hardware.</p>
