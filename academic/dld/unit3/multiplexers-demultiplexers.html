@@ -86,60 +86,132 @@
     <p>This closes out the unit with the last standard building block pair: a <strong>multiplexer</strong> (MUX) selects one of several data inputs to route to a single output, and a <strong>demultiplexer</strong> (DEMUX) does the reverse — routing one input to a chosen one of several outputs.</p>
 
     <h2>Multiplexer (Data Selector)</h2>
-    <p>A <strong>4-to-1 MUX</strong> has four data inputs (I0–I3), two select lines (S1, S0), and one output Y — the select code picks which single data input is copied through to Y:</p>
+    <p>A <strong>4-to-1 MUX</strong> has four data inputs (I₀–I₃), two select lines (S₁, S₀), and one output Y — the select code picks which single data input is copied through to Y:</p>
     <table class="truth-table">
-      <thead><tr><th>S1</th><th>S0</th><th>Y</th></tr></thead>
+      <thead><tr><th>S₁</th><th>S₀</th><th>Y</th></tr></thead>
       <tbody>
-        <tr><td>0</td><td>0</td><td>I0</td></tr>
-        <tr><td>0</td><td>1</td><td>I1</td></tr>
-        <tr><td>1</td><td>0</td><td>I2</td></tr>
-        <tr><td>1</td><td>1</td><td>I3</td></tr>
+        <tr><td>0</td><td>0</td><td>I₀</td></tr>
+        <tr><td>0</td><td>1</td><td>I₁</td></tr>
+        <tr><td>1</td><td>0</td><td>I₂</td></tr>
+        <tr><td>1</td><td>1</td><td>I₃</td></tr>
       </tbody>
     </table>
     <div class="box box-eg">
-      <pre>Y = S1′S0′I0 + S1′S0I1 + S1S0′I2 + S1S0I3</pre>
+      <pre>Y = S₁′S₀′I₀ + S₁′S₀I₁ + S₁S₀′I₂ + S₁S₀I₃</pre>
     </div>
-    <p>Each term should look familiar: S1′S0′, S1′S0, S1S0′, and S1S0 are exactly the four outputs of a 2-to-4 decoder (previous topic) — a MUX is essentially a decoder where every output gate's third input is a data line instead of a shared enable. Here's the I1 term, S1′S0I1, built out explicitly:</p>
+    <p>Each term should look familiar: S₁′S₀′, S₁′S₀, S₁S₀′, and S₁S₀ are exactly the four outputs of a 2-to-4 decoder (previous topic) — a MUX is essentially a decoder where every output gate's third input is a data line instead of a shared enable. Here's the I₁ term, S₁′S₀I₁, built out explicitly:</p>
     <div style="text-align:center;margin:1.25rem 0">
       <svg viewBox="-8 -8 360 116" style="max-width:480px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
-        <text x="0" y="29" font-size="13" fill="var(--text)">S1</text>
+        <text x="0" y="29" font-size="13" fill="var(--text)">S₁</text>
         <line x1="20" y1="25" x2="30" y2="25" stroke="var(--primary)" stroke-width="2"/>
         <path d="M30,10 L30,40 L64,25 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="3" stroke-linejoin="round"/>
         <circle cx="70" cy="25" r="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="2"/>
         <line x1="76" y1="25" x2="100" y2="25" stroke="var(--primary)" stroke-width="2"/>
 
-        <text x="0" y="54" font-size="13" fill="var(--text)">S0</text>
+        <text x="0" y="54" font-size="13" fill="var(--text)">S₀</text>
         <line x1="14" y1="50" x2="100" y2="50" stroke="var(--primary)" stroke-width="2"/>
 
-        <text x="0" y="79" font-size="13" fill="var(--text)">I1</text>
+        <text x="0" y="79" font-size="13" fill="var(--text)">I₁</text>
         <line x1="14" y1="75" x2="100" y2="75" stroke="var(--primary)" stroke-width="2"/>
 
         <path d="M100,10 L136,10 A40,40 0 0 1 136,90 L100,90 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="3" stroke-linejoin="round"/>
         <line x1="176" y1="50" x2="210" y2="50" stroke="var(--primary)" stroke-width="2"/>
-        <text x="214" y="54" font-size="13" fill="var(--text)">S1′S0I1</text>
+        <text x="214" y="54" font-size="13" fill="var(--text)">S₁′S₀I₁</text>
       </svg>
     </div>
-    <p>The other three terms are built identically (different true/complemented combinations of S1, S0), and all four feed a single 4-input OR gate to produce Y.</p>
+    <p>The other three terms are built identically (different true/complemented combinations of S₁, S₀), and all four feed a single 4-input OR gate to produce Y. Zoomed back out, here's the whole 4-to-1 MUX as a single block:</p>
+    <div style="text-align:center;margin:1.25rem 0">
+      <svg viewBox="-5 -25 255 180" style="max-width:340px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
+        <text x="70" y="32" font-size="12" fill="var(--text)">I₀</text>
+        <line x1="84" y1="28" x2="100" y2="28" stroke="var(--primary)" stroke-width="2"/>
+        <text x="70" y="67" font-size="12" fill="var(--text)">I₁</text>
+        <line x1="84" y1="63" x2="100" y2="63" stroke="var(--primary)" stroke-width="2"/>
+        <text x="70" y="102" font-size="12" fill="var(--text)">I₂</text>
+        <line x1="84" y1="98" x2="100" y2="98" stroke="var(--primary)" stroke-width="2"/>
+        <text x="70" y="137" font-size="12" fill="var(--text)">I₃</text>
+        <line x1="84" y1="133" x2="100" y2="133" stroke="var(--primary)" stroke-width="2"/>
+
+        <text x="120" y="-12" font-size="12" fill="var(--text-2)">S₁</text>
+        <line x1="125" y1="-6" x2="125" y2="10" stroke="var(--primary)" stroke-width="2"/>
+        <text x="150" y="-12" font-size="12" fill="var(--text-2)">S₀</text>
+        <line x1="155" y1="-6" x2="155" y2="10" stroke="var(--primary)" stroke-width="2"/>
+
+        <rect x="100" y="10" width="90" height="140" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <text x="145" y="76" font-size="13" font-weight="700" text-anchor="middle" fill="var(--text)">4-to-1</text>
+        <text x="145" y="92" font-size="13" font-weight="700" text-anchor="middle" fill="var(--text)">MUX</text>
+
+        <line x1="190" y1="80" x2="230" y2="80" stroke="var(--primary)" stroke-width="2"/>
+        <text x="234" y="84" font-size="13" fill="var(--text)">Y</text>
+      </svg>
+    </div>
 
     <h3>A MUX as a Universal Function Generator</h3>
     <p>Because each select-line combination routes through a chosen data input unchanged, a 2ⁿ-to-1 MUX can implement <em>any</em> function of n+1 variables: use n of the variables as select lines, and wire the data inputs to 0, 1, the last variable, or its complement — decided per-input by checking what the function reduces to once the select variables are fixed.</p>
 
     <h4>Worked Example — F(A,B,C) = Σm(1,3,5,6) on a 4-to-1 MUX</h4>
-    <p>Use A,B as the select lines (S1=A, S0=B) and check what F reduces to for each AB combination as C varies:</p>
+    <p>Use A,B as the select lines (S₁=A, S₀=B) and check what F reduces to for each AB combination as C varies:</p>
     <div class="box box-eg">
-      <pre>AB=00 (m0,m1): F(0,0,0)=0, F(0,0,1)=1  → F = C        → I0 = C
-AB=01 (m2,m3): F(0,1,0)=0, F(0,1,1)=1  → F = C        → I1 = C
-AB=10 (m4,m5): F(1,0,0)=0, F(1,0,1)=1  → F = C        → I2 = C
-AB=11 (m6,m7): F(1,1,0)=1, F(1,1,1)=0  → F = C′       → I3 = C′</pre>
+      <pre>AB=00 (m0,m1): F(0,0,0)=0, F(0,0,1)=1  → F = C        → I₀ = C
+AB=01 (m2,m3): F(0,1,0)=0, F(0,1,1)=1  → F = C        → I₁ = C
+AB=10 (m4,m5): F(1,0,0)=0, F(1,0,1)=1  → F = C        → I₂ = C
+AB=11 (m6,m7): F(1,1,0)=1, F(1,1,1)=0  → F = C′       → I₃ = C′</pre>
     </div>
-    <p>Wire I0=I1=I2=C and I3=C′ into the 4-to-1 MUX from the diagram above, with A,B driving S1,S0 — no K-map, no separate AND/OR array, and no minimization needed at all. This is a genuinely different implementation strategy from every other circuit in this unit: instead of building the function from minimized gates, a MUX-based design just routes an already-known signal (0, 1, C, or C′) to the right place.</p>
+    <p>Wire I₀=I₁=I₂=C and I₃=C′ into the 4-to-1 MUX from the diagram above, with A,B driving S₁,S₀ — no K-map, no separate AND/OR array, and no minimization needed at all. This is a genuinely different implementation strategy from every other circuit in this unit: instead of building the function from minimized gates, a MUX-based design just routes an already-known signal (0, 1, C, or C′) to the right place.</p>
+    <div style="text-align:center;margin:1.25rem 0">
+      <svg viewBox="-5 -25 255 180" style="max-width:340px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
+        <text x="70" y="32" font-size="12" fill="var(--text)">C</text>
+        <line x1="84" y1="28" x2="100" y2="28" stroke="var(--primary)" stroke-width="2"/>
+        <text x="70" y="67" font-size="12" fill="var(--text)">C</text>
+        <line x1="84" y1="63" x2="100" y2="63" stroke="var(--primary)" stroke-width="2"/>
+        <text x="70" y="102" font-size="12" fill="var(--text)">C</text>
+        <line x1="84" y1="98" x2="100" y2="98" stroke="var(--primary)" stroke-width="2"/>
+        <text x="70" y="137" font-size="12" fill="var(--text)">C′</text>
+        <line x1="84" y1="133" x2="100" y2="133" stroke="var(--primary)" stroke-width="2"/>
+
+        <text x="122" y="-12" font-size="12" fill="var(--text-2)">A</text>
+        <line x1="125" y1="-6" x2="125" y2="10" stroke="var(--primary)" stroke-width="2"/>
+        <text x="152" y="-12" font-size="12" fill="var(--text-2)">B</text>
+        <line x1="155" y1="-6" x2="155" y2="10" stroke="var(--primary)" stroke-width="2"/>
+
+        <rect x="100" y="10" width="90" height="140" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <text x="145" y="76" font-size="13" font-weight="700" text-anchor="middle" fill="var(--text)">4-to-1</text>
+        <text x="145" y="92" font-size="13" font-weight="700" text-anchor="middle" fill="var(--text)">MUX</text>
+
+        <line x1="190" y1="80" x2="230" y2="80" stroke="var(--primary)" stroke-width="2"/>
+        <text x="234" y="84" font-size="13" fill="var(--text)">F</text>
+      </svg>
+    </div>
 
     <h2>Demultiplexer (Data Distributor)</h2>
-    <p>A <strong>1-to-4 DEMUX</strong> takes one data input D and two select lines S1, S0, and routes D to exactly one of four outputs (Y0–Y3) — all other outputs stay 0:</p>
+    <p>A <strong>1-to-4 DEMUX</strong> takes one data input D and two select lines S₁, S₀, and routes D to exactly one of four outputs (Y₀–Y₃) — all other outputs stay 0:</p>
     <div class="box box-eg">
-      <pre>Y0 = S1′S0′D    Y1 = S1′S0D    Y2 = S1S0′D    Y3 = S1S0D</pre>
+      <pre>Y₀ = S₁′S₀′D    Y₁ = S₁′S₀D    Y₂ = S₁S₀′D    Y₃ = S₁S₀D</pre>
     </div>
     <p>Compare this directly against last topic's decoder: a demultiplexer <em>is</em> a decoder, with the single data line D taking the place of the shared enable input. Any decoder with an enable pin can be used as a demultiplexer for free, and vice versa — they're the same circuit wearing two different names depending on how the extra input is used.</p>
+    <div style="text-align:center;margin:1.25rem 0">
+      <svg viewBox="-5 -25 255 180" style="max-width:340px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
+        <text x="70" y="84" font-size="12" fill="var(--text)">D</text>
+        <line x1="84" y1="80" x2="100" y2="80" stroke="var(--primary)" stroke-width="2"/>
+
+        <text x="120" y="-12" font-size="12" fill="var(--text-2)">S₁</text>
+        <line x1="125" y1="-6" x2="125" y2="10" stroke="var(--primary)" stroke-width="2"/>
+        <text x="150" y="-12" font-size="12" fill="var(--text-2)">S₀</text>
+        <line x1="155" y1="-6" x2="155" y2="10" stroke="var(--primary)" stroke-width="2"/>
+
+        <rect x="100" y="10" width="90" height="140" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <text x="145" y="76" font-size="13" font-weight="700" text-anchor="middle" fill="var(--text)">1-to-4</text>
+        <text x="145" y="92" font-size="13" font-weight="700" text-anchor="middle" fill="var(--text)">DEMUX</text>
+
+        <line x1="190" y1="28" x2="230" y2="28" stroke="var(--primary)" stroke-width="2"/>
+        <text x="234" y="32" font-size="12" fill="var(--text)">Y₀</text>
+        <line x1="190" y1="63" x2="230" y2="63" stroke="var(--primary)" stroke-width="2"/>
+        <text x="234" y="67" font-size="12" fill="var(--text)">Y₁</text>
+        <line x1="190" y1="98" x2="230" y2="98" stroke="var(--primary)" stroke-width="2"/>
+        <text x="234" y="102" font-size="12" fill="var(--text)">Y₂</text>
+        <line x1="190" y1="133" x2="230" y2="133" stroke="var(--primary)" stroke-width="2"/>
+        <text x="234" y="137" font-size="12" fill="var(--text)">Y₃</text>
+      </svg>
+    </div>
 
     <h2>Common Pitfalls</h2>
     <ul>
@@ -214,10 +286,10 @@ AB=11 (m6,m7): F(1,1,0)=1, F(1,1,1)=0  → F = C′       → I3 = C′</pre>
   const TOPIC_ID  = 'multiplexers-demultiplexers';
   const LABELS    = ['A','B','C','D'];
   const QUIZ = [
-    { q:"In a 4-to-1 multiplexer, what determines which data input reaches the output Y?", options:["The select lines (S1, S0)", "Whichever data input is 1 always wins", "The output is always the sum of all data inputs", "A dedicated enable pin only"], answer:0, explanation:"The select code (S1S0) picks exactly one of the four data inputs to route through to Y — that's the defining behavior of a multiplexer." },
-    { q:"Why is a MUX's I1 term (S1′S0I1) structurally similar to a decoder output?", options:["S1′S0 is exactly one output of a 2-to-4 decoder, with the data input taking the place of a shared enable", "MUX and decoder circuits share no structural similarity", "Because both use exactly one gate", "Because decoders cannot have select-line-style inputs"], answer:0, explanation:"S1′S0, S1′S0′, S1S0′, and S1S0 are exactly the four minterms a 2-to-4 decoder produces — a MUX gates each of those against a data line instead of a shared enable." },
-    { q:"In the worked example implementing F(A,B,C)=Σm(1,3,5,6) on a 4-to-1 MUX with select lines A,B, what is wired into data input I3?", options:["C′ (the complement of C)", "C (uncomplemented)", "A constant 1", "A constant 0"], answer:0, explanation:"For AB=11, F(1,1,0)=1 and F(1,1,1)=0 — F is 1 exactly when C=0, i.e., F=C′, so I3 must be wired to C′." },
-    { q:"What is the key structural difference between a demultiplexer and the decoder from the previous topic?", options:["A demultiplexer's data line takes the place of the decoder's shared enable input — they are otherwise the same circuit", "A demultiplexer has no select lines at all", "A demultiplexer can only have 2 outputs, never more", "There is no relationship between a demultiplexer and a decoder"], answer:0, explanation:"Y0=S1′S0′D, Y1=S1′S0D, etc. — this is structurally identical to a decoder's minterm outputs, with the data line D wired where the decoder's enable would normally go." },
+    { q:"In a 4-to-1 multiplexer, what determines which data input reaches the output Y?", options:["The select lines (S₁, S₀)", "Whichever data input is 1 always wins", "The output is always the sum of all data inputs", "A dedicated enable pin only"], answer:0, explanation:"The select code (S₁S₀) picks exactly one of the four data inputs to route through to Y — that's the defining behavior of a multiplexer." },
+    { q:"Why is a MUX's I₁ term (S₁′S₀I₁) structurally similar to a decoder output?", options:["S₁′S₀ is exactly one output of a 2-to-4 decoder, with the data input taking the place of a shared enable", "MUX and decoder circuits share no structural similarity", "Because both use exactly one gate", "Because decoders cannot have select-line-style inputs"], answer:0, explanation:"S₁′S₀, S₁′S₀′, S₁S₀′, and S₁S₀ are exactly the four minterms a 2-to-4 decoder produces — a MUX gates each of those against a data line instead of a shared enable." },
+    { q:"In the worked example implementing F(A,B,C)=Σm(1,3,5,6) on a 4-to-1 MUX with select lines A,B, what is wired into data input I₃?", options:["C′ (the complement of C)", "C (uncomplemented)", "A constant 1", "A constant 0"], answer:0, explanation:"For AB=11, F(1,1,0)=1 and F(1,1,1)=0 — F is 1 exactly when C=0, i.e., F=C′, so I₃ must be wired to C′." },
+    { q:"What is the key structural difference between a demultiplexer and the decoder from the previous topic?", options:["A demultiplexer's data line takes the place of the decoder's shared enable input — they are otherwise the same circuit", "A demultiplexer has no select lines at all", "A demultiplexer can only have 2 outputs, never more", "There is no relationship between a demultiplexer and a decoder"], answer:0, explanation:"Y₀=S₁′S₀′D, Y₁=S₁′S₀D, etc. — this is structurally identical to a decoder's minterm outputs, with the data line D wired where the decoder's enable would normally go." },
     { q:"What happens to a MUX's unselected data inputs?", options:["They are simply ignored and don't affect the output, regardless of their value", "They must all be tied to 0 or the circuit malfunctions", "They get averaged together with the selected input", "They cause an error condition"], answer:0, explanation:"Only the data input chosen by the select code affects Y — every other data input is completely irrelevant to the current output, whatever value it happens to hold." }
   ];
 

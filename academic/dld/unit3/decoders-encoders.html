@@ -147,6 +147,37 @@
     <h3>Decoders Implement Any Boolean Function</h3>
     <p>Since every decoder output already <em>is</em> one minterm, implementing any Boolean function of n variables is just: feed the n variables into an n-to-2ⁿ decoder, then OR together whichever decoder outputs correspond to the function's minterms. This is the canonical-SOP idea from Unit 1, built directly in hardware with zero simplification needed.</p>
     <p><strong>Example:</strong> F(A,B) = Σm(1,2) — checking against the truth table above, m₁=A′B=D₁ and m₂=AB′=D₂, so F = D₁ + D₂: a single 2-input OR gate feeding off two of the decoder's outputs, no separate AND-gate array needed at all, since the decoder already built every minterm.</p>
+    <div style="text-align:center;margin:1.25rem 0">
+      <svg viewBox="-20 0 325 155" style="max-width:440px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
+        <text x="-14" y="37" font-size="12" fill="var(--text)">A</text>
+        <line x1="0" y1="33" x2="20" y2="33" stroke="var(--primary)" stroke-width="2"/>
+        <text x="-14" y="84" font-size="12" fill="var(--text)">B</text>
+        <line x1="0" y1="80" x2="20" y2="80" stroke="var(--primary)" stroke-width="2"/>
+        <rect x="20" y="10" width="90" height="140" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <text x="65" y="76" font-size="13" font-weight="700" text-anchor="middle" fill="var(--text)">2-to-4</text>
+        <text x="65" y="92" font-size="13" font-weight="700" text-anchor="middle" fill="var(--text)">DECODER</text>
+
+        <line x1="110" y1="28" x2="140" y2="28" stroke="var(--primary)" stroke-width="2"/>
+        <text x="144" y="32" font-size="12" fill="var(--text-2)">D₀ (unused)</text>
+
+        <line x1="110" y1="63" x2="140" y2="63" stroke="var(--primary)" stroke-width="2"/>
+        <text x="112" y="58" font-size="11" fill="var(--text-2)">D₁</text>
+        <line x1="140" y1="63" x2="140" y2="45" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="140" y1="45" x2="179" y2="45" stroke="var(--primary)" stroke-width="2"/>
+
+        <line x1="110" y1="98" x2="140" y2="98" stroke="var(--primary)" stroke-width="2"/>
+        <text x="112" y="112" font-size="11" fill="var(--text-2)">D₂</text>
+        <line x1="140" y1="98" x2="140" y2="75" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="140" y1="75" x2="179" y2="75" stroke="var(--primary)" stroke-width="2"/>
+
+        <line x1="110" y1="133" x2="140" y2="133" stroke="var(--primary)" stroke-width="2"/>
+        <text x="144" y="137" font-size="12" fill="var(--text-2)">D₃ (unused)</text>
+
+        <path d="M170,30 Q194,60 170,90 Q224,90 251,60 Q224,30 170,30 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="3" stroke-linejoin="round"/>
+        <line x1="251" y1="60" x2="290" y2="60" stroke="var(--primary)" stroke-width="2"/>
+        <text x="294" y="64" font-size="13" font-weight="700" fill="var(--text)">F</text>
+      </svg>
+    </div>
 
     <h2>Encoders</h2>
     <p>An encoder does the reverse job: 2ⁿ input lines (only one active at a time) go in, and n output lines carrying that input's binary index come out. An octal-to-binary encoder (8 inputs D₀–D₇, one-hot; 3 outputs A₂A₁A₀) reads each output straight off which inputs include that bit position in their index:</p>
