@@ -89,7 +89,7 @@
     <h2>Decoders</h2>
     <p>An <strong>n-to-2ⁿ decoder</strong> has n input lines and up to 2ⁿ output lines, and for every input combination, <strong>exactly one</strong> output is active (1) while all others stay 0. Each output is literally one minterm of the inputs.</p>
     <table class="truth-table">
-      <thead><tr><th>A</th><th>B</th><th>D0</th><th>D1</th><th>D2</th><th>D3</th></tr></thead>
+      <thead><tr><th>A</th><th>B</th><th>D₀</th><th>D₁</th><th>D₂</th><th>D₃</th></tr></thead>
       <tbody>
         <tr><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td></tr>
         <tr><td>0</td><td>1</td><td>0</td><td>1</td><td>0</td><td>0</td></tr>
@@ -98,9 +98,9 @@
       </tbody>
     </table>
     <div class="box box-eg">
-      <pre>D0 = A′B′   D1 = A′B   D2 = AB′   D3 = AB</pre>
+      <pre>D₀ = A′B′   D₁ = A′B   D₂ = AB′   D₃ = AB</pre>
     </div>
-    <p>Most real decoder chips add an <strong>enable</strong> input E: every output AND gate gets a third input tied to E, so <em>all</em> outputs stay 0 whenever E=0, regardless of A and B. This is what makes decoders useful as chip-select logic — only the addressed chip's enable line goes active. Here's D2 = AB′E built out explicitly (the other three outputs are built identically, just with different true/complemented combinations of A and B):</p>
+    <p>Most real decoder chips add an <strong>enable</strong> input E: every output AND gate gets a third input tied to E, so <em>all</em> outputs stay 0 whenever E=0, regardless of A and B. This is what makes decoders useful as chip-select logic — only the addressed chip's enable line goes active. Here's D₂ = AB′E built out explicitly (the other three outputs are built identically, just with different true/complemented combinations of A and B):</p>
     <div style="text-align:center;margin:1.25rem 0">
       <svg viewBox="-8 -8 350 116" style="max-width:480px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
         <text x="0" y="29" font-size="13" fill="var(--text)">A</text>
@@ -117,27 +117,78 @@
 
         <path d="M100,10 L136,10 A40,40 0 0 1 136,90 L100,90 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="3" stroke-linejoin="round"/>
         <line x1="176" y1="50" x2="210" y2="50" stroke="var(--primary)" stroke-width="2"/>
-        <text x="214" y="54" font-size="13" fill="var(--text)">D2 = AB′E</text>
+        <text x="214" y="54" font-size="13" fill="var(--text)">D₂ = AB′E</text>
+      </svg>
+    </div>
+
+    <p>Zooming back out, here's the whole 2-to-4 decoder as a single block — the gate detail above is what's actually inside it:</p>
+    <div style="text-align:center;margin:1.25rem 0">
+      <svg viewBox="-20 0 250 155" style="max-width:340px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
+        <text x="-18" y="37" font-size="12" fill="var(--text)">A</text>
+        <line x1="0" y1="33" x2="60" y2="33" stroke="var(--primary)" stroke-width="2"/>
+        <text x="-18" y="84" font-size="12" fill="var(--text)">B</text>
+        <line x1="0" y1="80" x2="60" y2="80" stroke="var(--primary)" stroke-width="2"/>
+        <text x="-18" y="131" font-size="12" fill="var(--text)">E</text>
+        <line x1="0" y1="127" x2="60" y2="127" stroke="var(--primary)" stroke-width="2"/>
+        <rect x="60" y="10" width="100" height="140" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <text x="110" y="76" font-size="13" font-weight="700" text-anchor="middle" fill="var(--text)">2-to-4</text>
+        <text x="110" y="92" font-size="13" font-weight="700" text-anchor="middle" fill="var(--text)">DECODER</text>
+        <line x1="160" y1="28" x2="200" y2="28" stroke="var(--primary)" stroke-width="2"/>
+        <text x="204" y="32" font-size="12" fill="var(--text)">D₀</text>
+        <line x1="160" y1="63" x2="200" y2="63" stroke="var(--primary)" stroke-width="2"/>
+        <text x="204" y="67" font-size="12" fill="var(--text)">D₁</text>
+        <line x1="160" y1="98" x2="200" y2="98" stroke="var(--primary)" stroke-width="2"/>
+        <text x="204" y="102" font-size="12" fill="var(--text)">D₂</text>
+        <line x1="160" y1="133" x2="200" y2="133" stroke="var(--primary)" stroke-width="2"/>
+        <text x="204" y="137" font-size="12" fill="var(--text)">D₃</text>
       </svg>
     </div>
 
     <h3>Decoders Implement Any Boolean Function</h3>
     <p>Since every decoder output already <em>is</em> one minterm, implementing any Boolean function of n variables is just: feed the n variables into an n-to-2ⁿ decoder, then OR together whichever decoder outputs correspond to the function's minterms. This is the canonical-SOP idea from Unit 1, built directly in hardware with zero simplification needed.</p>
-    <p><strong>Example:</strong> F(A,B) = Σm(1,2) — checking against the truth table above, m1=A′B=D1 and m2=AB′=D2, so F = D1 + D2: a single 2-input OR gate feeding off two of the decoder's outputs, no separate AND-gate array needed at all, since the decoder already built every minterm.</p>
+    <p><strong>Example:</strong> F(A,B) = Σm(1,2) — checking against the truth table above, m₁=A′B=D₁ and m₂=AB′=D₂, so F = D₁ + D₂: a single 2-input OR gate feeding off two of the decoder's outputs, no separate AND-gate array needed at all, since the decoder already built every minterm.</p>
 
     <h2>Encoders</h2>
-    <p>An encoder does the reverse job: 2ⁿ input lines (only one active at a time) go in, and n output lines carrying that input's binary index come out. An octal-to-binary encoder (8 inputs D0–D7, one-hot; 3 outputs A2A1A0) reads each output straight off which inputs include that bit position in their index:</p>
+    <p>An encoder does the reverse job: 2ⁿ input lines (only one active at a time) go in, and n output lines carrying that input's binary index come out. An octal-to-binary encoder (8 inputs D₀–D₇, one-hot; 3 outputs A₂A₁A₀) reads each output straight off which inputs include that bit position in their index:</p>
     <div class="box box-eg">
-      <pre>A0 = D1 + D3 + D5 + D7    (inputs whose index has bit 0 set)
-A1 = D2 + D3 + D6 + D7    (inputs whose index has bit 1 set)
-A2 = D4 + D5 + D6 + D7    (inputs whose index has bit 2 set)</pre>
+      <pre>A₀ = D₁ + D₃ + D₅ + D₇    (inputs whose index has bit 0 set)
+A₁ = D₂ + D₃ + D₆ + D₇    (inputs whose index has bit 1 set)
+A₂ = D₄ + D₅ + D₆ + D₇    (inputs whose index has bit 2 set)</pre>
     </div>
-    <p>Each output is simply an OR of the four input lines whose index has that bit position set — a plain encoder needs no AND gates or K-maps at all, just three 4-input OR gates.</p>
+    <p>Each output is simply an OR of the four input lines whose index has that bit position set — a plain encoder needs no AND gates or K-maps at all, just three 4-input OR gates. Here's the A₀ output built out explicitly (the ≥1 symbol is the standard block form for a plain OR gate; A₁ and A₂ are built identically off their own four inputs):</p>
+    <div style="text-align:center;margin:1.25rem 0">
+      <svg viewBox="-10 -5 220 140" style="max-width:300px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
+        <text x="0" y="29" font-size="12" fill="var(--text)">D₁</text>
+        <line x1="18" y1="25" x2="100" y2="25" stroke="var(--primary)" stroke-width="2"/>
+        <text x="0" y="59" font-size="12" fill="var(--text)">D₃</text>
+        <line x1="18" y1="55" x2="100" y2="55" stroke="var(--primary)" stroke-width="2"/>
+        <text x="0" y="89" font-size="12" fill="var(--text)">D₅</text>
+        <line x1="18" y1="85" x2="100" y2="85" stroke="var(--primary)" stroke-width="2"/>
+        <text x="0" y="119" font-size="12" fill="var(--text)">D₇</text>
+        <line x1="18" y1="115" x2="100" y2="115" stroke="var(--primary)" stroke-width="2"/>
+        <rect x="100" y="10" width="50" height="120" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <text x="125" y="75" font-size="16" font-weight="700" text-anchor="middle" fill="var(--text)">≥1</text>
+        <line x1="150" y1="70" x2="190" y2="70" stroke="var(--primary)" stroke-width="2"/>
+        <text x="194" y="74" font-size="13" fill="var(--text)">A₀</text>
+      </svg>
+    </div>
+    <p>And the whole octal-to-binary encoder as a single block:</p>
+    <div style="text-align:center;margin:1.25rem 0">
+      <svg viewBox="-15 0 285 95" style="max-width:360px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
+        <text x="-10" y="41" font-size="12" fill="var(--text)">D[7:0]</text>
+        <line x1="30" y1="45" x2="80" y2="45" stroke="var(--primary)" stroke-width="2"/>
+        <rect x="80" y="10" width="110" height="70" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <text x="135" y="42" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">8-to-3</text>
+        <text x="135" y="58" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">ENCODER</text>
+        <line x1="190" y1="45" x2="230" y2="45" stroke="var(--primary)" stroke-width="2"/>
+        <text x="234" y="49" font-size="12" fill="var(--text)">A[2:0]</text>
+      </svg>
+    </div>
 
     <h3>Priority Encoder</h3>
     <p>A plain encoder assumes exactly one input is ever active — which real systems can't guarantee (two devices might request service in the same cycle). A <strong>priority encoder</strong> resolves this by always encoding the <em>highest-indexed</em> active input, ignoring lower-indexed ones even if they're also active:</p>
     <table class="truth-table">
-      <thead><tr><th>D3</th><th>D2</th><th>D1</th><th>D0</th><th>A1</th><th>A0</th><th>V</th></tr></thead>
+      <thead><tr><th>D₃</th><th>D₂</th><th>D₁</th><th>D₀</th><th>A₁</th><th>A₀</th><th>V</th></tr></thead>
       <tbody>
         <tr><td>0</td><td>0</td><td>0</td><td>0</td><td>X</td><td>X</td><td>0</td></tr>
         <tr><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td><td>1</td></tr>
@@ -146,13 +197,13 @@ A2 = D4 + D5 + D6 + D7    (inputs whose index has bit 2 set)</pre>
         <tr><td>1</td><td class="dc">X</td><td class="dc">X</td><td class="dc">X</td><td>1</td><td>1</td><td>1</td></tr>
       </tbody>
     </table>
-    <p>The X's are don't-cares (Unit 2 again) — once D3 is known to be 1, D2/D1/D0 genuinely don't matter for the output, since D3 always wins regardless. <strong>V</strong> is a valid-output flag, 0 only when no input is active at all (needed because A1=A0=0 is otherwise ambiguous — does it mean "D0 is active" or "nothing is active"?).</p>
+    <p>The X's are don't-cares (Unit 2 again) — once D₃ is known to be 1, D₂/D₁/D₀ genuinely don't matter for the output, since D₃ always wins regardless. <strong>V</strong> is a valid-output flag, 0 only when no input is active at all (needed because A₁=A₀=0 is otherwise ambiguous — does it mean "D₀ is active" or "nothing is active"?).</p>
 
     <h2>Common Pitfalls</h2>
     <ul>
       <li><strong>Forgetting the enable input disables ALL outputs, not just one.</strong> E=0 forces every decoder output to 0 simultaneously — it doesn't select a "default" output, it silences the whole decoder.</li>
       <li><strong>Building a plain encoder when multiple inputs can be active at once.</strong> A plain encoder's outputs are undefined (or wrong) if more than one input is active simultaneously — that's exactly the situation a priority encoder is designed to handle correctly.</li>
-      <li><strong>Ignoring the valid-output flag V.</strong> Without V, a priority encoder's all-zero output is ambiguous between "input D0 is active" and "no input is active at all" — V is what disambiguates the two.</li>
+      <li><strong>Ignoring the valid-output flag V.</strong> Without V, a priority encoder's all-zero output is ambiguous between "input D₀ is active" and "no input is active at all" — V is what disambiguates the two.</li>
     </ul>
 
     <h2>Applications</h2>
@@ -223,9 +274,9 @@ A2 = D4 + D5 + D6 + D7    (inputs whose index has bit 2 set)</pre>
   const QUIZ = [
     { q:"In an n-to-2ⁿ decoder, how many outputs are active for any given input combination?", options:["Exactly one", "Exactly n", "All 2ⁿ outputs", "It depends on the enable input alone"], answer:0, explanation:"A decoder's defining behavior is that exactly one of its 2ⁿ outputs is active for any given input combination — each output corresponds to exactly one minterm." },
     { q:"What does setting a decoder's enable input E=0 do?", options:["Forces every output to 0, regardless of the other inputs", "Selects a special \"default\" output", "Has no effect on the outputs", "Only disables the highest-numbered output"], answer:0, explanation:"E is ANDed into every output gate, so E=0 forces all outputs to 0 simultaneously — this is what makes decoders useful as chip-select logic." },
-    { q:"How can a decoder be used to implement an arbitrary Boolean function F(A,B) = Σm(1,2) without any additional AND gates?", options:["OR together the decoder outputs corresponding to those minterms (D1 + D2)", "Connect F directly to the enable input", "It's impossible without adding AND gates", "AND together all four decoder outputs"], answer:0, explanation:"Since every decoder output already is one minterm, ORing exactly the outputs matching the function's minterm list directly implements the function — here, D1 (=m1) and D2 (=m2)." },
+    { q:"How can a decoder be used to implement an arbitrary Boolean function F(A,B) = Σm(1,2) without any additional AND gates?", options:["OR together the decoder outputs corresponding to those minterms (D₁ + D₂)", "Connect F directly to the enable input", "It's impossible without adding AND gates", "AND together all four decoder outputs"], answer:0, explanation:"Since every decoder output already is one minterm, ORing exactly the outputs matching the function's minterm list directly implements the function — here, D₁ (=m₁) and D₂ (=m₂)." },
     { q:"What problem does a priority encoder solve that a plain encoder can't handle?", options:["Multiple inputs being active at the same time", "Encoding more than 8 inputs", "Working without a valid-output flag", "Handling only a single input line"], answer:0, explanation:"A plain encoder assumes exactly one input is active at a time; a priority encoder correctly handles the case where multiple inputs are active simultaneously by always encoding the highest-indexed one." },
-    { q:"In a priority encoder's truth table, why is the valid-output flag V needed?", options:["Because an all-zero output would otherwise be ambiguous between \"input D0 active\" and \"no input active\"", "Because V indicates a hardware fault", "Because V selects which input has priority", "V is not actually necessary and is omitted from real designs"], answer:0, explanation:"Without V, an all-zero (A1=A0=0) output could mean either \"D0 is the active input\" or \"nothing is active at all\" — V=0 specifically signals the latter case." }
+    { q:"In a priority encoder's truth table, why is the valid-output flag V needed?", options:["Because an all-zero output would otherwise be ambiguous between \"input D₀ active\" and \"no input active\"", "Because V indicates a hardware fault", "Because V selects which input has priority", "V is not actually necessary and is omitted from real designs"], answer:0, explanation:"Without V, an all-zero (A₁=A₀=0) output could mean either \"D₀ is the active input\" or \"nothing is active at all\" — V=0 specifically signals the latter case." }
   ];
 
   let selected = {}, submitted = false;
