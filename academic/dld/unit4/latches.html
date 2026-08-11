@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Latches — DLD Unit 4 | Chandras EDU</title>
+  <meta name="description" content="Combinational vs. sequential logic, the cross-coupled NOR SR latch and its forbidden state, and the gated D latch that eliminates it — with functionality tables and gate diagrams.">
+  <link rel="canonical" href="https://courses.chandrashaker.in/academic/dld/unit4/latches.html">
+  <link rel="stylesheet" href="../../../css/style.css">
+
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Chandras EDU">
+  <meta property="og:title" content="Latches — DLD Unit 4 | Chandras EDU">
+  <meta property="og:description" content="Combinational vs. sequential logic, the cross-coupled NOR SR latch and its forbidden state, and the gated D latch that eliminates it — with functionality tables and gate diagrams.">
+  <meta property="og:url" content="https://courses.chandrashaker.in/academic/dld/unit4/latches.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Latches — DLD Unit 4 | Chandras EDU">
+  <meta name="twitter:description" content="Combinational vs. sequential logic, the cross-coupled NOR SR latch and its forbidden state, and the gated D latch that eliminates it — with functionality tables and gate diagrams.">
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Courses", "item": "https://courses.chandrashaker.in/" },
+    { "@type": "ListItem", "position": 2, "name": "DLD", "item": "https://courses.chandrashaker.in/academic/dld/" },
+    { "@type": "ListItem", "position": 3, "name": "Unit 4", "item": "https://courses.chandrashaker.in/academic/dld/unit4/" },
+    { "@type": "ListItem", "position": 4, "name": "Latches" }
+  ]
+}
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LearningResource",
+  "name": "Latches",
+  "description": "Combinational vs. sequential logic, the cross-coupled NOR SR latch and its forbidden state, and the gated D latch that eliminates it — with functionality tables and gate diagrams.",
+  "url": "https://courses.chandrashaker.in/academic/dld/unit4/latches.html",
+  "learningResourceType": "Lesson",
+  "educationalLevel": "Undergraduate",
+  "about": { "@type": "Thing", "name": "Digital Logic Design" },
+  "isPartOf": {
+    "@type": "Course",
+    "name": "Digital Logic Design",
+    "provider": { "@type": "Organization", "name": "Chandras EDU", "url": "https://chandrashaker.in" }
+  },
+  "publisher": { "@type": "Organization", "name": "Chandras EDU", "url": "https://chandrashaker.in" }
+}
+  </script>
+  <link rel="icon" href="/favicon.ico">
+  <style>
+    .truth-table { border-collapse:collapse; margin:1rem auto; font-size:.88rem; }
+    .truth-table th, .truth-table td { border:1px solid var(--border); padding:.4rem .7rem; text-align:center; }
+    .truth-table th { background:var(--bg-3); color:var(--text); font-weight:700; }
+    .truth-table td.forbidden { background:#fef2f2; }
+  </style>
+</head>
+<body>
+<nav class="nav"><div id="main-nav"></div></nav>
+
+<div style="max-width:820px;margin:.5rem auto;padding:0 1.25rem">
+  <div class="ad-slot">Advertisement</div>
+</div>
+
+<div class="page-narrow" role="main">
+
+  <nav class="breadcrumb">
+    <a href="../../../index.html">Courses</a><span class="sep">/</span>
+    <a href="../../dld/index.html">DLD</a><span class="sep">/</span>
+    <a href="index.html">Unit 4</a><span class="sep">/</span>
+    <span>Sequential Logic Circuits</span><span class="sep">/</span>
+    <span class="cur">Latches</span>
+  </nav>
+
+  <div style="background:var(--primary);border-radius:var(--radius-lg);padding:1.1rem 1.4rem;margin-bottom:1.5rem;color:#fff">
+    <div style="font-size:.75rem;opacity:.75;margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.05em">DLD › Unit 4: Sequential Logic Circuits › Topic 1</div>
+    <h1 style="font-size:1.4rem;font-weight:700;color:#fff;margin-bottom:.5rem">Latches</h1>
+    <div style="display:flex;gap:.75rem;flex-wrap:wrap">
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">⏱ 16 min read</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📝 Quiz inside</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📖 Mano &amp; Ciletti Ch. 5</span>
+    </div>
+  </div>
+
+  <!-- FULL LESSON — visible to everyone -->
+  <div class="lesson">
+    <h2>Combinational vs. Sequential Logic</h2>
+    <p>Everything in Units 1–3 was <strong>combinational</strong>: output depends only on the present inputs, with no memory of anything that happened before. A <strong>sequential circuit</strong> adds memory — its output depends on both the present inputs and the circuit's current <strong>state</strong>, and that state comes from feeding an output signal back into the input logic:</p>
+    <div class="box box-eg" style="text-align:center">Next State (Q<sub>next</sub>) = f(Inputs, Current State Q)</div>
+    <p>A <strong>latch</strong> is the simplest possible sequential element — a 1-bit memory cell built from nothing but ordinary gates wired with feedback.</p>
+
+    <h2>The SR Latch (Set-Reset)</h2>
+    <p>Cross-coupling two NOR gates — each gate's output feeding back as one of the other gate's inputs — produces a circuit with two stable states, which is exactly what's needed to remember one bit:</p>
+    <div style="text-align:center;margin:1.25rem 0">
+      <svg viewBox="-25 -5 300 150" style="max-width:420px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
+        <text x="-20" y="19" font-size="13" fill="var(--text)">R</text>
+        <line x1="-8" y1="15" x2="60" y2="15" stroke="var(--primary)" stroke-width="2"/>
+        <path d="M60,0 Q80,25 60,50 Q105,50 127.5,25 Q105,0 60,0 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="3" stroke-linejoin="round"/>
+        <circle cx="133.5" cy="25" r="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <line x1="139.5" y1="25" x2="245" y2="25" stroke="var(--primary)" stroke-width="2"/>
+        <text x="249" y="29" font-size="13" font-weight="700" fill="var(--text)">Q</text>
+
+        <text x="-20" y="109" font-size="13" fill="var(--text)">S</text>
+        <line x1="-8" y1="105" x2="60" y2="105" stroke="var(--primary)" stroke-width="2"/>
+        <path d="M60,90 Q80,115 60,140 Q105,140 127.5,115 Q105,90 60,90 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="3" stroke-linejoin="round"/>
+        <circle cx="133.5" cy="115" r="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <line x1="139.5" y1="115" x2="245" y2="115" stroke="var(--primary)" stroke-width="2"/>
+        <text x="249" y="119" font-size="13" font-weight="700" fill="var(--text)">Q′</text>
+
+        <line x1="200" y1="25" x2="200" y2="70" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="200" y1="70" x2="15" y2="70" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="15" y1="70" x2="15" y2="125" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="15" y1="125" x2="60" y2="125" stroke="var(--primary)" stroke-width="2"/>
+
+        <line x1="200" y1="115" x2="200" y2="80" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="200" y1="80" x2="5" y2="80" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="5" y1="80" x2="5" y2="35" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="5" y1="35" x2="60" y2="35" stroke="var(--primary)" stroke-width="2"/>
+      </svg>
+    </div>
+    <p>Top gate: <strong>Q = NOR(R, Q′)</strong>. Bottom gate: <strong>Q′ = NOR(S, Q)</strong>. Each gate's own output loops around and back into the other gate — that crossing of the two feedback paths is exactly what "cross-coupled" means, and it's the reason S ends up wired to the gate that produces Q′, not Q.</p>
+
+    <h3>Functionality</h3>
+    <table class="truth-table">
+      <thead><tr><th>S (Set)</th><th>R (Reset)</th><th>Q<sub>next</sub></th><th>State</th><th>Behavior</th></tr></thead>
+      <tbody>
+        <tr><td>0</td><td>0</td><td>Q</td><td><strong>Hold</strong></td><td>No change — holds current state.</td></tr>
+        <tr><td>1</td><td>0</td><td>1</td><td><strong>Set</strong></td><td>Forces Q to 1.</td></tr>
+        <tr><td>0</td><td>1</td><td>0</td><td><strong>Reset</strong></td><td>Forces Q to 0.</td></tr>
+        <tr class="forbidden"><td>1</td><td>1</td><td>Invalid</td><td><strong>Forbidden</strong></td><td>Both Q and Q′ driven to 0, breaking Q = Q̄′. Must be avoided.</td></tr>
+      </tbody>
+    </table>
+    <p>Trace S=1, R=0 through the circuit above: the bottom gate sees S=1 on one input, so Q′=NOR(1, anything)=0 regardless of the other input; feed that Q′=0 back into the top gate along with R=0, and Q=NOR(0,0)=1. So S=1 does correctly force Q=1 — it just does it by first forcing the <em>other</em> gate's output low, then letting that feed forward.</p>
+
+    <h2>The Gated D Latch</h2>
+    <p>The SR latch has two problems for practical use: the forbidden S=R=1 state, and no control over exactly <em>when</em> it updates — right now it responds to S/R the instant they change. The <strong>Gated D Latch</strong> fixes both:</p>
+    <ul>
+      <li>Drive the SR latch's inputs from a single data line D via <strong>S = D</strong> and <strong>R = D′</strong> (D inverted). Since S and R are now always complements of each other, S=R=1 can never happen — the forbidden state is eliminated by construction.</li>
+      <li>Add an <strong>Enable (EN)</strong> input that gates D through to S and R only when EN=1, using two AND gates (one combining D·EN into S, the other D′·EN into R). When EN=0, both S and R are forced to 0 regardless of D, and the SR latch above just holds its last state.</li>
+    </ul>
+    <div style="text-align:center;margin:1.25rem 0">
+      <svg viewBox="-5 -25 265 180" style="max-width:340px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
+        <text x="70" y="32" font-size="12" fill="var(--text)">D</text>
+        <line x1="84" y1="28" x2="100" y2="28" stroke="var(--primary)" stroke-width="2"/>
+        <text x="65" y="137" font-size="12" fill="var(--text)">EN</text>
+        <line x1="84" y1="133" x2="100" y2="133" stroke="var(--primary)" stroke-width="2"/>
+        <rect x="100" y="10" width="90" height="140" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <text x="145" y="76" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">GATED D</text>
+        <text x="145" y="92" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">LATCH</text>
+        <line x1="190" y1="63" x2="230" y2="63" stroke="var(--primary)" stroke-width="2"/>
+        <text x="234" y="67" font-size="13" fill="var(--text)">Q</text>
+        <line x1="190" y1="98" x2="230" y2="98" stroke="var(--primary)" stroke-width="2"/>
+        <text x="234" y="102" font-size="13" fill="var(--text)">Q′</text>
+      </svg>
+    </div>
+    <p>Inside that box is exactly the SR latch drawn above, fed by D and D′ through the two enable-gated AND gates. Because S = D·EN and R = D′·EN can never both be 1 (D and D′ are always opposite), and because the latch only changes when EN=1, this circuit behaves as pure 1-bit data storage: while EN is high the output tracks D, and dropping EN freezes whatever was there.</p>
+
+    <div class="box box-warn">
+      <strong>Transparent vs. Latched Mode:</strong>
+      <ul style="margin-top:.3rem">
+        <li><strong>EN = 1 (Transparent):</strong> Q follows D continuously — any change on D immediately shows up on Q.</li>
+        <li><strong>EN = 0 (Latched):</strong> Q holds its last value, completely ignoring further changes on D.</li>
+      </ul>
+    </div>
+
+    <h2>Common Pitfalls</h2>
+    <ul>
+      <li><strong>Driving a plain SR latch with S=R=1.</strong> This isn't just "an invalid input" the way an unused decoder line is — it actively breaks the Q=Q̄′ complementary relationship the latch depends on, and the resulting state when S and R both return to 0 is a race, not a defined value.</li>
+      <li><strong>Assuming a latch only updates on a clock edge.</strong> A latch is <em>level-sensitive</em> — a gated D latch tracks D for the entire time EN is high, not just at one instant. Edge-sensitive behavior is what flip-flops (next topic) add on top of this.</li>
+      <li><strong>Forgetting the latch is the memory element inside the flip-flop.</strong> Every flip-flop discussed next is built from latches like this one — understanding the latch's transparent/latched behavior is a direct prerequisite for understanding why flip-flops need <em>two</em> latches (master-slave) to become edge-triggered.</li>
+    </ul>
+
+    <h2>Applications</h2>
+    <ul>
+      <li><strong>Address latches</strong> in microprocessor systems (e.g., the 8085's ALE-controlled latch) hold a multiplexed address bus value stable using exactly this transparent/latched behavior.</li>
+      <li><strong>Debounce circuits</strong> for mechanical switches sometimes use an SR latch directly — a single flick of a switch between two contacts cleanly sets or resets the latch once, instead of producing a burst of noisy transitions.</li>
+      <li><strong>Every flip-flop</strong> — the subject of the next topic — is internally built from two of these latches in a master-slave arrangement.</li>
+    </ul>
+  </div>
+
+  <div class="ad-slot">Advertisement</div>
+
+  <!-- QUIZ GATE -->
+  <div id="gate-section">
+    <div class="gate">
+      <div class="gate-blur">
+        <div class="quiz">
+          <div class="quiz-title">📝 Quick Quiz — 5 Questions</div>
+        </div>
+      </div>
+      <div class="gate-overlay">
+        <div class="gate-box">
+          <div class="lock">🔒</div>
+          <h3>Login to take the quiz</h3>
+          <p>Create a free account to take the quiz and track your progress across all topics.</p>
+          <div class="gate-btns">
+            <a href="../../../login.html" class="btn btn-primary btn-sm">Login</a>
+            <a href="../../../login.html" class="btn btn-outline btn-sm">Register Free</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="quiz" id="quiz-section" style="display:none">
+    <div class="quiz-title">📝 Quick Quiz — 5 Questions</div>
+    <div id="quiz-body"></div>
+    <button class="btn btn-primary" id="submit-btn" disabled>Submit Quiz</button>
+    <div class="quiz-result" id="quiz-result" style="display:none"></div>
+  </div>
+
+  <div class="topic-nav">
+    <a href="index.html">
+      <div class="nav-dir">← Previous</div>
+      <div class="nav-title">Unit 4 Overview</div>
+    </a>
+    <a href="flipflops.html" class="next">
+      <div class="nav-dir">Next →</div>
+      <div class="nav-title">Flip-Flops &amp; Timing</div>
+    </a>
+  </div>
+
+</div>
+
+<div style="max-width:820px;margin:.5rem auto;padding:0 1.25rem">
+  <div class="ad-slot">Advertisement</div>
+</div>
+<footer class="footer">© 2026 Chandra Shaker · <a href="https://chandrashaker.in">chandrashaker.in</a> · <em>Reference: M. Morris Mano &amp; Michael D. Ciletti, Digital Design with an Introduction to the Verilog HDL, 6th ed. — Sequential Logic.</em></footer>
+
+<script type="module">
+  import { initNav } from '../../../js/nav.js';
+  import { onAuth, saveProgress, getProgress } from '../../../js/firebase-config.js';
+  initNav(3);
+
+  const COURSE_ID = 'dld';
+  const TOPIC_ID  = 'latches';
+  const LABELS    = ['A','B','C','D'];
+  const QUIZ = [
+    { q:"What is the key structural difference between a combinational and a sequential circuit?", options:["A sequential circuit feeds an output signal back into its own input logic, giving it memory of past state", "A sequential circuit uses more gates than a combinational one", "A sequential circuit cannot use AND/OR gates", "There is no real difference — the terms are interchangeable"], answer:0, explanation:"Feedback is the defining feature: a sequential circuit's next state depends on both current inputs and the current state, which requires an output looping back into the input logic." },
+    { q:"In the cross-coupled NOR SR latch, why is S wired to the gate that produces Q′ rather than Q?", options:["Because that's the wiring that makes S=1 correctly force Q=1, due to how the cross-coupled feedback works", "It's an arbitrary labeling choice with no effect on behavior", "Because NOR gates cannot have their output directly labeled Q", "Because R must always be on the same gate as Q′"], answer:0, explanation:"Tracing the circuit shows S=1 first forces the bottom gate's output (Q′) to 0, which then feeds into the top gate to produce Q=1 — the cross-coupling is exactly why this indirect wiring works out correctly." },
+    { q:"Why is S=1, R=1 a forbidden input combination for the basic SR latch?", options:["It forces both Q and Q′ to 0 simultaneously, violating the requirement that Q and Q′ always be complements", "It causes a short circuit in the gates", "It is physically impossible to apply both inputs at once", "It simply produces Q=1, which is undesirable"], answer:0, explanation:"With both NOR gates seeing a 1 on one input, both outputs are forced to 0 — but Q and Q′ being equal breaks the latch's fundamental complementary-output property." },
+    { q:"In a Gated D latch, how is the SR latch's forbidden state eliminated?", options:["By driving S=D and R=D′ (D inverted), so S and R are always complements and can never both be 1", "By removing the R input entirely", "By adding a third NOR gate", "By only allowing D to equal 0"], answer:0, explanation:"Since D′ is always the logical complement of D, S=D and R=D′ can never both be 1 at the same time — the forbidden combination becomes structurally impossible." },
+    { q:"What does it mean that a gated D latch is 'level-sensitive' (transparent) rather than edge-triggered?", options:["While EN=1, Q continuously follows any change on D, not just at one specific instant", "It only responds to the rising edge of D", "It ignores the EN signal entirely", "It can only be triggered once per power cycle"], answer:0, explanation:"For the entire duration EN is high, the latch is 'transparent' — Q tracks D in real time. Edge-triggered behavior, where updates happen only at a clock transition, is what flip-flops add on top of this." }
+  ];
+
+  let selected = {}, submitted = false;
+
+  function buildQuiz() {
+    document.getElementById('quiz-body').innerHTML = QUIZ.map((q, qi) => `
+      <div class="question">
+        <div class="question-text">Q${qi+1}. ${q.q}</div>
+        <div class="options">
+          ${q.options.map((o, oi) => `<div class="option" data-qi="${qi}" data-oi="${oi}"><span class="option-lbl">${LABELS[oi]}</span>${o}</div>`).join('')}
+        </div>
+        <div class="explanation" id="exp${qi}" style="display:none">💡 ${q.explanation}</div>
+      </div>`).join('');
+    document.querySelectorAll('.option').forEach(el => {
+      el.onclick = () => {
+        if (submitted) return;
+        const qi = +el.dataset.qi, oi = +el.dataset.oi;
+        selected[qi] = oi;
+        document.querySelectorAll(`[data-qi="${qi}"]`).forEach(o => o.classList.remove('selected'));
+        el.classList.add('selected');
+        document.getElementById('submit-btn').disabled = Object.keys(selected).length < QUIZ.length;
+      };
+    });
+  }
+
+  async function submitQuiz(uid) {
+    submitted = true; let score = 0;
+    QUIZ.forEach((q, qi) => {
+      const correct = q.answer, chosen = selected[qi];
+      document.querySelectorAll(`[data-qi="${qi}"]`).forEach(o => {
+        const oi = +o.dataset.oi;
+        if (oi === correct) o.classList.add('correct');
+        else if (oi === chosen) o.classList.add('wrong');
+      });
+      document.getElementById(`exp${qi}`).style.display = 'block';
+      if (chosen === correct) score++;
+    });
+    document.getElementById('submit-btn').style.display = 'none';
+    const pct = Math.round((score / QUIZ.length) * 100);
+    const res = document.getElementById('quiz-result');
+    res.style.display = 'block';
+    res.className = `quiz-result ${pct >= 60 ? 'pass' : 'fail'}`;
+    res.innerHTML = `<div class="quiz-score">${pct >= 60 ? '🎉' : '📖'} Score: ${score}/${QUIZ.length} (${pct}%)</div>
+      <div class="quiz-msg">${pct >= 80 ? 'Excellent! Move to the next topic.' : pct >= 60 ? 'Good. Review what you missed.' : 'Review the lesson and try again.'}</div>`;
+    if (uid) await saveProgress(uid, COURSE_ID, TOPIC_ID, score, QUIZ.length);
+  }
+
+  onAuth(async user => {
+    const gate = document.getElementById('gate-section');
+    const quiz  = document.getElementById('quiz-section');
+    if (user) {
+      gate.style.display = 'none';
+      quiz.style.display = 'block';
+      buildQuiz();
+      document.getElementById('submit-btn').onclick = () => submitQuiz(user.uid);
+      const prog = await getProgress(user.uid, COURSE_ID, TOPIC_ID);
+      if (prog?.completed) {
+        const res = document.getElementById('quiz-result');
+        res.style.display = 'block';
+        res.className = 'quiz-result pass';
+        res.innerHTML = `<div class="quiz-score">✅ Completed — Best score: ${prog.percent}%</div>
+          <div class="quiz-msg">You can retake the quiz anytime.</div>`;
+      }
+    }
+  });
+</script>
+</body>
+</html>

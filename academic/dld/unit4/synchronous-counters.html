@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Synchronous Counters — DLD Unit 4 | Chandras EDU</title>
+  <meta name="description" content="The 4-step synchronous counter design procedure — state table, excitation table, K-map, circuit — worked through a 3-bit JK up-counter with a common clock and no ripple delay.">
+  <link rel="canonical" href="https://courses.chandrashaker.in/academic/dld/unit4/synchronous-counters.html">
+  <link rel="stylesheet" href="../../../css/style.css">
+
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Chandras EDU">
+  <meta property="og:title" content="Synchronous Counters — DLD Unit 4 | Chandras EDU">
+  <meta property="og:description" content="The 4-step synchronous counter design procedure — state table, excitation table, K-map, circuit — worked through a 3-bit JK up-counter with a common clock and no ripple delay.">
+  <meta property="og:url" content="https://courses.chandrashaker.in/academic/dld/unit4/synchronous-counters.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Synchronous Counters — DLD Unit 4 | Chandras EDU">
+  <meta name="twitter:description" content="The 4-step synchronous counter design procedure — state table, excitation table, K-map, circuit — worked through a 3-bit JK up-counter with a common clock and no ripple delay.">
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Courses", "item": "https://courses.chandrashaker.in/" },
+    { "@type": "ListItem", "position": 2, "name": "DLD", "item": "https://courses.chandrashaker.in/academic/dld/" },
+    { "@type": "ListItem", "position": 3, "name": "Unit 4", "item": "https://courses.chandrashaker.in/academic/dld/unit4/" },
+    { "@type": "ListItem", "position": 4, "name": "Synchronous Counters" }
+  ]
+}
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LearningResource",
+  "name": "Synchronous Counters",
+  "description": "The 4-step synchronous counter design procedure — state table, excitation table, K-map, circuit — worked through a 3-bit JK up-counter with a common clock and no ripple delay.",
+  "url": "https://courses.chandrashaker.in/academic/dld/unit4/synchronous-counters.html",
+  "learningResourceType": "Lesson",
+  "educationalLevel": "Undergraduate",
+  "about": { "@type": "Thing", "name": "Digital Logic Design" },
+  "isPartOf": {
+    "@type": "Course",
+    "name": "Digital Logic Design",
+    "provider": { "@type": "Organization", "name": "Chandras EDU", "url": "https://chandrashaker.in" }
+  },
+  "publisher": { "@type": "Organization", "name": "Chandras EDU", "url": "https://chandrashaker.in" }
+}
+  </script>
+  <link rel="icon" href="/favicon.ico">
+  <style>
+    .truth-table { border-collapse:collapse; margin:1rem auto; font-size:.85rem; }
+    .truth-table th, .truth-table td { border:1px solid var(--border); padding:.35rem .55rem; text-align:center; }
+    .truth-table th { background:var(--bg-3); color:var(--text); font-weight:700; }
+    .kmap-wrap { display:flex; justify-content:center; gap:2.5rem; margin:1.25rem 0; flex-wrap:wrap; overflow-x:auto; }
+    .kmap-table { border-collapse:collapse; font-size:.85rem; }
+    .kmap-table th, .kmap-table td { border:1px solid var(--border); width:52px; height:44px; text-align:center; padding:0; }
+    .kmap-table th { background:var(--bg-3); font-weight:700; color:var(--text-2); font-size:.78rem; }
+    .kmap-table .corner { font-size:.64rem; color:var(--text-3); font-weight:600; }
+    .kmap-table td .val { font-weight:700; font-size:1rem; }
+    .kmap-table td .idx { display:block; font-size:.6rem; color:var(--text-3); }
+    .kmap-table td.one .val { color:var(--success); }
+    .kmap-table td.zero .val { color:var(--text-3); }
+    .kmap-table td.dc .val { color:var(--accent); }
+    .kmap-overlay { position:relative; display:inline-block; text-align:center; }
+    .kmap-overlay svg { position:absolute; top:0; left:0; pointer-events:none; }
+    .kmap-cap { font-size:.8rem; color:var(--text-2); margin-top:.4rem; }
+  </style>
+</head>
+<body>
+<nav class="nav"><div id="main-nav"></div></nav>
+
+<div style="max-width:820px;margin:.5rem auto;padding:0 1.25rem">
+  <div class="ad-slot">Advertisement</div>
+</div>
+
+<div class="page-narrow" role="main">
+
+  <nav class="breadcrumb">
+    <a href="../../../index.html">Courses</a><span class="sep">/</span>
+    <a href="../../dld/index.html">DLD</a><span class="sep">/</span>
+    <a href="index.html">Unit 4</a><span class="sep">/</span>
+    <span>Sequential Logic Circuits</span><span class="sep">/</span>
+    <span class="cur">Synchronous Counters</span>
+  </nav>
+
+  <div style="background:var(--primary);border-radius:var(--radius-lg);padding:1.1rem 1.4rem;margin-bottom:1.5rem;color:#fff">
+    <div style="font-size:.75rem;opacity:.75;margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.05em">DLD › Unit 4: Sequential Logic Circuits › Topic 4</div>
+    <h1 style="font-size:1.4rem;font-weight:700;color:#fff;margin-bottom:.5rem">Synchronous Counters</h1>
+    <div style="display:flex;gap:.75rem;flex-wrap:wrap">
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">⏱ 22 min read</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📝 Quiz inside</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📖 Mano &amp; Ciletti Ch. 5</span>
+    </div>
+  </div>
+
+  <!-- FULL LESSON — visible to everyone -->
+  <div class="lesson">
+    <h2>What is a Synchronous Counter?</h2>
+    <p>In a <strong>synchronous counter</strong>, every flip-flop connects to the <em>same</em> common clock signal — every stage samples and updates at the exact same instant, instead of rippling through one stage at a time. That eliminates the accumulated propagation delay a ripple counter suffers from, at the cost of needing extra combinational logic to work out, for each stage, exactly what its inputs must be so that all stages land on the correct next state <em>together</em>.</p>
+
+    <h2>The Design Procedure</h2>
+    <div class="box box-eg">
+      <ol style="margin:0;padding-left:1.25rem">
+        <li><strong>State table:</strong> map every present state to its required next state.</li>
+        <li><strong>Excitation table:</strong> apply each flip-flop type's excitation rules (previous topic) to find the inputs each transition requires.</li>
+        <li><strong>K-map minimization:</strong> treat each flip-flop input as its own Boolean function of the present-state variables, and simplify.</li>
+        <li><strong>Circuit diagram:</strong> wire the simplified gate logic to each flip-flop's inputs, and tie every clock input to the same common line.</li>
+      </ol>
+    </div>
+
+    <h2>Worked Example — 3-Bit Synchronous Up-Counter (JK Flip-Flops)</h2>
+    <p>Three JK flip-flops, state AₙBₙCₙ (A = MSB), counting 000 through 111. Steps 1 and 2 combined — for each present state, the required next state and the JK excitation values that produce it:</p>
+    <table class="truth-table">
+      <thead><tr><th>AₙBₙCₙ</th><th>Aₙ₊₁Bₙ₊₁Cₙ₊₁</th><th>J<sub>A</sub>,K<sub>A</sub></th><th>J<sub>B</sub>,K<sub>B</sub></th><th>J<sub>C</sub>,K<sub>C</sub></th></tr></thead>
+      <tbody>
+        <tr><td>000</td><td>001</td><td>0, X</td><td>0, X</td><td>1, X</td></tr>
+        <tr><td>001</td><td>010</td><td>0, X</td><td>1, X</td><td>X, 1</td></tr>
+        <tr><td>010</td><td>011</td><td>0, X</td><td>X, 0</td><td>1, X</td></tr>
+        <tr><td>011</td><td>100</td><td>1, X</td><td>X, 1</td><td>X, 1</td></tr>
+        <tr><td>100</td><td>101</td><td>X, 0</td><td>0, X</td><td>1, X</td></tr>
+        <tr><td>101</td><td>110</td><td>X, 0</td><td>1, X</td><td>X, 1</td></tr>
+        <tr><td>110</td><td>111</td><td>X, 0</td><td>X, 0</td><td>1, X</td></tr>
+        <tr><td>111</td><td>000</td><td>X, 1</td><td>X, 1</td><td>X, 1</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Step 3 — K-Maps for J<sub>A</sub> and K<sub>A</sub></h3>
+    <p>Reading the J<sub>A</sub> and K<sub>A</sub> columns above onto 3-variable K-maps (rows=A, columns=BC in Gray-code order) shows every A=1 row entry is a don't-care in both maps — which leaves a single 1 in each, at ABC=011 for J<sub>A</sub> and ABC=111 for K<sub>A</sub>, each free to pair up with the don't-care directly below it:</p>
+    <div class="kmap-wrap">
+      <div class="kmap-overlay" id="kmapA-wrap">
+        <table class="kmap-table" id="kmapJA">
+          <tr><th class="corner">A\BC</th><th>00</th><th>01</th><th>11</th><th>10</th></tr>
+          <tr><th>0</th>
+            <td class="zero"><span class="val">0</span><span class="idx">m0</span></td>
+            <td class="zero"><span class="val">0</span><span class="idx">m1</span></td>
+            <td class="one" id="ja-m3"><span class="val">1</span><span class="idx">m3</span></td>
+            <td class="zero"><span class="val">0</span><span class="idx">m2</span></td>
+          </tr>
+          <tr><th>1</th>
+            <td class="dc"><span class="val">X</span><span class="idx">m4</span></td>
+            <td class="dc"><span class="val">X</span><span class="idx">m5</span></td>
+            <td class="dc" id="ja-m7"><span class="val">X</span><span class="idx">m7</span></td>
+            <td class="dc"><span class="val">X</span><span class="idx">m6</span></td>
+          </tr>
+        </table>
+        <svg id="kmapA-svg" width="261" height="192" viewBox="0 0 261 192">
+          <rect x="156.3" y="58.7" width="52" height="88.4" rx="10" fill="none" stroke="#8e24aa" stroke-width="3"/>
+        </svg>
+        <div class="kmap-cap">J<sub>A</sub> = BC</div>
+      </div>
+      <div class="kmap-overlay" id="kmapK-wrap">
+        <table class="kmap-table" id="kmapKA">
+          <tr><th class="corner">A\BC</th><th>00</th><th>01</th><th>11</th><th>10</th></tr>
+          <tr><th>0</th>
+            <td class="dc"><span class="val">X</span><span class="idx">m0</span></td>
+            <td class="dc"><span class="val">X</span><span class="idx">m1</span></td>
+            <td class="dc" id="ka-m3"><span class="val">X</span><span class="idx">m3</span></td>
+            <td class="dc"><span class="val">X</span><span class="idx">m2</span></td>
+          </tr>
+          <tr><th>1</th>
+            <td class="zero"><span class="val">0</span><span class="idx">m4</span></td>
+            <td class="zero"><span class="val">0</span><span class="idx">m5</span></td>
+            <td class="one" id="ka-m7"><span class="val">1</span><span class="idx">m7</span></td>
+            <td class="zero"><span class="val">0</span><span class="idx">m6</span></td>
+          </tr>
+        </table>
+        <svg id="kmapK-svg" width="261" height="192" viewBox="0 0 261 192">
+          <rect x="156.3" y="58.7" width="52" height="88.4" rx="10" fill="none" stroke="#8e24aa" stroke-width="3"/>
+        </svg>
+        <div class="kmap-cap">K<sub>A</sub> = BC</div>
+      </div>
+    </div>
+    <p>Both maps group the same pair of cells (BC=11, both A rows), because both maps have 1s and don't-cares in exactly complementary places — the only surviving constant variables across that pair are B=1 and C=1, giving J<sub>A</sub>=K<sub>A</sub>=BC.</p>
+
+    <h3>Stages B and C, by inspection</h3>
+    <p>The other two stages are simple enough to read directly off the excitation table without drawing separate maps:</p>
+    <div class="box box-eg">
+J<sub>C</sub> = 1,  K<sub>C</sub> = 1    (C's row is 1 or X everywhere for J, and X or 1 everywhere for K — C toggles every single clock, just like the LSB of the ripple counter)
+J<sub>B</sub> = C,  K<sub>B</sub> = C    (B's J/K columns are exactly 0 when C=0 and 1 or X when C=1 — B toggles precisely when C is 1)
+    </div>
+
+    <h3>Step 4 — Circuit</h3>
+    <div style="text-align:center;margin:1.25rem 0">
+      <svg viewBox="-40 -10 655 195" style="max-width:760px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
+        <text x="4" y="41" font-size="12" fill="var(--text-2)">1</text>
+        <line x1="18" y1="45" x2="40" y2="45" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="40" y1="45" x2="40" y2="30" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="40" y1="30" x2="60" y2="30" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="40" y1="45" x2="40" y2="60" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="40" y1="60" x2="60" y2="60" stroke="var(--primary)" stroke-width="2"/>
+        <rect x="60" y="10" width="80" height="90" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <text x="100" y="82" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">FF (C)</text>
+        <path d="M60,77 L60,93 L72,85 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5" stroke-linejoin="round"/>
+        <line x1="140" y1="45" x2="205" y2="45" stroke="var(--primary)" stroke-width="2"/>
+        <text x="150" y="39" font-size="12" fill="var(--text)">C</text>
+        <circle cx="175" cy="45" r="3" fill="var(--primary)"/>
+
+        <line x1="205" y1="45" x2="205" y2="30" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="205" y1="30" x2="225" y2="30" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="205" y1="45" x2="205" y2="60" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="205" y1="60" x2="225" y2="60" stroke="var(--primary)" stroke-width="2"/>
+        <rect x="225" y="10" width="80" height="90" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <text x="265" y="82" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">FF (B)</text>
+        <path d="M225,77 L225,93 L237,85 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5" stroke-linejoin="round"/>
+        <line x1="305" y1="45" x2="360" y2="45" stroke="var(--primary)" stroke-width="2"/>
+        <text x="315" y="39" font-size="12" fill="var(--text)">B</text>
+        <line x1="360" y1="45" x2="360" y2="35" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="360" y1="35" x2="390" y2="35" stroke="var(--primary)" stroke-width="2"/>
+
+        <line x1="175" y1="45" x2="175" y2="140" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="175" y1="140" x2="360" y2="140" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="360" y1="140" x2="360" y2="55" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="360" y1="55" x2="390" y2="55" stroke="var(--primary)" stroke-width="2"/>
+
+        <path d="M390,25 L416,25 A20,20 0 0 1 416,65 L390,65 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="3" stroke-linejoin="round"/>
+        <line x1="436" y1="45" x2="460" y2="45" stroke="var(--primary)" stroke-width="2"/>
+        <text x="392" y="80" font-size="11" fill="var(--text-2)">BC</text>
+        <circle cx="460" cy="45" r="3" fill="var(--primary)"/>
+
+        <line x1="460" y1="45" x2="460" y2="30" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="460" y1="30" x2="480" y2="30" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="460" y1="45" x2="460" y2="60" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="460" y1="60" x2="480" y2="60" stroke="var(--primary)" stroke-width="2"/>
+        <rect x="480" y="10" width="80" height="90" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <text x="520" y="82" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">FF (A)</text>
+        <path d="M480,77 L480,93 L492,85 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5" stroke-linejoin="round"/>
+        <line x1="560" y1="45" x2="590" y2="45" stroke="var(--primary)" stroke-width="2"/>
+        <text x="594" y="49" font-size="13" fill="var(--text)">A</text>
+
+        <text x="-38" y="169" font-size="11" fill="var(--text-2)">CLK</text>
+        <line x1="0" y1="165" x2="480" y2="165" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="60" y1="165" x2="60" y2="85" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="225" y1="165" x2="225" y2="85" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="480" y1="165" x2="480" y2="85" stroke="var(--primary)" stroke-width="2"/>
+      </svg>
+    </div>
+    <p>Every clock triangle taps the same horizontal CLK line — that single shared bus is the entire structural difference from the ripple counter's staggered chain. FF(C) always toggles; FF(B)'s J and K both come straight from C; FF(A)'s J and K both come from a single AND gate combining B and C. Because a JK flip-flop's characteristic equation makes J and K always drive the toggle decision together, feeding the same signal to both pins of a stage is exactly what "toggle when this condition is true" means in hardware.</p>
+
+    <h2>Common Pitfalls</h2>
+    <ul>
+      <li><strong>Wiring every flip-flop's clock separately "just to be safe."</strong> The entire point of synchronous design is a single shared clock net — if two flip-flops receive the clock through even slightly different paths, skew (previous topic) can creep back in.</li>
+      <li><strong>Forgetting that don't-cares in the excitation table are what make the K-map simplify so cleanly.</strong> Filling in a 0 or 1 instead of X at those cells (in an attempt to be "more precise") throws away valid simplification opportunities and can produce a needlessly complex — though still technically correct — circuit.</li>
+      <li><strong>Re-deriving J and K as if they were independent signals when they're tied together.</strong> Whenever a design calls for both J and K of one stage to be driven by the same expression (as with all three stages here), that's not a coincidence to double-check — it's the direct hardware meaning of "toggle under this condition."</li>
+    </ul>
+
+    <h2>Applications</h2>
+    <ul>
+      <li><strong>The 74163/74169</strong> family of synchronous 4-bit counter ICs are built exactly this way — common clock, internal AND/OR logic computing each stage's next-state inputs — and additionally support parallel load and synchronous clear.</li>
+      <li><strong>Any high-speed digital system</strong> (CPUs, high-clock-rate FPGAs) uses synchronous counters almost exclusively; the accumulated ripple delay of an asynchronous counter becomes the dominant timing bottleneck at high frequencies.</li>
+      <li><strong>The same 4-step procedure</strong> — state table, excitation table, K-map, circuit — generalizes directly to arbitrary state machines, which is exactly where Unit 5 picks up.</li>
+    </ul>
+  </div>
+
+  <div class="ad-slot">Advertisement</div>
+
+  <!-- QUIZ GATE -->
+  <div id="gate-section">
+    <div class="gate">
+      <div class="gate-blur">
+        <div class="quiz">
+          <div class="quiz-title">📝 Quick Quiz — 5 Questions</div>
+        </div>
+      </div>
+      <div class="gate-overlay">
+        <div class="gate-box">
+          <div class="lock">🔒</div>
+          <h3>Login to take the quiz</h3>
+          <p>Create a free account to take the quiz and track your progress across all topics.</p>
+          <div class="gate-btns">
+            <a href="../../../login.html" class="btn btn-primary btn-sm">Login</a>
+            <a href="../../../login.html" class="btn btn-outline btn-sm">Register Free</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="quiz" id="quiz-section" style="display:none">
+    <div class="quiz-title">📝 Quick Quiz — 5 Questions</div>
+    <div id="quiz-body"></div>
+    <button class="btn btn-primary" id="submit-btn" disabled>Submit Quiz</button>
+    <div class="quiz-result" id="quiz-result" style="display:none"></div>
+  </div>
+
+  <div class="topic-nav">
+    <a href="asynchronous-counters.html">
+      <div class="nav-dir">← Previous</div>
+      <div class="nav-title">Asynchronous (Ripple) Counters</div>
+    </a>
+    <a href="shift-registers.html" class="next">
+      <div class="nav-dir">Next →</div>
+      <div class="nav-title">Shift Registers &amp; Applications</div>
+    </a>
+  </div>
+
+</div>
+
+<div style="max-width:820px;margin:.5rem auto;padding:0 1.25rem">
+  <div class="ad-slot">Advertisement</div>
+</div>
+<footer class="footer">© 2026 Chandra Shaker · <a href="https://chandrashaker.in">chandrashaker.in</a> · <em>Reference: M. Morris Mano &amp; Michael D. Ciletti, Digital Design with an Introduction to the Verilog HDL, 6th ed. — Sequential Logic.</em></footer>
+
+<script type="module">
+  import { initNav } from '../../../js/nav.js';
+  import { onAuth, saveProgress, getProgress } from '../../../js/firebase-config.js';
+  initNav(3);
+
+  const COURSE_ID = 'dld';
+  const TOPIC_ID  = 'synchronous-counters';
+  const LABELS    = ['A','B','C','D'];
+  const QUIZ = [
+    { q:"What is the defining structural feature of a synchronous counter?", options:["Every flip-flop shares the same common clock signal, updating simultaneously", "Only the first flip-flop is clocked; the rest are clocked by the previous stage's output", "It uses no flip-flops at all, only combinational logic", "It can only count up, never down"], answer:0, explanation:"All flip-flops in a synchronous counter connect to one common clock line, so every stage updates at the exact same instant — the opposite of a ripple counter's staggered, cascaded clocking." },
+    { q:"In the 4-step synchronous counter design procedure, what comes immediately after building the excitation table?", options:["K-map minimization of each flip-flop input as a function of present-state variables", "Wiring the final circuit directly", "Choosing which flip-flop type to use", "Building the state table"], answer:0, explanation:"The order is: state table, excitation table, K-map minimization, then the circuit diagram. K-maps turn the excitation table's required inputs (including don't-cares) into minimized Boolean expressions." },
+    { q:"In the worked 3-bit JK up-counter example, why do J_A and K_A both simplify to the same expression, BC?", options:["Every A=1 row entry is a don't-care in both the J_A and K_A K-maps, leaving each map with a single 1 that pairs with a don't-care in exactly the same cell position", "J and K are always required to be identical for every JK flip-flop design", "It's a coincidence specific to this one example", "Because A is the least significant bit"], answer:0, explanation:"Both K-maps have complementary don't-care patterns from the excitation table, and the sole 1 in each map sits at the same BC=11 position — so both simplify to the identical expression BC." },
+    { q:"Why does FF(C) in the worked example have J_C=1 and K_C=1 permanently?", options:["C is the least significant bit and must toggle on every single clock pulse, exactly like the T=1 wiring in a ripple counter's first stage", "C never changes value", "It's an arbitrary design choice with no underlying reason", "J_C and K_C actually depend on B and A"], answer:0, explanation:"The LSB of any binary counter toggles every clock cycle by definition — tying J=K=1 permanently produces exactly that toggle-every-time behavior." },
+    { q:"What is the main practical advantage of a synchronous counter over an asynchronous (ripple) counter?", options:["It avoids the accumulated propagation delay of staggered clocking, making it suitable for higher clock frequencies", "It requires fewer flip-flops for the same count range", "It never needs any combinational logic", "It can never have a forbidden state"], answer:0, explanation:"Because every stage updates simultaneously from one shared clock, there's no accumulated ripple delay — the tradeoff is the extra combinational logic needed to compute each stage's next-state inputs." }
+  ];
+
+  let selected = {}, submitted = false;
+
+  function buildQuiz() {
+    document.getElementById('quiz-body').innerHTML = QUIZ.map((q, qi) => `
+      <div class="question">
+        <div class="question-text">Q${qi+1}. ${q.q}</div>
+        <div class="options">
+          ${q.options.map((o, oi) => `<div class="option" data-qi="${qi}" data-oi="${oi}"><span class="option-lbl">${LABELS[oi]}</span>${o}</div>`).join('')}
+        </div>
+        <div class="explanation" id="exp${qi}" style="display:none">💡 ${q.explanation}</div>
+      </div>`).join('');
+    document.querySelectorAll('.option').forEach(el => {
+      el.onclick = () => {
+        if (submitted) return;
+        const qi = +el.dataset.qi, oi = +el.dataset.oi;
+        selected[qi] = oi;
+        document.querySelectorAll(`[data-qi="${qi}"]`).forEach(o => o.classList.remove('selected'));
+        el.classList.add('selected');
+        document.getElementById('submit-btn').disabled = Object.keys(selected).length < QUIZ.length;
+      };
+    });
+  }
+
+  async function submitQuiz(uid) {
+    submitted = true; let score = 0;
+    QUIZ.forEach((q, qi) => {
+      const correct = q.answer, chosen = selected[qi];
+      document.querySelectorAll(`[data-qi="${qi}"]`).forEach(o => {
+        const oi = +o.dataset.oi;
+        if (oi === correct) o.classList.add('correct');
+        else if (oi === chosen) o.classList.add('wrong');
+      });
+      document.getElementById(`exp${qi}`).style.display = 'block';
+      if (chosen === correct) score++;
+    });
+    document.getElementById('submit-btn').style.display = 'none';
+    const pct = Math.round((score / QUIZ.length) * 100);
+    const res = document.getElementById('quiz-result');
+    res.style.display = 'block';
+    res.className = `quiz-result ${pct >= 60 ? 'pass' : 'fail'}`;
+    res.innerHTML = `<div class="quiz-score">${pct >= 60 ? '🎉' : '📖'} Score: ${score}/${QUIZ.length} (${pct}%)</div>
+      <div class="quiz-msg">${pct >= 80 ? 'Excellent! Move to the next topic.' : pct >= 60 ? 'Good. Review what you missed.' : 'Review the lesson and try again.'}</div>`;
+    if (uid) await saveProgress(uid, COURSE_ID, TOPIC_ID, score, QUIZ.length);
+  }
+
+  onAuth(async user => {
+    const gate = document.getElementById('gate-section');
+    const quiz  = document.getElementById('quiz-section');
+    if (user) {
+      gate.style.display = 'none';
+      quiz.style.display = 'block';
+      buildQuiz();
+      document.getElementById('submit-btn').onclick = () => submitQuiz(user.uid);
+      const prog = await getProgress(user.uid, COURSE_ID, TOPIC_ID);
+      if (prog?.completed) {
+        const res = document.getElementById('quiz-result');
+        res.style.display = 'block';
+        res.className = 'quiz-result pass';
+        res.innerHTML = `<div class="quiz-score">✅ Completed — Best score: ${prog.percent}%</div>
+          <div class="quiz-msg">You can retake the quiz anytime.</div>`;
+      }
+    }
+  });
+</script>
+</body>
+</html>

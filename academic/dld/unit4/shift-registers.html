@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shift Registers &amp; Applications — DLD Unit 4 | Chandras EDU</title>
+  <meta name="description" content="SISO/SIPO/PISO/PIPO data transfer modes, and the ring counter and Johnson (twisted-ring) counter built directly from a shift register with feedback.">
+  <link rel="canonical" href="https://courses.chandrashaker.in/academic/dld/unit4/shift-registers.html">
+  <link rel="stylesheet" href="../../../css/style.css">
+
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Chandras EDU">
+  <meta property="og:title" content="Shift Registers &amp; Applications — DLD Unit 4 | Chandras EDU">
+  <meta property="og:description" content="SISO/SIPO/PISO/PIPO data transfer modes, and the ring counter and Johnson (twisted-ring) counter built directly from a shift register with feedback.">
+  <meta property="og:url" content="https://courses.chandrashaker.in/academic/dld/unit4/shift-registers.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Shift Registers &amp; Applications — DLD Unit 4 | Chandras EDU">
+  <meta name="twitter:description" content="SISO/SIPO/PISO/PIPO data transfer modes, and the ring counter and Johnson (twisted-ring) counter built directly from a shift register with feedback.">
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Courses", "item": "https://courses.chandrashaker.in/" },
+    { "@type": "ListItem", "position": 2, "name": "DLD", "item": "https://courses.chandrashaker.in/academic/dld/" },
+    { "@type": "ListItem", "position": 3, "name": "Unit 4", "item": "https://courses.chandrashaker.in/academic/dld/unit4/" },
+    { "@type": "ListItem", "position": 4, "name": "Shift Registers & Applications" }
+  ]
+}
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LearningResource",
+  "name": "Shift Registers & Applications",
+  "description": "SISO/SIPO/PISO/PIPO data transfer modes, and the ring counter and Johnson (twisted-ring) counter built directly from a shift register with feedback.",
+  "url": "https://courses.chandrashaker.in/academic/dld/unit4/shift-registers.html",
+  "learningResourceType": "Lesson",
+  "educationalLevel": "Undergraduate",
+  "about": { "@type": "Thing", "name": "Digital Logic Design" },
+  "isPartOf": {
+    "@type": "Course",
+    "name": "Digital Logic Design",
+    "provider": { "@type": "Organization", "name": "Chandras EDU", "url": "https://chandrashaker.in" }
+  },
+  "publisher": { "@type": "Organization", "name": "Chandras EDU", "url": "https://chandrashaker.in" }
+}
+  </script>
+  <link rel="icon" href="/favicon.ico">
+  <style>
+    .truth-table { border-collapse:collapse; margin:1rem auto; font-size:.86rem; }
+    .truth-table th, .truth-table td { border:1px solid var(--border); padding:.4rem .65rem; text-align:center; }
+    .truth-table th { background:var(--bg-3); color:var(--text); font-weight:700; }
+  </style>
+</head>
+<body>
+<nav class="nav"><div id="main-nav"></div></nav>
+
+<div style="max-width:820px;margin:.5rem auto;padding:0 1.25rem">
+  <div class="ad-slot">Advertisement</div>
+</div>
+
+<div class="page-narrow" role="main">
+
+  <nav class="breadcrumb">
+    <a href="../../../index.html">Courses</a><span class="sep">/</span>
+    <a href="../../dld/index.html">DLD</a><span class="sep">/</span>
+    <a href="index.html">Unit 4</a><span class="sep">/</span>
+    <span>Sequential Logic Circuits</span><span class="sep">/</span>
+    <span class="cur">Shift Registers &amp; Applications</span>
+  </nav>
+
+  <div style="background:var(--primary);border-radius:var(--radius-lg);padding:1.1rem 1.4rem;margin-bottom:1.5rem;color:#fff">
+    <div style="font-size:.75rem;opacity:.75;margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.05em">DLD › Unit 4: Sequential Logic Circuits › Topic 5</div>
+    <h1 style="font-size:1.4rem;font-weight:700;color:#fff;margin-bottom:.5rem">Shift Registers &amp; Applications</h1>
+    <div style="display:flex;gap:.75rem;flex-wrap:wrap">
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">⏱ 18 min read</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📝 Quiz inside</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📖 Mano &amp; Ciletti Ch. 6</span>
+    </div>
+  </div>
+
+  <!-- FULL LESSON — visible to everyone -->
+  <div class="lesson">
+    <h2>What is a Shift Register?</h2>
+    <p>A <strong>shift register</strong> is a cascade of flip-flops sharing one common clock, where each stage's D input is simply the <em>previous</em> stage's Q — so on every clock pulse, every stored bit moves one position down the chain:</p>
+    <div style="text-align:center;margin:1.25rem 0">
+      <svg viewBox="-10 -10 630 190" style="max-width:720px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
+        <text x="-8" y="49" font-size="11" fill="var(--text-2)">D<tspan font-size="8" dy="2">in</tspan></text>
+        <line x1="14" y1="45" x2="40" y2="45" stroke="var(--primary)" stroke-width="2"/>
+        <rect x="40" y="10" width="70" height="90" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <text x="75" y="82" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">FF0</text>
+        <path d="M40,77 L40,93 L52,85 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5" stroke-linejoin="round"/>
+        <line x1="110" y1="45" x2="170" y2="45" stroke="var(--primary)" stroke-width="2"/>
+        <text x="114" y="39" font-size="12" fill="var(--text)">Q₀</text>
+
+        <rect x="170" y="10" width="70" height="90" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <text x="205" y="82" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">FF1</text>
+        <path d="M170,77 L170,93 L182,85 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5" stroke-linejoin="round"/>
+        <line x1="240" y1="45" x2="300" y2="45" stroke="var(--primary)" stroke-width="2"/>
+        <text x="244" y="39" font-size="12" fill="var(--text)">Q₁</text>
+
+        <rect x="300" y="10" width="70" height="90" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <text x="335" y="82" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">FF2</text>
+        <path d="M300,77 L300,93 L312,85 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5" stroke-linejoin="round"/>
+        <line x1="370" y1="45" x2="430" y2="45" stroke="var(--primary)" stroke-width="2"/>
+        <text x="374" y="39" font-size="12" fill="var(--text)">Q₂</text>
+
+        <rect x="430" y="10" width="70" height="90" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <text x="465" y="82" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">FF3</text>
+        <path d="M430,77 L430,93 L442,85 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5" stroke-linejoin="round"/>
+        <line x1="500" y1="45" x2="560" y2="45" stroke="var(--primary)" stroke-width="2"/>
+        <text x="504" y="39" font-size="12" fill="var(--text)">Q₃ (serial out)</text>
+
+        <text x="-8" y="169" font-size="11" fill="var(--text-2)">CLK</text>
+        <line x1="18" y1="165" x2="430" y2="165" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="40" y1="165" x2="40" y2="85" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="170" y1="165" x2="170" y2="85" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="300" y1="165" x2="300" y2="85" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="430" y1="165" x2="430" y2="85" stroke="var(--primary)" stroke-width="2"/>
+      </svg>
+    </div>
+    <p>Whether a register counts as "serial" or "parallel" on each side is purely about how data gets in and out — the internal shifting structure above never changes.</p>
+
+    <h2>Four Data Transfer Modes</h2>
+    <table class="truth-table">
+      <thead><tr><th>Type</th><th>Name</th><th>Data In</th><th>Data Out</th><th>Typical Use</th></tr></thead>
+      <tbody>
+        <tr><td><strong>SISO</strong></td><td>Serial-In / Serial-Out</td><td>1 bit/clock</td><td>1 bit/clock</td><td>Time delay, signal buffering</td></tr>
+        <tr><td><strong>SIPO</strong></td><td>Serial-In / Parallel-Out</td><td>1 bit/clock</td><td>All bits at once</td><td>Serial-to-parallel conversion (UART receive)</td></tr>
+        <tr><td><strong>PISO</strong></td><td>Parallel-In / Serial-Out</td><td>All bits at once</td><td>1 bit/clock</td><td>Parallel-to-serial conversion (UART transmit)</td></tr>
+        <tr><td><strong>PIPO</strong></td><td>Parallel-In / Parallel-Out</td><td>All bits at once</td><td>All bits at once</td><td>Fast temporary register storage</td></tr>
+      </tbody>
+    </table>
+    <p>SIPO taps every stage's Q as a separate output pin instead of using only the last one; PISO adds a way to force each stage directly to an external bit value before shifting begins. Both are the exact same shift-register core above with extra access points, not a different circuit.</p>
+
+    <h2>Ring Counter</h2>
+    <p>Feed the <em>last</em> stage's output straight back into the first stage's input, with no external serial data at all, and the register becomes a self-contained counter — a <strong>ring counter</strong>:</p>
+    <div style="text-align:center;margin:1.25rem 0">
+      <svg viewBox="-10 -35 630 215" style="max-width:720px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
+        <line x1="500" y1="45" x2="500" y2="-20" stroke="var(--primary)" stroke-width="2"/>
+        <circle cx="500" cy="45" r="3" fill="var(--primary)"/>
+        <line x1="500" y1="-20" x2="25" y2="-20" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="25" y1="-20" x2="25" y2="45" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="25" y1="45" x2="40" y2="45" stroke="var(--primary)" stroke-width="2"/>
+
+        <rect x="40" y="10" width="70" height="90" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <text x="75" y="82" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">FF0</text>
+        <path d="M40,77 L40,93 L52,85 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5" stroke-linejoin="round"/>
+        <line x1="110" y1="45" x2="170" y2="45" stroke="var(--primary)" stroke-width="2"/>
+        <text x="114" y="39" font-size="12" fill="var(--text)">Q₀</text>
+
+        <rect x="170" y="10" width="70" height="90" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <text x="205" y="82" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">FF1</text>
+        <path d="M170,77 L170,93 L182,85 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5" stroke-linejoin="round"/>
+        <line x1="240" y1="45" x2="300" y2="45" stroke="var(--primary)" stroke-width="2"/>
+        <text x="244" y="39" font-size="12" fill="var(--text)">Q₁</text>
+
+        <rect x="300" y="10" width="70" height="90" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <text x="335" y="82" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">FF2</text>
+        <path d="M300,77 L300,93 L312,85 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5" stroke-linejoin="round"/>
+        <line x1="370" y1="45" x2="430" y2="45" stroke="var(--primary)" stroke-width="2"/>
+        <text x="374" y="39" font-size="12" fill="var(--text)">Q₂</text>
+
+        <rect x="430" y="10" width="70" height="90" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <text x="465" y="82" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">FF3</text>
+        <path d="M430,77 L430,93 L442,85 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5" stroke-linejoin="round"/>
+        <line x1="500" y1="45" x2="530" y2="45" stroke="var(--primary)" stroke-width="2"/>
+        <text x="504" y="39" font-size="12" fill="var(--text)">Q₃</text>
+
+        <text x="-8" y="169" font-size="11" fill="var(--text-2)">CLK</text>
+        <line x1="18" y1="165" x2="430" y2="165" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="40" y1="165" x2="40" y2="85" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="170" y1="165" x2="170" y2="85" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="300" y1="165" x2="300" y2="85" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="430" y1="165" x2="430" y2="85" stroke="var(--primary)" stroke-width="2"/>
+      </svg>
+    </div>
+    <ul>
+      <li><strong>Number of states:</strong> N states for N flip-flops — the single 1 (or single 0) just circulates.</li>
+      <li><strong>4-bit sequence, pre-loaded to 1000:</strong> 1000 → 0100 → 0010 → 0001 → 1000 …</li>
+      <li><strong>Must be pre-loaded</strong> (e.g., to 1000) — reset alone gives 0000, which is a valid-looking but stuck state: Q₃=0 feeds D₀=0 forever, so it never starts circulating on its own.</li>
+    </ul>
+
+    <h2>Johnson Counter (Twisted-Ring Counter)</h2>
+    <p>Feed back the <em>inverted</em> last output instead of the plain one, and the single circulating bit becomes a spreading/retreating band of 1s and 0s:</p>
+    <div style="text-align:center;margin:1.25rem 0">
+      <svg viewBox="-10 -35 630 215" style="max-width:720px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
+        <line x1="500" y1="45" x2="500" y2="-20" stroke="var(--primary)" stroke-width="2"/>
+        <circle cx="500" cy="45" r="3" fill="var(--primary)"/>
+        <line x1="500" y1="-20" x2="200" y2="-20" stroke="var(--primary)" stroke-width="2"/>
+        <path d="M200,-28 L200,-12 L170,-20 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5" stroke-linejoin="round"/>
+        <circle cx="165" cy="-20" r="5" fill="var(--bg)" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="160" y1="-20" x2="25" y2="-20" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="25" y1="-20" x2="25" y2="45" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="25" y1="45" x2="40" y2="45" stroke="var(--primary)" stroke-width="2"/>
+
+        <rect x="40" y="10" width="70" height="90" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <text x="75" y="82" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">FF0</text>
+        <path d="M40,77 L40,93 L52,85 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5" stroke-linejoin="round"/>
+        <line x1="110" y1="45" x2="170" y2="45" stroke="var(--primary)" stroke-width="2"/>
+        <text x="114" y="39" font-size="12" fill="var(--text)">Q₀</text>
+
+        <rect x="170" y="10" width="70" height="90" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <text x="205" y="82" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">FF1</text>
+        <path d="M170,77 L170,93 L182,85 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5" stroke-linejoin="round"/>
+        <line x1="240" y1="45" x2="300" y2="45" stroke="var(--primary)" stroke-width="2"/>
+        <text x="244" y="39" font-size="12" fill="var(--text)">Q₁</text>
+
+        <rect x="300" y="10" width="70" height="90" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <text x="335" y="82" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">FF2</text>
+        <path d="M300,77 L300,93 L312,85 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5" stroke-linejoin="round"/>
+        <line x1="370" y1="45" x2="430" y2="45" stroke="var(--primary)" stroke-width="2"/>
+        <text x="374" y="39" font-size="12" fill="var(--text)">Q₂</text>
+
+        <rect x="430" y="10" width="70" height="90" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <text x="465" y="82" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">FF3</text>
+        <path d="M430,77 L430,93 L442,85 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5" stroke-linejoin="round"/>
+        <line x1="500" y1="45" x2="530" y2="45" stroke="var(--primary)" stroke-width="2"/>
+        <text x="504" y="39" font-size="12" fill="var(--text)">Q₃</text>
+
+        <text x="-8" y="169" font-size="11" fill="var(--text-2)">CLK</text>
+        <line x1="18" y1="165" x2="430" y2="165" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="40" y1="165" x2="40" y2="85" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="170" y1="165" x2="170" y2="85" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="300" y1="165" x2="300" y2="85" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="430" y1="165" x2="430" y2="85" stroke="var(--primary)" stroke-width="2"/>
+      </svg>
+    </div>
+    <ul>
+      <li><strong>Number of states:</strong> 2N states for N flip-flops — twice the ring counter, since the inverted feedback takes twice as long to return to the starting pattern.</li>
+      <li><strong>4-bit sequence, starting from reset (0000):</strong> 0000 → 1000 → 1100 → 1110 → 1111 → 0111 → 0011 → 0001 → 0000 …</li>
+      <li><strong>Self-starting</strong> from the all-0 reset state — unlike the ring counter, 0000 isn't a stuck state here, because Q₃′=1 feeds D₀=1 on the very next clock, immediately kicking off the sequence.</li>
+    </ul>
+
+    <h2>Ring vs. Johnson Counter</h2>
+    <table class="truth-table">
+      <thead><tr><th>Feature</th><th>Ring Counter</th><th>Johnson Counter</th></tr></thead>
+      <tbody>
+        <tr><td>Number of states</td><td>N</td><td>2N</td></tr>
+        <tr><td>Feedback connection</td><td>D₀ = Q<sub>N-1</sub></td><td>D₀ = Q′<sub>N-1</sub></td></tr>
+        <tr><td>Initialization</td><td>Requires pre-loading (e.g., 1000)</td><td>Self-starting from reset (0000)</td></tr>
+        <tr><td>Decoding next state</td><td>Single bit is already the decoded output</td><td>Needs a 2-input gate per state to decode</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Common Pitfalls</h2>
+    <ul>
+      <li><strong>Powering up a ring counter and expecting it to count.</strong> Without pre-loading exactly one stage to 1, a ring counter can power up in the all-0 (or, depending on design, all-1) state and simply sit there forever — it needs an explicit preset pulse before the first clock.</li>
+      <li><strong>Forgetting Johnson counters need external decoding to identify each state.</strong> Unlike a ring counter, where the single active bit directly tells you the state, a Johnson counter's states aren't one-hot — identifying "which of the 2N states is this" needs a small 2-input gate per state (comparing adjacent bits).</li>
+      <li><strong>Confusing SIPO/PISO direction.</strong> SIPO means data goes in one bit at a time and comes out all at once; PISO is the reverse. The "S" always refers to how data enters, the second "S"/"P" to how it exits.</li>
+    </ul>
+
+    <h2>Applications</h2>
+    <ul>
+      <li><strong>UART serial communication</strong> is the textbook SIPO/PISO pairing — a transmitter's parallel byte is shifted out one bit at a time (PISO), and the receiver reassembles incoming bits back into a parallel byte (SIPO).</li>
+      <li><strong>Johnson counters</strong> are used to build glitch-free ring oscillators and simple state sequencers (e.g., traffic-light controllers) since each state differs from its neighbor in only one bit, avoiding decoding glitches from multiple bits changing at once.</li>
+      <li><strong>LED chaser / marquee displays</strong> are a direct, visible application of a ring counter — the single circulating 1 lights exactly one LED at a time, moving down the strip each clock pulse.</li>
+    </ul>
+
+    <p style="margin-top:1rem">This closes out <strong>Unit 4: Sequential Logic Circuits</strong> — from the basic latch through flip-flop timing, ripple and synchronous counters, and finally shift registers. Unit 5 moves on to <strong>State Machines &amp; PLDs</strong>, where these same flip-flops and the synchronous design procedure from this unit become the foundation for general finite state machines.</p>
+  </div>
+
+  <div class="ad-slot">Advertisement</div>
+
+  <!-- QUIZ GATE -->
+  <div id="gate-section">
+    <div class="gate">
+      <div class="gate-blur">
+        <div class="quiz">
+          <div class="quiz-title">📝 Quick Quiz — 5 Questions</div>
+        </div>
+      </div>
+      <div class="gate-overlay">
+        <div class="gate-box">
+          <div class="lock">🔒</div>
+          <h3>Login to take the quiz</h3>
+          <p>Create a free account to take the quiz and track your progress across all topics.</p>
+          <div class="gate-btns">
+            <a href="../../../login.html" class="btn btn-primary btn-sm">Login</a>
+            <a href="../../../login.html" class="btn btn-outline btn-sm">Register Free</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="quiz" id="quiz-section" style="display:none">
+    <div class="quiz-title">📝 Quick Quiz — 5 Questions</div>
+    <div id="quiz-body"></div>
+    <button class="btn btn-primary" id="submit-btn" disabled>Submit Quiz</button>
+    <div class="quiz-result" id="quiz-result" style="display:none"></div>
+  </div>
+
+  <div class="topic-nav">
+    <a href="synchronous-counters.html">
+      <div class="nav-dir">← Previous</div>
+      <div class="nav-title">Synchronous Counters</div>
+    </a>
+    <a href="index.html" class="next">
+      <div class="nav-dir">🎉</div>
+      <div class="nav-title">Unit 4 Complete — Back to Overview</div>
+    </a>
+  </div>
+
+</div>
+
+<div style="max-width:820px;margin:.5rem auto;padding:0 1.25rem">
+  <div class="ad-slot">Advertisement</div>
+</div>
+<footer class="footer">© 2026 Chandra Shaker · <a href="https://chandrashaker.in">chandrashaker.in</a> · <em>Reference: M. Morris Mano &amp; Michael D. Ciletti, Digital Design with an Introduction to the Verilog HDL, 6th ed. — Sequential Logic.</em></footer>
+
+<script type="module">
+  import { initNav } from '../../../js/nav.js';
+  import { onAuth, saveProgress, getProgress } from '../../../js/firebase-config.js';
+  initNav(3);
+
+  const COURSE_ID = 'dld';
+  const TOPIC_ID  = 'shift-registers';
+  const LABELS    = ['A','B','C','D'];
+  const QUIZ = [
+    { q:"What defines a shift register's internal structure?", options:["Each stage's D input is wired directly to the previous stage's Q output, so stored bits move one position per clock", "Every stage receives an independent, unrelated data input", "It uses no clock at all", "Each stage's output feeds back into its own input"], answer:0, explanation:"A shift register is simply a chain where each flip-flop's D comes from the previous one's Q — on each clock, every bit shifts one position down the chain." },
+    { q:"What is the key difference between SIPO and PISO shift register modes?", options:["SIPO takes data in one bit at a time and outputs all bits at once; PISO takes all bits in at once and outputs one bit at a time", "SIPO and PISO are two names for the exact same mode", "SIPO has no clock input; PISO does", "PISO can only be used with 8-bit registers"], answer:0, explanation:"The first letter describes how data enters (Serial or Parallel) and the second how it exits — SIPO is serial-in/parallel-out, PISO is the reverse." },
+    { q:"Why must a ring counter be pre-loaded (e.g., to 1000) rather than just reset to 0000?", options:["All-0000 is a stuck state — with D0=Q3 and Q3=0, D0 stays 0 forever, so it never starts circulating on its own", "Ring counters cannot be reset at all", "0000 is not a valid binary state", "Pre-loading is only a convention with no functional reason"], answer:0, explanation:"Since the ring counter's feedback is D0=Q3 with no inversion, an all-0 state feeds back 0 forever — it needs at least one stage forced to 1 before clocking begins." },
+    { q:"Why does a Johnson counter have 2N states for N flip-flops, twice as many as a ring counter's N states?", options:["The inverted feedback means the pattern takes twice as many clock cycles to return to its starting configuration", "Johnson counters use twice as many flip-flops as ring counters for the same state count", "It's an arbitrary design choice unrelated to the feedback structure", "2N is simply the maximum any 4-bit register can reach"], answer:0, explanation:"Because feedback is inverted (D0=Q3′), the circulating pattern of 1s and 0s has to make two full passes through the register before repeating, doubling the cycle length to 2N." },
+    { q:"What must be added to a Johnson counter that a ring counter doesn't need, in order to identify which state the counter is in?", options:["A small 2-input decoding gate per state, since Johnson counter states aren't one-hot the way ring counter states are", "An additional clock signal", "More flip-flops", "Nothing — both require identical decoding"], answer:0, explanation:"A ring counter's single active bit directly identifies the state; a Johnson counter's states differ by a shifting boundary between 1s and 0s, so identifying a specific state requires comparing two adjacent bits with a small gate." }
+  ];
+
+  let selected = {}, submitted = false;
+
+  function buildQuiz() {
+    document.getElementById('quiz-body').innerHTML = QUIZ.map((q, qi) => `
+      <div class="question">
+        <div class="question-text">Q${qi+1}. ${q.q}</div>
+        <div class="options">
+          ${q.options.map((o, oi) => `<div class="option" data-qi="${qi}" data-oi="${oi}"><span class="option-lbl">${LABELS[oi]}</span>${o}</div>`).join('')}
+        </div>
+        <div class="explanation" id="exp${qi}" style="display:none">💡 ${q.explanation}</div>
+      </div>`).join('');
+    document.querySelectorAll('.option').forEach(el => {
+      el.onclick = () => {
+        if (submitted) return;
+        const qi = +el.dataset.qi, oi = +el.dataset.oi;
+        selected[qi] = oi;
+        document.querySelectorAll(`[data-qi="${qi}"]`).forEach(o => o.classList.remove('selected'));
+        el.classList.add('selected');
+        document.getElementById('submit-btn').disabled = Object.keys(selected).length < QUIZ.length;
+      };
+    });
+  }
+
+  async function submitQuiz(uid) {
+    submitted = true; let score = 0;
+    QUIZ.forEach((q, qi) => {
+      const correct = q.answer, chosen = selected[qi];
+      document.querySelectorAll(`[data-qi="${qi}"]`).forEach(o => {
+        const oi = +o.dataset.oi;
+        if (oi === correct) o.classList.add('correct');
+        else if (oi === chosen) o.classList.add('wrong');
+      });
+      document.getElementById(`exp${qi}`).style.display = 'block';
+      if (chosen === correct) score++;
+    });
+    document.getElementById('submit-btn').style.display = 'none';
+    const pct = Math.round((score / QUIZ.length) * 100);
+    const res = document.getElementById('quiz-result');
+    res.style.display = 'block';
+    res.className = `quiz-result ${pct >= 60 ? 'pass' : 'fail'}`;
+    res.innerHTML = `<div class="quiz-score">${pct >= 60 ? '🎉' : '📖'} Score: ${score}/${QUIZ.length} (${pct}%)</div>
+      <div class="quiz-msg">${pct >= 80 ? 'Excellent! Move to the next topic.' : pct >= 60 ? 'Good. Review what you missed.' : 'Review the lesson and try again.'}</div>`;
+    if (uid) await saveProgress(uid, COURSE_ID, TOPIC_ID, score, QUIZ.length);
+  }
+
+  onAuth(async user => {
+    const gate = document.getElementById('gate-section');
+    const quiz  = document.getElementById('quiz-section');
+    if (user) {
+      gate.style.display = 'none';
+      quiz.style.display = 'block';
+      buildQuiz();
+      document.getElementById('submit-btn').onclick = () => submitQuiz(user.uid);
+      const prog = await getProgress(user.uid, COURSE_ID, TOPIC_ID);
+      if (prog?.completed) {
+        const res = document.getElementById('quiz-result');
+        res.style.display = 'block';
+        res.className = 'quiz-result pass';
+        res.innerHTML = `<div class="quiz-score">✅ Completed — Best score: ${prog.percent}%</div>
+          <div class="quiz-msg">You can retake the quiz anytime.</div>`;
+      }
+    }
+  });
+</script>
+</body>
+</html>

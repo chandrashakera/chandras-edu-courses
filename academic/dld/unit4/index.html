@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Unit 4 | Sequential Logic Circuits | DLD | Chandras EDU</title>
+  <meta name="description" content="DLD Unit 4: Latches, flip-flops and timing, asynchronous (ripple) counters, synchronous counter design, and shift registers with ring/Johnson counters. Free B.Tech course notes with quizzes.">
+  <link rel="canonical" href="https://courses.chandrashaker.in/academic/dld/unit4/">
+  <link rel="stylesheet" href="../../../css/style.css">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Chandras EDU">
+  <meta property="og:title" content="Unit 4 | Sequential Logic Circuits | DLD | Chandras EDU">
+  <meta property="og:description" content="DLD Unit 4: Latches, flip-flops and timing, asynchronous (ripple) counters, synchronous counter design, and shift registers with ring/Johnson counters. Free B.Tech course notes with quizzes.">
+  <meta property="og:url" content="https://courses.chandrashaker.in/academic/dld/unit4/">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Unit 4 | Sequential Logic Circuits | DLD | Chandras EDU">
+  <meta name="twitter:description" content="DLD Unit 4: Latches, flip-flops and timing, asynchronous (ripple) counters, synchronous counter design, and shift registers with ring/Johnson counters. Free B.Tech course notes with quizzes.">
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Courses", "item": "https://courses.chandrashaker.in/" },
+    { "@type": "ListItem", "position": 2, "name": "DLD", "item": "https://courses.chandrashaker.in/academic/dld/" },
+    { "@type": "ListItem", "position": 3, "name": "Unit 4" }
+  ]
+}
+  </script>
+  <link rel="icon" href="/favicon.ico">
+</head>
+<body>
+<nav class="nav"><div id="main-nav"></div></nav>
+
+<div class="page" role="main">
+  <nav class="breadcrumb">
+    <a href="../../../index.html">Courses</a><span class="sep">/</span>
+    <a href="../index.html">Digital Logic Design</a><span class="sep">/</span>
+    <span class="cur">Unit 4</span>
+  </nav>
+
+  <!-- Unit Header -->
+  <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:1rem;margin-bottom:1.5rem">
+    <div>
+      <span class="badge badge-blue" style="margin-bottom:.5rem;display:inline-block">Unit 4</span>
+      <h1 style="font-size:1.5rem;font-weight:800;color:var(--text)">Sequential Logic Circuits</h1>
+      <p style="color:var(--text-2);font-size:.88rem;margin-top:.3rem">1 topic group · 5 topics · Approx. 5 hours</p>
+    </div>
+    <div id="unit-progress" style="min-width:180px;display:none">
+      <div class="progress-wrap">
+        <div class="progress-label"><span>Your progress</span><span id="pct">0%</span></div>
+        <div class="progress-bar"><div class="progress-fill" id="pfill" style="width:0%"></div></div>
+      </div>
+      <div style="font-size:.78rem;color:var(--text-3);margin-top:.3rem" id="plabel">0 / 5 topics complete</div>
+    </div>
+  </div>
+
+  <div class="ad-slot">Advertisement</div>
+
+  <!-- TOPIC GROUP: Sequential Logic Circuits -->
+  <div class="section-head" id="sequential">⏱ Sequential Logic Circuits</div>
+  <p style="color:var(--text-2);font-size:.88rem;margin-bottom:.9rem">Adding memory to digital circuits: latches and flip-flops as the basic 1-bit storage elements, then building counters and shift registers out of them — the building blocks every state machine in Unit 5 is assembled from.</p>
+  <div id="tg-sequential"></div>
+
+  <div id="login-nudge" style="display:none;margin-top:1.5rem;background:#e8f0fe;border:1px solid #bbdefb;border-left:3px solid var(--primary);border-radius:var(--radius-lg);padding:1rem;text-align:center;font-size:.9rem;color:var(--primary)">
+    <a href="../../../login.html" style="font-weight:700">Login</a> to track your progress and save quiz scores across all topics.
+  </div>
+
+  <div class="ad-slot" style="margin-top:1.5rem">Advertisement</div>
+</div>
+
+<footer class="footer">© 2026 Chandra Shaker · <a href="https://chandrashaker.in">chandrashaker.in</a></footer>
+
+<script type="module">
+  import { initNav } from '../../../js/nav.js';
+  import { onAuth, getAllProgress } from '../../../js/firebase-config.js';
+  initNav(3);
+
+  const COURSE_ID = 'dld';
+
+  const GROUPS = {
+    'tg-sequential': [
+      { id:'latches',                  title:'Latches',                          desc:'Combinational vs. sequential logic, the NOR-based SR latch, and the gated D latch that eliminates its forbidden state.', time:'16 min', href:'latches.html', status:'active' },
+      { id:'flipflops',                title:'Flip-Flops &amp; Timing',          desc:'Edge- vs. level-triggering, characteristic &amp; excitation tables for D/T/JK/SR, the race-around problem, and master-slave JK.', time:'20 min', href:'flipflops.html', status:'active' },
+      { id:'asynchronous-counters',    title:'Asynchronous (Ripple) Counters',   desc:'Cascaded toggle flip-flops, up vs. down counting rules, and designing a modulo-N (BCD) counter with a reset gate.', time:'18 min', href:'asynchronous-counters.html', status:'active' },
+      { id:'synchronous-counters',     title:'Synchronous Counters',             desc:'The 4-step design procedure — state table, excitation table, K-map, circuit — worked through a 3-bit up-counter.', time:'22 min', href:'synchronous-counters.html', status:'active' },
+      { id:'shift-registers',          title:'Shift Registers &amp; Applications', desc:'SISO/SIPO/PISO/PIPO transfer modes, and the ring counter and Johnson counter built from a shift register.', time:'18 min', href:'shift-registers.html', status:'active' },
+    ],
+  };
+
+  const ALL_IDS = Object.values(GROUPS).flat().map(t => t.id);
+
+  function renderGroup(containerId, topics, prog = {}) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+    container.innerHTML = `<div class="topic-list">` + topics.map((t, i) => {
+      const p = prog[t.id], done = p?.completed;
+      if (t.status === 'coming') {
+        return `<div class="topic-card" style="opacity:.55;cursor:default">
+          <div class="topic-num" style="background:#f0f0f0;color:#999">🔒</div>
+          <div class="topic-info">
+            <div class="topic-title" style="color:var(--text-2)">${t.title}</div>
+            <div class="topic-desc">${t.desc}</div>
+            <div class="topic-meta"><span>⏱ ${t.time}</span><span style="color:var(--accent);font-weight:600">Coming soon</span></div>
+          </div>
+        </div>`;
+      }
+      return `<a href="${t.href}" class="topic-card">
+        <div class="topic-num ${done ? 'done' : ''}">${done ? '✓' : i+1}</div>
+        <div class="topic-info">
+          <div class="topic-title">${t.title}</div>
+          <div class="topic-desc">${t.desc}</div>
+          <div class="topic-meta">
+            <span>⏱ ${t.time}</span>
+            ${done ? `<span class="score">Quiz: ${p.percent}%</span>` : ''}
+          </div>
+        </div>
+        <div class="topic-arrow">→</div>
+      </a>`;
+    }).join('') + `</div>`;
+  }
+
+  function updateProgress(prog) {
+    const active = Object.values(GROUPS).flat().filter(t => t.status === 'active');
+    const done   = active.filter(t => prog[t.id]?.completed).length;
+    const pct    = active.length ? Math.round((done / active.length) * 100) : 0;
+    document.getElementById('unit-progress').style.display = 'block';
+    document.getElementById('pct').textContent    = pct + '%';
+    document.getElementById('pfill').style.width  = pct + '%';
+    document.getElementById('pfill').className    = 'progress-fill' + (pct === 100 ? ' done' : '');
+    document.getElementById('plabel').textContent = `${done} / ${active.length} active topics complete`;
+  }
+
+  onAuth(async user => {
+    if (user) {
+      const prog = await getAllProgress(user.uid, COURSE_ID, ALL_IDS);
+      Object.entries(GROUPS).forEach(([id, topics]) => renderGroup(id, topics, prog));
+      updateProgress(prog);
+    } else {
+      Object.entries(GROUPS).forEach(([id, topics]) => renderGroup(id, topics));
+      document.getElementById('login-nudge').style.display = 'block';
+    }
+    if (location.hash) {
+      setTimeout(() => {
+        const el = document.querySelector(location.hash);
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 300);
+    }
+  });
+</script>
+</body>
+</html>
