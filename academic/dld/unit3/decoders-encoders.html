@@ -51,7 +51,7 @@
   <style>
     .truth-table { border-collapse:collapse; margin:1rem auto; font-size:.85rem; }
     .truth-table th, .truth-table td { border:1px solid var(--border); padding:.35rem .6rem; text-align:center; }
-    .truth-table th { background:var(--bg-3); font-weight:700; }
+    .truth-table th { background:var(--bg-3); color:var(--text); font-weight:700; }
     .truth-table td.dc { color:#e65100; font-weight:700; }
   </style>
 </head>
@@ -155,33 +155,36 @@
 A₁ = D₂ + D₃ + D₆ + D₇    (inputs whose index has bit 1 set)
 A₂ = D₄ + D₅ + D₆ + D₇    (inputs whose index has bit 2 set)</pre>
     </div>
-    <p>Each output is simply an OR of the four input lines whose index has that bit position set — a plain encoder needs no AND gates or K-maps at all, just three 4-input OR gates. Here's the A₀ output built out explicitly (the ≥1 symbol is the standard block form for a plain OR gate; A₁ and A₂ are built identically off their own four inputs):</p>
+    <p>Each output is simply an OR of the four input lines whose index has that bit position set — a plain encoder needs no AND gates or K-maps at all, just three 4-input OR gates. Here's the whole octal-to-binary encoder as a single block, every input and output drawn out individually:</p>
     <div style="text-align:center;margin:1.25rem 0">
-      <svg viewBox="-10 -5 220 140" style="max-width:300px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
-        <text x="0" y="29" font-size="12" fill="var(--text)">D₁</text>
-        <line x1="18" y1="25" x2="100" y2="25" stroke="var(--primary)" stroke-width="2"/>
-        <text x="0" y="59" font-size="12" fill="var(--text)">D₃</text>
-        <line x1="18" y1="55" x2="100" y2="55" stroke="var(--primary)" stroke-width="2"/>
-        <text x="0" y="89" font-size="12" fill="var(--text)">D₅</text>
-        <line x1="18" y1="85" x2="100" y2="85" stroke="var(--primary)" stroke-width="2"/>
-        <text x="0" y="119" font-size="12" fill="var(--text)">D₇</text>
-        <line x1="18" y1="115" x2="100" y2="115" stroke="var(--primary)" stroke-width="2"/>
-        <rect x="100" y="10" width="50" height="120" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
-        <text x="125" y="75" font-size="16" font-weight="700" text-anchor="middle" fill="var(--text)">≥1</text>
-        <line x1="150" y1="70" x2="190" y2="70" stroke="var(--primary)" stroke-width="2"/>
-        <text x="194" y="74" font-size="13" fill="var(--text)">A₀</text>
-      </svg>
-    </div>
-    <p>And the whole octal-to-binary encoder as a single block:</p>
-    <div style="text-align:center;margin:1.25rem 0">
-      <svg viewBox="-15 0 285 95" style="max-width:360px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
-        <text x="-10" y="41" font-size="12" fill="var(--text)">D[7:0]</text>
-        <line x1="30" y1="45" x2="80" y2="45" stroke="var(--primary)" stroke-width="2"/>
-        <rect x="80" y="10" width="110" height="70" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
-        <text x="135" y="42" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">8-to-3</text>
-        <text x="135" y="58" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">ENCODER</text>
-        <line x1="190" y1="45" x2="230" y2="45" stroke="var(--primary)" stroke-width="2"/>
-        <text x="234" y="49" font-size="12" fill="var(--text)">A[2:0]</text>
+      <svg viewBox="-5 -5 300 195" style="max-width:400px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
+        <text x="70" y="24" font-size="12" fill="var(--text)">D₇</text>
+        <line x1="84" y1="20" x2="100" y2="20" stroke="var(--primary)" stroke-width="2"/>
+        <text x="70" y="45" font-size="12" fill="var(--text)">D₆</text>
+        <line x1="84" y1="41" x2="100" y2="41" stroke="var(--primary)" stroke-width="2"/>
+        <text x="70" y="66" font-size="12" fill="var(--text)">D₅</text>
+        <line x1="84" y1="62" x2="100" y2="62" stroke="var(--primary)" stroke-width="2"/>
+        <text x="70" y="87" font-size="12" fill="var(--text)">D₄</text>
+        <line x1="84" y1="83" x2="100" y2="83" stroke="var(--primary)" stroke-width="2"/>
+        <text x="70" y="108" font-size="12" fill="var(--text)">D₃</text>
+        <line x1="84" y1="104" x2="100" y2="104" stroke="var(--primary)" stroke-width="2"/>
+        <text x="70" y="129" font-size="12" fill="var(--text)">D₂</text>
+        <line x1="84" y1="125" x2="100" y2="125" stroke="var(--primary)" stroke-width="2"/>
+        <text x="70" y="150" font-size="12" fill="var(--text)">D₁</text>
+        <line x1="84" y1="146" x2="100" y2="146" stroke="var(--primary)" stroke-width="2"/>
+        <text x="70" y="171" font-size="12" fill="var(--text)">D₀</text>
+        <line x1="84" y1="167" x2="100" y2="167" stroke="var(--primary)" stroke-width="2"/>
+
+        <rect x="100" y="10" width="110" height="170" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <text x="155" y="88" font-size="13" font-weight="700" text-anchor="middle" fill="var(--text)">8-to-3</text>
+        <text x="155" y="104" font-size="13" font-weight="700" text-anchor="middle" fill="var(--text)">ENCODER</text>
+
+        <line x1="210" y1="53" x2="250" y2="53" stroke="var(--primary)" stroke-width="2"/>
+        <text x="254" y="57" font-size="12" fill="var(--text)">A₂</text>
+        <line x1="210" y1="95" x2="250" y2="95" stroke="var(--primary)" stroke-width="2"/>
+        <text x="254" y="99" font-size="12" fill="var(--text)">A₁</text>
+        <line x1="210" y1="138" x2="250" y2="138" stroke="var(--primary)" stroke-width="2"/>
+        <text x="254" y="142" font-size="12" fill="var(--text)">A₀</text>
       </svg>
     </div>
 
@@ -198,6 +201,30 @@ A₂ = D₄ + D₅ + D₆ + D₇    (inputs whose index has bit 2 set)</pre>
       </tbody>
     </table>
     <p>The X's are don't-cares (Unit 2 again) — once D₃ is known to be 1, D₂/D₁/D₀ genuinely don't matter for the output, since D₃ always wins regardless. <strong>V</strong> is a valid-output flag, 0 only when no input is active at all (needed because A₁=A₀=0 is otherwise ambiguous — does it mean "D₀ is active" or "nothing is active"?).</p>
+    <p>As a block, this 4-input priority encoder looks just like a plain encoder with one extra output pin for V:</p>
+    <div style="text-align:center;margin:1.25rem 0">
+      <svg viewBox="-5 -5 300 135" style="max-width:400px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
+        <text x="70" y="28" font-size="12" fill="var(--text)">D₃</text>
+        <line x1="84" y1="24" x2="100" y2="24" stroke="var(--primary)" stroke-width="2"/>
+        <text x="70" y="55" font-size="12" fill="var(--text)">D₂</text>
+        <line x1="84" y1="51" x2="100" y2="51" stroke="var(--primary)" stroke-width="2"/>
+        <text x="70" y="83" font-size="12" fill="var(--text)">D₁</text>
+        <line x1="84" y1="79" x2="100" y2="79" stroke="var(--primary)" stroke-width="2"/>
+        <text x="70" y="110" font-size="12" fill="var(--text)">D₀</text>
+        <line x1="84" y1="106" x2="100" y2="106" stroke="var(--primary)" stroke-width="2"/>
+
+        <rect x="100" y="10" width="110" height="110" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <text x="155" y="58" font-size="13" font-weight="700" text-anchor="middle" fill="var(--text)">PRIORITY</text>
+        <text x="155" y="74" font-size="13" font-weight="700" text-anchor="middle" fill="var(--text)">ENCODER</text>
+
+        <line x1="210" y1="28" x2="250" y2="28" stroke="var(--primary)" stroke-width="2"/>
+        <text x="254" y="32" font-size="12" fill="var(--text)">A₁</text>
+        <line x1="210" y1="65" x2="250" y2="65" stroke="var(--primary)" stroke-width="2"/>
+        <text x="254" y="69" font-size="12" fill="var(--text)">A₀</text>
+        <line x1="210" y1="102" x2="250" y2="102" stroke="var(--primary)" stroke-width="2"/>
+        <text x="254" y="106" font-size="12" fill="var(--text)">V</text>
+      </svg>
+    </div>
 
     <h2>Common Pitfalls</h2>
     <ul>
