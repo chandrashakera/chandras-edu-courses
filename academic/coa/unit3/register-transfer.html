@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register Transfer — COA Unit 3 | Chandras EDU</title>
+  <meta name="description" content="The hardware behind a controlled register transfer statement — a load-enable input driven by a control condition, why gating the clock directly is a hazard, and the timing diagram of a transfer.">
+  <link rel="canonical" href="https://courses.chandrashaker.in/academic/coa/unit3/register-transfer.html">
+  <link rel="stylesheet" href="../../../css/style.css">
+
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Chandras EDU">
+  <meta property="og:title" content="Register Transfer — COA Unit 3 | Chandras EDU">
+  <meta property="og:description" content="The hardware behind a controlled register transfer statement — a load-enable input driven by a control condition, why gating the clock directly is a hazard, and the timing diagram of a transfer.">
+  <meta property="og:url" content="https://courses.chandrashaker.in/academic/coa/unit3/register-transfer.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Register Transfer — COA Unit 3 | Chandras EDU">
+  <meta name="twitter:description" content="The hardware behind a controlled register transfer statement — a load-enable input driven by a control condition, why gating the clock directly is a hazard, and the timing diagram of a transfer.">
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Courses", "item": "https://courses.chandrashaker.in/" },
+    { "@type": "ListItem", "position": 2, "name": "COA", "item": "https://courses.chandrashaker.in/academic/coa/" },
+    { "@type": "ListItem", "position": 3, "name": "Unit 3", "item": "https://courses.chandrashaker.in/academic/coa/unit3/" },
+    { "@type": "ListItem", "position": 4, "name": "Register Transfer" }
+  ]
+}
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LearningResource",
+  "name": "Register Transfer",
+  "description": "The hardware behind a controlled register transfer statement — a load-enable input driven by a control condition, why gating the clock directly is a hazard, and the timing diagram of a transfer.",
+  "url": "https://courses.chandrashaker.in/academic/coa/unit3/register-transfer.html",
+  "learningResourceType": "Lesson",
+  "educationalLevel": "Undergraduate",
+  "about": { "@type": "Thing", "name": "Computer Organization and Architecture" },
+  "isPartOf": {
+    "@type": "Course",
+    "name": "Computer Organization and Architecture",
+    "provider": { "@type": "Organization", "name": "Chandras EDU", "url": "https://chandrashaker.in" }
+  },
+  "publisher": { "@type": "Organization", "name": "Chandras EDU", "url": "https://chandrashaker.in" }
+}
+  </script>
+  <link rel="icon" href="/favicon.ico">
+</head>
+<body>
+<nav class="nav"><div id="main-nav"></div></nav>
+
+<div style="max-width:820px;margin:.5rem auto;padding:0 1.25rem">
+  <div class="ad-slot">Advertisement</div>
+</div>
+
+<div class="page-narrow" role="main">
+
+  <nav class="breadcrumb">
+    <a href="../../../index.html">Courses</a><span class="sep">/</span>
+    <a href="../index.html">Computer Organization and Architecture</a><span class="sep">/</span>
+    <a href="index.html">Unit 3</a><span class="sep">/</span>
+    <span>Register Transfer Language &amp; Micro-operations</span><span class="sep">/</span>
+    <span class="cur">Register Transfer</span>
+  </nav>
+
+  <div style="background:var(--primary);border-radius:var(--radius-lg);padding:1.1rem 1.4rem;margin-bottom:1.5rem;color:#fff">
+    <div style="font-size:.75rem;opacity:.75;margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.05em">COA › Unit 3: RTL &amp; Micro-operations › Topic 2</div>
+    <h1 style="font-size:1.4rem;font-weight:700;color:#fff;margin-bottom:.5rem">Register Transfer</h1>
+    <div style="display:flex;gap:.75rem;flex-wrap:wrap">
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">⏱ 16 min read</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📝 Quiz inside</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📖 Mano, Ch. 4</span>
+    </div>
+  </div>
+
+  <!-- FULL LESSON — visible to everyone -->
+  <div class="lesson">
+    <p>The last topic wrote <strong>T: R2 ← R1</strong> as a piece of notation. This topic builds the actual hardware that statement describes — and along the way, a real design hazard worth knowing before it costs you a working circuit.</p>
+
+    <h2>What the Hardware Needs</h2>
+    <p>Two things make a controlled transfer happen only when intended: R1's output lines wired straight into R2's input lines (always present, always available), and a <strong>load-enable</strong> input on R2 that only lets those lines actually get written on a clock edge when the control condition T is true.</p>
+    <div style="text-align:center;margin:1.25rem 0">
+      <svg viewBox="-50 -25 400 170" style="max-width:520px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
+        <rect x="20" y="10" width="110" height="70" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <text x="75" y="50" font-size="14" font-weight="700" text-anchor="middle" fill="var(--text)">R1</text>
+        <path d="M20,52 L20,68 L32,60 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5" stroke-linejoin="round"/>
+
+        <line x1="130" y1="45" x2="230" y2="45" stroke="var(--primary)" stroke-width="2"/>
+        <text x="140" y="39" font-size="11" fill="var(--text-2)">R1 output (n lines)</text>
+
+        <rect x="230" y="10" width="110" height="70" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <text x="285" y="50" font-size="14" font-weight="700" text-anchor="middle" fill="var(--text)">R2</text>
+        <path d="M230,52 L230,68 L242,60 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5" stroke-linejoin="round"/>
+
+        <text x="248" y="8" font-size="12" fill="var(--text-2)">Load</text>
+        <line x1="285" y1="-4" x2="285" y2="10" stroke="var(--primary)" stroke-width="2"/>
+        <text x="270" y="-8" font-size="13" font-weight="700" fill="var(--text)">T</text>
+
+        <text x="-48" y="129" font-size="11" fill="var(--text-2)">CLK</text>
+        <line x1="-20" y1="125" x2="255" y2="125" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="45" y1="125" x2="45" y2="60" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="45" y1="60" x2="20" y2="60" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="255" y1="125" x2="255" y2="60" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="255" y1="60" x2="230" y2="60" stroke="var(--primary)" stroke-width="2"/>
+      </svg>
+    </div>
+    <p>Both registers share the same clock — that's what keeps every transfer in the system synchronized to the same instants. Only R2 has its load driven by T: R1 keeps its own content regardless of T, exactly matching the RTL statement's promise that the source is left unchanged.</p>
+
+    <h2>Why Not Just Gate the Clock?</h2>
+    <p>A tempting shortcut: skip the load-enable pin entirely, and just AND the control signal T with the clock before it reaches R2 — "if T is 0, R2 simply doesn't see a clock edge at all." This is a genuine, well-known hazard called <strong>clock gating</strong>: T is an arbitrary signal from other logic, not synchronized to the clock's own transitions, so the ANDed clock can develop a glitch — a runt pulse, or an edge at the wrong moment — any time T changes close to a real clock edge. The load-enable approach avoids this entirely: the clock signal itself stays completely untouched and glitch-free everywhere in the circuit; T only ever affects <em>whether the flip-flop's internal logic acts on</em> the clock edge, never the edge itself.</p>
+
+    <h2>Timing</h2>
+    <p>T must already be stable before the triggering clock edge arrives (this is exactly the flip-flop setup time from Unit 2) — assert T, wait for the next clock edge, and the transfer happens at that single instant:</p>
+    <div style="text-align:center;margin:1.25rem 0">
+      <svg viewBox="-40 0 345 145" style="max-width:480px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
+        <text x="-36" y="24" font-size="12" fill="var(--text)">CLK</text>
+        <path d="M0,20 L60,20 L60,45 L120,45 L120,20 L180,20 L180,45 L240,45 L240,20 L300,20" fill="none" stroke="var(--primary)" stroke-width="2"/>
+
+        <text x="-36" y="79" font-size="12" fill="var(--text)">T</text>
+        <path d="M0,95 L90,95 L90,70 L240,70 L240,95 L300,95" fill="none" stroke="var(--primary)" stroke-width="2"/>
+
+        <text x="-36" y="129" font-size="12" fill="var(--text)">R2</text>
+        <path d="M0,125 L120,125 L120,100 L300,100" fill="none" stroke="var(--primary)" stroke-width="2"/>
+
+        <line x1="120" y1="8" x2="120" y2="135" stroke="var(--accent)" stroke-width="1.5" stroke-dasharray="4,3"/>
+        <text x="124" y="12" font-size="10" fill="var(--accent)">R2 updates here</text>
+      </svg>
+    </div>
+    <p>T rises well before the clock edge and is still high when it arrives — so this edge is a valid load. Notice R2's new content is only visible <em>after</em> that edge, and stays stable through the next clock period whether or not T is still high — exactly the stable, once-per-cycle update behavior a flip-flop-based register guarantees.</p>
+
+    <h2>Common Pitfalls</h2>
+    <ul>
+      <li><strong>Gating the clock line with a control signal instead of using a load-enable input.</strong> As covered above, this risks glitches and unpredictable edges — always drive a register's dedicated enable/load pin, never the raw clock net.</li>
+      <li><strong>Forgetting both registers still need the same clock even when only one is being loaded.</strong> R1's flip-flops are still clocked every cycle — they just aren't told to change their D input, so they simply re-latch their own existing value. The clock net is universal; the load/enable signal is what's selective.</li>
+      <li><strong>Assuming T only needs to be high exactly at the clock edge.</strong> Just like any flip-flop input, T must satisfy setup time — stable for some minimum window <em>before</em> the edge — or the transfer's outcome is undefined, same as feeding an unstable D input.</li>
+    </ul>
+
+    <h2>Applications</h2>
+    <ul>
+      <li><strong>Every register load in a CPU's datapath</strong> — writing back to a general-purpose register, latching a memory read into a data register — uses exactly this load-enable pattern, driven by a control signal from the control unit (Unit 3's later topics).</li>
+      <li><strong>Pipeline stage registers</strong> in a pipelined CPU are controlled transfers gated by a "stall" or "valid" signal, so a stalled pipeline stage simply doesn't load new data that cycle.</li>
+      <li><strong>Clock gating for power savings</strong> is still used in real chips, but only with dedicated, carefully-timed clock-gating cells (integrated clock gates, ICGs) specifically engineered to avoid the glitch hazard described above — not a plain AND gate wired ad hoc.</li>
+    </ul>
+  </div>
+
+  <div class="ad-slot">Advertisement</div>
+
+  <!-- QUIZ GATE -->
+  <div id="gate-section">
+    <div class="gate">
+      <div class="gate-blur">
+        <div class="quiz">
+          <div class="quiz-title">📝 Quick Quiz — 5 Questions</div>
+        </div>
+      </div>
+      <div class="gate-overlay">
+        <div class="gate-box">
+          <div class="lock">🔒</div>
+          <h3>Login to take the quiz</h3>
+          <p>Create a free account to take the quiz and track your progress across all topics.</p>
+          <div class="gate-btns">
+            <a href="../../../login.html" class="btn btn-primary btn-sm">Login</a>
+            <a href="../../../login.html" class="btn btn-outline btn-sm">Register Free</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="quiz" id="quiz-section" style="display:none">
+    <div class="quiz-title">📝 Quick Quiz — 5 Questions</div>
+    <div id="quiz-body"></div>
+    <button class="btn btn-primary" id="submit-btn" disabled>Submit Quiz</button>
+    <div class="quiz-result" id="quiz-result" style="display:none"></div>
+  </div>
+
+  <div class="topic-nav">
+    <a href="register-transfer-language.html">
+      <div class="nav-dir">← Previous</div>
+      <div class="nav-title">Register Transfer Language</div>
+    </a>
+    <a href="bus-memory-transfers.html" class="next">
+      <div class="nav-dir">Next →</div>
+      <div class="nav-title">Bus &amp; Memory Transfers</div>
+    </a>
+  </div>
+
+</div>
+
+<div style="max-width:820px;margin:.5rem auto;padding:0 1.25rem">
+  <div class="ad-slot">Advertisement</div>
+</div>
+<footer class="footer">© 2026 Chandra Shaker · <a href="https://chandrashaker.in">chandrashaker.in</a> · <em>Reference: M. Morris Mano, Computer System Architecture — Register Transfer.</em></footer>
+
+<script type="module">
+  import { initNav } from '../../../js/nav.js';
+  import { onAuth, saveProgress, getProgress } from '../../../js/firebase-config.js';
+  initNav(3);
+
+  const COURSE_ID = 'coa';
+  const TOPIC_ID  = 'register-transfer';
+  const LABELS    = ['A','B','C','D'];
+  const QUIZ = [
+    { q:"What hardware feature on R2 makes the transfer T: R2 ← R1 happen only when T is true?", options:["A load-enable input on R2, driven by T, gating whether R2 actually updates on the next clock edge", "A separate clock signal only used by R2", "An extra register placed between R1 and R2", "R1 must be physically disconnected when T is false"], answer:0, explanation:"R1's outputs are always wired to R2's inputs; the load-enable pin, driven by T, is what decides whether R2 actually captures those inputs on the next clock edge." },
+    { q:"Why is directly ANDing a control signal with the clock line (instead of using a load-enable input) considered a hazard?", options:["The control signal isn't synchronized to the clock, so the ANDed result can produce a glitch or a spurious edge near real clock transitions", "AND gates cannot be used with clock signals under any circumstances", "It would make the register transfer happen twice as fast", "There is no real hazard — both approaches are equally safe"], answer:0, explanation:"Because the control signal can change at any time relative to the clock, ANDing it directly with the clock net risks runt pulses or misplaced edges — classic clock-gating hazard, avoided by keeping the clock net untouched and using a dedicated load-enable input instead." },
+    { q:"In the timing diagram, why must the control signal T already be high before the triggering clock edge arrives?", options:["T must satisfy setup time, just like any other flip-flop input, or the outcome of the transfer is undefined", "T has no timing requirement at all", "T only needs to be high after the clock edge", "The clock edge always arrives before T changes, by definition"], answer:0, explanation:"T is functioning as a control input to edge-triggered storage — like any such input, it needs to be stable for at least the setup time before the edge to guarantee a reliable transfer." },
+    { q:"During a cycle where T=0 (no transfer intended), what happens to R1's flip-flops?", options:["They are still clocked every cycle, but since their D inputs equal their own current outputs (no change requested), they simply re-latch their existing value", "They stop receiving the clock signal entirely", "Their contents are automatically cleared to zero", "R1 is physically disconnected from the circuit"], answer:0, explanation:"The clock net is universal — every register keeps receiving it. What changes is only whether a register's load-enable is active; without a load command, a register's flip-flops just keep re-storing their own present value." },
+    { q:"What modern hardware technique is functionally similar to the clock-gating idea, but engineered to avoid the glitch hazard?", options:["Integrated clock gating (ICG) cells, purpose-built to gate the clock safely for power savings", "Ordinary AND gates wired directly into the clock net", "Increasing the clock frequency", "Removing the load-enable input entirely"], answer:0, explanation:"Real chips do use clock gating for power savings, but through dedicated ICG cells specifically designed and timed to gate the clock glitch-free — not an ad hoc AND gate." }
+  ];
+
+  let selected = {}, submitted = false;
+
+  function buildQuiz() {
+    document.getElementById('quiz-body').innerHTML = QUIZ.map((q, qi) => `
+      <div class="question">
+        <div class="question-text">Q${qi+1}. ${q.q}</div>
+        <div class="options">
+          ${q.options.map((o, oi) => `<div class="option" data-qi="${qi}" data-oi="${oi}"><span class="option-lbl">${LABELS[oi]}</span>${o}</div>`).join('')}
+        </div>
+        <div class="explanation" id="exp${qi}" style="display:none">💡 ${q.explanation}</div>
+      </div>`).join('');
+    document.querySelectorAll('.option').forEach(el => {
+      el.onclick = () => {
+        if (submitted) return;
+        const qi = +el.dataset.qi, oi = +el.dataset.oi;
+        selected[qi] = oi;
+        document.querySelectorAll(`[data-qi="${qi}"]`).forEach(o => o.classList.remove('selected'));
+        el.classList.add('selected');
+        document.getElementById('submit-btn').disabled = Object.keys(selected).length < QUIZ.length;
+      };
+    });
+  }
+
+  async function submitQuiz(uid) {
+    submitted = true; let score = 0;
+    QUIZ.forEach((q, qi) => {
+      const correct = q.answer, chosen = selected[qi];
+      document.querySelectorAll(`[data-qi="${qi}"]`).forEach(o => {
+        const oi = +o.dataset.oi;
+        if (oi === correct) o.classList.add('correct');
+        else if (oi === chosen) o.classList.add('wrong');
+      });
+      document.getElementById(`exp${qi}`).style.display = 'block';
+      if (chosen === correct) score++;
+    });
+    document.getElementById('submit-btn').style.display = 'none';
+    const pct = Math.round((score / QUIZ.length) * 100);
+    const res = document.getElementById('quiz-result');
+    res.style.display = 'block';
+    res.className = `quiz-result ${pct >= 60 ? 'pass' : 'fail'}`;
+    res.innerHTML = `<div class="quiz-score">${pct >= 60 ? '🎉' : '📖'} Score: ${score}/${QUIZ.length} (${pct}%)</div>
+      <div class="quiz-msg">${pct >= 80 ? 'Excellent! Move to the next topic.' : pct >= 60 ? 'Good. Review what you missed.' : 'Review the lesson and try again.'}</div>`;
+    if (uid) await saveProgress(uid, COURSE_ID, TOPIC_ID, score, QUIZ.length);
+  }
+
+  onAuth(async user => {
+    const gate = document.getElementById('gate-section');
+    const quiz  = document.getElementById('quiz-section');
+    if (user) {
+      gate.style.display = 'none';
+      quiz.style.display = 'block';
+      buildQuiz();
+      document.getElementById('submit-btn').onclick = () => submitQuiz(user.uid);
+      const prog = await getProgress(user.uid, COURSE_ID, TOPIC_ID);
+      if (prog?.completed) {
+        const res = document.getElementById('quiz-result');
+        res.style.display = 'block';
+        res.className = 'quiz-result pass';
+        res.innerHTML = `<div class="quiz-score">✅ Completed — Best score: ${prog.percent}%</div>
+          <div class="quiz-msg">You can retake the quiz anytime.</div>`;
+      }
+    }
+  });
+</script>
+</body>
+</html>

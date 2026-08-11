@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Logic Micro-operations — COA Unit 3 | Chandras EDU</title>
+  <meta name="description" content="Bitwise AND/OR/XOR/complement micro-operations, and how they selectively set, complement, clear, and mask individual bits of a register using a second register as a mask.">
+  <link rel="canonical" href="https://courses.chandrashaker.in/academic/coa/unit3/logic-microoperations.html">
+  <link rel="stylesheet" href="../../../css/style.css">
+
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Chandras EDU">
+  <meta property="og:title" content="Logic Micro-operations — COA Unit 3 | Chandras EDU">
+  <meta property="og:description" content="Bitwise AND/OR/XOR/complement micro-operations, and how they selectively set, complement, clear, and mask individual bits of a register using a second register as a mask.">
+  <meta property="og:url" content="https://courses.chandrashaker.in/academic/coa/unit3/logic-microoperations.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Logic Micro-operations — COA Unit 3 | Chandras EDU">
+  <meta name="twitter:description" content="Bitwise AND/OR/XOR/complement micro-operations, and how they selectively set, complement, clear, and mask individual bits of a register using a second register as a mask.">
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Courses", "item": "https://courses.chandrashaker.in/" },
+    { "@type": "ListItem", "position": 2, "name": "COA", "item": "https://courses.chandrashaker.in/academic/coa/" },
+    { "@type": "ListItem", "position": 3, "name": "Unit 3", "item": "https://courses.chandrashaker.in/academic/coa/unit3/" },
+    { "@type": "ListItem", "position": 4, "name": "Logic Micro-operations" }
+  ]
+}
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LearningResource",
+  "name": "Logic Micro-operations",
+  "description": "Bitwise AND/OR/XOR/complement micro-operations, and how they selectively set, complement, clear, and mask individual bits of a register using a second register as a mask.",
+  "url": "https://courses.chandrashaker.in/academic/coa/unit3/logic-microoperations.html",
+  "learningResourceType": "Lesson",
+  "educationalLevel": "Undergraduate",
+  "about": { "@type": "Thing", "name": "Computer Organization and Architecture" },
+  "isPartOf": {
+    "@type": "Course",
+    "name": "Computer Organization and Architecture",
+    "provider": { "@type": "Organization", "name": "Chandras EDU", "url": "https://chandrashaker.in" }
+  },
+  "publisher": { "@type": "Organization", "name": "Chandras EDU", "url": "https://chandrashaker.in" }
+}
+  </script>
+  <link rel="icon" href="/favicon.ico">
+  <style>
+    .truth-table { border-collapse:collapse; margin:1rem auto; font-size:.86rem; }
+    .truth-table th, .truth-table td { border:1px solid var(--border); padding:.4rem .65rem; text-align:center; }
+    .truth-table th { background:var(--bg-3); color:var(--text); font-weight:700; }
+    .bit-table { border-collapse:collapse; margin:1rem auto; font-size:.92rem; font-family:monospace; }
+    .bit-table th, .bit-table td { border:1px solid var(--border); padding:.4rem .5rem; text-align:center; }
+    .bit-table th { background:var(--bg-3); color:var(--text); font-weight:700; font-family:inherit; }
+    .bit-table td.hi { background:#e8f5e9; color:var(--success); font-weight:700; }
+  </style>
+</head>
+<body>
+<nav class="nav"><div id="main-nav"></div></nav>
+
+<div style="max-width:820px;margin:.5rem auto;padding:0 1.25rem">
+  <div class="ad-slot">Advertisement</div>
+</div>
+
+<div class="page-narrow" role="main">
+
+  <nav class="breadcrumb">
+    <a href="../../../index.html">Courses</a><span class="sep">/</span>
+    <a href="../index.html">Computer Organization and Architecture</a><span class="sep">/</span>
+    <a href="index.html">Unit 3</a><span class="sep">/</span>
+    <span>Register Transfer Language &amp; Micro-operations</span><span class="sep">/</span>
+    <span class="cur">Logic Micro-operations</span>
+  </nav>
+
+  <div style="background:var(--primary);border-radius:var(--radius-lg);padding:1.1rem 1.4rem;margin-bottom:1.5rem;color:#fff">
+    <div style="font-size:.75rem;opacity:.75;margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.05em">COA › Unit 3: RTL &amp; Micro-operations › Topic 5</div>
+    <h1 style="font-size:1.4rem;font-weight:700;color:#fff;margin-bottom:.5rem">Logic Micro-operations</h1>
+    <div style="display:flex;gap:.75rem;flex-wrap:wrap">
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">⏱ 16 min read</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📝 Quiz inside</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📖 Mano, Ch. 4</span>
+    </div>
+  </div>
+
+  <!-- FULL LESSON — visible to everyone -->
+  <div class="lesson">
+    <p>Where an arithmetic micro-operation treats a register as one big number (with carries rippling between bit positions), a <strong>logic micro-operation</strong> treats it as a plain array of independent bits — each bit position is computed with no interaction with its neighbors at all. That independence is exactly what makes logic micro-operations useful for something arithmetic can't do cleanly: manipulating individual bits of a register on purpose.</p>
+
+    <h2>The Four Basic Logic Micro-operations</h2>
+    <table class="truth-table">
+      <thead><tr><th>Operation</th><th>RTL Statement</th><th>Per-bit rule</th></tr></thead>
+      <tbody>
+        <tr><td>AND</td><td>A ← A ∧ B</td><td>1 only where both bits are 1</td></tr>
+        <tr><td>OR</td><td>A ← A ∨ B</td><td>1 where either bit is 1</td></tr>
+        <tr><td>XOR</td><td>A ← A ⊕ B</td><td>1 where the bits differ</td></tr>
+        <tr><td>Complement</td><td>A ← A′</td><td>every bit flipped</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Selective Bit Manipulation with a Mask</h2>
+    <p>Treat a second register B as a <strong>mask</strong> — a 1 in some bit position of B marks "touch this bit of A," a 0 means "leave it alone." Which logic operation you pick determines <em>what</em> happens to the marked bits:</p>
+    <table class="truth-table">
+      <thead><tr><th>Name</th><th>RTL</th><th>Effect on marked bits (where B=1)</th></tr></thead>
+      <tbody>
+        <tr><td>Selective-set</td><td>A ← A ∨ B</td><td>Forced to 1</td></tr>
+        <tr><td>Selective-complement</td><td>A ← A ⊕ B</td><td>Flipped</td></tr>
+        <tr><td>Selective-clear</td><td>A ← A ∧ B′</td><td>Forced to 0</td></tr>
+        <tr><td>Mask (AND)</td><td>A ← A ∧ B</td><td>Kept as-is; unmarked bits (B=0) are forced to 0 instead</td></tr>
+      </tbody>
+    </table>
+    <p>Worked example — A = 1010 1100, B = 0000 1111 used as the mask:</p>
+    <table class="bit-table">
+      <thead><tr><th></th><th>b7</th><th>b6</th><th>b5</th><th>b4</th><th>b3</th><th>b2</th><th>b1</th><th>b0</th></tr></thead>
+      <tbody>
+        <tr><td>A</td><td>1</td><td>0</td><td>1</td><td>0</td><td>1</td><td>1</td><td>0</td><td>0</td></tr>
+        <tr><td>B (mask)</td><td class="hi">0</td><td class="hi">0</td><td class="hi">0</td><td class="hi">0</td><td class="hi">1</td><td class="hi">1</td><td class="hi">1</td><td class="hi">1</td></tr>
+        <tr><td>Selective-set (A∨B)</td><td>1</td><td>0</td><td>1</td><td>0</td><td class="hi">1</td><td class="hi">1</td><td class="hi">1</td><td class="hi">1</td></tr>
+        <tr><td>Sel.-complement (A⊕B)</td><td>1</td><td>0</td><td>1</td><td>0</td><td class="hi">0</td><td class="hi">0</td><td class="hi">1</td><td class="hi">1</td></tr>
+        <tr><td>Selective-clear (A∧B′)</td><td>1</td><td>0</td><td>1</td><td>0</td><td class="hi">0</td><td class="hi">0</td><td class="hi">0</td><td class="hi">0</td></tr>
+        <tr><td>Mask (A∧B)</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="hi">1</td><td class="hi">1</td><td class="hi">0</td><td class="hi">0</td></tr>
+      </tbody>
+    </table>
+    <p>Only the four bits marked by B=1 (positions b3–b0, highlighted) are ever affected by selective-set/complement/clear — the unmarked bits (b7–b4) pass straight through unchanged in all three. Mask is the odd one out: it keeps A's marked bits but actively zeroes the unmarked ones, rather than leaving them alone.</p>
+
+    <h3>Insert — Mask, Then Set</h3>
+    <p>Combine two logic micro-operations to overwrite just one field of a register with a new value — first clear the target field to 0 (AND with a mask that's 0 exactly there), then OR in the new field value (which is 0 everywhere outside the field, so it can't disturb anything else):</p>
+    <div class="box box-eg" style="text-align:center">A ← A ∧ 1111 0000&nbsp;&nbsp; (clear the low nibble)<br>A ← A ∨ 0000 1010&nbsp;&nbsp; (insert new value 1010 into it)</div>
+
+    <h3>A Free Clear-to-Zero</h3>
+    <p>XOR-ing any register with itself always produces all zeros, regardless of its content — <strong>A ← A ⊕ A</strong> is a clear operation that needs no separate constant-0 source wired in.</p>
+
+    <h2>Common Pitfalls</h2>
+    <ul>
+      <li><strong>Mixing up AND-as-mask with AND-as-selective-clear.</strong> They use the exact same gate (AND) but opposite mask conventions — mask keeps bits where B=1, selective-clear clears bits where B=1 (using B′, the complemented mask). Reading the RTL statement's exact operand (B vs. B′) is what tells them apart.</li>
+      <li><strong>Assuming logic micro-operations can carry information between bit positions.</strong> They fundamentally cannot — that's the whole distinction from arithmetic micro-operations. Any circuit that needs carry propagation is, by definition, not a plain logic micro-operation anymore.</li>
+      <li><strong>Forgetting insert is two micro-operations, not one.</strong> The mask-then-OR sequence needs the register to hold the intermediate (cleared) result between the two steps — it isn't a single atomic RTL statement.</li>
+    </ul>
+
+    <h2>Applications</h2>
+    <ul>
+      <li><strong>Status/flag registers</strong> are read and written almost entirely with selective operations — setting one interrupt-enable bit without disturbing the others is a textbook selective-set.</li>
+      <li><strong>Instruction field extraction</strong> (pulling the opcode or register-number bits out of a wider instruction word) is exactly the Mask operation, isolating one field with an AND.</li>
+      <li><strong>Graphics and bitmap manipulation</strong> (setting a pixel's color bits within a packed word, XOR-based sprite drawing) are direct, large-scale descendants of these same bit-level tricks.</li>
+    </ul>
+  </div>
+
+  <div class="ad-slot">Advertisement</div>
+
+  <!-- QUIZ GATE -->
+  <div id="gate-section">
+    <div class="gate">
+      <div class="gate-blur">
+        <div class="quiz">
+          <div class="quiz-title">📝 Quick Quiz — 5 Questions</div>
+        </div>
+      </div>
+      <div class="gate-overlay">
+        <div class="gate-box">
+          <div class="lock">🔒</div>
+          <h3>Login to take the quiz</h3>
+          <p>Create a free account to take the quiz and track your progress across all topics.</p>
+          <div class="gate-btns">
+            <a href="../../../login.html" class="btn btn-primary btn-sm">Login</a>
+            <a href="../../../login.html" class="btn btn-outline btn-sm">Register Free</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="quiz" id="quiz-section" style="display:none">
+    <div class="quiz-title">📝 Quick Quiz — 5 Questions</div>
+    <div id="quiz-body"></div>
+    <button class="btn btn-primary" id="submit-btn" disabled>Submit Quiz</button>
+    <div class="quiz-result" id="quiz-result" style="display:none"></div>
+  </div>
+
+  <div class="topic-nav">
+    <a href="arithmetic-microoperations.html">
+      <div class="nav-dir">← Previous</div>
+      <div class="nav-title">Arithmetic Micro-operations</div>
+    </a>
+    <a href="shift-microoperations.html" class="next">
+      <div class="nav-dir">Next →</div>
+      <div class="nav-title">Shift Micro-operations</div>
+    </a>
+  </div>
+
+</div>
+
+<div style="max-width:820px;margin:.5rem auto;padding:0 1.25rem">
+  <div class="ad-slot">Advertisement</div>
+</div>
+<footer class="footer">© 2026 Chandra Shaker · <a href="https://chandrashaker.in">chandrashaker.in</a> · <em>Reference: M. Morris Mano, Computer System Architecture — Logic Micro-operations.</em></footer>
+
+<script type="module">
+  import { initNav } from '../../../js/nav.js';
+  import { onAuth, saveProgress, getProgress } from '../../../js/firebase-config.js';
+  initNav(3);
+
+  const COURSE_ID = 'coa';
+  const TOPIC_ID  = 'logic-microoperations';
+  const LABELS    = ['A','B','C','D'];
+  const QUIZ = [
+    { q:"What is the fundamental difference between an arithmetic and a logic micro-operation?", options:["A logic micro-operation processes each bit independently with no carry propagation between bit positions; arithmetic micro-operations do propagate carries", "Logic micro-operations can only be performed on single bits, never whole registers", "Arithmetic micro-operations never use a clock; logic micro-operations always do", "There is no real difference between them"], answer:0, explanation:"Logic operations (AND/OR/XOR/complement) compute each bit position using only that position's inputs — no carry chain — while arithmetic operations like addition inherently propagate carries between positions." },
+    { q:"In the selective-set operation A ← A ∨ B, what happens to a bit of A where the corresponding bit of B is 0?", options:["It is left completely unchanged", "It is forced to 1", "It is forced to 0", "It is complemented (flipped)"], answer:0, explanation:"OR-ing with 0 leaves a bit unchanged (x∨0=x) — only where B=1 does the corresponding bit of A get forced to 1." },
+    { q:"What is the difference between the 'Mask' operation (A ← A ∧ B) and 'selective-clear' (A ← A ∧ B′)?", options:["Mask keeps A's bits where B=1 and zeroes the rest; selective-clear zeroes A's bits where B=1 and leaves the rest unchanged — opposite conventions using the same AND gate", "They are exactly the same operation with two different names", "Mask only works on 4-bit registers; selective-clear works on any size", "Selective-clear uses OR, not AND"], answer:0, explanation:"Mask (A∧B) passes through bits where B=1 and forces 0 elsewhere; selective-clear (A∧B′) forces 0 exactly where B=1 and passes everything else through — opposite roles for the mask bit, both built from AND." },
+    { q:"Why does A ← A ⊕ A always produce all zeros, regardless of A's actual content?", options:["XOR of any value with itself is always 0 at every bit position, since a bit can never differ from itself", "It only works when A already contains all zeros", "This is a special hardware trick that doesn't follow from XOR's normal truth table", "It actually produces all 1s, not all 0s"], answer:0, explanation:"XOR outputs 1 only where its two inputs differ — since a bit compared against itself is never different, every bit position evaluates to 0, clearing the whole register." },
+    { q:"How does the 'insert' technique overwrite one field of a register without disturbing the rest?", options:["First AND with a mask that is 0 across the target field to clear it, then OR in the new field value (which is 0 everywhere outside the field)", "A single XOR operation handles the entire insert in one step", "It requires physically disconnecting the untouched bits from the register", "Insert cannot be done using logic micro-operations at all"], answer:0, explanation:"Clearing the target field first (AND) guarantees those bits start at 0, so the following OR can safely write the new value into exactly that field without affecting bits outside it." }
+  ];
+
+  let selected = {}, submitted = false;
+
+  function buildQuiz() {
+    document.getElementById('quiz-body').innerHTML = QUIZ.map((q, qi) => `
+      <div class="question">
+        <div class="question-text">Q${qi+1}. ${q.q}</div>
+        <div class="options">
+          ${q.options.map((o, oi) => `<div class="option" data-qi="${qi}" data-oi="${oi}"><span class="option-lbl">${LABELS[oi]}</span>${o}</div>`).join('')}
+        </div>
+        <div class="explanation" id="exp${qi}" style="display:none">💡 ${q.explanation}</div>
+      </div>`).join('');
+    document.querySelectorAll('.option').forEach(el => {
+      el.onclick = () => {
+        if (submitted) return;
+        const qi = +el.dataset.qi, oi = +el.dataset.oi;
+        selected[qi] = oi;
+        document.querySelectorAll(`[data-qi="${qi}"]`).forEach(o => o.classList.remove('selected'));
+        el.classList.add('selected');
+        document.getElementById('submit-btn').disabled = Object.keys(selected).length < QUIZ.length;
+      };
+    });
+  }
+
+  async function submitQuiz(uid) {
+    submitted = true; let score = 0;
+    QUIZ.forEach((q, qi) => {
+      const correct = q.answer, chosen = selected[qi];
+      document.querySelectorAll(`[data-qi="${qi}"]`).forEach(o => {
+        const oi = +o.dataset.oi;
+        if (oi === correct) o.classList.add('correct');
+        else if (oi === chosen) o.classList.add('wrong');
+      });
+      document.getElementById(`exp${qi}`).style.display = 'block';
+      if (chosen === correct) score++;
+    });
+    document.getElementById('submit-btn').style.display = 'none';
+    const pct = Math.round((score / QUIZ.length) * 100);
+    const res = document.getElementById('quiz-result');
+    res.style.display = 'block';
+    res.className = `quiz-result ${pct >= 60 ? 'pass' : 'fail'}`;
+    res.innerHTML = `<div class="quiz-score">${pct >= 60 ? '🎉' : '📖'} Score: ${score}/${QUIZ.length} (${pct}%)</div>
+      <div class="quiz-msg">${pct >= 80 ? 'Excellent! Move to the next topic.' : pct >= 60 ? 'Good. Review what you missed.' : 'Review the lesson and try again.'}</div>`;
+    if (uid) await saveProgress(uid, COURSE_ID, TOPIC_ID, score, QUIZ.length);
+  }
+
+  onAuth(async user => {
+    const gate = document.getElementById('gate-section');
+    const quiz  = document.getElementById('quiz-section');
+    if (user) {
+      gate.style.display = 'none';
+      quiz.style.display = 'block';
+      buildQuiz();
+      document.getElementById('submit-btn').onclick = () => submitQuiz(user.uid);
+      const prog = await getProgress(user.uid, COURSE_ID, TOPIC_ID);
+      if (prog?.completed) {
+        const res = document.getElementById('quiz-result');
+        res.style.display = 'block';
+        res.className = 'quiz-result pass';
+        res.innerHTML = `<div class="quiz-score">✅ Completed — Best score: ${prog.percent}%</div>
+          <div class="quiz-msg">You can retake the quiz anytime.</div>`;
+      }
+    }
+  });
+</script>
+</body>
+</html>

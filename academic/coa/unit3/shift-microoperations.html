@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shift Micro-operations — COA Unit 3 | Chandras EDU</title>
+  <meta name="description" content="Logical, circular, and arithmetic shift micro-operations, why arithmetic shift preserves the sign bit, overflow on arithmetic left shift, and a combinational shifter built from multiplexers.">
+  <link rel="canonical" href="https://courses.chandrashaker.in/academic/coa/unit3/shift-microoperations.html">
+  <link rel="stylesheet" href="../../../css/style.css">
+
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Chandras EDU">
+  <meta property="og:title" content="Shift Micro-operations — COA Unit 3 | Chandras EDU">
+  <meta property="og:description" content="Logical, circular, and arithmetic shift micro-operations, why arithmetic shift preserves the sign bit, overflow on arithmetic left shift, and a combinational shifter built from multiplexers.">
+  <meta property="og:url" content="https://courses.chandrashaker.in/academic/coa/unit3/shift-microoperations.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Shift Micro-operations — COA Unit 3 | Chandras EDU">
+  <meta name="twitter:description" content="Logical, circular, and arithmetic shift micro-operations, why arithmetic shift preserves the sign bit, overflow on arithmetic left shift, and a combinational shifter built from multiplexers.">
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Courses", "item": "https://courses.chandrashaker.in/" },
+    { "@type": "ListItem", "position": 2, "name": "COA", "item": "https://courses.chandrashaker.in/academic/coa/" },
+    { "@type": "ListItem", "position": 3, "name": "Unit 3", "item": "https://courses.chandrashaker.in/academic/coa/unit3/" },
+    { "@type": "ListItem", "position": 4, "name": "Shift Micro-operations" }
+  ]
+}
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LearningResource",
+  "name": "Shift Micro-operations",
+  "description": "Logical, circular, and arithmetic shift micro-operations, why arithmetic shift preserves the sign bit, overflow on arithmetic left shift, and a combinational shifter built from multiplexers.",
+  "url": "https://courses.chandrashaker.in/academic/coa/unit3/shift-microoperations.html",
+  "learningResourceType": "Lesson",
+  "educationalLevel": "Undergraduate",
+  "about": { "@type": "Thing", "name": "Computer Organization and Architecture" },
+  "isPartOf": {
+    "@type": "Course",
+    "name": "Computer Organization and Architecture",
+    "provider": { "@type": "Organization", "name": "Chandras EDU", "url": "https://chandrashaker.in" }
+  },
+  "publisher": { "@type": "Organization", "name": "Chandras EDU", "url": "https://chandrashaker.in" }
+}
+  </script>
+  <link rel="icon" href="/favicon.ico">
+  <style>
+    .truth-table { border-collapse:collapse; margin:1rem auto; font-size:.86rem; }
+    .truth-table th, .truth-table td { border:1px solid var(--border); padding:.4rem .65rem; text-align:center; }
+    .truth-table th { background:var(--bg-3); color:var(--text); font-weight:700; }
+    .bit-table { border-collapse:collapse; margin:1rem auto; font-size:.92rem; font-family:monospace; }
+    .bit-table th, .bit-table td { border:1px solid var(--border); padding:.4rem .5rem; text-align:center; }
+    .bit-table th { background:var(--bg-3); color:var(--text); font-weight:700; font-family:inherit; }
+    .bit-table td.hi { background:#e8f5e9; color:var(--success); font-weight:700; }
+  </style>
+</head>
+<body>
+<nav class="nav"><div id="main-nav"></div></nav>
+
+<div style="max-width:820px;margin:.5rem auto;padding:0 1.25rem">
+  <div class="ad-slot">Advertisement</div>
+</div>
+
+<div class="page-narrow" role="main">
+
+  <nav class="breadcrumb">
+    <a href="../../../index.html">Courses</a><span class="sep">/</span>
+    <a href="../index.html">Computer Organization and Architecture</a><span class="sep">/</span>
+    <a href="index.html">Unit 3</a><span class="sep">/</span>
+    <span>Register Transfer Language &amp; Micro-operations</span><span class="sep">/</span>
+    <span class="cur">Shift Micro-operations</span>
+  </nav>
+
+  <div style="background:var(--primary);border-radius:var(--radius-lg);padding:1.1rem 1.4rem;margin-bottom:1.5rem;color:#fff">
+    <div style="font-size:.75rem;opacity:.75;margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.05em">COA › Unit 3: RTL &amp; Micro-operations › Topic 6</div>
+    <h1 style="font-size:1.4rem;font-weight:700;color:#fff;margin-bottom:.5rem">Shift Micro-operations</h1>
+    <div style="display:flex;gap:.75rem;flex-wrap:wrap">
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">⏱ 16 min read</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📝 Quiz inside</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📖 Mano, Ch. 4</span>
+    </div>
+  </div>
+
+  <!-- FULL LESSON — visible to everyone -->
+  <div class="lesson">
+    <p>A <strong>shift micro-operation</strong> moves every bit of a register one position left or right in a single clock cycle. The three variants — logical, circular, and arithmetic — are identical in <em>which way</em> the bits move; they differ only in <strong>what value fills the vacated bit</strong> at the far end.</p>
+
+    <h2>Logical Shift</h2>
+    <p>The simplest case: a 0 always fills the vacated position, and whatever bit falls off the other end is simply discarded.</p>
+    <table class="bit-table">
+      <thead><tr><th></th><th>b3</th><th>b2</th><th>b1</th><th>b0</th></tr></thead>
+      <tbody>
+        <tr><td>Before (R = 1100)</td><td>1</td><td>1</td><td>0</td><td>0</td></tr>
+        <tr><td>After shr (shift right)</td><td class="hi">0</td><td>1</td><td>1</td><td>0</td></tr>
+      </tbody>
+    </table>
+    <p>The rightmost bit (0) is lost, and a fresh 0 (highlighted) enters at b3. Logical shifts are the right choice whenever the register holds unsigned data with no sign bit to protect.</p>
+
+    <h2>Circular Shift (Rotate)</h2>
+    <p>Instead of discarding the bit that falls off, feed it back in at the <em>other</em> end — no information is ever lost, the whole register just rotates in place.</p>
+    <table class="bit-table">
+      <thead><tr><th></th><th>b3</th><th>b2</th><th>b1</th><th>b0</th></tr></thead>
+      <tbody>
+        <tr><td>Before (R = 1011)</td><td>1</td><td>0</td><td>1</td><td>1</td></tr>
+        <tr><td>After cir (circular right)</td><td class="hi">1</td><td>1</td><td>0</td><td>1</td></tr>
+      </tbody>
+    </table>
+    <p>b0's original value (1) is exactly what reappears at b3 (highlighted) — nothing is discarded, unlike the logical case.</p>
+
+    <h2>Arithmetic Shift</h2>
+    <p>Arithmetic shift treats the register as a signed 2's-complement number. Arithmetic <strong>right</strong> shift fills the vacated bit with a <em>copy of the sign bit</em> instead of a plain 0 — this is what correctly implements "divide by 2" for negative numbers:</p>
+    <table class="bit-table">
+      <thead><tr><th></th><th>b3 (sign)</th><th>b2</th><th>b1</th><th>b0</th></tr></thead>
+      <tbody>
+        <tr><td>Before (R = 1001, i.e. −7)</td><td>1</td><td>0</td><td>0</td><td>1</td></tr>
+        <tr><td>After ashr</td><td class="hi">1</td><td>1</td><td>0</td><td>0</td></tr>
+      </tbody>
+    </table>
+    <p>1100₂ = −4, and −7 ÷ 2 rounded toward −∞ is indeed −4 — a plain logical shift (filling with 0) would have wrongly turned a negative number positive. Arithmetic <strong>left</strong> shift, by contrast, uses exactly the same mechanics as a logical left shift (0 fills in at the bottom) — the only difference is that arithmetic left shift is defined to represent "multiply by 2," which means it must additionally be checked for <strong>overflow</strong>: if the sign bit changes value as a direct result of the shift, the result no longer fits and the multiply has overflowed.</p>
+
+    <h2>A Combinational Shifter</h2>
+    <p>A register doesn't need to be physically wired as a shift register (Unit 2) to support a shift micro-operation — a purely combinational shifter, built from one 2-to-1 multiplexer per bit position, works just as well and is what actually feeds a CPU's ALU:</p>
+    <div style="text-align:center;margin:1.25rem 0">
+      <svg viewBox="-15 -25 306 150" style="max-width:380px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
+        <text x="4" y="24" font-size="12" fill="var(--text-2)">Rᵢ (no shift)</text>
+        <line x1="70" y1="20" x2="100" y2="20" stroke="var(--primary)" stroke-width="2"/>
+        <text x="4" y="94" font-size="12" fill="var(--text-2)">Rᵢ₊₁ (shifted)</text>
+        <line x1="80" y1="90" x2="100" y2="90" stroke="var(--primary)" stroke-width="2"/>
+
+        <text x="125" y="-12" font-size="12" fill="var(--text-2)">Select</text>
+        <line x1="140" y1="-6" x2="140" y2="10" stroke="var(--primary)" stroke-width="2"/>
+
+        <rect x="100" y="10" width="80" height="90" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <text x="140" y="58" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">2-to-1</text>
+        <text x="140" y="74" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">MUX</text>
+
+        <line x1="180" y1="55" x2="220" y2="55" stroke="var(--primary)" stroke-width="2"/>
+        <text x="224" y="59" font-size="13" fill="var(--text)">Output bit</text>
+      </svg>
+      <div style="font-size:.8rem;color:var(--text-2);margin-top:.4rem">One 2-to-1 MUX per bit position, repeated across the whole register — one shared Select line chooses "pass straight through" vs. "take the neighboring bit" for every position simultaneously.</div>
+    </div>
+    <p>An n-bit combinational shifter is just n of these MUXes side by side, all driven by the same select signal — the entire shift happens in one gate delay, with no clock edge needed at all (only the register that eventually stores the shifted result needs a clock, exactly as in the Register Transfer topic).</p>
+
+    <h2>Common Pitfalls</h2>
+    <ul>
+      <li><strong>Assuming arithmetic and logical left shift are different operations.</strong> They compute the identical bit pattern (0 fills the bottom either way) — arithmetic left shift is only distinguished by the overflow check applied to its result, not by any difference in the shift mechanics itself.</li>
+      <li><strong>Using a logical shift where an arithmetic shift was needed.</strong> Logical-shifting a negative number right silently corrupts its sign, since it fills with 0 instead of duplicating the sign bit — a classic, easy-to-miss bug when writing low-level signed-division code.</li>
+      <li><strong>Forgetting circular shift never loses data.</strong> Since the departing bit always reappears at the other end, n circular shifts in the same direction always return a register to its exact original value — a useful property to check your implementation against.</li>
+    </ul>
+
+    <h2>Applications</h2>
+    <ul>
+      <li><strong>Fast multiplication/division by powers of two</strong> is implemented directly as arithmetic shifts — far cheaper in hardware than a general multiplier or divider circuit (covered later in this course).</li>
+      <li><strong>Cryptographic algorithms</strong> (many hash functions and ciphers) rely heavily on circular shifts specifically because they're lossless and reversible, mixing bits without discarding any entropy.</li>
+      <li><strong>Serial-to-parallel and parallel-to-serial conversion</strong> (Unit 2's shift registers) is the sequential, one-bit-per-cycle cousin of the combinational shifter introduced here — same underlying idea, different hardware tradeoff.</li>
+    </ul>
+  </div>
+
+  <div class="ad-slot">Advertisement</div>
+
+  <!-- QUIZ GATE -->
+  <div id="gate-section">
+    <div class="gate">
+      <div class="gate-blur">
+        <div class="quiz">
+          <div class="quiz-title">📝 Quick Quiz — 5 Questions</div>
+        </div>
+      </div>
+      <div class="gate-overlay">
+        <div class="gate-box">
+          <div class="lock">🔒</div>
+          <h3>Login to take the quiz</h3>
+          <p>Create a free account to take the quiz and track your progress across all topics.</p>
+          <div class="gate-btns">
+            <a href="../../../login.html" class="btn btn-primary btn-sm">Login</a>
+            <a href="../../../login.html" class="btn btn-outline btn-sm">Register Free</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="quiz" id="quiz-section" style="display:none">
+    <div class="quiz-title">📝 Quick Quiz — 5 Questions</div>
+    <div id="quiz-body"></div>
+    <button class="btn btn-primary" id="submit-btn" disabled>Submit Quiz</button>
+    <div class="quiz-result" id="quiz-result" style="display:none"></div>
+  </div>
+
+  <div class="topic-nav">
+    <a href="logic-microoperations.html">
+      <div class="nav-dir">← Previous</div>
+      <div class="nav-title">Logic Micro-operations</div>
+    </a>
+    <a href="arithmetic-logic-shift-unit.html" class="next">
+      <div class="nav-dir">Next →</div>
+      <div class="nav-title">Arithmetic Logic Shift Unit</div>
+    </a>
+  </div>
+
+</div>
+
+<div style="max-width:820px;margin:.5rem auto;padding:0 1.25rem">
+  <div class="ad-slot">Advertisement</div>
+</div>
+<footer class="footer">© 2026 Chandra Shaker · <a href="https://chandrashaker.in">chandrashaker.in</a> · <em>Reference: M. Morris Mano, Computer System Architecture — Shift Micro-operations.</em></footer>
+
+<script type="module">
+  import { initNav } from '../../../js/nav.js';
+  import { onAuth, saveProgress, getProgress } from '../../../js/firebase-config.js';
+  initNav(3);
+
+  const COURSE_ID = 'coa';
+  const TOPIC_ID  = 'shift-microoperations';
+  const LABELS    = ['A','B','C','D'];
+  const QUIZ = [
+    { q:"What is the only real difference between a logical, circular, and arithmetic shift in the same direction?", options:["What value fills the bit position vacated at the far end", "The direction the bits move", "Whether a clock edge is required", "Circular and arithmetic shifts move bits two positions at a time instead of one"], answer:0, explanation:"All three move every bit one position in the same direction — they differ only in what fills the newly vacated position: 0 (logical), the bit that fell off the other end (circular), or a copy of the sign bit (arithmetic right shift only)." },
+    { q:"Why does arithmetic shift right fill the vacated bit with a copy of the sign bit instead of 0?", options:["This correctly implements division by 2 for negative (2's complement) numbers, preserving the sign", "It is simply an arbitrary convention with no mathematical justification", "It only applies to unsigned numbers", "Filling with the sign bit makes the operation faster in hardware"], answer:0, explanation:"Filling with 0 would turn a negative number's sign bit to 0, incorrectly making it appear positive; duplicating the sign bit preserves the number's sign, matching correct signed division by 2." },
+    { q:"What distinguishes arithmetic left shift from logical left shift?", options:["They compute the identical bit pattern; arithmetic left shift is only distinguished by an added overflow check on the result", "Arithmetic left shift fills with the sign bit, just like arithmetic right shift", "Logical left shift discards the top two bits instead of one", "There is no such thing as an arithmetic left shift"], answer:0, explanation:"Both fill the vacated low bit with 0 and compute the same result — arithmetic left shift is defined as 'multiply by 2,' which adds the requirement to check whether the sign bit changed (indicating overflow), not a different shift mechanism." },
+    { q:"Why does a circular shift never lose any information from the register?", options:["The bit that would otherwise fall off one end is fed back in at the other end instead of being discarded", "Circular shift only moves half of the bits at a time", "It uses twice as many bits internally to store a backup", "Circular shift is mathematically identical to logical shift"], answer:0, explanation:"Rather than discarding the departing bit, circular shift routes it back into the vacated position on the opposite end — every bit stays in the register, just rotated to a new position." },
+    { q:"How can a combinational (non-sequential) shifter be built for one bit position?", options:["A 2-to-1 multiplexer selecting between the unshifted bit and the neighboring bit, with one shared select line controlling every bit position at once", "It cannot be done — shifting always requires a dedicated shift register", "By using a full n-bit adder for every single bit position", "By clocking each bit twice per cycle"], answer:0, explanation:"A single 2-to-1 MUX per bit, all driven by the same select signal, can choose between 'no shift' and 'shifted' values combinationally — no clock or shift-register hardware needed for the shift itself." }
+  ];
+
+  let selected = {}, submitted = false;
+
+  function buildQuiz() {
+    document.getElementById('quiz-body').innerHTML = QUIZ.map((q, qi) => `
+      <div class="question">
+        <div class="question-text">Q${qi+1}. ${q.q}</div>
+        <div class="options">
+          ${q.options.map((o, oi) => `<div class="option" data-qi="${qi}" data-oi="${oi}"><span class="option-lbl">${LABELS[oi]}</span>${o}</div>`).join('')}
+        </div>
+        <div class="explanation" id="exp${qi}" style="display:none">💡 ${q.explanation}</div>
+      </div>`).join('');
+    document.querySelectorAll('.option').forEach(el => {
+      el.onclick = () => {
+        if (submitted) return;
+        const qi = +el.dataset.qi, oi = +el.dataset.oi;
+        selected[qi] = oi;
+        document.querySelectorAll(`[data-qi="${qi}"]`).forEach(o => o.classList.remove('selected'));
+        el.classList.add('selected');
+        document.getElementById('submit-btn').disabled = Object.keys(selected).length < QUIZ.length;
+      };
+    });
+  }
+
+  async function submitQuiz(uid) {
+    submitted = true; let score = 0;
+    QUIZ.forEach((q, qi) => {
+      const correct = q.answer, chosen = selected[qi];
+      document.querySelectorAll(`[data-qi="${qi}"]`).forEach(o => {
+        const oi = +o.dataset.oi;
+        if (oi === correct) o.classList.add('correct');
+        else if (oi === chosen) o.classList.add('wrong');
+      });
+      document.getElementById(`exp${qi}`).style.display = 'block';
+      if (chosen === correct) score++;
+    });
+    document.getElementById('submit-btn').style.display = 'none';
+    const pct = Math.round((score / QUIZ.length) * 100);
+    const res = document.getElementById('quiz-result');
+    res.style.display = 'block';
+    res.className = `quiz-result ${pct >= 60 ? 'pass' : 'fail'}`;
+    res.innerHTML = `<div class="quiz-score">${pct >= 60 ? '🎉' : '📖'} Score: ${score}/${QUIZ.length} (${pct}%)</div>
+      <div class="quiz-msg">${pct >= 80 ? 'Excellent! Move to the next topic.' : pct >= 60 ? 'Good. Review what you missed.' : 'Review the lesson and try again.'}</div>`;
+    if (uid) await saveProgress(uid, COURSE_ID, TOPIC_ID, score, QUIZ.length);
+  }
+
+  onAuth(async user => {
+    const gate = document.getElementById('gate-section');
+    const quiz  = document.getElementById('quiz-section');
+    if (user) {
+      gate.style.display = 'none';
+      quiz.style.display = 'block';
+      buildQuiz();
+      document.getElementById('submit-btn').onclick = () => submitQuiz(user.uid);
+      const prog = await getProgress(user.uid, COURSE_ID, TOPIC_ID);
+      if (prog?.completed) {
+        const res = document.getElementById('quiz-result');
+        res.style.display = 'block';
+        res.className = 'quiz-result pass';
+        res.innerHTML = `<div class="quiz-score">✅ Completed — Best score: ${prog.percent}%</div>
+          <div class="quiz-msg">You can retake the quiz anytime.</div>`;
+      }
+    }
+  });
+</script>
+</body>
+</html>

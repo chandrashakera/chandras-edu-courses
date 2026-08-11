@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Arithmetic Logic Shift Unit — COA Unit 3 | Chandras EDU</title>
+  <meta name="description" content="Combining the arithmetic circuit, logic circuit, and shifter from this unit into one selectable ALU — the capstone circuit every CPU datapath is built around.">
+  <link rel="canonical" href="https://courses.chandrashaker.in/academic/coa/unit3/arithmetic-logic-shift-unit.html">
+  <link rel="stylesheet" href="../../../css/style.css">
+
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Chandras EDU">
+  <meta property="og:title" content="Arithmetic Logic Shift Unit — COA Unit 3 | Chandras EDU">
+  <meta property="og:description" content="Combining the arithmetic circuit, logic circuit, and shifter from this unit into one selectable ALU — the capstone circuit every CPU datapath is built around.">
+  <meta property="og:url" content="https://courses.chandrashaker.in/academic/coa/unit3/arithmetic-logic-shift-unit.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Arithmetic Logic Shift Unit — COA Unit 3 | Chandras EDU">
+  <meta name="twitter:description" content="Combining the arithmetic circuit, logic circuit, and shifter from this unit into one selectable ALU — the capstone circuit every CPU datapath is built around.">
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Courses", "item": "https://courses.chandrashaker.in/" },
+    { "@type": "ListItem", "position": 2, "name": "COA", "item": "https://courses.chandrashaker.in/academic/coa/" },
+    { "@type": "ListItem", "position": 3, "name": "Unit 3", "item": "https://courses.chandrashaker.in/academic/coa/unit3/" },
+    { "@type": "ListItem", "position": 4, "name": "Arithmetic Logic Shift Unit" }
+  ]
+}
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LearningResource",
+  "name": "Arithmetic Logic Shift Unit",
+  "description": "Combining the arithmetic circuit, logic circuit, and shifter from this unit into one selectable ALU — the capstone circuit every CPU datapath is built around.",
+  "url": "https://courses.chandrashaker.in/academic/coa/unit3/arithmetic-logic-shift-unit.html",
+  "learningResourceType": "Lesson",
+  "educationalLevel": "Undergraduate",
+  "about": { "@type": "Thing", "name": "Computer Organization and Architecture" },
+  "isPartOf": {
+    "@type": "Course",
+    "name": "Computer Organization and Architecture",
+    "provider": { "@type": "Organization", "name": "Chandras EDU", "url": "https://chandrashaker.in" }
+  },
+  "publisher": { "@type": "Organization", "name": "Chandras EDU", "url": "https://chandrashaker.in" }
+}
+  </script>
+  <link rel="icon" href="/favicon.ico">
+  <style>
+    .truth-table { border-collapse:collapse; margin:1rem auto; font-size:.86rem; }
+    .truth-table th, .truth-table td { border:1px solid var(--border); padding:.4rem .65rem; text-align:center; }
+    .truth-table th { background:var(--bg-3); color:var(--text); font-weight:700; }
+  </style>
+</head>
+<body>
+<nav class="nav"><div id="main-nav"></div></nav>
+
+<div style="max-width:820px;margin:.5rem auto;padding:0 1.25rem">
+  <div class="ad-slot">Advertisement</div>
+</div>
+
+<div class="page-narrow" role="main">
+
+  <nav class="breadcrumb">
+    <a href="../../../index.html">Courses</a><span class="sep">/</span>
+    <a href="../index.html">Computer Organization and Architecture</a><span class="sep">/</span>
+    <a href="index.html">Unit 3</a><span class="sep">/</span>
+    <span>Register Transfer Language &amp; Micro-operations</span><span class="sep">/</span>
+    <span class="cur">Arithmetic Logic Shift Unit</span>
+  </nav>
+
+  <div style="background:var(--primary);border-radius:var(--radius-lg);padding:1.1rem 1.4rem;margin-bottom:1.5rem;color:#fff">
+    <div style="font-size:.75rem;opacity:.75;margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.05em">COA › Unit 3: RTL &amp; Micro-operations › Topic 7</div>
+    <h1 style="font-size:1.4rem;font-weight:700;color:#fff;margin-bottom:.5rem">Arithmetic Logic Shift Unit</h1>
+    <div style="display:flex;gap:.75rem;flex-wrap:wrap">
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">⏱ 20 min read</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📝 Quiz inside</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📖 Mano, Ch. 4</span>
+    </div>
+  </div>
+
+  <!-- FULL LESSON — visible to everyone -->
+  <div class="lesson">
+    <p>This unit built three separate families of micro-operation — arithmetic, logic, and shift — each with its own dedicated circuit. A real CPU doesn't wire three separate circuits into the datapath and pick which one's wires to trust; it builds one combined block, the <strong>Arithmetic Logic Shift Unit (ALU)</strong>, that can perform any of them, chosen by a function-select code.</p>
+
+    <h2>The Structure</h2>
+    <p>At the block level, an ALU is exactly what its name says: an arithmetic circuit, a logic circuit, and a shifter, all fed the same operand(s), with a final selector choosing which one's result actually reaches the output:</p>
+    <div style="text-align:center;margin:1.25rem 0">
+      <svg viewBox="-30 -25 450 240" style="max-width:640px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
+        <text x="-26" y="114" font-size="12" fill="var(--text-2)">A, B</text>
+        <line x1="-6" y1="110" x2="40" y2="110" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="40" y1="35" x2="40" y2="185" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="40" y1="35" x2="60" y2="35" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="40" y1="110" x2="60" y2="110" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="40" y1="185" x2="60" y2="185" stroke="var(--primary)" stroke-width="2"/>
+
+        <rect x="60" y="10" width="150" height="50" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <text x="135" y="40" font-size="13" font-weight="700" text-anchor="middle" fill="var(--text)">ARITHMETIC CIRCUIT</text>
+
+        <rect x="60" y="85" width="150" height="50" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <text x="135" y="115" font-size="13" font-weight="700" text-anchor="middle" fill="var(--text)">LOGIC CIRCUIT</text>
+
+        <rect x="60" y="160" width="150" height="50" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <text x="135" y="190" font-size="13" font-weight="700" text-anchor="middle" fill="var(--text)">SHIFTER</text>
+
+        <line x1="210" y1="35" x2="280" y2="35" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="210" y1="110" x2="280" y2="110" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="210" y1="185" x2="280" y2="185" stroke="var(--primary)" stroke-width="2"/>
+
+        <text x="300" y="-12" font-size="11" fill="var(--text-2)">S₂S₁S₀</text>
+        <line x1="325" y1="-6" x2="325" y2="10" stroke="var(--primary)" stroke-width="2"/>
+
+        <rect x="280" y="10" width="90" height="200" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <text x="325" y="106" font-size="13" font-weight="700" text-anchor="middle" fill="var(--text)">OUTPUT</text>
+        <text x="325" y="122" font-size="13" font-weight="700" text-anchor="middle" fill="var(--text)">SELECT</text>
+
+        <line x1="370" y1="110" x2="405" y2="110" stroke="var(--primary)" stroke-width="2"/>
+        <text x="409" y="114" font-size="13" font-weight="700" fill="var(--text)">F</text>
+      </svg>
+    </div>
+    <p>All three circuits are always computing something, every cycle, in parallel — the select code S₂S₁S₀ simply decides which of the candidate results is actually allowed through to F. This is the same core idea behind every MUX-based selection this course has used, applied one level up: instead of selecting a bit, this selects an entire n-bit computed result.</p>
+
+    <h2>Function Table</h2>
+    <p>With a 3-bit select code, one ALU can offer up to 8 operations — a representative set covering everything from the last three topics:</p>
+    <table class="truth-table">
+      <thead><tr><th>S₂S₁S₀</th><th>Operation</th><th>F</th></tr></thead>
+      <tbody>
+        <tr><td>000</td><td>Add</td><td>F = A + B</td></tr>
+        <tr><td>001</td><td>Subtract</td><td>F = A + B′ + 1</td></tr>
+        <tr><td>010</td><td>AND</td><td>F = A ∧ B</td></tr>
+        <tr><td>011</td><td>OR</td><td>F = A ∨ B</td></tr>
+        <tr><td>100</td><td>XOR</td><td>F = A ⊕ B</td></tr>
+        <tr><td>101</td><td>Complement</td><td>F = A′</td></tr>
+        <tr><td>110</td><td>Shift right</td><td>F = shr A</td></tr>
+        <tr><td>111</td><td>Shift left</td><td>F = shl A</td></tr>
+      </tbody>
+    </table>
+    <p>Every row here is a micro-operation from one of the last three topics — the ALU hasn't introduced any new operation, it's only added the selection logic that makes all of them available from one shared piece of hardware.</p>
+
+    <div class="box box-tip">
+      🚀 <strong>Beyond the textbook:</strong> real ALU implementations go further than three fully-separate parallel circuits — a classic design trick shares the arithmetic circuit's adder cells with the logic circuit, by feeding a small MUX-selected combination of B and B′ into the adder's B input instead of B directly, and disabling carry propagation for the "logic" select codes. The visible behavior (the function table above) is identical either way; only the internal gate count changes. The block-level view here is exactly what to reason about first — the shared-adder trick is an optimization on top of it, not a different design.</div>
+
+    <h2>Common Pitfalls</h2>
+    <ul>
+      <li><strong>Thinking the ALU "chooses" which circuit computes, saving power by only running one.</strong> In the simplest (and most common introductory) design, every candidate circuit computes its result every cycle regardless of the select code — only the final MUX is selective. This costs some power but keeps the design simple and fast (no need to wait for a circuit to "start up" after being selected).</li>
+      <li><strong>Forgetting the select code needs enough bits for every operation you want available.</strong> 3 bits cover 8 operations; adding a 9th operation (e.g., a second shift variant) needs a 4th select bit, not a workaround within the existing 3.</li>
+      <li><strong>Treating the ALU as fundamentally different from the micro-operations already covered.</strong> It isn't a new kind of circuit — it's a MUX wrapped around exactly the arithmetic, logic, and shift circuits already built in this unit.</li>
+    </ul>
+
+    <h2>Applications</h2>
+    <ul>
+      <li><strong>Every general-purpose CPU's execute stage</strong> centers on an ALU built this way — the specific opcode of an ADD, SUB, AND, OR, or shift instruction is decoded (later units) directly into this select code.</li>
+      <li><strong>The 74181</strong> is a classic, historically significant 4-bit ALU IC built exactly on this arithmetic/logic/select structure, used in real minicomputers before ALUs were integrated onto the same chip as the rest of the CPU.</li>
+      <li><strong>This capstone closes out the first half of Unit 3</strong> — RTL and micro-operations. The second half, Basic Computer Organization and Design, builds a complete instruction cycle around exactly this ALU, the registers from earlier topics, and the memory interface from Bus &amp; Memory Transfers.</li>
+    </ul>
+  </div>
+
+  <div class="ad-slot">Advertisement</div>
+
+  <!-- QUIZ GATE -->
+  <div id="gate-section">
+    <div class="gate">
+      <div class="gate-blur">
+        <div class="quiz">
+          <div class="quiz-title">📝 Quick Quiz — 5 Questions</div>
+        </div>
+      </div>
+      <div class="gate-overlay">
+        <div class="gate-box">
+          <div class="lock">🔒</div>
+          <h3>Login to take the quiz</h3>
+          <p>Create a free account to take the quiz and track your progress across all topics.</p>
+          <div class="gate-btns">
+            <a href="../../../login.html" class="btn btn-primary btn-sm">Login</a>
+            <a href="../../../login.html" class="btn btn-outline btn-sm">Register Free</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="quiz" id="quiz-section" style="display:none">
+    <div class="quiz-title">📝 Quick Quiz — 5 Questions</div>
+    <div id="quiz-body"></div>
+    <button class="btn btn-primary" id="submit-btn" disabled>Submit Quiz</button>
+    <div class="quiz-result" id="quiz-result" style="display:none"></div>
+  </div>
+
+  <div class="topic-nav">
+    <a href="shift-microoperations.html">
+      <div class="nav-dir">← Previous</div>
+      <div class="nav-title">Shift Micro-operations</div>
+    </a>
+    <a href="index.html" class="next">
+      <div class="nav-dir">🎉</div>
+      <div class="nav-title">Back to Unit 3 Overview</div>
+    </a>
+  </div>
+
+</div>
+
+<div style="max-width:820px;margin:.5rem auto;padding:0 1.25rem">
+  <div class="ad-slot">Advertisement</div>
+</div>
+<footer class="footer">© 2026 Chandra Shaker · <a href="https://chandrashaker.in">chandrashaker.in</a> · <em>Reference: M. Morris Mano, Computer System Architecture — Arithmetic Logic Shift Unit.</em></footer>
+
+<script type="module">
+  import { initNav } from '../../../js/nav.js';
+  import { onAuth, saveProgress, getProgress } from '../../../js/firebase-config.js';
+  initNav(3);
+
+  const COURSE_ID = 'coa';
+  const TOPIC_ID  = 'arithmetic-logic-shift-unit';
+  const LABELS    = ['A','B','C','D'];
+  const QUIZ = [
+    { q:"At the block level, what does an Arithmetic Logic Shift Unit consist of?", options:["An arithmetic circuit, a logic circuit, and a shifter, all feeding a final output-select multiplexer", "A single universal gate that can compute any function directly", "Only a shifter — arithmetic and logic are handled by separate, unrelated circuits elsewhere", "A memory unit that looks up precomputed results"], answer:0, explanation:"The ALU combines the three families of micro-operation circuits already built in this unit, with a select code choosing which one's result reaches the final output." },
+    { q:"In the simplest ALU design, does the select code S2S1S0 determine which circuit computes, or which result is output?", options:["All candidate circuits compute their results every cycle; the select code only determines which computed result reaches the output through the final MUX", "The select code physically powers on only the chosen circuit and leaves the others idle", "The select code has no effect on the ALU's operation", "Only one circuit exists at a time; the others are created dynamically based on the select code"], answer:0, explanation:"In the introductory/simplest design, every circuit (arithmetic, logic, shifter) computes in parallel every cycle — the select code's only job is choosing which of those already-computed results the output MUX passes through." },
+    { q:"With a 3-bit select code S2S1S0, how many distinct ALU operations can be offered?", options:["Up to 8, since 3 bits can encode 2³ = 8 distinct combinations", "Exactly 3, one per bit", "Only 4, since arithmetic and logic must share codes", "Unlimited — the number of bits doesn't limit the operation count"], answer:0, explanation:"A 3-bit select code can represent 2³ = 8 distinct binary combinations, so it can select among at most 8 different operations without adding more select bits." },
+    { q:"According to the 'Beyond the textbook' note, what does a more area-efficient real ALU design typically share between the arithmetic and logic circuits?", options:["The adder cells — a small MUX feeds a combination of B and B′ into the adder's B input, and carry propagation is disabled for logic operations", "Nothing is ever shared; every real ALU uses three fully separate circuits with no exceptions", "The shifter is reused to perform all arithmetic operations", "The entire logic circuit is removed and replaced by software"], answer:0, explanation:"A classic optimization reuses the arithmetic circuit's adder for logic operations too, by controlling what feeds the adder's B input and disabling carry propagation — the external function table stays identical, only the internal gate count shrinks." },
+    { q:"Why is the ALU described as not being a fundamentally new kind of circuit compared to the rest of this unit?", options:["It is built entirely from the arithmetic, logic, and shift circuits already covered, wrapped in a selection mechanism", "It uses an entirely different technology (e.g., analog circuits) not covered elsewhere in the unit", "It requires memory, unlike anything else in this unit", "It is unrelated to micro-operations and instead implements a full instruction set"], answer:0, explanation:"Every operation in the ALU's function table is one of the micro-operations already introduced in the arithmetic, logic, or shift topics — the ALU only adds the select/MUX layer that makes them all available from one shared block." }
+  ];
+
+  let selected = {}, submitted = false;
+
+  function buildQuiz() {
+    document.getElementById('quiz-body').innerHTML = QUIZ.map((q, qi) => `
+      <div class="question">
+        <div class="question-text">Q${qi+1}. ${q.q}</div>
+        <div class="options">
+          ${q.options.map((o, oi) => `<div class="option" data-qi="${qi}" data-oi="${oi}"><span class="option-lbl">${LABELS[oi]}</span>${o}</div>`).join('')}
+        </div>
+        <div class="explanation" id="exp${qi}" style="display:none">💡 ${q.explanation}</div>
+      </div>`).join('');
+    document.querySelectorAll('.option').forEach(el => {
+      el.onclick = () => {
+        if (submitted) return;
+        const qi = +el.dataset.qi, oi = +el.dataset.oi;
+        selected[qi] = oi;
+        document.querySelectorAll(`[data-qi="${qi}"]`).forEach(o => o.classList.remove('selected'));
+        el.classList.add('selected');
+        document.getElementById('submit-btn').disabled = Object.keys(selected).length < QUIZ.length;
+      };
+    });
+  }
+
+  async function submitQuiz(uid) {
+    submitted = true; let score = 0;
+    QUIZ.forEach((q, qi) => {
+      const correct = q.answer, chosen = selected[qi];
+      document.querySelectorAll(`[data-qi="${qi}"]`).forEach(o => {
+        const oi = +o.dataset.oi;
+        if (oi === correct) o.classList.add('correct');
+        else if (oi === chosen) o.classList.add('wrong');
+      });
+      document.getElementById(`exp${qi}`).style.display = 'block';
+      if (chosen === correct) score++;
+    });
+    document.getElementById('submit-btn').style.display = 'none';
+    const pct = Math.round((score / QUIZ.length) * 100);
+    const res = document.getElementById('quiz-result');
+    res.style.display = 'block';
+    res.className = `quiz-result ${pct >= 60 ? 'pass' : 'fail'}`;
+    res.innerHTML = `<div class="quiz-score">${pct >= 60 ? '🎉' : '📖'} Score: ${score}/${QUIZ.length} (${pct}%)</div>
+      <div class="quiz-msg">${pct >= 80 ? 'Excellent! Great work finishing this topic group.' : pct >= 60 ? 'Good. Review what you missed.' : 'Review the lesson and try again.'}</div>`;
+    if (uid) await saveProgress(uid, COURSE_ID, TOPIC_ID, score, QUIZ.length);
+  }
+
+  onAuth(async user => {
+    const gate = document.getElementById('gate-section');
+    const quiz  = document.getElementById('quiz-section');
+    if (user) {
+      gate.style.display = 'none';
+      quiz.style.display = 'block';
+      buildQuiz();
+      document.getElementById('submit-btn').onclick = () => submitQuiz(user.uid);
+      const prog = await getProgress(user.uid, COURSE_ID, TOPIC_ID);
+      if (prog?.completed) {
+        const res = document.getElementById('quiz-result');
+        res.style.display = 'block';
+        res.className = 'quiz-result pass';
+        res.innerHTML = `<div class="quiz-score">✅ Completed — Best score: ${prog.percent}%</div>
+          <div class="quiz-msg">You can retake the quiz anytime.</div>`;
+      }
+    }
+  });
+</script>
+</body>
+</html>

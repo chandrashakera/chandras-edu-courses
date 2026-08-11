@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bus & Memory Transfers — COA Unit 3 | Chandras EDU</title>
+  <meta name="description" content="Sharing one common bus among many registers via multiplexers or three-state buffers, and the register transfer notation for reading and writing memory.">
+  <link rel="canonical" href="https://courses.chandrashaker.in/academic/coa/unit3/bus-memory-transfers.html">
+  <link rel="stylesheet" href="../../../css/style.css">
+
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Chandras EDU">
+  <meta property="og:title" content="Bus & Memory Transfers — COA Unit 3 | Chandras EDU">
+  <meta property="og:description" content="Sharing one common bus among many registers via multiplexers or three-state buffers, and the register transfer notation for reading and writing memory.">
+  <meta property="og:url" content="https://courses.chandrashaker.in/academic/coa/unit3/bus-memory-transfers.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Bus & Memory Transfers — COA Unit 3 | Chandras EDU">
+  <meta name="twitter:description" content="Sharing one common bus among many registers via multiplexers or three-state buffers, and the register transfer notation for reading and writing memory.">
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Courses", "item": "https://courses.chandrashaker.in/" },
+    { "@type": "ListItem", "position": 2, "name": "COA", "item": "https://courses.chandrashaker.in/academic/coa/" },
+    { "@type": "ListItem", "position": 3, "name": "Unit 3", "item": "https://courses.chandrashaker.in/academic/coa/unit3/" },
+    { "@type": "ListItem", "position": 4, "name": "Bus & Memory Transfers" }
+  ]
+}
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LearningResource",
+  "name": "Bus & Memory Transfers",
+  "description": "Sharing one common bus among many registers via multiplexers or three-state buffers, and the register transfer notation for reading and writing memory.",
+  "url": "https://courses.chandrashaker.in/academic/coa/unit3/bus-memory-transfers.html",
+  "learningResourceType": "Lesson",
+  "educationalLevel": "Undergraduate",
+  "about": { "@type": "Thing", "name": "Computer Organization and Architecture" },
+  "isPartOf": {
+    "@type": "Course",
+    "name": "Computer Organization and Architecture",
+    "provider": { "@type": "Organization", "name": "Chandras EDU", "url": "https://chandrashaker.in" }
+  },
+  "publisher": { "@type": "Organization", "name": "Chandras EDU", "url": "https://chandrashaker.in" }
+}
+  </script>
+  <link rel="icon" href="/favicon.ico">
+</head>
+<body>
+<nav class="nav"><div id="main-nav"></div></nav>
+
+<div style="max-width:820px;margin:.5rem auto;padding:0 1.25rem">
+  <div class="ad-slot">Advertisement</div>
+</div>
+
+<div class="page-narrow" role="main">
+
+  <nav class="breadcrumb">
+    <a href="../../../index.html">Courses</a><span class="sep">/</span>
+    <a href="../index.html">Computer Organization and Architecture</a><span class="sep">/</span>
+    <a href="index.html">Unit 3</a><span class="sep">/</span>
+    <span>Register Transfer Language &amp; Micro-operations</span><span class="sep">/</span>
+    <span class="cur">Bus &amp; Memory Transfers</span>
+  </nav>
+
+  <div style="background:var(--primary);border-radius:var(--radius-lg);padding:1.1rem 1.4rem;margin-bottom:1.5rem;color:#fff">
+    <div style="font-size:.75rem;opacity:.75;margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.05em">COA › Unit 3: RTL &amp; Micro-operations › Topic 3</div>
+    <h1 style="font-size:1.4rem;font-weight:700;color:#fff;margin-bottom:.5rem">Bus &amp; Memory Transfers</h1>
+    <div style="display:flex;gap:.75rem;flex-wrap:wrap">
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">⏱ 20 min read</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📝 Quiz inside</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📖 Mano, Ch. 4</span>
+    </div>
+  </div>
+
+  <!-- FULL LESSON — visible to everyone -->
+  <div class="lesson">
+    <h2>The Wiring Problem</h2>
+    <p>Connect every register in a system directly to every other register, and the wiring grows as roughly n² for n registers — for even a modest register file, that's an unmanageable number of dedicated point-to-point lines. The standard fix: give every register access to one shared set of lines, the <strong>common bus</strong>, and let only one register drive it at a time.</p>
+
+    <h2>A Common Bus via Multiplexers</h2>
+    <p>One clean way to build the bus: for each bit position, put a multiplexer whose inputs are that bit from <em>every</em> register, and whose select lines choose which register's bit reaches the bus. With 4 registers, that's a 4-to-1 MUX per bit, all sharing the same 2-bit select code:</p>
+    <div style="text-align:center;margin:1.25rem 0">
+      <svg viewBox="-5 -25 300 180" style="max-width:400px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
+        <rect x="0" y="15" width="50" height="26" rx="4" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5"/>
+        <text x="25" y="32" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">A</text>
+        <line x1="50" y1="28" x2="100" y2="28" stroke="var(--primary)" stroke-width="2"/>
+
+        <rect x="0" y="50" width="50" height="26" rx="4" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5"/>
+        <text x="25" y="67" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">B</text>
+        <line x1="50" y1="63" x2="100" y2="63" stroke="var(--primary)" stroke-width="2"/>
+
+        <rect x="0" y="85" width="50" height="26" rx="4" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5"/>
+        <text x="25" y="102" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">C</text>
+        <line x1="50" y1="98" x2="100" y2="98" stroke="var(--primary)" stroke-width="2"/>
+
+        <rect x="0" y="120" width="50" height="26" rx="4" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5"/>
+        <text x="25" y="137" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">D</text>
+        <line x1="50" y1="133" x2="100" y2="133" stroke="var(--primary)" stroke-width="2"/>
+
+        <text x="120" y="-12" font-size="12" fill="var(--text-2)">S₁</text>
+        <line x1="125" y1="-6" x2="125" y2="10" stroke="var(--primary)" stroke-width="2"/>
+        <text x="150" y="-12" font-size="12" fill="var(--text-2)">S₀</text>
+        <line x1="155" y1="-6" x2="155" y2="10" stroke="var(--primary)" stroke-width="2"/>
+        <rect x="100" y="10" width="90" height="140" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <text x="145" y="76" font-size="13" font-weight="700" text-anchor="middle" fill="var(--text)">4-to-1</text>
+        <text x="145" y="92" font-size="13" font-weight="700" text-anchor="middle" fill="var(--text)">MUX</text>
+
+        <line x1="190" y1="80" x2="230" y2="80" stroke="var(--primary)" stroke-width="2"/>
+        <text x="234" y="84" font-size="13" font-weight="700" fill="var(--text)">BUS</text>
+      </svg>
+    </div>
+    <p>One MUX handles one bit; an n-bit bus needs n identical MUXes, all driven by the same S₁S₀ select code — so a single 2-bit code chooses one of the four registers for the <em>entire</em> word at once. To move C into R1 over this bus: set S₁S₀ to select C (routing C's content onto BUS — purely combinational, no clock involved), then load R1 from the bus:</p>
+    <div class="box box-eg" style="text-align:center">S₁S₀ = 10 (select C):&nbsp;&nbsp; BUS ← C,&nbsp;&nbsp; R1 ← BUS</div>
+    <p>Both halves happen in the same clock period — the MUX routing is instantaneous (just wires and gates), and only R1's load is what actually needs a clock edge.</p>
+
+    <h3>The Three-State Alternative</h3>
+    <p>Real bus systems more often use <strong>three-state buffers</strong> instead of a MUX per bit: each register's output feeds the bus through a buffer that's either driving (0 or 1) or electrically disconnected (high-impedance, "Z") — enable exactly one register's buffers at a time, and the others simply don't interfere, no MUX gate tree required. This is why so many real datasheets describe a bus pin's output as "TRI-STATE" — it's the same idea.</p>
+
+    <h2>Memory Transfers</h2>
+    <p>A memory unit needs an <strong>address register (AR)</strong> to select a word, a <strong>data register (DR)</strong> to hold the value being read or written, and Read/Write control lines:</p>
+    <div style="text-align:center;margin:1.25rem 0">
+      <svg viewBox="-5 -25 480 160" style="max-width:600px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
+        <rect x="20" y="20" width="90" height="40" rx="4" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5"/>
+        <text x="65" y="45" font-size="13" font-weight="700" text-anchor="middle" fill="var(--text)">AR</text>
+        <line x1="110" y1="40" x2="160" y2="40" stroke="var(--primary)" stroke-width="2"/>
+        <text x="114" y="34" font-size="10" fill="var(--text-2)">Address</text>
+
+        <text x="196" y="-10" font-size="12" fill="var(--text-2)">R</text>
+        <line x1="200" y1="-6" x2="200" y2="10" stroke="var(--primary)" stroke-width="2"/>
+        <text x="226" y="-10" font-size="12" fill="var(--text-2)">W</text>
+        <line x1="230" y1="-6" x2="230" y2="10" stroke="var(--primary)" stroke-width="2"/>
+
+        <rect x="160" y="10" width="140" height="110" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <text x="230" y="62" font-size="13" font-weight="700" text-anchor="middle" fill="var(--text)">MEMORY</text>
+        <text x="230" y="78" font-size="13" font-weight="700" text-anchor="middle" fill="var(--text)">UNIT</text>
+
+        <line x1="300" y1="80" x2="350" y2="80" stroke="var(--primary)" stroke-width="2"/>
+        <text x="304" y="74" font-size="10" fill="var(--text-2)">Data (read/write)</text>
+        <rect x="350" y="60" width="90" height="40" rx="4" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5"/>
+        <text x="395" y="85" font-size="13" font-weight="700" text-anchor="middle" fill="var(--text)">DR</text>
+      </svg>
+    </div>
+    <p>Two RTL statements cover everything a memory unit does:</p>
+    <div class="box box-eg" style="text-align:center">Read:&nbsp;&nbsp; DR ← M[AR]<br>Write:&nbsp;&nbsp; M[AR] ← DR</div>
+    <p><strong>M[AR]</strong> means "the memory word addressed by whatever value is currently in AR" — the brackets are doing the same job here that a register name does everywhere else in RTL, just naming a location that depends on AR's content instead of a fixed physical register.</p>
+
+    <h2>Common Pitfalls</h2>
+    <ul>
+      <li><strong>Forgetting the bus is purely combinational.</strong> Selecting a register onto the bus doesn't need — and doesn't get — a clock edge; only the destination register's load is clocked. The bus itself has no memory of its own.</li>
+      <li><strong>Trying to drive two registers onto the same bus at once.</strong> Whether using a MUX (which only has one select code active at a time by construction) or three-state buffers (where enabling two simultaneously creates a genuine electrical bus contention), only one source may drive the bus in a given cycle.</li>
+      <li><strong>Confusing M[AR] with AR itself.</strong> AR holds an address; M[AR] refers to the (much larger) memory word stored at that address — two entirely different pieces of data with entirely different sizes.</li>
+    </ul>
+
+    <h2>Applications</h2>
+    <ul>
+      <li><strong>A CPU's internal register bus</strong> — moving values between the register file, ALU, and memory interface — is built from exactly this MUX-or-tristate shared-bus pattern.</li>
+      <li><strong>External system buses</strong> (memory bus, PCIe, the classic ISA/PCI buses) are three-state-buffer-based for the same reason: many devices need to share one physical set of wires without every device needing a dedicated point-to-point connection to every other device.</li>
+      <li><strong>The Read/Write/Address/Data structure here</strong> is the direct ancestor of every memory interface signal a datasheet or CPU pinout will ever show — the names change, the four-signal shape doesn't.</li>
+    </ul>
+  </div>
+
+  <div class="ad-slot">Advertisement</div>
+
+  <!-- QUIZ GATE -->
+  <div id="gate-section">
+    <div class="gate">
+      <div class="gate-blur">
+        <div class="quiz">
+          <div class="quiz-title">📝 Quick Quiz — 5 Questions</div>
+        </div>
+      </div>
+      <div class="gate-overlay">
+        <div class="gate-box">
+          <div class="lock">🔒</div>
+          <h3>Login to take the quiz</h3>
+          <p>Create a free account to take the quiz and track your progress across all topics.</p>
+          <div class="gate-btns">
+            <a href="../../../login.html" class="btn btn-primary btn-sm">Login</a>
+            <a href="../../../login.html" class="btn btn-outline btn-sm">Register Free</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="quiz" id="quiz-section" style="display:none">
+    <div class="quiz-title">📝 Quick Quiz — 5 Questions</div>
+    <div id="quiz-body"></div>
+    <button class="btn btn-primary" id="submit-btn" disabled>Submit Quiz</button>
+    <div class="quiz-result" id="quiz-result" style="display:none"></div>
+  </div>
+
+  <div class="topic-nav">
+    <a href="register-transfer.html">
+      <div class="nav-dir">← Previous</div>
+      <div class="nav-title">Register Transfer</div>
+    </a>
+    <a href="arithmetic-microoperations.html" class="next">
+      <div class="nav-dir">Next →</div>
+      <div class="nav-title">Arithmetic Micro-operations</div>
+    </a>
+  </div>
+
+</div>
+
+<div style="max-width:820px;margin:.5rem auto;padding:0 1.25rem">
+  <div class="ad-slot">Advertisement</div>
+</div>
+<footer class="footer">© 2026 Chandra Shaker · <a href="https://chandrashaker.in">chandrashaker.in</a> · <em>Reference: M. Morris Mano, Computer System Architecture — Bus and Memory Transfers.</em></footer>
+
+<script type="module">
+  import { initNav } from '../../../js/nav.js';
+  import { onAuth, saveProgress, getProgress } from '../../../js/firebase-config.js';
+  initNav(3);
+
+  const COURSE_ID = 'coa';
+  const TOPIC_ID  = 'bus-memory-transfers';
+  const LABELS    = ['A','B','C','D'];
+  const QUIZ = [
+    { q:"Why is a shared common bus used instead of direct point-to-point wiring between every pair of registers?", options:["Direct wiring grows as roughly n² for n registers, quickly becoming unmanageable; a shared bus needs far fewer lines", "Direct wiring is actually faster, but illegal in most hardware designs", "A bus is required because registers cannot have more than one output pin", "There is no real advantage — it is purely a stylistic convention"], answer:0, explanation:"With n registers, full point-to-point wiring needs on the order of n² connections; funneling every register through one shared bus reduces this dramatically at the cost of only one source driving the bus at a time." },
+    { q:"In a MUX-based common bus with 4 registers, how many select lines are needed, and why?", options:["2 select lines, since 2 bits can code for 4 distinct choices (2² = 4)", "4 select lines, one per register", "1 select line, since only two registers can ever be chosen", "8 select lines, two per register"], answer:0, explanation:"A 4-to-1 multiplexer needs exactly 2 select lines (S1S0) to encode which one of 4 inputs reaches the output — the same select code drives every bit-position's MUX simultaneously." },
+    { q:"Why doesn't routing a register's value onto the bus (via the MUX select code) require a clock edge?", options:["The bus and MUX are purely combinational — only the destination register's load, not the bus routing itself, needs a clock edge", "The bus has its own separate, faster clock", "Only registers with even names need a clock edge", "This is incorrect — bus routing always requires a clock edge"], answer:0, explanation:"A MUX is combinational logic with no memory of its own; the value appears on the bus as soon as the select lines settle. Only writing that value into a destination register needs a clock edge." },
+    { q:"What does the RTL notation M[AR] represent?", options:["The memory word located at whatever address is currently stored in AR", "The register AR itself", "A memory address expressed as a Boolean function", "An invalid or undefined RTL expression"], answer:0, explanation:"Square brackets after M denote indexing memory by an address — M[AR] means the memory word found at the address currently held in AR, not AR's own content." },
+    { q:"What is the danger of enabling two three-state buffers to drive the same bus line simultaneously?", options:["It creates electrical bus contention — both sources fighting to set the same line to different values, which is unsafe and produces an undefined result", "The bus automatically averages the two values safely", "Nothing happens; three-state buffers are designed to allow this safely", "It simply doubles the signal's voltage in a controlled way"], answer:0, explanation:"Three-state design specifically relies on only one buffer being enabled at a time; if two try to drive conflicting values onto the same line, the result is contention — an unsafe, undefined electrical condition, not a graceful combination." }
+  ];
+
+  let selected = {}, submitted = false;
+
+  function buildQuiz() {
+    document.getElementById('quiz-body').innerHTML = QUIZ.map((q, qi) => `
+      <div class="question">
+        <div class="question-text">Q${qi+1}. ${q.q}</div>
+        <div class="options">
+          ${q.options.map((o, oi) => `<div class="option" data-qi="${qi}" data-oi="${oi}"><span class="option-lbl">${LABELS[oi]}</span>${o}</div>`).join('')}
+        </div>
+        <div class="explanation" id="exp${qi}" style="display:none">💡 ${q.explanation}</div>
+      </div>`).join('');
+    document.querySelectorAll('.option').forEach(el => {
+      el.onclick = () => {
+        if (submitted) return;
+        const qi = +el.dataset.qi, oi = +el.dataset.oi;
+        selected[qi] = oi;
+        document.querySelectorAll(`[data-qi="${qi}"]`).forEach(o => o.classList.remove('selected'));
+        el.classList.add('selected');
+        document.getElementById('submit-btn').disabled = Object.keys(selected).length < QUIZ.length;
+      };
+    });
+  }
+
+  async function submitQuiz(uid) {
+    submitted = true; let score = 0;
+    QUIZ.forEach((q, qi) => {
+      const correct = q.answer, chosen = selected[qi];
+      document.querySelectorAll(`[data-qi="${qi}"]`).forEach(o => {
+        const oi = +o.dataset.oi;
+        if (oi === correct) o.classList.add('correct');
+        else if (oi === chosen) o.classList.add('wrong');
+      });
+      document.getElementById(`exp${qi}`).style.display = 'block';
+      if (chosen === correct) score++;
+    });
+    document.getElementById('submit-btn').style.display = 'none';
+    const pct = Math.round((score / QUIZ.length) * 100);
+    const res = document.getElementById('quiz-result');
+    res.style.display = 'block';
+    res.className = `quiz-result ${pct >= 60 ? 'pass' : 'fail'}`;
+    res.innerHTML = `<div class="quiz-score">${pct >= 60 ? '🎉' : '📖'} Score: ${score}/${QUIZ.length} (${pct}%)</div>
+      <div class="quiz-msg">${pct >= 80 ? 'Excellent! Move to the next topic.' : pct >= 60 ? 'Good. Review what you missed.' : 'Review the lesson and try again.'}</div>`;
+    if (uid) await saveProgress(uid, COURSE_ID, TOPIC_ID, score, QUIZ.length);
+  }
+
+  onAuth(async user => {
+    const gate = document.getElementById('gate-section');
+    const quiz  = document.getElementById('quiz-section');
+    if (user) {
+      gate.style.display = 'none';
+      quiz.style.display = 'block';
+      buildQuiz();
+      document.getElementById('submit-btn').onclick = () => submitQuiz(user.uid);
+      const prog = await getProgress(user.uid, COURSE_ID, TOPIC_ID);
+      if (prog?.completed) {
+        const res = document.getElementById('quiz-result');
+        res.style.display = 'block';
+        res.className = 'quiz-result pass';
+        res.innerHTML = `<div class="quiz-score">✅ Completed — Best score: ${prog.percent}%</div>
+          <div class="quiz-msg">You can retake the quiz anytime.</div>`;
+      }
+    }
+  });
+</script>
+</body>
+</html>

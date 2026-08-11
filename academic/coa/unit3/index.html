@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Unit 3 | Register Transfer Language and Micro-operations | COA | Chandras EDU</title>
+  <meta name="description" content="COA Unit 3: Register transfer language, register transfer, bus and memory transfers, arithmetic/logic/shift micro-operations, and the arithmetic logic shift unit (ALU). Free B.Tech course notes with quizzes.">
+  <link rel="canonical" href="https://courses.chandrashaker.in/academic/coa/unit3/">
+  <link rel="stylesheet" href="../../../css/style.css">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Chandras EDU">
+  <meta property="og:title" content="Unit 3 | Register Transfer Language and Micro-operations | COA | Chandras EDU">
+  <meta property="og:description" content="COA Unit 3: Register transfer language, register transfer, bus and memory transfers, arithmetic/logic/shift micro-operations, and the arithmetic logic shift unit (ALU). Free B.Tech course notes with quizzes.">
+  <meta property="og:url" content="https://courses.chandrashaker.in/academic/coa/unit3/">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Unit 3 | Register Transfer Language and Micro-operations | COA | Chandras EDU">
+  <meta name="twitter:description" content="COA Unit 3: Register transfer language, register transfer, bus and memory transfers, arithmetic/logic/shift micro-operations, and the arithmetic logic shift unit (ALU). Free B.Tech course notes with quizzes.">
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Courses", "item": "https://courses.chandrashaker.in/" },
+    { "@type": "ListItem", "position": 2, "name": "COA", "item": "https://courses.chandrashaker.in/academic/coa/" },
+    { "@type": "ListItem", "position": 3, "name": "Unit 3" }
+  ]
+}
+  </script>
+  <link rel="icon" href="/favicon.ico">
+</head>
+<body>
+<nav class="nav"><div id="main-nav"></div></nav>
+
+<div class="page" role="main">
+  <nav class="breadcrumb">
+    <a href="../../../index.html">Courses</a><span class="sep">/</span>
+    <a href="../index.html">Computer Organization and Architecture</a><span class="sep">/</span>
+    <span class="cur">Unit 3</span>
+  </nav>
+
+  <!-- Unit Header -->
+  <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:1rem;margin-bottom:1.5rem">
+    <div>
+      <span class="badge badge-blue" style="margin-bottom:.5rem;display:inline-block">Unit 3</span>
+      <h1 style="font-size:1.5rem;font-weight:800;color:var(--text)">Register Transfer Language and Micro-operations</h1>
+      <p style="color:var(--text-2);font-size:.88rem;margin-top:.3rem">1 topic group · 7 topics · Approx. 7 hours</p>
+    </div>
+    <div id="unit-progress" style="min-width:180px;display:none">
+      <div class="progress-wrap">
+        <div class="progress-label"><span>Your progress</span><span id="pct">0%</span></div>
+        <div class="progress-bar"><div class="progress-fill" id="pfill" style="width:0%"></div></div>
+      </div>
+      <div style="font-size:.78rem;color:var(--text-3);margin-top:.3rem" id="plabel">0 / 7 topics complete</div>
+    </div>
+  </div>
+
+  <div class="ad-slot">Advertisement</div>
+
+  <!-- TOPIC GROUP: Register Transfer Language and Micro-operations -->
+  <div class="section-head" id="rtl-microops">🔀 Register Transfer Language &amp; Micro-operations</div>
+  <p style="color:var(--text-2);font-size:.88rem;margin-bottom:.9rem">The notation and hardware for moving data between registers, and the four families of micro-operation — arithmetic, logic, and shift — that a CPU's ALU is built from.</p>
+  <div id="tg-rtl-microops"></div>
+
+  <!-- TOPIC GROUP: Basic Computer Organization and Design (coming soon) -->
+  <div class="section-head" id="basic-computer-org" style="margin-top:2rem">🖥️ Basic Computer Organization &amp; Design</div>
+  <p style="color:var(--text-2);font-size:.88rem;margin-bottom:.9rem">Putting the register transfers and micro-operations from the first group to work: instruction codes, a complete instruction cycle, and how a simple computer executes memory-reference, I/O, and interrupt instructions.</p>
+  <div id="tg-basic-computer-org"></div>
+
+  <div id="login-nudge" style="display:none;margin-top:1.5rem;background:#e8f0fe;border:1px solid #bbdefb;border-left:3px solid var(--primary);border-radius:var(--radius-lg);padding:1rem;text-align:center;font-size:.9rem;color:var(--primary)">
+    <a href="../../../login.html" style="font-weight:700">Login</a> to track your progress and save quiz scores across all topics.
+  </div>
+
+  <div class="ad-slot" style="margin-top:1.5rem">Advertisement</div>
+</div>
+
+<footer class="footer">© 2026 Chandra Shaker · <a href="https://chandrashaker.in">chandrashaker.in</a></footer>
+
+<script type="module">
+  import { initNav } from '../../../js/nav.js';
+  import { onAuth, getAllProgress } from '../../../js/firebase-config.js';
+  initNav(3);
+
+  const COURSE_ID = 'coa';
+
+  const GROUPS = {
+    'tg-rtl-microops': [
+      { id:'register-transfer-language',   title:'Register Transfer Language',      desc:'Notation for describing register contents and the operations performed on them.',            time:'16 min', href:'register-transfer-language.html', status:'active' },
+      { id:'register-transfer',            title:'Register Transfer',               desc:'Controlled transfer statements, and the hardware — control gates and a clock — that implements them.', time:'16 min', href:'register-transfer.html', status:'active' },
+      { id:'bus-memory-transfers',         title:'Bus &amp; Memory Transfers',       desc:'Sharing one common bus among many registers via multiplexers, and reading/writing memory.',   time:'20 min', href:'bus-memory-transfers.html', status:'active' },
+      { id:'arithmetic-microoperations',   title:'Arithmetic Micro-operations',     desc:'Add, subtract, increment, decrement — and the one adder-subtractor circuit that does all four.', time:'18 min', href:'arithmetic-microoperations.html', status:'active' },
+      { id:'logic-microoperations',        title:'Logic Micro-operations',          desc:'Bitwise AND/OR/XOR/complement, and how they selectively set, clear, and mask bits.',         time:'16 min', href:'logic-microoperations.html', status:'active' },
+      { id:'shift-microoperations',        title:'Shift Micro-operations',          desc:'Logical, circular, and arithmetic shifts, and a combinational shifter built from multiplexers.', time:'16 min', href:'shift-microoperations.html', status:'active' },
+      { id:'arithmetic-logic-shift-unit',  title:'Arithmetic Logic Shift Unit',     desc:'Combining the arithmetic circuit, logic circuit, and shifter into one selectable ALU.',        time:'20 min', href:'arithmetic-logic-shift-unit.html', status:'active' },
+    ],
+    'tg-basic-computer-org': [
+      { id:'instruction-codes',           title:'Instruction Codes',              desc:'Encoding an operation and its address into a single binary instruction word.', time:'—', href:'#', status:'coming' },
+      { id:'computer-registers',          title:'Computer Registers',             desc:'The register set of a simple computer — AR, PC, DR, AC, IR, TR, and the I/O registers.', time:'—', href:'#', status:'coming' },
+      { id:'computer-instructions',       title:'Computer Instructions',          desc:'The complete instruction set, and how the instruction format distinguishes memory-reference from register-reference and I/O instructions.', time:'—', href:'#', status:'coming' },
+      { id:'timing-and-control',          title:'Timing and Control',             desc:'The sequence counter and decoder that generate the timing signals driving every micro-operation.', time:'—', href:'#', status:'coming' },
+      { id:'instruction-cycle',           title:'Instruction Cycle',              desc:'Fetch, decode, and execute — the repeating cycle every stored-program computer runs.', time:'—', href:'#', status:'coming' },
+      { id:'memory-reference-instructions', title:'Memory Reference Instructions', desc:'The seven basic memory-reference instructions and their register transfer statements.', time:'—', href:'#', status:'coming' },
+      { id:'io-and-interrupt',            title:'Input-Output and Interrupt',     desc:'Program-controlled I/O and the interrupt cycle that lets hardware request the CPU\'s attention.', time:'—', href:'#', status:'coming' },
+    ],
+  };
+
+  const ALL_IDS = Object.values(GROUPS).flat().map(t => t.id);
+
+  function renderGroup(containerId, topics, prog = {}) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+    container.innerHTML = `<div class="topic-list">` + topics.map((t, i) => {
+      const p = prog[t.id], done = p?.completed;
+      if (t.status === 'coming') {
+        return `<div class="topic-card" style="opacity:.55;cursor:default">
+          <div class="topic-num" style="background:#f0f0f0;color:#999">🔒</div>
+          <div class="topic-info">
+            <div class="topic-title" style="color:var(--text-2)">${t.title}</div>
+            <div class="topic-desc">${t.desc}</div>
+            <div class="topic-meta"><span>⏱ ${t.time}</span><span style="color:var(--accent);font-weight:600">Coming soon</span></div>
+          </div>
+        </div>`;
+      }
+      return `<a href="${t.href}" class="topic-card">
+        <div class="topic-num ${done ? 'done' : ''}">${done ? '✓' : i+1}</div>
+        <div class="topic-info">
+          <div class="topic-title">${t.title}</div>
+          <div class="topic-desc">${t.desc}</div>
+          <div class="topic-meta">
+            <span>⏱ ${t.time}</span>
+            ${done ? `<span class="score">Quiz: ${p.percent}%</span>` : ''}
+          </div>
+        </div>
+        <div class="topic-arrow">→</div>
+      </a>`;
+    }).join('') + `</div>`;
+  }
+
+  function updateProgress(prog) {
+    const active = Object.values(GROUPS).flat().filter(t => t.status === 'active');
+    const done   = active.filter(t => prog[t.id]?.completed).length;
+    const pct    = active.length ? Math.round((done / active.length) * 100) : 0;
+    document.getElementById('unit-progress').style.display = 'block';
+    document.getElementById('pct').textContent    = pct + '%';
+    document.getElementById('pfill').style.width  = pct + '%';
+    document.getElementById('pfill').className    = 'progress-fill' + (pct === 100 ? ' done' : '');
+    document.getElementById('plabel').textContent = `${done} / ${active.length} active topics complete`;
+  }
+
+  onAuth(async user => {
+    if (user) {
+      const prog = await getAllProgress(user.uid, COURSE_ID, ALL_IDS);
+      Object.entries(GROUPS).forEach(([id, topics]) => renderGroup(id, topics, prog));
+      updateProgress(prog);
+    } else {
+      Object.entries(GROUPS).forEach(([id, topics]) => renderGroup(id, topics));
+      document.getElementById('login-nudge').style.display = 'block';
+    }
+    if (location.hash) {
+      setTimeout(() => {
+        const el = document.querySelector(location.hash);
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 300);
+    }
+  });
+</script>
+</body>
+</html>
