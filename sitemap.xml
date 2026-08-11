@@ -265,6 +265,18 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://courses.chandrashaker.in/academic/coa/unit2/latches-flip-flops.html</loc>
+    <lastmod>2026-08-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://courses.chandrashaker.in/academic/coa/unit2/registers-counters.html</loc>
+    <lastmod>2026-08-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://courses.chandrashaker.in/academic/coa/unit1/data-types-number-systems.html</loc>
     <lastmod>2026-07-18</lastmod>
     <changefreq>monthly</changefreq>

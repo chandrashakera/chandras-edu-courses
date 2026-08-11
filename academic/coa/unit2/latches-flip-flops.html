@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Latches & Flip-Flops — COA Unit 2 | Chandras EDU</title>
+  <meta name="description" content="The cross-coupled NOR SR latch and gated D latch, level-sensitive vs. edge-triggered storage, the race-around problem and master-slave JK, and characteristic/excitation equations for D, T, JK, and SR flip-flops.">
+  <link rel="canonical" href="https://courses.chandrashaker.in/academic/coa/unit2/latches-flip-flops.html">
+  <link rel="stylesheet" href="../../../css/style.css">
+
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Chandras EDU">
+  <meta property="og:title" content="Latches & Flip-Flops — COA Unit 2 | Chandras EDU">
+  <meta property="og:description" content="The cross-coupled NOR SR latch and gated D latch, level-sensitive vs. edge-triggered storage, the race-around problem and master-slave JK, and characteristic/excitation equations for D, T, JK, and SR flip-flops.">
+  <meta property="og:url" content="https://courses.chandrashaker.in/academic/coa/unit2/latches-flip-flops.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Latches & Flip-Flops — COA Unit 2 | Chandras EDU">
+  <meta name="twitter:description" content="The cross-coupled NOR SR latch and gated D latch, level-sensitive vs. edge-triggered storage, the race-around problem and master-slave JK, and characteristic/excitation equations for D, T, JK, and SR flip-flops.">
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Courses", "item": "https://courses.chandrashaker.in/" },
+    { "@type": "ListItem", "position": 2, "name": "COA", "item": "https://courses.chandrashaker.in/academic/coa/" },
+    { "@type": "ListItem", "position": 3, "name": "Unit 2", "item": "https://courses.chandrashaker.in/academic/coa/unit2/" },
+    { "@type": "ListItem", "position": 4, "name": "Latches & Flip-Flops" }
+  ]
+}
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LearningResource",
+  "name": "Latches & Flip-Flops",
+  "description": "The cross-coupled NOR SR latch and gated D latch, level-sensitive vs. edge-triggered storage, the race-around problem and master-slave JK, and characteristic/excitation equations for D, T, JK, and SR flip-flops.",
+  "url": "https://courses.chandrashaker.in/academic/coa/unit2/latches-flip-flops.html",
+  "learningResourceType": "Lesson",
+  "educationalLevel": "Undergraduate",
+  "about": { "@type": "Thing", "name": "Computer Organization and Architecture" },
+  "isPartOf": {
+    "@type": "Course",
+    "name": "Computer Organization and Architecture",
+    "provider": { "@type": "Organization", "name": "Chandras EDU", "url": "https://chandrashaker.in" }
+  },
+  "publisher": { "@type": "Organization", "name": "Chandras EDU", "url": "https://chandrashaker.in" }
+}
+  </script>
+  <link rel="icon" href="/favicon.ico">
+  <style>
+    .truth-table { border-collapse:collapse; margin:1rem auto; font-size:.86rem; }
+    .truth-table th, .truth-table td { border:1px solid var(--border); padding:.4rem .65rem; text-align:center; }
+    .truth-table th { background:var(--bg-3); color:var(--text); font-weight:700; }
+    .truth-table td.forbidden { background:#fef2f2; }
+  </style>
+</head>
+<body>
+<nav class="nav"><div id="main-nav"></div></nav>
+
+<div style="max-width:820px;margin:.5rem auto;padding:0 1.25rem">
+  <div class="ad-slot">Advertisement</div>
+</div>
+
+<div class="page-narrow" role="main">
+
+  <nav class="breadcrumb">
+    <a href="../../../index.html">Courses</a><span class="sep">/</span>
+    <a href="../index.html">Computer Organization and Architecture</a><span class="sep">/</span>
+    <a href="index.html">Unit 2</a><span class="sep">/</span>
+    <span>Sequential Logic</span><span class="sep">/</span>
+    <span class="cur">Latches &amp; Flip-Flops</span>
+  </nav>
+
+  <div style="background:var(--primary);border-radius:var(--radius-lg);padding:1.1rem 1.4rem;margin-bottom:1.5rem;color:#fff">
+    <div style="font-size:.75rem;opacity:.75;margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.05em">COA › Unit 2: Sequential Logic › Topic 1</div>
+    <h1 style="font-size:1.4rem;font-weight:700;color:#fff;margin-bottom:.5rem">Latches &amp; Flip-Flops</h1>
+    <div style="display:flex;gap:.75rem;flex-wrap:wrap">
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">⏱ 22 min read</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📝 Quiz inside</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📖 Mano, Ch. 6</span>
+    </div>
+  </div>
+
+  <!-- FULL LESSON — visible to everyone -->
+  <div class="lesson">
+    <p>Every combinational circuit built so far in this course has no memory — its output depends only on its present inputs. A CPU, by contrast, is defined by <strong>state</strong>: registers, program counters, and flags that persist from one clock cycle to the next. That memory is built from the smallest possible unit — a single stored bit — using a latch or flip-flop as the basic building block.</p>
+
+    <h2>The SR Latch</h2>
+    <p>Cross-coupling two NOR gates — each gate's output feeding back as one of the other gate's inputs — produces a circuit with two stable states, which is exactly what's needed to remember one bit:</p>
+    <div style="text-align:center;margin:1.25rem 0">
+      <svg viewBox="-25 -5 300 150" style="max-width:400px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
+        <text x="-20" y="19" font-size="13" fill="var(--text)">R</text>
+        <line x1="-8" y1="15" x2="68.4" y2="15" stroke="var(--primary)" stroke-width="2"/>
+        <path d="M60,0 Q80,25 60,50 Q105,50 127.5,25 Q105,0 60,0 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="3" stroke-linejoin="round"/>
+        <circle cx="133.5" cy="25" r="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <line x1="139.5" y1="25" x2="245" y2="25" stroke="var(--primary)" stroke-width="2"/>
+        <text x="249" y="29" font-size="13" font-weight="700" fill="var(--text)">Q</text>
+
+        <text x="-20" y="109" font-size="13" fill="var(--text)">S</text>
+        <line x1="-8" y1="105" x2="68.4" y2="105" stroke="var(--primary)" stroke-width="2"/>
+        <path d="M60,90 Q80,115 60,140 Q105,140 127.5,115 Q105,90 60,90 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="3" stroke-linejoin="round"/>
+        <circle cx="133.5" cy="115" r="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <line x1="139.5" y1="115" x2="245" y2="115" stroke="var(--primary)" stroke-width="2"/>
+        <text x="249" y="119" font-size="13" font-weight="700" fill="var(--text)">Q′</text>
+
+        <line x1="200" y1="25" x2="200" y2="70" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="200" y1="70" x2="15" y2="70" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="15" y1="70" x2="15" y2="125" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="15" y1="125" x2="68.4" y2="125" stroke="var(--primary)" stroke-width="2"/>
+
+        <line x1="200" y1="115" x2="200" y2="80" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="200" y1="80" x2="5" y2="80" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="5" y1="80" x2="5" y2="35" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="5" y1="35" x2="68.4" y2="35" stroke="var(--primary)" stroke-width="2"/>
+      </svg>
+    </div>
+    <p>Top gate: <strong>Q = NOR(R, Q′)</strong>. Bottom gate: <strong>Q′ = NOR(S, Q)</strong>.</p>
+    <table class="truth-table">
+      <thead><tr><th>S</th><th>R</th><th>Q<sub>next</sub></th><th>State</th></tr></thead>
+      <tbody>
+        <tr><td>0</td><td>0</td><td>Q</td><td><strong>Hold</strong></td></tr>
+        <tr><td>1</td><td>0</td><td>1</td><td><strong>Set</strong></td></tr>
+        <tr><td>0</td><td>1</td><td>0</td><td><strong>Reset</strong></td></tr>
+        <tr class="forbidden"><td>1</td><td>1</td><td>Invalid</td><td><strong>Forbidden</strong></td></tr>
+      </tbody>
+    </table>
+    <p>S=R=1 forces both Q and Q′ to 0, breaking the Q=Q̄′ relationship the latch depends on — this combination must always be avoided.</p>
+
+    <h2>The Gated D Latch</h2>
+    <p>Driving S=D and R=D′ (D inverted) makes S and R always complements of each other, eliminating the forbidden state by construction. Adding an <strong>Enable (EN)</strong> input — via two AND gates gating D and D′ before they reach the SR core — adds control over exactly when the latch updates:</p>
+    <div style="text-align:center;margin:1.25rem 0">
+      <svg viewBox="-5 -25 265 180" style="max-width:340px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
+        <text x="70" y="32" font-size="12" fill="var(--text)">D</text>
+        <line x1="84" y1="28" x2="100" y2="28" stroke="var(--primary)" stroke-width="2"/>
+        <text x="65" y="137" font-size="12" fill="var(--text)">EN</text>
+        <line x1="84" y1="133" x2="100" y2="133" stroke="var(--primary)" stroke-width="2"/>
+        <rect x="100" y="10" width="90" height="140" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <text x="145" y="76" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">GATED D</text>
+        <text x="145" y="92" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">LATCH</text>
+        <line x1="190" y1="63" x2="230" y2="63" stroke="var(--primary)" stroke-width="2"/>
+        <text x="234" y="67" font-size="13" fill="var(--text)">Q</text>
+        <line x1="190" y1="98" x2="230" y2="98" stroke="var(--primary)" stroke-width="2"/>
+        <text x="234" y="102" font-size="13" fill="var(--text)">Q′</text>
+      </svg>
+    </div>
+    <p>While EN=1, Q follows D continuously ("transparent"); when EN drops to 0, Q freezes at whatever D was last — this level-sensitive behavior is the key thing an edge-triggered flip-flop adds on top of.</p>
+
+    <h2>Latch vs. Flip-Flop</h2>
+    <p>A latch is <strong>level-sensitive</strong> — transparent for as long as its enable is high. A <strong>flip-flop</strong> is <strong>edge-triggered</strong>: it samples its inputs and updates only at the instant the clock transitions, then ignores its inputs for the rest of the cycle. That's exactly what makes multi-stage synchronous circuits — registers, counters, an entire CPU datapath — behave predictably: every stage changes at the same defined instant instead of drifting based on how long a signal happens to stay high.</p>
+
+    <h3>The Race-Around Problem &amp; Master-Slave JK</h3>
+    <p>A level-triggered JK latch has a flaw: with J=K=1 ("toggle"), if the clock pulse stays high longer than one gate delay, the output toggles repeatedly during a single pulse — unpredictable. The fix is two latches — <strong>master</strong> and <strong>slave</strong> — driven by opposite clock phases, so they're never transparent at the same time:</p>
+    <div style="text-align:center;margin:1.25rem 0">
+      <svg viewBox="-30 -5 365 210" style="max-width:520px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
+        <text x="4" y="39" font-size="12" fill="var(--text)">J</text>
+        <line x1="18" y1="35" x2="30" y2="35" stroke="var(--primary)" stroke-width="2"/>
+        <text x="4" y="89" font-size="12" fill="var(--text)">K</text>
+        <line x1="18" y1="85" x2="30" y2="85" stroke="var(--primary)" stroke-width="2"/>
+        <rect x="30" y="10" width="90" height="100" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <text x="75" y="55" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">MASTER</text>
+        <text x="75" y="71" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">LATCH</text>
+
+        <line x1="120" y1="35" x2="195" y2="35" stroke="var(--primary)" stroke-width="2"/>
+        <text x="140" y="29" font-size="10" fill="var(--text-2)">Y</text>
+        <line x1="120" y1="85" x2="195" y2="85" stroke="var(--primary)" stroke-width="2"/>
+        <text x="138" y="79" font-size="10" fill="var(--text-2)">Y′</text>
+
+        <rect x="195" y="10" width="90" height="100" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <text x="240" y="55" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">SLAVE</text>
+        <text x="240" y="71" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">LATCH</text>
+
+        <line x1="285" y1="35" x2="310" y2="35" stroke="var(--primary)" stroke-width="2"/>
+        <text x="314" y="39" font-size="13" fill="var(--text)">Q</text>
+        <line x1="285" y1="85" x2="310" y2="85" stroke="var(--primary)" stroke-width="2"/>
+        <text x="314" y="89" font-size="13" fill="var(--text)">Q′</text>
+
+        <text x="-28" y="174" font-size="11" fill="var(--text-2)">CLK</text>
+        <line x1="-8" y1="170" x2="120" y2="170" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="75" y1="170" x2="75" y2="110" stroke="var(--primary)" stroke-width="2"/>
+        <path d="M120,155 L120,185 L160,170 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="3" stroke-linejoin="round"/>
+        <circle cx="165" cy="170" r="5" fill="var(--bg)" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="170" y1="170" x2="205" y2="170" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="205" y1="170" x2="205" y2="110" stroke="var(--primary)" stroke-width="2"/>
+      </svg>
+    </div>
+    <p>While CLK=1, the master absorbs J,K but the slave (inverted clock) is latched, isolating Q. While CLK=0, the master locks and the slave copies through. Q only ever changes on the falling edge, by which point the master can no longer be affected by its own output — no race.</p>
+
+    <h2>Characteristic &amp; Excitation Equations</h2>
+    <table class="truth-table">
+      <thead><tr><th>Type</th><th>Characteristic Equation</th><th>Qₙ→Qₙ₊₁</th><th>Required Input(s)</th></tr></thead>
+      <tbody>
+        <tr><td rowspan="4"><strong>D</strong></td><td rowspan="4">Qₙ₊₁ = D</td><td>0→0</td><td>D=0</td></tr>
+        <tr><td>0→1</td><td>D=1</td></tr>
+        <tr><td>1→0</td><td>D=0</td></tr>
+        <tr><td>1→1</td><td>D=1</td></tr>
+        <tr><td rowspan="4"><strong>T</strong></td><td rowspan="4">Qₙ₊₁ = T ⊕ Qₙ</td><td>0→0</td><td>T=0</td></tr>
+        <tr><td>0→1</td><td>T=1</td></tr>
+        <tr><td>1→0</td><td>T=1</td></tr>
+        <tr><td>1→1</td><td>T=0</td></tr>
+        <tr><td rowspan="4"><strong>JK</strong></td><td rowspan="4">Qₙ₊₁ = JQₙ′ + K′Qₙ</td><td>0→0</td><td>J=0, K=X</td></tr>
+        <tr><td>0→1</td><td>J=1, K=X</td></tr>
+        <tr><td>1→0</td><td>J=X, K=1</td></tr>
+        <tr><td>1→1</td><td>J=X, K=0</td></tr>
+        <tr><td rowspan="4"><strong>SR</strong></td><td rowspan="4">Qₙ₊₁ = S + R′Qₙ &nbsp;(SR=0)</td><td>0→0</td><td>S=0, R=X</td></tr>
+        <tr><td>0→1</td><td>S=1, R=0</td></tr>
+        <tr><td>1→0</td><td>S=0, R=1</td></tr>
+        <tr><td>1→1</td><td>S=X, R=0</td></tr>
+      </tbody>
+    </table>
+    <p>The <strong>X</strong> (don't-care) entries in JK and T are exactly what a later K-map minimization step (used heavily when designing counters and control units) gets to exploit — this is the direct link between a flip-flop's excitation table and simplified next-state logic.</p>
+
+    <h2>Common Pitfalls</h2>
+    <ul>
+      <li><strong>Driving a plain SR latch with S=R=1.</strong> This actively breaks the Q=Q̄′ relationship, not just "an invalid input" — the resulting state when both return to 0 is a race, not a defined value.</li>
+      <li><strong>Confusing a JK latch with a JK flip-flop.</strong> The race-around condition is a level-triggered latch problem; a properly built edge-triggered (or master-slave) JK flip-flop does not race-around.</li>
+      <li><strong>Reading the excitation table backwards.</strong> The characteristic equation answers "given the inputs, what's the next state?" The excitation table answers the reverse — "given the desired transition, what inputs are needed?" — which is the direction needed for register and counter design.</li>
+    </ul>
+
+    <h2>Applications</h2>
+    <ul>
+      <li><strong>Every register in a CPU</strong> — the program counter, instruction register, general-purpose registers — is built from a bank of D flip-flops, one per bit.</li>
+      <li><strong>Address latches</strong> in bus-multiplexed systems (e.g., classic microprocessors that multiplex address and data on the same pins) use exactly the transparent/latched behavior of a gated D latch to hold the address stable.</li>
+      <li><strong>The next topic, Registers &amp; Counters,</strong> builds directly on the flip-flop as its basic storage element — every register and counter in a CPU's datapath is a bank of flip-flops plus a little control logic.</li>
+    </ul>
+  </div>
+
+  <div class="ad-slot">Advertisement</div>
+
+  <!-- QUIZ GATE -->
+  <div id="gate-section">
+    <div class="gate">
+      <div class="gate-blur">
+        <div class="quiz">
+          <div class="quiz-title">📝 Quick Quiz — 5 Questions</div>
+        </div>
+      </div>
+      <div class="gate-overlay">
+        <div class="gate-box">
+          <div class="lock">🔒</div>
+          <h3>Login to take the quiz</h3>
+          <p>Create a free account to take the quiz and track your progress across all topics.</p>
+          <div class="gate-btns">
+            <a href="../../../login.html" class="btn btn-primary btn-sm">Login</a>
+            <a href="../../../login.html" class="btn btn-outline btn-sm">Register Free</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="quiz" id="quiz-section" style="display:none">
+    <div class="quiz-title">📝 Quick Quiz — 5 Questions</div>
+    <div id="quiz-body"></div>
+    <button class="btn btn-primary" id="submit-btn" disabled>Submit Quiz</button>
+    <div class="quiz-result" id="quiz-result" style="display:none"></div>
+  </div>
+
+  <div class="topic-nav">
+    <a href="multiplexers.html">
+      <div class="nav-dir">← Previous</div>
+      <div class="nav-title">Multiplexers</div>
+    </a>
+    <a href="registers-counters.html" class="next">
+      <div class="nav-dir">Next →</div>
+      <div class="nav-title">Registers &amp; Counters</div>
+    </a>
+  </div>
+
+</div>
+
+<div style="max-width:820px;margin:.5rem auto;padding:0 1.25rem">
+  <div class="ad-slot">Advertisement</div>
+</div>
+<footer class="footer">© 2026 Chandra Shaker · <a href="https://chandrashaker.in">chandrashaker.in</a> · <em>Reference: M. Morris Mano, Digital Design / Computer System Architecture — Flip-Flops &amp; Sequential Circuits.</em></footer>
+
+<script type="module">
+  import { initNav } from '../../../js/nav.js';
+  import { onAuth, saveProgress, getProgress } from '../../../js/firebase-config.js';
+  initNav(3);
+
+  const COURSE_ID = 'coa';
+  const TOPIC_ID  = 'latches-flip-flops';
+  const LABELS    = ['A','B','C','D'];
+  const QUIZ = [
+    { q:"In the cross-coupled NOR SR latch, what happens when S=1 and R=1 simultaneously?", options:["Both Q and Q′ are forced to 0, breaking the required Q=Q̄′ relationship — a forbidden state", "The latch outputs Q=1 correctly", "The latch simply holds its previous state", "Nothing — this combination is always safe"], answer:0, explanation:"With both NOR gates seeing a 1 on one input, both outputs are forced to 0 — but Q and Q′ being equal breaks the latch's fundamental complementary-output property." },
+    { q:"What is the fundamental difference between a latch and a flip-flop?", options:["A flip-flop updates only at a clock edge; a latch updates continuously while its enable is active", "A flip-flop cannot store a bit; a latch can", "A latch requires more transistors than a flip-flop", "There is no real difference between them"], answer:0, explanation:"A latch is level-sensitive (transparent whenever enabled); a flip-flop is edge-triggered, sampling and updating only at the clock transition instant." },
+    { q:"What causes the race-around condition in a level-triggered JK latch?", options:["With J=K=1, if the clock pulse width exceeds the propagation delay, the output toggles repeatedly and unpredictably during one pulse", "The J and K inputs are physically shorted together", "It only happens when J=K=0", "It is caused by using a D latch instead of JK"], answer:0, explanation:"When J=K=1 calls for 'toggle' and the enable stays active longer than one gate delay, the fed-back output keeps re-triggering the toggle, so the final state depends on timing, not design." },
+    { q:"For a JK flip-flop transitioning from Qₙ=1 to Qₙ₊₁=0, what are the required J and K values?", options:["J=X, K=1", "J=1, K=X", "J=0, K=0", "J=X, K=X"], answer:0, explanation:"To force a 1→0 transition, K must be 1 (reset); J is a don't-care since K=1 dominates regardless of J's value." },
+    { q:"Why does a master-slave JK flip-flop not suffer from the race-around problem?", options:["The master and slave latches are driven by opposite clock phases, so they're never transparent at the same time, preventing the output from looping back to affect the master within one cycle", "It uses only NAND gates instead of NOR gates", "It has no clock input at all", "J and K are physically disconnected from each other"], answer:0, explanation:"Opposite clock phases guarantee the master and slave are never transparent simultaneously, which is exactly what prevents the fed-back output from re-triggering the master mid-cycle." }
+  ];
+
+  let selected = {}, submitted = false;
+
+  function buildQuiz() {
+    document.getElementById('quiz-body').innerHTML = QUIZ.map((q, qi) => `
+      <div class="question">
+        <div class="question-text">Q${qi+1}. ${q.q}</div>
+        <div class="options">
+          ${q.options.map((o, oi) => `<div class="option" data-qi="${qi}" data-oi="${oi}"><span class="option-lbl">${LABELS[oi]}</span>${o}</div>`).join('')}
+        </div>
+        <div class="explanation" id="exp${qi}" style="display:none">💡 ${q.explanation}</div>
+      </div>`).join('');
+    document.querySelectorAll('.option').forEach(el => {
+      el.onclick = () => {
+        if (submitted) return;
+        const qi = +el.dataset.qi, oi = +el.dataset.oi;
+        selected[qi] = oi;
+        document.querySelectorAll(`[data-qi="${qi}"]`).forEach(o => o.classList.remove('selected'));
+        el.classList.add('selected');
+        document.getElementById('submit-btn').disabled = Object.keys(selected).length < QUIZ.length;
+      };
+    });
+  }
+
+  async function submitQuiz(uid) {
+    submitted = true; let score = 0;
+    QUIZ.forEach((q, qi) => {
+      const correct = q.answer, chosen = selected[qi];
+      document.querySelectorAll(`[data-qi="${qi}"]`).forEach(o => {
+        const oi = +o.dataset.oi;
+        if (oi === correct) o.classList.add('correct');
+        else if (oi === chosen) o.classList.add('wrong');
+      });
+      document.getElementById(`exp${qi}`).style.display = 'block';
+      if (chosen === correct) score++;
+    });
+    document.getElementById('submit-btn').style.display = 'none';
+    const pct = Math.round((score / QUIZ.length) * 100);
+    const res = document.getElementById('quiz-result');
+    res.style.display = 'block';
+    res.className = `quiz-result ${pct >= 60 ? 'pass' : 'fail'}`;
+    res.innerHTML = `<div class="quiz-score">${pct >= 60 ? '🎉' : '📖'} Score: ${score}/${QUIZ.length} (${pct}%)</div>
+      <div class="quiz-msg">${pct >= 80 ? 'Excellent! Move to the next topic.' : pct >= 60 ? 'Good. Review what you missed.' : 'Review the lesson and try again.'}</div>`;
+    if (uid) await saveProgress(uid, COURSE_ID, TOPIC_ID, score, QUIZ.length);
+  }
+
+  onAuth(async user => {
+    const gate = document.getElementById('gate-section');
+    const quiz  = document.getElementById('quiz-section');
+    if (user) {
+      gate.style.display = 'none';
+      quiz.style.display = 'block';
+      buildQuiz();
+      document.getElementById('submit-btn').onclick = () => submitQuiz(user.uid);
+      const prog = await getProgress(user.uid, COURSE_ID, TOPIC_ID);
+      if (prog?.completed) {
+        const res = document.getElementById('quiz-result');
+        res.style.display = 'block';
+        res.className = 'quiz-result pass';
+        res.innerHTML = `<div class="quiz-score">✅ Completed — Best score: ${prog.percent}%</div>
+          <div class="quiz-msg">You can retake the quiz anytime.</div>`;
+      }
+    }
+  });
+</script>
+</body>
+</html>
