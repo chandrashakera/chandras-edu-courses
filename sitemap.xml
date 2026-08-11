@@ -187,6 +187,42 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://courses.chandrashaker.in/academic/dld/unit5/</loc>
+    <lastmod>2026-08-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://courses.chandrashaker.in/academic/dld/unit5/moore-mealy-fsm.html</loc>
+    <lastmod>2026-08-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://courses.chandrashaker.in/academic/dld/unit5/state-diagrams-tables.html</loc>
+    <lastmod>2026-08-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://courses.chandrashaker.in/academic/dld/unit5/state-reduction-assignment.html</loc>
+    <lastmod>2026-08-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://courses.chandrashaker.in/academic/dld/unit5/fsm-design-sequence-detector.html</loc>
+    <lastmod>2026-08-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://courses.chandrashaker.in/academic/dld/unit5/programmable-logic-devices.html</loc>
+    <lastmod>2026-08-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://courses.chandrashaker.in/academic/coa/unit1/</loc>
     <lastmod>2026-07-18</lastmod>
     <changefreq>weekly</changefreq>

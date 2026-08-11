@@ -14,6 +14,7 @@ Chandras EDU offers two course tracks: Academic engineering subjects for B.Tech 
 - [DLD Unit 2 — Gate-Level Minimization (K-Maps)](https://courses.chandrashaker.in/academic/dld/unit2/index.html): 2/3/4-variable Karnaugh maps, SOP and POS simplification, don't-care conditions, and converting minimal expressions into NAND-NAND or NOR-NOR circuits.
 - [DLD Unit 3 — Combinational Logic Circuits](https://courses.chandrashaker.in/academic/dld/unit3/index.html): Combinational circuit analysis and design procedure, binary adder/subtractor, BCD adder and binary multiplier, magnitude comparator, decoders and encoders, and multiplexers/demultiplexers.
 - [DLD Unit 4 — Sequential Logic Circuits](https://courses.chandrashaker.in/academic/dld/unit4/index.html): Latches, flip-flops and timing (setup/hold, race-around, master-slave JK), asynchronous ripple counters, synchronous counter design, and shift registers with ring/Johnson counters.
+- [DLD Unit 5 — State Machines & PLDs](https://courses.chandrashaker.in/academic/dld/unit5/index.html): Moore vs Mealy finite state machines, state diagrams and tables, state reduction and assignment, a full FSM design worked example (overlap-aware sequence detector), and programmable logic devices (ROM, PLA, PAL).
 
 ## Professional
 

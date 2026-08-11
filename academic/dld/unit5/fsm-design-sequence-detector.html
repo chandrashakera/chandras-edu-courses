@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FSM Design Procedure — Sequence Detector — DLD Unit 5 | Chandras EDU</title>
+  <meta name="description" content="A complete worked FSM design: an overlap-aware Mealy detector for the serial pattern 1101, from state diagram through state table, excitation table, K-maps, and final circuit.">
+  <link rel="canonical" href="https://courses.chandrashaker.in/academic/dld/unit5/fsm-design-sequence-detector.html">
+  <link rel="stylesheet" href="../../../css/style.css">
+
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Chandras EDU">
+  <meta property="og:title" content="FSM Design Procedure — Sequence Detector — DLD Unit 5 | Chandras EDU">
+  <meta property="og:description" content="A complete worked FSM design: an overlap-aware Mealy detector for the serial pattern 1101, from state diagram through state table, excitation table, K-maps, and final circuit.">
+  <meta property="og:url" content="https://courses.chandrashaker.in/academic/dld/unit5/fsm-design-sequence-detector.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="FSM Design Procedure — Sequence Detector — DLD Unit 5 | Chandras EDU">
+  <meta name="twitter:description" content="A complete worked FSM design: an overlap-aware Mealy detector for the serial pattern 1101, from state diagram through state table, excitation table, K-maps, and final circuit.">
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Courses", "item": "https://courses.chandrashaker.in/" },
+    { "@type": "ListItem", "position": 2, "name": "DLD", "item": "https://courses.chandrashaker.in/academic/dld/" },
+    { "@type": "ListItem", "position": 3, "name": "Unit 5", "item": "https://courses.chandrashaker.in/academic/dld/unit5/" },
+    { "@type": "ListItem", "position": 4, "name": "FSM Design Procedure — Sequence Detector" }
+  ]
+}
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LearningResource",
+  "name": "FSM Design Procedure — Sequence Detector",
+  "description": "A complete worked FSM design: an overlap-aware Mealy detector for the serial pattern 1101, from state diagram through state table, excitation table, K-maps, and final circuit.",
+  "url": "https://courses.chandrashaker.in/academic/dld/unit5/fsm-design-sequence-detector.html",
+  "learningResourceType": "Lesson",
+  "educationalLevel": "Undergraduate",
+  "about": { "@type": "Thing", "name": "Digital Logic Design" },
+  "isPartOf": {
+    "@type": "Course",
+    "name": "Digital Logic Design",
+    "provider": { "@type": "Organization", "name": "Chandras EDU", "url": "https://chandrashaker.in" }
+  },
+  "publisher": { "@type": "Organization", "name": "Chandras EDU", "url": "https://chandrashaker.in" }
+}
+  </script>
+  <link rel="icon" href="/favicon.ico">
+  <style>
+    .truth-table { border-collapse:collapse; margin:1rem auto; font-size:.84rem; }
+    .truth-table th, .truth-table td { border:1px solid var(--border); padding:.35rem .55rem; text-align:center; }
+    .truth-table th { background:var(--bg-3); color:var(--text); font-weight:700; }
+    .kmap-wrap { display:flex; justify-content:center; gap:2rem; margin:1.25rem 0; flex-wrap:wrap; }
+    .kmap-block { text-align:center; }
+    .kmap-table { border-collapse:collapse; font-size:.8rem; }
+    .kmap-table th, .kmap-table td { border:1px solid var(--border); width:42px; height:36px; text-align:center; padding:0; }
+    .kmap-table th { background:var(--bg-3); font-weight:700; color:var(--text-2); font-size:.72rem; }
+    .kmap-table .corner { font-size:.6rem; color:var(--text-3); font-weight:600; }
+    .kmap-table td { font-weight:700; font-size:.92rem; }
+    .kmap-table td.one { color:var(--success); background:#e8f5e9; }
+    .kmap-table td.zero { color:var(--text-3); }
+    .kmap-table td.dc { color:var(--accent); }
+    .kmap-cap { font-size:.82rem; color:var(--text-2); margin-top:.4rem; font-weight:600; }
+  </style>
+</head>
+<body>
+<nav class="nav"><div id="main-nav"></div></nav>
+
+<div style="max-width:820px;margin:.5rem auto;padding:0 1.25rem">
+  <div class="ad-slot">Advertisement</div>
+</div>
+
+<div class="page-narrow" role="main">
+
+  <nav class="breadcrumb">
+    <a href="../../../index.html">Courses</a><span class="sep">/</span>
+    <a href="../../dld/index.html">DLD</a><span class="sep">/</span>
+    <a href="index.html">Unit 5</a><span class="sep">/</span>
+    <span>State Machines &amp; PLDs</span><span class="sep">/</span>
+    <span class="cur">FSM Design Procedure — Sequence Detector</span>
+  </nav>
+
+  <div style="background:var(--primary);border-radius:var(--radius-lg);padding:1.1rem 1.4rem;margin-bottom:1.5rem;color:#fff">
+    <div style="font-size:.75rem;opacity:.75;margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.05em">DLD › Unit 5: State Machines &amp; PLDs › Topic 4</div>
+    <h1 style="font-size:1.4rem;font-weight:700;color:#fff;margin-bottom:.5rem">FSM Design Procedure — Sequence Detector</h1>
+    <div style="display:flex;gap:.75rem;flex-wrap:wrap">
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">⏱ 24 min read</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📝 Quiz inside</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📖 Mano &amp; Ciletti Ch. 5</span>
+    </div>
+  </div>
+
+  <!-- FULL LESSON — visible to everyone -->
+  <div class="lesson">
+    <p>Unit 4's synchronous counter design procedure — state table → excitation table → K-map → circuit — generalizes directly to <em>any</em> FSM, not just counters. This topic runs the complete procedure on a real problem: a serial circuit that flags every occurrence of the bit pattern <strong>1101</strong> in an incoming input stream, including <em>overlapping</em> occurrences (e.g., in <code>1101101</code>, both the first four bits and the last four bits are valid "1101" matches, sharing one bit).</p>
+
+    <h2>Step 1 — State Diagram</h2>
+    <p>Use a Mealy machine: each state tracks how much of "1101" has been matched so far by the tail of the input. On a mismatch, don't necessarily fall all the way back to "nothing matched" — check whether the tail still matches a <em>shorter</em> prefix of the pattern, which is exactly what makes overlapping matches work correctly.</p>
+    <div style="text-align:center;margin:1.25rem 0">
+      <svg viewBox="-20 -20 510 220" style="max-width:660px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <marker id="arrowD1" markerWidth="10" markerHeight="10" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+            <path d="M0,0 L8,4 L0,8 Z" fill="var(--primary)"/>
+          </marker>
+        </defs>
+        <path d="M40,38 Q55,-8 70,38" fill="none" stroke="var(--primary)" stroke-width="2" marker-end="url(#arrowD1)"/>
+        <text x="55" y="-6" font-size="10" text-anchor="middle" fill="var(--text-2)">0/0</text>
+        <path d="M300,38 Q315,-8 330,38" fill="none" stroke="var(--primary)" stroke-width="2" marker-end="url(#arrowD1)"/>
+        <text x="315" y="-6" font-size="10" text-anchor="middle" fill="var(--text-2)">1/0</text>
+
+        <line x1="81" y1="60" x2="158" y2="60" stroke="var(--primary)" stroke-width="2" marker-end="url(#arrowD1)"/>
+        <text x="120" y="52" font-size="10" text-anchor="middle" fill="var(--text-2)">1/0</text>
+        <line x1="211" y1="60" x2="288" y2="60" stroke="var(--primary)" stroke-width="2" marker-end="url(#arrowD1)"/>
+        <text x="250" y="52" font-size="10" text-anchor="middle" fill="var(--text-2)">1/0</text>
+        <line x1="341" y1="60" x2="418" y2="60" stroke="var(--primary)" stroke-width="2" marker-end="url(#arrowD1)"/>
+        <text x="380" y="52" font-size="10" text-anchor="middle" fill="var(--text-2)">0/0</text>
+
+        <path d="M165,84 Q120,120 71,84" fill="none" stroke="var(--primary)" stroke-width="2" marker-end="url(#arrowD1)"/>
+        <text x="120" y="115" font-size="10" text-anchor="middle" fill="var(--text-2)">0/0</text>
+        <path d="M430,90 Q315,150 205,90" fill="none" stroke="var(--primary)" stroke-width="2" marker-end="url(#arrowD1)"/>
+        <text x="315" y="143" font-size="10" text-anchor="middle" fill="var(--text-2)">1/1</text>
+        <path d="M440,94 Q250,192 65,94" fill="none" stroke="var(--primary)" stroke-width="2" marker-end="url(#arrowD1)"/>
+        <text x="250" y="180" font-size="10" text-anchor="middle" fill="var(--text-2)">0/0</text>
+
+        <circle cx="55" cy="60" r="26" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5"/>
+        <text x="55" y="65" font-size="13" font-weight="700" text-anchor="middle" fill="var(--text)">S0</text>
+
+        <circle cx="185" cy="60" r="26" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5"/>
+        <text x="185" y="65" font-size="13" font-weight="700" text-anchor="middle" fill="var(--text)">S1</text>
+
+        <circle cx="315" cy="60" r="26" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5"/>
+        <text x="315" y="65" font-size="13" font-weight="700" text-anchor="middle" fill="var(--text)">S2</text>
+
+        <circle cx="445" cy="60" r="26" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5"/>
+        <text x="445" y="65" font-size="13" font-weight="700" text-anchor="middle" fill="var(--text)">S3</text>
+      </svg>
+    </div>
+    <p>S0 = matched "" (nothing relevant yet), S1 = matched "1", S2 = matched "11", S3 = matched "110". S3 is where the pattern completes: on input 1, S3 outputs 1 (match!) and jumps back to <strong>S1</strong>, not S0 — because the very bit that just completed "1101" is itself a "1," which is exactly the start of a possible new overlapping match. The other mismatch path from S3 — on a 0 — falls all the way back to S0, since no proper prefix of "1101" survives; S1 on a 0 does the same.</p>
+
+    <h3>Full State Table</h3>
+    <table class="truth-table">
+      <thead><tr><th>Present State</th><th>Next (x=0)</th><th>Next (x=1)</th><th>Output (x=0)</th><th>Output (x=1)</th></tr></thead>
+      <tbody>
+        <tr><td>S0</td><td>S0</td><td>S1</td><td>0</td><td>0</td></tr>
+        <tr><td>S1</td><td>S0</td><td>S2</td><td>0</td><td>0</td></tr>
+        <tr><td>S2</td><td>S3</td><td>S2</td><td>0</td><td>0</td></tr>
+        <tr><td>S3</td><td>S0</td><td>S1</td><td>0</td><td>1</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Step 2 — State Assignment</h2>
+    <p>Four states need ⌈log₂4⌉ = 2 flip-flops. Using straightforward sequential assignment (Topic 3): S0=00, S1=01, S2=10, S3=11 — call the two state bits A (MSB) and B (LSB), and use JK flip-flops.</p>
+
+    <h2>Step 3 — Excitation Table</h2>
+    <table class="truth-table">
+      <thead><tr><th>A</th><th>B</th><th>x</th><th>A<sup>+</sup></th><th>B<sup>+</sup></th><th>J<sub>A</sub></th><th>K<sub>A</sub></th><th>J<sub>B</sub></th><th>K<sub>B</sub></th><th>y</th></tr></thead>
+      <tbody>
+        <tr><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>X</td><td>0</td><td>X</td><td>0</td></tr>
+        <tr><td>0</td><td>0</td><td>1</td><td>0</td><td>1</td><td>0</td><td>X</td><td>1</td><td>X</td><td>0</td></tr>
+        <tr><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>X</td><td>X</td><td>1</td><td>0</td></tr>
+        <tr><td>0</td><td>1</td><td>1</td><td>1</td><td>0</td><td>1</td><td>X</td><td>X</td><td>1</td><td>0</td></tr>
+        <tr><td>1</td><td>0</td><td>0</td><td>1</td><td>1</td><td>X</td><td>0</td><td>1</td><td>X</td><td>0</td></tr>
+        <tr><td>1</td><td>0</td><td>1</td><td>1</td><td>0</td><td>X</td><td>0</td><td>0</td><td>X</td><td>0</td></tr>
+        <tr><td>1</td><td>1</td><td>0</td><td>0</td><td>0</td><td>X</td><td>1</td><td>X</td><td>1</td><td>0</td></tr>
+        <tr><td>1</td><td>1</td><td>1</td><td>0</td><td>1</td><td>X</td><td>1</td><td>X</td><td>0</td><td>1</td></tr>
+      </tbody>
+    </table>
+    <p>A<sup>+</sup>/B<sup>+</sup> are the next-state bits read straight off the state table (e.g., row AB=11,x=1 is state S3 on input 1, which the table above sends to S1=01, so A<sup>+</sup>B<sup>+</sup>=01); J/K columns apply the JK excitation rule to each bit's own 0→0/0→1/1→0/1→1 transition independently.</p>
+
+    <h2>Step 4 — K-Maps</h2>
+    <p>Each of J<sub>A</sub>, K<sub>A</sub>, J<sub>B</sub>, K<sub>B</sub> is its own 3-variable function of (A, B, x):</p>
+    <div class="kmap-wrap">
+      <div class="kmap-block">
+        <table class="kmap-table">
+          <tr><th class="corner">A\Bx</th><th>00</th><th>01</th><th>11</th><th>10</th></tr>
+          <tr><th>0</th><td class="zero">0</td><td class="zero">0</td><td class="one">1</td><td class="zero">0</td></tr>
+          <tr><th>1</th><td class="dc">X</td><td class="dc">X</td><td class="dc">X</td><td class="dc">X</td></tr>
+        </table>
+        <div class="kmap-cap">J<sub>A</sub> = Bx</div>
+      </div>
+      <div class="kmap-block">
+        <table class="kmap-table">
+          <tr><th class="corner">A\Bx</th><th>00</th><th>01</th><th>11</th><th>10</th></tr>
+          <tr><th>0</th><td class="dc">X</td><td class="dc">X</td><td class="dc">X</td><td class="dc">X</td></tr>
+          <tr><th>1</th><td class="zero">0</td><td class="zero">0</td><td class="one">1</td><td class="one">1</td></tr>
+        </table>
+        <div class="kmap-cap">K<sub>A</sub> = AB</div>
+      </div>
+      <div class="kmap-block">
+        <table class="kmap-table">
+          <tr><th class="corner">A\Bx</th><th>00</th><th>01</th><th>11</th><th>10</th></tr>
+          <tr><th>0</th><td class="zero">0</td><td class="one">1</td><td class="dc">X</td><td class="dc">X</td></tr>
+          <tr><th>1</th><td class="one">1</td><td class="zero">0</td><td class="dc">X</td><td class="dc">X</td></tr>
+        </table>
+        <div class="kmap-cap">J<sub>B</sub> = A′x + Ax′</div>
+      </div>
+      <div class="kmap-block">
+        <table class="kmap-table">
+          <tr><th class="corner">A\Bx</th><th>00</th><th>01</th><th>11</th><th>10</th></tr>
+          <tr><th>0</th><td class="dc">X</td><td class="dc">X</td><td class="one">1</td><td class="one">1</td></tr>
+          <tr><th>1</th><td class="dc">X</td><td class="dc">X</td><td class="zero">0</td><td class="one">1</td></tr>
+        </table>
+        <div class="kmap-cap">K<sub>B</sub> = A′B + Ax′</div>
+      </div>
+    </div>
+    <p>Reading J<sub>A</sub>: the single required 1 (at A=0,B=1,x=1) pairs with the don't-care directly below it (A=1, same B,x) — both cells have B=1,x=1 — giving the term Bx. K<sub>A</sub>'s two required 1s sit in the A=1 row at Bx=11 and Bx=10 — both have A=1,B=1 — giving AB. J<sub>B</sub> and K<sub>B</sub> both need two separate pairings (worked the same way — match required 1s with adjacent don't-cares or with each other) to reach the two-term expressions shown.</p>
+    <p>The output y needs no map at all — it's a single required 1, at exactly A=1,B=1,x=1, with no don't-cares anywhere to exploit: <strong>y = ABx</strong>.</p>
+
+    <div class="box box-eg">
+J<sub>A</sub> = Bx  K<sub>A</sub> = AB
+J<sub>B</sub> = A′x + Ax′  K<sub>B</sub> = A′B + Ax′
+y = ABx
+    </div>
+
+    <h2>Step 5 — Circuit</h2>
+    <p>Two JK flip-flops (A, B) hold the state; a small block of combinational logic — built straight from the five equations above — drives their J/K inputs and the output:</p>
+    <div style="text-align:center;margin:1.25rem 0">
+      <svg viewBox="-46 -10 626 195" style="max-width:820px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
+        <text x="-38" y="34" font-size="12" fill="var(--text)">x</text>
+        <line x1="-4" y1="30" x2="60" y2="30" stroke="var(--primary)" stroke-width="2"/>
+
+        <rect x="60" y="10" width="100" height="80" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <text x="110" y="46" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">J, K</text>
+        <text x="110" y="62" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">LOGIC</text>
+
+        <line x1="160" y1="30" x2="220" y2="30" stroke="var(--primary)" stroke-width="2"/>
+        <text x="168" y="24" font-size="10" fill="var(--text-2)">J,K</text>
+
+        <rect x="220" y="10" width="100" height="80" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <text x="270" y="46" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">STATE</text>
+        <text x="270" y="62" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">REGISTER</text>
+        <path d="M220,62 L220,78 L232,70 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5" stroke-linejoin="round"/>
+
+        <text x="180" y="138" font-size="11" fill="var(--text-2)">CLK</text>
+        <line x1="205" y1="125" x2="205" y2="70" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="205" y1="70" x2="220" y2="70" stroke="var(--primary)" stroke-width="2"/>
+
+        <line x1="320" y1="30" x2="380" y2="30" stroke="var(--primary)" stroke-width="2"/>
+        <text x="322" y="22" font-size="10" fill="var(--text-2)">A, B (state)</text>
+        <circle cx="350" cy="30" r="3" fill="var(--primary)"/>
+
+        <line x1="350" y1="30" x2="350" y2="150" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="350" y1="150" x2="90" y2="150" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="90" y1="150" x2="90" y2="70" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="90" y1="70" x2="60" y2="70" stroke="var(--primary)" stroke-width="2"/>
+
+        <line x1="20" y1="30" x2="20" y2="170" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="20" y1="170" x2="360" y2="170" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="360" y1="170" x2="360" y2="70" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="360" y1="70" x2="380" y2="70" stroke="var(--primary)" stroke-width="2"/>
+        <circle cx="20" cy="30" r="3" fill="var(--primary)"/>
+
+        <rect x="380" y="10" width="100" height="80" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <text x="430" y="46" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">OUTPUT</text>
+        <text x="430" y="62" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">LOGIC</text>
+
+        <line x1="480" y1="30" x2="520" y2="30" stroke="var(--primary)" stroke-width="2"/>
+        <text x="524" y="34" font-size="12" fill="var(--text)">y</text>
+      </svg>
+    </div>
+    <p>This is exactly the general Mealy structure from Topic 1, filled in with this design's specifics: the "J, K Logic" block is the four equations J<sub>A</sub>=Bx, K<sub>A</sub>=AB, J<sub>B</sub>=A′x+Ax′, K<sub>B</sub>=A′B+Ax′; the state register is the two JK flip-flops holding A and B; and "Output Logic" is the single gate y=ABx, reading the state <em>and</em> x directly — which is exactly why this is a Mealy machine and not a Moore one.</p>
+
+    <h2>Common Pitfalls</h2>
+    <ul>
+      <li><strong>Falling all the way back to S0 on every mismatch.</strong> That's the single most common bug in sequence-detector design — it silently breaks overlapping-match detection. Always check whether the mismatched tail still satisfies a shorter prefix of the pattern (S3 on a 0 does fall to S0, but S3 on a 1 — the completing case — goes to S1, not S0, because the input stream doesn't "forget" that trailing 1).</li>
+      <li><strong>Forgetting the output is Mealy, not Moore.</strong> The match output is tied to the specific completing transition (S3 --1/1--&gt; S1), not to any state itself — there's no "match state" that sits there outputting 1.</li>
+      <li><strong>Skipping the excitation table and guessing the gate equations directly from the state diagram.</strong> With don't-cares in play, guessed equations routinely miss a legitimate simplification (or worse, get one wrong) — always go through the mechanical excitation-table-then-K-map steps.</li>
+    </ul>
+
+    <h2>Applications</h2>
+    <ul>
+      <li><strong>Framing/synchronization logic</strong> in serial protocols (UART start bits, HDLC flag sequences) is built from exactly this kind of overlap-aware pattern detector, watching a continuous bitstream for a specific marker.</li>
+      <li><strong>Simple intrusion/anomaly detectors</strong> and hardware string-matching (e.g., a fixed byte signature in a packet filter) use the same KMP-style "don't discard partial matches" state structure at a larger scale.</li>
+      <li><strong>This exact procedure — state diagram to state table to excitation table to K-maps to gates</strong> — is the one general-purpose method this entire unit has been building toward; it applies unchanged to any FSM, not just pattern detectors.</li>
+    </ul>
+  </div>
+
+  <div class="ad-slot">Advertisement</div>
+
+  <!-- QUIZ GATE -->
+  <div id="gate-section">
+    <div class="gate">
+      <div class="gate-blur">
+        <div class="quiz">
+          <div class="quiz-title">📝 Quick Quiz — 5 Questions</div>
+        </div>
+      </div>
+      <div class="gate-overlay">
+        <div class="gate-box">
+          <div class="lock">🔒</div>
+          <h3>Login to take the quiz</h3>
+          <p>Create a free account to take the quiz and track your progress across all topics.</p>
+          <div class="gate-btns">
+            <a href="../../../login.html" class="btn btn-primary btn-sm">Login</a>
+            <a href="../../../login.html" class="btn btn-outline btn-sm">Register Free</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="quiz" id="quiz-section" style="display:none">
+    <div class="quiz-title">📝 Quick Quiz — 5 Questions</div>
+    <div id="quiz-body"></div>
+    <button class="btn btn-primary" id="submit-btn" disabled>Submit Quiz</button>
+    <div class="quiz-result" id="quiz-result" style="display:none"></div>
+  </div>
+
+  <div class="topic-nav">
+    <a href="state-reduction-assignment.html">
+      <div class="nav-dir">← Previous</div>
+      <div class="nav-title">State Reduction &amp; State Assignment</div>
+    </a>
+    <a href="programmable-logic-devices.html" class="next">
+      <div class="nav-dir">Next →</div>
+      <div class="nav-title">Programmable Logic Devices</div>
+    </a>
+  </div>
+
+</div>
+
+<div style="max-width:820px;margin:.5rem auto;padding:0 1.25rem">
+  <div class="ad-slot">Advertisement</div>
+</div>
+<footer class="footer">© 2026 Chandra Shaker · <a href="https://chandrashaker.in">chandrashaker.in</a> · <em>Reference: M. Morris Mano &amp; Michael D. Ciletti, Digital Design with an Introduction to the Verilog HDL, 6th ed. — Sequential Logic.</em></footer>
+
+<script type="module">
+  import { initNav } from '../../../js/nav.js';
+  import { onAuth, saveProgress, getProgress } from '../../../js/firebase-config.js';
+  initNav(3);
+
+  const COURSE_ID = 'dld';
+  const TOPIC_ID  = 'fsm-design-sequence-detector';
+  const LABELS    = ['A','B','C','D'];
+  const QUIZ = [
+    { q:"In the 1101 sequence detector, why does state S3 transition to S1 (not S0) when it sees a 1?", options:["That input completes a match, and the same 1 that completed it is also the start of a possible new overlapping match", "It's an arbitrary design choice", "S1 and S0 are actually the same state", "The machine ignores that input entirely"], answer:0, explanation:"The bit that completes '1101' is a '1', which by itself already matches the first character of the pattern — routing to S1 correctly preserves that partial progress for detecting an overlapping next match." },
+    { q:"Why is the output for this detector modeled as Mealy rather than Moore?", options:["The match output is tied to a specific transition (leaving S3 on input 1), not to sitting in any particular state", "Moore machines cannot detect patterns", "Mealy machines never need a state register", "There's no real difference in this case"], answer:0, explanation:"There's no dedicated 'currently matched' state whose output is always 1 — the output is 1 exactly on the completing edge, which is the defining feature of a Mealy output." },
+    { q:"In the excitation table, what determines the values in the A+ and B+ columns?", options:["The next state read directly from the state table, split into its two assigned bits", "A guess based on the current output", "They are always equal to the current A and B values", "They come from the K-map, not the state table"], answer:0, explanation:"A+B+ is simply the binary code of whatever next state the state table specifies for that present-state/input combination — the excitation table's first job is translating state transitions into individual bit transitions." },
+    { q:"Why does the output equation y = ABx have no don't-cares to simplify with, unlike J_A, K_A, J_B, and K_B?", options:["The output is defined and required to be a specific 0 or 1 for every reachable (A,B,x) combination, with no unused state codes among the reachable rows", "Output equations never have don't-cares in any FSM", "y actually does have don't-cares, they were just omitted by mistake", "ABx is already the simplest possible form for any 3-variable function"], answer:0, explanation:"All four states (00,01,10,11) are used and every input value is defined for each, so the output truth table is fully specified — leaving no don't-care cells for y to exploit." },
+    { q:"What is the most common bug this topic warns about when designing a sequence detector?", options:["Falling all the way back to the initial state on every mismatch, which silently breaks overlapping-match detection", "Using too many flip-flops", "Choosing Mealy over Moore", "Forgetting to include a clock signal"], answer:0, explanation:"A naive design that resets to S0 on any mismatch fails to recognize overlapping occurrences of the pattern — the fix is checking whether the mismatched tail still matches a shorter prefix, as S3 does on input 1." }
+  ];
+
+  let selected = {}, submitted = false;
+
+  function buildQuiz() {
+    document.getElementById('quiz-body').innerHTML = QUIZ.map((q, qi) => `
+      <div class="question">
+        <div class="question-text">Q${qi+1}. ${q.q}</div>
+        <div class="options">
+          ${q.options.map((o, oi) => `<div class="option" data-qi="${qi}" data-oi="${oi}"><span class="option-lbl">${LABELS[oi]}</span>${o}</div>`).join('')}
+        </div>
+        <div class="explanation" id="exp${qi}" style="display:none">💡 ${q.explanation}</div>
+      </div>`).join('');
+    document.querySelectorAll('.option').forEach(el => {
+      el.onclick = () => {
+        if (submitted) return;
+        const qi = +el.dataset.qi, oi = +el.dataset.oi;
+        selected[qi] = oi;
+        document.querySelectorAll(`[data-qi="${qi}"]`).forEach(o => o.classList.remove('selected'));
+        el.classList.add('selected');
+        document.getElementById('submit-btn').disabled = Object.keys(selected).length < QUIZ.length;
+      };
+    });
+  }
+
+  async function submitQuiz(uid) {
+    submitted = true; let score = 0;
+    QUIZ.forEach((q, qi) => {
+      const correct = q.answer, chosen = selected[qi];
+      document.querySelectorAll(`[data-qi="${qi}"]`).forEach(o => {
+        const oi = +o.dataset.oi;
+        if (oi === correct) o.classList.add('correct');
+        else if (oi === chosen) o.classList.add('wrong');
+      });
+      document.getElementById(`exp${qi}`).style.display = 'block';
+      if (chosen === correct) score++;
+    });
+    document.getElementById('submit-btn').style.display = 'none';
+    const pct = Math.round((score / QUIZ.length) * 100);
+    const res = document.getElementById('quiz-result');
+    res.style.display = 'block';
+    res.className = `quiz-result ${pct >= 60 ? 'pass' : 'fail'}`;
+    res.innerHTML = `<div class="quiz-score">${pct >= 60 ? '🎉' : '📖'} Score: ${score}/${QUIZ.length} (${pct}%)</div>
+      <div class="quiz-msg">${pct >= 80 ? 'Excellent! Move to the next topic.' : pct >= 60 ? 'Good. Review what you missed.' : 'Review the lesson and try again.'}</div>`;
+    if (uid) await saveProgress(uid, COURSE_ID, TOPIC_ID, score, QUIZ.length);
+  }
+
+  onAuth(async user => {
+    const gate = document.getElementById('gate-section');
+    const quiz  = document.getElementById('quiz-section');
+    if (user) {
+      gate.style.display = 'none';
+      quiz.style.display = 'block';
+      buildQuiz();
+      document.getElementById('submit-btn').onclick = () => submitQuiz(user.uid);
+      const prog = await getProgress(user.uid, COURSE_ID, TOPIC_ID);
+      if (prog?.completed) {
+        const res = document.getElementById('quiz-result');
+        res.style.display = 'block';
+        res.className = 'quiz-result pass';
+        res.innerHTML = `<div class="quiz-score">✅ Completed — Best score: ${prog.percent}%</div>
+          <div class="quiz-msg">You can retake the quiz anytime.</div>`;
+      }
+    }
+  });
+</script>
+</body>
+</html>

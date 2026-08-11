@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Moore vs. Mealy Finite State Machines — DLD Unit 5 | Chandras EDU</title>
+  <meta name="description" content="Generalizing a sequential circuit into a finite state machine, the Moore model (output depends only on state) vs. the Mealy model (output depends on state and input), with block diagrams and a worked comparison.">
+  <link rel="canonical" href="https://courses.chandrashaker.in/academic/dld/unit5/moore-mealy-fsm.html">
+  <link rel="stylesheet" href="../../../css/style.css">
+
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Chandras EDU">
+  <meta property="og:title" content="Moore vs. Mealy Finite State Machines — DLD Unit 5 | Chandras EDU">
+  <meta property="og:description" content="Generalizing a sequential circuit into a finite state machine, the Moore model (output depends only on state) vs. the Mealy model (output depends on state and input), with block diagrams and a worked comparison.">
+  <meta property="og:url" content="https://courses.chandrashaker.in/academic/dld/unit5/moore-mealy-fsm.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Moore vs. Mealy Finite State Machines — DLD Unit 5 | Chandras EDU">
+  <meta name="twitter:description" content="Generalizing a sequential circuit into a finite state machine, the Moore model (output depends only on state) vs. the Mealy model (output depends on state and input), with block diagrams and a worked comparison.">
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Courses", "item": "https://courses.chandrashaker.in/" },
+    { "@type": "ListItem", "position": 2, "name": "DLD", "item": "https://courses.chandrashaker.in/academic/dld/" },
+    { "@type": "ListItem", "position": 3, "name": "Unit 5", "item": "https://courses.chandrashaker.in/academic/dld/unit5/" },
+    { "@type": "ListItem", "position": 4, "name": "Moore vs. Mealy Finite State Machines" }
+  ]
+}
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LearningResource",
+  "name": "Moore vs. Mealy Finite State Machines",
+  "description": "Generalizing a sequential circuit into a finite state machine, the Moore model (output depends only on state) vs. the Mealy model (output depends on state and input), with block diagrams and a worked comparison.",
+  "url": "https://courses.chandrashaker.in/academic/dld/unit5/moore-mealy-fsm.html",
+  "learningResourceType": "Lesson",
+  "educationalLevel": "Undergraduate",
+  "about": { "@type": "Thing", "name": "Digital Logic Design" },
+  "isPartOf": {
+    "@type": "Course",
+    "name": "Digital Logic Design",
+    "provider": { "@type": "Organization", "name": "Chandras EDU", "url": "https://chandrashaker.in" }
+  },
+  "publisher": { "@type": "Organization", "name": "Chandras EDU", "url": "https://chandrashaker.in" }
+}
+  </script>
+  <link rel="icon" href="/favicon.ico">
+  <style>
+    .truth-table { border-collapse:collapse; margin:1rem auto; font-size:.86rem; }
+    .truth-table th, .truth-table td { border:1px solid var(--border); padding:.4rem .65rem; text-align:center; }
+    .truth-table th { background:var(--bg-3); color:var(--text); font-weight:700; }
+  </style>
+</head>
+<body>
+<nav class="nav"><div id="main-nav"></div></nav>
+
+<div style="max-width:820px;margin:.5rem auto;padding:0 1.25rem">
+  <div class="ad-slot">Advertisement</div>
+</div>
+
+<div class="page-narrow" role="main">
+
+  <nav class="breadcrumb">
+    <a href="../../../index.html">Courses</a><span class="sep">/</span>
+    <a href="../../dld/index.html">DLD</a><span class="sep">/</span>
+    <a href="index.html">Unit 5</a><span class="sep">/</span>
+    <span>State Machines &amp; PLDs</span><span class="sep">/</span>
+    <span class="cur">Moore vs. Mealy Finite State Machines</span>
+  </nav>
+
+  <div style="background:var(--primary);border-radius:var(--radius-lg);padding:1.1rem 1.4rem;margin-bottom:1.5rem;color:#fff">
+    <div style="font-size:.75rem;opacity:.75;margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.05em">DLD › Unit 5: State Machines &amp; PLDs › Topic 1</div>
+    <h1 style="font-size:1.4rem;font-weight:700;color:#fff;margin-bottom:.5rem">Moore vs. Mealy Finite State Machines</h1>
+    <div style="display:flex;gap:.75rem;flex-wrap:wrap">
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">⏱ 18 min read</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📝 Quiz inside</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📖 Mano &amp; Ciletti Ch. 5</span>
+    </div>
+  </div>
+
+  <!-- FULL LESSON — visible to everyone -->
+  <div class="lesson">
+    <h2>From Sequential Circuit to Finite State Machine</h2>
+    <p>Every synchronous sequential circuit in Unit 4 — every counter, every shift register — is really a specific case of something more general: a <strong>finite state machine (FSM)</strong>. An FSM is fully described by five things: a finite set of <strong>states</strong>, a set of <strong>inputs</strong>, a set of <strong>outputs</strong>, a <strong>next-state function</strong> (present state + input → next state), and an <strong>output function</strong>. That last piece — exactly what the output function is allowed to depend on — is the one design choice that splits every FSM into one of two standard models.</p>
+
+    <h2>The Moore Model</h2>
+    <p>In a <strong>Moore machine</strong>, the output depends <em>only</em> on the present state — never directly on the input:</p>
+    <div style="text-align:center;margin:1.25rem 0">
+      <svg viewBox="-40 -10 620 195" style="max-width:820px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
+        <text x="-38" y="34" font-size="12" fill="var(--text)">Input</text>
+        <line x1="-4" y1="30" x2="60" y2="30" stroke="var(--primary)" stroke-width="2"/>
+
+        <rect x="60" y="10" width="100" height="80" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <text x="110" y="46" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">NEXT-STATE</text>
+        <text x="110" y="62" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">LOGIC</text>
+
+        <line x1="160" y1="30" x2="220" y2="30" stroke="var(--primary)" stroke-width="2"/>
+        <text x="172" y="24" font-size="10" fill="var(--text-2)">D</text>
+
+        <rect x="220" y="10" width="100" height="80" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <text x="270" y="46" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">STATE</text>
+        <text x="270" y="62" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">REGISTER</text>
+        <path d="M220,62 L220,78 L232,70 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5" stroke-linejoin="round"/>
+
+        <text x="180" y="138" font-size="11" fill="var(--text-2)">CLK</text>
+        <line x1="205" y1="125" x2="205" y2="70" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="205" y1="70" x2="220" y2="70" stroke="var(--primary)" stroke-width="2"/>
+
+        <line x1="320" y1="30" x2="380" y2="30" stroke="var(--primary)" stroke-width="2"/>
+        <text x="324" y="22" font-size="10" fill="var(--text-2)">Q (state)</text>
+        <circle cx="350" cy="30" r="3" fill="var(--primary)"/>
+
+        <line x1="350" y1="30" x2="350" y2="150" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="350" y1="150" x2="90" y2="150" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="90" y1="150" x2="90" y2="70" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="90" y1="70" x2="60" y2="70" stroke="var(--primary)" stroke-width="2"/>
+
+        <rect x="380" y="10" width="100" height="80" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <text x="430" y="46" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">OUTPUT</text>
+        <text x="430" y="62" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">LOGIC</text>
+
+        <line x1="480" y1="30" x2="520" y2="30" stroke="var(--primary)" stroke-width="2"/>
+        <text x="524" y="34" font-size="12" fill="var(--text)">Output</text>
+      </svg>
+    </div>
+    <p>The flip-flops forming the state register are exactly what Unit 4 called the "state" — an n-bit code identifying which of the machine's states it's currently in. Because output logic here only ever reads that state, the output is guaranteed stable for the entire clock period; it can only change right after a clock edge, in sync with the state itself.</p>
+
+    <h2>The Mealy Model</h2>
+    <p>A <strong>Mealy machine</strong> adds one wire: the output logic also reads the current input directly, not just the state:</p>
+    <div style="text-align:center;margin:1.25rem 0">
+      <svg viewBox="-40 -10 620 195" style="max-width:820px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
+        <text x="-38" y="34" font-size="12" fill="var(--text)">Input</text>
+        <line x1="-4" y1="30" x2="60" y2="30" stroke="var(--primary)" stroke-width="2"/>
+        <circle cx="20" cy="30" r="3" fill="var(--primary)"/>
+
+        <rect x="60" y="10" width="100" height="80" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <text x="110" y="46" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">NEXT-STATE</text>
+        <text x="110" y="62" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">LOGIC</text>
+
+        <line x1="160" y1="30" x2="220" y2="30" stroke="var(--primary)" stroke-width="2"/>
+        <text x="172" y="24" font-size="10" fill="var(--text-2)">D</text>
+
+        <rect x="220" y="10" width="100" height="80" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <text x="270" y="46" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">STATE</text>
+        <text x="270" y="62" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">REGISTER</text>
+        <path d="M220,62 L220,78 L232,70 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5" stroke-linejoin="round"/>
+
+        <text x="180" y="138" font-size="11" fill="var(--text-2)">CLK</text>
+        <line x1="205" y1="125" x2="205" y2="70" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="205" y1="70" x2="220" y2="70" stroke="var(--primary)" stroke-width="2"/>
+
+        <line x1="320" y1="30" x2="380" y2="30" stroke="var(--primary)" stroke-width="2"/>
+        <text x="324" y="22" font-size="10" fill="var(--text-2)">Q (state)</text>
+        <circle cx="350" cy="30" r="3" fill="var(--primary)"/>
+
+        <line x1="350" y1="30" x2="350" y2="150" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="350" y1="150" x2="90" y2="150" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="90" y1="150" x2="90" y2="70" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="90" y1="70" x2="60" y2="70" stroke="var(--primary)" stroke-width="2"/>
+
+        <line x1="20" y1="30" x2="20" y2="170" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="20" y1="170" x2="360" y2="170" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="360" y1="170" x2="360" y2="70" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="360" y1="70" x2="380" y2="70" stroke="var(--primary)" stroke-width="2"/>
+
+        <rect x="380" y="10" width="100" height="80" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <text x="430" y="46" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">OUTPUT</text>
+        <text x="430" y="62" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">LOGIC</text>
+
+        <line x1="480" y1="30" x2="520" y2="30" stroke="var(--primary)" stroke-width="2"/>
+        <text x="524" y="34" font-size="12" fill="var(--text)">Output</text>
+      </svg>
+    </div>
+    <p>Because output logic is purely combinational, a Mealy output can change the instant the input changes — even between clock edges — which is exactly why Mealy outputs are <em>not</em> guaranteed stable for a full clock cycle the way Moore outputs are.</p>
+
+    <h2>Worked Comparison — Detecting Two Consecutive 1s</h2>
+    <p>Build a circuit whose output goes to 1 whenever the last two bits received on a serial input were both 1. The two models solve this with a different number of states.</p>
+
+    <h3>Moore Version — 3 States</h3>
+    <div style="text-align:center;margin:1.25rem 0">
+      <svg viewBox="-15 -20 430 210" style="max-width:560px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <marker id="arrowM1" markerWidth="10" markerHeight="10" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+            <path d="M0,0 L8,4 L0,8 Z" fill="var(--primary)"/>
+          </marker>
+        </defs>
+        <path d="M48,38 Q60,-10 72,38" fill="none" stroke="var(--primary)" stroke-width="2" marker-end="url(#arrowM1)"/>
+        <text x="60" y="-6" font-size="11" text-anchor="middle" fill="var(--text-2)">0</text>
+        <path d="M368,38 Q380,-10 392,38" fill="none" stroke="var(--primary)" stroke-width="2" marker-end="url(#arrowM1)"/>
+        <text x="380" y="-6" font-size="11" text-anchor="middle" fill="var(--text-2)">1</text>
+
+        <line x1="88" y1="60" x2="189" y2="60" stroke="var(--primary)" stroke-width="2" marker-end="url(#arrowM1)"/>
+        <text x="140" y="52" font-size="11" text-anchor="middle" fill="var(--text-2)">1</text>
+        <line x1="248" y1="60" x2="349" y2="60" stroke="var(--primary)" stroke-width="2" marker-end="url(#arrowM1)"/>
+        <text x="300" y="52" font-size="11" text-anchor="middle" fill="var(--text-2)">1</text>
+
+        <path d="M205,85 Q140,132 78,85" fill="none" stroke="var(--primary)" stroke-width="2" marker-end="url(#arrowM1)"/>
+        <text x="140" y="122" font-size="11" text-anchor="middle" fill="var(--text-2)">0</text>
+        <path d="M365,88 Q220,172 53,88" fill="none" stroke="var(--primary)" stroke-width="2" marker-end="url(#arrowM1)"/>
+        <text x="220" y="158" font-size="11" text-anchor="middle" fill="var(--text-2)">0</text>
+
+        <circle cx="60" cy="60" r="28" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5"/>
+        <text x="60" y="58" font-size="13" font-weight="700" text-anchor="middle" fill="var(--text)">S0</text>
+        <text x="60" y="72" font-size="9" text-anchor="middle" fill="var(--text-2)">z=0</text>
+
+        <circle cx="220" cy="60" r="28" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5"/>
+        <text x="220" y="58" font-size="13" font-weight="700" text-anchor="middle" fill="var(--text)">S1</text>
+        <text x="220" y="72" font-size="9" text-anchor="middle" fill="var(--text-2)">z=0</text>
+
+        <circle cx="380" cy="60" r="28" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5"/>
+        <text x="380" y="58" font-size="13" font-weight="700" text-anchor="middle" fill="var(--text)">S2</text>
+        <text x="380" y="72" font-size="9" text-anchor="middle" fill="var(--text-2)">z=1</text>
+      </svg>
+    </div>
+    <p>S0 = "no 1 seen yet," S1 = "last bit was 1," S2 = "last two bits were 11" — and S2 is the only state whose output z is 1. Notice the machine has to <em>stay</em> in S2 (via its self-loop on input 1) for the output to keep reading 1 across consecutive 11 pairs in a longer run of 1s.</p>
+
+    <h3>Mealy Version — 2 States</h3>
+    <div style="text-align:center;margin:1.25rem 0">
+      <svg viewBox="-15 -20 420 165" style="max-width:520px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <marker id="arrowM2" markerWidth="10" markerHeight="10" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+            <path d="M0,0 L8,4 L0,8 Z" fill="var(--primary)"/>
+          </marker>
+        </defs>
+        <path d="M85,38 Q100,-12 115,38" fill="none" stroke="var(--primary)" stroke-width="2" marker-end="url(#arrowM2)"/>
+        <text x="100" y="-6" font-size="11" text-anchor="middle" fill="var(--text-2)">0/0</text>
+        <path d="M285,38 Q300,-12 315,38" fill="none" stroke="var(--primary)" stroke-width="2" marker-end="url(#arrowM2)"/>
+        <text x="300" y="-6" font-size="11" text-anchor="middle" fill="var(--text-2)">1/1</text>
+
+        <line x1="130" y1="60" x2="269" y2="60" stroke="var(--primary)" stroke-width="2" marker-end="url(#arrowM2)"/>
+        <text x="200" y="52" font-size="11" text-anchor="middle" fill="var(--text-2)">1/0</text>
+
+        <path d="M270,85 Q200,138 130,85" fill="none" stroke="var(--primary)" stroke-width="2" marker-end="url(#arrowM2)"/>
+        <text x="200" y="125" font-size="11" text-anchor="middle" fill="var(--text-2)">0/0</text>
+
+        <circle cx="100" cy="60" r="30" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5"/>
+        <text x="100" y="65" font-size="14" font-weight="700" text-anchor="middle" fill="var(--text)">S0</text>
+
+        <circle cx="300" cy="60" r="30" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5"/>
+        <text x="300" y="65" font-size="14" font-weight="700" text-anchor="middle" fill="var(--text)">S1</text>
+      </svg>
+    </div>
+    <p>Each arrow is now labeled input/output. S0 = "last bit wasn't 1" (or no history yet), S1 = "last bit was 1." The output only reads 1 on the specific transition S1→S1 driven by input 1 — the second 1 of a "11" pair — and reverts to 0 the instant the input changes, without needing a dedicated third state to "remember" that the output should currently be high.</p>
+
+    <table class="truth-table">
+      <thead><tr><th>Property</th><th>Moore</th><th>Mealy</th></tr></thead>
+      <tbody>
+        <tr><td>Output depends on</td><td>State only</td><td>State <em>and</em> input</td></tr>
+        <tr><td>States needed (this example)</td><td>3</td><td>2</td></tr>
+        <tr><td>Output changes</td><td>Only at clock edges</td><td>Can change mid-cycle with the input</td></tr>
+        <tr><td>Output stability</td><td>Stable for the full clock period</td><td>Can glitch if input is noisy</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Common Pitfalls</h2>
+    <ul>
+      <li><strong>Assuming Mealy is simply "better" because it uses fewer states.</strong> Fewer states is a real advantage, but Moore's output stability is often the deciding factor in practice — a Mealy output driving asynchronous downstream logic can produce a brief incorrect pulse if the input changes right as the state does.</li>
+      <li><strong>Forgetting that a Mealy output is a function of the arrow (transition), not the circle (state).</strong> In the diagram, the output label belongs to the edge you're traversing, not to either state it connects.</li>
+      <li><strong>Mixing the two notations on one diagram.</strong> Moore output labels belong inside/below the state circle; Mealy output labels belong on the transition arrow, alongside the input. Putting an output label in both places (or in the wrong place) makes the diagram ambiguous.</li>
+    </ul>
+
+    <h2>Applications</h2>
+    <ul>
+      <li><strong>Vending machines and traffic light controllers</strong> are classic Moore-style designs — the current state (e.g., "red light on") directly determines the output with no ambiguity about timing.</li>
+      <li><strong>Protocol/handshake logic and serial receivers</strong> (UART framing, bus protocols) often use Mealy machines specifically because reacting to an input within the same cycle — rather than waiting a full clock cycle for the state to update first — reduces latency.</li>
+      <li><strong>Any FSM can be converted between the two models</strong> — a Mealy machine can always be turned into an equivalent Moore machine (usually needing more states) and vice versa, which is why the choice is a design tradeoff, not a fundamental limitation of either model.</li>
+    </ul>
+  </div>
+
+  <div class="ad-slot">Advertisement</div>
+
+  <!-- QUIZ GATE -->
+  <div id="gate-section">
+    <div class="gate">
+      <div class="gate-blur">
+        <div class="quiz">
+          <div class="quiz-title">📝 Quick Quiz — 5 Questions</div>
+        </div>
+      </div>
+      <div class="gate-overlay">
+        <div class="gate-box">
+          <div class="lock">🔒</div>
+          <h3>Login to take the quiz</h3>
+          <p>Create a free account to take the quiz and track your progress across all topics.</p>
+          <div class="gate-btns">
+            <a href="../../../login.html" class="btn btn-primary btn-sm">Login</a>
+            <a href="../../../login.html" class="btn btn-outline btn-sm">Register Free</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="quiz" id="quiz-section" style="display:none">
+    <div class="quiz-title">📝 Quick Quiz — 5 Questions</div>
+    <div id="quiz-body"></div>
+    <button class="btn btn-primary" id="submit-btn" disabled>Submit Quiz</button>
+    <div class="quiz-result" id="quiz-result" style="display:none"></div>
+  </div>
+
+  <div class="topic-nav">
+    <a href="index.html">
+      <div class="nav-dir">← Previous</div>
+      <div class="nav-title">Unit 5 Overview</div>
+    </a>
+    <a href="state-diagrams-tables.html" class="next">
+      <div class="nav-dir">Next →</div>
+      <div class="nav-title">State Diagrams &amp; State Tables</div>
+    </a>
+  </div>
+
+</div>
+
+<div style="max-width:820px;margin:.5rem auto;padding:0 1.25rem">
+  <div class="ad-slot">Advertisement</div>
+</div>
+<footer class="footer">© 2026 Chandra Shaker · <a href="https://chandrashaker.in">chandrashaker.in</a> · <em>Reference: M. Morris Mano &amp; Michael D. Ciletti, Digital Design with an Introduction to the Verilog HDL, 6th ed. — Sequential Logic.</em></footer>
+
+<script type="module">
+  import { initNav } from '../../../js/nav.js';
+  import { onAuth, saveProgress, getProgress } from '../../../js/firebase-config.js';
+  initNav(3);
+
+  const COURSE_ID = 'dld';
+  const TOPIC_ID  = 'moore-mealy-fsm';
+  const LABELS    = ['A','B','C','D'];
+  const QUIZ = [
+    { q:"In a Moore machine, what does the output depend on?", options:["The present state only", "The present state and the current input", "The current input only", "The next state"], answer:0, explanation:"A Moore machine's output logic reads only the state register's output — never the raw input directly — which is exactly what guarantees the output stays stable for a full clock period." },
+    { q:"In a Mealy machine, why can the output change between clock edges?", options:["Because the output logic is combinational and reads the input directly, so any input change immediately affects the output", "Because Mealy machines don't use a clock at all", "Because Mealy machines have more states than Moore machines", "Mealy outputs cannot actually change between clock edges"], answer:0, explanation:"Since Mealy's output function depends on the input as well as the state, and the input can change at any time, the combinational output logic reacts immediately — not just at the clock edge." },
+    { q:"In the 'detect two consecutive 1s' example, why does the Mealy version need only 2 states while the Moore version needs 3?", options:["The Mealy machine attaches the '11 detected' output directly to a transition, instead of needing a dedicated state to hold that output high", "Mealy machines are always limited to exactly 2 states", "The Moore version detects a different pattern", "State count has nothing to do with the model chosen"], answer:0, explanation:"Because a Mealy output can be tied to an edge, no separate state is needed just to represent 'currently outputting 1' — the Moore version needs that as an explicit third state (S2)." },
+    { q:"In a Mealy state diagram, where does the output label belong?", options:["On the transition arrow, alongside the input label (e.g., '1/1')", "Inside the state circle", "Below the state circle", "Mealy diagrams don't label outputs at all"], answer:0, explanation:"A Mealy output is a property of the transition (edge) being taken, not of either state it connects, so it's written on the arrow itself, typically as input/output." },
+    { q:"Why might a designer choose a Moore machine over a Mealy machine despite needing more states?", options:["Moore's output is guaranteed stable for the full clock period, avoiding glitches if downstream logic is asynchronous", "Moore machines are always faster in every respect", "Moore machines never need a state register", "Mealy machines cannot be implemented in real hardware"], answer:0, explanation:"Moore's output stability (changing only at clock edges) is often worth the extra state(s) when the output feeds logic that isn't itself synchronized to the same clock." }
+  ];
+
+  let selected = {}, submitted = false;
+
+  function buildQuiz() {
+    document.getElementById('quiz-body').innerHTML = QUIZ.map((q, qi) => `
+      <div class="question">
+        <div class="question-text">Q${qi+1}. ${q.q}</div>
+        <div class="options">
+          ${q.options.map((o, oi) => `<div class="option" data-qi="${qi}" data-oi="${oi}"><span class="option-lbl">${LABELS[oi]}</span>${o}</div>`).join('')}
+        </div>
+        <div class="explanation" id="exp${qi}" style="display:none">💡 ${q.explanation}</div>
+      </div>`).join('');
+    document.querySelectorAll('.option').forEach(el => {
+      el.onclick = () => {
+        if (submitted) return;
+        const qi = +el.dataset.qi, oi = +el.dataset.oi;
+        selected[qi] = oi;
+        document.querySelectorAll(`[data-qi="${qi}"]`).forEach(o => o.classList.remove('selected'));
+        el.classList.add('selected');
+        document.getElementById('submit-btn').disabled = Object.keys(selected).length < QUIZ.length;
+      };
+    });
+  }
+
+  async function submitQuiz(uid) {
+    submitted = true; let score = 0;
+    QUIZ.forEach((q, qi) => {
+      const correct = q.answer, chosen = selected[qi];
+      document.querySelectorAll(`[data-qi="${qi}"]`).forEach(o => {
+        const oi = +o.dataset.oi;
+        if (oi === correct) o.classList.add('correct');
+        else if (oi === chosen) o.classList.add('wrong');
+      });
+      document.getElementById(`exp${qi}`).style.display = 'block';
+      if (chosen === correct) score++;
+    });
+    document.getElementById('submit-btn').style.display = 'none';
+    const pct = Math.round((score / QUIZ.length) * 100);
+    const res = document.getElementById('quiz-result');
+    res.style.display = 'block';
+    res.className = `quiz-result ${pct >= 60 ? 'pass' : 'fail'}`;
+    res.innerHTML = `<div class="quiz-score">${pct >= 60 ? '🎉' : '📖'} Score: ${score}/${QUIZ.length} (${pct}%)</div>
+      <div class="quiz-msg">${pct >= 80 ? 'Excellent! Move to the next topic.' : pct >= 60 ? 'Good. Review what you missed.' : 'Review the lesson and try again.'}</div>`;
+    if (uid) await saveProgress(uid, COURSE_ID, TOPIC_ID, score, QUIZ.length);
+  }
+
+  onAuth(async user => {
+    const gate = document.getElementById('gate-section');
+    const quiz  = document.getElementById('quiz-section');
+    if (user) {
+      gate.style.display = 'none';
+      quiz.style.display = 'block';
+      buildQuiz();
+      document.getElementById('submit-btn').onclick = () => submitQuiz(user.uid);
+      const prog = await getProgress(user.uid, COURSE_ID, TOPIC_ID);
+      if (prog?.completed) {
+        const res = document.getElementById('quiz-result');
+        res.style.display = 'block';
+        res.className = 'quiz-result pass';
+        res.innerHTML = `<div class="quiz-score">✅ Completed — Best score: ${prog.percent}%</div>
+          <div class="quiz-msg">You can retake the quiz anytime.</div>`;
+      }
+    }
+  });
+</script>
+</body>
+</html>

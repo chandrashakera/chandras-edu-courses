@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>State Reduction &amp; State Assignment — DLD Unit 5 | Chandras EDU</title>
+  <meta name="description" content="Merging equivalent states to shrink a state table before building hardware, and assigning binary codes to whatever states remain — with a full worked reduction and re-encoding example.">
+  <link rel="canonical" href="https://courses.chandrashaker.in/academic/dld/unit5/state-reduction-assignment.html">
+  <link rel="stylesheet" href="../../../css/style.css">
+
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Chandras EDU">
+  <meta property="og:title" content="State Reduction &amp; State Assignment — DLD Unit 5 | Chandras EDU">
+  <meta property="og:description" content="Merging equivalent states to shrink a state table before building hardware, and assigning binary codes to whatever states remain — with a full worked reduction and re-encoding example.">
+  <meta property="og:url" content="https://courses.chandrashaker.in/academic/dld/unit5/state-reduction-assignment.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="State Reduction &amp; State Assignment — DLD Unit 5 | Chandras EDU">
+  <meta name="twitter:description" content="Merging equivalent states to shrink a state table before building hardware, and assigning binary codes to whatever states remain — with a full worked reduction and re-encoding example.">
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Courses", "item": "https://courses.chandrashaker.in/" },
+    { "@type": "ListItem", "position": 2, "name": "DLD", "item": "https://courses.chandrashaker.in/academic/dld/" },
+    { "@type": "ListItem", "position": 3, "name": "Unit 5", "item": "https://courses.chandrashaker.in/academic/dld/unit5/" },
+    { "@type": "ListItem", "position": 4, "name": "State Reduction & State Assignment" }
+  ]
+}
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LearningResource",
+  "name": "State Reduction & State Assignment",
+  "description": "Merging equivalent states to shrink a state table before building hardware, and assigning binary codes to whatever states remain — with a full worked reduction and re-encoding example.",
+  "url": "https://courses.chandrashaker.in/academic/dld/unit5/state-reduction-assignment.html",
+  "learningResourceType": "Lesson",
+  "educationalLevel": "Undergraduate",
+  "about": { "@type": "Thing", "name": "Digital Logic Design" },
+  "isPartOf": {
+    "@type": "Course",
+    "name": "Digital Logic Design",
+    "provider": { "@type": "Organization", "name": "Chandras EDU", "url": "https://chandrashaker.in" }
+  },
+  "publisher": { "@type": "Organization", "name": "Chandras EDU", "url": "https://chandrashaker.in" }
+}
+  </script>
+  <link rel="icon" href="/favicon.ico">
+  <style>
+    .truth-table { border-collapse:collapse; margin:1rem auto; font-size:.86rem; }
+    .truth-table th, .truth-table td { border:1px solid var(--border); padding:.4rem .65rem; text-align:center; }
+    .truth-table th { background:var(--bg-3); color:var(--text); font-weight:700; }
+    .truth-table td.merge { background:#e8f5e9; }
+  </style>
+</head>
+<body>
+<nav class="nav"><div id="main-nav"></div></nav>
+
+<div style="max-width:820px;margin:.5rem auto;padding:0 1.25rem">
+  <div class="ad-slot">Advertisement</div>
+</div>
+
+<div class="page-narrow" role="main">
+
+  <nav class="breadcrumb">
+    <a href="../../../index.html">Courses</a><span class="sep">/</span>
+    <a href="../../dld/index.html">DLD</a><span class="sep">/</span>
+    <a href="index.html">Unit 5</a><span class="sep">/</span>
+    <span>State Machines &amp; PLDs</span><span class="sep">/</span>
+    <span class="cur">State Reduction &amp; State Assignment</span>
+  </nav>
+
+  <div style="background:var(--primary);border-radius:var(--radius-lg);padding:1.1rem 1.4rem;margin-bottom:1.5rem;color:#fff">
+    <div style="font-size:.75rem;opacity:.75;margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.05em">DLD › Unit 5: State Machines &amp; PLDs › Topic 3</div>
+    <h1 style="font-size:1.4rem;font-weight:700;color:#fff;margin-bottom:.5rem">State Reduction &amp; State Assignment</h1>
+    <div style="display:flex;gap:.75rem;flex-wrap:wrap">
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">⏱ 18 min read</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📝 Quiz inside</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📖 Mano &amp; Ciletti Ch. 5</span>
+    </div>
+  </div>
+
+  <!-- FULL LESSON — visible to everyone -->
+  <div class="lesson">
+    <h2>Why Reduce States First?</h2>
+    <p>A state table built directly from a word problem or spec often has more states than the behavior strictly requires — sometimes two states are, from the outside, completely indistinguishable. Since every state ultimately costs flip-flops (and every extra flip-flop costs excitation logic), merging redundant states before designing the circuit directly shrinks the final hardware, with zero change in observable behavior.</p>
+
+    <h2>Equivalent States</h2>
+    <p>Two states are <strong>equivalent</strong> if, starting from either one, <em>every</em> possible input sequence produces exactly the same output sequence. That reduces to a testable rule: states P and Q are equivalent if</p>
+    <div class="box box-eg">
+1. Their outputs match for every input (immediately, for Mealy; or their own state output matches, for Moore), <strong>and</strong>
+2. For every input value, the next states they go to are <em>themselves</em> equivalent (possibly recursively).
+    </div>
+    <p>In practice: group states by matching output first, then within each group compare next-state columns — if two states' next-state entries land in the same group (even if the state names differ), merge them. Repeat until no more merges are possible.</p>
+
+    <h2>Worked Example — Reducing 5 States to 3</h2>
+    <table class="truth-table">
+      <thead><tr><th>State</th><th>Next (x=0)</th><th>Next (x=1)</th><th>Output</th></tr></thead>
+      <tbody>
+        <tr><td>A</td><td>B</td><td>C</td><td>0</td></tr>
+        <tr><td class="merge">B</td><td class="merge">D</td><td class="merge">E</td><td class="merge">1</td></tr>
+        <tr><td class="merge">C</td><td class="merge">D</td><td class="merge">E</td><td class="merge">1</td></tr>
+        <tr><td>D</td><td>D</td><td>D</td><td>0</td></tr>
+        <tr><td>E</td><td>D</td><td>D</td><td>0</td></tr>
+      </tbody>
+    </table>
+    <p>Group by output first: {A, D, E} output 0, and {B, C} output 1. Within {B, C}: both rows read exactly (D, E) — identical — so <strong>B ≡ C</strong>. Within {A, D, E}: A's row is (B, C), but D's and E's rows both read (D, D) — identical to each other, and different from A's — so <strong>D ≡ E</strong>, while A stays on its own. Merging B with C (call the result B′) and D with E (call the result D′) gives:</p>
+    <table class="truth-table">
+      <thead><tr><th>State</th><th>Next (x=0)</th><th>Next (x=1)</th><th>Output</th></tr></thead>
+      <tbody>
+        <tr><td>A</td><td>B′</td><td>B′</td><td>0</td></tr>
+        <tr><td>B′</td><td>D′</td><td>D′</td><td>1</td></tr>
+        <tr><td>D′</td><td>D′</td><td>D′</td><td>0</td></tr>
+      </tbody>
+    </table>
+    <p>Five states collapsed to three — this reduced table describes <em>exactly</em> the same input/output behavior as the original five-state one, just with the redundancy gone:</p>
+    <div style="text-align:center;margin:1.25rem 0">
+      <svg viewBox="-15 -20 330 112" style="max-width:440px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <marker id="arrowR1" markerWidth="10" markerHeight="10" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+            <path d="M0,0 L8,4 L0,8 Z" fill="var(--primary)"/>
+          </marker>
+        </defs>
+        <path d="M235,38 Q250,-10 265,38" fill="none" stroke="var(--primary)" stroke-width="2" marker-end="url(#arrowR1)"/>
+        <text x="250" y="-6" font-size="11" text-anchor="middle" fill="var(--text-2)">0,1</text>
+
+        <line x1="58" y1="60" x2="159" y2="60" stroke="var(--primary)" stroke-width="2" marker-end="url(#arrowR1)"/>
+        <text x="108" y="52" font-size="11" text-anchor="middle" fill="var(--text-2)">0,1</text>
+        <line x1="188" y1="60" x2="219" y2="60" stroke="var(--primary)" stroke-width="2" marker-end="url(#arrowR1)"/>
+        <text x="204" y="52" font-size="11" text-anchor="middle" fill="var(--text-2)">0,1</text>
+
+        <circle cx="30" cy="60" r="28" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5"/>
+        <text x="30" y="58" font-size="13" font-weight="700" text-anchor="middle" fill="var(--text)">A</text>
+        <text x="30" y="72" font-size="9" text-anchor="middle" fill="var(--text-2)">z=0</text>
+
+        <circle cx="188" cy="60" r="28" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5"/>
+        <text x="188" y="58" font-size="13" font-weight="700" text-anchor="middle" fill="var(--text)">B′</text>
+        <text x="188" y="72" font-size="9" text-anchor="middle" fill="var(--text-2)">z=1</text>
+
+        <circle cx="250" cy="60" r="28" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5"/>
+        <text x="250" y="58" font-size="13" font-weight="700" text-anchor="middle" fill="var(--text)">D′</text>
+        <text x="250" y="72" font-size="9" text-anchor="middle" fill="var(--text-2)">z=0</text>
+      </svg>
+    </div>
+
+    <h2>State Assignment</h2>
+    <p>A flip-flop stores a bit, not a letter — before the excitation equations (next topic) can be derived, every remaining state needs a unique <strong>binary code</strong>. For <em>k</em> states, the minimum number of flip-flops is ⌈log₂ k⌉ — 3 states need 2 flip-flops (2 bits can represent up to 4 states, with one code left unused).</p>
+    <p>Which specific code goes to which state is a free choice that <strong>never changes the FSM's external behavior</strong> — any valid assignment (no two states sharing a code) produces a functionally correct machine. What it <em>does</em> change is how simple or complex the resulting excitation equations turn out to be; finding the truly optimal assignment is a hard combinatorial search in general, so real designs either use a straightforward sequential assignment (simplest to reason about, used throughout this course) or lean on CAD tool heuristics for larger machines.</p>
+
+    <h3>Worked Example — Assigning the Reduced Table</h3>
+    <table class="truth-table">
+      <thead><tr><th>State</th><th>Code (Q₁Q₀)</th></tr></thead>
+      <tbody>
+        <tr><td>A</td><td>00</td></tr>
+        <tr><td>B′</td><td>01</td></tr>
+        <tr><td>D′</td><td>10</td></tr>
+      </tbody>
+    </table>
+    <p>Substituting these codes for the state names turns the reduced table into one written entirely in binary — exactly the form the next topic's excitation tables and K-maps need to start from:</p>
+    <div class="box box-eg">
+Q₁Q₀ = 00 (A):  Next (x=0) = 01,  Next (x=1) = 01,  Output = 0
+Q₁Q₀ = 01 (B′): Next (x=0) = 10,  Next (x=1) = 10,  Output = 1
+Q₁Q₀ = 10 (D′): Next (x=0) = 10,  Next (x=1) = 10,  Output = 0
+(code 11 is unused — a "don't-care" input combination for the excitation K-maps)
+    </div>
+
+    <h2>Common Pitfalls</h2>
+    <ul>
+      <li><strong>Merging two states just because their outputs match.</strong> Matching output is necessary but not sufficient — their next-state behavior must also lead to equivalent states for every input, or merging them changes what the machine does.</li>
+      <li><strong>Stopping after one round of comparison.</strong> Equivalence can be recursive — two states might only turn out equivalent once an earlier round has already merged the states their transitions point to. Keep repeating the comparison until a full pass produces no new merges.</li>
+      <li><strong>Assuming a "better" state assignment is required for correctness.</strong> Every valid assignment (unique code per state) is functionally correct — the choice only affects circuit complexity, never whether the design works.</li>
+    </ul>
+
+    <h2>Applications</h2>
+    <ul>
+      <li><strong>Logic synthesis tools</strong> (in an ASIC/FPGA toolchain) run automated state-minimization and state-assignment algorithms on every FSM in a design as a standard optimization pass, using exactly this equivalence definition under the hood.</li>
+      <li><strong>Gray-code state assignment</strong> — where adjacent states in the sequence differ by only one bit — is a common special-purpose assignment strategy used specifically to reduce switching glitches in counters and simple sequencers.</li>
+      <li><strong>One-hot encoding</strong> (one flip-flop per state, instead of the minimum ⌈log₂ k⌉) is a deliberately non-minimal assignment strategy still widely used in FPGAs, trading extra flip-flops (cheap and plentiful there) for simpler, faster excitation logic.</li>
+    </ul>
+  </div>
+
+  <div class="ad-slot">Advertisement</div>
+
+  <!-- QUIZ GATE -->
+  <div id="gate-section">
+    <div class="gate">
+      <div class="gate-blur">
+        <div class="quiz">
+          <div class="quiz-title">📝 Quick Quiz — 5 Questions</div>
+        </div>
+      </div>
+      <div class="gate-overlay">
+        <div class="gate-box">
+          <div class="lock">🔒</div>
+          <h3>Login to take the quiz</h3>
+          <p>Create a free account to take the quiz and track your progress across all topics.</p>
+          <div class="gate-btns">
+            <a href="../../../login.html" class="btn btn-primary btn-sm">Login</a>
+            <a href="../../../login.html" class="btn btn-outline btn-sm">Register Free</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="quiz" id="quiz-section" style="display:none">
+    <div class="quiz-title">📝 Quick Quiz — 5 Questions</div>
+    <div id="quiz-body"></div>
+    <button class="btn btn-primary" id="submit-btn" disabled>Submit Quiz</button>
+    <div class="quiz-result" id="quiz-result" style="display:none"></div>
+  </div>
+
+  <div class="topic-nav">
+    <a href="state-diagrams-tables.html">
+      <div class="nav-dir">← Previous</div>
+      <div class="nav-title">State Diagrams &amp; State Tables</div>
+    </a>
+    <a href="fsm-design-sequence-detector.html" class="next">
+      <div class="nav-dir">Next →</div>
+      <div class="nav-title">FSM Design Procedure — Sequence Detector</div>
+    </a>
+  </div>
+
+</div>
+
+<div style="max-width:820px;margin:.5rem auto;padding:0 1.25rem">
+  <div class="ad-slot">Advertisement</div>
+</div>
+<footer class="footer">© 2026 Chandra Shaker · <a href="https://chandrashaker.in">chandrashaker.in</a> · <em>Reference: M. Morris Mano &amp; Michael D. Ciletti, Digital Design with an Introduction to the Verilog HDL, 6th ed. — Sequential Logic.</em></footer>
+
+<script type="module">
+  import { initNav } from '../../../js/nav.js';
+  import { onAuth, saveProgress, getProgress } from '../../../js/firebase-config.js';
+  initNav(3);
+
+  const COURSE_ID = 'dld';
+  const TOPIC_ID  = 'state-reduction-assignment';
+  const LABELS    = ['A','B','C','D'];
+  const QUIZ = [
+    { q:"What is the complete definition of two equivalent states?", options:["Their outputs match, and for every input value their next states are themselves equivalent", "Their outputs match — that alone is enough", "They have the same name", "They are equivalent if they appear in the same row of the table"], answer:0, explanation:"Matching output is necessary but not sufficient — the next-state behavior for every input must also lead to equivalent states, possibly requiring recursive checking." },
+    { q:"In the worked example, why are states D and E found to be equivalent?", options:["Both have output 0, and both have next-state row (D, D) — identical to each other", "They have different outputs but the same next states", "D and E are adjacent in the table", "They were arbitrarily chosen to merge"], answer:0, explanation:"D and E match on output (0) and their next-state entries are identical (D,D) for both, satisfying both conditions of equivalence." },
+    { q:"For a reduced state table with 3 states, what is the minimum number of flip-flops needed for state assignment?", options:["2, since ⌈log₂ 3⌉ = 2", "3, one flip-flop per state", "1, since fewer states need fewer flip-flops", "4, to allow room for growth"], answer:0, explanation:"⌈log₂ 3⌉ = 2 — two bits can represent up to 4 codes, enough to uniquely encode 3 states (with one code left unused)." },
+    { q:"Does the specific binary code chosen for each state (e.g., A=00 vs. A=01) affect whether the FSM behaves correctly?", options:["No — any assignment with unique codes is functionally correct; the choice only affects the excitation logic's complexity", "Yes — only one specific assignment will ever work correctly", "Yes — the assignment determines how many states the machine has", "No — state assignment has no effect on the circuit at all"], answer:0, explanation:"Every valid (unique-code) assignment produces a machine with identical external behavior; the assignment only changes how simple or complex the derived Boolean equations turn out to be." },
+    { q:"Why must state-equivalence checking sometimes be repeated for more than one round?", options:["Two states might only become provably equivalent after an earlier round has already merged the states their transitions point to", "The first round is always wrong and must be redone", "Repetition is only needed for Mealy machines, never Moore", "It's never necessary to repeat the check more than once"], answer:0, explanation:"Equivalence can depend recursively on other states' equivalence — a pair that doesn't match on the first pass may match once those referenced states have themselves been merged in an earlier round." }
+  ];
+
+  let selected = {}, submitted = false;
+
+  function buildQuiz() {
+    document.getElementById('quiz-body').innerHTML = QUIZ.map((q, qi) => `
+      <div class="question">
+        <div class="question-text">Q${qi+1}. ${q.q}</div>
+        <div class="options">
+          ${q.options.map((o, oi) => `<div class="option" data-qi="${qi}" data-oi="${oi}"><span class="option-lbl">${LABELS[oi]}</span>${o}</div>`).join('')}
+        </div>
+        <div class="explanation" id="exp${qi}" style="display:none">💡 ${q.explanation}</div>
+      </div>`).join('');
+    document.querySelectorAll('.option').forEach(el => {
+      el.onclick = () => {
+        if (submitted) return;
+        const qi = +el.dataset.qi, oi = +el.dataset.oi;
+        selected[qi] = oi;
+        document.querySelectorAll(`[data-qi="${qi}"]`).forEach(o => o.classList.remove('selected'));
+        el.classList.add('selected');
+        document.getElementById('submit-btn').disabled = Object.keys(selected).length < QUIZ.length;
+      };
+    });
+  }
+
+  async function submitQuiz(uid) {
+    submitted = true; let score = 0;
+    QUIZ.forEach((q, qi) => {
+      const correct = q.answer, chosen = selected[qi];
+      document.querySelectorAll(`[data-qi="${qi}"]`).forEach(o => {
+        const oi = +o.dataset.oi;
+        if (oi === correct) o.classList.add('correct');
+        else if (oi === chosen) o.classList.add('wrong');
+      });
+      document.getElementById(`exp${qi}`).style.display = 'block';
+      if (chosen === correct) score++;
+    });
+    document.getElementById('submit-btn').style.display = 'none';
+    const pct = Math.round((score / QUIZ.length) * 100);
+    const res = document.getElementById('quiz-result');
+    res.style.display = 'block';
+    res.className = `quiz-result ${pct >= 60 ? 'pass' : 'fail'}`;
+    res.innerHTML = `<div class="quiz-score">${pct >= 60 ? '🎉' : '📖'} Score: ${score}/${QUIZ.length} (${pct}%)</div>
+      <div class="quiz-msg">${pct >= 80 ? 'Excellent! Move to the next topic.' : pct >= 60 ? 'Good. Review what you missed.' : 'Review the lesson and try again.'}</div>`;
+    if (uid) await saveProgress(uid, COURSE_ID, TOPIC_ID, score, QUIZ.length);
+  }
+
+  onAuth(async user => {
+    const gate = document.getElementById('gate-section');
+    const quiz  = document.getElementById('quiz-section');
+    if (user) {
+      gate.style.display = 'none';
+      quiz.style.display = 'block';
+      buildQuiz();
+      document.getElementById('submit-btn').onclick = () => submitQuiz(user.uid);
+      const prog = await getProgress(user.uid, COURSE_ID, TOPIC_ID);
+      if (prog?.completed) {
+        const res = document.getElementById('quiz-result');
+        res.style.display = 'block';
+        res.className = 'quiz-result pass';
+        res.innerHTML = `<div class="quiz-score">✅ Completed — Best score: ${prog.percent}%</div>
+          <div class="quiz-msg">You can retake the quiz anytime.</div>`;
+      }
+    }
+  });
+</script>
+</body>
+</html>

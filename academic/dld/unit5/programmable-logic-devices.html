@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Programmable Logic Devices — DLD Unit 5 | Chandras EDU</title>
+  <meta name="description" content="ROM, PLA, and PAL — three ways to implement combinational logic as an AND-OR array, differing in which array (if either) is fixed versus programmable, with a worked efficiency comparison.">
+  <link rel="canonical" href="https://courses.chandrashaker.in/academic/dld/unit5/programmable-logic-devices.html">
+  <link rel="stylesheet" href="../../../css/style.css">
+
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Chandras EDU">
+  <meta property="og:title" content="Programmable Logic Devices — DLD Unit 5 | Chandras EDU">
+  <meta property="og:description" content="ROM, PLA, and PAL — three ways to implement combinational logic as an AND-OR array, differing in which array (if either) is fixed versus programmable, with a worked efficiency comparison.">
+  <meta property="og:url" content="https://courses.chandrashaker.in/academic/dld/unit5/programmable-logic-devices.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Programmable Logic Devices — DLD Unit 5 | Chandras EDU">
+  <meta name="twitter:description" content="ROM, PLA, and PAL — three ways to implement combinational logic as an AND-OR array, differing in which array (if either) is fixed versus programmable, with a worked efficiency comparison.">
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Courses", "item": "https://courses.chandrashaker.in/" },
+    { "@type": "ListItem", "position": 2, "name": "DLD", "item": "https://courses.chandrashaker.in/academic/dld/" },
+    { "@type": "ListItem", "position": 3, "name": "Unit 5", "item": "https://courses.chandrashaker.in/academic/dld/unit5/" },
+    { "@type": "ListItem", "position": 4, "name": "Programmable Logic Devices" }
+  ]
+}
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LearningResource",
+  "name": "Programmable Logic Devices",
+  "description": "ROM, PLA, and PAL — three ways to implement combinational logic as an AND-OR array, differing in which array (if either) is fixed versus programmable, with a worked efficiency comparison.",
+  "url": "https://courses.chandrashaker.in/academic/dld/unit5/programmable-logic-devices.html",
+  "learningResourceType": "Lesson",
+  "educationalLevel": "Undergraduate",
+  "about": { "@type": "Thing", "name": "Digital Logic Design" },
+  "isPartOf": {
+    "@type": "Course",
+    "name": "Digital Logic Design",
+    "provider": { "@type": "Organization", "name": "Chandras EDU", "url": "https://chandrashaker.in" }
+  },
+  "publisher": { "@type": "Organization", "name": "Chandras EDU", "url": "https://chandrashaker.in" }
+}
+  </script>
+  <link rel="icon" href="/favicon.ico">
+  <style>
+    .truth-table { border-collapse:collapse; margin:1rem auto; font-size:.86rem; }
+    .truth-table th, .truth-table td { border:1px solid var(--border); padding:.4rem .65rem; text-align:center; }
+    .truth-table th { background:var(--bg-3); color:var(--text); font-weight:700; }
+  </style>
+</head>
+<body>
+<nav class="nav"><div id="main-nav"></div></nav>
+
+<div style="max-width:820px;margin:.5rem auto;padding:0 1.25rem">
+  <div class="ad-slot">Advertisement</div>
+</div>
+
+<div class="page-narrow" role="main">
+
+  <nav class="breadcrumb">
+    <a href="../../../index.html">Courses</a><span class="sep">/</span>
+    <a href="../../dld/index.html">DLD</a><span class="sep">/</span>
+    <a href="index.html">Unit 5</a><span class="sep">/</span>
+    <span>State Machines &amp; PLDs</span><span class="sep">/</span>
+    <span class="cur">Programmable Logic Devices</span>
+  </nav>
+
+  <div style="background:var(--primary);border-radius:var(--radius-lg);padding:1.1rem 1.4rem;margin-bottom:1.5rem;color:#fff">
+    <div style="font-size:.75rem;opacity:.75;margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.05em">DLD › Unit 5: State Machines &amp; PLDs › Topic 5</div>
+    <h1 style="font-size:1.4rem;font-weight:700;color:#fff;margin-bottom:.5rem">Programmable Logic Devices</h1>
+    <div style="display:flex;gap:.75rem;flex-wrap:wrap">
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">⏱ 18 min read</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📝 Quiz inside</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📖 Mano &amp; Ciletti Ch. 3</span>
+    </div>
+  </div>
+
+  <!-- FULL LESSON — visible to everyone -->
+  <div class="lesson">
+    <p>Unit 1 showed that any Boolean function can be written as a canonical sum of minterms — an AND-OR structure: a layer of AND gates producing product terms, feeding a layer of OR gates that sums the ones the function needs. A <strong>programmable logic device (PLD)</strong> is exactly that AND-OR structure built as reconfigurable hardware — instead of wiring discrete gates for one fixed function, you "program" (or the manufacturer pre-wires) which connections exist. The three classic PLD families — <strong>ROM</strong>, <strong>PLA</strong>, and <strong>PAL</strong> — differ in exactly one thing: which of the two arrays, if either, is fixed versus programmable.</p>
+
+    <h2>ROM — Fixed AND, Programmable OR</h2>
+    <p>A <strong>ROM</strong> used as combinational logic treats its n address inputs as a full decoder: the AND array is <em>fixed</em> and always generates all 2<sup>n</sup> possible minterms, no matter which ones a given function actually needs. Only the OR array is programmable — each output is free to sum any subset of those 2<sup>n</sup> minterms. This is precisely a truth table in hardware: address in, corresponding row's data out.</p>
+    <div style="text-align:center;margin:1.25rem 0">
+      <svg viewBox="-20 -10 420 102" style="max-width:520px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
+        <text x="-16" y="14" font-size="12" fill="var(--text)">A</text>
+        <line x1="0" y1="10" x2="50" y2="10" stroke="var(--primary)" stroke-width="2"/>
+        <text x="-16" y="44" font-size="12" fill="var(--text)">B</text>
+        <line x1="0" y1="40" x2="50" y2="40" stroke="var(--primary)" stroke-width="2"/>
+        <text x="-16" y="74" font-size="12" fill="var(--text)">C</text>
+        <line x1="0" y1="70" x2="50" y2="70" stroke="var(--primary)" stroke-width="2"/>
+
+        <rect x="50" y="0" width="110" height="90" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <text x="105" y="40" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">AND ARRAY</text>
+        <text x="105" y="56" font-size="9" text-anchor="middle" fill="var(--text-2)">(fixed — all 2&#8319; minterms)</text>
+
+        <line x1="160" y1="15" x2="220" y2="15" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="160" y1="35" x2="220" y2="35" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="160" y1="55" x2="220" y2="55" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="160" y1="75" x2="220" y2="75" stroke="var(--primary)" stroke-width="2"/>
+
+        <rect x="220" y="10" width="110" height="70" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <text x="275" y="40" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">OR ARRAY</text>
+        <text x="275" y="56" font-size="9" text-anchor="middle" fill="var(--text-2)">(programmable)</text>
+
+        <line x1="330" y1="25" x2="380" y2="25" stroke="var(--primary)" stroke-width="2"/>
+        <text x="384" y="29" font-size="12" fill="var(--text)">F1</text>
+        <line x1="330" y1="55" x2="380" y2="55" stroke="var(--primary)" stroke-width="2"/>
+        <text x="384" y="59" font-size="12" fill="var(--text)">F2</text>
+      </svg>
+    </div>
+    <p>The cost: since the AND array must generate <em>every</em> minterm regardless of use, ROM size grows as 2<sup>n</sup> — practical for a modest number of inputs, but exponentially wasteful once n gets large and most functions only need a handful of the possible product terms.</p>
+
+    <h2>PLA — Programmable AND, Programmable OR</h2>
+    <p>A <strong>Programmable Logic Array</strong> makes both layers programmable. The AND array only needs to generate the product terms some output actually uses — not all 2<sup>n</sup> — and a product term computed once can feed <em>multiple</em> OR gates, so two outputs that happen to share a term don't pay for it twice.</p>
+    <div style="text-align:center;margin:1.25rem 0">
+      <svg viewBox="-20 -10 420 102" style="max-width:520px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
+        <text x="-16" y="14" font-size="12" fill="var(--text)">A</text>
+        <line x1="0" y1="10" x2="50" y2="10" stroke="var(--primary)" stroke-width="2"/>
+        <text x="-16" y="44" font-size="12" fill="var(--text)">B</text>
+        <line x1="0" y1="40" x2="50" y2="40" stroke="var(--primary)" stroke-width="2"/>
+        <text x="-16" y="74" font-size="12" fill="var(--text)">C</text>
+        <line x1="0" y1="70" x2="50" y2="70" stroke="var(--primary)" stroke-width="2"/>
+
+        <rect x="50" y="0" width="110" height="90" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <text x="105" y="40" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">AND ARRAY</text>
+        <text x="105" y="56" font-size="9" text-anchor="middle" fill="var(--text-2)">(programmable)</text>
+
+        <line x1="160" y1="15" x2="220" y2="15" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="160" y1="35" x2="220" y2="35" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="160" y1="55" x2="220" y2="55" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="160" y1="75" x2="220" y2="75" stroke="var(--primary)" stroke-width="2"/>
+
+        <rect x="220" y="10" width="110" height="70" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <text x="275" y="40" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">OR ARRAY</text>
+        <text x="275" y="56" font-size="9" text-anchor="middle" fill="var(--text-2)">(programmable)</text>
+
+        <line x1="330" y1="25" x2="380" y2="25" stroke="var(--primary)" stroke-width="2"/>
+        <text x="384" y="29" font-size="12" fill="var(--text)">F1</text>
+        <line x1="330" y1="55" x2="380" y2="55" stroke="var(--primary)" stroke-width="2"/>
+        <text x="384" y="59" font-size="12" fill="var(--text)">F2</text>
+      </svg>
+    </div>
+    <p>This is the most flexible of the three — but a programmable OR array is more complex (and historically more expensive) to manufacture reliably than a fixed one, which is exactly the tradeoff PAL is built around.</p>
+
+    <h2>PAL — Programmable AND, Fixed OR</h2>
+    <p>A <strong>Programmable Array Logic</strong> device programs only the AND array; the OR array is fixed at manufacture time, with each output wired to its own dedicated, fixed-size bank of AND-array lines. That one simplification — no programmable OR crosspoints — makes PAL cheaper and faster than an equivalent PLA.</p>
+    <div style="text-align:center;margin:1.25rem 0">
+      <svg viewBox="-20 -10 420 102" style="max-width:520px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
+        <text x="-16" y="14" font-size="12" fill="var(--text)">A</text>
+        <line x1="0" y1="10" x2="50" y2="10" stroke="var(--primary)" stroke-width="2"/>
+        <text x="-16" y="44" font-size="12" fill="var(--text)">B</text>
+        <line x1="0" y1="40" x2="50" y2="40" stroke="var(--primary)" stroke-width="2"/>
+        <text x="-16" y="74" font-size="12" fill="var(--text)">C</text>
+        <line x1="0" y1="70" x2="50" y2="70" stroke="var(--primary)" stroke-width="2"/>
+
+        <rect x="50" y="0" width="110" height="90" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <text x="105" y="40" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">AND ARRAY</text>
+        <text x="105" y="56" font-size="9" text-anchor="middle" fill="var(--text-2)">(programmable)</text>
+
+        <line x1="160" y1="15" x2="220" y2="15" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="160" y1="35" x2="220" y2="35" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="160" y1="55" x2="220" y2="55" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="160" y1="75" x2="220" y2="75" stroke="var(--primary)" stroke-width="2"/>
+
+        <rect x="220" y="10" width="110" height="70" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <text x="275" y="40" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">OR ARRAY</text>
+        <text x="275" y="56" font-size="9" text-anchor="middle" fill="var(--text-2)">(fixed)</text>
+
+        <line x1="330" y1="25" x2="380" y2="25" stroke="var(--primary)" stroke-width="2"/>
+        <text x="384" y="29" font-size="12" fill="var(--text)">F1</text>
+        <line x1="330" y1="55" x2="380" y2="55" stroke="var(--primary)" stroke-width="2"/>
+        <text x="384" y="59" font-size="12" fill="var(--text)">F2</text>
+      </svg>
+    </div>
+    <p>The tradeoff: because each output's OR gate only ever sees its own dedicated AND lines, a product term needed by two different outputs has to be generated <em>twice</em> — once in each output's bank — since a PAL's fixed OR wiring gives it no way to share.</p>
+
+    <table class="truth-table">
+      <thead><tr><th>Device</th><th>AND Array</th><th>OR Array</th><th>Product-Term Sharing</th></tr></thead>
+      <tbody>
+        <tr><td><strong>ROM</strong></td><td>Fixed (all 2<sup>n</sup>)</td><td>Programmable</td><td>Free (every term always exists)</td></tr>
+        <tr><td><strong>PLA</strong></td><td>Programmable</td><td>Programmable</td><td>Free (any term can feed any output)</td></tr>
+        <tr><td><strong>PAL</strong></td><td>Programmable</td><td>Fixed</td><td>None (each output needs its own copy)</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Worked Example — Efficiency Comparison</h2>
+    <p>Implement F1(A,B,C) = Σm(1,3,5) and F2(A,B,C) = Σm(1,2,3) together. Minterms 1 and 3 are needed by <em>both</em> functions:</p>
+    <div class="box box-eg">
+ROM: fixed decoder always builds all 8 minterms → 8 AND lines used, regardless of need.
+
+PLA: only the 4 distinct minterms actually required {1,2,3,5} need to exist at all,
+     and m1, m3 each feed both OR gates → 4 AND lines total.
+
+PAL: each output needs its own dedicated bank — F1's bank builds {1,3,5} (3 lines),
+     F2's bank separately builds {1,2,3} (3 lines) — m1 and m3 each built twice → 6 AND lines total.
+    </div>
+    <p>PLA (4) beats PAL (6) beats ROM (8) here specifically <em>because</em> this example has shared minterms and doesn't need every possible one — exactly the two conditions under which a fixed, complete AND array (ROM) or a fixed, non-sharing OR array (PAL) pays a real cost.</p>
+
+    <h2>Common Pitfalls</h2>
+    <ul>
+      <li><strong>Assuming PLA is strictly better than PAL because it's more flexible.</strong> Flexibility isn't free — a programmable OR array historically costs more silicon and speed than a fixed one, which is exactly why PAL became the dominant, cheaper choice for many real designs despite its sharing limitation.</li>
+      <li><strong>Forgetting a PAL output's product-term bank has a fixed maximum size.</strong> A function needing more product terms than a given PAL output supports simply cannot be implemented on that device without restructuring — this is a real hardware constraint, not just a theoretical inefficiency.</li>
+      <li><strong>Thinking ROM can only store data.</strong> Any combinational truth table — including one used purely as logic, with no "data" interpretation at all — can be implemented in a ROM; it's a completely general combinational device, just an inefficient one for sparse functions.</li>
+    </ul>
+
+    <h2>Applications</h2>
+    <ul>
+      <li><strong>Early lookup-table-based logic and microcode</strong> (control unit sequencing in classic CPU designs) were classic ROM applications, directly exploiting the "address in, exact row out" structure.</li>
+      <li><strong>PALs</strong> (and their successors, GALs) were the dominant "glue logic" chips of the 1980s–90s, replacing dozens of discrete SSI gates with one programmable device per board.</li>
+      <li><strong>Modern FPGAs</strong> are the direct descendants of this entire family — vastly larger, with many small programmable lookup tables (LUTs, essentially tiny ROMs) wired together instead of one monolithic AND-OR array, but built on exactly the same "program the interconnect" idea introduced here.</li>
+    </ul>
+
+    <p style="margin-top:1rem">This closes out <strong>Unit 5: State Machines &amp; PLDs</strong>, and with it, the full Digital Logic Design course — from number systems and Boolean algebra, through K-map minimization, combinational building blocks, sequential circuits, and finally the general finite-state-machine design procedure and the programmable hardware families used to implement it.</p>
+  </div>
+
+  <div class="ad-slot">Advertisement</div>
+
+  <!-- QUIZ GATE -->
+  <div id="gate-section">
+    <div class="gate">
+      <div class="gate-blur">
+        <div class="quiz">
+          <div class="quiz-title">📝 Quick Quiz — 5 Questions</div>
+        </div>
+      </div>
+      <div class="gate-overlay">
+        <div class="gate-box">
+          <div class="lock">🔒</div>
+          <h3>Login to take the quiz</h3>
+          <p>Create a free account to take the quiz and track your progress across all topics.</p>
+          <div class="gate-btns">
+            <a href="../../../login.html" class="btn btn-primary btn-sm">Login</a>
+            <a href="../../../login.html" class="btn btn-outline btn-sm">Register Free</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="quiz" id="quiz-section" style="display:none">
+    <div class="quiz-title">📝 Quick Quiz — 5 Questions</div>
+    <div id="quiz-body"></div>
+    <button class="btn btn-primary" id="submit-btn" disabled>Submit Quiz</button>
+    <div class="quiz-result" id="quiz-result" style="display:none"></div>
+  </div>
+
+  <div class="topic-nav">
+    <a href="fsm-design-sequence-detector.html">
+      <div class="nav-dir">← Previous</div>
+      <div class="nav-title">FSM Design Procedure — Sequence Detector</div>
+    </a>
+    <a href="index.html" class="next">
+      <div class="nav-dir">🎉</div>
+      <div class="nav-title">Unit 5 Complete — Back to Overview</div>
+    </a>
+  </div>
+
+</div>
+
+<div style="max-width:820px;margin:.5rem auto;padding:0 1.25rem">
+  <div class="ad-slot">Advertisement</div>
+</div>
+<footer class="footer">© 2026 Chandra Shaker · <a href="https://chandrashaker.in">chandrashaker.in</a> · <em>Reference: M. Morris Mano &amp; Michael D. Ciletti, Digital Design with an Introduction to the Verilog HDL, 6th ed. — Combinational Logic / Memory &amp; Programmable Logic.</em></footer>
+
+<script type="module">
+  import { initNav } from '../../../js/nav.js';
+  import { onAuth, saveProgress, getProgress } from '../../../js/firebase-config.js';
+  initNav(3);
+
+  const COURSE_ID = 'dld';
+  const TOPIC_ID  = 'programmable-logic-devices';
+  const LABELS    = ['A','B','C','D'];
+  const QUIZ = [
+    { q:"In a ROM used as combinational logic, what is fixed and what is programmable?", options:["The AND array is fixed (always generates all 2ⁿ minterms); the OR array is programmable", "The OR array is fixed; the AND array is programmable", "Both arrays are fixed", "Both arrays are programmable"], answer:0, explanation:"A ROM's address decoder (AND array) always produces every possible minterm regardless of need — only which minterms each output sums (the OR array) is programmable." },
+    { q:"What is the key advantage of a PLA over a ROM for implementing a sparse function (one that needs only a few product terms)?", options:["The PLA's AND array only needs to generate the product terms actually used, instead of all 2ⁿ", "PLAs use fewer inputs than ROMs", "PLAs cannot implement sparse functions at all", "ROMs and PLAs are functionally identical"], answer:0, explanation:"Because a PLA's AND array is programmable, it only builds the specific product terms required — avoiding a ROM's exponential 2ⁿ cost for functions that don't need every minterm." },
+    { q:"What is the defining limitation of a PAL compared to a PLA?", options:["Each PAL output has its own dedicated, fixed AND-term bank, so a product term needed by two outputs must be built twice instead of shared", "PALs cannot be programmed at all", "PAL outputs are limited to a single product term", "PALs require twice as many inputs as PLAs"], answer:0, explanation:"Because a PAL's OR array is fixed with each output wired to its own dedicated bank of AND lines, there's no way for one computed product term to feed two different outputs — unlike a PLA's programmable OR array." },
+    { q:"In the worked example (F1=Σm(1,3,5), F2=Σm(1,2,3)), why does the PLA implementation need only 4 AND lines while PAL needs 6?", options:["The PLA can share minterms 1 and 3 (needed by both functions) across both outputs, while the PAL must build each of those shared minterms separately in each output's own bank", "The PLA ignores minterm 5 entirely", "PAL always uses exactly 6 AND lines regardless of the function", "There is no actual difference between the two counts"], answer:0, explanation:"The PLA needs one AND line per distinct minterm used across both functions (4 total, with m1 and m3 shared); the PAL's fixed, non-sharing OR structure forces it to duplicate m1 and m3, one copy per output bank (3+3=6)." },
+    { q:"Why are modern FPGAs described as descendants of ROM/PLA/PAL despite being architecturally different?", options:["They're built from many small programmable lookup tables (LUTs) — essentially tiny ROMs — wired together, extending the same 'program the interconnect' idea to a much larger scale", "FPGAs contain no programmable logic at all", "FPGAs use exactly the same fixed 2ⁿ AND array as a ROM, with no LUT structure", "There is no meaningful relationship between FPGAs and earlier PLDs"], answer:0, explanation:"An FPGA's LUTs function like small ROMs (a fixed decode of a few inputs feeding a programmable output), replicated and interconnected at massive scale — the same core AND-OR/lookup principle, just distributed across many small blocks instead of one monolithic array." }
+  ];
+
+  let selected = {}, submitted = false;
+
+  function buildQuiz() {
+    document.getElementById('quiz-body').innerHTML = QUIZ.map((q, qi) => `
+      <div class="question">
+        <div class="question-text">Q${qi+1}. ${q.q}</div>
+        <div class="options">
+          ${q.options.map((o, oi) => `<div class="option" data-qi="${qi}" data-oi="${oi}"><span class="option-lbl">${LABELS[oi]}</span>${o}</div>`).join('')}
+        </div>
+        <div class="explanation" id="exp${qi}" style="display:none">💡 ${q.explanation}</div>
+      </div>`).join('');
+    document.querySelectorAll('.option').forEach(el => {
+      el.onclick = () => {
+        if (submitted) return;
+        const qi = +el.dataset.qi, oi = +el.dataset.oi;
+        selected[qi] = oi;
+        document.querySelectorAll(`[data-qi="${qi}"]`).forEach(o => o.classList.remove('selected'));
+        el.classList.add('selected');
+        document.getElementById('submit-btn').disabled = Object.keys(selected).length < QUIZ.length;
+      };
+    });
+  }
+
+  async function submitQuiz(uid) {
+    submitted = true; let score = 0;
+    QUIZ.forEach((q, qi) => {
+      const correct = q.answer, chosen = selected[qi];
+      document.querySelectorAll(`[data-qi="${qi}"]`).forEach(o => {
+        const oi = +o.dataset.oi;
+        if (oi === correct) o.classList.add('correct');
+        else if (oi === chosen) o.classList.add('wrong');
+      });
+      document.getElementById(`exp${qi}`).style.display = 'block';
+      if (chosen === correct) score++;
+    });
+    document.getElementById('submit-btn').style.display = 'none';
+    const pct = Math.round((score / QUIZ.length) * 100);
+    const res = document.getElementById('quiz-result');
+    res.style.display = 'block';
+    res.className = `quiz-result ${pct >= 60 ? 'pass' : 'fail'}`;
+    res.innerHTML = `<div class="quiz-score">${pct >= 60 ? '🎉' : '📖'} Score: ${score}/${QUIZ.length} (${pct}%)</div>
+      <div class="quiz-msg">${pct >= 80 ? 'Excellent! Course complete.' : pct >= 60 ? 'Good. Review what you missed.' : 'Review the lesson and try again.'}</div>`;
+    if (uid) await saveProgress(uid, COURSE_ID, TOPIC_ID, score, QUIZ.length);
+  }
+
+  onAuth(async user => {
+    const gate = document.getElementById('gate-section');
+    const quiz  = document.getElementById('quiz-section');
+    if (user) {
+      gate.style.display = 'none';
+      quiz.style.display = 'block';
+      buildQuiz();
+      document.getElementById('submit-btn').onclick = () => submitQuiz(user.uid);
+      const prog = await getProgress(user.uid, COURSE_ID, TOPIC_ID);
+      if (prog?.completed) {
+        const res = document.getElementById('quiz-result');
+        res.style.display = 'block';
+        res.className = 'quiz-result pass';
+        res.innerHTML = `<div class="quiz-score">✅ Completed — Best score: ${prog.percent}%</div>
+          <div class="quiz-msg">You can retake the quiz anytime.</div>`;
+      }
+    }
+  });
+</script>
+</body>
+</html>
