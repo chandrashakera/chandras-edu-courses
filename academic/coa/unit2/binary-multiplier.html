@@ -48,6 +48,9 @@
 }
   </script>
   <link rel="icon" href="/favicon.ico">
+  <style>
+    .mult-table td { border: none; }
+  </style>
 </head>
 <body>
 <nav class="nav"><div id="main-nav"></div></nav>
@@ -67,7 +70,7 @@
   </nav>
 
   <div style="background:var(--primary);border-radius:var(--radius-lg);padding:1.1rem 1.4rem;margin-bottom:1.5rem;color:#fff">
-    <div style="font-size:.75rem;opacity:.75;margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.05em">COA › Unit 2: Combinational Logic › Topic 6</div>
+    <div style="font-size:.75rem;opacity:.75;margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.05em">COA › Unit 2: Combinational Logic › Topic 7</div>
     <h1 style="font-size:1.4rem;font-weight:700;color:#fff;margin-bottom:.5rem">Binary Multiplier</h1>
     <div style="display:flex;gap:.75rem;flex-wrap:wrap">
       <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">⏱ 14 min read</span>
@@ -92,15 +95,39 @@
     <p>For an <em>m</em>-bit multiplicand and an <em>n</em>-bit multiplier, the product is up to <em>m+n</em> bits wide, and the AND-gate array alone needs <em>m×n</em> gates — before counting the adders needed to sum the rows.</p>
 
     <h2 id="Worked-Multiplier">Worked Example — 2-Bit × 2-Bit Multiplier</h2>
-    <p>Multiply A = A₁A₀ by B = B₁B₀ (both 2-bit), producing a 4-bit product P₃P₂P₁P₀ — laid out exactly like pencil-and-paper long multiplication:</p>
+    <p>Multiply A = A₁A₀ by B = B₁B₀ (both 2-bit), producing a 4-bit product P₃P₂P₁P₀ — laid out exactly like pencil-and-paper long multiplication. Here A = 10₂ (2) and B = 11₂ (3):</p>
     <div class="box box-eg">
-      <pre>        A1 A0        (A = 1 0 = 2)
-     ×  B1 B0        (B = 1 1 = 3)
-    ---------
-      A1B0 A0B0      ← PP0 = A·B0 = 1 0
-  A1B1 A0B1           ← PP1 = A·B1 = 1 0  (shifted left 1 position)
-    ---------
-    0  1  1  0       =  6  ✓</pre>
+      <div style="background:#1a237e;color:#e8eaf6;border-radius:4px;padding:.9rem;overflow-x:auto;margin-top:.5rem">
+        <table class="mult-table" style="border-collapse:collapse;margin:0 auto;font-size:.9rem;white-space:nowrap">
+          <tr>
+            <td style="width:34px;background:#1a237e"></td><td style="width:34px;background:#1a237e"></td>
+            <td style="width:34px;text-align:center;background:#1a237e;color:#e8eaf6">A₁</td><td style="width:34px;text-align:center;background:#1a237e;color:#e8eaf6">A₀</td>
+            <td style="background:#1a237e"></td>
+          </tr>
+          <tr>
+            <td style="text-align:center;background:#1a237e;color:#e8eaf6">×</td><td style="background:#1a237e"></td>
+            <td style="text-align:center;background:#1a237e;color:#e8eaf6">B₁</td><td style="text-align:center;background:#1a237e;color:#e8eaf6">B₀</td>
+            <td style="background:#1a237e"></td>
+          </tr>
+          <tr><td colspan="4" style="border-top:1px solid #e8eaf6;padding-top:.3rem;background:#1a237e"></td><td style="background:#1a237e"></td></tr>
+          <tr>
+            <td style="background:#1a237e"></td><td style="background:#1a237e"></td>
+            <td style="text-align:center;background:#1a237e;color:#e8eaf6">A₁B₀</td><td style="text-align:center;background:#1a237e;color:#e8eaf6">A₀B₀</td>
+            <td style="padding-left:1rem;font-size:.8rem;opacity:.8;background:#1a237e;color:#e8eaf6">← PP₀ = A·B₀ (multiply by B₀)</td>
+          </tr>
+          <tr>
+            <td style="background:#1a237e"></td><td style="text-align:center;background:#1a237e;color:#e8eaf6">A₁B₁</td>
+            <td style="text-align:center;background:#1a237e;color:#e8eaf6">A₀B₁</td><td style="background:#1a237e"></td>
+            <td style="padding-left:1rem;font-size:.8rem;opacity:.8;background:#1a237e;color:#e8eaf6">← PP₁ = A·B₁, shifted left 1 place</td>
+          </tr>
+          <tr><td colspan="4" style="border-top:1px solid #e8eaf6;padding-top:.3rem;background:#1a237e"></td><td style="background:#1a237e"></td></tr>
+          <tr>
+            <td style="text-align:center;font-weight:700;background:#1a237e;color:#e8eaf6">P₃</td><td style="text-align:center;font-weight:700;background:#1a237e;color:#e8eaf6">P₂</td>
+            <td style="text-align:center;font-weight:700;background:#1a237e;color:#e8eaf6">P₁</td><td style="text-align:center;font-weight:700;background:#1a237e;color:#e8eaf6">P₀</td>
+            <td style="padding-left:1rem;font-size:.8rem;opacity:.8;background:#1a237e;color:#e8eaf6">= 0 1 1 0 = 6 ✓</td>
+          </tr>
+        </table>
+      </div>
     </div>
     <p>Column P₀ is just A₀B₀ directly (nothing else lands in that column). Column P₁ has two bits to add (A₁B₀ and A₀B₁) — a half adder, giving sum=P₁ and a carry into the next column. Column P₂ adds A₁B₁ to that carry — another half adder, giving sum=P₂ and a final carry that becomes P₃ directly. Here's the complete gate-level circuit, one AND gate per partial-product bit and two half adders to sum the columns:</p>
 

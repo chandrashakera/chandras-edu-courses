@@ -13,13 +13,9 @@
   <meta property="og:title" content="Multiplexers — COA Unit 2 | Chandras EDU">
   <meta property="og:description" content="How a multiplexer selects one of several inputs using select lines, and how the same structure can implement any Boolean function without logic gates.">
   <meta property="og:url" content="https://courses.chandrashaker.in/academic/coa/unit2/multiplexers.html">
-  <meta property="og:image" content="https://courses.chandrashaker.in/images/coa/fig_multiplexer.png">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Multiplexers — COA Unit 2 | Chandras EDU">
   <meta name="twitter:description" content="How a multiplexer selects one of several inputs using select lines, and how the same structure can implement any Boolean function without logic gates.">
-  <meta name="twitter:image" content="https://courses.chandrashaker.in/images/coa/fig_multiplexer.png">
 
   <script type="application/ld+json">
 {
@@ -59,7 +55,6 @@
   "name": "Multiplexers",
   "description": "How a multiplexer selects one of several inputs using select lines, and how the same structure can implement any Boolean function without logic gates.",
   "url": "https://courses.chandrashaker.in/academic/coa/unit2/multiplexers.html",
-  "image": "https://courses.chandrashaker.in/images/coa/fig_multiplexer.png",
   "learningResourceType": "Lesson",
   "educationalLevel": "Undergraduate",
   "about": {
@@ -102,7 +97,7 @@
   </nav>
 
   <div style="background:var(--primary);border-radius:var(--radius-lg);padding:1.1rem 1.4rem;margin-bottom:1.5rem;color:#fff">
-    <div style="font-size:.75rem;opacity:.75;margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.05em">COA › Unit 2: Combinational Logic › Topic 10</div>
+    <div style="font-size:.75rem;opacity:.75;margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.05em">COA › Unit 2: Combinational Logic › Topic 11</div>
     <h1 style="font-size:1.4rem;font-weight:700;color:#fff;margin-bottom:.5rem">Multiplexers</h1>
     <div style="display:flex;gap:.75rem;flex-wrap:wrap">
       <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">⏱ 16 min read</span>
@@ -122,10 +117,29 @@
     <h2 id="4to1-MUX">4-to-1 Multiplexer</h2>
 
     <div style="text-align:center;margin:1.25rem 0">
-      <img src="../../../images/coa/fig_multiplexer.png"
-           alt="4-to-1 multiplexer symbol with four data inputs, two select lines, and one output"
-           style="max-width:100%;border-radius:6px;border:1px solid #e0e0e0">
-      <div style="font-size:.78rem;color:#777;margin-top:.4rem">Fig 1: A 4-to-1 MUX — the 2-bit select address S₁S₀ picks which of I₀–I₃ reaches the output Y</div>
+      <svg viewBox="-5 -25 255 180" style="max-width:340px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
+        <text x="70" y="32" font-size="12" fill="var(--text)">I₀</text>
+        <line x1="84" y1="28" x2="100" y2="28" stroke="var(--primary)" stroke-width="2"/>
+        <text x="70" y="67" font-size="12" fill="var(--text)">I₁</text>
+        <line x1="84" y1="63" x2="100" y2="63" stroke="var(--primary)" stroke-width="2"/>
+        <text x="70" y="102" font-size="12" fill="var(--text)">I₂</text>
+        <line x1="84" y1="98" x2="100" y2="98" stroke="var(--primary)" stroke-width="2"/>
+        <text x="70" y="137" font-size="12" fill="var(--text)">I₃</text>
+        <line x1="84" y1="133" x2="100" y2="133" stroke="var(--primary)" stroke-width="2"/>
+
+        <text x="120" y="-12" font-size="12" fill="var(--text-2)">S₁</text>
+        <line x1="125" y1="-6" x2="125" y2="10" stroke="var(--primary)" stroke-width="2"/>
+        <text x="150" y="-12" font-size="12" fill="var(--text-2)">S₀</text>
+        <line x1="155" y1="-6" x2="155" y2="10" stroke="var(--primary)" stroke-width="2"/>
+
+        <rect x="100" y="10" width="90" height="140" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <text x="145" y="76" font-size="13" font-weight="700" text-anchor="middle" fill="var(--text)">4-to-1</text>
+        <text x="145" y="92" font-size="13" font-weight="700" text-anchor="middle" fill="var(--text)">MUX</text>
+
+        <line x1="190" y1="80" x2="230" y2="80" stroke="var(--primary)" stroke-width="2"/>
+        <text x="234" y="84" font-size="13" fill="var(--text)">Y</text>
+      </svg>
+      <div style="font-size:.78rem;color:#777;margin-top:.4rem">Fig 1: A 4-to-1 MUX — the 2-bit select address S₁S₀ (entering the top) picks which of I₀–I₃ reaches the output Y</div>
     </div>
 
     <table>
@@ -158,10 +172,29 @@
     </table>
 
     <div style="text-align:center;margin:1.25rem 0">
-      <img src="../../../images/coa/fig_mux_xor_example.png"
-           alt="4-to-1 multiplexer with I0=0, I1=1, I2=1, I3=0 wired in, implementing F(A,B)=A XOR B with no logic gates at all"
-           style="max-width:100%;border-radius:6px;border:1px solid #e0e0e0">
-      <div style="font-size:.78rem;color:#777;margin-top:.4rem">Fig 2: Tying constants to the four data inputs turns the MUX itself into an XOR circuit — no AND, OR, or XOR gates anywhere</div>
+      <svg viewBox="-5 -25 255 180" style="max-width:340px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
+        <text x="70" y="32" font-size="12" fill="var(--text)">I₀ = 0</text>
+        <line x1="84" y1="28" x2="100" y2="28" stroke="var(--primary)" stroke-width="2"/>
+        <text x="70" y="67" font-size="12" fill="var(--text)">I₁ = 1</text>
+        <line x1="84" y1="63" x2="100" y2="63" stroke="var(--primary)" stroke-width="2"/>
+        <text x="70" y="102" font-size="12" fill="var(--text)">I₂ = 1</text>
+        <line x1="84" y1="98" x2="100" y2="98" stroke="var(--primary)" stroke-width="2"/>
+        <text x="70" y="137" font-size="12" fill="var(--text)">I₃ = 0</text>
+        <line x1="84" y1="133" x2="100" y2="133" stroke="var(--primary)" stroke-width="2"/>
+
+        <text x="122" y="-12" font-size="12" fill="var(--text-2)">A</text>
+        <line x1="125" y1="-6" x2="125" y2="10" stroke="var(--primary)" stroke-width="2"/>
+        <text x="152" y="-12" font-size="12" fill="var(--text-2)">B</text>
+        <line x1="155" y1="-6" x2="155" y2="10" stroke="var(--primary)" stroke-width="2"/>
+
+        <rect x="100" y="10" width="90" height="140" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <text x="145" y="76" font-size="13" font-weight="700" text-anchor="middle" fill="var(--text)">4-to-1</text>
+        <text x="145" y="92" font-size="13" font-weight="700" text-anchor="middle" fill="var(--text)">MUX</text>
+
+        <line x1="190" y1="80" x2="230" y2="80" stroke="var(--primary)" stroke-width="2"/>
+        <text x="234" y="84" font-size="13" fill="var(--text)">F</text>
+      </svg>
+      <div style="font-size:.78rem;color:#777;margin-top:.4rem">Fig 2: Tying constants to the four data inputs, with A and B as the select lines, turns the MUX itself into an XOR circuit — no AND, OR, or XOR gates anywhere</div>
     </div>
 
     <p>Tie I₀ = 0, I₁ = 1, I₂ = 1, I₃ = 0 (constant logic levels — ground and supply voltage, in real hardware), and the MUX's built-in selection logic does the rest. Checking: at A=1, B=0 (select = 10), the MUX routes I₂ (=1) to the output — and indeed 1⊕0 = 1. ✓ No AND, OR, or XOR gates were used anywhere — the multiplexer's internal structure <em>is</em> the entire circuit.</p>
@@ -171,7 +204,37 @@
     </div>
 
     <h2 id="Demux">Demultiplexer — the Inverse Operation</h2>
-    <p>A <strong>demultiplexer</strong> (DEMUX) does the opposite job: it takes a single data input and routes it to one of 2ⁿ output lines, chosen by <em>n</em> select lines — structurally, it's the same idea as a decoder with an added data-enable input. Where a MUX answers "which of many inputs should I read right now?", a DEMUX answers "which of many destinations should this one value go to right now?"</p>
+    <p>A <strong>demultiplexer</strong> (DEMUX) does the opposite job: it takes a single data input D and routes it to one of 2ⁿ output lines, chosen by <em>n</em> select lines — all other outputs stay 0. Where a MUX answers "which of many inputs should I read right now?", a DEMUX answers "which of many destinations should this one value go to right now?"</p>
+    <p>A 1-to-4 DEMUX (2 select lines) routes D to exactly one of four outputs Y₀–Y₃:</p>
+    <div class="box box-eg">
+      <pre>Y₀ = S₁′S₀′D    Y₁ = S₁′S₀D    Y₂ = S₁S₀′D    Y₃ = S₁S₀D</pre>
+    </div>
+    <div style="text-align:center;margin:1.25rem 0">
+      <svg viewBox="-5 -25 255 180" style="max-width:340px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
+        <text x="70" y="84" font-size="12" fill="var(--text)">D</text>
+        <line x1="84" y1="80" x2="100" y2="80" stroke="var(--primary)" stroke-width="2"/>
+
+        <text x="120" y="-12" font-size="12" fill="var(--text-2)">S₁</text>
+        <line x1="125" y1="-6" x2="125" y2="10" stroke="var(--primary)" stroke-width="2"/>
+        <text x="150" y="-12" font-size="12" fill="var(--text-2)">S₀</text>
+        <line x1="155" y1="-6" x2="155" y2="10" stroke="var(--primary)" stroke-width="2"/>
+
+        <rect x="100" y="10" width="90" height="140" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <text x="145" y="76" font-size="13" font-weight="700" text-anchor="middle" fill="var(--text)">1-to-4</text>
+        <text x="145" y="92" font-size="13" font-weight="700" text-anchor="middle" fill="var(--text)">DEMUX</text>
+
+        <line x1="190" y1="28" x2="230" y2="28" stroke="var(--primary)" stroke-width="2"/>
+        <text x="234" y="32" font-size="12" fill="var(--text)">Y₀</text>
+        <line x1="190" y1="63" x2="230" y2="63" stroke="var(--primary)" stroke-width="2"/>
+        <text x="234" y="67" font-size="12" fill="var(--text)">Y₁</text>
+        <line x1="190" y1="98" x2="230" y2="98" stroke="var(--primary)" stroke-width="2"/>
+        <text x="234" y="102" font-size="12" fill="var(--text)">Y₂</text>
+        <line x1="190" y1="133" x2="230" y2="133" stroke="var(--primary)" stroke-width="2"/>
+        <text x="234" y="137" font-size="12" fill="var(--text)">Y₃</text>
+      </svg>
+      <div style="font-size:.78rem;color:#777;margin-top:.4rem">Fig 3: A 1-to-4 DEMUX — the select address S₁S₀ picks which single output D is routed to; every other output stays 0</div>
+    </div>
+    <p>Compare this against the previous topic's decoder: a demultiplexer <em>is</em> a decoder, with the single data line D taking the place of the shared enable input. Any decoder with an enable pin can be used as a demultiplexer for free, and vice versa — they're the same circuit wearing two different names depending on how the extra input is used.</p>
 
     <h2>Common Pitfalls</h2>
     <ul>

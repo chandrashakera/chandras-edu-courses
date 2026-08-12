@@ -173,8 +173,8 @@ a:hover { text-decoration: underline; color: var(--primary-dk); }
 .lesson li { margin-bottom: .3rem; line-height: 1.65; }
 .lesson strong { color: var(--text); }
 .lesson table { width: 100%; border-collapse: collapse; margin: .9rem 0 1.25rem; font-size: .88rem; }
-.lesson th { background: var(--primary); color: #fff; padding: .55rem .9rem; text-align: left; border: 1px solid var(--primary); font-weight: 600; }
-.lesson td { padding: .55rem .9rem; border: 1px solid var(--border); color: var(--text-2); }
+.lesson th { background: var(--primary); color: #fff; padding: .55rem .9rem; text-align: center; border: 1px solid var(--primary); font-weight: 600; }
+.lesson td { padding: .55rem .9rem; border: 1px solid var(--border); color: var(--text-2); text-align: center; }
 .lesson tr:nth-child(even) td { background: var(--bg-2); }
 .lesson code { background: var(--bg-3); padding: .15rem .4rem; border-radius: 3px; font-size: .86em; color: #c62828; font-family: "Fira Code", "Cascadia Code", monospace; }
 .lesson pre { background: #1a237e; color: #e8eaf6; border-radius: var(--radius); padding: 1.1rem; overflow-x: auto; margin: .9rem 0 1.25rem; font-size: .85rem; line-height: 1.6; }

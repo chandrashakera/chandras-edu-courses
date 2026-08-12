@@ -3,52 +3,29 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Binary Adder & Subtractor — COA Unit 2 | Chandras EDU</title>
-  <meta name="description" content="Half adder, full adder, ripple-carry binary adder, binary subtractor, and the combined adder-subtractor using XOR gates and 2's complement.">
+  <title>Binary Adder — COA Unit 2 | Chandras EDU</title>
+  <meta name="description" content="Half adder and full adder built from gates, chaining full adders into a ripple-carry binary adder, and a worked 4-bit addition example.">
   <link rel="canonical" href="https://courses.chandrashaker.in/academic/coa/unit2/adders-subtractors.html">
   <link rel="stylesheet" href="../../../css/style.css">
 
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="Chandras EDU">
-  <meta property="og:title" content="Binary Adder & Subtractor — COA Unit 2 | Chandras EDU">
-  <meta property="og:description" content="Half adder, full adder, ripple-carry binary adder, binary subtractor, and the combined adder-subtractor using XOR gates and 2's complement.">
+  <meta property="og:title" content="Binary Adder — COA Unit 2 | Chandras EDU">
+  <meta property="og:description" content="Half adder and full adder built from gates, chaining full adders into a ripple-carry binary adder, and a worked 4-bit addition example.">
   <meta property="og:url" content="https://courses.chandrashaker.in/academic/coa/unit2/adders-subtractors.html">
-  <meta property="og:image" content="https://courses.chandrashaker.in/images/coa/fig_adder_subtractor.png">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Binary Adder & Subtractor — COA Unit 2 | Chandras EDU">
-  <meta name="twitter:description" content="Half adder, full adder, ripple-carry binary adder, binary subtractor, and the combined adder-subtractor using XOR gates and 2's complement.">
-  <meta name="twitter:image" content="https://courses.chandrashaker.in/images/coa/fig_adder_subtractor.png">
+  <meta name="twitter:title" content="Binary Adder — COA Unit 2 | Chandras EDU">
+  <meta name="twitter:description" content="Half adder and full adder built from gates, chaining full adders into a ripple-carry binary adder, and a worked 4-bit addition example.">
 
   <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   "itemListElement": [
-    {
-      "@type": "ListItem",
-      "position": 1,
-      "name": "Courses",
-      "item": "https://courses.chandrashaker.in/"
-    },
-    {
-      "@type": "ListItem",
-      "position": 2,
-      "name": "COA",
-      "item": "https://courses.chandrashaker.in/academic/coa/"
-    },
-    {
-      "@type": "ListItem",
-      "position": 3,
-      "name": "Unit 2",
-      "item": "https://courses.chandrashaker.in/academic/coa/unit2/"
-    },
-    {
-      "@type": "ListItem",
-      "position": 4,
-      "name": "Binary Adder & Subtractor"
-    }
+    { "@type": "ListItem", "position": 1, "name": "Courses", "item": "https://courses.chandrashaker.in/" },
+    { "@type": "ListItem", "position": 2, "name": "COA", "item": "https://courses.chandrashaker.in/academic/coa/" },
+    { "@type": "ListItem", "position": 3, "name": "Unit 2", "item": "https://courses.chandrashaker.in/academic/coa/unit2/" },
+    { "@type": "ListItem", "position": 4, "name": "Binary Adder" }
   ]
 }
   </script>
@@ -56,30 +33,18 @@
 {
   "@context": "https://schema.org",
   "@type": "LearningResource",
-  "name": "Binary Adder & Subtractor",
-  "description": "Half adder, full adder, ripple-carry binary adder, binary subtractor, and the combined adder-subtractor using XOR gates and 2's complement.",
+  "name": "Binary Adder",
+  "description": "Half adder and full adder built from gates, chaining full adders into a ripple-carry binary adder, and a worked 4-bit addition example.",
   "url": "https://courses.chandrashaker.in/academic/coa/unit2/adders-subtractors.html",
-  "image": "https://courses.chandrashaker.in/images/coa/fig_adder_subtractor.png",
   "learningResourceType": "Lesson",
   "educationalLevel": "Undergraduate",
-  "about": {
-    "@type": "Thing",
-    "name": "Computer Organization and Architecture"
-  },
+  "about": { "@type": "Thing", "name": "Computer Organization and Architecture" },
   "isPartOf": {
     "@type": "Course",
     "name": "Computer Organization and Architecture",
-    "provider": {
-      "@type": "Organization",
-      "name": "Chandras EDU",
-      "url": "https://chandrashaker.in"
-    }
+    "provider": { "@type": "Organization", "name": "Chandras EDU", "url": "https://chandrashaker.in" }
   },
-  "publisher": {
-    "@type": "Organization",
-    "name": "Chandras EDU",
-    "url": "https://chandrashaker.in"
-  }
+  "publisher": { "@type": "Organization", "name": "Chandras EDU", "url": "https://chandrashaker.in" }
 }
   </script>
   <link rel="icon" href="/favicon.ico">
@@ -98,14 +63,14 @@
     <a href="../index.html">COA</a><span class="sep">/</span>
     <a href="index.html">Unit 2</a><span class="sep">/</span>
     <span>Combinational Logic</span><span class="sep">/</span>
-    <span class="cur">Binary Adder &amp; Subtractor</span>
+    <span class="cur">Binary Adder</span>
   </nav>
 
   <div style="background:var(--primary);border-radius:var(--radius-lg);padding:1.1rem 1.4rem;margin-bottom:1.5rem;color:#fff">
     <div style="font-size:.75rem;opacity:.75;margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.05em">COA › Unit 2: Combinational Logic › Topic 4</div>
-    <h1 style="font-size:1.4rem;font-weight:700;color:#fff;margin-bottom:.5rem">Binary Adder &amp; Subtractor</h1>
+    <h1 style="font-size:1.4rem;font-weight:700;color:#fff;margin-bottom:.5rem">Binary Adder</h1>
     <div style="display:flex;gap:.75rem;flex-wrap:wrap">
-      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">⏱ 25 min read</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">⏱ 18 min read</span>
       <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📝 Quiz inside</span>
       <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📖 Mano Ch. 4</span>
     </div>
@@ -113,13 +78,12 @@
 
   <!-- FULL LESSON — visible to everyone -->
   <div class="lesson">
-    <p>Addition is the one operation every other arithmetic operation in a computer ultimately reduces to — subtraction, multiplication, even comparison all lean on it, directly or indirectly. This page builds addition from the ground up: a single-bit half adder, a chainable full adder, a complete multi-bit binary adder, and — using the 2's complement representation from Unit 1 — a combined adder-subtractor that does both jobs with almost no extra hardware.</p>
+    <p>Addition is the operation almost everything else in a computer is built on top of — subtraction, multiplication, even comparison usually reduce to addition somewhere underneath. This page builds an adder up in three small steps: a single-bit half adder, a single-bit full adder that can be chained, and finally a complete multi-bit binary adder made by connecting full adders together.</p>
 
     <h2 id="Half-Adder">Half Adder</h2>
-    <p>A <strong>half adder</strong> is a combinational circuit that adds two single bits, producing a sum bit and a carry bit.</p>
-    <p style="text-align:center;font-size:1.1rem;font-weight:700;color:var(--primary);margin:1rem 0">S = x ⊕ y &nbsp;&nbsp; C = x · y</p>
+    <p>A <strong>half adder</strong> is the simplest possible adding circuit: it takes two single bits, A and B, and adds them — producing a <strong>sum</strong> bit S and a <strong>carry</strong> bit C.</p>
     <table>
-      <thead><tr><th>x</th><th>y</th><th>S</th><th>C</th></tr></thead>
+      <thead><tr><th>A</th><th>B</th><th>S (Sum)</th><th>C (Carry)</th></tr></thead>
       <tbody>
         <tr><td>0</td><td>0</td><td>0</td><td>0</td></tr>
         <tr><td>0</td><td>1</td><td>1</td><td>0</td></tr>
@@ -127,13 +91,37 @@
         <tr><td>1</td><td>1</td><td>0</td><td>1</td></tr>
       </tbody>
     </table>
-    <p>The name is deliberate: it's only "half" the job. A half adder has no way to accept a <strong>carry-in</strong> from a previous, less-significant bit position — which makes it usable only for the very lowest bit of a multi-bit addition, where there's genuinely nothing to carry in from.</p>
+    <p style="text-align:center;font-size:1.1rem;font-weight:700;color:var(--primary);margin:1rem 0">S = A ⊕ B &nbsp;&nbsp; C = A · B</p>
+    <p>Both equations can be read straight off the truth table — the sum column is exactly XOR, and the carry column is exactly AND. Here's a half adder built from those two gates:</p>
+    <div style="text-align:center;margin:1.25rem 0">
+      <svg viewBox="-8 -8 200 168" style="max-width:280px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
+        <text x="0" y="29" font-size="13" fill="var(--text)">A</text>
+        <line x1="14" y1="25" x2="50" y2="25" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="35" y1="25" x2="35" y2="105" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="35" y1="105" x2="50" y2="105" stroke="var(--primary)" stroke-width="2"/>
+
+        <text x="0" y="59" font-size="13" fill="var(--text)">B</text>
+        <line x1="14" y1="55" x2="50" y2="55" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="25" y1="55" x2="25" y2="135" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="25" y1="135" x2="50" y2="135" stroke="var(--primary)" stroke-width="2"/>
+
+        <path d="M41,10 Q65,40 41,70" fill="none" stroke="var(--primary)" stroke-width="3" stroke-linejoin="round"/>
+        <path d="M50,10 Q74,40 50,70 Q104,70 131,40 Q104,10 50,10 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="3" stroke-linejoin="round"/>
+        <line x1="131" y1="40" x2="160" y2="40" stroke="var(--primary)" stroke-width="2"/>
+        <text x="164" y="44" font-size="13" fill="var(--text)">S</text>
+
+        <path d="M50,90 L86,90 A30,30 0 0 1 86,150 L50,150 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="3" stroke-linejoin="round"/>
+        <line x1="116" y1="120" x2="160" y2="120" stroke="var(--primary)" stroke-width="2"/>
+        <text x="164" y="124" font-size="13" fill="var(--text)">C</text>
+      </svg>
+      <div style="font-size:.78rem;color:#777;margin-top:.4rem">Fig 1: Half adder — one XOR gate makes the sum, one AND gate makes the carry</div>
+    </div>
+    <p>The name is deliberate: it only does "half" the job. A half adder has no way to accept a <strong>carry-in</strong> from an earlier, less significant bit position — so it can only be used for the very lowest bit of a multi-bit addition, where there's genuinely nothing to carry in from.</p>
 
     <h2 id="Full-Adder">Full Adder</h2>
-    <p>A <strong>full adder</strong> fixes exactly that gap: it's a combinational circuit that adds <strong>three</strong> bits — two significant bits (x, y) plus a carry-in (z) from the previous position — producing a sum and a carry-out.</p>
-    <p style="text-align:center;font-size:1.1rem;font-weight:700;color:var(--primary);margin:1rem 0">S = x ⊕ y ⊕ z &nbsp;&nbsp; C = xy + xz + yz</p>
+    <p>A <strong>full adder</strong> fixes that gap: it adds <strong>three</strong> bits — A, B, and a carry-in <strong>Cin</strong> from the previous, less significant position — producing a sum S and a carry-out <strong>Cout</strong>. This extra Cin input is what lets full adders be chained together.</p>
     <table>
-      <thead><tr><th>x</th><th>y</th><th>z</th><th>S</th><th>C</th></tr></thead>
+      <thead><tr><th>A</th><th>B</th><th>Cin</th><th>S</th><th>Cout</th></tr></thead>
       <tbody>
         <tr><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
         <tr><td>0</td><td>0</td><td>1</td><td>1</td><td>0</td></tr>
@@ -145,72 +133,128 @@
         <tr><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td></tr>
       </tbody>
     </table>
-    <p>The carry expression C = xy + xz + yz is worth noticing as a pattern in its own right: it's 1 whenever <strong>at least two of the three inputs are 1</strong> — a "majority" function. This is a clean, general way to remember it instead of memorizing the truth table row by row.</p>
-    <p>A full adder can be built from two half adders plus an OR gate: the first half adder combines x and y, the second combines that partial sum with the carry-in z, and the two half-adders' carry outputs are OR-ed together for the final carry. Building it this way is a good exercise in seeing how larger combinational blocks reuse smaller ones.</p>
-
+    <p style="text-align:center;font-size:1.1rem;font-weight:700;color:var(--primary);margin:1rem 0">S = A ⊕ B ⊕ Cin &nbsp;&nbsp; Cout = AB + BCin + ACin</p>
+    <p>The carry-out equation is worth remembering as a pattern rather than by rote: it's 1 whenever <strong>at least two of the three inputs are 1</strong> — this is called a "majority" function.</p>
+    <p>The easiest way to build a full adder is to reuse two half adders plus one OR gate, instead of wiring the equations above from scratch:</p>
     <div style="text-align:center;margin:1.25rem 0">
-      <img src="../../../images/coa/fig_half_full_adder.png"
-           alt="Half adder and full adder truth tables and equations side by side"
-           style="max-width:100%;border-radius:6px;border:1px solid #e0e0e0">
-      <div style="font-size:.78rem;color:#777;margin-top:.4rem">Fig 1: Half adder (2 inputs) vs. full adder (3 inputs, including carry-in) — side by side</div>
+      <svg viewBox="-15 -25 445 190" style="max-width:560px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
+        <text x="0" y="32" font-size="13" fill="var(--text)">A</text>
+        <line x1="14" y1="28" x2="50" y2="28" stroke="var(--primary)" stroke-width="2"/>
+        <text x="0" y="66" font-size="13" fill="var(--text)">B</text>
+        <line x1="14" y1="62" x2="50" y2="62" stroke="var(--primary)" stroke-width="2"/>
+        <rect x="50" y="10" width="70" height="70" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <text x="85" y="54" font-size="15" font-weight="700" text-anchor="middle" fill="var(--text)">HA₁</text>
+
+        <line x1="120" y1="28" x2="180" y2="28" stroke="var(--primary)" stroke-width="2"/>
+        <text x="138" y="22" font-size="11" fill="var(--text-2)">S₁</text>
+        <line x1="120" y1="62" x2="145" y2="62" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="145" y1="62" x2="145" y2="105" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="145" y1="105" x2="289" y2="105" stroke="var(--primary)" stroke-width="2"/>
+        <text x="152" y="118" font-size="11" fill="var(--text-2)">C₁</text>
+
+        <text x="0" y="99" font-size="13" fill="var(--text)">Cin</text>
+        <line x1="22" y1="95" x2="160" y2="95" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="160" y1="95" x2="160" y2="62" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="160" y1="62" x2="180" y2="62" stroke="var(--primary)" stroke-width="2"/>
+
+        <rect x="180" y="10" width="70" height="70" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <text x="215" y="54" font-size="15" font-weight="700" text-anchor="middle" fill="var(--text)">HA₂</text>
+
+        <line x1="250" y1="28" x2="290" y2="28" stroke="var(--primary)" stroke-width="2"/>
+        <text x="294" y="32" font-size="13" fill="var(--text)">S</text>
+        <line x1="250" y1="62" x2="265" y2="62" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="265" y1="62" x2="265" y2="135" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="265" y1="135" x2="289" y2="135" stroke="var(--primary)" stroke-width="2"/>
+        <text x="258" y="98" font-size="11" fill="var(--text-2)">C₂</text>
+
+        <path d="M280,90 Q304,120 280,150 Q334,150 361,120 Q334,90 280,90 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="3" stroke-linejoin="round"/>
+        <line x1="361" y1="120" x2="395" y2="120" stroke="var(--primary)" stroke-width="2"/>
+        <text x="399" y="124" font-size="13" fill="var(--text)">Cout</text>
+      </svg>
+      <div style="font-size:.78rem;color:#777;margin-top:.4rem">Fig 2: A full adder built from two half adders and one OR gate</div>
     </div>
+    <p>HA₁ adds A and B, giving a partial sum S₁ and a carry C₁. HA₂ then adds S₁ and Cin, giving the final sum S and a second carry C₂. C₁ and C₂ can never both be 1 at the same time, so simply OR-ing them together gives the correct Cout, without needing any 3-input gate.</p>
 
     <h2 id="Binary-Adder">Binary Adder — Chaining Full Adders</h2>
-    <p>A <strong>binary adder</strong> produces the arithmetic sum of two full binary numbers, not just single bits. It's built by connecting full adders in a chain: the carry-out of each stage feeds directly into the carry-in of the next, more-significant stage. This structure is called a <strong>ripple carry adder</strong>, because a carry generated at the least-significant bit can, in the worst case, "ripple" all the way through every stage up to the most-significant bit before the final result is stable.</p>
-    <p>Adding two <em>n</em>-bit numbers requires exactly <em>n</em> full adders (or one half adder for the LSB, where there's genuinely no carry-in, plus <em>n−1</em> full adders for the rest).</p>
+    <p>A <strong>binary adder</strong> adds two full binary numbers, not just single bits. It's built by connecting full adders in a chain: the carry-out of each stage feeds directly into the carry-in of the next, more significant stage. This is called a <strong>ripple carry adder</strong>, because a carry made at the least significant bit can, in the worst case, "ripple" all the way up through every stage before the final result settles.</p>
+    <p>Adding two 4-bit numbers takes four full adders, each stage's carry-out wired straight into the next stage's carry-in:</p>
+    <div style="text-align:center;margin:1.25rem 0">
+      <svg viewBox="-15 -25 500 165" style="max-width:640px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
+        <text x="24" y="-8" font-size="11" fill="var(--text-2)">A₃</text>
+        <line x1="35" y1="-2" x2="35" y2="10" stroke="var(--primary)" stroke-width="2"/>
+        <text x="64" y="-8" font-size="11" fill="var(--text-2)">B₃</text>
+        <line x1="75" y1="-2" x2="75" y2="10" stroke="var(--primary)" stroke-width="2"/>
+        <rect x="20" y="10" width="70" height="70" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <text x="55" y="54" font-size="14" font-weight="700" text-anchor="middle" fill="var(--text)">FA₃</text>
+        <line x1="55" y1="80" x2="55" y2="105" stroke="var(--primary)" stroke-width="2"/>
+        <text x="48" y="118" font-size="11" fill="var(--text-2)">S₃</text>
+
+        <text x="139" y="-8" font-size="11" fill="var(--text-2)">A₂</text>
+        <line x1="150" y1="-2" x2="150" y2="10" stroke="var(--primary)" stroke-width="2"/>
+        <text x="179" y="-8" font-size="11" fill="var(--text-2)">B₂</text>
+        <line x1="190" y1="-2" x2="190" y2="10" stroke="var(--primary)" stroke-width="2"/>
+        <rect x="135" y="10" width="70" height="70" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <text x="170" y="54" font-size="14" font-weight="700" text-anchor="middle" fill="var(--text)">FA₂</text>
+        <line x1="170" y1="80" x2="170" y2="105" stroke="var(--primary)" stroke-width="2"/>
+        <text x="163" y="118" font-size="11" fill="var(--text-2)">S₂</text>
+
+        <text x="254" y="-8" font-size="11" fill="var(--text-2)">A₁</text>
+        <line x1="265" y1="-2" x2="265" y2="10" stroke="var(--primary)" stroke-width="2"/>
+        <text x="294" y="-8" font-size="11" fill="var(--text-2)">B₁</text>
+        <line x1="305" y1="-2" x2="305" y2="10" stroke="var(--primary)" stroke-width="2"/>
+        <rect x="250" y="10" width="70" height="70" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <text x="285" y="54" font-size="14" font-weight="700" text-anchor="middle" fill="var(--text)">FA₁</text>
+        <line x1="285" y1="80" x2="285" y2="105" stroke="var(--primary)" stroke-width="2"/>
+        <text x="278" y="118" font-size="11" fill="var(--text-2)">S₁</text>
+
+        <text x="369" y="-8" font-size="11" fill="var(--text-2)">A₀</text>
+        <line x1="380" y1="-2" x2="380" y2="10" stroke="var(--primary)" stroke-width="2"/>
+        <text x="409" y="-8" font-size="11" fill="var(--text-2)">B₀</text>
+        <line x1="420" y1="-2" x2="420" y2="10" stroke="var(--primary)" stroke-width="2"/>
+        <rect x="365" y="10" width="70" height="70" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <text x="400" y="54" font-size="14" font-weight="700" text-anchor="middle" fill="var(--text)">FA₀</text>
+        <line x1="400" y1="80" x2="400" y2="105" stroke="var(--primary)" stroke-width="2"/>
+        <text x="393" y="118" font-size="11" fill="var(--text-2)">S₀</text>
+
+        <text x="-14" y="49" font-size="11" fill="var(--text-2)">C₄</text>
+        <line x1="0" y1="45" x2="20" y2="45" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="90" y1="45" x2="135" y2="45" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="205" y1="45" x2="250" y2="45" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="320" y1="45" x2="365" y2="45" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="435" y1="45" x2="460" y2="45" stroke="var(--primary)" stroke-width="2"/>
+        <text x="464" y="49" font-size="11" fill="var(--text-2)">C₀</text>
+      </svg>
+      <div style="font-size:.78rem;color:#777;margin-top:.4rem">Fig 3: A 4-bit ripple carry adder — four full adders, each carry-out feeding the next carry-in. C₀ is the carry into the very first (rightmost) stage, normally tied to 0; C₄ is the final carry-out.</div>
+    </div>
+    <p>In general, adding two <em>n</em>-bit numbers needs <em>n</em> full adders (or one half adder for the lowest bit, where there's genuinely no carry-in, plus <em>n−1</em> full adders for the rest).</p>
 
     <h3>Worked Example — 4-Bit Addition</h3>
-    <p>Add A = 1001₂ (9) and B = 0110₂ (6) using a 4-bit ripple carry adder, working right to left (LSB first):</p>
-    <div class="box box-eg">
-      <pre>  Bit position:   3   2   1   0
-  A:              1   0   0   1
-  B:              0   1   1   0
-  Carry-in:        1   1   0   0     (each stage's carry becomes next stage's carry-in)
-  Sum:             1   1   1   1
-  Final carry-out: 0</pre>
-    </div>
-    <p>Result: 1111₂ = 15, and indeed 9 + 6 = 15. ✓</p>
-
-    <h2 id="Binary-Subtractor">Binary Subtractor</h2>
-    <p>Subtraction (A − B) has its own natural full-adder-like building block: a <strong>full subtractor</strong> computes the difference of three bits (a minuend bit, a subtrahend bit, and a borrow-in), producing a difference bit and a borrow-out.</p>
-    <p style="text-align:center;font-size:1.1rem;font-weight:700;color:var(--primary);margin:1rem 0">D = x ⊕ y ⊕ z &nbsp;&nbsp; B = x′y + x′z + yz</p>
-    <p>Notice the difference equation is <em>identical in form</em> to the full adder's sum equation — XOR doesn't care whether you're framing it as "carry" or "borrow." The borrow equation differs from the carry equation only in that x is complemented — worth comparing side by side with the full adder's carry expression above.</p>
-
-    <h2 id="Combined">Combined Adder–Subtractor</h2>
-    <p>Building separate adder and subtractor circuits is wasteful — Unit 1 already showed that 2's complement turns subtraction into addition (A − B = A + B′ + 1), and that same trick lets one circuit do both jobs.</p>
-    <p>Take a chain of full adders (an ordinary binary adder), and insert one <strong>XOR gate</strong> in front of each B input, with all those XOR gates sharing a single common control line, <strong>M</strong>:</p>
-    <ul>
-      <li><strong>M = 0:</strong> each XOR gate passes B through unchanged (B ⊕ 0 = B), and M also feeds the carry-in of the first stage as 0. The circuit computes <strong>A + B</strong> — ordinary addition.</li>
-      <li><strong>M = 1:</strong> each XOR gate inverts every bit of B (B ⊕ 1 = B′), and M feeds the first stage's carry-in as 1. The circuit computes <strong>A + B′ + 1</strong>, which is exactly A − B in 2's complement.</li>
-    </ul>
-
-    <div style="text-align:center;margin:1.25rem 0">
-      <img src="../../../images/coa/fig_adder_subtractor.png"
-           alt="4-bit binary adder-subtractor circuit using XOR gates controlled by a shared M line, with explicit carry-in and carry-out, annotated with a worked example"
-           style="max-width:100%;border-radius:6px;border:1px solid #e0e0e0">
-      <div style="font-size:.78rem;color:#777;margin-top:.4rem">Fig 2: One control bit M switches the same 4-bit full-adder chain between addition and subtraction — annotated here with A=1001(9), B=0110(6), M=1, giving 9−6=3</div>
-    </div>
-
-    <h3>Worked Example — Same Hardware, Both Operations</h3>
-    <p>Let A = 1001₂ (9), B = 0101₂ (5):</p>
-    <p><strong>M = 0 (add):</strong> B passes through unchanged. 1001 + 0101 = 1110₂ = 14. Check: 9 + 5 = 14. ✓</p>
-    <p><strong>M = 1 (subtract):</strong> B is inverted to 1010, and carry-in = 1. 1001 + 1010 + 1 = 1 0100₂ → drop the overflow carry → 0100₂ = 4. Check: 9 − 5 = 4. ✓</p>
-    <p>Same four full adders, same four XOR gates, same wiring — only the single control bit M changed.</p>
+    <p>Add A = 1001₂ (9) and B = 0110₂ (6), working right to left (bit 0 first) so each stage's carry-out becomes the next stage's carry-in:</p>
+    <table>
+      <thead><tr><th>Bit position</th><th>4</th><th>3</th><th>2</th><th>1</th><th>0</th></tr></thead>
+      <tbody>
+        <tr><td>Carry into this bit</td><td>—</td><td>1</td><td>1</td><td>0</td><td>0</td></tr>
+        <tr><td>A</td><td>—</td><td>1</td><td>0</td><td>0</td><td>1</td></tr>
+        <tr><td>B</td><td>—</td><td>0</td><td>1</td><td>1</td><td>0</td></tr>
+        <tr><td><strong>Result</strong></td><td><strong>0</strong></td><td><strong>1</strong></td><td><strong>1</strong></td><td><strong>1</strong></td><td><strong>1</strong></td></tr>
+      </tbody>
+    </table>
+    <p>Reading the result row left to right (bit 4 down to bit 0) gives <strong>01111₂ = 15</strong>. Bit 4 is the final carry-out C₄ — here it's 0, meaning the answer fit in 4 bits with nothing left over. Check: 9 + 6 = 15. ✓</p>
 
     <div class="box box-tip">
-      🚀 <strong>Beyond the textbook:</strong> the ripple carry adder described on this page is simple but has a real weakness — the worst-case delay grows with the number of bits, since each stage must wait for the previous stage's carry before it can finish. Modern CPUs use faster designs like the <strong>carry-lookahead adder</strong>, which computes all the carries in parallel using extra logic, trading more gates for much lower latency. The ripple carry adder here is still the right place to start — it's what a carry-lookahead adder is built to outperform.
+      🚀 <strong>Beyond the textbook:</strong> the ripple carry adder on this page is simple but has a real weakness — the worst-case delay grows with the number of bits, since each stage must wait for the previous stage's carry before it can finish. Modern CPUs use faster designs like the <strong>carry-lookahead adder</strong>, which computes all the carries in parallel using extra logic, trading more gates for much lower latency. The ripple carry adder here is still the right place to start — it's what a carry-lookahead adder is built to outperform.
     </div>
 
     <h2>Common Pitfalls</h2>
     <ul>
       <li><strong>A half adder cannot be chained directly</strong> — it has no carry-in input at all. Multi-bit addition needs full adders for every position except (optionally) the very first.</li>
       <li><strong>Each stage's carry-out must feed the very next stage's carry-in, in order</strong> — skipping or misrouting a carry connection silently produces a wrong sum for every bit position past the error.</li>
-      <li><strong>In the combined adder-subtractor, M must feed both the XOR gates <em>and</em> the first-stage carry-in</strong> — wiring M to only the XOR gates (forgetting the carry-in) computes A + B′ instead of A + B′ + 1, which is off by one from the correct subtraction result.</li>
+      <li><strong>Forgetting to include the final carry-out as part of the answer.</strong> As the worked example shows, the true result is a 5-bit number (carry-out plus the 4 sum bits) — dropping the carry-out silently loses information whenever it's a 1.</li>
     </ul>
 
     <h2>Applications</h2>
     <ul>
-      <li><strong>Every ALU</strong> you'll encounter in this course's later units builds its addition/subtraction hardware from exactly this adder-subtractor pattern.</li>
+      <li><strong>Every ALU</strong> you'll encounter later in this course builds its arithmetic hardware starting from exactly this full-adder chain.</li>
       <li><strong>Decimal-digit arithmetic</strong> (the next topic in this unit) reuses this exact binary adder as its first stage, adding a correction step on top rather than building addition from scratch.</li>
       <li><strong>Checksum and parity computations</strong> in networking hardware often reuse binary adder circuits, since a checksum is fundamentally a repeated addition operation.</li>
     </ul>
@@ -252,9 +296,9 @@
       <div class="nav-dir">← Previous</div>
       <div class="nav-title">Design Procedure</div>
     </a>
-    <a href="decimal-adder.html" class="next">
+    <a href="binary-subtractor.html" class="next">
       <div class="nav-dir">Next →</div>
-      <div class="nav-title">Decimal (BCD) Adder</div>
+      <div class="nav-title">Binary Subtractor</div>
     </a>
   </div>
 
@@ -263,7 +307,7 @@
 <div style="max-width:820px;margin:.5rem auto;padding:0 1.25rem">
   <div class="ad-slot">Advertisement</div>
 </div>
-<footer class="footer">© 2026 Chandra Shaker · <a href="https://chandrashaker.in">chandrashaker.in</a> · <em>Reference: M. Morris Mano, Digital Design / Computer System Architecture — Binary Adder, Binary Subtractor, Binary Adder-Subtractor.</em></footer>
+<footer class="footer">© 2026 Chandra Shaker · <a href="https://chandrashaker.in">chandrashaker.in</a> · <em>Reference: M. Morris Mano, Digital Design / Computer System Architecture — Half Adder, Full Adder, Binary Adder.</em></footer>
 
 <script type="module">
   import { initNav } from '../../../js/nav.js';
@@ -274,11 +318,11 @@
   const TOPIC_ID  = 'adders-subtractors';
   const LABELS    = ['A','B','C','D'];
   const QUIZ = [
-    { q:"Why can't a half adder be used to add two arbitrary-position bits in a multi-bit addition, only the least significant bit?", options:["A half adder has no carry-in input, so it can't accept a carry from a previous, less-significant stage","A half adder can only add numbers up to value 1","A half adder produces two sum bits instead of one","A half adder requires a clock signal to operate"], answer:0, explanation:"A half adder adds only two bits (x, y) with no carry-in — it's usable only at the lowest bit position, where there's genuinely nothing to carry in from." },
+    { q:"Why can't a half adder be used for every bit position in a multi-bit addition — only the least significant bit?", options:["A half adder has no carry-in input, so it can't accept a carry from a previous, less significant stage","A half adder can only add numbers up to value 1","A half adder produces two sum bits instead of one","A half adder requires a clock signal to operate"], answer:0, explanation:"A half adder adds only two bits (A, B) with no carry-in — it's usable only at the lowest bit position, where there's genuinely nothing to carry in from." },
     { q:"A 4-bit ripple carry adder computes A + B where A = 1110 (14) and B = 0011 (3). What is the result?", options:["Sum = 0001, carry-out = 1","Sum = 1111, carry-out = 0","Sum = 0001, carry-out = 0","Sum = 1110, carry-out = 1"], answer:0, explanation:"14 + 3 = 17 = 10001₂. Within 4 bits that's sum=0001 with carry-out=1 (16 + 1 = 17). ✓" },
-    { q:"In the combined adder-subtractor, what happens if M correctly drives the XOR gates but is NOT connected to the first full adder's carry-in (which stays at 0)?", options:["The circuit computes A + B′ instead of A + B′ + 1 — the result is off by exactly one from the correct subtraction","The circuit still subtracts correctly, since the XOR gates alone are sufficient","The circuit performs addition instead of subtraction","The circuit produces a random, unpredictable result"], answer:0, explanation:"2's complement subtraction requires A + B′ + 1. Without carry-in=1, you only get A + B′ — missing the '+1' that completes the 2's complement, so the result is off by one." },
-    { q:"A full adder's carry-out equation is C = xy + xz + yz. What is C when x=1, y=0, z=1?", options:["1, since xz = 1·1 = 1","0, since y = 0","1, since all three inputs are involved","0, since x and y don't both equal 1"], answer:0, explanation:"C = xy + xz + yz = (1·0) + (1·1) + (0·1) = 0 + 1 + 0 = 1. This matches the \"majority\" reading of the carry equation: two of the three inputs (x and z) are 1, so C=1." },
-    { q:"The full subtractor's difference equation is D = x⊕y⊕z — identical in form to the full adder's sum equation S = x⊕y⊕z. Why?", options:["XOR's behavior (1 when an odd number of inputs are 1) doesn't depend on whether the bits are labeled as addends/carry or minuend/subtrahend/borrow — the bit-level operation is the same either way","It's a coincidence with no deeper reason","Subtraction and addition are mathematically the same operation","Because both circuits use exactly the same physical gates, just rewired"], answer:0, explanation:"XOR only cares about how many inputs are 1, not what they're semantically labeled — so the same equation form applies whether you're framing it as sum/carry or difference/borrow." }
+    { q:"In the full adder built from two half adders (HA₁, HA₂) and an OR gate, why is it safe to simply OR the two carry outputs C₁ and C₂ together instead of using a 3-input gate?", options:["C₁ and C₂ can never both be 1 at the same time, so OR-ing them gives the correct Cout","OR gates are always safe to use no matter what","C₁ is always 0 in a correctly built half adder","The two carries always have opposite values by definition"], answer:0, explanation:"HA₁'s partial sum S₁ is a single bit, so C₁ and C₂ can't both be 1 simultaneously — getting a carry from both stages at once is impossible, which is exactly why OR-ing them is safe." },
+    { q:"A full adder's carry-out equation is Cout = AB + BCin + ACin. What is Cout when A=1, B=0, Cin=1?", options:["1, since A·Cin = 1·1 = 1","0, since B = 0","1, since all three inputs are involved","0, since A and B don't both equal 1"], answer:0, explanation:"Cout = AB + BCin + ACin = (1·0) + (0·1) + (1·1) = 0 + 0 + 1 = 1. This matches the \"majority\" reading: two of the three inputs (A and Cin) are 1, so Cout=1." },
+    { q:"In the 4-bit worked example (A=1001, B=0110), the result row reads 0 1 1 1 1 across bit positions 4 down to 0. What does the leading \"0\" (bit position 4) represent?", options:["The final carry-out — here 0, meaning the sum fit in 4 bits with nothing left over","An error in the addition","The carry-in to the very first stage","A sign bit indicating the result is negative"], answer:0, explanation:"Bit position 4 in the result row is the carry-out of the most significant stage, C₄. Reading the full 5-bit result gives 01111₂ = 15, matching 9 + 6 = 15." }
   ];
 
   let selected = {}, submitted = false;
