@@ -119,9 +119,9 @@
     <p>The name is deliberate: it only does "half" the job. A half adder has no way to accept a <strong>carry-in</strong> from an earlier, less significant bit position — so it can only be used for the very lowest bit of a multi-bit addition, where there's genuinely nothing to carry in from.</p>
 
     <h2 id="Full-Adder">Full Adder</h2>
-    <p>A <strong>full adder</strong> fixes that gap: it adds <strong>three</strong> bits — A, B, and a carry-in <strong>Cin</strong> from the previous, less significant position — producing a sum S and a carry-out <strong>Cout</strong>. This extra Cin input is what lets full adders be chained together.</p>
+    <p>A <strong>full adder</strong> fixes that gap: it adds <strong>three</strong> bits — A, B, and a carry-in <strong>Cᵢₙ</strong> from the previous, less significant position — producing a sum S and a carry-out <strong>Cₒᵤₜ</strong>. This extra Cᵢₙ input is what lets full adders be chained together.</p>
     <table>
-      <thead><tr><th>A</th><th>B</th><th>Cin</th><th>S</th><th>Cout</th></tr></thead>
+      <thead><tr><th>A</th><th>B</th><th>Cᵢₙ</th><th>S</th><th>Cₒᵤₜ</th></tr></thead>
       <tbody>
         <tr><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
         <tr><td>0</td><td>0</td><td>1</td><td>1</td><td>0</td></tr>
@@ -133,7 +133,7 @@
         <tr><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td></tr>
       </tbody>
     </table>
-    <p style="text-align:center;font-size:1.1rem;font-weight:700;color:var(--primary);margin:1rem 0">S = A ⊕ B ⊕ Cin &nbsp;&nbsp; Cout = AB + BCin + ACin</p>
+    <p style="text-align:center;font-size:1.1rem;font-weight:700;color:var(--primary);margin:1rem 0">S = A ⊕ B ⊕ Cᵢₙ &nbsp;&nbsp; Cₒᵤₜ = AB + BCᵢₙ + ACᵢₙ</p>
     <p>The carry-out equation is worth remembering as a pattern rather than by rote: it's 1 whenever <strong>at least two of the three inputs are 1</strong> — this is called a "majority" function.</p>
     <p>The easiest way to build a full adder is to reuse two half adders plus one OR gate, instead of wiring the equations above from scratch:</p>
     <div style="text-align:center;margin:1.25rem 0">
@@ -152,7 +152,7 @@
         <line x1="145" y1="105" x2="289" y2="105" stroke="var(--primary)" stroke-width="2"/>
         <text x="152" y="118" font-size="11" fill="var(--text-2)">C₁</text>
 
-        <text x="0" y="99" font-size="13" fill="var(--text)">Cin</text>
+        <text x="0" y="99" font-size="13" fill="var(--text)">Cᵢₙ</text>
         <line x1="22" y1="95" x2="160" y2="95" stroke="var(--primary)" stroke-width="2"/>
         <line x1="160" y1="95" x2="160" y2="62" stroke="var(--primary)" stroke-width="2"/>
         <line x1="160" y1="62" x2="180" y2="62" stroke="var(--primary)" stroke-width="2"/>
@@ -169,11 +169,11 @@
 
         <path d="M280,90 Q304,120 280,150 Q334,150 361,120 Q334,90 280,90 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="3" stroke-linejoin="round"/>
         <line x1="361" y1="120" x2="395" y2="120" stroke="var(--primary)" stroke-width="2"/>
-        <text x="399" y="124" font-size="13" fill="var(--text)">Cout</text>
+        <text x="399" y="124" font-size="13" fill="var(--text)">Cₒᵤₜ</text>
       </svg>
       <div style="font-size:.78rem;color:#777;margin-top:.4rem">Fig 2: A full adder built from two half adders and one OR gate</div>
     </div>
-    <p>HA₁ adds A and B, giving a partial sum S₁ and a carry C₁. HA₂ then adds S₁ and Cin, giving the final sum S and a second carry C₂. C₁ and C₂ can never both be 1 at the same time, so simply OR-ing them together gives the correct Cout, without needing any 3-input gate.</p>
+    <p>HA₁ adds A and B, giving a partial sum S₁ and a carry C₁. HA₂ then adds S₁ and Cᵢₙ, giving the final sum S and a second carry C₂. C₁ and C₂ can never both be 1 at the same time, so simply OR-ing them together gives the correct Cₒᵤₜ, without needing any 3-input gate.</p>
 
     <h2 id="Binary-Adder">Binary Adder — Chaining Full Adders</h2>
     <p>A <strong>binary adder</strong> adds two full binary numbers, not just single bits. It's built by connecting full adders in a chain: the carry-out of each stage feeds directly into the carry-in of the next, more significant stage. This is called a <strong>ripple carry adder</strong>, because a carry made at the least significant bit can, in the worst case, "ripple" all the way up through every stage before the final result settles.</p>
@@ -320,8 +320,8 @@
   const QUIZ = [
     { q:"Why can't a half adder be used for every bit position in a multi-bit addition — only the least significant bit?", options:["A half adder has no carry-in input, so it can't accept a carry from a previous, less significant stage","A half adder can only add numbers up to value 1","A half adder produces two sum bits instead of one","A half adder requires a clock signal to operate"], answer:0, explanation:"A half adder adds only two bits (A, B) with no carry-in — it's usable only at the lowest bit position, where there's genuinely nothing to carry in from." },
     { q:"A 4-bit ripple carry adder computes A + B where A = 1110 (14) and B = 0011 (3). What is the result?", options:["Sum = 0001, carry-out = 1","Sum = 1111, carry-out = 0","Sum = 0001, carry-out = 0","Sum = 1110, carry-out = 1"], answer:0, explanation:"14 + 3 = 17 = 10001₂. Within 4 bits that's sum=0001 with carry-out=1 (16 + 1 = 17). ✓" },
-    { q:"In the full adder built from two half adders (HA₁, HA₂) and an OR gate, why is it safe to simply OR the two carry outputs C₁ and C₂ together instead of using a 3-input gate?", options:["C₁ and C₂ can never both be 1 at the same time, so OR-ing them gives the correct Cout","OR gates are always safe to use no matter what","C₁ is always 0 in a correctly built half adder","The two carries always have opposite values by definition"], answer:0, explanation:"HA₁'s partial sum S₁ is a single bit, so C₁ and C₂ can't both be 1 simultaneously — getting a carry from both stages at once is impossible, which is exactly why OR-ing them is safe." },
-    { q:"A full adder's carry-out equation is Cout = AB + BCin + ACin. What is Cout when A=1, B=0, Cin=1?", options:["1, since A·Cin = 1·1 = 1","0, since B = 0","1, since all three inputs are involved","0, since A and B don't both equal 1"], answer:0, explanation:"Cout = AB + BCin + ACin = (1·0) + (0·1) + (1·1) = 0 + 0 + 1 = 1. This matches the \"majority\" reading: two of the three inputs (A and Cin) are 1, so Cout=1." },
+    { q:"In the full adder built from two half adders (HA₁, HA₂) and an OR gate, why is it safe to simply OR the two carry outputs C₁ and C₂ together instead of using a 3-input gate?", options:["C₁ and C₂ can never both be 1 at the same time, so OR-ing them gives the correct Cₒᵤₜ","OR gates are always safe to use no matter what","C₁ is always 0 in a correctly built half adder","The two carries always have opposite values by definition"], answer:0, explanation:"HA₁'s partial sum S₁ is a single bit, so C₁ and C₂ can't both be 1 simultaneously — getting a carry from both stages at once is impossible, which is exactly why OR-ing them is safe." },
+    { q:"A full adder's carry-out equation is Cₒᵤₜ = AB + BCᵢₙ + ACᵢₙ. What is Cₒᵤₜ when A=1, B=0, Cᵢₙ=1?", options:["1, since A·Cᵢₙ = 1·1 = 1","0, since B = 0","1, since all three inputs are involved","0, since A and B don't both equal 1"], answer:0, explanation:"Cₒᵤₜ = AB + BCᵢₙ + ACᵢₙ = (1·0) + (0·1) + (1·1) = 0 + 0 + 1 = 1. This matches the \"majority\" reading: two of the three inputs (A and Cᵢₙ) are 1, so Cₒᵤₜ=1." },
     { q:"In the 4-bit worked example (A=1001, B=0110), the result row reads 0 1 1 1 1 across bit positions 4 down to 0. What does the leading \"0\" (bit position 4) represent?", options:["The final carry-out — here 0, meaning the sum fit in 4 bits with nothing left over","An error in the addition","The carry-in to the very first stage","A sign bit indicating the result is negative"], answer:0, explanation:"Bit position 4 in the result row is the carry-out of the most significant stage, C₄. Reading the full 5-bit result gives 01111₂ = 15, matching 9 + 6 = 15." }
   ];
 

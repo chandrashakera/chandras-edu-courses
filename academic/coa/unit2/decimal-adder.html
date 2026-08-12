@@ -99,7 +99,7 @@
         <text x="-12" y="59" font-size="13" fill="var(--text)">B</text>
         <line x1="2" y1="55" x2="40" y2="55" stroke="var(--primary)" stroke-width="2"/>
         <line x1="60" y1="80" x2="60" y2="98" stroke="var(--primary)" stroke-width="2"/>
-        <text x="44" y="112" font-size="11" fill="var(--text-2)">Cin</text>
+        <text x="44" y="112" font-size="11" fill="var(--text-2)">Cᵢₙ</text>
         <rect x="40" y="10" width="90" height="70" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
         <text x="85" y="42" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">4-BIT</text>
         <text x="85" y="58" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">ADDER</text>
@@ -132,7 +132,7 @@
 
     <h2 id="Worked-1">Worked Example 1 — 8 + 7 in BCD (K ≥ 10 case)</h2>
     <div class="box box-eg">
-      <pre>A = 1000 (8), B = 0111 (7), Cin = 0
+      <pre>A = 1000 (8), B = 0111 (7), Cᵢₙ = 0
 Binary adder:  1000 + 0111 = 1111  →  K = 1111 (15), C = 0
 
 Check: K₃K₂ = 1·1 = 1  →  Z = C + K₃K₂ + K₃K₁ = 0 + 1 + 1 = 1  (add 6)
@@ -145,7 +145,7 @@ Result: "1" and "5" → 15 in BCD, correctly split across two decimal digit posi
     <h2 id="Worked-2">Worked Example 2 — 9 + 9 in BCD (C = 1 case)</h2>
     <p>This case is worth working through separately, because the adder's own carry-out C — not just a large K — is what triggers the correction:</p>
     <div class="box box-eg">
-      <pre>A = 1001 (9), B = 1001 (9), Cin = 0
+      <pre>A = 1001 (9), B = 1001 (9), Cᵢₙ = 0
 Binary adder:  1001 + 1001 = 1 0010  →  4-bit result K = 0010 (2), C = 1 (overflowed the 4-bit adder)
 
 Check: K₃K₂ = 0, K₃K₁ = 0, but C = 1  →  Z = C + K₃K₂ + K₃K₁ = 1 + 0 + 0 = 1  (add 6)
@@ -170,7 +170,7 @@ Result: "1" and "8" → 18 in BCD.  Check: 9+9=18 ✓  Notice K alone (0010=2) l
     <ul>
       <li><strong>Decimal-display calculators, POS terminals, and older financial hardware</strong> that compute directly in BCD (avoiding binary-to-decimal conversion errors) rely on exactly this add-6 correction circuit, cascaded one decade per digit.</li>
       <li><strong>Digital clocks and BCD counters</strong> (the Registers &amp; Counters topic in this unit's Sequential Logic group) commonly use BCD arithmetic internally specifically because it maps directly onto seven-segment digit displays without any extra conversion logic.</li>
-      <li><strong>Multi-digit decimal arithmetic</strong> chains several BCD adders together, one per digit, with each stage's Z output feeding the next stage's Cin — the same ripple-carry idea from the previous topic, just at the level of whole decimal digits instead of individual bits.</li>
+      <li><strong>Multi-digit decimal arithmetic</strong> chains several BCD adders together, one per digit, with each stage's Z output feeding the next stage's Cᵢₙ — the same ripple-carry idea from the previous topic, just at the level of whole decimal digits instead of individual bits.</li>
     </ul>
   </div>
 
