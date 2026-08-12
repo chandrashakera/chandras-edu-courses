@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Computer Registers — COA Unit 3 | Chandras EDU</title>
+  <meta name="description" content="The Basic Computer's full register set — AR, PC, DR, AC, IR, TR, INPR, OUTR, SC — and its control flip-flops, connected through one common bus.">
+  <link rel="canonical" href="https://courses.chandrashaker.in/academic/coa/unit3/computer-registers.html">
+  <link rel="stylesheet" href="../../../css/style.css">
+
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Chandras EDU">
+  <meta property="og:title" content="Computer Registers — COA Unit 3 | Chandras EDU">
+  <meta property="og:description" content="The Basic Computer's full register set — AR, PC, DR, AC, IR, TR, INPR, OUTR, SC — and its control flip-flops, connected through one common bus.">
+  <meta property="og:url" content="https://courses.chandrashaker.in/academic/coa/unit3/computer-registers.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Computer Registers — COA Unit 3 | Chandras EDU">
+  <meta name="twitter:description" content="The Basic Computer's full register set — AR, PC, DR, AC, IR, TR, INPR, OUTR, SC — and its control flip-flops, connected through one common bus.">
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Courses", "item": "https://courses.chandrashaker.in/" },
+    { "@type": "ListItem", "position": 2, "name": "COA", "item": "https://courses.chandrashaker.in/academic/coa/" },
+    { "@type": "ListItem", "position": 3, "name": "Unit 3", "item": "https://courses.chandrashaker.in/academic/coa/unit3/" },
+    { "@type": "ListItem", "position": 4, "name": "Computer Registers" }
+  ]
+}
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LearningResource",
+  "name": "Computer Registers",
+  "description": "The Basic Computer's full register set — AR, PC, DR, AC, IR, TR, INPR, OUTR, SC — and its control flip-flops, connected through one common bus.",
+  "url": "https://courses.chandrashaker.in/academic/coa/unit3/computer-registers.html",
+  "learningResourceType": "Lesson",
+  "educationalLevel": "Undergraduate",
+  "about": { "@type": "Thing", "name": "Computer Organization and Architecture" },
+  "isPartOf": {
+    "@type": "Course",
+    "name": "Computer Organization and Architecture",
+    "provider": { "@type": "Organization", "name": "Chandras EDU", "url": "https://chandrashaker.in" }
+  },
+  "publisher": { "@type": "Organization", "name": "Chandras EDU", "url": "https://chandrashaker.in" }
+}
+  </script>
+  <link rel="icon" href="/favicon.ico">
+  <style>
+    .truth-table { border-collapse:collapse; margin:1rem auto; font-size:.86rem; }
+    .truth-table th, .truth-table td { border:1px solid var(--border); padding:.4rem .65rem; text-align:center; }
+    .truth-table th { background:var(--bg-3); color:var(--text); font-weight:700; }
+  </style>
+</head>
+<body>
+<nav class="nav"><div id="main-nav"></div></nav>
+
+<div style="max-width:820px;margin:.5rem auto;padding:0 1.25rem">
+  <div class="ad-slot">Advertisement</div>
+</div>
+
+<div class="page-narrow" role="main">
+
+  <nav class="breadcrumb">
+    <a href="../../../index.html">Courses</a><span class="sep">/</span>
+    <a href="../index.html">Computer Organization and Architecture</a><span class="sep">/</span>
+    <a href="index.html">Unit 3</a><span class="sep">/</span>
+    <span>Basic Computer Organization &amp; Design</span><span class="sep">/</span>
+    <span class="cur">Computer Registers</span>
+  </nav>
+
+  <div style="background:var(--primary);border-radius:var(--radius-lg);padding:1.1rem 1.4rem;margin-bottom:1.5rem;color:#fff">
+    <div style="font-size:.75rem;opacity:.75;margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.05em">COA › Unit 3: Basic Computer Organization › Topic 2</div>
+    <h1 style="font-size:1.4rem;font-weight:700;color:#fff;margin-bottom:.5rem">Computer Registers</h1>
+    <div style="display:flex;gap:.75rem;flex-wrap:wrap">
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">⏱ 18 min read</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📝 Quiz inside</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📖 Mano, Ch. 5</span>
+    </div>
+  </div>
+
+  <!-- FULL LESSON — visible to everyone -->
+  <div class="lesson">
+    <p>Every idea from the first half of this unit — registers, a shared bus, memory read/write — comes together here as one concrete machine. The Basic Computer has eight named registers plus a handful of single-bit control flip-flops, all connected through one 16-bit common bus (Unit 3's Bus &amp; Memory Transfers topic, applied directly).</p>
+
+    <h2>The Register Set</h2>
+    <table class="truth-table">
+      <thead><tr><th>Register</th><th>Bits</th><th>Function</th></tr></thead>
+      <tbody>
+        <tr><td><strong>DR</strong></td><td>16</td><td>Data Register — holds the memory operand currently being worked with</td></tr>
+        <tr><td><strong>AR</strong></td><td>12</td><td>Address Register — holds the memory address for the current access</td></tr>
+        <tr><td><strong>AC</strong></td><td>16</td><td>Accumulator — the general-purpose register almost every operation reads or writes</td></tr>
+        <tr><td><strong>IR</strong></td><td>16</td><td>Instruction Register — holds the instruction currently being executed</td></tr>
+        <tr><td><strong>PC</strong></td><td>12</td><td>Program Counter — holds the address of the <em>next</em> instruction to fetch</td></tr>
+        <tr><td><strong>TR</strong></td><td>16</td><td>Temporary Register — holds intermediate values during multi-step execution</td></tr>
+        <tr><td><strong>INPR</strong></td><td>8</td><td>Input Register — buffers one character from an input device</td></tr>
+        <tr><td><strong>OUTR</strong></td><td>8</td><td>Output Register — buffers one character bound for an output device</td></tr>
+        <tr><td><strong>SC</strong></td><td>4</td><td>Sequence Counter — not programmer-visible; sequences the control unit through each instruction's timing states</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Control Flip-Flops</h2>
+    <table class="truth-table">
+      <thead><tr><th>Flip-Flop</th><th>Meaning</th></tr></thead>
+      <tbody>
+        <tr><td><strong>I</strong></td><td>Holds the current instruction's indirect-addressing bit</td></tr>
+        <tr><td><strong>S</strong></td><td>Start/stop control — clears to halt the machine's clock</td></tr>
+        <tr><td><strong>E</strong></td><td>Extended AC bit — captures carry-out during addition and the extra bit during a circular shift</td></tr>
+        <tr><td><strong>R</strong></td><td>Interrupt flip-flop — set when an interrupt is pending and about to be serviced</td></tr>
+        <tr><td><strong>IEN</strong></td><td>Interrupt Enable — master switch for whether interrupts are allowed at all</td></tr>
+        <tr><td><strong>FGI</strong></td><td>Input flag — set when an input device has a new character ready in INPR</td></tr>
+        <tr><td><strong>FGO</strong></td><td>Output flag — set when the output device is ready to accept a new character in OUTR</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Connected by One Common Bus</h2>
+    <div style="text-align:center;margin:1.25rem 0">
+      <svg viewBox="-10 -80 560 280" style="max-width:640px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
+        <rect x="20" y="-70" width="185" height="50" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <text x="112" y="-48" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">MEMORY</text>
+        <text x="112" y="-33" font-size="10" text-anchor="middle" fill="var(--text-2)">4096 × 16</text>
+
+        <line x1="62.5" y1="10" x2="62.5" y2="-20" stroke="var(--primary)" stroke-width="2"/>
+        <text x="9" y="0" font-size="9" fill="var(--text-2)">Address</text>
+        <line x1="162.5" y1="10" x2="162.5" y2="-20" stroke="var(--primary)" stroke-width="2"/>
+        <text x="169" y="0" font-size="9" fill="var(--text-2)">Data</text>
+
+        <rect x="20" y="10" width="85" height="40" rx="4" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5"/>
+        <text x="62.5" y="34" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">AR (12)</text>
+        <rect x="120" y="10" width="85" height="40" rx="4" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5"/>
+        <text x="162.5" y="34" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">DR (16)</text>
+        <rect x="220" y="10" width="85" height="40" rx="4" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5"/>
+        <text x="262.5" y="34" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">PC (12)</text>
+        <rect x="320" y="10" width="85" height="40" rx="4" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5"/>
+        <text x="362.5" y="34" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">AC (16)</text>
+
+        <line x1="62.5" y1="50" x2="62.5" y2="95" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="162.5" y1="50" x2="162.5" y2="95" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="262.5" y1="50" x2="262.5" y2="95" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="362.5" y1="50" x2="362.5" y2="95" stroke="var(--primary)" stroke-width="2"/>
+
+        <line x1="0" y1="95" x2="425" y2="95" stroke="var(--primary)" stroke-width="3"/>
+        <text x="429" y="99" font-size="10" fill="var(--text-2)">COMMON BUS (16-bit)</text>
+
+        <line x1="62.5" y1="140" x2="62.5" y2="95" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="162.5" y1="140" x2="162.5" y2="95" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="262.5" y1="140" x2="262.5" y2="95" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="362.5" y1="140" x2="362.5" y2="95" stroke="var(--primary)" stroke-width="2"/>
+
+        <rect x="20" y="140" width="85" height="40" rx="4" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5"/>
+        <text x="62.5" y="164" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">IR (16)</text>
+        <rect x="120" y="140" width="85" height="40" rx="4" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5"/>
+        <text x="162.5" y="164" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">TR (16)</text>
+        <rect x="220" y="140" width="85" height="40" rx="4" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5"/>
+        <text x="262.5" y="164" font-size="11" font-weight="700" text-anchor="middle" fill="var(--text)">INPR (8)</text>
+        <rect x="320" y="140" width="85" height="40" rx="4" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5"/>
+        <text x="362.5" y="164" font-size="11" font-weight="700" text-anchor="middle" fill="var(--text)">OUTR (8)</text>
+      </svg>
+    </div>
+    <p>AR and DR additionally have dedicated, direct lines to memory's address and data connections (shown above the bus) — every memory access in this machine goes through exactly those two registers. INPR and OUTR, in the real design, connect specifically to AC's low 8 bits rather than the full 16-bit bus (Unit 3's Input-Output topic covers exactly how); they're shown here on the shared bus purely to keep this overview diagram to one consistent style.</p>
+
+    <h2>Common Pitfalls</h2>
+    <ul>
+      <li><strong>Confusing AR with PC.</strong> Both are 12-bit address-sized registers, but PC always holds the address of the <em>next instruction</em>, while AR holds whatever address the <em>current</em> micro-operation needs — they usually hold different values at any given moment.</li>
+      <li><strong>Treating SC as programmer-visible.</strong> No instruction ever reads or writes SC directly — it's purely internal control-unit bookkeeping, covered in the next topic, Timing and Control.</li>
+      <li><strong>Mixing up E with a general status/overflow flag register.</strong> E is a single specific flip-flop with two very specific jobs in this design (capturing add's carry-out, and acting as the 17th bit during a circular shift) — it isn't a general-purpose condition-code register the way a modern CPU's flags register is.</li>
+    </ul>
+
+    <h2>Applications</h2>
+    <ul>
+      <li><strong>Every register named here reappears by name</strong> throughout the rest of this unit's RTL statements — Instruction Cycle, Memory Reference Instructions, and Input-Output &amp; Interrupt all assume exactly this register set.</li>
+      <li><strong>Real CPUs scale this same idea up</strong> — a modern register file has dozens of general-purpose registers instead of one AC, but still keeps dedicated special-purpose registers (an instruction pointer/PC, a memory address/data interface) playing the same roles as AR, PC, IR, and DR here.</li>
+      <li><strong>The E (extend) bit's role</strong> is the direct conceptual ancestor of a modern carry flag — both exist specifically to let one arithmetic circuit's 1-bit overflow become usable data for the next operation.</li>
+    </ul>
+  </div>
+
+  <div class="ad-slot">Advertisement</div>
+
+  <!-- QUIZ GATE -->
+  <div id="gate-section">
+    <div class="gate">
+      <div class="gate-blur">
+        <div class="quiz">
+          <div class="quiz-title">📝 Quick Quiz — 5 Questions</div>
+        </div>
+      </div>
+      <div class="gate-overlay">
+        <div class="gate-box">
+          <div class="lock">🔒</div>
+          <h3>Login to take the quiz</h3>
+          <p>Create a free account to take the quiz and track your progress across all topics.</p>
+          <div class="gate-btns">
+            <a href="../../../login.html" class="btn btn-primary btn-sm">Login</a>
+            <a href="../../../login.html" class="btn btn-outline btn-sm">Register Free</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="quiz" id="quiz-section" style="display:none">
+    <div class="quiz-title">📝 Quick Quiz — 5 Questions</div>
+    <div id="quiz-body"></div>
+    <button class="btn btn-primary" id="submit-btn" disabled>Submit Quiz</button>
+    <div class="quiz-result" id="quiz-result" style="display:none"></div>
+  </div>
+
+  <div class="topic-nav">
+    <a href="instruction-codes.html">
+      <div class="nav-dir">← Previous</div>
+      <div class="nav-title">Instruction Codes</div>
+    </a>
+    <a href="computer-instructions.html" class="next">
+      <div class="nav-dir">Next →</div>
+      <div class="nav-title">Computer Instructions</div>
+    </a>
+  </div>
+
+</div>
+
+<div style="max-width:820px;margin:.5rem auto;padding:0 1.25rem">
+  <div class="ad-slot">Advertisement</div>
+</div>
+<footer class="footer">© 2026 Chandra Shaker · <a href="https://chandrashaker.in">chandrashaker.in</a> · <em>Reference: M. Morris Mano, Computer System Architecture — Computer Registers.</em></footer>
+
+<script type="module">
+  import { initNav } from '../../../js/nav.js';
+  import { onAuth, saveProgress, getProgress } from '../../../js/firebase-config.js';
+  initNav(3);
+
+  const COURSE_ID = 'coa';
+  const TOPIC_ID  = 'computer-registers';
+  const LABELS    = ['A','B','C','D'];
+  const QUIZ = [
+    { q:"What is the key difference between AR and PC, given that both are 12-bit registers?", options:["PC always holds the address of the next instruction to fetch; AR holds whatever address the current micro-operation needs, which is usually a different value", "They are functionally identical and interchangeable", "AR is 16-bit while PC is 12-bit", "PC is only used during interrupts, never during normal execution"], answer:0, explanation:"Despite being the same size, AR and PC serve different roles — PC specifically tracks 'what comes next,' while AR is a general-purpose address holder used throughout instruction execution." },
+    { q:"Why is SC (the Sequence Counter) not programmer-visible?", options:["It is purely internal control-unit bookkeeping used to sequence timing states, never read or written by any instruction", "It doesn't actually exist in the hardware", "It holds the same value as PC at all times", "Programs frequently read SC to check execution progress"], answer:0, explanation:"SC exists solely to drive the control unit's timing sequence (covered in the Timing and Control topic) — no instruction in the instruction set ever accesses it directly." },
+    { q:"What are the two specific roles of the E (extended AC) flip-flop in this design?", options:["Capturing the carry-out during addition, and holding the extra bit during a circular shift of AC", "General-purpose error signaling for any instruction", "Storing the even/odd parity of AC's content", "Indicating whether an interrupt is currently pending"], answer:0, explanation:"E has exactly two defined jobs: catching addition's carry-out (extending AC to 17 bits during ADD) and serving as the 17th bit that participates in circular shifts of AC." },
+    { q:"According to the real Basic Computer design, which registers have dedicated direct connections to memory (in addition to the shared bus)?", options:["AR (address) and DR (data)", "PC and IR", "INPR and OUTR", "AC and TR"], answer:0, explanation:"Every memory access flows specifically through AR (supplying the address) and DR (carrying the data being read or written) — these two registers have dedicated memory-interface lines." },
+    { q:"In the real design, how do INPR and OUTR typically connect to the rest of the system?", options:["Through AC's low 8 bits specifically, rather than the full 16-bit common bus", "Through a completely separate 32-bit bus", "They connect directly to PC, not AC", "They have no connection to any other register at all"], answer:0, explanation:"INPR and OUTR are 8-bit registers that interface specifically with AC's lower half (AC bits 0-7) for I/O transfers, rather than using the full-width common bus like the 16-bit registers." }
+  ];
+
+  let selected = {}, submitted = false;
+
+  function buildQuiz() {
+    document.getElementById('quiz-body').innerHTML = QUIZ.map((q, qi) => `
+      <div class="question">
+        <div class="question-text">Q${qi+1}. ${q.q}</div>
+        <div class="options">
+          ${q.options.map((o, oi) => `<div class="option" data-qi="${qi}" data-oi="${oi}"><span class="option-lbl">${LABELS[oi]}</span>${o}</div>`).join('')}
+        </div>
+        <div class="explanation" id="exp${qi}" style="display:none">💡 ${q.explanation}</div>
+      </div>`).join('');
+    document.querySelectorAll('.option').forEach(el => {
+      el.onclick = () => {
+        if (submitted) return;
+        const qi = +el.dataset.qi, oi = +el.dataset.oi;
+        selected[qi] = oi;
+        document.querySelectorAll(`[data-qi="${qi}"]`).forEach(o => o.classList.remove('selected'));
+        el.classList.add('selected');
+        document.getElementById('submit-btn').disabled = Object.keys(selected).length < QUIZ.length;
+      };
+    });
+  }
+
+  async function submitQuiz(uid) {
+    submitted = true; let score = 0;
+    QUIZ.forEach((q, qi) => {
+      const correct = q.answer, chosen = selected[qi];
+      document.querySelectorAll(`[data-qi="${qi}"]`).forEach(o => {
+        const oi = +o.dataset.oi;
+        if (oi === correct) o.classList.add('correct');
+        else if (oi === chosen) o.classList.add('wrong');
+      });
+      document.getElementById(`exp${qi}`).style.display = 'block';
+      if (chosen === correct) score++;
+    });
+    document.getElementById('submit-btn').style.display = 'none';
+    const pct = Math.round((score / QUIZ.length) * 100);
+    const res = document.getElementById('quiz-result');
+    res.style.display = 'block';
+    res.className = `quiz-result ${pct >= 60 ? 'pass' : 'fail'}`;
+    res.innerHTML = `<div class="quiz-score">${pct >= 60 ? '🎉' : '📖'} Score: ${score}/${QUIZ.length} (${pct}%)</div>
+      <div class="quiz-msg">${pct >= 80 ? 'Excellent! Move to the next topic.' : pct >= 60 ? 'Good. Review what you missed.' : 'Review the lesson and try again.'}</div>`;
+    if (uid) await saveProgress(uid, COURSE_ID, TOPIC_ID, score, QUIZ.length);
+  }
+
+  onAuth(async user => {
+    const gate = document.getElementById('gate-section');
+    const quiz  = document.getElementById('quiz-section');
+    if (user) {
+      gate.style.display = 'none';
+      quiz.style.display = 'block';
+      buildQuiz();
+      document.getElementById('submit-btn').onclick = () => submitQuiz(user.uid);
+      const prog = await getProgress(user.uid, COURSE_ID, TOPIC_ID);
+      if (prog?.completed) {
+        const res = document.getElementById('quiz-result');
+        res.style.display = 'block';
+        res.className = 'quiz-result pass';
+        res.innerHTML = `<div class="quiz-score">✅ Completed — Best score: ${prog.percent}%</div>
+          <div class="quiz-msg">You can retake the quiz anytime.</div>`;
+      }
+    }
+  });
+</script>
+</body>
+</html>

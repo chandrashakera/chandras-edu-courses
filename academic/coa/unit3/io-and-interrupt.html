@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Input-Output and Interrupt — COA Unit 3 | Chandras EDU</title>
+  <meta name="description" content="How INPR/OUTR and the FGI/FGO flags drive character I/O, the RTL for all six I/O instructions, and the IEN/R-flip-flop-driven interrupt cycle that closes out the Basic Computer.">
+  <link rel="canonical" href="https://courses.chandrashaker.in/academic/coa/unit3/io-and-interrupt.html">
+  <link rel="stylesheet" href="../../../css/style.css">
+
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Chandras EDU">
+  <meta property="og:title" content="Input-Output and Interrupt — COA Unit 3 | Chandras EDU">
+  <meta property="og:description" content="How INPR/OUTR and the FGI/FGO flags drive character I/O, the RTL for all six I/O instructions, and the IEN/R-flip-flop-driven interrupt cycle that closes out the Basic Computer.">
+  <meta property="og:url" content="https://courses.chandrashaker.in/academic/coa/unit3/io-and-interrupt.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Input-Output and Interrupt — COA Unit 3 | Chandras EDU">
+  <meta name="twitter:description" content="How INPR/OUTR and the FGI/FGO flags drive character I/O, the RTL for all six I/O instructions, and the IEN/R-flip-flop-driven interrupt cycle that closes out the Basic Computer.">
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Courses", "item": "https://courses.chandrashaker.in/" },
+    { "@type": "ListItem", "position": 2, "name": "COA", "item": "https://courses.chandrashaker.in/academic/coa/" },
+    { "@type": "ListItem", "position": 3, "name": "Unit 3", "item": "https://courses.chandrashaker.in/academic/coa/unit3/" },
+    { "@type": "ListItem", "position": 4, "name": "Input-Output and Interrupt" }
+  ]
+}
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LearningResource",
+  "name": "Input-Output and Interrupt",
+  "description": "How INPR/OUTR and the FGI/FGO flags drive character I/O, the RTL for all six I/O instructions, and the IEN/R-flip-flop-driven interrupt cycle that closes out the Basic Computer.",
+  "url": "https://courses.chandrashaker.in/academic/coa/unit3/io-and-interrupt.html",
+  "learningResourceType": "Lesson",
+  "educationalLevel": "Undergraduate",
+  "about": { "@type": "Thing", "name": "Computer Organization and Architecture" },
+  "isPartOf": {
+    "@type": "Course",
+    "name": "Computer Organization and Architecture",
+    "provider": { "@type": "Organization", "name": "Chandras EDU", "url": "https://chandrashaker.in" }
+  },
+  "publisher": { "@type": "Organization", "name": "Chandras EDU", "url": "https://chandrashaker.in" }
+}
+  </script>
+  <link rel="icon" href="/favicon.ico">
+  <style>
+    .box-eg { background:var(--bg-3); border-left:4px solid var(--primary); border-radius:6px; padding:.9rem 1.1rem; margin:1rem 0; }
+    .box-eg pre { margin:0; font-family:monospace; font-size:.85rem; line-height:1.8; overflow-x:auto; }
+  </style>
+</head>
+<body>
+<nav class="nav"><div id="main-nav"></div></nav>
+
+<div style="max-width:820px;margin:.5rem auto;padding:0 1.25rem">
+  <div class="ad-slot">Advertisement</div>
+</div>
+
+<div class="page-narrow" role="main">
+
+  <nav class="breadcrumb">
+    <a href="../../../index.html">Courses</a><span class="sep">/</span>
+    <a href="../index.html">Computer Organization and Architecture</a><span class="sep">/</span>
+    <a href="index.html">Unit 3</a><span class="sep">/</span>
+    <span>Basic Computer Organization &amp; Design</span><span class="sep">/</span>
+    <span class="cur">Input-Output and Interrupt</span>
+  </nav>
+
+  <div style="background:var(--primary);border-radius:var(--radius-lg);padding:1.1rem 1.4rem;margin-bottom:1.5rem;color:#fff">
+    <div style="font-size:.75rem;opacity:.75;margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.05em">COA › Unit 3: Basic Computer Organization › Topic 7</div>
+    <h1 style="font-size:1.4rem;font-weight:700;color:#fff;margin-bottom:.5rem">Input-Output and Interrupt</h1>
+    <div style="display:flex;gap:.75rem;flex-wrap:wrap">
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">⏱ 22 min read</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📝 Quiz inside</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📖 Mano, Ch. 5</span>
+    </div>
+  </div>
+
+  <!-- FULL LESSON — visible to everyone -->
+  <div class="lesson">
+    <p>This closes out the Basic Computer: how it talks to the outside world, and how the outside world gets its attention back. Two completely separate mechanisms are at play here — device flags that report readiness, and an interrupt system that reacts to them.</p>
+
+    <h2>The I/O Model</h2>
+    <p>Computer Registers introduced INPR, OUTR, FGI, and FGO. The picture is a terminal: a keyboard feeding INPR, a printer fed by OUTR, each with its own ready flag that the <em>device itself</em> sets — completely independent of whatever the CPU happens to be doing:</p>
+    <ul>
+      <li><strong>FGI</strong> is set to 1 by the input device the instant a character lands in INPR — "there's something to read."</li>
+      <li><strong>FGO</strong> is set to 1 by the output device once it's finished printing the last character — "I'm ready for another."</li>
+    </ul>
+    <p>The CPU only ever <em>clears</em> these flags (after consuming/producing a character); it never sets them — that's entirely the device's job, running on its own timing.</p>
+
+    <h2>RTL for the I/O Instructions</h2>
+    <p>All six execute in a single state, T3 — opcode 111 instructions never need the indirect-address detour, since they don't use the address field at all (Computer Instructions):</p>
+    <div class="box-eg"><pre>p = D7 I T3   (common condition: opcode=111, I=1, timing T3)
+
+p B11 (INP):  INPR ← input device,  FGI ← 0
+p B10 (OUT):  output device ← OUTR,  FGO ← 0
+p B9  (SKI):  if (FGI = 1) then (PC ← PC + 1)
+p B8  (SKO):  if (FGO = 1) then (PC ← PC + 1)
+p B7  (ION):  IEN ← 1
+p B6  (IOF):  IEN ← 0
+
+all:  SC ← 0</pre></div>
+    <p>SKI and SKO are how a program without interrupts <em>polls</em> for I/O readiness — loop on SKI until it skips, then INP. That polling loop is exactly the problem interrupts exist to solve.</p>
+
+    <h2>The Interrupt Cycle</h2>
+    <p>IEN (interrupt enable) and R (interrupt flip-flop) are checked at the boundary between instructions — right where SC would normally reset to 0 for the next fetch:</p>
+    <div style="text-align:center;margin:1.25rem 0">
+      <svg viewBox="-10 -10 540 300" style="max-width:560px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <marker id="arrIO" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+            <path d="M0,0 L8,4 L0,8 Z" fill="var(--primary)"/>
+          </marker>
+        </defs>
+
+        <rect x="140" y="10" width="220" height="40" rx="4" fill="none" stroke="var(--primary)" stroke-width="2.5"/>
+        <text x="250" y="34" font-size="10" font-weight="700" text-anchor="middle" fill="var(--text)">End of instruction (SC → 0 point)</text>
+        <line x1="250" y1="50" x2="250" y2="73" stroke="var(--primary)" stroke-width="1.5" marker-end="url(#arrIO)"/>
+
+        <polygon points="250,75 350,110 250,145 150,110" fill="none" stroke="var(--primary)" stroke-width="2.5"/>
+        <text x="250" y="106" font-size="9" font-weight="700" text-anchor="middle" fill="var(--text)">IEN · (FGI+FGO)</text>
+        <text x="250" y="118" font-size="9" font-weight="700" text-anchor="middle" fill="var(--text)">· R′ ?</text>
+
+        <polyline points="150,110 110,110 110,168" fill="none" stroke="var(--primary)" stroke-width="1.5" marker-end="url(#arrIO)"/>
+        <text x="70" y="100" font-size="9" fill="var(--text-2)">No</text>
+        <polyline points="350,110 395,110 395,168" fill="none" stroke="var(--primary)" stroke-width="1.5" marker-end="url(#arrIO)"/>
+        <text x="405" y="100" font-size="9" fill="var(--text-2)">Yes</text>
+
+        <rect x="10" y="170" width="200" height="60" rx="4" fill="none" stroke="var(--primary)" stroke-width="2.5"/>
+        <text x="110" y="190" font-size="10" font-weight="700" text-anchor="middle" fill="var(--text)">Normal Fetch:</text>
+        <text x="110" y="206" font-size="9" text-anchor="middle" fill="var(--text-2)">T0: AR ← PC</text>
+        <text x="110" y="220" font-size="9" text-anchor="middle" fill="var(--text-2)">(next instruction, unaffected)</text>
+
+        <rect x="280" y="170" width="230" height="100" rx="4" fill="none" stroke="var(--primary)" stroke-width="2.5"/>
+        <text x="395" y="188" font-size="10" font-weight="700" text-anchor="middle" fill="var(--text)">R ← 1 → Interrupt Cycle:</text>
+        <text x="395" y="204" font-size="9" text-anchor="middle" fill="var(--text-2)">RT0: AR ← 0, TR ← PC</text>
+        <text x="395" y="220" font-size="9" text-anchor="middle" fill="var(--text-2)">RT1: M[AR] ← TR, PC ← 0</text>
+        <text x="395" y="236" font-size="9" text-anchor="middle" fill="var(--text-2)">RT2: PC ← PC + 1, IEN ← 0,</text>
+        <text x="395" y="250" font-size="9" text-anchor="middle" fill="var(--text-2)">R ← 0, SC ← 0</text>
+      </svg>
+    </div>
+    <p>When granted, the interrupt cycle saves the return address (the interrupted program's PC) at fixed memory location 0, then sets PC to 1. Location 1 is expected to hold a BUN to the actual interrupt-service routine — so execution resumes there, having stashed exactly where to come back to.</p>
+
+    <h2>Common Pitfalls</h2>
+    <ul>
+      <li><strong>Forgetting the ISR must execute ION before returning.</strong> The interrupt cycle clears IEN automatically (so a second interrupt can't corrupt the first one's return address) — if the service routine never re-enables it, no interrupt ever fires again.</li>
+      <li><strong>Mixing up FGI/FGO with IEN/R.</strong> FGI/FGO are set by the devices themselves, asynchronously — they just report "ready." IEN/R are pure CPU-side control: IEN is a permission switch the programmer sets, R is set by the hardware once a check succeeds and cleared once the interrupt cycle runs.</li>
+      <li><strong>Assuming "store return address at 0, jump via 1" is a universal rule.</strong> It's this specific machine's convention — real architectures use dedicated interrupt-vector tables, but the underlying idea (save where to resume, jump to a handler) is identical.</li>
+    </ul>
+
+    <h2>Applications</h2>
+    <ul>
+      <li><strong>This fixed-address save-and-vector scheme</strong> is the direct, simplified ancestor of every real interrupt vector table — a fixed, known location the CPU always checks first when an interrupt fires.</li>
+      <li><strong>FGI/FGO's device-sets / CPU-clears handshake</strong> is the same basic pattern behind status/ready flags in real device drivers today, just usually memory-mapped instead of dedicated flip-flops.</li>
+      <li><strong>This is the last piece of the whole picture</strong> — Register Transfer Language's abstract micro-operations (start of this unit) have now become a complete, working CPU: registers, a bus, an ALU, a control unit, and I/O with interrupts.</li>
+    </ul>
+  </div>
+
+  <div class="ad-slot">Advertisement</div>
+
+  <!-- QUIZ GATE -->
+  <div id="gate-section">
+    <div class="gate">
+      <div class="gate-blur">
+        <div class="quiz">
+          <div class="quiz-title">📝 Quick Quiz — 5 Questions</div>
+        </div>
+      </div>
+      <div class="gate-overlay">
+        <div class="gate-box">
+          <div class="lock">🔒</div>
+          <h3>Login to take the quiz</h3>
+          <p>Create a free account to take the quiz and track your progress across all topics.</p>
+          <div class="gate-btns">
+            <a href="../../../login.html" class="btn btn-primary btn-sm">Login</a>
+            <a href="../../../login.html" class="btn btn-outline btn-sm">Register Free</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="quiz" id="quiz-section" style="display:none">
+    <div class="quiz-title">📝 Quick Quiz — 5 Questions</div>
+    <div id="quiz-body"></div>
+    <button class="btn btn-primary" id="submit-btn" disabled>Submit Quiz</button>
+    <div class="quiz-result" id="quiz-result" style="display:none"></div>
+  </div>
+
+  <div class="topic-nav">
+    <a href="memory-reference-instructions.html">
+      <div class="nav-dir">← Previous</div>
+      <div class="nav-title">Memory Reference Instructions</div>
+    </a>
+    <a href="index.html" class="next">
+      <div class="nav-dir">Next →</div>
+      <div class="nav-title">🎉 Unit 3 Complete</div>
+    </a>
+  </div>
+
+</div>
+
+<div style="max-width:820px;margin:.5rem auto;padding:0 1.25rem">
+  <div class="ad-slot">Advertisement</div>
+</div>
+<footer class="footer">© 2026 Chandra Shaker · <a href="https://chandrashaker.in">chandrashaker.in</a> · <em>Reference: M. Morris Mano, Computer System Architecture — Input-Output and Interrupt.</em></footer>
+
+<script type="module">
+  import { initNav } from '../../../js/nav.js';
+  import { onAuth, saveProgress, getProgress } from '../../../js/firebase-config.js';
+  initNav(3);
+
+  const COURSE_ID = 'coa';
+  const TOPIC_ID  = 'io-and-interrupt';
+  const LABELS    = ['A','B','C','D'];
+  const QUIZ = [
+    { q:"Who sets FGI and FGO, and who clears them?", options:["The device sets them when ready; the CPU clears them after consuming/producing a character", "The CPU sets and clears both, entirely under program control", "FGI is set by the CPU; FGO is set by the device", "They are set once at boot and never change again"], answer:0, explanation:"FGI/FGO are device-driven readiness flags — the input/output device sets them asynchronously, and the CPU's I/O instructions (INP/OUT) clear them after handling the character." },
+    { q:"Why do all six I/O instructions execute in a single timing state, T3, with no indirect-address detour?", options:["Opcode 111 instructions don't use the address field at all, so there's nothing for indirect addressing to resolve", "T3 is simply the fastest available timing state for any instruction", "I/O instructions are executed twice, once at T3 and once at T4, for reliability", "Indirect addressing is impossible for any opcode 111 instruction by hardware limitation"], answer:0, explanation:"Since register-reference and I/O instructions repurpose the address field as one-hot flags rather than an address, there's no memory address to resolve indirectly — execution can happen immediately at T3." },
+    { q:"What condition triggers the interrupt cycle instead of a normal fetch?", options:["IEN · (FGI + FGO) · R′ — interrupts enabled, at least one device flag set, and no interrupt already pending", "Any time FGI or FGO is set, regardless of IEN", "Only when the HLT instruction has just executed", "IEN alone, regardless of the device flags"], answer:0, explanation:"The interrupt is granted only when interrupts are enabled (IEN), at least one device is ready (FGI+FGO), and no interrupt is already being serviced (R′, R not already 1)." },
+    { q:"Why must the interrupt service routine execute ION before returning?", options:["The interrupt cycle automatically clears IEN, so without re-enabling it, no future interrupt can ever be granted again", "ION resets FGI and FGO back to 0", "ION restores the value of AC that was in use before the interrupt", "ION is optional and has no effect on future interrupts"], answer:0, explanation:"RT2 of the interrupt cycle clears IEN specifically so a second interrupt can't corrupt the first one's saved return address — it's the ISR's job to turn interrupts back on before returning." },
+    { q:"What does the interrupt cycle do with the interrupted program's PC?", options:["Stores it at fixed memory location 0, then sets PC to 1 so execution resumes at a BUN into the actual service routine", "Discards it completely — the program cannot resume after an interrupt", "Stores it in AC instead of memory", "Leaves PC completely unchanged, running the ISR from wherever PC already was"], answer:0, explanation:"RT0-RT1 save the return address (PC) to memory location 0; RT2 sets PC to 1, where a BUN instruction is expected to jump into the actual interrupt-service routine." }
+  ];
+
+  let selected = {}, submitted = false;
+
+  function buildQuiz() {
+    document.getElementById('quiz-body').innerHTML = QUIZ.map((q, qi) => `
+      <div class="question">
+        <div class="question-text">Q${qi+1}. ${q.q}</div>
+        <div class="options">
+          ${q.options.map((o, oi) => `<div class="option" data-qi="${qi}" data-oi="${oi}"><span class="option-lbl">${LABELS[oi]}</span>${o}</div>`).join('')}
+        </div>
+        <div class="explanation" id="exp${qi}" style="display:none">💡 ${q.explanation}</div>
+      </div>`).join('');
+    document.querySelectorAll('.option').forEach(el => {
+      el.onclick = () => {
+        if (submitted) return;
+        const qi = +el.dataset.qi, oi = +el.dataset.oi;
+        selected[qi] = oi;
+        document.querySelectorAll(`[data-qi="${qi}"]`).forEach(o => o.classList.remove('selected'));
+        el.classList.add('selected');
+        document.getElementById('submit-btn').disabled = Object.keys(selected).length < QUIZ.length;
+      };
+    });
+  }
+
+  async function submitQuiz(uid) {
+    submitted = true; let score = 0;
+    QUIZ.forEach((q, qi) => {
+      const correct = q.answer, chosen = selected[qi];
+      document.querySelectorAll(`[data-qi="${qi}"]`).forEach(o => {
+        const oi = +o.dataset.oi;
+        if (oi === correct) o.classList.add('correct');
+        else if (oi === chosen) o.classList.add('wrong');
+      });
+      document.getElementById(`exp${qi}`).style.display = 'block';
+      if (chosen === correct) score++;
+    });
+    document.getElementById('submit-btn').style.display = 'none';
+    const pct = Math.round((score / QUIZ.length) * 100);
+    const res = document.getElementById('quiz-result');
+    res.style.display = 'block';
+    res.className = `quiz-result ${pct >= 60 ? 'pass' : 'fail'}`;
+    res.innerHTML = `<div class="quiz-score">${pct >= 60 ? '🎉' : '📖'} Score: ${score}/${QUIZ.length} (${pct}%)</div>
+      <div class="quiz-msg">${pct >= 80 ? 'Excellent! Move to the next topic.' : pct >= 60 ? 'Good. Review what you missed.' : 'Review the lesson and try again.'}</div>`;
+    if (uid) await saveProgress(uid, COURSE_ID, TOPIC_ID, score, QUIZ.length);
+  }
+
+  onAuth(async user => {
+    const gate = document.getElementById('gate-section');
+    const quiz  = document.getElementById('quiz-section');
+    if (user) {
+      gate.style.display = 'none';
+      quiz.style.display = 'block';
+      buildQuiz();
+      document.getElementById('submit-btn').onclick = () => submitQuiz(user.uid);
+      const prog = await getProgress(user.uid, COURSE_ID, TOPIC_ID);
+      if (prog?.completed) {
+        const res = document.getElementById('quiz-result');
+        res.style.display = 'block';
+        res.className = 'quiz-result pass';
+        res.innerHTML = `<div class="quiz-score">✅ Completed — Best score: ${prog.percent}%</div>
+          <div class="quiz-msg">You can retake the quiz anytime.</div>`;
+      }
+    }
+  });
+</script>
+</body>
+</html>

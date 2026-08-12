@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Timing and Control — COA Unit 3 | Chandras EDU</title>
+  <meta name="description" content="How the Sequence Counter and a decoder generate timing signals T0-T6, and how those signals combine with the opcode decoder and flip-flops to form individual control statements.">
+  <link rel="canonical" href="https://courses.chandrashaker.in/academic/coa/unit3/timing-and-control.html">
+  <link rel="stylesheet" href="../../../css/style.css">
+
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Chandras EDU">
+  <meta property="og:title" content="Timing and Control — COA Unit 3 | Chandras EDU">
+  <meta property="og:description" content="How the Sequence Counter and a decoder generate timing signals T0-T6, and how those signals combine with the opcode decoder and flip-flops to form individual control statements.">
+  <meta property="og:url" content="https://courses.chandrashaker.in/academic/coa/unit3/timing-and-control.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Timing and Control — COA Unit 3 | Chandras EDU">
+  <meta name="twitter:description" content="How the Sequence Counter and a decoder generate timing signals T0-T6, and how those signals combine with the opcode decoder and flip-flops to form individual control statements.">
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Courses", "item": "https://courses.chandrashaker.in/" },
+    { "@type": "ListItem", "position": 2, "name": "COA", "item": "https://courses.chandrashaker.in/academic/coa/" },
+    { "@type": "ListItem", "position": 3, "name": "Unit 3", "item": "https://courses.chandrashaker.in/academic/coa/unit3/" },
+    { "@type": "ListItem", "position": 4, "name": "Timing and Control" }
+  ]
+}
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LearningResource",
+  "name": "Timing and Control",
+  "description": "How the Sequence Counter and a decoder generate timing signals T0-T6, and how those signals combine with the opcode decoder and flip-flops to form individual control statements.",
+  "url": "https://courses.chandrashaker.in/academic/coa/unit3/timing-and-control.html",
+  "learningResourceType": "Lesson",
+  "educationalLevel": "Undergraduate",
+  "about": { "@type": "Thing", "name": "Computer Organization and Architecture" },
+  "isPartOf": {
+    "@type": "Course",
+    "name": "Computer Organization and Architecture",
+    "provider": { "@type": "Organization", "name": "Chandras EDU", "url": "https://chandrashaker.in" }
+  },
+  "publisher": { "@type": "Organization", "name": "Chandras EDU", "url": "https://chandrashaker.in" }
+}
+  </script>
+  <link rel="icon" href="/favicon.ico">
+  <style>
+    .truth-table { border-collapse:collapse; margin:1rem auto; font-size:.86rem; }
+    .truth-table th, .truth-table td { border:1px solid var(--border); padding:.4rem .65rem; text-align:center; }
+    .truth-table th { background:var(--bg-3); color:var(--text); font-weight:700; }
+  </style>
+</head>
+<body>
+<nav class="nav"><div id="main-nav"></div></nav>
+
+<div style="max-width:820px;margin:.5rem auto;padding:0 1.25rem">
+  <div class="ad-slot">Advertisement</div>
+</div>
+
+<div class="page-narrow" role="main">
+
+  <nav class="breadcrumb">
+    <a href="../../../index.html">Courses</a><span class="sep">/</span>
+    <a href="../index.html">Computer Organization and Architecture</a><span class="sep">/</span>
+    <a href="index.html">Unit 3</a><span class="sep">/</span>
+    <span>Basic Computer Organization &amp; Design</span><span class="sep">/</span>
+    <span class="cur">Timing and Control</span>
+  </nav>
+
+  <div style="background:var(--primary);border-radius:var(--radius-lg);padding:1.1rem 1.4rem;margin-bottom:1.5rem;color:#fff">
+    <div style="font-size:.75rem;opacity:.75;margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.05em">COA › Unit 3: Basic Computer Organization › Topic 4</div>
+    <h1 style="font-size:1.4rem;font-weight:700;color:#fff;margin-bottom:.5rem">Timing and Control</h1>
+    <div style="display:flex;gap:.75rem;flex-wrap:wrap">
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">⏱ 18 min read</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📝 Quiz inside</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📖 Mano, Ch. 5</span>
+    </div>
+  </div>
+
+  <!-- FULL LESSON — visible to everyone -->
+  <div class="lesson">
+    <p>Registers hold data; instructions say what to do with it — but something still has to decide <em>when</em>, on which clock pulse, each register actually latches new data. That's the control unit's job. The Basic Computer uses a <strong>hardwired</strong> control unit: fixed logic gates, not a program, generate every control signal. (Unit 4's Microprogrammed Control topic covers the alternative — a ROM-based control unit — as a direct contrast to this one.)</p>
+
+    <h2>Generating Timing Signals</h2>
+    <p>SC, the 4-bit Sequence Counter introduced in Computer Registers, feeds a decoder that turns its binary count into one active line per timing state: T0, T1, T2, and onward. Every clock pulse increments SC, so the active timing signal advances by exactly one each cycle — T0, then T1, then T2, and so on — until control logic explicitly clears SC back to 0 to start the next instruction's fetch.</p>
+    <div style="text-align:center;margin:1.25rem 0">
+      <svg viewBox="-20 -10 420 180" style="max-width:520px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
+        <rect x="20" y="60" width="100" height="40" rx="4" fill="none" stroke="var(--primary)" stroke-width="2.5"/>
+        <text x="70" y="84" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">SC (4-bit)</text>
+
+        <line x1="70" y1="60" x2="70" y2="35" stroke="var(--primary)" stroke-width="1.5"/>
+        <line x1="70" y1="35" x2="70" y2="30" stroke="var(--primary)" stroke-width="1.5" marker-end="url(#arrTC)"/>
+        <text x="70" y="20" font-size="9" text-anchor="middle" fill="var(--text-2)">Clock</text>
+
+        <line x1="70" y1="100" x2="70" y2="130" stroke="var(--primary)" stroke-width="1.5" marker-end="url(#arrTC)"/>
+        <text x="70" y="145" font-size="9" text-anchor="middle" fill="var(--text-2)">Clear</text>
+        <text x="70" y="157" font-size="9" text-anchor="middle" fill="var(--text-2)">(SC ← 0)</text>
+
+        <line x1="120" y1="80" x2="180" y2="80" stroke="var(--primary)" stroke-width="2"/>
+        <rect x="180" y="10" width="110" height="140" rx="4" fill="none" stroke="var(--primary)" stroke-width="2.5"/>
+        <text x="235" y="85" font-size="11" font-weight="700" text-anchor="middle" fill="var(--text)">4×16</text>
+        <text x="235" y="99" font-size="11" font-weight="700" text-anchor="middle" fill="var(--text)">Decoder</text>
+
+        <line x1="290" y1="20" x2="340" y2="20" stroke="var(--primary)" stroke-width="1.5"/>
+        <text x="346" y="23" font-size="10" fill="var(--text-2)">T0</text>
+        <line x1="290" y1="40" x2="340" y2="40" stroke="var(--primary)" stroke-width="1.5"/>
+        <text x="346" y="43" font-size="10" fill="var(--text-2)">T1</text>
+        <line x1="290" y1="60" x2="340" y2="60" stroke="var(--primary)" stroke-width="1.5"/>
+        <text x="346" y="63" font-size="10" fill="var(--text-2)">T2</text>
+        <line x1="290" y1="120" x2="340" y2="120" stroke="var(--primary)" stroke-width="1.5"/>
+        <text x="346" y="123" font-size="10" fill="var(--text-2)">T5</text>
+        <line x1="290" y1="140" x2="340" y2="140" stroke="var(--primary)" stroke-width="1.5"/>
+        <text x="346" y="143" font-size="10" fill="var(--text-2)">T6</text>
+        <text x="315" y="95" font-size="12" text-anchor="middle" fill="var(--text-2)">⋮</text>
+
+        <defs>
+          <marker id="arrTC" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+            <path d="M0,0 L8,4 L0,8 Z" fill="var(--primary)"/>
+          </marker>
+        </defs>
+      </svg>
+    </div>
+    <p>Most instructions never reach T6 — a simple register-reference instruction can finish by T3, while a memory-reference instruction with indirect addressing needs a couple states more. SC only counts as far as whatever the current instruction actually requires.</p>
+
+    <h2>Forming a Control Statement</h2>
+    <p>A timing signal on its own doesn't do anything useful — it only becomes a specific action once it's ANDed with an opcode-decoder output (from a 3-to-8 decoder reading IR bits 14-12, producing D0 through D7) and, when needed, a flip-flop condition. This is the entire "hardwired" idea in one picture:</p>
+    <div style="text-align:center;margin:1.25rem 0">
+      <svg viewBox="-45 -10 335 80" style="max-width:440px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
+        <line x1="10" y1="20" x2="130" y2="20" stroke="var(--primary)" stroke-width="1.5"/>
+        <text x="5" y="17" font-size="10" text-anchor="end" fill="var(--text-2)">D2 (LDA)</text>
+        <line x1="10" y1="40" x2="130" y2="40" stroke="var(--primary)" stroke-width="1.5"/>
+        <text x="5" y="37" font-size="10" text-anchor="end" fill="var(--text-2)">T4</text>
+
+        <path d="M130,10 L150,10 A20,20 0 0 1 150,50 L130,50 Z" fill="none" stroke="var(--primary)" stroke-width="2.5"/>
+
+        <line x1="170" y1="30" x2="230" y2="30" stroke="var(--primary)" stroke-width="1.5"/>
+        <text x="235" y="33" font-size="10" fill="var(--text-2)">AC ← DR</text>
+      </svg>
+    </div>
+    <p>Read the gate as: "whenever the instruction is LDA (D2 is active) <em>and</em> we're in timing state T4, latch DR's value into AC." Every control signal in the machine is built the same way — decoder output AND timing signal AND (sometimes) a flip-flop like I or I′.</p>
+
+    <h2>Common Pitfalls</h2>
+    <ul>
+      <li><strong>Confusing SC with PC again.</strong> SC only ever counts timing states within a single instruction (0 up to about 6); PC counts through the whole program's instructions. They reset on completely different events.</li>
+      <li><strong>Assuming every instruction uses every timing state.</strong> T0-T2 are shared fetch/decode states common to all instructions; how many states beyond T2 an instruction needs depends entirely on what it does.</li>
+      <li><strong>Forgetting the explicit SC ← 0.</strong> Without control logic clearing SC at the end of an instruction, the counter would just keep incrementing forever instead of restarting the fetch cycle.</li>
+    </ul>
+
+    <h2>Applications</h2>
+    <ul>
+      <li><strong>This counter-plus-decoder-plus-AND-gate pattern is literally what "hardwired control" means</strong> in every textbook — a fixed circuit, not stored instructions, generates every control signal.</li>
+      <li><strong>The next topic, Instruction Cycle,</strong> uses exactly this timing mechanism to walk through fetch, decode, and execute state by state for the whole instruction set.</li>
+      <li><strong>Unit 4's Microprogrammed Control</strong> replaces this entire gate network with a small ROM ("control memory") that's read instead of wired — same job, a fundamentally different implementation strategy.</li>
+    </ul>
+  </div>
+
+  <div class="ad-slot">Advertisement</div>
+
+  <!-- QUIZ GATE -->
+  <div id="gate-section">
+    <div class="gate">
+      <div class="gate-blur">
+        <div class="quiz">
+          <div class="quiz-title">📝 Quick Quiz — 5 Questions</div>
+        </div>
+      </div>
+      <div class="gate-overlay">
+        <div class="gate-box">
+          <div class="lock">🔒</div>
+          <h3>Login to take the quiz</h3>
+          <p>Create a free account to take the quiz and track your progress across all topics.</p>
+          <div class="gate-btns">
+            <a href="../../../login.html" class="btn btn-primary btn-sm">Login</a>
+            <a href="../../../login.html" class="btn btn-outline btn-sm">Register Free</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="quiz" id="quiz-section" style="display:none">
+    <div class="quiz-title">📝 Quick Quiz — 5 Questions</div>
+    <div id="quiz-body"></div>
+    <button class="btn btn-primary" id="submit-btn" disabled>Submit Quiz</button>
+    <div class="quiz-result" id="quiz-result" style="display:none"></div>
+  </div>
+
+  <div class="topic-nav">
+    <a href="computer-instructions.html">
+      <div class="nav-dir">← Previous</div>
+      <div class="nav-title">Computer Instructions</div>
+    </a>
+    <a href="instruction-cycle.html" class="next">
+      <div class="nav-dir">Next →</div>
+      <div class="nav-title">Instruction Cycle</div>
+    </a>
+  </div>
+
+</div>
+
+<div style="max-width:820px;margin:.5rem auto;padding:0 1.25rem">
+  <div class="ad-slot">Advertisement</div>
+</div>
+<footer class="footer">© 2026 Chandra Shaker · <a href="https://chandrashaker.in">chandrashaker.in</a> · <em>Reference: M. Morris Mano, Computer System Architecture — Timing and Control.</em></footer>
+
+<script type="module">
+  import { initNav } from '../../../js/nav.js';
+  import { onAuth, saveProgress, getProgress } from '../../../js/firebase-config.js';
+  initNav(3);
+
+  const COURSE_ID = 'coa';
+  const TOPIC_ID  = 'timing-and-control';
+  const LABELS    = ['A','B','C','D'];
+  const QUIZ = [
+    { q:"What generates the timing signals T0, T1, T2, ... in the Basic Computer's control unit?", options:["The Sequence Counter (SC) feeding a decoder, which produces one active line per timing state", "The Program Counter (PC) directly", "The Instruction Register (IR) alone", "A separate 16-bit timer register not otherwise used anywhere"], answer:0, explanation:"SC counts clock pulses; a decoder turns SC's binary value into a single active timing line (T0, T1, T2, ...) — the standard counter-plus-decoder pattern for hardwired timing generation." },
+    { q:"How is a specific control statement like 'AC ← DR' actually formed?", options:["By ANDing an opcode-decoder output (like D2 for LDA) with a timing signal (like T4), and sometimes a flip-flop condition", "SC directly drives AC's input with no other logic involved", "By a lookup table stored in main memory", "Every register is updated on every timing state simultaneously"], answer:0, explanation:"Hardwired control combines a decoded opcode line, a timing signal, and (when relevant) flip-flop conditions through an AND gate to produce one specific control signal." },
+    { q:"Why don't all instructions use timing states all the way up to T6?", options:["Because how many states an instruction needs depends on what it does — simple instructions can finish by T3, more complex ones need more", "Because T6 is reserved exclusively for interrupts and never used by instructions", "Because SC is hard-limited to counting only to 3", "Because T4, T5, and T6 don't actually exist in this design"], answer:0, explanation:"T0-T2 are shared fetch/decode states used by every instruction; how far past T2 SC needs to count depends entirely on the specific instruction's execution requirements." },
+    { q:"What happens if control logic never clears SC (SC ← 0) at the end of an instruction?", options:["SC would keep incrementing indefinitely instead of restarting the fetch cycle for the next instruction", "The computer would halt immediately", "PC would automatically reset to 0 instead", "Nothing — SC clearing is optional and has no functional purpose"], answer:0, explanation:"SC must be explicitly cleared by control logic once an instruction finishes; without that, it would never return to T0 to begin fetching the next instruction." },
+    { q:"How does the Basic Computer's hardwired control unit fundamentally differ from the microprogrammed control covered in Unit 4?", options:["Hardwired control uses fixed logic gates to generate control signals; microprogrammed control reads them from a ROM (control memory) instead", "They are two names for the exact same implementation", "Microprogrammed control cannot generate timing signals at all", "Hardwired control requires more memory than microprogrammed control"], answer:0, explanation:"Hardwired control (this topic) wires up fixed gates for every control signal. Microprogrammed control instead stores control signals as words in a small ROM and reads them out sequentially — same job, different implementation strategy." }
+  ];
+
+  let selected = {}, submitted = false;
+
+  function buildQuiz() {
+    document.getElementById('quiz-body').innerHTML = QUIZ.map((q, qi) => `
+      <div class="question">
+        <div class="question-text">Q${qi+1}. ${q.q}</div>
+        <div class="options">
+          ${q.options.map((o, oi) => `<div class="option" data-qi="${qi}" data-oi="${oi}"><span class="option-lbl">${LABELS[oi]}</span>${o}</div>`).join('')}
+        </div>
+        <div class="explanation" id="exp${qi}" style="display:none">💡 ${q.explanation}</div>
+      </div>`).join('');
+    document.querySelectorAll('.option').forEach(el => {
+      el.onclick = () => {
+        if (submitted) return;
+        const qi = +el.dataset.qi, oi = +el.dataset.oi;
+        selected[qi] = oi;
+        document.querySelectorAll(`[data-qi="${qi}"]`).forEach(o => o.classList.remove('selected'));
+        el.classList.add('selected');
+        document.getElementById('submit-btn').disabled = Object.keys(selected).length < QUIZ.length;
+      };
+    });
+  }
+
+  async function submitQuiz(uid) {
+    submitted = true; let score = 0;
+    QUIZ.forEach((q, qi) => {
+      const correct = q.answer, chosen = selected[qi];
+      document.querySelectorAll(`[data-qi="${qi}"]`).forEach(o => {
+        const oi = +o.dataset.oi;
+        if (oi === correct) o.classList.add('correct');
+        else if (oi === chosen) o.classList.add('wrong');
+      });
+      document.getElementById(`exp${qi}`).style.display = 'block';
+      if (chosen === correct) score++;
+    });
+    document.getElementById('submit-btn').style.display = 'none';
+    const pct = Math.round((score / QUIZ.length) * 100);
+    const res = document.getElementById('quiz-result');
+    res.style.display = 'block';
+    res.className = `quiz-result ${pct >= 60 ? 'pass' : 'fail'}`;
+    res.innerHTML = `<div class="quiz-score">${pct >= 60 ? '🎉' : '📖'} Score: ${score}/${QUIZ.length} (${pct}%)</div>
+      <div class="quiz-msg">${pct >= 80 ? 'Excellent! Move to the next topic.' : pct >= 60 ? 'Good. Review what you missed.' : 'Review the lesson and try again.'}</div>`;
+    if (uid) await saveProgress(uid, COURSE_ID, TOPIC_ID, score, QUIZ.length);
+  }
+
+  onAuth(async user => {
+    const gate = document.getElementById('gate-section');
+    const quiz  = document.getElementById('quiz-section');
+    if (user) {
+      gate.style.display = 'none';
+      quiz.style.display = 'block';
+      buildQuiz();
+      document.getElementById('submit-btn').onclick = () => submitQuiz(user.uid);
+      const prog = await getProgress(user.uid, COURSE_ID, TOPIC_ID);
+      if (prog?.completed) {
+        const res = document.getElementById('quiz-result');
+        res.style.display = 'block';
+        res.className = 'quiz-result pass';
+        res.innerHTML = `<div class="quiz-score">✅ Completed — Best score: ${prog.percent}%</div>
+          <div class="quiz-msg">You can retake the quiz anytime.</div>`;
+      }
+    }
+  });
+</script>
+</body>
+</html>

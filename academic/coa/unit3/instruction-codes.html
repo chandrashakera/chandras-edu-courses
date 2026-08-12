@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Instruction Codes — COA Unit 3 | Chandras EDU</title>
+  <meta name="description" content="The Basic Computer's 16-bit instruction word format, direct vs. indirect addressing, and how the opcode field distinguishes memory-reference, register-reference, and I/O instructions.">
+  <link rel="canonical" href="https://courses.chandrashaker.in/academic/coa/unit3/instruction-codes.html">
+  <link rel="stylesheet" href="../../../css/style.css">
+
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Chandras EDU">
+  <meta property="og:title" content="Instruction Codes — COA Unit 3 | Chandras EDU">
+  <meta property="og:description" content="The Basic Computer's 16-bit instruction word format, direct vs. indirect addressing, and how the opcode field distinguishes memory-reference, register-reference, and I/O instructions.">
+  <meta property="og:url" content="https://courses.chandrashaker.in/academic/coa/unit3/instruction-codes.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Instruction Codes — COA Unit 3 | Chandras EDU">
+  <meta name="twitter:description" content="The Basic Computer's 16-bit instruction word format, direct vs. indirect addressing, and how the opcode field distinguishes memory-reference, register-reference, and I/O instructions.">
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Courses", "item": "https://courses.chandrashaker.in/" },
+    { "@type": "ListItem", "position": 2, "name": "COA", "item": "https://courses.chandrashaker.in/academic/coa/" },
+    { "@type": "ListItem", "position": 3, "name": "Unit 3", "item": "https://courses.chandrashaker.in/academic/coa/unit3/" },
+    { "@type": "ListItem", "position": 4, "name": "Instruction Codes" }
+  ]
+}
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LearningResource",
+  "name": "Instruction Codes",
+  "description": "The Basic Computer's 16-bit instruction word format, direct vs. indirect addressing, and how the opcode field distinguishes memory-reference, register-reference, and I/O instructions.",
+  "url": "https://courses.chandrashaker.in/academic/coa/unit3/instruction-codes.html",
+  "learningResourceType": "Lesson",
+  "educationalLevel": "Undergraduate",
+  "about": { "@type": "Thing", "name": "Computer Organization and Architecture" },
+  "isPartOf": {
+    "@type": "Course",
+    "name": "Computer Organization and Architecture",
+    "provider": { "@type": "Organization", "name": "Chandras EDU", "url": "https://chandrashaker.in" }
+  },
+  "publisher": { "@type": "Organization", "name": "Chandras EDU", "url": "https://chandrashaker.in" }
+}
+  </script>
+  <link rel="icon" href="/favicon.ico">
+  <style>
+    .truth-table { border-collapse:collapse; margin:1rem auto; font-size:.86rem; }
+    .truth-table th, .truth-table td { border:1px solid var(--border); padding:.4rem .65rem; text-align:center; }
+    .truth-table th { background:var(--bg-3); color:var(--text); font-weight:700; }
+  </style>
+</head>
+<body>
+<nav class="nav"><div id="main-nav"></div></nav>
+
+<div style="max-width:820px;margin:.5rem auto;padding:0 1.25rem">
+  <div class="ad-slot">Advertisement</div>
+</div>
+
+<div class="page-narrow" role="main">
+
+  <nav class="breadcrumb">
+    <a href="../../../index.html">Courses</a><span class="sep">/</span>
+    <a href="../index.html">Computer Organization and Architecture</a><span class="sep">/</span>
+    <a href="index.html">Unit 3</a><span class="sep">/</span>
+    <span>Basic Computer Organization &amp; Design</span><span class="sep">/</span>
+    <span class="cur">Instruction Codes</span>
+  </nav>
+
+  <div style="background:var(--primary);border-radius:var(--radius-lg);padding:1.1rem 1.4rem;margin-bottom:1.5rem;color:#fff">
+    <div style="font-size:.75rem;opacity:.75;margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.05em">COA › Unit 3: Basic Computer Organization › Topic 1</div>
+    <h1 style="font-size:1.4rem;font-weight:700;color:#fff;margin-bottom:.5rem">Instruction Codes</h1>
+    <div style="display:flex;gap:.75rem;flex-wrap:wrap">
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">⏱ 18 min read</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📝 Quiz inside</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📖 Mano, Ch. 5</span>
+    </div>
+  </div>
+
+  <!-- FULL LESSON — visible to everyone -->
+  <div class="lesson">
+    <p>Everything from here through the rest of this unit builds one concrete example — the <strong>Basic Computer</strong>, a small but complete machine used throughout this course to make "how a CPU actually executes an instruction" fully explicit. Its memory holds 4096 words of 16 bits each (a 12-bit address bus), and — following the stored-program idea — that same memory holds both data and the instructions that operate on it. What distinguishes an instruction from a data value is never the bit pattern itself; it's <em>when</em> the CPU is treating that memory word as an instruction versus as data.</p>
+
+    <h2>The 16-Bit Instruction Word</h2>
+    <p>Every Basic Computer instruction is a single 16-bit word split into three fields:</p>
+    <div style="text-align:center;margin:1.25rem 0">
+      <svg viewBox="-10 -25 500 96" style="max-width:640px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
+        <rect x="0" y="10" width="30" height="40" fill="none" stroke="var(--primary)" stroke-width="2.5"/>
+        <text x="15" y="34" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">I</text>
+        <rect x="30" y="10" width="90" height="40" fill="none" stroke="var(--primary)" stroke-width="2.5"/>
+        <text x="75" y="34" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">Opcode</text>
+        <rect x="120" y="10" width="360" height="40" fill="none" stroke="var(--primary)" stroke-width="2.5"/>
+        <text x="300" y="34" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">Address</text>
+
+        <text x="15" y="-6" font-size="10" fill="var(--text-2)">bit 15</text>
+        <text x="75" y="-6" font-size="10" fill="var(--text-2)">bits 14–12</text>
+        <text x="300" y="-6" font-size="10" fill="var(--text-2)">bits 11–0</text>
+
+        <text x="15" y="66" font-size="9" fill="var(--text-3)">1 bit</text>
+        <text x="75" y="66" font-size="9" fill="var(--text-3)">3 bits</text>
+        <text x="300" y="66" font-size="9" fill="var(--text-3)">12 bits</text>
+      </svg>
+    </div>
+    <p>The 3-bit opcode alone can distinguish 8 instruction categories — 7 of them are <strong>memory-reference</strong> instructions, each combined with a 12-bit address (exactly enough to address all 4096 words). The 8th opcode pattern, <strong>111</strong>, is special: instead of an address, its 12 remaining bits are individually decoded, one bit per operation — freeing up an entire second and third instruction category (register-reference and I/O) without spending any of the address space.</p>
+
+    <h2>Direct vs. Indirect Addressing</h2>
+    <p>Bit 15, <strong>I</strong>, controls how the address field is interpreted for memory-reference instructions:</p>
+    <table class="truth-table">
+      <thead><tr><th>I</th><th>Mode</th><th>Meaning</th></tr></thead>
+      <tbody>
+        <tr><td>0</td><td>Direct</td><td>The address field <em>is</em> the effective address — AR ← IR(0–11) directly.</td></tr>
+        <tr><td>1</td><td>Indirect</td><td>The address field points to a memory word that itself holds the effective address — AR ← M[IR(0–11)], one extra memory read before execution can begin.</td></tr>
+      </tbody>
+    </table>
+    <p>Indirect addressing trades one extra memory access for a real capability: the effective address can now be <em>changed at runtime</em> — useful for anything that needs to compute an address rather than hardcode it (array indexing, pointer-following) without needing a wider address field.</p>
+
+    <h2>Recognizing the Instruction Category</h2>
+    <div class="box box-eg">
+Opcode (IR bits 14–12) ≠ 111  →  Memory-reference instruction (bits 11–0 = address)
+Opcode = 111, I = 0            →  Register-reference instruction (bits 11–0 individually decoded)
+Opcode = 111, I = 1            →  Input-Output instruction (bits 11–0 individually decoded)
+    </div>
+    <p>Notice indirect addressing (I=1) only means something for a memory-reference instruction — for opcode 111, that same bit is instead reused as the switch between register-reference and I/O instructions. One bit, two completely different jobs, disambiguated entirely by which opcode it appears alongside.</p>
+
+    <h2>Common Pitfalls</h2>
+    <ul>
+      <li><strong>Treating I as "always meaning indirect addressing."</strong> It only has that meaning when the opcode is a genuine memory-reference opcode (000–110); for opcode 111 it selects between register-reference and I/O instructions instead.</li>
+      <li><strong>Assuming the 12 bits of a register-reference instruction form a smaller address or a binary-coded sub-opcode.</strong> They don't — they're individually decoded, one flip-flop-worthy signal per bit, with (by design) only one bit ever set to 1 in a valid instruction.</li>
+      <li><strong>Forgetting indirect addressing costs a real memory cycle.</strong> AR ← M[IR(0–11)] is an actual read from memory, taking a full clock period on top of whatever the instruction itself does — indirect instructions are strictly slower than direct ones.</li>
+    </ul>
+
+    <h2>Applications</h2>
+    <ul>
+      <li><strong>Real instruction set architectures</strong> (x86, ARM, RISC-V) use exactly this same idea at a larger scale — a fixed opcode field selecting the operation, with special opcode values reserved for instruction families that don't need a memory address at all.</li>
+      <li><strong>Indirect addressing</strong> is the direct ancestor of pointer dereferencing in every high-level language — "the value at the address stored in this variable" is precisely what I=1 computes in hardware.</li>
+      <li><strong>The next topic, Computer Registers,</strong> introduces the actual hardware — IR, AR, PC, and the rest — that holds and decodes exactly the fields described here.</li>
+    </ul>
+  </div>
+
+  <div class="ad-slot">Advertisement</div>
+
+  <!-- QUIZ GATE -->
+  <div id="gate-section">
+    <div class="gate">
+      <div class="gate-blur">
+        <div class="quiz">
+          <div class="quiz-title">📝 Quick Quiz — 5 Questions</div>
+        </div>
+      </div>
+      <div class="gate-overlay">
+        <div class="gate-box">
+          <div class="lock">🔒</div>
+          <h3>Login to take the quiz</h3>
+          <p>Create a free account to take the quiz and track your progress across all topics.</p>
+          <div class="gate-btns">
+            <a href="../../../login.html" class="btn btn-primary btn-sm">Login</a>
+            <a href="../../../login.html" class="btn btn-outline btn-sm">Register Free</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="quiz" id="quiz-section" style="display:none">
+    <div class="quiz-title">📝 Quick Quiz — 5 Questions</div>
+    <div id="quiz-body"></div>
+    <button class="btn btn-primary" id="submit-btn" disabled>Submit Quiz</button>
+    <div class="quiz-result" id="quiz-result" style="display:none"></div>
+  </div>
+
+  <div class="topic-nav">
+    <a href="index.html">
+      <div class="nav-dir">← Previous</div>
+      <div class="nav-title">Unit 3 Overview</div>
+    </a>
+    <a href="computer-registers.html" class="next">
+      <div class="nav-dir">Next →</div>
+      <div class="nav-title">Computer Registers</div>
+    </a>
+  </div>
+
+</div>
+
+<div style="max-width:820px;margin:.5rem auto;padding:0 1.25rem">
+  <div class="ad-slot">Advertisement</div>
+</div>
+<footer class="footer">© 2026 Chandra Shaker · <a href="https://chandrashaker.in">chandrashaker.in</a> · <em>Reference: M. Morris Mano, Computer System Architecture — Instruction Codes.</em></footer>
+
+<script type="module">
+  import { initNav } from '../../../js/nav.js';
+  import { onAuth, saveProgress, getProgress } from '../../../js/firebase-config.js';
+  initNav(3);
+
+  const COURSE_ID = 'coa';
+  const TOPIC_ID  = 'instruction-codes';
+  const LABELS    = ['A','B','C','D'];
+  const QUIZ = [
+    { q:"In the Basic Computer's 16-bit instruction word, what do bits 11–0 represent when the opcode (bits 14–12) is NOT 111?", options:["The 12-bit address field for a memory-reference instruction", "12 individually-decoded operation bits", "An 8-bit I/O value plus 4 unused bits", "A second opcode field"], answer:0, explanation:"For any opcode other than 111, the instruction is a memory-reference instruction, and bits 11-0 hold the 12-bit address — exactly enough to address all 4096 memory words." },
+    { q:"What does I=1 (indirect addressing) require the CPU to do before it can use the effective address?", options:["Read memory at the address given in the instruction to fetch the actual effective address (AR ← M[IR(0-11)])", "Nothing extra — indirect addressing has no additional cost", "Halt the CPU until the user provides the address manually", "Double the opcode field width"], answer:0, explanation:"Indirect addressing means the address field points to a memory location that itself holds the real address — the CPU must read that location first, costing one extra memory access." },
+    { q:"When the opcode is 111, what determines whether the instruction is register-reference or input-output?", options:["Bit 15 (I) — I=0 means register-reference, I=1 means input-output", "The value of the address field", "Whichever the compiler happens to choose at random", "Opcode 111 can only ever mean register-reference, never I/O"], answer:0, explanation:"For opcode 111, bit 15 is repurposed away from its usual 'indirect addressing' meaning to instead select between register-reference (I=0) and I/O (I=1) instructions." },
+    { q:"Why can a 3-bit opcode field support more than just 7 memory-reference instructions?", options:["The 8th opcode pattern (111) is reserved to mean 'the remaining 12 bits are individually decoded,' unlocking two more instruction categories without needing a wider opcode", "3-bit opcodes can only ever represent exactly 3 instructions", "The address field is reinterpreted as extra opcode bits for every instruction", "It cannot — 3 bits strictly limits the machine to 8 total instructions"], answer:0, explanation:"By reserving one of the 8 possible opcode values (111) to mean 'not a memory-reference instruction, decode the remaining bits individually,' the instruction set gains two entirely separate categories (register-reference and I/O) at no cost to the address field's width." },
+    { q:"In a valid register-reference instruction, how many of the 12 individually-decoded bits are set to 1?", options:["Exactly one, by design — each bit corresponds to a distinct operation", "All twelve, simultaneously performing every register-reference operation at once", "Exactly three, forming a binary sub-opcode", "Zero — register-reference instructions never set any of these bits"], answer:0, explanation:"Unlike a binary-coded field, these 12 bits are one-hot: exactly one bit is 1 for any given valid instruction, directly identifying which single operation to perform." }
+  ];
+
+  let selected = {}, submitted = false;
+
+  function buildQuiz() {
+    document.getElementById('quiz-body').innerHTML = QUIZ.map((q, qi) => `
+      <div class="question">
+        <div class="question-text">Q${qi+1}. ${q.q}</div>
+        <div class="options">
+          ${q.options.map((o, oi) => `<div class="option" data-qi="${qi}" data-oi="${oi}"><span class="option-lbl">${LABELS[oi]}</span>${o}</div>`).join('')}
+        </div>
+        <div class="explanation" id="exp${qi}" style="display:none">💡 ${q.explanation}</div>
+      </div>`).join('');
+    document.querySelectorAll('.option').forEach(el => {
+      el.onclick = () => {
+        if (submitted) return;
+        const qi = +el.dataset.qi, oi = +el.dataset.oi;
+        selected[qi] = oi;
+        document.querySelectorAll(`[data-qi="${qi}"]`).forEach(o => o.classList.remove('selected'));
+        el.classList.add('selected');
+        document.getElementById('submit-btn').disabled = Object.keys(selected).length < QUIZ.length;
+      };
+    });
+  }
+
+  async function submitQuiz(uid) {
+    submitted = true; let score = 0;
+    QUIZ.forEach((q, qi) => {
+      const correct = q.answer, chosen = selected[qi];
+      document.querySelectorAll(`[data-qi="${qi}"]`).forEach(o => {
+        const oi = +o.dataset.oi;
+        if (oi === correct) o.classList.add('correct');
+        else if (oi === chosen) o.classList.add('wrong');
+      });
+      document.getElementById(`exp${qi}`).style.display = 'block';
+      if (chosen === correct) score++;
+    });
+    document.getElementById('submit-btn').style.display = 'none';
+    const pct = Math.round((score / QUIZ.length) * 100);
+    const res = document.getElementById('quiz-result');
+    res.style.display = 'block';
+    res.className = `quiz-result ${pct >= 60 ? 'pass' : 'fail'}`;
+    res.innerHTML = `<div class="quiz-score">${pct >= 60 ? '🎉' : '📖'} Score: ${score}/${QUIZ.length} (${pct}%)</div>
+      <div class="quiz-msg">${pct >= 80 ? 'Excellent! Move to the next topic.' : pct >= 60 ? 'Good. Review what you missed.' : 'Review the lesson and try again.'}</div>`;
+    if (uid) await saveProgress(uid, COURSE_ID, TOPIC_ID, score, QUIZ.length);
+  }
+
+  onAuth(async user => {
+    const gate = document.getElementById('gate-section');
+    const quiz  = document.getElementById('quiz-section');
+    if (user) {
+      gate.style.display = 'none';
+      quiz.style.display = 'block';
+      buildQuiz();
+      document.getElementById('submit-btn').onclick = () => submitQuiz(user.uid);
+      const prog = await getProgress(user.uid, COURSE_ID, TOPIC_ID);
+      if (prog?.completed) {
+        const res = document.getElementById('quiz-result');
+        res.style.display = 'block';
+        res.className = 'quiz-result pass';
+        res.innerHTML = `<div class="quiz-score">✅ Completed — Best score: ${prog.percent}%</div>
+          <div class="quiz-msg">You can retake the quiz anytime.</div>`;
+      }
+    }
+  });
+</script>
+</body>
+</html>
