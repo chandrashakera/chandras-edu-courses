@@ -240,6 +240,87 @@ J<sub>B</sub> = C,  K<sub>B</sub> = C    (B's J/K columns are exactly 0 when C=0
     </div>
     <p>Every clock triangle taps the same horizontal CLK line — that single shared bus is the entire structural difference from the ripple counter's staggered chain seen in the previous topic. FF(C) always toggles; FF(B)'s J and K both come straight from C; FF(A)'s J and K both come from a single AND gate combining B and C. Because a JK flip-flop's characteristic equation makes J and K always drive the toggle decision together, feeding the same signal to both pins of a stage is exactly what "toggle when this condition is true" means in hardware.</p>
 
+    <h2 id="SyncDown">Synchronous Down-Counter</h2>
+    <p>Running the same 4-step procedure against the down-counting sequence (111→110→101→...→000→111) produces a strikingly similar result — every toggle condition is the same as the up-counter's, just with B and C <em>inverted</em>:</p>
+    <div class="box box-eg">
+      <pre>J<sub>C</sub> = 1,   K<sub>C</sub> = 1     (LSB still toggles every clock — same as counting up)
+J<sub>B</sub> = C′,  K<sub>B</sub> = C′    (B toggles when C is 0, the mirror image of the up-counter's "C is 1")
+J<sub>A</sub> = B′C′, K<sub>A</sub> = B′C′  (A toggles when B AND C are both 0)</pre>
+    </div>
+    <p>The circuit needs two inverters (for B′ and C′) feeding an AND gate, in place of the up-counter's direct AND of B and C:</p>
+    <div style="text-align:center;margin:1.25rem 0">
+      <svg viewBox="-40 -10 695 195" style="max-width:800px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
+        <text x="4" y="41" font-size="12" fill="var(--text-2)">1</text>
+        <line x1="18" y1="45" x2="40" y2="45" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="40" y1="45" x2="40" y2="30" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="40" y1="30" x2="60" y2="30" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="40" y1="45" x2="40" y2="60" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="40" y1="60" x2="60" y2="60" stroke="var(--primary)" stroke-width="2"/>
+        <rect x="60" y="10" width="80" height="90" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <text x="100" y="82" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">FF (C)</text>
+        <path d="M60,77 L60,93 L72,85 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5" stroke-linejoin="round"/>
+        <line x1="140" y1="45" x2="165" y2="45" stroke="var(--primary)" stroke-width="2"/>
+        <text x="150" y="39" font-size="12" fill="var(--text)">C</text>
+        <circle cx="165" cy="45" r="3" fill="var(--primary)"/>
+
+        <path d="M165,37 L165,53 L181,45 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5" stroke-linejoin="round"/>
+        <circle cx="188" cy="45" r="5" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5"/>
+        <text x="188" y="30" font-size="10" fill="var(--text-2)">C′</text>
+
+        <line x1="193" y1="45" x2="230" y2="45" stroke="var(--primary)" stroke-width="2"/>
+        <circle cx="230" cy="45" r="3" fill="var(--primary)"/>
+        <line x1="230" y1="45" x2="230" y2="30" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="230" y1="30" x2="250" y2="30" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="230" y1="45" x2="230" y2="60" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="230" y1="60" x2="250" y2="60" stroke="var(--primary)" stroke-width="2"/>
+
+        <rect x="250" y="10" width="80" height="90" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <text x="290" y="82" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">FF (B)</text>
+        <path d="M250,77 L250,93 L262,85 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5" stroke-linejoin="round"/>
+        <line x1="330" y1="45" x2="355" y2="45" stroke="var(--primary)" stroke-width="2"/>
+        <text x="340" y="39" font-size="12" fill="var(--text)">B</text>
+        <circle cx="355" cy="45" r="3" fill="var(--primary)"/>
+
+        <path d="M355,37 L355,53 L371,45 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5" stroke-linejoin="round"/>
+        <circle cx="378" cy="45" r="5" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5"/>
+        <text x="378" y="30" font-size="10" fill="var(--text-2)">B′</text>
+
+        <line x1="383" y1="45" x2="405" y2="45" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="405" y1="45" x2="405" y2="35" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="405" y1="35" x2="435" y2="35" stroke="var(--primary)" stroke-width="2"/>
+
+        <line x1="230" y1="45" x2="230" y2="140" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="230" y1="140" x2="405" y2="140" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="405" y1="140" x2="405" y2="55" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="405" y1="55" x2="435" y2="55" stroke="var(--primary)" stroke-width="2"/>
+
+        <path d="M435,25 L461,25 A20,20 0 0 1 461,65 L435,65 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="3" stroke-linejoin="round"/>
+        <line x1="481" y1="45" x2="501" y2="45" stroke="var(--primary)" stroke-width="2"/>
+        <text x="437" y="80" font-size="11" fill="var(--text-2)">B′C′</text>
+        <circle cx="501" cy="45" r="3" fill="var(--primary)"/>
+
+        <line x1="501" y1="45" x2="501" y2="30" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="501" y1="30" x2="521" y2="30" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="501" y1="45" x2="501" y2="60" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="501" y1="60" x2="521" y2="60" stroke="var(--primary)" stroke-width="2"/>
+        <rect x="521" y="10" width="80" height="90" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <text x="561" y="82" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">FF (A)</text>
+        <path d="M521,77 L521,93 L533,85 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5" stroke-linejoin="round"/>
+        <line x1="601" y1="45" x2="631" y2="45" stroke="var(--primary)" stroke-width="2"/>
+        <text x="635" y="49" font-size="13" fill="var(--text)">A</text>
+
+        <text x="-38" y="169" font-size="11" fill="var(--text-2)">CLK</text>
+        <line x1="0" y1="165" x2="489" y2="165" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="48" y1="165" x2="48" y2="85" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="48" y1="85" x2="60" y2="85" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="238" y1="165" x2="238" y2="85" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="238" y1="85" x2="250" y2="85" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="489" y1="165" x2="489" y2="85" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="489" y1="85" x2="521" y2="85" stroke="var(--primary)" stroke-width="2"/>
+      </svg>
+    </div>
+    <p>The structure is identical to the up-counter above — same three flip-flops, same shared clock — with one inverter inserted before C reaches FF(B), a second inverter inserted before B reaches the AND gate, and C′ routed down and across (in place of the up-counter's plain C) to the AND gate's other input.</p>
+
     <h2>Common Pitfalls</h2>
     <ul>
       <li><strong>Wiring every flip-flop's clock separately "just to be safe."</strong> The entire point of synchronous design is a single shared clock net — if two flip-flops receive the clock through even slightly different paths, clock skew can creep back in.</li>

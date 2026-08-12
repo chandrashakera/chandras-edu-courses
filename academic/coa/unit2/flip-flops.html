@@ -4,18 +4,18 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Flip-Flops — COA Unit 2 | Chandras EDU</title>
-  <meta name="description" content="Edge-triggered vs. level-sensitive storage, the race-around problem and master-slave JK, characteristic/excitation equations for D, T, JK, and SR, and setup/hold time.">
+  <meta name="description" content="Edge-triggered storage, master-slave JK, block symbols for all four flip-flop types, a gate-level clocked SR flip-flop, and setup/hold time.">
   <link rel="canonical" href="https://courses.chandrashaker.in/academic/coa/unit2/flip-flops.html">
   <link rel="stylesheet" href="../../../css/style.css">
 
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="Chandras EDU">
   <meta property="og:title" content="Flip-Flops — COA Unit 2 | Chandras EDU">
-  <meta property="og:description" content="Edge-triggered vs. level-sensitive storage, the race-around problem and master-slave JK, characteristic/excitation equations for D, T, JK, and SR, and setup/hold time.">
+  <meta property="og:description" content="Edge-triggered storage, master-slave JK, block symbols for all four flip-flop types, a gate-level clocked SR flip-flop, and setup/hold time.">
   <meta property="og:url" content="https://courses.chandrashaker.in/academic/coa/unit2/flip-flops.html">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Flip-Flops — COA Unit 2 | Chandras EDU">
-  <meta name="twitter:description" content="Edge-triggered vs. level-sensitive storage, the race-around problem and master-slave JK, characteristic/excitation equations for D, T, JK, and SR, and setup/hold time.">
+  <meta name="twitter:description" content="Edge-triggered storage, master-slave JK, block symbols for all four flip-flop types, a gate-level clocked SR flip-flop, and setup/hold time.">
 
   <script type="application/ld+json">
 {
@@ -34,7 +34,7 @@
   "@context": "https://schema.org",
   "@type": "LearningResource",
   "name": "Flip-Flops",
-  "description": "Edge-triggered vs. level-sensitive storage, the race-around problem and master-slave JK, characteristic/excitation equations for D, T, JK, and SR, and setup/hold time.",
+  "description": "Edge-triggered storage, master-slave JK, block symbols for all four flip-flop types, a gate-level clocked SR flip-flop, and setup/hold time.",
   "url": "https://courses.chandrashaker.in/academic/coa/unit2/flip-flops.html",
   "learningResourceType": "Lesson",
   "educationalLevel": "Undergraduate",
@@ -125,6 +125,121 @@
       </svg>
     </div>
     <p>While <strong>CLK=1</strong>: the master is transparent and absorbs J, K to form its internal state Y — but the slave's clock input is the <em>inverted</em> clock, so it's 0 and the slave is latched, isolating Q from whatever the master is doing. While <strong>CLK=0</strong>: the master locks its state Y; the slave's inverted clock is now 1, so the slave becomes transparent and copies Q=Y through. The output Q only ever changes on the falling edge, and by the time it does, the master is already locked and can't be affected by its own output — no race, no matter how long either clock phase lasts.</p>
+
+    <h2 id="Block-Symbols">Flip-Flop Block Symbols</h2>
+    <p>Every circuit diagram from here on draws flip-flops as a plain labeled box rather than redrawing their internal gates each time. The four standard types differ only in what's on the input side — every type shares the same CLK input (bottom-left triangle) and Q/Q′ outputs:</p>
+    <div style="text-align:center;margin:1.25rem 0">
+      <svg viewBox="-15 -10 660 120" style="max-width:760px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
+        <text x="-4" y="24" font-size="11" fill="var(--text)">S</text>
+        <line x1="0" y1="30" x2="20" y2="30" stroke="var(--primary)" stroke-width="2"/>
+        <text x="-4" y="74" font-size="11" fill="var(--text)">R</text>
+        <line x1="0" y1="70" x2="20" y2="70" stroke="var(--primary)" stroke-width="2"/>
+        <rect x="20" y="10" width="80" height="90" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <text x="60" y="50" font-size="13" font-weight="700" text-anchor="middle" fill="var(--text)">SR</text>
+        <text x="60" y="66" font-size="10" font-weight="700" text-anchor="middle" fill="var(--text-2)">FLIP-FLOP</text>
+        <path d="M20,77 L20,93 L32,85 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5" stroke-linejoin="round"/>
+        <line x1="100" y1="30" x2="120" y2="30" stroke="var(--primary)" stroke-width="2"/>
+        <text x="124" y="34" font-size="11" fill="var(--text)">Q</text>
+        <line x1="100" y1="70" x2="120" y2="70" stroke="var(--primary)" stroke-width="2"/>
+        <text x="124" y="74" font-size="11" fill="var(--text)">Q′</text>
+
+        <text x="146" y="54" font-size="11" fill="var(--text)">D</text>
+        <line x1="160" y1="50" x2="180" y2="50" stroke="var(--primary)" stroke-width="2"/>
+        <rect x="180" y="10" width="80" height="90" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <text x="220" y="50" font-size="13" font-weight="700" text-anchor="middle" fill="var(--text)">D</text>
+        <text x="220" y="66" font-size="10" font-weight="700" text-anchor="middle" fill="var(--text-2)">FLIP-FLOP</text>
+        <path d="M180,77 L180,93 L192,85 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5" stroke-linejoin="round"/>
+        <line x1="260" y1="30" x2="280" y2="30" stroke="var(--primary)" stroke-width="2"/>
+        <text x="284" y="34" font-size="11" fill="var(--text)">Q</text>
+        <line x1="260" y1="70" x2="280" y2="70" stroke="var(--primary)" stroke-width="2"/>
+        <text x="284" y="74" font-size="11" fill="var(--text)">Q′</text>
+
+        <text x="306" y="24" font-size="11" fill="var(--text)">J</text>
+        <line x1="310" y1="30" x2="330" y2="30" stroke="var(--primary)" stroke-width="2"/>
+        <text x="306" y="74" font-size="11" fill="var(--text)">K</text>
+        <line x1="310" y1="70" x2="330" y2="70" stroke="var(--primary)" stroke-width="2"/>
+        <rect x="330" y="10" width="80" height="90" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <text x="370" y="50" font-size="13" font-weight="700" text-anchor="middle" fill="var(--text)">JK</text>
+        <text x="370" y="66" font-size="10" font-weight="700" text-anchor="middle" fill="var(--text-2)">FLIP-FLOP</text>
+        <path d="M330,77 L330,93 L342,85 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5" stroke-linejoin="round"/>
+        <line x1="410" y1="30" x2="430" y2="30" stroke="var(--primary)" stroke-width="2"/>
+        <text x="434" y="34" font-size="11" fill="var(--text)">Q</text>
+        <line x1="410" y1="70" x2="430" y2="70" stroke="var(--primary)" stroke-width="2"/>
+        <text x="434" y="74" font-size="11" fill="var(--text)">Q′</text>
+
+        <text x="466" y="54" font-size="11" fill="var(--text)">T</text>
+        <line x1="480" y1="50" x2="500" y2="50" stroke="var(--primary)" stroke-width="2"/>
+        <rect x="500" y="10" width="80" height="90" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <text x="540" y="50" font-size="13" font-weight="700" text-anchor="middle" fill="var(--text)">T</text>
+        <text x="540" y="66" font-size="10" font-weight="700" text-anchor="middle" fill="var(--text-2)">FLIP-FLOP</text>
+        <path d="M500,77 L500,93 L512,85 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5" stroke-linejoin="round"/>
+        <line x1="580" y1="30" x2="600" y2="30" stroke="var(--primary)" stroke-width="2"/>
+        <text x="604" y="34" font-size="11" fill="var(--text)">Q</text>
+        <line x1="580" y1="70" x2="600" y2="70" stroke="var(--primary)" stroke-width="2"/>
+        <text x="604" y="74" font-size="11" fill="var(--text)">Q′</text>
+      </svg>
+      <div style="font-size:.78rem;color:#777;margin-top:.4rem">SR (Set/Reset), D (single data line), JK (no forbidden state), and T (Toggle) — the CLK triangle at bottom-left is present on all four.</div>
+    </div>
+
+    <h2 id="Gate-Level">Inside a Flip-Flop: Gate-Level Clocked SR Flip-Flop</h2>
+    <p>The block symbol above hides real gates. A basic <strong>clocked SR flip-flop</strong> is built from two pairs of cross-coupled NAND gates: two "steering" gates that only let S and R through while CLK is high, feeding a cross-coupled NAND latch (the same core idea as the previous topic's SR latch) that actually holds the bit:</p>
+    <div style="text-align:center;margin:1.25rem 0">
+      <svg viewBox="-25 -20 500 300" style="max-width:640px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
+        <text x="-16" y="18" font-size="12" fill="var(--text)">S</text>
+        <line x1="0" y1="14" x2="90" y2="14" stroke="var(--primary)" stroke-width="2"/>
+        <text x="-16" y="250" font-size="12" fill="var(--text)">R</text>
+        <line x1="0" y1="246" x2="90" y2="246" stroke="var(--primary)" stroke-width="2"/>
+        <text x="-20" y="134" font-size="11" fill="var(--text-2)">CLK</text>
+        <line x1="0" y1="130" x2="60" y2="130" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="60" y1="56" x2="60" y2="204" stroke="var(--primary)" stroke-width="2"/>
+        <circle cx="60" cy="130" r="3" fill="var(--primary)"/>
+        <line x1="60" y1="56" x2="90" y2="56" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="60" y1="204" x2="90" y2="204" stroke="var(--primary)" stroke-width="2"/>
+
+        <path d="M90,0 L116,0 A35,35 0 0 1 116,70 L90,70 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="3" stroke-linejoin="round"/>
+        <circle cx="158" cy="35" r="7" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <text x="95" y="88" font-size="10" fill="var(--text-2)">steering</text>
+
+        <path d="M90,190 L116,190 A35,35 0 0 1 116,260 L90,260 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="3" stroke-linejoin="round"/>
+        <circle cx="158" cy="225" r="7" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <text x="95" y="278" font-size="10" fill="var(--text-2)">steering</text>
+
+        <line x1="165" y1="35" x2="270" y2="35" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="270" y1="35" x2="270" y2="29" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="270" y1="29" x2="290" y2="29" stroke="var(--primary)" stroke-width="2"/>
+
+        <line x1="165" y1="225" x2="270" y2="225" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="270" y1="225" x2="270" y2="231" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="270" y1="231" x2="290" y2="231" stroke="var(--primary)" stroke-width="2"/>
+
+        <path d="M290,15 L316,15 A35,35 0 0 1 316,85 L290,85 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="3" stroke-linejoin="round"/>
+        <circle cx="358" cy="50" r="7" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <text x="295" y="103" font-size="10" fill="var(--text-2)">cross-coupled</text>
+
+        <path d="M290,175 L316,175 A35,35 0 0 1 316,245 L290,245 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="3" stroke-linejoin="round"/>
+        <circle cx="358" cy="210" r="7" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <text x="295" y="263" font-size="10" fill="var(--text-2)">cross-coupled</text>
+
+        <line x1="365" y1="50" x2="390" y2="50" stroke="var(--primary)" stroke-width="2"/>
+        <circle cx="390" cy="50" r="3" fill="var(--primary)"/>
+        <line x1="390" y1="50" x2="440" y2="50" stroke="var(--primary)" stroke-width="2"/>
+        <text x="444" y="54" font-size="13" font-weight="700" fill="var(--text)">Q</text>
+        <line x1="390" y1="50" x2="390" y2="140" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="390" y1="140" x2="270" y2="140" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="270" y1="140" x2="270" y2="189" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="270" y1="189" x2="290" y2="189" stroke="var(--primary)" stroke-width="2"/>
+
+        <line x1="365" y1="210" x2="405" y2="210" stroke="var(--primary)" stroke-width="2"/>
+        <circle cx="405" cy="210" r="3" fill="var(--primary)"/>
+        <line x1="405" y1="210" x2="440" y2="210" stroke="var(--primary)" stroke-width="2"/>
+        <text x="444" y="214" font-size="13" font-weight="700" fill="var(--text)">Q′</text>
+        <line x1="405" y1="210" x2="405" y2="250" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="405" y1="250" x2="250" y2="250" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="250" y1="250" x2="250" y2="71" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="250" y1="71" x2="290" y2="71" stroke="var(--primary)" stroke-width="2"/>
+      </svg>
+      <div style="font-size:.78rem;color:#777;margin-top:.4rem">While CLK=0, both steering gates output 1 regardless of S/R, so the cross-coupled pair simply holds its last state. While CLK=1, S and R (inverted by the steering NANDs) can set or reset the latch — which is exactly why this simple design still race-arounds if CLK stays high too long, and why the master-slave structure above is needed in practice.</div>
+    </div>
 
     <h2 id="Characteristic-Excitation">Characteristic &amp; Excitation Equations</h2>
     <p>A <strong>characteristic equation</strong> gives the next state Q<sub>n+1</sub> as a function of the flip-flop's inputs and its present state Q<sub>n</sub>. An <strong>excitation table</strong> flips that around — for a desired Q<sub>n</sub>→Q<sub>n+1</sub> transition, what input values are required to produce it. Excitation tables are the direct link between "what sequence of states do I want" and "how do I wire the inputs," and they're exactly what synchronous counter design (a later topic) is built on.</p>

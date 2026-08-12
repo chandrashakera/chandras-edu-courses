@@ -138,6 +138,51 @@
     </table>
     <p>The pattern: negative-edge-triggered + Q, or positive-edge-triggered + Q′, both count up; the other two combinations count down. Intuitively, Q′ falls exactly when Q rises, so driving the next stage from Q′ instead of Q effectively flips which transition of the original bit ripples the carry forward.</p>
 
+    <h2 id="Down">3-Bit Asynchronous Down-Counter</h2>
+    <p>Applying the rule above to a negative-edge-triggered chain: swap each stage's connection from Q to <strong>Q′</strong>, and the exact same chain now counts down. Every flip-flop now needs both outputs available:</p>
+    <div style="text-align:center;margin:1.25rem 0">
+      <svg viewBox="-20 -25 428 150" style="max-width:600px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
+        <text x="-18" y="59" font-size="11" fill="var(--text-2)">CLK</text>
+        <line x1="0" y1="55" x2="40" y2="55" stroke="var(--primary)" stroke-width="2"/>
+
+        <text x="51" y="-9" font-size="11" fill="var(--text-2)">1</text>
+        <line x1="55" y1="-5" x2="55" y2="10" stroke="var(--primary)" stroke-width="2"/>
+        <rect x="40" y="10" width="70" height="90" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <path d="M40,47 L40,63 L52,55 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5" stroke-linejoin="round"/>
+        <text x="75" y="80" font-size="13" font-weight="700" text-anchor="middle" fill="var(--text)">FF0</text>
+        <line x1="110" y1="35" x2="140" y2="35" stroke="var(--primary)" stroke-width="2"/>
+        <text x="114" y="29" font-size="12" fill="var(--text)">Q₀</text>
+        <line x1="110" y1="65" x2="140" y2="65" stroke="var(--primary)" stroke-width="2"/>
+        <text x="114" y="79" font-size="12" fill="var(--text)">Q₀′</text>
+
+        <line x1="140" y1="65" x2="140" y2="55" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="140" y1="55" x2="170" y2="55" stroke="var(--primary)" stroke-width="2"/>
+        <text x="181" y="-9" font-size="11" fill="var(--text-2)">1</text>
+        <line x1="185" y1="-5" x2="185" y2="10" stroke="var(--primary)" stroke-width="2"/>
+        <rect x="170" y="10" width="70" height="90" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <path d="M170,47 L170,63 L182,55 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5" stroke-linejoin="round"/>
+        <text x="205" y="80" font-size="13" font-weight="700" text-anchor="middle" fill="var(--text)">FF1</text>
+        <line x1="240" y1="35" x2="270" y2="35" stroke="var(--primary)" stroke-width="2"/>
+        <text x="244" y="29" font-size="12" fill="var(--text)">Q₁</text>
+        <line x1="240" y1="65" x2="270" y2="65" stroke="var(--primary)" stroke-width="2"/>
+        <text x="244" y="79" font-size="12" fill="var(--text)">Q₁′</text>
+
+        <line x1="270" y1="65" x2="270" y2="55" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="270" y1="55" x2="300" y2="55" stroke="var(--primary)" stroke-width="2"/>
+        <text x="311" y="-9" font-size="11" fill="var(--text-2)">1</text>
+        <line x1="315" y1="-5" x2="315" y2="10" stroke="var(--primary)" stroke-width="2"/>
+        <rect x="300" y="10" width="70" height="90" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <path d="M300,47 L300,63 L312,55 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5" stroke-linejoin="round"/>
+        <text x="335" y="80" font-size="13" font-weight="700" text-anchor="middle" fill="var(--text)">FF2</text>
+        <line x1="370" y1="35" x2="400" y2="35" stroke="var(--primary)" stroke-width="2"/>
+        <text x="374" y="29" font-size="12" fill="var(--text)">Q₂</text>
+        <line x1="370" y1="65" x2="400" y2="65" stroke="var(--primary)" stroke-width="2"/>
+        <text x="374" y="79" font-size="12" fill="var(--text)">Q₂′</text>
+      </svg>
+    </div>
+    <div class="box box-eg" style="text-align:center">111 → 110 → 101 → 100 → 011 → 010 → 001 → 000 → 111 …</div>
+    <p>Each stage's clock now comes from the <em>previous</em> stage's Q′ instead of Q (compare the jog wires here to the up-counter's above). Nothing else changes — same negative-edge triggering, same T=1 tie — only which output feeds the next stage.</p>
+
     <h2 id="Mod10">Designing a Modulo-10 (BCD) Counter</h2>
     <p>A plain 4-bit ripple counter naturally counts mod-16 (0000 through 1111). To make it a <strong>mod-10 (BCD)</strong> counter — counting only 0 through 9 — the count needs to reset back to 0000 the instant it would otherwise reach 10 (1010₂):</p>
     <div class="box box-eg">
@@ -145,19 +190,80 @@
 Reset state:   Q₃Q₂Q₁Q₀ = 1010  (Q₃=1 and Q₁=1 — the only bits that are 1 at count 10)
 Clear logic:   CLR′ = (Q₃ · Q₁)′</pre>
     </div>
-    <p>As soon as the counter momentarily reaches 1010, Q₃ and Q₁ are both 1, so the NAND gate's output CLR′ drops to 0 and asynchronously clears every flip-flop back to 0000 — the count never actually settles at 1010 for a full clock cycle, it just flashes through it as a brief reset trigger:</p>
+    <p>As soon as the counter momentarily reaches 1010, Q₃ and Q₁ are both 1, so the NAND gate's output CLR′ drops to 0 and asynchronously clears every flip-flop back to 0000 — the count never actually settles at 1010 for a full clock cycle, it just flashes through it as a brief reset trigger. Wiring the gate's output to every stage's CLR pin turns the plain 4-bit up-counter into a complete mod-10 counter:</p>
     <div style="text-align:center;margin:1.25rem 0">
-      <svg viewBox="-5 -5 292 90" style="max-width:400px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
-        <text x="2" y="19" font-size="13" fill="var(--text)">Q₃</text>
-        <line x1="18" y1="15" x2="60" y2="15" stroke="var(--primary)" stroke-width="2"/>
-        <text x="2" y="59" font-size="13" fill="var(--text)">Q₁</text>
-        <line x1="18" y1="55" x2="60" y2="55" stroke="var(--primary)" stroke-width="2"/>
-        <path d="M60,0 L86,0 A35,35 0 0 1 86,70 L60,70 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="3" stroke-linejoin="round"/>
-        <circle cx="128" cy="35" r="7" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
-        <line x1="135" y1="35" x2="175" y2="35" stroke="var(--primary)" stroke-width="2"/>
-        <text x="179" y="40" font-size="13" fill="var(--text)">CLR′ (clears all FFs)</text>
+      <svg viewBox="-25 -25 680 260" style="max-width:820px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
+        <text x="-18" y="59" font-size="11" fill="var(--text-2)">CLK</text>
+        <line x1="0" y1="55" x2="40" y2="55" stroke="var(--primary)" stroke-width="2"/>
+
+        <text x="51" y="-9" font-size="11" fill="var(--text-2)">1</text>
+        <line x1="55" y1="-5" x2="55" y2="10" stroke="var(--primary)" stroke-width="2"/>
+        <rect x="40" y="10" width="70" height="90" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <path d="M40,47 L40,63 L52,55 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5" stroke-linejoin="round"/>
+        <text x="75" y="80" font-size="13" font-weight="700" text-anchor="middle" fill="var(--text)">FF0</text>
+        <line x1="110" y1="45" x2="140" y2="45" stroke="var(--primary)" stroke-width="2"/>
+        <text x="114" y="39" font-size="12" fill="var(--text)">Q₀</text>
+        <line x1="55" y1="100" x2="55" y2="200" stroke="var(--primary)" stroke-width="2"/>
+
+        <line x1="140" y1="45" x2="140" y2="55" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="140" y1="55" x2="170" y2="55" stroke="var(--primary)" stroke-width="2"/>
+        <text x="181" y="-9" font-size="11" fill="var(--text-2)">1</text>
+        <line x1="185" y1="-5" x2="185" y2="10" stroke="var(--primary)" stroke-width="2"/>
+        <rect x="170" y="10" width="70" height="90" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <path d="M170,47 L170,63 L182,55 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5" stroke-linejoin="round"/>
+        <text x="205" y="80" font-size="13" font-weight="700" text-anchor="middle" fill="var(--text)">FF1</text>
+        <line x1="240" y1="45" x2="270" y2="45" stroke="var(--primary)" stroke-width="2"/>
+        <text x="244" y="39" font-size="12" fill="var(--text)">Q₁</text>
+        <circle cx="255" cy="45" r="3" fill="var(--primary)"/>
+        <line x1="185" y1="100" x2="185" y2="200" stroke="var(--primary)" stroke-width="2"/>
+
+        <line x1="270" y1="45" x2="270" y2="55" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="270" y1="55" x2="300" y2="55" stroke="var(--primary)" stroke-width="2"/>
+        <text x="311" y="-9" font-size="11" fill="var(--text-2)">1</text>
+        <line x1="315" y1="-5" x2="315" y2="10" stroke="var(--primary)" stroke-width="2"/>
+        <rect x="300" y="10" width="70" height="90" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <path d="M300,47 L300,63 L312,55 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5" stroke-linejoin="round"/>
+        <text x="335" y="80" font-size="13" font-weight="700" text-anchor="middle" fill="var(--text)">FF2</text>
+        <line x1="370" y1="45" x2="400" y2="45" stroke="var(--primary)" stroke-width="2"/>
+        <text x="374" y="39" font-size="12" fill="var(--text)">Q₂</text>
+        <line x1="315" y1="100" x2="315" y2="200" stroke="var(--primary)" stroke-width="2"/>
+
+        <line x1="400" y1="45" x2="400" y2="55" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="400" y1="55" x2="430" y2="55" stroke="var(--primary)" stroke-width="2"/>
+        <text x="441" y="-9" font-size="11" fill="var(--text-2)">1</text>
+        <line x1="445" y1="-5" x2="445" y2="10" stroke="var(--primary)" stroke-width="2"/>
+        <rect x="430" y="10" width="70" height="90" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <path d="M430,47 L430,63 L442,55 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5" stroke-linejoin="round"/>
+        <text x="465" y="80" font-size="13" font-weight="700" text-anchor="middle" fill="var(--text)">FF3</text>
+        <line x1="500" y1="45" x2="530" y2="45" stroke="var(--primary)" stroke-width="2"/>
+        <text x="504" y="39" font-size="12" fill="var(--text)">Q₃</text>
+        <circle cx="515" cy="45" r="3" fill="var(--primary)"/>
+        <line x1="445" y1="100" x2="445" y2="200" stroke="var(--primary)" stroke-width="2"/>
+
+        <line x1="515" y1="45" x2="515" y2="114" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="515" y1="114" x2="550" y2="114" stroke="var(--primary)" stroke-width="2"/>
+        <text x="519" y="108" font-size="10" fill="var(--text-2)">Q₃</text>
+
+        <line x1="255" y1="45" x2="255" y2="-15" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="255" y1="-15" x2="505" y2="-15" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="505" y1="-15" x2="505" y2="156" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="505" y1="156" x2="550" y2="156" stroke="var(--primary)" stroke-width="2"/>
+        <text x="509" y="170" font-size="10" fill="var(--text-2)">Q₁</text>
+
+        <path d="M550,100 L576,100 A35,35 0 0 1 576,170 L550,170 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="3" stroke-linejoin="round"/>
+        <circle cx="618" cy="135" r="7" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <text x="600" y="151" font-size="10" fill="var(--text-2)">CLR′</text>
+        <line x1="625" y1="135" x2="625" y2="200" stroke="var(--primary)" stroke-width="2"/>
+
+        <line x1="55" y1="200" x2="625" y2="200" stroke="var(--primary)" stroke-width="2"/>
+        <circle cx="55" cy="200" r="3" fill="var(--primary)"/>
+        <circle cx="185" cy="200" r="3" fill="var(--primary)"/>
+        <circle cx="315" cy="200" r="3" fill="var(--primary)"/>
+        <circle cx="445" cy="200" r="3" fill="var(--primary)"/>
+        <text x="20" y="216" font-size="11" fill="var(--text-2)">CLR bus — clears all 4 stages back to 0000</text>
       </svg>
     </div>
+    <p>Q₃ and Q₁ tap off the main chain and feed the NAND gate; its output CLR′ runs along the bottom as a shared bus into every stage's CLR pin. The counter runs 0000 through 1001 exactly like a plain 4-bit up-counter — the gate only ever fires at the instant Q₃Q₁=11, which the design above guarantees is the count 1010, snapping it straight back to 0000.</p>
 
     <h2>Common Pitfalls</h2>
     <ul>

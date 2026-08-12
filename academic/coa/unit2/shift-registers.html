@@ -4,18 +4,18 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Shift Registers — COA Unit 2 | Chandras EDU</title>
-  <meta name="description" content="SISO/SIPO/PISO/PIPO data transfer modes, and the ring counter and Johnson (twisted-ring) counter built directly from a shift register with feedback.">
+  <meta name="description" content="SISO, SIPO, PISO, and PIPO shift register configurations, each with its own diagram, plus the shift vs. parallel-load control table.">
   <link rel="canonical" href="https://courses.chandrashaker.in/academic/coa/unit2/shift-registers.html">
   <link rel="stylesheet" href="../../../css/style.css">
 
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="Chandras EDU">
   <meta property="og:title" content="Shift Registers — COA Unit 2 | Chandras EDU">
-  <meta property="og:description" content="SISO/SIPO/PISO/PIPO data transfer modes, and the ring counter and Johnson (twisted-ring) counter built directly from a shift register with feedback.">
+  <meta property="og:description" content="SISO, SIPO, PISO, and PIPO shift register configurations, each with its own diagram, plus the shift vs. parallel-load control table.">
   <meta property="og:url" content="https://courses.chandrashaker.in/academic/coa/unit2/shift-registers.html">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Shift Registers — COA Unit 2 | Chandras EDU">
-  <meta name="twitter:description" content="SISO/SIPO/PISO/PIPO data transfer modes, and the ring counter and Johnson (twisted-ring) counter built directly from a shift register with feedback.">
+  <meta name="twitter:description" content="SISO, SIPO, PISO, and PIPO shift register configurations, each with its own diagram, plus the shift vs. parallel-load control table.">
 
   <script type="application/ld+json">
 {
@@ -34,7 +34,7 @@
   "@context": "https://schema.org",
   "@type": "LearningResource",
   "name": "Shift Registers",
-  "description": "SISO/SIPO/PISO/PIPO data transfer modes, and the ring counter and Johnson (twisted-ring) counter built directly from a shift register with feedback.",
+  "description": "SISO, SIPO, PISO, and PIPO shift register configurations, each with its own diagram, plus the shift vs. parallel-load control table.",
   "url": "https://courses.chandrashaker.in/academic/coa/unit2/shift-registers.html",
   "learningResourceType": "Lesson",
   "educationalLevel": "Undergraduate",
@@ -75,7 +75,7 @@
     <div style="font-size:.75rem;opacity:.75;margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.05em">COA › Unit 2: Sequential Logic › Topic 6</div>
     <h1 style="font-size:1.4rem;font-weight:700;color:#fff;margin-bottom:.5rem">Shift Registers</h1>
     <div style="display:flex;gap:.75rem;flex-wrap:wrap">
-      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">⏱ 18 min read</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">⏱ 22 min read</span>
       <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📝 Quiz inside</span>
       <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📖 Mano, Ch. 6</span>
     </div>
@@ -125,30 +125,14 @@
         <line x1="418" y1="85" x2="430" y2="85" stroke="var(--primary)" stroke-width="2"/>
       </svg>
     </div>
-    <p>Whether a register counts as "serial" or "parallel" on each side is purely about how data gets in and out — the internal shifting structure above never changes.</p>
+    <p>Whether a register counts as "serial" or "parallel" on each side is purely about how data gets in and out — the internal shifting structure above never changes. The four combinations of serial/parallel in and out give the four standard shift register configurations.</p>
 
-    <h2 id="Modes">Four Data Transfer Modes</h2>
-    <table class="truth-table">
-      <thead><tr><th>Type</th><th>Name</th><th>Data In</th><th>Data Out</th><th>Typical Use</th></tr></thead>
-      <tbody>
-        <tr><td><strong>SISO</strong></td><td>Serial-In / Serial-Out</td><td>1 bit/clock</td><td>1 bit/clock</td><td>Time delay, signal buffering</td></tr>
-        <tr><td><strong>SIPO</strong></td><td>Serial-In / Parallel-Out</td><td>1 bit/clock</td><td>All bits at once</td><td>Serial-to-parallel conversion (UART receive)</td></tr>
-        <tr><td><strong>PISO</strong></td><td>Parallel-In / Serial-Out</td><td>All bits at once</td><td>1 bit/clock</td><td>Parallel-to-serial conversion (UART transmit)</td></tr>
-        <tr><td><strong>PIPO</strong></td><td>Parallel-In / Parallel-Out</td><td>All bits at once</td><td>All bits at once</td><td>Fast temporary register storage</td></tr>
-      </tbody>
-    </table>
-    <p>SIPO taps every stage's Q as a separate output pin instead of using only the last one; PISO adds a way to force each stage directly to an external bit value before shifting begins (using the same MUX-based load idea from the previous topic, one MUX per stage). Both are the exact same shift-register core above with extra access points, not a different circuit.</p>
-
-    <h2 id="Ring">Ring Counter</h2>
-    <p>Feed the <em>last</em> stage's output straight back into the first stage's input, with no external serial data at all, and the register becomes a self-contained counter — a <strong>ring counter</strong>:</p>
+    <h2 id="SISO">SISO — Serial-In, Serial-Out</h2>
+    <p>Data enters one bit at a time at D<tspan style="font-size:.8em">in</tspan> and exits one bit at a time from the last stage, Q₃ — exactly the plain chain above, used purely for its shifting action:</p>
     <div style="text-align:center;margin:1.25rem 0">
-      <svg viewBox="-10 -35 630 215" style="max-width:680px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
-        <line x1="522" y1="45" x2="522" y2="-20" stroke="var(--primary)" stroke-width="2"/>
-        <circle cx="522" cy="45" r="3" fill="var(--primary)"/>
-        <line x1="522" y1="-20" x2="25" y2="-20" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="25" y1="-20" x2="25" y2="45" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="25" y1="45" x2="40" y2="45" stroke="var(--primary)" stroke-width="2"/>
-
+      <svg viewBox="-10 -10 630 190" style="max-width:680px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
+        <text x="-8" y="49" font-size="11" fill="var(--text-2)">D<tspan font-size="8" dy="2">in</tspan></text>
+        <line x1="14" y1="45" x2="40" y2="45" stroke="var(--primary)" stroke-width="2"/>
         <rect x="40" y="10" width="70" height="90" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
         <text x="75" y="82" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">FF0</text>
         <path d="M40,77 L40,93 L52,85 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5" stroke-linejoin="round"/>
@@ -170,8 +154,8 @@
         <rect x="430" y="10" width="70" height="90" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
         <text x="465" y="82" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">FF3</text>
         <path d="M430,77 L430,93 L442,85 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5" stroke-linejoin="round"/>
-        <line x1="500" y1="45" x2="530" y2="45" stroke="var(--primary)" stroke-width="2"/>
-        <text x="504" y="39" font-size="12" fill="var(--text)">Q₃</text>
+        <line x1="500" y1="45" x2="560" y2="45" stroke="var(--primary)" stroke-width="2"/>
+        <text x="504" y="39" font-size="12" fill="var(--text)">Q₃ (serial out)</text>
 
         <text x="-8" y="169" font-size="11" fill="var(--text-2)">CLK</text>
         <line x1="18" y1="165" x2="418" y2="165" stroke="var(--primary)" stroke-width="2"/>
@@ -185,47 +169,42 @@
         <line x1="418" y1="85" x2="430" y2="85" stroke="var(--primary)" stroke-width="2"/>
       </svg>
     </div>
-    <ul>
-      <li><strong>Number of states:</strong> N states for N flip-flops — the single 1 (or single 0) just circulates.</li>
-      <li><strong>4-bit sequence, pre-loaded to 1000:</strong> 1000 → 0100 → 0010 → 0001 → 1000 …</li>
-      <li><strong>Must be pre-loaded</strong> (e.g., to 1000) — reset alone gives 0000, which is a valid-looking but stuck state: Q₃=0 feeds D₀=0 forever, so it never starts circulating on its own.</li>
-    </ul>
+    <p><strong>Typical use:</strong> time delay lines and signal buffering, since the output is simply the input delayed by N clock cycles.</p>
 
-    <h2 id="Johnson">Johnson Counter (Twisted-Ring Counter)</h2>
-    <p>Feed back the <em>inverted</em> last output instead of the plain one, and the single circulating bit becomes a spreading/retreating band of 1s and 0s:</p>
+    <h2 id="SIPO">SIPO — Serial-In, Parallel-Out</h2>
+    <p>Same chain, same serial input — but now every stage's Q is also tapped out as its own separate pin, so all 4 bits become available together once the last one has shifted in:</p>
     <div style="text-align:center;margin:1.25rem 0">
-      <svg viewBox="-10 -35 630 215" style="max-width:680px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
-        <line x1="522" y1="45" x2="522" y2="-20" stroke="var(--primary)" stroke-width="2"/>
-        <circle cx="522" cy="45" r="3" fill="var(--primary)"/>
-        <line x1="522" y1="-20" x2="200" y2="-20" stroke="var(--primary)" stroke-width="2"/>
-        <path d="M200,-28 L200,-12 L170,-20 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5" stroke-linejoin="round"/>
-        <circle cx="165" cy="-20" r="5" fill="var(--bg)" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="160" y1="-20" x2="25" y2="-20" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="25" y1="-20" x2="25" y2="45" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="25" y1="45" x2="40" y2="45" stroke="var(--primary)" stroke-width="2"/>
-
+      <svg viewBox="-10 -50 630 230" style="max-width:680px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
+        <text x="-8" y="49" font-size="11" fill="var(--text-2)">D<tspan font-size="8" dy="2">in</tspan></text>
+        <line x1="14" y1="45" x2="40" y2="45" stroke="var(--primary)" stroke-width="2"/>
         <rect x="40" y="10" width="70" height="90" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
         <text x="75" y="82" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">FF0</text>
         <path d="M40,77 L40,93 L52,85 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5" stroke-linejoin="round"/>
         <line x1="110" y1="45" x2="170" y2="45" stroke="var(--primary)" stroke-width="2"/>
-        <text x="114" y="39" font-size="12" fill="var(--text)">Q₀</text>
+        <circle cx="140" cy="45" r="3" fill="var(--primary)"/>
+        <line x1="140" y1="45" x2="140" y2="-20" stroke="var(--primary)" stroke-width="2"/>
+        <text x="122" y="-26" font-size="12" fill="var(--text)">Q₀</text>
 
         <rect x="170" y="10" width="70" height="90" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
         <text x="205" y="82" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">FF1</text>
         <path d="M170,77 L170,93 L182,85 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5" stroke-linejoin="round"/>
         <line x1="240" y1="45" x2="300" y2="45" stroke="var(--primary)" stroke-width="2"/>
-        <text x="244" y="39" font-size="12" fill="var(--text)">Q₁</text>
+        <circle cx="270" cy="45" r="3" fill="var(--primary)"/>
+        <line x1="270" y1="45" x2="270" y2="-20" stroke="var(--primary)" stroke-width="2"/>
+        <text x="252" y="-26" font-size="12" fill="var(--text)">Q₁</text>
 
         <rect x="300" y="10" width="70" height="90" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
         <text x="335" y="82" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">FF2</text>
         <path d="M300,77 L300,93 L312,85 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5" stroke-linejoin="round"/>
         <line x1="370" y1="45" x2="430" y2="45" stroke="var(--primary)" stroke-width="2"/>
-        <text x="374" y="39" font-size="12" fill="var(--text)">Q₂</text>
+        <circle cx="400" cy="45" r="3" fill="var(--primary)"/>
+        <line x1="400" y1="45" x2="400" y2="-20" stroke="var(--primary)" stroke-width="2"/>
+        <text x="382" y="-26" font-size="12" fill="var(--text)">Q₂</text>
 
         <rect x="430" y="10" width="70" height="90" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
         <text x="465" y="82" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">FF3</text>
         <path d="M430,77 L430,93 L442,85 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5" stroke-linejoin="round"/>
-        <line x1="500" y1="45" x2="530" y2="45" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="500" y1="45" x2="560" y2="45" stroke="var(--primary)" stroke-width="2"/>
         <text x="504" y="39" font-size="12" fill="var(--text)">Q₃</text>
 
         <text x="-8" y="169" font-size="11" fill="var(--text-2)">CLK</text>
@@ -240,35 +219,116 @@
         <line x1="418" y1="85" x2="430" y2="85" stroke="var(--primary)" stroke-width="2"/>
       </svg>
     </div>
-    <ul>
-      <li><strong>Number of states:</strong> 2N states for N flip-flops — twice the ring counter, since the inverted feedback takes twice as long to return to the starting pattern.</li>
-      <li><strong>4-bit sequence, starting from reset (0000):</strong> 0000 → 1000 → 1100 → 1110 → 1111 → 0111 → 0011 → 0001 → 0000 …</li>
-      <li><strong>Self-starting</strong> from the all-0 reset state — unlike the ring counter, 0000 isn't a stuck state here, because Q₃′=1 feeds D₀=1 on the very next clock, immediately kicking off the sequence.</li>
-    </ul>
+    <p><strong>Typical use:</strong> serial-to-parallel conversion — a UART receiver shifts incoming bits in one at a time, then reads Q₀–Q₃ together as one completed byte.</p>
 
-    <h2 id="Comparison">Ring vs. Johnson Counter</h2>
+    <h2 id="PISO">PISO — Parallel-In, Serial-Out</h2>
+    <p>Each stage gets a 2-to-1 MUX in front of its D input — the same load-control idea as a <a href="registers.html">parallel-load register</a> — choosing between the previous stage's Q (shift) and an external parallel bit I<tspan style="font-size:.8em">n</tspan> (load). One cell of the chain looks like this (every stage repeats this exact cell, sharing one SHIFT/LOAD line):</p>
+    <div style="text-align:center;margin:1.25rem 0">
+      <svg viewBox="-20 -20 380 145" style="max-width:460px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
+        <text x="105" y="-8" font-size="11" fill="var(--text-2)">SHIFT/LOAD̄</text>
+        <line x1="135" y1="-4" x2="135" y2="10" stroke="var(--primary)" stroke-width="2"/>
+
+        <text x="-18" y="34" font-size="12" fill="var(--text)">Q<tspan font-size="8" dy="2">n-1</tspan></text>
+        <text x="80" y="27" font-size="9" fill="var(--text-3)">1</text>
+        <line x1="6" y1="30" x2="100" y2="30" stroke="var(--primary)" stroke-width="2"/>
+
+        <text x="-16" y="74" font-size="12" fill="var(--text)">I<tspan font-size="8" dy="2">n</tspan></text>
+        <text x="80" y="67" font-size="9" fill="var(--text-3)">0</text>
+        <line x1="0" y1="70" x2="100" y2="70" stroke="var(--primary)" stroke-width="2"/>
+
+        <rect x="100" y="10" width="70" height="90" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <text x="135" y="59" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">MUX</text>
+        <text x="135" y="75" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">2:1</text>
+
+        <line x1="170" y1="50" x2="210" y2="50" stroke="var(--primary)" stroke-width="2"/>
+        <text x="176" y="40" font-size="10" fill="var(--text-2)">D</text>
+
+        <rect x="210" y="10" width="90" height="90" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <text x="255" y="60" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">D FLIP-FLOP</text>
+        <text x="237" y="116" font-size="11" fill="var(--text-2)">CLK</text>
+        <line x1="255" y1="112" x2="255" y2="100" stroke="var(--primary)" stroke-width="2"/>
+        <path d="M247,100 L263,100 L255,88 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5" stroke-linejoin="round"/>
+
+        <line x1="300" y1="50" x2="340" y2="50" stroke="var(--primary)" stroke-width="2"/>
+        <text x="344" y="54" font-size="13" fill="var(--text)">Q<tspan font-size="9" dy="2">n</tspan></text>
+      </svg>
+      <div style="font-size:.78rem;color:#777;margin-top:.4rem">One PISO cell. SHIFT/LOAD̄=1 selects Q<tspan style="font-size:.8em">n-1</tspan> (shift in from the previous stage); =0 selects I<tspan style="font-size:.8em">n</tspan> (load this stage's parallel bit directly). The final stage's Q is the serial output.</div>
+    </div>
+    <p><strong>Typical use:</strong> parallel-to-serial conversion — a UART transmitter loads a whole byte in parallel in one clock, then shifts it out one bit per clock afterward.</p>
+
+    <h2 id="PIPO">PIPO — Parallel-In, Parallel-Out</h2>
+    <p>All 4 bits load independently and all 4 are read independently — no bit ever has to pass through another stage. Structurally this is just 4 D flip-flops sharing one clock, with no chaining between them at all:</p>
+    <div style="text-align:center;margin:1.25rem 0">
+      <svg viewBox="-10 -10 630 190" style="max-width:680px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
+        <text x="-8" y="34" font-size="11" fill="var(--text-2)">I₀</text>
+        <line x1="0" y1="30" x2="40" y2="30" stroke="var(--primary)" stroke-width="2"/>
+        <rect x="40" y="10" width="70" height="90" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <text x="75" y="82" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">FF0</text>
+        <path d="M40,77 L40,93 L52,85 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5" stroke-linejoin="round"/>
+        <line x1="110" y1="70" x2="150" y2="70" stroke="var(--primary)" stroke-width="2"/>
+        <text x="114" y="64" font-size="12" fill="var(--text)">Q₀</text>
+
+        <text x="122" y="34" font-size="11" fill="var(--text-2)">I₁</text>
+        <line x1="130" y1="30" x2="170" y2="30" stroke="var(--primary)" stroke-width="2"/>
+        <rect x="170" y="10" width="70" height="90" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <text x="205" y="82" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">FF1</text>
+        <path d="M170,77 L170,93 L182,85 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5" stroke-linejoin="round"/>
+        <line x1="240" y1="70" x2="280" y2="70" stroke="var(--primary)" stroke-width="2"/>
+        <text x="244" y="64" font-size="12" fill="var(--text)">Q₁</text>
+
+        <text x="252" y="34" font-size="11" fill="var(--text-2)">I₂</text>
+        <line x1="260" y1="30" x2="300" y2="30" stroke="var(--primary)" stroke-width="2"/>
+        <rect x="300" y="10" width="70" height="90" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <text x="335" y="82" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">FF2</text>
+        <path d="M300,77 L300,93 L312,85 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5" stroke-linejoin="round"/>
+        <line x1="370" y1="70" x2="410" y2="70" stroke="var(--primary)" stroke-width="2"/>
+        <text x="374" y="64" font-size="12" fill="var(--text)">Q₂</text>
+
+        <text x="382" y="34" font-size="11" fill="var(--text-2)">I₃</text>
+        <line x1="390" y1="30" x2="430" y2="30" stroke="var(--primary)" stroke-width="2"/>
+        <rect x="430" y="10" width="70" height="90" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <text x="465" y="82" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">FF3</text>
+        <path d="M430,77 L430,93 L442,85 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5" stroke-linejoin="round"/>
+        <line x1="500" y1="70" x2="540" y2="70" stroke="var(--primary)" stroke-width="2"/>
+        <text x="504" y="64" font-size="12" fill="var(--text)">Q₃</text>
+
+        <text x="-8" y="169" font-size="11" fill="var(--text-2)">CLK</text>
+        <line x1="18" y1="165" x2="418" y2="165" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="28" y1="165" x2="28" y2="85" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="28" y1="85" x2="40" y2="85" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="158" y1="165" x2="158" y2="85" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="158" y1="85" x2="170" y2="85" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="288" y1="165" x2="288" y2="85" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="288" y1="85" x2="300" y2="85" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="418" y1="165" x2="418" y2="85" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="418" y1="85" x2="430" y2="85" stroke="var(--primary)" stroke-width="2"/>
+      </svg>
+    </div>
+    <p><strong>Typical use:</strong> fast temporary register storage — this is functionally identical to the plain register from the previous topic, just framed here as the "no shifting at all" endpoint of the shift-register family.</p>
+
+    <h2 id="ShiftLoad">Shift vs. Parallel-Load Operation</h2>
+    <p>PISO and PIPO both need a control line telling every stage, on each clock, whether to shift or to load — exactly the SHIFT/LOAD̄ line from the PISO cell above:</p>
     <table class="truth-table">
-      <thead><tr><th>Feature</th><th>Ring Counter</th><th>Johnson Counter</th></tr></thead>
+      <thead><tr><th>SHIFT/LOAD̄</th><th>Each Stage's D Input Becomes</th><th>Result</th></tr></thead>
       <tbody>
-        <tr><td>Number of states</td><td>N</td><td>2N</td></tr>
-        <tr><td>Feedback connection</td><td>D₀ = Q<sub>N-1</sub></td><td>D₀ = Q′<sub>N-1</sub></td></tr>
-        <tr><td>Initialization</td><td>Requires pre-loading (e.g., 1000)</td><td>Self-starting from reset (0000)</td></tr>
-        <tr><td>Decoding a state</td><td>Single bit is already the decoded output</td><td>Needs a 2-input gate per state to decode</td></tr>
+        <tr><td><strong>1 (Shift)</strong></td><td>Previous stage's Q (serial-in for the first stage)</td><td>Data moves one position per clock</td></tr>
+        <tr><td><strong>0 (Load)</strong></td><td>External parallel bit I<sub>n</sub></td><td>All stages capture parallel data simultaneously</td></tr>
       </tbody>
     </table>
+    <p>SISO and SIPO don't need this line at all — with no parallel-load path built in, they only ever shift, so the MUX (and its control line) simply isn't there.</p>
 
     <h2>Common Pitfalls</h2>
     <ul>
-      <li><strong>Powering up a ring counter and expecting it to count.</strong> Without pre-loading exactly one stage to 1, a ring counter can power up in the all-0 state and simply sit there forever — it needs an explicit preset pulse before the first clock.</li>
-      <li><strong>Forgetting Johnson counters need external decoding to identify each state.</strong> Unlike a ring counter, where the single active bit directly tells you the state, a Johnson counter's states aren't one-hot — identifying "which of the 2N states is this" needs a small 2-input gate per state (comparing adjacent bits).</li>
-      <li><strong>Confusing SIPO/PISO direction.</strong> SIPO means data goes in one bit at a time and comes out all at once; PISO is the reverse. The "S" always refers to how data enters, the second "S"/"P" to how it exits.</li>
+      <li><strong>Confusing SIPO/PISO direction.</strong> The first letter always describes how data enters (Serial or Parallel), the second how it exits. SIPO goes in one bit at a time and comes out all at once; PISO is the reverse.</li>
+      <li><strong>Forgetting that SHIFT/LOAD̄ is sampled on every clock edge, not just once.</strong> Leaving it at 0 (load) after the intended load clock means the register keeps re-loading the same external data instead of shifting, silently overwriting any shifted-in bits.</li>
+      <li><strong>Assuming PIPO needs a shift path at all.</strong> A pure PIPO register (like the diagram above) has no inter-stage wiring whatsoever — confusing it with PISO/SIPO's chained structure is a common source of wiring mistakes.</li>
     </ul>
 
     <h2>Applications</h2>
     <ul>
       <li><strong>UART serial communication</strong> is the textbook SIPO/PISO pairing — a transmitter's parallel byte is shifted out one bit at a time (PISO), and the receiver reassembles incoming bits back into a parallel byte (SIPO).</li>
-      <li><strong>Johnson counters</strong> are used to build glitch-free ring oscillators and simple state sequencers (e.g., traffic-light controllers) since each state differs from its neighbor in only one bit, avoiding decoding glitches from multiple bits changing at once.</li>
-      <li><strong>LED chaser / marquee displays</strong> are a direct, visible application of a ring counter — the single circulating 1 lights exactly one LED at a time, moving down the strip each clock pulse.</li>
+      <li><strong>SISO chains</strong> are used as simple digital delay lines, deliberately holding a signal for a fixed number of clock cycles.</li>
+      <li><strong>PIPO registers</strong> are the standard choice for CPU pipeline stage buffers, where an entire word must be captured and released together every cycle.</li>
     </ul>
   </div>
 
@@ -332,9 +392,9 @@
   const QUIZ = [
     { q:"What defines a shift register's internal structure?", options:["Each stage's D input is wired directly to the previous stage's Q output, so stored bits move one position per clock", "Every stage receives an independent, unrelated data input", "It uses no clock at all", "Each stage's output feeds back into its own input"], answer:0, explanation:"A shift register is simply a chain where each flip-flop's D comes from the previous one's Q — on each clock, every bit shifts one position down the chain." },
     { q:"What is the key difference between SIPO and PISO shift register modes?", options:["SIPO takes data in one bit at a time and outputs all bits at once; PISO takes all bits in at once and outputs one bit at a time", "SIPO and PISO are two names for the exact same mode", "SIPO has no clock input; PISO does", "PISO can only be used with 8-bit registers"], answer:0, explanation:"The first letter describes how data enters (Serial or Parallel) and the second how it exits — SIPO is serial-in/parallel-out, PISO is the reverse." },
-    { q:"Why must a ring counter be pre-loaded (e.g., to 1000) rather than just reset to 0000?", options:["All-0000 is a stuck state — with D0=Q3 and Q3=0, D0 stays 0 forever, so it never starts circulating on its own", "Ring counters cannot be reset at all", "0000 is not a valid binary state", "Pre-loading is only a convention with no functional reason"], answer:0, explanation:"Since the ring counter's feedback is D0=Q3 with no inversion, an all-0 state feeds back 0 forever — it needs at least one stage forced to 1 before clocking begins." },
-    { q:"Why does a Johnson counter have 2N states for N flip-flops, twice as many as a ring counter's N states?", options:["The inverted feedback means the pattern takes twice as many clock cycles to return to its starting configuration", "Johnson counters use twice as many flip-flops as ring counters for the same state count", "It's an arbitrary design choice unrelated to the feedback structure", "2N is simply the maximum any 4-bit register can reach"], answer:0, explanation:"Because feedback is inverted (D0=Q3′), the circulating pattern of 1s and 0s has to make two full passes through the register before repeating, doubling the cycle length to 2N." },
-    { q:"What must be added to a Johnson counter that a ring counter doesn't need, in order to identify which state the counter is in?", options:["A small 2-input decoding gate per state, since Johnson counter states aren't one-hot the way ring counter states are", "An additional clock signal", "More flip-flops", "Nothing — both require identical decoding"], answer:0, explanation:"A ring counter's single active bit directly identifies the state; a Johnson counter's states differ by a shifting boundary between 1s and 0s, so identifying a specific state requires comparing two adjacent bits with a small gate." }
+    { q:"In the PISO cell diagram, what does the MUX select when SHIFT/LOAD̄ = 0?", options:["The external parallel bit Iₙ, loading this stage directly", "The previous stage's Q, shifting data in", "Nothing — the flip-flop is disconnected", "Both inputs simultaneously"], answer:0, explanation:"SHIFT/LOAD̄=0 selects the load path (Iₙ), forcing this stage's external parallel bit into D; =1 selects the shift path (previous stage's Q) instead." },
+    { q:"Structurally, what is a PIPO shift register?", options:["4 independent D flip-flops sharing one clock, with no wiring between stages at all", "The same chained structure as SISO, just with extra taps", "A ring counter with its feedback removed", "Impossible to build without a MUX per stage"], answer:0, explanation:"Since every bit loads and reads independently in PIPO, there's no need for any inter-stage connection — it's just N independent D flip-flops on a shared clock, functionally identical to a plain register." },
+    { q:"Why don't SISO and SIPO need a SHIFT/LOAD̄ control line the way PISO and PIPO do?", options:["They have no parallel-load path built in at all — with nothing to choose between, there's no MUX and no control line needed", "SHIFT/LOAD̄ is technically present but always tied to 1", "SISO and SIPO don't use a clock", "It's an arbitrary design simplification with no underlying reason"], answer:0, explanation:"The MUX-based load path only exists to give a stage TWO possible next-D sources (shift vs. load) to choose between. SISO/SIPO stages only ever have one source (the previous stage's Q), so there's nothing to select." }
   ];
 
   let selected = {}, submitted = false;
