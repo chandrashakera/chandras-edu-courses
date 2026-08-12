@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ripple Counters — COA Unit 2 | Chandras EDU</title>
+  <meta name="description" content="Cascaded toggle flip-flops clocked by the previous stage's output, up vs. down counting rules, and designing a modulo-10 (BCD) counter with a NAND reset gate.">
+  <link rel="canonical" href="https://courses.chandrashaker.in/academic/coa/unit2/ripple-counters.html">
+  <link rel="stylesheet" href="../../../css/style.css">
+
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Chandras EDU">
+  <meta property="og:title" content="Ripple Counters — COA Unit 2 | Chandras EDU">
+  <meta property="og:description" content="Cascaded toggle flip-flops clocked by the previous stage's output, up vs. down counting rules, and designing a modulo-10 (BCD) counter with a NAND reset gate.">
+  <meta property="og:url" content="https://courses.chandrashaker.in/academic/coa/unit2/ripple-counters.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Ripple Counters — COA Unit 2 | Chandras EDU">
+  <meta name="twitter:description" content="Cascaded toggle flip-flops clocked by the previous stage's output, up vs. down counting rules, and designing a modulo-10 (BCD) counter with a NAND reset gate.">
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Courses", "item": "https://courses.chandrashaker.in/" },
+    { "@type": "ListItem", "position": 2, "name": "COA", "item": "https://courses.chandrashaker.in/academic/coa/" },
+    { "@type": "ListItem", "position": 3, "name": "Unit 2", "item": "https://courses.chandrashaker.in/academic/coa/unit2/" },
+    { "@type": "ListItem", "position": 4, "name": "Ripple Counters" }
+  ]
+}
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LearningResource",
+  "name": "Ripple Counters",
+  "description": "Cascaded toggle flip-flops clocked by the previous stage's output, up vs. down counting rules, and designing a modulo-10 (BCD) counter with a NAND reset gate.",
+  "url": "https://courses.chandrashaker.in/academic/coa/unit2/ripple-counters.html",
+  "learningResourceType": "Lesson",
+  "educationalLevel": "Undergraduate",
+  "about": { "@type": "Thing", "name": "Computer Organization and Architecture" },
+  "isPartOf": {
+    "@type": "Course",
+    "name": "Computer Organization and Architecture",
+    "provider": { "@type": "Organization", "name": "Chandras EDU", "url": "https://chandrashaker.in" }
+  },
+  "publisher": { "@type": "Organization", "name": "Chandras EDU", "url": "https://chandrashaker.in" }
+}
+  </script>
+  <link rel="icon" href="/favicon.ico">
+  <style>
+    .truth-table { border-collapse:collapse; margin:1rem auto; font-size:.86rem; }
+    .truth-table th, .truth-table td { border:1px solid var(--border); padding:.4rem .65rem; text-align:center; }
+    .truth-table th { background:var(--bg-3); color:var(--text); font-weight:700; }
+  </style>
+</head>
+<body>
+<nav class="nav"><div id="main-nav"></div></nav>
+
+<div style="max-width:820px;margin:.5rem auto;padding:0 1.25rem">
+  <div class="ad-slot">Advertisement</div>
+</div>
+
+<div class="page-narrow" role="main">
+
+  <nav class="breadcrumb">
+    <a href="../../../index.html">Courses</a><span class="sep">/</span>
+    <a href="../index.html">COA</a><span class="sep">/</span>
+    <a href="index.html">Unit 2</a><span class="sep">/</span>
+    <span>Sequential Logic</span><span class="sep">/</span>
+    <span class="cur">Ripple Counters</span>
+  </nav>
+
+  <div style="background:var(--primary);border-radius:var(--radius-lg);padding:1.1rem 1.4rem;margin-bottom:1.5rem;color:#fff">
+    <div style="font-size:.75rem;opacity:.75;margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.05em">COA › Unit 2: Sequential Logic › Topic 7</div>
+    <h1 style="font-size:1.4rem;font-weight:700;color:#fff;margin-bottom:.5rem">Ripple Counters</h1>
+    <div style="display:flex;gap:.75rem;flex-wrap:wrap">
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">⏱ 18 min read</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📝 Quiz inside</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📖 Mano, Ch. 6</span>
+    </div>
+  </div>
+
+  <!-- FULL LESSON — visible to everyone -->
+  <div class="lesson">
+    <h2 id="What-Makes">What Makes a Counter "Asynchronous"?</h2>
+    <p>A <strong>counter</strong> is just a sequential circuit that cycles through a fixed sequence of binary states on every clock pulse. In an <strong>asynchronous</strong> (or <strong>ripple</strong>) counter, only the first flip-flop receives the external clock directly — every later stage is clocked by the <em>output</em> of the stage before it. The new count doesn't appear all at once; it "ripples" through the chain one stage at a time, each stage only updating after the one before it has already toggled.</p>
+
+    <h2 id="3-Bit">3-Bit Asynchronous Up-Counter</h2>
+    <p>Cascade three negative-edge triggered <strong>T flip-flops</strong>, each permanently wired T=1 (toggle every clock):</p>
+    <div style="text-align:center;margin:1.25rem 0">
+      <svg viewBox="-20 -25 428 145" style="max-width:600px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
+        <text x="-18" y="59" font-size="11" fill="var(--text-2)">CLK</text>
+        <line x1="0" y1="55" x2="40" y2="55" stroke="var(--primary)" stroke-width="2"/>
+
+        <text x="51" y="-9" font-size="11" fill="var(--text-2)">1</text>
+        <line x1="55" y1="-5" x2="55" y2="10" stroke="var(--primary)" stroke-width="2"/>
+        <rect x="40" y="10" width="70" height="90" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <path d="M40,47 L40,63 L52,55 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5" stroke-linejoin="round"/>
+        <text x="75" y="80" font-size="13" font-weight="700" text-anchor="middle" fill="var(--text)">FF0</text>
+        <line x1="110" y1="45" x2="140" y2="45" stroke="var(--primary)" stroke-width="2"/>
+        <text x="114" y="39" font-size="12" fill="var(--text)">Q₀</text>
+
+        <line x1="140" y1="45" x2="140" y2="55" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="140" y1="55" x2="170" y2="55" stroke="var(--primary)" stroke-width="2"/>
+        <text x="181" y="-9" font-size="11" fill="var(--text-2)">1</text>
+        <line x1="185" y1="-5" x2="185" y2="10" stroke="var(--primary)" stroke-width="2"/>
+        <rect x="170" y="10" width="70" height="90" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <path d="M170,47 L170,63 L182,55 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5" stroke-linejoin="round"/>
+        <text x="205" y="80" font-size="13" font-weight="700" text-anchor="middle" fill="var(--text)">FF1</text>
+        <line x1="240" y1="45" x2="270" y2="45" stroke="var(--primary)" stroke-width="2"/>
+        <text x="244" y="39" font-size="12" fill="var(--text)">Q₁</text>
+
+        <line x1="270" y1="45" x2="270" y2="55" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="270" y1="55" x2="300" y2="55" stroke="var(--primary)" stroke-width="2"/>
+        <text x="311" y="-9" font-size="11" fill="var(--text-2)">1</text>
+        <line x1="315" y1="-5" x2="315" y2="10" stroke="var(--primary)" stroke-width="2"/>
+        <rect x="300" y="10" width="70" height="90" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <path d="M300,47 L300,63 L312,55 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5" stroke-linejoin="round"/>
+        <text x="335" y="80" font-size="13" font-weight="700" text-anchor="middle" fill="var(--text)">FF2</text>
+        <line x1="370" y1="45" x2="400" y2="45" stroke="var(--primary)" stroke-width="2"/>
+        <text x="374" y="39" font-size="12" fill="var(--text)">Q₂</text>
+      </svg>
+    </div>
+    <p>FF0 is the LSB and toggles on every external clock pulse; FF1 toggles only when Q₀ falls, and FF2 only when Q₁ falls — each stage runs at half the frequency of the one before it, which is exactly binary counting.</p>
+    <div class="box box-eg" style="text-align:center">000 → 001 → 010 → 011 → 100 → 101 → 110 → 111 → 000 …</div>
+
+    <h2 id="Up-Down">Up vs. Down Counter Rules</h2>
+    <p>Whether a ripple counter counts up or down depends on two independent choices: which clock edge each flip-flop triggers on, and whether the next stage is driven by Q or by Q′:</p>
+    <table class="truth-table">
+      <thead><tr><th>Clock Triggering</th><th>Next Stage Driven By</th><th>Counter Mode</th></tr></thead>
+      <tbody>
+        <tr><td>Negative edge (↓)</td><td>Q</td><td><strong>UP</strong></td></tr>
+        <tr><td>Negative edge (↓)</td><td>Q′</td><td><strong>DOWN</strong></td></tr>
+        <tr><td>Positive edge (↑)</td><td>Q</td><td><strong>DOWN</strong></td></tr>
+        <tr><td>Positive edge (↑)</td><td>Q′</td><td><strong>UP</strong></td></tr>
+      </tbody>
+    </table>
+    <p>The pattern: negative-edge-triggered + Q, or positive-edge-triggered + Q′, both count up; the other two combinations count down. Intuitively, Q′ falls exactly when Q rises, so driving the next stage from Q′ instead of Q effectively flips which transition of the original bit ripples the carry forward.</p>
+
+    <h2 id="Mod10">Designing a Modulo-10 (BCD) Counter</h2>
+    <p>A plain 4-bit ripple counter naturally counts mod-16 (0000 through 1111). To make it a <strong>mod-10 (BCD)</strong> counter — counting only 0 through 9 — the count needs to reset back to 0000 the instant it would otherwise reach 10 (1010₂):</p>
+    <div class="box box-eg">
+      <pre>Required FFs:  2ⁿ ≥ 10  ⟹  n = 4 flip-flops (Q₃Q₂Q₁Q₀)
+Reset state:   Q₃Q₂Q₁Q₀ = 1010  (Q₃=1 and Q₁=1 — the only bits that are 1 at count 10)
+Clear logic:   CLR′ = (Q₃ · Q₁)′</pre>
+    </div>
+    <p>As soon as the counter momentarily reaches 1010, Q₃ and Q₁ are both 1, so the NAND gate's output CLR′ drops to 0 and asynchronously clears every flip-flop back to 0000 — the count never actually settles at 1010 for a full clock cycle, it just flashes through it as a brief reset trigger:</p>
+    <div style="text-align:center;margin:1.25rem 0">
+      <svg viewBox="-5 -5 292 90" style="max-width:400px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
+        <text x="2" y="19" font-size="13" fill="var(--text)">Q₃</text>
+        <line x1="18" y1="15" x2="60" y2="15" stroke="var(--primary)" stroke-width="2"/>
+        <text x="2" y="59" font-size="13" fill="var(--text)">Q₁</text>
+        <line x1="18" y1="55" x2="60" y2="55" stroke="var(--primary)" stroke-width="2"/>
+        <path d="M60,0 L86,0 A35,35 0 0 1 86,70 L60,70 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="3" stroke-linejoin="round"/>
+        <circle cx="128" cy="35" r="7" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <line x1="135" y1="35" x2="175" y2="35" stroke="var(--primary)" stroke-width="2"/>
+        <text x="179" y="40" font-size="13" fill="var(--text)">CLR′ (clears all FFs)</text>
+      </svg>
+    </div>
+
+    <h2>Common Pitfalls</h2>
+    <ul>
+      <li><strong>Assuming all bits change simultaneously.</strong> In a ripple counter they don't — each stage's toggle physically waits for the previous stage's output to settle, so the count briefly passes through invalid-looking intermediate states (e.g., 011→100 can transiently show 010 or 000 as the ripple propagates). This accumulated delay is the main reason synchronous counters (a later topic) exist.</li>
+      <li><strong>Forgetting the reset condition must use the exact bit pattern of the target count, not the count number itself.</strong> For mod-10, the reset trigger is Q₃=1,Q₁=1 (the pattern for decimal 10), not some direct encoding of "10."</li>
+      <li><strong>Using the wrong Q/edge combination and getting an up-counter when a down-counter was wanted (or vice versa).</strong> Always check both the trigger edge and whether Q or Q′ feeds the next stage.</li>
+    </ul>
+
+    <h2>Applications</h2>
+    <ul>
+      <li><strong>Frequency dividers</strong> — each successive Q in a ripple counter is exactly half the frequency of the one before it, making a ripple counter a simple divide-by-2ⁿ circuit, widely used for clock generation.</li>
+      <li><strong>The 7490</strong> is a classic decade (mod-10) ripple counter IC, built with exactly this Q₃·Q₁ reset-gate structure internally.</li>
+      <li><strong>Digital clocks and frequency counters</strong> historically used cascaded mod-10 and mod-6 ripple counter stages to directly display seconds, minutes, and hours in BCD.</li>
+    </ul>
+  </div>
+
+  <div class="ad-slot">Advertisement</div>
+
+  <!-- QUIZ GATE -->
+  <div id="gate-section">
+    <div class="gate">
+      <div class="gate-blur">
+        <div class="quiz">
+          <div class="quiz-title">📝 Quick Quiz — 5 Questions</div>
+        </div>
+      </div>
+      <div class="gate-overlay">
+        <div class="gate-box">
+          <div class="lock">🔒</div>
+          <h3>Login to take the quiz</h3>
+          <p>Create a free account to take the quiz and track your progress across all topics.</p>
+          <div class="gate-btns">
+            <a href="../../../login.html" class="btn btn-primary btn-sm">Login</a>
+            <a href="../../../login.html" class="btn btn-outline btn-sm">Register Free</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="quiz" id="quiz-section" style="display:none">
+    <div class="quiz-title">📝 Quick Quiz — 5 Questions</div>
+    <div id="quiz-body"></div>
+    <button class="btn btn-primary" id="submit-btn" disabled>Submit Quiz</button>
+    <div class="quiz-result" id="quiz-result" style="display:none"></div>
+  </div>
+
+  <div class="topic-nav">
+    <a href="shift-registers.html">
+      <div class="nav-dir">← Previous</div>
+      <div class="nav-title">Shift Registers</div>
+    </a>
+    <a href="synchronous-counters.html" class="next">
+      <div class="nav-dir">Next →</div>
+      <div class="nav-title">Synchronous Counters</div>
+    </a>
+  </div>
+
+</div>
+
+<div style="max-width:820px;margin:.5rem auto;padding:0 1.25rem">
+  <div class="ad-slot">Advertisement</div>
+</div>
+<footer class="footer">© 2026 Chandra Shaker · <a href="https://chandrashaker.in">chandrashaker.in</a> · <em>Reference: M. Morris Mano, Digital Design / Computer System Architecture — Ripple Counters.</em></footer>
+
+<script type="module">
+  import { initNav } from '../../../js/nav.js';
+  import { onAuth, saveProgress, getProgress } from '../../../js/firebase-config.js';
+  initNav(3);
+
+  const COURSE_ID = 'coa';
+  const TOPIC_ID  = 'ripple-counters';
+  const LABELS    = ['A','B','C','D'];
+  const QUIZ = [
+    { q:"In an asynchronous (ripple) counter, what clocks the second flip-flop stage?", options:["The output (Q or Q′) of the first flip-flop stage", "The same external clock signal as the first stage, directly", "A separate independent clock source", "The output of the third flip-flop stage"], answer:0, explanation:"Only the very first stage receives the external clock. Every later stage is clocked by the previous stage's output — that cascaded clocking is exactly what makes it 'asynchronous.'" },
+    { q:"Why does a ripple counter briefly pass through invalid-looking intermediate states during a transition like 011→100?", options:["Each flip-flop's toggle physically waits for the previous stage's output to settle first, so the bits don't all change at the exact same instant", "It's a design flaw found only in poorly built circuits", "The clock signal is corrupted", "Ripple counters cannot count past 3"], answer:0, explanation:"Because each stage is clocked by the prior stage's output rather than a shared clock, propagation delay accumulates down the chain, so the bits change one at a time rather than simultaneously." },
+    { q:"For a negative-edge-triggered flip-flop chain, which connection produces an UP counter?", options:["Each stage driven by the previous stage's Q output", "Each stage driven by the previous stage's Q′ output", "It's impossible to build an up-counter with negative-edge triggering", "Driving every stage from the same Q simultaneously"], answer:0, explanation:"Negative-edge triggering combined with Q feeding the next stage produces an UP counter; using Q′ instead would produce a DOWN counter." },
+    { q:"To design a modulo-10 (BCD) ripple counter that resets at count 10 (1010₂), which bits should feed the reset (NAND) gate?", options:["Q₃ and Q₁ — the two bits that are 1 in the binary pattern for decimal 10", "Q₀ and Q₂ only", "All four bits Q₃Q₂Q₁Q₀", "Only Q₃"], answer:0, explanation:"1010₂ has Q₃=1 and Q₁=1 (Q₂=0, Q₀=0); gating exactly those two bits into a NAND produces a reset trigger precisely when the count reaches 10." },
+    { q:"What is a direct practical application of a ripple counter's per-stage output?", options:["Frequency division — each successive Q is half the frequency of the one before it", "Amplifying the input clock signal", "Converting AC to DC power", "Storing analog voltage levels"], answer:0, explanation:"Since each flip-flop toggles at half the rate of the one driving it, a chain of n stages divides the input clock frequency by 2ⁿ — a simple and common frequency-divider application." }
+  ];
+
+  let selected = {}, submitted = false;
+
+  function buildQuiz() {
+    document.getElementById('quiz-body').innerHTML = QUIZ.map((q, qi) => `
+      <div class="question">
+        <div class="question-text">Q${qi+1}. ${q.q}</div>
+        <div class="options">
+          ${q.options.map((o, oi) => `<div class="option" data-qi="${qi}" data-oi="${oi}"><span class="option-lbl">${LABELS[oi]}</span>${o}</div>`).join('')}
+        </div>
+        <div class="explanation" id="exp${qi}" style="display:none">💡 ${q.explanation}</div>
+      </div>`).join('');
+    document.querySelectorAll('.option').forEach(el => {
+      el.onclick = () => {
+        if (submitted) return;
+        const qi = +el.dataset.qi, oi = +el.dataset.oi;
+        selected[qi] = oi;
+        document.querySelectorAll(`[data-qi="${qi}"]`).forEach(o => o.classList.remove('selected'));
+        el.classList.add('selected');
+        document.getElementById('submit-btn').disabled = Object.keys(selected).length < QUIZ.length;
+      };
+    });
+  }
+
+  async function submitQuiz(uid) {
+    submitted = true; let score = 0;
+    QUIZ.forEach((q, qi) => {
+      const correct = q.answer, chosen = selected[qi];
+      document.querySelectorAll(`[data-qi="${qi}"]`).forEach(o => {
+        const oi = +o.dataset.oi;
+        if (oi === correct) o.classList.add('correct');
+        else if (oi === chosen) o.classList.add('wrong');
+      });
+      document.getElementById(`exp${qi}`).style.display = 'block';
+      if (chosen === correct) score++;
+    });
+    document.getElementById('submit-btn').style.display = 'none';
+    const pct = Math.round((score / QUIZ.length) * 100);
+    const res = document.getElementById('quiz-result');
+    res.style.display = 'block';
+    res.className = `quiz-result ${pct >= 60 ? 'pass' : 'fail'}`;
+    res.innerHTML = `<div class="quiz-score">${pct >= 60 ? '🎉' : '📖'} Score: ${score}/${QUIZ.length} (${pct}%)</div>
+      <div class="quiz-msg">${pct >= 80 ? 'Excellent! Move to the next topic.' : pct >= 60 ? 'Good. Review what you missed.' : 'Review the lesson and try again.'}</div>`;
+    if (uid) await saveProgress(uid, COURSE_ID, TOPIC_ID, score, QUIZ.length);
+  }
+
+  onAuth(async user => {
+    const gate = document.getElementById('gate-section');
+    const quiz  = document.getElementById('quiz-section');
+    if (user) {
+      gate.style.display = 'none';
+      quiz.style.display = 'block';
+      buildQuiz();
+      document.getElementById('submit-btn').onclick = () => submitQuiz(user.uid);
+      const prog = await getProgress(user.uid, COURSE_ID, TOPIC_ID);
+      if (prog?.completed) {
+        const res = document.getElementById('quiz-result');
+        res.style.display = 'block';
+        res.className = 'quiz-result pass';
+        res.innerHTML = `<div class="quiz-score">✅ Completed — Best score: ${prog.percent}%</div>
+          <div class="quiz-msg">You can retake the quiz anytime.</div>`;
+      }
+    }
+  });
+</script>
+</body>
+</html>

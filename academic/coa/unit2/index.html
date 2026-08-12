@@ -63,14 +63,14 @@
     <div>
       <span class="badge badge-blue" style="margin-bottom:.5rem;display:inline-block">Unit 2</span>
       <h1 style="font-size:1.5rem;font-weight:800;color:var(--text)">Combinational &amp; Sequential Logic</h1>
-      <p style="color:var(--text-2);font-size:.88rem;margin-top:.3rem">2 topic groups · 13 topics · Approx. 11.5 hours</p>
+      <p style="color:var(--text-2);font-size:.88rem;margin-top:.3rem">2 topic groups · 20 topics · Approx. 17 hours</p>
     </div>
     <div id="unit-progress" style="min-width:180px;display:none">
       <div class="progress-wrap">
         <div class="progress-label"><span>Your progress</span><span id="pct">0%</span></div>
         <div class="progress-bar"><div class="progress-fill" id="pfill" style="width:0%"></div></div>
       </div>
-      <div style="font-size:.78rem;color:var(--text-3);margin-top:.3rem" id="plabel">0 / 13 topics complete</div>
+      <div style="font-size:.78rem;color:var(--text-3);margin-top:.3rem" id="plabel">0 / 20 topics complete</div>
     </div>
   </div>
 
@@ -117,8 +117,15 @@
       { id:'multiplexers',            title:'Multiplexers',              desc:'Selecting one of many inputs with a binary address — and implementing any function with one.', time:'16 min', href:'multiplexers.html', status:'active' },
     ],
     'tg-sequential': [
-      { id:'latches-flip-flops', title:'Latches & Flip-Flops', desc:'SR, D, JK, and T flip-flops — the basic memory elements.', time:'22 min', href:'latches-flip-flops.html', status:'active' },
-      { id:'registers-counters', title:'Registers & Counters', desc:'Shift registers, binary counters, and their applications.', time:'26 min', href:'registers-counters.html', status:'active' },
+      { id:'sequential-circuits',              title:'Sequential Circuits',                     desc:'What makes a circuit sequential: memory elements, feedback, and the next-state idea.', time:'12 min', href:'sequential-circuits.html', status:'active' },
+      { id:'latches',                          title:'Latches',                                 desc:'SR and gated D latches — the simplest level-sensitive memory elements.', time:'16 min', href:'latches.html', status:'active' },
+      { id:'flip-flops',                       title:'Flip-Flops',                               desc:'Edge-triggered storage, race-around, master-slave JK, and setup/hold/clock-skew timing.', time:'20 min', href:'flip-flops.html', status:'active' },
+      { id:'analysis-of-sequential-circuits',  title:'Analysis of Clocked Sequential Circuits',  desc:'Next-state and output equations, state tables, and state diagrams, worked through an example.', time:'18 min', href:'analysis-of-sequential-circuits.html', status:'active' },
+      { id:'registers',                        title:'Registers',                                desc:'n-bit storage registers and parallel load via a 2:1 multiplexer per bit.', time:'16 min', href:'registers.html', status:'active' },
+      { id:'shift-registers',                  title:'Shift Registers',                          desc:'SISO/SIPO/PISO/PIPO transfer modes, plus ring and Johnson counters.', time:'20 min', href:'shift-registers.html', status:'active' },
+      { id:'ripple-counters',                  title:'Ripple Counters',                          desc:'Cascaded toggle flip-flops, up/down counting rules, and a modulo-10 (BCD) design with NAND reset.', time:'18 min', href:'ripple-counters.html', status:'active' },
+      { id:'synchronous-counters',             title:'Synchronous Counters',                     desc:'The 4-step synchronous design procedure worked through a 3-bit JK up-counter with K-maps.', time:'24 min', href:'synchronous-counters.html', status:'active' },
+      { id:'other-counters',                   title:'Other Counters',                           desc:'Synchronous BCD counter design, up/down counters, and presettable (parallel-load) counters.', time:'16 min', href:'other-counters.html', status:'active' },
     ],
   };
 

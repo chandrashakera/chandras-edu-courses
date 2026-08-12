@@ -301,13 +301,55 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://courses.chandrashaker.in/academic/coa/unit2/latches-flip-flops.html</loc>
+    <loc>https://courses.chandrashaker.in/academic/coa/unit2/sequential-circuits.html</loc>
     <lastmod>2026-08-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://courses.chandrashaker.in/academic/coa/unit2/registers-counters.html</loc>
+    <loc>https://courses.chandrashaker.in/academic/coa/unit2/latches.html</loc>
+    <lastmod>2026-08-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://courses.chandrashaker.in/academic/coa/unit2/flip-flops.html</loc>
+    <lastmod>2026-08-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://courses.chandrashaker.in/academic/coa/unit2/analysis-of-sequential-circuits.html</loc>
+    <lastmod>2026-08-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://courses.chandrashaker.in/academic/coa/unit2/registers.html</loc>
+    <lastmod>2026-08-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://courses.chandrashaker.in/academic/coa/unit2/shift-registers.html</loc>
+    <lastmod>2026-08-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://courses.chandrashaker.in/academic/coa/unit2/ripple-counters.html</loc>
+    <lastmod>2026-08-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://courses.chandrashaker.in/academic/coa/unit2/synchronous-counters.html</loc>
+    <lastmod>2026-08-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://courses.chandrashaker.in/academic/coa/unit2/other-counters.html</loc>
     <lastmod>2026-08-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>

@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registers — COA Unit 2 | Chandras EDU</title>
+  <meta name="description" content="An n-bit register as a bank of D flip-flops sharing a clock, and how a 2-to-1 MUX in front of each flip-flop adds parallel-load control — with a worked timing trace.">
+  <link rel="canonical" href="https://courses.chandrashaker.in/academic/coa/unit2/registers.html">
+  <link rel="stylesheet" href="../../../css/style.css">
+
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Chandras EDU">
+  <meta property="og:title" content="Registers — COA Unit 2 | Chandras EDU">
+  <meta property="og:description" content="An n-bit register as a bank of D flip-flops sharing a clock, and how a 2-to-1 MUX in front of each flip-flop adds parallel-load control — with a worked timing trace.">
+  <meta property="og:url" content="https://courses.chandrashaker.in/academic/coa/unit2/registers.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Registers — COA Unit 2 | Chandras EDU">
+  <meta name="twitter:description" content="An n-bit register as a bank of D flip-flops sharing a clock, and how a 2-to-1 MUX in front of each flip-flop adds parallel-load control — with a worked timing trace.">
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Courses", "item": "https://courses.chandrashaker.in/" },
+    { "@type": "ListItem", "position": 2, "name": "COA", "item": "https://courses.chandrashaker.in/academic/coa/" },
+    { "@type": "ListItem", "position": 3, "name": "Unit 2", "item": "https://courses.chandrashaker.in/academic/coa/unit2/" },
+    { "@type": "ListItem", "position": 4, "name": "Registers" }
+  ]
+}
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LearningResource",
+  "name": "Registers",
+  "description": "An n-bit register as a bank of D flip-flops sharing a clock, and how a 2-to-1 MUX in front of each flip-flop adds parallel-load control — with a worked timing trace.",
+  "url": "https://courses.chandrashaker.in/academic/coa/unit2/registers.html",
+  "learningResourceType": "Lesson",
+  "educationalLevel": "Undergraduate",
+  "about": { "@type": "Thing", "name": "Computer Organization and Architecture" },
+  "isPartOf": {
+    "@type": "Course",
+    "name": "Computer Organization and Architecture",
+    "provider": { "@type": "Organization", "name": "Chandras EDU", "url": "https://chandrashaker.in" }
+  },
+  "publisher": { "@type": "Organization", "name": "Chandras EDU", "url": "https://chandrashaker.in" }
+}
+  </script>
+  <link rel="icon" href="/favicon.ico">
+  <style>
+    .truth-table { border-collapse:collapse; margin:1rem auto; font-size:.86rem; }
+    .truth-table th, .truth-table td { border:1px solid var(--border); padding:.4rem .65rem; text-align:center; }
+    .truth-table th { background:var(--bg-3); color:var(--text); font-weight:700; }
+  </style>
+</head>
+<body>
+<nav class="nav"><div id="main-nav"></div></nav>
+
+<div style="max-width:820px;margin:.5rem auto;padding:0 1.25rem">
+  <div class="ad-slot">Advertisement</div>
+</div>
+
+<div class="page-narrow" role="main">
+
+  <nav class="breadcrumb">
+    <a href="../../../index.html">Courses</a><span class="sep">/</span>
+    <a href="../index.html">COA</a><span class="sep">/</span>
+    <a href="index.html">Unit 2</a><span class="sep">/</span>
+    <span>Sequential Logic</span><span class="sep">/</span>
+    <span class="cur">Registers</span>
+  </nav>
+
+  <div style="background:var(--primary);border-radius:var(--radius-lg);padding:1.1rem 1.4rem;margin-bottom:1.5rem;color:#fff">
+    <div style="font-size:.75rem;opacity:.75;margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.05em">COA › Unit 2: Sequential Logic › Topic 5</div>
+    <h1 style="font-size:1.4rem;font-weight:700;color:#fff;margin-bottom:.5rem">Registers</h1>
+    <div style="display:flex;gap:.75rem;flex-wrap:wrap">
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">⏱ 14 min read</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📝 Quiz inside</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📖 Mano, Ch. 6</span>
+    </div>
+  </div>
+
+  <!-- FULL LESSON — visible to everyone -->
+  <div class="lesson">
+    <p>A single flip-flop stores one bit. Wire several together, sharing one clock, and the result is a <strong>register</strong> — a small block of memory that can hold and move multi-bit data. Every register in a CPU, from the program counter to the general-purpose register file, is built from exactly this pattern.</p>
+
+    <h2 id="What-Is">What a Register Is</h2>
+    <p>An <em>n</em>-bit register is simply <em>n</em> D flip-flops, one per bit, all clocked together. Each flip-flop's D input is its own dedicated data line — unlike the shift register (next topic), where each stage's D comes from the <em>previous</em> stage's Q, here every bit is loaded independently and in parallel:</p>
+    <div style="text-align:center;margin:1.25rem 0">
+      <svg viewBox="-20 -20 300 210" style="max-width:360px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
+        <text x="-16" y="14" font-size="12" fill="var(--text)">I₃</text>
+        <line x1="0" y1="10" x2="60" y2="10" stroke="var(--primary)" stroke-width="2"/>
+        <text x="-16" y="54" font-size="12" fill="var(--text)">I₂</text>
+        <line x1="0" y1="50" x2="60" y2="50" stroke="var(--primary)" stroke-width="2"/>
+        <text x="-16" y="94" font-size="12" fill="var(--text)">I₁</text>
+        <line x1="0" y1="90" x2="60" y2="90" stroke="var(--primary)" stroke-width="2"/>
+        <text x="-16" y="134" font-size="12" fill="var(--text)">I₀</text>
+        <line x1="0" y1="130" x2="60" y2="130" stroke="var(--primary)" stroke-width="2"/>
+
+        <rect x="60" y="-10" width="130" height="160" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <text x="125" y="72" font-size="13" font-weight="700" text-anchor="middle" fill="var(--text)">4-BIT</text>
+        <text x="125" y="88" font-size="13" font-weight="700" text-anchor="middle" fill="var(--text)">REGISTER</text>
+
+        <text x="105" y="176" font-size="11" fill="var(--text-2)">CLK</text>
+        <line x1="125" y1="172" x2="125" y2="150" stroke="var(--primary)" stroke-width="2"/>
+        <path d="M117,150 L133,150 L125,138 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5" stroke-linejoin="round"/>
+
+        <line x1="190" y1="10" x2="250" y2="10" stroke="var(--primary)" stroke-width="2"/>
+        <text x="254" y="14" font-size="12" fill="var(--text)">Q₃</text>
+        <line x1="190" y1="50" x2="250" y2="50" stroke="var(--primary)" stroke-width="2"/>
+        <text x="254" y="54" font-size="12" fill="var(--text)">Q₂</text>
+        <line x1="190" y1="90" x2="250" y2="90" stroke="var(--primary)" stroke-width="2"/>
+        <text x="254" y="94" font-size="12" fill="var(--text)">Q₁</text>
+        <line x1="190" y1="130" x2="250" y2="130" stroke="var(--primary)" stroke-width="2"/>
+        <text x="254" y="134" font-size="12" fill="var(--text)">Q₀</text>
+      </svg>
+      <div style="font-size:.78rem;color:#777;margin-top:.4rem">Fig 1: A 4-bit register — 4 independent D flip-flops sharing one clock, storing I₃I₂I₁I₀ as Q₃Q₂Q₁Q₀ on the next active edge.</div>
+    </div>
+    <p>On every active clock edge, the register captures whatever is on its data inputs and holds it until the next edge — a snapshot taken once per clock cycle. This is the exact circuit behind every register mentioned by name back in Unit 3's Register Transfer topics, just now shown down at the flip-flop level instead of as an abstract box.</p>
+
+    <h2 id="Parallel-Load">Register with Parallel Load</h2>
+    <p>A plain register like the one above captures new data on <em>every</em> clock edge — often not what's wanted, since a CPU frequently needs a register to hold its value across several cycles while other work happens. Adding a <strong>LOAD</strong> control line, through a 2-to-1 MUX in front of each flip-flop's D input, fixes that: the MUX picks between the flip-flop's own Q (feed it back to itself, i.e. <em>hold</em>) and the new external data (<em>load</em>):</p>
+    <div style="text-align:center;margin:1.25rem 0">
+      <svg viewBox="-20 -25 380 210" style="max-width:460px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
+        <text x="120" y="-10" font-size="12" fill="var(--text-2)">LOAD</text>
+        <line x1="135" y1="-4" x2="135" y2="10" stroke="var(--primary)" stroke-width="2"/>
+
+        <text x="-16" y="34" font-size="12" fill="var(--text)">I</text>
+        <text x="80" y="27" font-size="9" fill="var(--text-3)">1</text>
+        <line x1="0" y1="30" x2="100" y2="30" stroke="var(--primary)" stroke-width="2"/>
+
+        <text x="-16" y="74" font-size="12" fill="var(--text)">Q (fb)</text>
+        <text x="80" y="67" font-size="9" fill="var(--text-3)">0</text>
+        <line x1="20" y1="70" x2="100" y2="70" stroke="var(--primary)" stroke-width="2"/>
+
+        <rect x="100" y="10" width="70" height="90" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <text x="135" y="59" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">MUX</text>
+        <text x="135" y="75" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">2:1</text>
+
+        <line x1="170" y1="50" x2="210" y2="50" stroke="var(--primary)" stroke-width="2"/>
+        <text x="176" y="40" font-size="10" fill="var(--text-2)">D</text>
+
+        <rect x="210" y="10" width="90" height="90" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <text x="255" y="60" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">D FLIP-FLOP</text>
+        <text x="237" y="116" font-size="11" fill="var(--text-2)">CLK</text>
+        <line x1="255" y1="112" x2="255" y2="100" stroke="var(--primary)" stroke-width="2"/>
+        <path d="M247,100 L263,100 L255,88 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5" stroke-linejoin="round"/>
+
+        <line x1="300" y1="50" x2="340" y2="50" stroke="var(--primary)" stroke-width="2"/>
+        <circle cx="320" cy="50" r="3" fill="var(--primary)"/>
+        <text x="344" y="54" font-size="13" fill="var(--text)">Q</text>
+
+        <line x1="320" y1="50" x2="320" y2="160" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="320" y1="160" x2="20" y2="160" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="20" y1="160" x2="20" y2="70" stroke="var(--primary)" stroke-width="2"/>
+      </svg>
+      <div style="font-size:.78rem;color:#777;margin-top:.4rem">Fig 2: One bit of a register with parallel load. LOAD=0 selects input 0 (Q fed back, hold); LOAD=1 selects input 1 (new data I, load). Every bit repeats this exact circuit.</div>
+    </div>
+    <p>Every bit of the register repeats Fig 2 independently, all sharing the same LOAD line and the same clock — so the whole register either holds everything or loads everything together, never a mix of the two on a single clock edge.</p>
+
+    <h3>Worked Example — Hold, Then Load, Then Hold</h3>
+    <p>Suppose a 1-bit register (Fig 2) currently holds Q=0, and I=1 is wired to its data input the entire time:</p>
+    <div class="box box-eg">
+      <pre>Clock 1: LOAD=0 → MUX selects Q(=0) → D=0 → Q stays 0   (hold)
+Clock 2: LOAD=1 → MUX selects I(=1) → D=1 → Q becomes 1  (load)
+Clock 3: LOAD=0 → MUX selects Q(=1) → D=1 → Q stays 1   (hold)</pre>
+    </div>
+    <p>Even though I=1 is present on every single clock edge, the register only actually captures it on Clock 2, when LOAD=1 — that's the entire purpose of the load-control MUX: deciding, clock by clock, whether new data is allowed in at all.</p>
+
+    <div class="box box-tip">
+      🚀 <strong>Beyond the textbook:</strong> real register files (the small, fast bank of registers inside a CPU core) extend this same MUX-per-bit idea with an <em>address</em> decoder selecting which of many registers gets the LOAD pulse on a given cycle, and a second MUX layer selecting which register's Q drives the read-output bus — the same building blocks from this unit, just replicated and combined at a larger scale.
+    </div>
+
+    <h2>Common Pitfalls</h2>
+    <ul>
+      <li><strong>Confusing a plain register with a shift register.</strong> A plain register's flip-flops are independent — each has its own dedicated data input. A shift register (next topic) deliberately chains them, each stage's D coming from the previous stage's Q.</li>
+      <li><strong>Forgetting that LOAD must be stable and correct before the active clock edge, not after.</strong> Like any flip-flop input, LOAD is subject to the setup-time requirement from the previous topic — changing it right at (or after) the clock edge doesn't reliably control that edge's capture.</li>
+      <li><strong>Assuming a register with LOAD=0 "does nothing."</strong> It isn't idle — the MUX is actively re-selecting and re-writing the flip-flop's own current value every single clock edge, which is what makes the hold behavior reliable rather than relying on the flip-flop simply "not being touched."</li>
+    </ul>
+
+    <h2>Applications</h2>
+    <ul>
+      <li><strong>The program counter, instruction register, and general-purpose registers</strong> in a CPU datapath are all parallel-load registers essentially identical to Fig 2, just wider (typically 32 or 64 bits) and often with additional control lines (e.g., a separate synchronous clear).</li>
+      <li><strong>Pipeline stage registers</strong> in a pipelined CPU use LOAD (often called "enable" in that context) to implement pipeline stalls — holding a stage's value steady for an extra cycle while an earlier stage waits on a slow operation like a memory access.</li>
+      <li><strong>Memory-mapped I/O status/control registers</strong> use exactly this parallel-load pattern, with LOAD driven by a decoded "write to this address" signal instead of a dedicated control bit.</li>
+    </ul>
+  </div>
+
+  <div class="ad-slot">Advertisement</div>
+
+  <!-- QUIZ GATE -->
+  <div id="gate-section">
+    <div class="gate">
+      <div class="gate-blur">
+        <div class="quiz">
+          <div class="quiz-title">📝 Quick Quiz — 5 Questions</div>
+        </div>
+      </div>
+      <div class="gate-overlay">
+        <div class="gate-box">
+          <div class="lock">🔒</div>
+          <h3>Login to take the quiz</h3>
+          <p>Create a free account to take the quiz and track your progress across all topics.</p>
+          <div class="gate-btns">
+            <a href="../../../login.html" class="btn btn-primary btn-sm">Login</a>
+            <a href="../../../login.html" class="btn btn-outline btn-sm">Register Free</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="quiz" id="quiz-section" style="display:none">
+    <div class="quiz-title">📝 Quick Quiz — 5 Questions</div>
+    <div id="quiz-body"></div>
+    <button class="btn btn-primary" id="submit-btn" disabled>Submit Quiz</button>
+    <div class="quiz-result" id="quiz-result" style="display:none"></div>
+  </div>
+
+  <div class="topic-nav">
+    <a href="analysis-of-sequential-circuits.html">
+      <div class="nav-dir">← Previous</div>
+      <div class="nav-title">Analysis of Clocked Sequential Circuits</div>
+    </a>
+    <a href="shift-registers.html" class="next">
+      <div class="nav-dir">Next →</div>
+      <div class="nav-title">Shift Registers</div>
+    </a>
+  </div>
+
+</div>
+
+<div style="max-width:820px;margin:.5rem auto;padding:0 1.25rem">
+  <div class="ad-slot">Advertisement</div>
+</div>
+<footer class="footer">© 2026 Chandra Shaker · <a href="https://chandrashaker.in">chandrashaker.in</a> · <em>Reference: M. Morris Mano, Digital Design / Computer System Architecture — Registers.</em></footer>
+
+<script type="module">
+  import { initNav } from '../../../js/nav.js';
+  import { onAuth, saveProgress, getProgress } from '../../../js/firebase-config.js';
+  initNav(3);
+
+  const COURSE_ID = 'coa';
+  const TOPIC_ID  = 'registers';
+  const LABELS    = ['A','B','C','D'];
+  const QUIZ = [
+    { q:"What is the key structural difference between a plain n-bit register and a shift register?", options:["A plain register gives each flip-flop its own independent data input; a shift register chains each stage's D to the previous stage's Q", "A plain register has no clock input", "A shift register can only store 1 bit total", "There is no structural difference between them"], answer:0, explanation:"In a plain register, every bit is loaded independently and in parallel from its own data line. A shift register deliberately chains the stages so data moves down the line one position per clock." },
+    { q:"In a register with parallel load, what does the 2-to-1 MUX in front of each flip-flop select between?", options:["The flip-flop's own Q output (hold) and new external data (load)", "Two different clock signals", "Two different flip-flop types", "The register's output and the register's input, with no flip-flop involved"], answer:0, explanation:"The MUX picks between feeding the flip-flop's current Q back to itself (LOAD=0, hold) or routing in new external data (LOAD=1, load) — that choice is what parallel load control means." },
+    { q:"In the worked example, I=1 is present on the data input for all three clocks, but Q only becomes 1 after Clock 2. Why?", options:["LOAD was only 1 (selecting the new data) on Clock 2 — on Clocks 1 and 3, LOAD=0 kept selecting the held value instead", "The flip-flop ignores I on odd-numbered clocks", "I actually changed value between clocks", "The register has a built-in delay of exactly one extra clock"], answer:0, explanation:"The MUX only routes I through to D when LOAD=1. On Clocks 1 and 3, LOAD=0 means the MUX keeps selecting Q's own feedback instead, so the presence of I=1 on the data line has no effect during those cycles." },
+    { q:"Why is a register said to be \"actively\" holding its value on a clock edge where LOAD=0, rather than simply idle?", options:["The MUX is still re-selecting and re-writing the flip-flop's current Q value on every single clock edge, which is what makes the hold reliable", "LOAD=0 physically disconnects the clock from the flip-flop", "The flip-flop stops working entirely until LOAD=1 again", "Holding requires no clock edges at all"], answer:0, explanation:"Even when holding, the MUX output (Q fed back) still becomes the new D value at every clock edge — the flip-flop is continuously re-writing its own current value, not simply left untouched." },
+    { q:"What must be true about the LOAD signal relative to the active clock edge for a parallel-load register to work reliably?", options:["LOAD must already be stable at the correct value before the edge, satisfying the flip-flop's setup-time requirement, same as any other input", "LOAD only matters after the clock edge has passed", "LOAD has no timing requirements since it only selects a MUX input", "LOAD must change at the exact same instant as the clock edge"], answer:0, explanation:"LOAD ultimately controls which value reaches the flip-flop's D input, so it's subject to the same setup-time requirement as any other flip-flop input — it must be stable before the active edge, not changing at or after it." }
+  ];
+
+  let selected = {}, submitted = false;
+
+  function buildQuiz() {
+    document.getElementById('quiz-body').innerHTML = QUIZ.map((q, qi) => `
+      <div class="question">
+        <div class="question-text">Q${qi+1}. ${q.q}</div>
+        <div class="options">
+          ${q.options.map((o, oi) => `<div class="option" data-qi="${qi}" data-oi="${oi}"><span class="option-lbl">${LABELS[oi]}</span>${o}</div>`).join('')}
+        </div>
+        <div class="explanation" id="exp${qi}" style="display:none">💡 ${q.explanation}</div>
+      </div>`).join('');
+    document.querySelectorAll('.option').forEach(el => {
+      el.onclick = () => {
+        if (submitted) return;
+        const qi = +el.dataset.qi, oi = +el.dataset.oi;
+        selected[qi] = oi;
+        document.querySelectorAll(`[data-qi="${qi}"]`).forEach(o => o.classList.remove('selected'));
+        el.classList.add('selected');
+        document.getElementById('submit-btn').disabled = Object.keys(selected).length < QUIZ.length;
+      };
+    });
+  }
+
+  async function submitQuiz(uid) {
+    submitted = true; let score = 0;
+    QUIZ.forEach((q, qi) => {
+      const correct = q.answer, chosen = selected[qi];
+      document.querySelectorAll(`[data-qi="${qi}"]`).forEach(o => {
+        const oi = +o.dataset.oi;
+        if (oi === correct) o.classList.add('correct');
+        else if (oi === chosen) o.classList.add('wrong');
+      });
+      document.getElementById(`exp${qi}`).style.display = 'block';
+      if (chosen === correct) score++;
+    });
+    document.getElementById('submit-btn').style.display = 'none';
+    const pct = Math.round((score / QUIZ.length) * 100);
+    const res = document.getElementById('quiz-result');
+    res.style.display = 'block';
+    res.className = `quiz-result ${pct >= 60 ? 'pass' : 'fail'}`;
+    res.innerHTML = `<div class="quiz-score">${pct >= 60 ? '🎉' : '📖'} Score: ${score}/${QUIZ.length} (${pct}%)</div>
+      <div class="quiz-msg">${pct >= 80 ? 'Excellent! Move to the next topic.' : pct >= 60 ? 'Good. Review what you missed.' : 'Review the lesson and try again.'}</div>`;
+    if (uid) await saveProgress(uid, COURSE_ID, TOPIC_ID, score, QUIZ.length);
+  }
+
+  onAuth(async user => {
+    const gate = document.getElementById('gate-section');
+    const quiz  = document.getElementById('quiz-section');
+    if (user) {
+      gate.style.display = 'none';
+      quiz.style.display = 'block';
+      buildQuiz();
+      document.getElementById('submit-btn').onclick = () => submitQuiz(user.uid);
+      const prog = await getProgress(user.uid, COURSE_ID, TOPIC_ID);
+      if (prog?.completed) {
+        const res = document.getElementById('quiz-result');
+        res.style.display = 'block';
+        res.className = 'quiz-result pass';
+        res.innerHTML = `<div class="quiz-score">✅ Completed — Best score: ${prog.percent}%</div>
+          <div class="quiz-msg">You can retake the quiz anytime.</div>`;
+      }
+    }
+  });
+</script>
+</body>
+</html>

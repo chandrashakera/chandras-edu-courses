@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sequential Circuits — COA Unit 2 | Chandras EDU</title>
+  <meta name="description" content="What makes a circuit sequential: the state concept, the general block diagram (combinational logic plus memory elements with feedback), and how it differs from a combinational circuit.">
+  <link rel="canonical" href="https://courses.chandrashaker.in/academic/coa/unit2/sequential-circuits.html">
+  <link rel="stylesheet" href="../../../css/style.css">
+
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Chandras EDU">
+  <meta property="og:title" content="Sequential Circuits — COA Unit 2 | Chandras EDU">
+  <meta property="og:description" content="What makes a circuit sequential: the state concept, the general block diagram (combinational logic plus memory elements with feedback), and how it differs from a combinational circuit.">
+  <meta property="og:url" content="https://courses.chandrashaker.in/academic/coa/unit2/sequential-circuits.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Sequential Circuits — COA Unit 2 | Chandras EDU">
+  <meta name="twitter:description" content="What makes a circuit sequential: the state concept, the general block diagram (combinational logic plus memory elements with feedback), and how it differs from a combinational circuit.">
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Courses", "item": "https://courses.chandrashaker.in/" },
+    { "@type": "ListItem", "position": 2, "name": "COA", "item": "https://courses.chandrashaker.in/academic/coa/" },
+    { "@type": "ListItem", "position": 3, "name": "Unit 2", "item": "https://courses.chandrashaker.in/academic/coa/unit2/" },
+    { "@type": "ListItem", "position": 4, "name": "Sequential Circuits" }
+  ]
+}
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LearningResource",
+  "name": "Sequential Circuits",
+  "description": "What makes a circuit sequential: the state concept, the general block diagram (combinational logic plus memory elements with feedback), and how it differs from a combinational circuit.",
+  "url": "https://courses.chandrashaker.in/academic/coa/unit2/sequential-circuits.html",
+  "learningResourceType": "Lesson",
+  "educationalLevel": "Undergraduate",
+  "about": { "@type": "Thing", "name": "Computer Organization and Architecture" },
+  "isPartOf": {
+    "@type": "Course",
+    "name": "Computer Organization and Architecture",
+    "provider": { "@type": "Organization", "name": "Chandras EDU", "url": "https://chandrashaker.in" }
+  },
+  "publisher": { "@type": "Organization", "name": "Chandras EDU", "url": "https://chandrashaker.in" }
+}
+  </script>
+  <link rel="icon" href="/favicon.ico">
+</head>
+<body>
+<nav class="nav"><div id="main-nav"></div></nav>
+
+<div style="max-width:820px;margin:.5rem auto;padding:0 1.25rem">
+  <div class="ad-slot">Advertisement</div>
+</div>
+
+<div class="page-narrow" role="main">
+
+  <nav class="breadcrumb">
+    <a href="../../../index.html">Courses</a><span class="sep">/</span>
+    <a href="../index.html">COA</a><span class="sep">/</span>
+    <a href="index.html">Unit 2</a><span class="sep">/</span>
+    <span>Sequential Logic</span><span class="sep">/</span>
+    <span class="cur">Sequential Circuits</span>
+  </nav>
+
+  <div style="background:var(--primary);border-radius:var(--radius-lg);padding:1.1rem 1.4rem;margin-bottom:1.5rem;color:#fff">
+    <div style="font-size:.75rem;opacity:.75;margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.05em">COA › Unit 2: Sequential Logic › Topic 1</div>
+    <h1 style="font-size:1.4rem;font-weight:700;color:#fff;margin-bottom:.5rem">Sequential Circuits</h1>
+    <div style="display:flex;gap:.75rem;flex-wrap:wrap">
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">⏱ 12 min read</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📝 Quiz inside</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📖 Mano, Ch. 5</span>
+    </div>
+  </div>
+
+  <!-- FULL LESSON — visible to everyone -->
+  <div class="lesson">
+    <p>Everything built so far in this course — adders, decoders, multiplexers — is <strong>combinational</strong>: its output depends only on the present inputs, with no memory of anything that happened a moment ago. A CPU cannot be built from combinational logic alone. A program counter has to remember which instruction comes next; a register has to hold a value across many clock cycles. That memory is exactly what a <strong>sequential circuit</strong> adds.</p>
+
+    <h2 id="Definition">Definition</h2>
+    <p>A <strong>sequential circuit</strong> is a circuit whose output depends on both the <strong>present inputs</strong> and the circuit's current <strong>state</strong> — some stored information about what has happened before. That state comes from feeding part of the circuit's own output back into its input logic, through storage elements (latches or flip-flops, covered in the next two topics):</p>
+    <p style="text-align:center;font-size:1.1rem;font-weight:700;color:var(--primary);margin:1rem 0">Next State = f(Inputs, Present State)</p>
+
+    <h2 id="Block-Diagram">General Block Diagram</h2>
+    <p>Every sequential circuit, no matter how complex, fits the same general shape: a combinational logic block computes both the outputs and the "next state" from the current inputs and the "present state"; a bank of memory elements stores that next state and feeds it back as the present state for the following clock cycle.</p>
+    <div style="text-align:center;margin:1.25rem 0">
+      <svg viewBox="-10 -10 570 240" style="max-width:640px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
+        <text x="4" y="66" font-size="12" fill="var(--text)">Inputs</text>
+        <line x1="10" y1="70" x2="90" y2="70" stroke="var(--primary)" stroke-width="2"/>
+
+        <rect x="90" y="40" width="150" height="110" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <text x="165" y="88" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">COMBINATIONAL</text>
+        <text x="165" y="104" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">LOGIC</text>
+
+        <line x1="240" y1="65" x2="280" y2="65" stroke="var(--primary)" stroke-width="2"/>
+        <text x="284" y="69" font-size="12" fill="var(--text)">Outputs</text>
+
+        <line x1="240" y1="125" x2="260" y2="125" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="260" y1="125" x2="260" y2="75" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="260" y1="75" x2="380" y2="75" stroke="var(--primary)" stroke-width="2"/>
+        <text x="266" y="102" font-size="10" fill="var(--text-2)">Next State</text>
+
+        <rect x="380" y="40" width="130" height="110" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <text x="445" y="88" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">MEMORY</text>
+        <text x="445" y="104" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">ELEMENTS</text>
+
+        <text x="417" y="184" font-size="11" fill="var(--text-2)">CLK</text>
+        <line x1="440" y1="180" x2="440" y2="150" stroke="var(--primary)" stroke-width="2"/>
+        <path d="M432,150 L448,150 L440,138 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5" stroke-linejoin="round"/>
+
+        <line x1="510" y1="75" x2="545" y2="75" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="545" y1="75" x2="545" y2="200" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="545" y1="200" x2="50" y2="200" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="50" y1="200" x2="50" y2="135" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="50" y1="135" x2="90" y2="135" stroke="var(--primary)" stroke-width="2"/>
+        <text x="220" y="216" font-size="11" fill="var(--text-2)">Present State (feedback)</text>
+      </svg>
+      <div style="font-size:.78rem;color:#777;margin-top:.4rem">Fig 1: The general shape of every sequential circuit — outputs and the next state both come from the combinational block, and the present state loops back from memory to influence the next computation.</div>
+    </div>
+    <p>The "present state" feedback line is the entire difference from a purely combinational circuit — remove it, and the memory elements' output would no longer influence the combinational block, collapsing this diagram back into an ordinary combinational circuit with no memory.</p>
+
+    <h2 id="Latch-Simplest">The Latch — the Simplest Sequential Circuit</h2>
+    <p>The smallest possible sequential circuit stores exactly one bit, using nothing more than ordinary gates wired with feedback — no separate "memory element" block needed, because the feedback loop itself <em>is</em> the memory. The next topic, Latches, builds exactly this circuit and shows precisely how a loop of ordinary NOR or NAND gates ends up remembering a bit.</p>
+
+    <h2>Common Pitfalls</h2>
+    <ul>
+      <li><strong>Assuming more gates automatically means "sequential."</strong> Gate count is irrelevant — the only thing that makes a circuit sequential is the presence of a feedback path from output back to input, storing state.</li>
+      <li><strong>Forgetting that "state" is stored information, not a momentary signal value.</strong> A wire carrying a signal right now isn't state by itself — state is what persists and continues to influence behavior after the input that caused it is gone.</li>
+      <li><strong>Confusing the "next state" and "present state" labels.</strong> "Present state" is what the memory elements currently hold (and feed back as an input to the combinational logic); "next state" is what the combinational logic computes and the memory elements will hold after the next clock edge.</li>
+    </ul>
+
+    <h2>Applications</h2>
+    <ul>
+      <li><strong>Every register in a CPU</strong> — the program counter, instruction register, general-purpose registers — is a sequential circuit whose entire purpose is to hold state across clock cycles.</li>
+      <li><strong>A CPU's control unit</strong> is itself one large sequential circuit: which micro-operation happens next depends on both the current instruction (input) and which step of executing it the control unit is currently on (state).</li>
+      <li><strong>Every topic for the rest of this unit</strong> — latches, flip-flops, registers, counters — is a specific, increasingly elaborate instance of exactly the block diagram on this page.</li>
+    </ul>
+  </div>
+
+  <div class="ad-slot">Advertisement</div>
+
+  <!-- QUIZ GATE -->
+  <div id="gate-section">
+    <div class="gate">
+      <div class="gate-blur">
+        <div class="quiz">
+          <div class="quiz-title">📝 Quick Quiz — 5 Questions</div>
+        </div>
+      </div>
+      <div class="gate-overlay">
+        <div class="gate-box">
+          <div class="lock">🔒</div>
+          <h3>Login to take the quiz</h3>
+          <p>Create a free account to take the quiz and track your progress across all topics.</p>
+          <div class="gate-btns">
+            <a href="../../../login.html" class="btn btn-primary btn-sm">Login</a>
+            <a href="../../../login.html" class="btn btn-outline btn-sm">Register Free</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="quiz" id="quiz-section" style="display:none">
+    <div class="quiz-title">📝 Quick Quiz — 5 Questions</div>
+    <div id="quiz-body"></div>
+    <button class="btn btn-primary" id="submit-btn" disabled>Submit Quiz</button>
+    <div class="quiz-result" id="quiz-result" style="display:none"></div>
+  </div>
+
+  <div class="topic-nav">
+    <a href="index.html">
+      <div class="nav-dir">← Back</div>
+      <div class="nav-title">Unit 2 Overview</div>
+    </a>
+    <a href="latches.html" class="next">
+      <div class="nav-dir">Next →</div>
+      <div class="nav-title">Latches</div>
+    </a>
+  </div>
+
+</div>
+
+<div style="max-width:820px;margin:.5rem auto;padding:0 1.25rem">
+  <div class="ad-slot">Advertisement</div>
+</div>
+<footer class="footer">© 2026 Chandra Shaker · <a href="https://chandrashaker.in">chandrashaker.in</a> · <em>Reference: M. Morris Mano, Digital Design / Computer System Architecture — Sequential Circuits.</em></footer>
+
+<script type="module">
+  import { initNav } from '../../../js/nav.js';
+  import { onAuth, saveProgress, getProgress } from '../../../js/firebase-config.js';
+  initNav(3);
+
+  const COURSE_ID = 'coa';
+  const TOPIC_ID  = 'sequential-circuits';
+  const LABELS    = ['A','B','C','D'];
+  const QUIZ = [
+    { q:"What is the defining property of a sequential circuit?", options:["Its output depends on both the present inputs and the circuit's current stored state", "It must use only NAND or NOR gates", "It always has exactly one output", "It never contains any combinational logic at all"], answer:0, explanation:"A sequential circuit's output is a function of the present inputs AND the present state — that dependence on stored state (not just current inputs) is exactly what separates it from a combinational circuit." },
+    { q:"In the general sequential circuit block diagram, what does the \"present state\" feedback line actually connect?", options:["The memory elements' output back to an input of the combinational logic block", "The clock signal to the outputs", "One output directly to another output", "The inputs directly to the memory elements, bypassing the combinational logic"], answer:0, explanation:"The present state is what the memory elements currently hold, fed back as an input to the combinational logic block — that feedback loop is what makes the whole circuit \"remember.\"" },
+    { q:"If the feedback path in the general sequential circuit diagram were removed entirely, what would the circuit become?", options:["An ordinary combinational circuit, since memory elements' output could no longer influence the combinational logic's computation", "A faster version of the same sequential circuit", "A circuit with twice as much memory", "Nothing would change — the feedback path is optional"], answer:0, explanation:"Without the present-state feedback, the combinational logic block only ever sees the external inputs — exactly the definition of a purely combinational circuit, with no dependence on history." },
+    { q:"What is the simplest possible sequential circuit, and what does it store?", options:["A latch, storing a single bit using feedback among ordinary gates", "A full CPU register file, storing 32 bits", "A combinational adder, storing the carry bit", "A decoder, storing which output line is active"], answer:0, explanation:"A latch — covered in the next topic — stores exactly one bit using nothing more than a feedback loop between ordinary logic gates; it needs no separate combinational-logic-plus-memory-block structure since the loop itself is the memory." },
+    { q:"Why is \"state\" described as stored information rather than a momentary signal value?", options:["Because state must persist and continue influencing behavior even after the input that originally caused it is gone", "Because state only exists for exactly one clock cycle and then vanishes", "Because \"state\" and \"signal value\" are interchangeable terms with no real difference", "Because state can only be observed, never stored in hardware"], answer:0, explanation:"A signal on a wire right now reflects only the present instant; state specifically means information that is retained (stored) and keeps affecting the circuit's behavior on later clock cycles, not just the current one." }
+  ];
+
+  let selected = {}, submitted = false;
+
+  function buildQuiz() {
+    document.getElementById('quiz-body').innerHTML = QUIZ.map((q, qi) => `
+      <div class="question">
+        <div class="question-text">Q${qi+1}. ${q.q}</div>
+        <div class="options">
+          ${q.options.map((o, oi) => `<div class="option" data-qi="${qi}" data-oi="${oi}"><span class="option-lbl">${LABELS[oi]}</span>${o}</div>`).join('')}
+        </div>
+        <div class="explanation" id="exp${qi}" style="display:none">💡 ${q.explanation}</div>
+      </div>`).join('');
+    document.querySelectorAll('.option').forEach(el => {
+      el.onclick = () => {
+        if (submitted) return;
+        const qi = +el.dataset.qi, oi = +el.dataset.oi;
+        selected[qi] = oi;
+        document.querySelectorAll(`[data-qi="${qi}"]`).forEach(o => o.classList.remove('selected'));
+        el.classList.add('selected');
+        document.getElementById('submit-btn').disabled = Object.keys(selected).length < QUIZ.length;
+      };
+    });
+  }
+
+  async function submitQuiz(uid) {
+    submitted = true; let score = 0;
+    QUIZ.forEach((q, qi) => {
+      const correct = q.answer, chosen = selected[qi];
+      document.querySelectorAll(`[data-qi="${qi}"]`).forEach(o => {
+        const oi = +o.dataset.oi;
+        if (oi === correct) o.classList.add('correct');
+        else if (oi === chosen) o.classList.add('wrong');
+      });
+      document.getElementById(`exp${qi}`).style.display = 'block';
+      if (chosen === correct) score++;
+    });
+    document.getElementById('submit-btn').style.display = 'none';
+    const pct = Math.round((score / QUIZ.length) * 100);
+    const res = document.getElementById('quiz-result');
+    res.style.display = 'block';
+    res.className = `quiz-result ${pct >= 60 ? 'pass' : 'fail'}`;
+    res.innerHTML = `<div class="quiz-score">${pct >= 60 ? '🎉' : '📖'} Score: ${score}/${QUIZ.length} (${pct}%)</div>
+      <div class="quiz-msg">${pct >= 80 ? 'Excellent! Move to the next topic.' : pct >= 60 ? 'Good. Review what you missed.' : 'Review the lesson and try again.'}</div>`;
+    if (uid) await saveProgress(uid, COURSE_ID, TOPIC_ID, score, QUIZ.length);
+  }
+
+  onAuth(async user => {
+    const gate = document.getElementById('gate-section');
+    const quiz  = document.getElementById('quiz-section');
+    if (user) {
+      gate.style.display = 'none';
+      quiz.style.display = 'block';
+      buildQuiz();
+      document.getElementById('submit-btn').onclick = () => submitQuiz(user.uid);
+      const prog = await getProgress(user.uid, COURSE_ID, TOPIC_ID);
+      if (prog?.completed) {
+        const res = document.getElementById('quiz-result');
+        res.style.display = 'block';
+        res.className = 'quiz-result pass';
+        res.innerHTML = `<div class="quiz-score">✅ Completed — Best score: ${prog.percent}%</div>
+          <div class="quiz-msg">You can retake the quiz anytime.</div>`;
+      }
+    }
+  });
+</script>
+</body>
+</html>

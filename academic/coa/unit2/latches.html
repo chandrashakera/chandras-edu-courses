@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Latches — COA Unit 2 | Chandras EDU</title>
+  <meta name="description" content="The cross-coupled NOR SR latch, its truth table and forbidden state, and the gated D latch that eliminates that forbidden state by construction.">
+  <link rel="canonical" href="https://courses.chandrashaker.in/academic/coa/unit2/latches.html">
+  <link rel="stylesheet" href="../../../css/style.css">
+
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Chandras EDU">
+  <meta property="og:title" content="Latches — COA Unit 2 | Chandras EDU">
+  <meta property="og:description" content="The cross-coupled NOR SR latch, its truth table and forbidden state, and the gated D latch that eliminates that forbidden state by construction.">
+  <meta property="og:url" content="https://courses.chandrashaker.in/academic/coa/unit2/latches.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Latches — COA Unit 2 | Chandras EDU">
+  <meta name="twitter:description" content="The cross-coupled NOR SR latch, its truth table and forbidden state, and the gated D latch that eliminates that forbidden state by construction.">
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Courses", "item": "https://courses.chandrashaker.in/" },
+    { "@type": "ListItem", "position": 2, "name": "COA", "item": "https://courses.chandrashaker.in/academic/coa/" },
+    { "@type": "ListItem", "position": 3, "name": "Unit 2", "item": "https://courses.chandrashaker.in/academic/coa/unit2/" },
+    { "@type": "ListItem", "position": 4, "name": "Latches" }
+  ]
+}
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LearningResource",
+  "name": "Latches",
+  "description": "The cross-coupled NOR SR latch, its truth table and forbidden state, and the gated D latch that eliminates that forbidden state by construction.",
+  "url": "https://courses.chandrashaker.in/academic/coa/unit2/latches.html",
+  "learningResourceType": "Lesson",
+  "educationalLevel": "Undergraduate",
+  "about": { "@type": "Thing", "name": "Computer Organization and Architecture" },
+  "isPartOf": {
+    "@type": "Course",
+    "name": "Computer Organization and Architecture",
+    "provider": { "@type": "Organization", "name": "Chandras EDU", "url": "https://chandrashaker.in" }
+  },
+  "publisher": { "@type": "Organization", "name": "Chandras EDU", "url": "https://chandrashaker.in" }
+}
+  </script>
+  <link rel="icon" href="/favicon.ico">
+  <style>
+    .truth-table { border-collapse:collapse; margin:1rem auto; font-size:.86rem; }
+    .truth-table th, .truth-table td { border:1px solid var(--border); padding:.4rem .65rem; text-align:center; }
+    .truth-table th { background:var(--bg-3); color:var(--text); font-weight:700; }
+    .truth-table td.forbidden { background:#fef2f2; }
+  </style>
+</head>
+<body>
+<nav class="nav"><div id="main-nav"></div></nav>
+
+<div style="max-width:820px;margin:.5rem auto;padding:0 1.25rem">
+  <div class="ad-slot">Advertisement</div>
+</div>
+
+<div class="page-narrow" role="main">
+
+  <nav class="breadcrumb">
+    <a href="../../../index.html">Courses</a><span class="sep">/</span>
+    <a href="../index.html">COA</a><span class="sep">/</span>
+    <a href="index.html">Unit 2</a><span class="sep">/</span>
+    <span>Sequential Logic</span><span class="sep">/</span>
+    <span class="cur">Latches</span>
+  </nav>
+
+  <div style="background:var(--primary);border-radius:var(--radius-lg);padding:1.1rem 1.4rem;margin-bottom:1.5rem;color:#fff">
+    <div style="font-size:.75rem;opacity:.75;margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.05em">COA › Unit 2: Sequential Logic › Topic 2</div>
+    <h1 style="font-size:1.4rem;font-weight:700;color:#fff;margin-bottom:.5rem">Latches</h1>
+    <div style="display:flex;gap:.75rem;flex-wrap:wrap">
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">⏱ 16 min read</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📝 Quiz inside</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📖 Mano, Ch. 5</span>
+    </div>
+  </div>
+
+  <!-- FULL LESSON — visible to everyone -->
+  <div class="lesson">
+    <p>The previous topic described the general shape of a sequential circuit: combinational logic plus a feedback loop that remembers state. A <strong>latch</strong> is the simplest possible version of that idea — a single stored bit, built from nothing more than ordinary gates cross-wired so each gate's output feeds back as another gate's input.</p>
+
+    <h2 id="SR-Latch">The SR Latch</h2>
+    <p>Cross-coupling two NOR gates — each gate's output feeding back as one of the other gate's inputs — produces a circuit with two stable states, which is exactly what's needed to remember one bit:</p>
+    <div style="text-align:center;margin:1.25rem 0">
+      <svg viewBox="-25 -5 300 150" style="max-width:400px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
+        <text x="-20" y="19" font-size="13" fill="var(--text)">R</text>
+        <line x1="-8" y1="15" x2="68.4" y2="15" stroke="var(--primary)" stroke-width="2"/>
+        <path d="M60,0 Q80,25 60,50 Q105,50 127.5,25 Q105,0 60,0 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="3" stroke-linejoin="round"/>
+        <circle cx="133.5" cy="25" r="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <line x1="139.5" y1="25" x2="245" y2="25" stroke="var(--primary)" stroke-width="2"/>
+        <text x="249" y="29" font-size="13" font-weight="700" fill="var(--text)">Q</text>
+
+        <text x="-20" y="109" font-size="13" fill="var(--text)">S</text>
+        <line x1="-8" y1="105" x2="68.4" y2="105" stroke="var(--primary)" stroke-width="2"/>
+        <path d="M60,90 Q80,115 60,140 Q105,140 127.5,115 Q105,90 60,90 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="3" stroke-linejoin="round"/>
+        <circle cx="133.5" cy="115" r="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <line x1="139.5" y1="115" x2="245" y2="115" stroke="var(--primary)" stroke-width="2"/>
+        <text x="249" y="119" font-size="13" font-weight="700" fill="var(--text)">Q′</text>
+
+        <line x1="200" y1="25" x2="200" y2="70" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="200" y1="70" x2="15" y2="70" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="15" y1="70" x2="15" y2="125" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="15" y1="125" x2="68.4" y2="125" stroke="var(--primary)" stroke-width="2"/>
+
+        <line x1="200" y1="115" x2="200" y2="80" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="200" y1="80" x2="5" y2="80" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="5" y1="80" x2="5" y2="35" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="5" y1="35" x2="68.4" y2="35" stroke="var(--primary)" stroke-width="2"/>
+      </svg>
+    </div>
+    <p>Top gate: <strong>Q = NOR(R, Q′)</strong>. Bottom gate: <strong>Q′ = NOR(S, Q)</strong>.</p>
+    <table class="truth-table">
+      <thead><tr><th>S</th><th>R</th><th>Q<sub>next</sub></th><th>State</th></tr></thead>
+      <tbody>
+        <tr><td>0</td><td>0</td><td>Q</td><td><strong>Hold</strong></td></tr>
+        <tr><td>1</td><td>0</td><td>1</td><td><strong>Set</strong></td></tr>
+        <tr><td>0</td><td>1</td><td>0</td><td><strong>Reset</strong></td></tr>
+        <tr class="forbidden"><td>1</td><td>1</td><td>Invalid</td><td><strong>Forbidden</strong></td></tr>
+      </tbody>
+    </table>
+    <p>S=R=1 forces both Q and Q′ to 0, breaking the Q=Q̄′ relationship the latch depends on — this combination must always be avoided.</p>
+
+    <h3>Worked Example — Tracing a Sequence</h3>
+    <p>Starting from Q=0 (reset), apply S=1,R=0 (Set): Q becomes 1. Next apply S=0,R=0 (Hold): Q stays at 1 — the latch remembers the 1 even though neither input is currently asserting it. Next apply S=0,R=1 (Reset): Q returns to 0. This hold-in-between behavior — the output staying at its last value while both inputs are 0 — is the entire point of the circuit: it's memory.</p>
+
+    <h2 id="Gated-D-Latch">The Gated D Latch</h2>
+    <p>The SR latch's forbidden state is an inconvenient thing to avoid by hand every time. Driving S=D and R=D′ (D inverted) makes S and R always complements of each other, eliminating the forbidden state <em>by construction</em> — S=R=1 simply can't happen if R is wired to always be the opposite of S. Adding an <strong>Enable (EN)</strong> input — via two AND gates gating D and D′ before they reach the SR core — adds control over exactly when the latch updates:</p>
+    <div style="text-align:center;margin:1.25rem 0">
+      <svg viewBox="-5 -25 265 180" style="max-width:340px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
+        <text x="70" y="32" font-size="12" fill="var(--text)">D</text>
+        <line x1="84" y1="28" x2="100" y2="28" stroke="var(--primary)" stroke-width="2"/>
+        <text x="65" y="137" font-size="12" fill="var(--text)">EN</text>
+        <line x1="84" y1="133" x2="100" y2="133" stroke="var(--primary)" stroke-width="2"/>
+        <rect x="100" y="10" width="90" height="140" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <text x="145" y="76" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">GATED D</text>
+        <text x="145" y="92" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">LATCH</text>
+        <line x1="190" y1="63" x2="230" y2="63" stroke="var(--primary)" stroke-width="2"/>
+        <text x="234" y="67" font-size="13" fill="var(--text)">Q</text>
+        <line x1="190" y1="98" x2="230" y2="98" stroke="var(--primary)" stroke-width="2"/>
+        <text x="234" y="102" font-size="13" fill="var(--text)">Q′</text>
+      </svg>
+    </div>
+    <p>While EN=1, Q follows D continuously ("transparent"); when EN drops to 0, Q freezes at whatever D was last. This <strong>level-sensitive</strong> behavior — transparent for as long as the enable is high, not just at one instant — is the key thing an edge-triggered flip-flop (next topic) adds on top of.</p>
+
+    <div class="box box-tip">
+      🚀 <strong>Beyond the textbook:</strong> a gated D latch is exactly what's inside many microprocessor bus-multiplexed address latches (e.g., the 74LS373 octal latch) — the enable line holds the address stable on the data bus while the CPU switches over to sending actual data on the same physical pins.
+    </div>
+
+    <h2>Common Pitfalls</h2>
+    <ul>
+      <li><strong>Driving a plain SR latch with S=R=1.</strong> This actively breaks the Q=Q̄′ relationship, not just "an invalid input" — the resulting state when both return to 0 is a race, not a defined value.</li>
+      <li><strong>Assuming a latch only changes output when it's told to.</strong> A gated D latch is transparent — Q tracks D continuously the entire time EN=1, not just at a single moment. Any glitch on D while EN is high passes straight through to Q.</li>
+      <li><strong>Confusing "gated" with "clocked."</strong> EN is a level (high/low), not a clock edge — the latch is still level-sensitive even though it has an enable pin, which is exactly what separates it from a flip-flop.</li>
+    </ul>
+
+    <h2>Applications</h2>
+    <ul>
+      <li><strong>Address latches</strong> in bus-multiplexed systems (classic microprocessors that share address and data on the same pins) use exactly the transparent/latched behavior of a gated D latch to hold the address stable.</li>
+      <li><strong>Debounce circuits</strong> for mechanical switches sometimes use an SR latch directly — a single-pole double-throw switch naturally drives S and R from its two contacts, and the latch's Hold state rejects the switch's mechanical bounce.</li>
+      <li><strong>The next topic, Flip-Flops,</strong> builds directly on the latch — a flip-flop is fundamentally two latches (master and slave) combined to fix the level-sensitivity problem.</li>
+    </ul>
+  </div>
+
+  <div class="ad-slot">Advertisement</div>
+
+  <!-- QUIZ GATE -->
+  <div id="gate-section">
+    <div class="gate">
+      <div class="gate-blur">
+        <div class="quiz">
+          <div class="quiz-title">📝 Quick Quiz — 5 Questions</div>
+        </div>
+      </div>
+      <div class="gate-overlay">
+        <div class="gate-box">
+          <div class="lock">🔒</div>
+          <h3>Login to take the quiz</h3>
+          <p>Create a free account to take the quiz and track your progress across all topics.</p>
+          <div class="gate-btns">
+            <a href="../../../login.html" class="btn btn-primary btn-sm">Login</a>
+            <a href="../../../login.html" class="btn btn-outline btn-sm">Register Free</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="quiz" id="quiz-section" style="display:none">
+    <div class="quiz-title">📝 Quick Quiz — 5 Questions</div>
+    <div id="quiz-body"></div>
+    <button class="btn btn-primary" id="submit-btn" disabled>Submit Quiz</button>
+    <div class="quiz-result" id="quiz-result" style="display:none"></div>
+  </div>
+
+  <div class="topic-nav">
+    <a href="sequential-circuits.html">
+      <div class="nav-dir">← Previous</div>
+      <div class="nav-title">Sequential Circuits</div>
+    </a>
+    <a href="flip-flops.html" class="next">
+      <div class="nav-dir">Next →</div>
+      <div class="nav-title">Flip-Flops</div>
+    </a>
+  </div>
+
+</div>
+
+<div style="max-width:820px;margin:.5rem auto;padding:0 1.25rem">
+  <div class="ad-slot">Advertisement</div>
+</div>
+<footer class="footer">© 2026 Chandra Shaker · <a href="https://chandrashaker.in">chandrashaker.in</a> · <em>Reference: M. Morris Mano, Digital Design / Computer System Architecture — Latches.</em></footer>
+
+<script type="module">
+  import { initNav } from '../../../js/nav.js';
+  import { onAuth, saveProgress, getProgress } from '../../../js/firebase-config.js';
+  initNav(3);
+
+  const COURSE_ID = 'coa';
+  const TOPIC_ID  = 'latches';
+  const LABELS    = ['A','B','C','D'];
+  const QUIZ = [
+    { q:"In the cross-coupled NOR SR latch, what happens when S=1 and R=1 simultaneously?", options:["Both Q and Q′ are forced to 0, breaking the required Q=Q̄′ relationship — a forbidden state", "The latch outputs Q=1 correctly", "The latch simply holds its previous state", "Nothing — this combination is always safe"], answer:0, explanation:"With both NOR gates seeing a 1 on one input, both outputs are forced to 0 — but Q and Q′ being equal breaks the latch's fundamental complementary-output property." },
+    { q:"In the SR latch, what does S=0, R=0 (both inputs low) cause?", options:["The latch holds its previous output value — this is exactly the circuit's memory behavior", "Q is forced to 0", "Q is forced to 1", "The output becomes undefined"], answer:0, explanation:"With neither Set nor Reset asserted, the cross-coupled feedback keeps Q at whatever it last was — this hold behavior is the entire point of the circuit." },
+    { q:"How does the gated D latch eliminate the SR latch's forbidden state?", options:["By wiring R = D′ (the complement of D), so S and R can never both be 1 at the same time", "By adding a third NOR gate", "By removing the R input entirely", "By requiring the user to never set S=1"], answer:0, explanation:"Since R is always the logical complement of S=D, the forbidden combination S=R=1 is structurally impossible — there's no input pattern that can produce it." },
+    { q:"While a gated D latch's EN input is held at 1, what happens to Q?", options:["Q continuously follows D — the latch is \"transparent\"", "Q is frozen at its last value regardless of D", "Q is forced to 0", "Q toggles on every change of D"], answer:0, explanation:"EN=1 means the latch is transparent: Q tracks D in real time. Only when EN drops to 0 does Q freeze at whatever D happened to be at that moment." },
+    { q:"What distinguishes a latch's \"gated\" (enable) input from a flip-flop's clock input?", options:["The enable is a level (high/low) that the latch is transparent for the entire duration of, while a flip-flop responds only to a clock edge", "There is no real difference between the two", "A gated latch has no way to hold its value", "An enable input can only ever be a single pulse, never held high"], answer:0, explanation:"A latch's enable is level-sensitive — it's transparent for as long as EN is high. A flip-flop's clock is edge-sensitive — it updates only at the instant of a transition, which is exactly the subject of the next topic." }
+  ];
+
+  let selected = {}, submitted = false;
+
+  function buildQuiz() {
+    document.getElementById('quiz-body').innerHTML = QUIZ.map((q, qi) => `
+      <div class="question">
+        <div class="question-text">Q${qi+1}. ${q.q}</div>
+        <div class="options">
+          ${q.options.map((o, oi) => `<div class="option" data-qi="${qi}" data-oi="${oi}"><span class="option-lbl">${LABELS[oi]}</span>${o}</div>`).join('')}
+        </div>
+        <div class="explanation" id="exp${qi}" style="display:none">💡 ${q.explanation}</div>
+      </div>`).join('');
+    document.querySelectorAll('.option').forEach(el => {
+      el.onclick = () => {
+        if (submitted) return;
+        const qi = +el.dataset.qi, oi = +el.dataset.oi;
+        selected[qi] = oi;
+        document.querySelectorAll(`[data-qi="${qi}"]`).forEach(o => o.classList.remove('selected'));
+        el.classList.add('selected');
+        document.getElementById('submit-btn').disabled = Object.keys(selected).length < QUIZ.length;
+      };
+    });
+  }
+
+  async function submitQuiz(uid) {
+    submitted = true; let score = 0;
+    QUIZ.forEach((q, qi) => {
+      const correct = q.answer, chosen = selected[qi];
+      document.querySelectorAll(`[data-qi="${qi}"]`).forEach(o => {
+        const oi = +o.dataset.oi;
+        if (oi === correct) o.classList.add('correct');
+        else if (oi === chosen) o.classList.add('wrong');
+      });
+      document.getElementById(`exp${qi}`).style.display = 'block';
+      if (chosen === correct) score++;
+    });
+    document.getElementById('submit-btn').style.display = 'none';
+    const pct = Math.round((score / QUIZ.length) * 100);
+    const res = document.getElementById('quiz-result');
+    res.style.display = 'block';
+    res.className = `quiz-result ${pct >= 60 ? 'pass' : 'fail'}`;
+    res.innerHTML = `<div class="quiz-score">${pct >= 60 ? '🎉' : '📖'} Score: ${score}/${QUIZ.length} (${pct}%)</div>
+      <div class="quiz-msg">${pct >= 80 ? 'Excellent! Move to the next topic.' : pct >= 60 ? 'Good. Review what you missed.' : 'Review the lesson and try again.'}</div>`;
+    if (uid) await saveProgress(uid, COURSE_ID, TOPIC_ID, score, QUIZ.length);
+  }
+
+  onAuth(async user => {
+    const gate = document.getElementById('gate-section');
+    const quiz  = document.getElementById('quiz-section');
+    if (user) {
+      gate.style.display = 'none';
+      quiz.style.display = 'block';
+      buildQuiz();
+      document.getElementById('submit-btn').onclick = () => submitQuiz(user.uid);
+      const prog = await getProgress(user.uid, COURSE_ID, TOPIC_ID);
+      if (prog?.completed) {
+        const res = document.getElementById('quiz-result');
+        res.style.display = 'block';
+        res.className = 'quiz-result pass';
+        res.innerHTML = `<div class="quiz-score">✅ Completed — Best score: ${prog.percent}%</div>
+          <div class="quiz-msg">You can retake the quiz anytime.</div>`;
+      }
+    }
+  });
+</script>
+</body>
+</html>

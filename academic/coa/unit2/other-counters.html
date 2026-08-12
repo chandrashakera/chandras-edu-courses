@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Other Counters — COA Unit 2 | Chandras EDU</title>
+  <meta name="description" content="Synchronous BCD counter design contrasted with the ripple version, plus a survey of up/down counters and presettable (parallel-load) counters.">
+  <link rel="canonical" href="https://courses.chandrashaker.in/academic/coa/unit2/other-counters.html">
+  <link rel="stylesheet" href="../../../css/style.css">
+
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Chandras EDU">
+  <meta property="og:title" content="Other Counters — COA Unit 2 | Chandras EDU">
+  <meta property="og:description" content="Synchronous BCD counter design contrasted with the ripple version, plus a survey of up/down counters and presettable (parallel-load) counters.">
+  <meta property="og:url" content="https://courses.chandrashaker.in/academic/coa/unit2/other-counters.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Other Counters — COA Unit 2 | Chandras EDU">
+  <meta name="twitter:description" content="Synchronous BCD counter design contrasted with the ripple version, plus a survey of up/down counters and presettable (parallel-load) counters.">
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Courses", "item": "https://courses.chandrashaker.in/" },
+    { "@type": "ListItem", "position": 2, "name": "COA", "item": "https://courses.chandrashaker.in/academic/coa/" },
+    { "@type": "ListItem", "position": 3, "name": "Unit 2", "item": "https://courses.chandrashaker.in/academic/coa/unit2/" },
+    { "@type": "ListItem", "position": 4, "name": "Other Counters" }
+  ]
+}
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LearningResource",
+  "name": "Other Counters",
+  "description": "Synchronous BCD counter design contrasted with the ripple version, plus a survey of up/down counters and presettable (parallel-load) counters.",
+  "url": "https://courses.chandrashaker.in/academic/coa/unit2/other-counters.html",
+  "learningResourceType": "Lesson",
+  "educationalLevel": "Undergraduate",
+  "about": { "@type": "Thing", "name": "Computer Organization and Architecture" },
+  "isPartOf": {
+    "@type": "Course",
+    "name": "Computer Organization and Architecture",
+    "provider": { "@type": "Organization", "name": "Chandras EDU", "url": "https://chandrashaker.in" }
+  },
+  "publisher": { "@type": "Organization", "name": "Chandras EDU", "url": "https://chandrashaker.in" }
+}
+  </script>
+  <link rel="icon" href="/favicon.ico">
+  <style>
+    .truth-table { border-collapse:collapse; margin:1rem auto; font-size:.86rem; }
+    .truth-table th, .truth-table td { border:1px solid var(--border); padding:.4rem .65rem; text-align:center; }
+    .truth-table th { background:var(--bg-3); color:var(--text); font-weight:700; }
+  </style>
+</head>
+<body>
+<nav class="nav"><div id="main-nav"></div></nav>
+
+<div style="max-width:820px;margin:.5rem auto;padding:0 1.25rem">
+  <div class="ad-slot">Advertisement</div>
+</div>
+
+<div class="page-narrow" role="main">
+
+  <nav class="breadcrumb">
+    <a href="../../../index.html">Courses</a><span class="sep">/</span>
+    <a href="../index.html">COA</a><span class="sep">/</span>
+    <a href="index.html">Unit 2</a><span class="sep">/</span>
+    <span>Sequential Logic</span><span class="sep">/</span>
+    <span class="cur">Other Counters</span>
+  </nav>
+
+  <div style="background:var(--primary);border-radius:var(--radius-lg);padding:1.1rem 1.4rem;margin-bottom:1.5rem;color:#fff">
+    <div style="font-size:.75rem;opacity:.75;margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.05em">COA › Unit 2: Sequential Logic › Topic 9</div>
+    <h1 style="font-size:1.4rem;font-weight:700;color:#fff;margin-bottom:.5rem">Other Counters</h1>
+    <div style="display:flex;gap:.75rem;flex-wrap:wrap">
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">⏱ 16 min read</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📝 Quiz inside</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📖 Mano, Ch. 6</span>
+    </div>
+  </div>
+
+  <!-- FULL LESSON — visible to everyone -->
+  <div class="lesson">
+    <p>The last two topics covered the two main counter families in depth: <a href="ripple-counters.html">ripple (asynchronous)</a> and <a href="synchronous-counters.html">synchronous</a> counters. This closing topic rounds out the picture with three variations built on those same ideas: a <strong>synchronous</strong> version of the mod-10 BCD counter, <strong>up/down</strong> counters that can reverse direction, and <strong>presettable</strong> counters that can be loaded with an arbitrary starting value.</p>
+
+    <h2 id="SyncBCD">Synchronous BCD Counter — Contrasted With the Ripple Version</h2>
+    <p>The ripple-counter topic built a mod-10 counter by letting the count briefly reach the invalid state 1010 and using that moment to trigger an asynchronous clear. A <strong>synchronous</strong> BCD counter takes a cleaner approach: never let the invalid states be reached at all — instead, derive each flip-flop's input directly from the state table so the count goes 1001 → 0000 on its own, on the very next clock edge, with no illegal state ever appearing:</p>
+    <table class="truth-table">
+      <thead><tr><th>Design Aspect</th><th>Ripple BCD (previous topic)</th><th>Synchronous BCD (this topic)</th></tr></thead>
+      <tbody>
+        <tr><td>How it resets at 10</td><td>Briefly reaches 1010, NAND gate detects it, asynchronously clears</td><td>Never reaches 1010 — next-state logic sends 1001 straight to 0000</td></tr>
+        <tr><td>Clock wiring</td><td>Cascaded (each stage clocked by the previous stage's output)</td><td>Common clock line to every stage</td></tr>
+        <tr><td>Design method</td><td>Add one reset gate to an existing ripple counter</td><td>Full 4-step synchronous design procedure</td></tr>
+        <tr><td>Speed</td><td>Limited by accumulated propagation delay</td><td>Limited only by one flip-flop's delay</td></tr>
+      </tbody>
+    </table>
+    <p>Using T flip-flops for state Q₃Q₂Q₁Q₀ (Q₃ = MSB) counting 0000 through 1001, applying the same state-table → excitation-table → K-map steps from the previous topic gives:</p>
+    <div class="box box-eg">
+      <pre>T₀ = 1                        (LSB toggles every clock, same as always)
+T₁ = Q₀ · Q₃′                 (toggles when Q₀=1, except right after 1001)
+T₂ = Q₁ · Q₀
+T₃ = Q₂·Q₁·Q₀ + Q₃·Q₀         (the +Q₃Q₀ term is what forces 1001 → 0000)</pre>
+    </div>
+    <p>The extra <code>Q₃·Q₀</code> term in T₃ is the whole trick: at state 1001 (Q₃=1, Q₀=1), it fires and toggles the MSB back to 0 on the same edge that T₀ toggles the LSB back to 0 — landing exactly on 0000 with no detour through any invalid pattern.</p>
+
+    <h2 id="UpDown">Up/Down Counters</h2>
+    <p>A counter that can run in either direction needs a way to pick, on each clock, whether the next-state logic should compute the "count up" pattern or the "count down" pattern. The standard technique is a 2:1 multiplexer per stage — the same MUX-based selection idea used for <a href="registers.html">parallel load in a register</a> — with a single control line (commonly called UP/DOWN or U/D̄) choosing which pattern feeds each flip-flop's input:</p>
+    <table class="truth-table">
+      <thead><tr><th>U/D̄ Line</th><th>MUX Selects</th><th>Counter Behaves As</th></tr></thead>
+      <tbody>
+        <tr><td>1 (UP)</td><td>The "count up" next-state expression</td><td>Ordinary up-counter</td></tr>
+        <tr><td>0 (DOWN)</td><td>The "count down" next-state expression</td><td>Ordinary down-counter, in reverse sequence</td></tr>
+      </tbody>
+    </table>
+    <p>For a simple ripple-style up/down counter, no MUX is even needed — recall from the ripple-counters topic that choosing Q vs. Q′ to drive the next stage, combined with the trigger edge, already determines up or down. A synchronous up/down counter needs the MUX because its next-state logic is full combinational expressions, not just a choice of which wire to tap.</p>
+
+    <h2 id="Presettable">Presettable (Parallel-Load) Counters</h2>
+    <p>A <strong>presettable counter</strong> can be forced to start counting from any value, not just 0000, by combining a synchronous counter with the parallel-load MUX structure from the <a href="registers.html">Registers</a> topic: on each clock, a LOAD control line picks whether each flip-flop's next input comes from the count logic or directly from an external data pin. This is exactly how ICs like the 74163 support both counting and being "jumped" to an arbitrary state — useful whenever a circuit needs to start counting from something other than zero, such as a countdown timer preset to a specific value.</p>
+    <table class="truth-table">
+      <thead><tr><th>Pin</th><th>Function</th></tr></thead>
+      <tbody>
+        <tr><td>CLK</td><td>Common clock, shared by all stages (synchronous)</td></tr>
+        <tr><td>CLR</td><td>Resets the count to 0000</td></tr>
+        <tr><td>LOAD</td><td>When active, next state = external data pins instead of count+1</td></tr>
+        <tr><td>D₃–D₀</td><td>External data to load in when LOAD is active</td></tr>
+        <tr><td>ENABLE</td><td>When inactive, the counter holds its current state (no counting)</td></tr>
+        <tr><td>Q₃–Q₀</td><td>Current count value</td></tr>
+        <tr><td>RCO</td><td>Ripple carry out — pulses when the counter reaches its terminal count, used to cascade multiple counter chips together</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Common Pitfalls</h2>
+    <ul>
+      <li><strong>Assuming a synchronous BCD counter needs a reset gate like the ripple version.</strong> It doesn't — the whole point of deriving T₃'s extra term (Q₃Q₀) from the state table is that the count never touches an invalid state to begin with.</li>
+      <li><strong>Confusing LOAD with CLR.</strong> CLR always forces the count to 0000; LOAD forces it to whatever is on the external D₃–D₀ pins, which can be any value.</li>
+      <li><strong>Forgetting that LOAD in a synchronous presettable counter only takes effect on a clock edge.</strong> Unlike an asynchronous clear, the loaded value doesn't appear until the next clock pulse — it isn't instantaneous.</li>
+    </ul>
+
+    <h2>Applications</h2>
+    <ul>
+      <li><strong>Countdown timers</strong> use presettable counters loaded with the starting time value, then counted down to zero.</li>
+      <li><strong>Frequency synthesizers and programmable clock dividers</strong> use presettable up/down counters to generate a configurable division ratio.</li>
+      <li><strong>Cascading counter chips</strong> (e.g., chaining multiple 74163s for a wider count range) relies on each chip's RCO output enabling the next chip's ENABLE input.</li>
+    </ul>
+  </div>
+
+  <div class="ad-slot">Advertisement</div>
+
+  <!-- QUIZ GATE -->
+  <div id="gate-section">
+    <div class="gate">
+      <div class="gate-blur">
+        <div class="quiz">
+          <div class="quiz-title">📝 Quick Quiz — 5 Questions</div>
+        </div>
+      </div>
+      <div class="gate-overlay">
+        <div class="gate-box">
+          <div class="lock">🔒</div>
+          <h3>Login to take the quiz</h3>
+          <p>Create a free account to take the quiz and track your progress across all topics.</p>
+          <div class="gate-btns">
+            <a href="../../../login.html" class="btn btn-primary btn-sm">Login</a>
+            <a href="../../../login.html" class="btn btn-outline btn-sm">Register Free</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="quiz" id="quiz-section" style="display:none">
+    <div class="quiz-title">📝 Quick Quiz — 5 Questions</div>
+    <div id="quiz-body"></div>
+    <button class="btn btn-primary" id="submit-btn" disabled>Submit Quiz</button>
+    <div class="quiz-result" id="quiz-result" style="display:none"></div>
+  </div>
+
+  <div class="topic-nav">
+    <a href="synchronous-counters.html">
+      <div class="nav-dir">← Previous</div>
+      <div class="nav-title">Synchronous Counters</div>
+    </a>
+    <a href="../unit3/index.html" class="next">
+      <div class="nav-dir">Next →</div>
+      <div class="nav-title">Unit 3 Overview</div>
+    </a>
+  </div>
+
+</div>
+
+<div style="max-width:820px;margin:.5rem auto;padding:0 1.25rem">
+  <div class="ad-slot">Advertisement</div>
+</div>
+<footer class="footer">© 2026 Chandra Shaker · <a href="https://chandrashaker.in">chandrashaker.in</a> · <em>Reference: M. Morris Mano, Digital Design / Computer System Architecture — Counters.</em></footer>
+
+<script type="module">
+  import { initNav } from '../../../js/nav.js';
+  import { onAuth, saveProgress, getProgress } from '../../../js/firebase-config.js';
+  initNav(3);
+
+  const COURSE_ID = 'coa';
+  const TOPIC_ID  = 'other-counters';
+  const LABELS    = ['A','B','C','D'];
+  const QUIZ = [
+    { q:"How does a synchronous BCD counter reach 0000 after 1001, compared to the ripple (asynchronous) version?", options:["Its next-state logic sends 1001 straight to 0000 on the next clock edge — the invalid state 1010 is never reached", "It also briefly passes through 1010 and uses a NAND gate to clear", "It counts to 1111 first, then resets", "It requires an external reset button"], answer:0, explanation:"Because the synchronous design derives every flip-flop's input directly from the state table, the transition 1001→0000 is built in — the count never touches an invalid pattern like the ripple version's brief pass through 1010." },
+    { q:"In the synchronous BCD counter's T₃ equation, T₃ = Q₂Q₁Q₀ + Q₃Q₀, what is the purpose of the Q₃Q₀ term specifically?", options:["It fires at state 1001, forcing the MSB back to 0 on the same edge the LSB resets, landing the count exactly on 0000", "It has no functional purpose and could be removed", "It makes the counter count in binary instead of BCD", "It only matters when the counter is disabled"], answer:0, explanation:"Q₃=1 and Q₀=1 only occurs at state 1001 in this counter's valid range — that term is exactly what forces the 1001→0000 wraparound." },
+    { q:"What is the standard way to build a synchronous up/down counter?", options:["A 2:1 multiplexer per stage, controlled by a U/D̄ line, selecting between the 'count up' and 'count down' next-state logic", "Two completely separate counters that are physically swapped", "It is impossible to build a synchronous up/down counter", "By reversing the clock signal's polarity"], answer:0, explanation:"Since a synchronous counter's next state comes from full combinational logic (not just a choice of which flip-flop output to tap), a MUX per stage is used to pick between the up-counting and down-counting expressions." },
+    { q:"What distinguishes LOAD from CLR on a presettable counter?", options:["CLR always forces the count to 0000; LOAD forces it to whatever value is on the external data pins, which can be any value", "They are two names for the exact same function", "LOAD only works when the counter is powered off", "CLR sets the count to its maximum value"], answer:0, explanation:"CLR is a dedicated reset-to-zero function, while LOAD lets the counter be forced to an arbitrary externally supplied value — useful for starting a count from something other than zero." },
+    { q:"What does the RCO (ripple carry out) pin on a presettable counter IC like the 74163 typically enable?", options:["Cascading multiple counter chips together, by feeding RCO into the next chip's ENABLE input", "Reversing the counting direction", "Loading a new value into the counter", "Disabling the clock input permanently"], answer:0, explanation:"RCO pulses when a chip reaches its terminal count; wiring it into the next chip's ENABLE input lets several counter ICs be chained to build a wider counter." }
+  ];
+
+  let selected = {}, submitted = false;
+
+  function buildQuiz() {
+    document.getElementById('quiz-body').innerHTML = QUIZ.map((q, qi) => `
+      <div class="question">
+        <div class="question-text">Q${qi+1}. ${q.q}</div>
+        <div class="options">
+          ${q.options.map((o, oi) => `<div class="option" data-qi="${qi}" data-oi="${oi}"><span class="option-lbl">${LABELS[oi]}</span>${o}</div>`).join('')}
+        </div>
+        <div class="explanation" id="exp${qi}" style="display:none">💡 ${q.explanation}</div>
+      </div>`).join('');
+    document.querySelectorAll('.option').forEach(el => {
+      el.onclick = () => {
+        if (submitted) return;
+        const qi = +el.dataset.qi, oi = +el.dataset.oi;
+        selected[qi] = oi;
+        document.querySelectorAll(`[data-qi="${qi}"]`).forEach(o => o.classList.remove('selected'));
+        el.classList.add('selected');
+        document.getElementById('submit-btn').disabled = Object.keys(selected).length < QUIZ.length;
+      };
+    });
+  }
+
+  async function submitQuiz(uid) {
+    submitted = true; let score = 0;
+    QUIZ.forEach((q, qi) => {
+      const correct = q.answer, chosen = selected[qi];
+      document.querySelectorAll(`[data-qi="${qi}"]`).forEach(o => {
+        const oi = +o.dataset.oi;
+        if (oi === correct) o.classList.add('correct');
+        else if (oi === chosen) o.classList.add('wrong');
+      });
+      document.getElementById(`exp${qi}`).style.display = 'block';
+      if (chosen === correct) score++;
+    });
+    document.getElementById('submit-btn').style.display = 'none';
+    const pct = Math.round((score / QUIZ.length) * 100);
+    const res = document.getElementById('quiz-result');
+    res.style.display = 'block';
+    res.className = `quiz-result ${pct >= 60 ? 'pass' : 'fail'}`;
+    res.innerHTML = `<div class="quiz-score">${pct >= 60 ? '🎉' : '📖'} Score: ${score}/${QUIZ.length} (${pct}%)</div>
+      <div class="quiz-msg">${pct >= 80 ? 'Excellent! Unit 2 complete.' : pct >= 60 ? 'Good. Review what you missed.' : 'Review the lesson and try again.'}</div>`;
+    if (uid) await saveProgress(uid, COURSE_ID, TOPIC_ID, score, QUIZ.length);
+  }
+
+  onAuth(async user => {
+    const gate = document.getElementById('gate-section');
+    const quiz  = document.getElementById('quiz-section');
+    if (user) {
+      gate.style.display = 'none';
+      quiz.style.display = 'block';
+      buildQuiz();
+      document.getElementById('submit-btn').onclick = () => submitQuiz(user.uid);
+      const prog = await getProgress(user.uid, COURSE_ID, TOPIC_ID);
+      if (prog?.completed) {
+        const res = document.getElementById('quiz-result');
+        res.style.display = 'block';
+        res.className = 'quiz-result pass';
+        res.innerHTML = `<div class="quiz-score">✅ Completed — Best score: ${prog.percent}%</div>
+          <div class="quiz-msg">You can retake the quiz anytime.</div>`;
+      }
+    }
+  });
+</script>
+</body>
+</html>
