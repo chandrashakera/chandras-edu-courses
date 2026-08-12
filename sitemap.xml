@@ -230,37 +230,67 @@
   </url>
   <url>
     <loc>https://courses.chandrashaker.in/academic/coa/unit2/</loc>
-    <lastmod>2026-08-06</lastmod>
+    <lastmod>2026-08-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://courses.chandrashaker.in/academic/coa/unit2/combinational-analysis-design.html</loc>
-    <lastmod>2026-08-06</lastmod>
+    <loc>https://courses.chandrashaker.in/academic/coa/unit2/combinational-circuits.html</loc>
+    <lastmod>2026-08-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://courses.chandrashaker.in/academic/coa/unit2/analysis-procedure.html</loc>
+    <lastmod>2026-08-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://courses.chandrashaker.in/academic/coa/unit2/design-procedure.html</loc>
+    <lastmod>2026-08-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://courses.chandrashaker.in/academic/coa/unit2/adders-subtractors.html</loc>
-    <lastmod>2026-08-06</lastmod>
+    <lastmod>2026-08-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://courses.chandrashaker.in/academic/coa/unit2/multiplier-comparator.html</loc>
-    <lastmod>2026-08-06</lastmod>
+    <loc>https://courses.chandrashaker.in/academic/coa/unit2/decimal-adder.html</loc>
+    <lastmod>2026-08-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://courses.chandrashaker.in/academic/coa/unit2/decoders-encoders.html</loc>
-    <lastmod>2026-08-06</lastmod>
+    <loc>https://courses.chandrashaker.in/academic/coa/unit2/binary-multiplier.html</loc>
+    <lastmod>2026-08-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://courses.chandrashaker.in/academic/coa/unit2/magnitude-comparator.html</loc>
+    <lastmod>2026-08-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://courses.chandrashaker.in/academic/coa/unit2/decoders.html</loc>
+    <lastmod>2026-08-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://courses.chandrashaker.in/academic/coa/unit2/encoders.html</loc>
+    <lastmod>2026-08-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://courses.chandrashaker.in/academic/coa/unit2/multiplexers.html</loc>
-    <lastmod>2026-08-06</lastmod>
+    <lastmod>2026-08-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>

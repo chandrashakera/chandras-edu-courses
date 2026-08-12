@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Binary Multiplier — COA Unit 2 | Chandras EDU</title>
+  <meta name="description" content="How a binary multiplier is built from an AND-gate partial-product array plus a network of adders — the manual long-multiplication process translated directly into hardware.">
+  <link rel="canonical" href="https://courses.chandrashaker.in/academic/coa/unit2/binary-multiplier.html">
+  <link rel="stylesheet" href="../../../css/style.css">
+
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Chandras EDU">
+  <meta property="og:title" content="Binary Multiplier — COA Unit 2 | Chandras EDU">
+  <meta property="og:description" content="How a binary multiplier is built from an AND-gate partial-product array plus a network of adders — the manual long-multiplication process translated directly into hardware.">
+  <meta property="og:url" content="https://courses.chandrashaker.in/academic/coa/unit2/binary-multiplier.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Binary Multiplier — COA Unit 2 | Chandras EDU">
+  <meta name="twitter:description" content="How a binary multiplier is built from an AND-gate partial-product array plus a network of adders — the manual long-multiplication process translated directly into hardware.">
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Courses", "item": "https://courses.chandrashaker.in/" },
+    { "@type": "ListItem", "position": 2, "name": "COA", "item": "https://courses.chandrashaker.in/academic/coa/" },
+    { "@type": "ListItem", "position": 3, "name": "Unit 2", "item": "https://courses.chandrashaker.in/academic/coa/unit2/" },
+    { "@type": "ListItem", "position": 4, "name": "Binary Multiplier" }
+  ]
+}
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LearningResource",
+  "name": "Binary Multiplier",
+  "description": "How a binary multiplier is built from an AND-gate partial-product array plus a network of adders — the manual long-multiplication process translated directly into hardware.",
+  "url": "https://courses.chandrashaker.in/academic/coa/unit2/binary-multiplier.html",
+  "learningResourceType": "Lesson",
+  "educationalLevel": "Undergraduate",
+  "about": { "@type": "Thing", "name": "Computer Organization and Architecture" },
+  "isPartOf": {
+    "@type": "Course",
+    "name": "Computer Organization and Architecture",
+    "provider": { "@type": "Organization", "name": "Chandras EDU", "url": "https://chandrashaker.in" }
+  },
+  "publisher": { "@type": "Organization", "name": "Chandras EDU", "url": "https://chandrashaker.in" }
+}
+  </script>
+  <link rel="icon" href="/favicon.ico">
+</head>
+<body>
+<nav class="nav"><div id="main-nav"></div></nav>
+
+<div style="max-width:820px;margin:.5rem auto;padding:0 1.25rem">
+  <div class="ad-slot">Advertisement</div>
+</div>
+
+<div class="page-narrow" role="main">
+
+  <nav class="breadcrumb">
+    <a href="../../../index.html">Courses</a><span class="sep">/</span>
+    <a href="../index.html">COA</a><span class="sep">/</span>
+    <a href="index.html">Unit 2</a><span class="sep">/</span>
+    <span>Combinational Logic</span><span class="sep">/</span>
+    <span class="cur">Binary Multiplier</span>
+  </nav>
+
+  <div style="background:var(--primary);border-radius:var(--radius-lg);padding:1.1rem 1.4rem;margin-bottom:1.5rem;color:#fff">
+    <div style="font-size:.75rem;opacity:.75;margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.05em">COA › Unit 2: Combinational Logic › Topic 6</div>
+    <h1 style="font-size:1.4rem;font-weight:700;color:#fff;margin-bottom:.5rem">Binary Multiplier</h1>
+    <div style="display:flex;gap:.75rem;flex-wrap:wrap">
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">⏱ 14 min read</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📝 Quiz inside</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📖 Mano Ch. 4</span>
+    </div>
+  </div>
+
+  <!-- FULL LESSON — visible to everyone -->
+  <div class="lesson">
+    <p>A <strong>binary multiplier</strong> turns out to be little more than a grid of AND gates plus a stack of adders — the two building blocks from the previous two topics, wired together in a new arrangement rather than anything fundamentally new.</p>
+
+    <h2 id="Manual-Process">Binary Multiplication — the Manual Process</h2>
+    <p>Binary multiplication follows exactly the same pencil-and-paper process as decimal long multiplication — multiply the multiplicand by each digit of the multiplier, shift each <strong>partial product</strong> one position left, and add them all together. The only real simplification is that in binary, each digit of the multiplier is either 0 or 1, so each partial product is either <strong>all zeros</strong> (multiplier bit = 0) or <strong>an exact copy of the multiplicand</strong> (multiplier bit = 1) — no actual multiplication table to memorize, unlike decimal.</p>
+
+    <h2 id="Building-Multiplier">Building the Multiplier from Gates</h2>
+    <p>This "copy or zero" observation is exactly what makes binary multiplication cheap to build in hardware: <strong>each partial product bit is simply the AND of a multiplicand bit and a multiplier bit</strong> — multiplying bits is identical to ANDing them (0×0=0, 0×1=0, 1×0=0, 1×1=1, exactly the AND truth table). A combinational binary multiplier is built from:</p>
+    <ol>
+      <li>A grid of <strong>AND gates</strong> — one AND gate per (multiplicand bit, multiplier bit) pair — producing every partial product bit.</li>
+      <li>A network of <strong>adders</strong> (Half adders where at most 2 bits share a column, full adders once 3 or more do) that sum the shifted partial-product rows into the final product.</li>
+    </ol>
+    <p>For an <em>m</em>-bit multiplicand and an <em>n</em>-bit multiplier, the product is up to <em>m+n</em> bits wide, and the AND-gate array alone needs <em>m×n</em> gates — before counting the adders needed to sum the rows.</p>
+
+    <h2 id="Worked-Multiplier">Worked Example — 2-Bit × 2-Bit Multiplier</h2>
+    <p>Multiply A = A₁A₀ by B = B₁B₀ (both 2-bit), producing a 4-bit product P₃P₂P₁P₀ — laid out exactly like pencil-and-paper long multiplication:</p>
+    <div class="box box-eg">
+      <pre>        A1 A0        (A = 1 0 = 2)
+     ×  B1 B0        (B = 1 1 = 3)
+    ---------
+      A1B0 A0B0      ← PP0 = A·B0 = 1 0
+  A1B1 A0B1           ← PP1 = A·B1 = 1 0  (shifted left 1 position)
+    ---------
+    0  1  1  0       =  6  ✓</pre>
+    </div>
+    <p>Column P₀ is just A₀B₀ directly (nothing else lands in that column). Column P₁ has two bits to add (A₁B₀ and A₀B₁) — a half adder, giving sum=P₁ and a carry into the next column. Column P₂ adds A₁B₁ to that carry — another half adder, giving sum=P₂ and a final carry that becomes P₃ directly. Here's the complete gate-level circuit, one AND gate per partial-product bit and two half adders to sum the columns:</p>
+
+    <div style="text-align:center;margin:1.25rem 0">
+      <svg viewBox="-10 0 665 175" style="max-width:760px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
+        <text x="28" y="26" font-size="12" fill="var(--text)">A₀</text>
+        <line x1="42" y1="30" x2="60" y2="30" stroke="var(--primary)" stroke-width="2"/>
+        <text x="28" y="58" font-size="12" fill="var(--text)">B₀</text>
+        <line x1="42" y1="50" x2="60" y2="50" stroke="var(--primary)" stroke-width="2"/>
+        <path d="M60,20 L75,20 A20,20 0 0 1 75,60 L60,60 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="3" stroke-linejoin="round"/>
+        <line x1="95" y1="40" x2="130" y2="40" stroke="var(--primary)" stroke-width="2"/>
+        <text x="134" y="44" font-size="13" font-weight="700" fill="var(--text)">P₀</text>
+
+        <text x="148" y="26" font-size="12" fill="var(--text)">A₁</text>
+        <line x1="162" y1="30" x2="180" y2="30" stroke="var(--primary)" stroke-width="2"/>
+        <text x="148" y="58" font-size="12" fill="var(--text)">B₀</text>
+        <line x1="162" y1="50" x2="180" y2="50" stroke="var(--primary)" stroke-width="2"/>
+        <path d="M180,20 L195,20 A20,20 0 0 1 195,60 L180,60 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="3" stroke-linejoin="round"/>
+        <line x1="215" y1="40" x2="230" y2="40" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="230" y1="40" x2="230" y2="108" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="230" y1="108" x2="380" y2="108" stroke="var(--primary)" stroke-width="2"/>
+
+        <text x="268" y="26" font-size="12" fill="var(--text)">A₀</text>
+        <line x1="282" y1="30" x2="300" y2="30" stroke="var(--primary)" stroke-width="2"/>
+        <text x="268" y="58" font-size="12" fill="var(--text)">B₁</text>
+        <line x1="282" y1="50" x2="300" y2="50" stroke="var(--primary)" stroke-width="2"/>
+        <path d="M300,20 L315,20 A20,20 0 0 1 315,60 L300,60 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="3" stroke-linejoin="round"/>
+        <line x1="335" y1="40" x2="350" y2="40" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="350" y1="40" x2="350" y2="142" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="350" y1="142" x2="380" y2="142" stroke="var(--primary)" stroke-width="2"/>
+
+        <text x="388" y="26" font-size="12" fill="var(--text)">A₁</text>
+        <line x1="402" y1="30" x2="420" y2="30" stroke="var(--primary)" stroke-width="2"/>
+        <text x="388" y="58" font-size="12" fill="var(--text)">B₁</text>
+        <line x1="402" y1="50" x2="420" y2="50" stroke="var(--primary)" stroke-width="2"/>
+        <path d="M420,20 L435,20 A20,20 0 0 1 435,60 L420,60 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="3" stroke-linejoin="round"/>
+        <line x1="455" y1="40" x2="490" y2="40" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="490" y1="40" x2="490" y2="108" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="490" y1="108" x2="520" y2="108" stroke="var(--primary)" stroke-width="2"/>
+
+        <rect x="380" y="90" width="70" height="70" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <text x="415" y="134" font-size="15" font-weight="700" text-anchor="middle" fill="var(--text)">HA₁</text>
+        <line x1="450" y1="108" x2="480" y2="108" stroke="var(--primary)" stroke-width="2"/>
+        <text x="453" y="100" font-size="13" font-weight="700" fill="var(--text)">P₁</text>
+        <line x1="450" y1="142" x2="520" y2="142" stroke="var(--primary)" stroke-width="2"/>
+
+        <rect x="520" y="90" width="70" height="70" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <text x="555" y="134" font-size="15" font-weight="700" text-anchor="middle" fill="var(--text)">HA₂</text>
+        <line x1="590" y1="108" x2="620" y2="108" stroke="var(--primary)" stroke-width="2"/>
+        <text x="624" y="112" font-size="13" font-weight="700" fill="var(--text)">P₂</text>
+        <line x1="590" y1="142" x2="620" y2="142" stroke="var(--primary)" stroke-width="2"/>
+        <text x="624" y="146" font-size="13" font-weight="700" fill="var(--text)">P₃</text>
+      </svg>
+    </div>
+    <p>Verify with A=11 (3), B=11 (3): A₁B₀=1, A₀B₁=1 → HA₁: sum=0, carry=1 → P₁=0. A₁B₁=1 → HA₂ adds 1+1(carry): sum=0, carry=1 → P₂=0, P₃=1. Product = 1001 (9) = 3×3. ✓ Wider multipliers follow the identical pattern at larger scale: more AND gates for more partial-product bits, and a bigger adder array (usually full adders, not just half adders, once three or more bits land in the same column) to sum them.</p>
+
+    <div class="box box-tip">
+      🚀 <strong>Beyond the textbook:</strong> real multiplication hardware in modern CPUs rarely uses this simple AND-array-plus-ripple-adders approach directly — it's too slow for wide operands. Techniques like <strong>Booth's algorithm</strong> (which reduces the number of partial products needed by processing multiple multiplier bits at once) and <strong>Wallace tree multipliers</strong> (which sum partial products in parallel using a tree of carry-save adders, rather than one at a time) dramatically cut down the critical path length. The array-multiplier approach on this page is the conceptual foundation these faster designs build on.
+    </div>
+
+    <h2>Common Pitfalls</h2>
+    <ul>
+      <li><strong>Each partial product row must be shifted left by its own row index before adding</strong> — forgetting the shift silently computes A×B as if every multiplier bit had the same place value, giving a wrong (typically much smaller) result.</li>
+      <li><strong>Assuming a half adder is always enough for every column of a wider multiplier.</strong> The 2×2 example only needed half adders because at most 2 bits ever landed in one column; wider multipliers routinely need full adders once 3 or more partial-product bits (plus carries) share a column.</li>
+      <li><strong>Undercounting the AND-gate array size.</strong> An m-bit × n-bit multiplier needs m×n AND gates for partial products alone — easy to underestimate for wider operands, before even counting the adder network.</li>
+    </ul>
+
+    <h2>Applications</h2>
+    <ul>
+      <li><strong>Every integer multiply instruction</strong> in a CPU's ALU is built from array multipliers (or a faster variant like Booth's algorithm or a Wallace tree) that are direct scaled-up descendants of the 2×2 AND-gate-plus-adder structure shown here.</li>
+      <li><strong>Digital signal processing (DSP) hardware</strong> — audio, video, and sensor-data pipelines — relies heavily on fast multiplier circuits, since filtering and transform algorithms are dominated by multiply operations.</li>
+      <li><strong>Fixed-point and floating-point arithmetic units</strong> (Unit 4 of this course) use a binary multiplier like this one as their mantissa-multiplication core, with extra logic layered on top for exponent handling and rounding.</li>
+    </ul>
+  </div>
+
+  <div class="ad-slot">Advertisement</div>
+
+  <!-- QUIZ GATE -->
+  <div id="gate-section">
+    <div class="gate">
+      <div class="gate-blur">
+        <div class="quiz">
+          <div class="quiz-title">📝 Quick Quiz — 5 Questions</div>
+        </div>
+      </div>
+      <div class="gate-overlay">
+        <div class="gate-box">
+          <div class="lock">🔒</div>
+          <h3>Login to take the quiz</h3>
+          <p>Create a free account to take the quiz and track your progress across all topics.</p>
+          <div class="gate-btns">
+            <a href="../../../login.html" class="btn btn-primary btn-sm">Login</a>
+            <a href="../../../login.html" class="btn btn-outline btn-sm">Register Free</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="quiz" id="quiz-section" style="display:none">
+    <div class="quiz-title">📝 Quick Quiz — 5 Questions</div>
+    <div id="quiz-body"></div>
+    <button class="btn btn-primary" id="submit-btn" disabled>Submit Quiz</button>
+    <div class="quiz-result" id="quiz-result" style="display:none"></div>
+  </div>
+
+  <div class="topic-nav">
+    <a href="decimal-adder.html">
+      <div class="nav-dir">← Previous</div>
+      <div class="nav-title">Decimal (BCD) Adder</div>
+    </a>
+    <a href="magnitude-comparator.html" class="next">
+      <div class="nav-dir">Next →</div>
+      <div class="nav-title">Magnitude Comparator</div>
+    </a>
+  </div>
+
+</div>
+
+<div style="max-width:820px;margin:.5rem auto;padding:0 1.25rem">
+  <div class="ad-slot">Advertisement</div>
+</div>
+<footer class="footer">© 2026 Chandra Shaker · <a href="https://chandrashaker.in">chandrashaker.in</a> · <em>Reference: M. Morris Mano, Digital Design / Computer System Architecture — Binary Multiplier.</em></footer>
+
+<script type="module">
+  import { initNav } from '../../../js/nav.js';
+  import { onAuth, saveProgress, getProgress } from '../../../js/firebase-config.js';
+  initNav(3);
+
+  const COURSE_ID = 'coa';
+  const TOPIC_ID  = 'binary-multiplier';
+  const LABELS    = ['A','B','C','D'];
+  const QUIZ = [
+    { q:"Multiply A = 11₂ (3) by B = 10₂ (2) using the partial-product method. What are the two partial product rows before adding?", options:["PP0 = 3×0 = 00, PP1 = 3×1 = 11 shifted left one position = 110","PP0 = 3×1 = 11, PP1 = 3×0 = 00 shifted left one position","PP0 = 00, PP1 = 00 — both rows are zero","PP0 = 11, PP1 = 11 — no shifting needed"], answer:0, explanation:"B's bit0=0 gives PP0 = 11×0 = 00. B's bit1=1 gives PP1 = 11×1 = 11, shifted left one position = 110. Adding 00+110 = 110₂ = 6, matching 3×2=6." },
+    { q:"How is a single bit of a binary multiplication partial product generated in hardware?", options:["With a single 2-input AND gate, since multiplying two bits is identical to ANDing them", "With a full 4-bit adder for every bit", "With an XOR gate, since multiplication resembles addition", "With a decoder circuit"], answer:0, explanation:"Bit multiplication and the AND truth table are identical (0×0=0, 0×1=0, 1×0=0, 1×1=1), so each partial-product bit is just one AND gate fed by one multiplicand bit and one multiplier bit." },
+    { q:"An 8-bit by 8-bit binary multiplier is built using the AND-array approach. How many AND gates does the partial-product array alone require?", options:["64","16","8","32"], answer:0, explanation:"An m×n multiplier needs m×n AND gates for the partial-product array. 8×8 = 64 AND gates, before counting the adders needed to sum the rows." },
+    { q:"In the 2-bit × 2-bit multiplier example, why is a half adder (not a full adder) sufficient for each column?", options:["At most 2 partial-product bits ever land in the same column in a 2×2 multiplier", "Half adders are always sufficient for any size multiplier", "Full adders cannot be used in multiplier circuits", "The example doesn't actually require any adders"], answer:0, explanation:"With only 2 bits per operand, at most two partial-product bits (plus, in one column, an incoming carry) ever need summing per column — wider multipliers need full adders once 3+ bits share a column." },
+    { q:"In the 2×2 multiplier's gate-level circuit, HA₁ receives A₁B₀ and A₀B₁, and its carry-out feeds into HA₂ alongside A₁B₁. If A=11 (3) and B=11 (3), what are P₂ and P₃?", options:["P₂ = 0, P₃ = 1", "P₂ = 1, P₃ = 0", "P₂ = 1, P₃ = 1", "P₂ = 0, P₃ = 0"], answer:0, explanation:"A₁B₀=1, A₀B₁=1 → HA₁ sum=0 (P₁), carry=1. A₁B₁=1 → HA₂ adds 1+1(carry): sum=0 (P₂), carry=1 (P₃). Product = 1001 (9), matching 3×3=9." }
+  ];
+
+  let selected = {}, submitted = false;
+
+  function buildQuiz() {
+    document.getElementById('quiz-body').innerHTML = QUIZ.map((q, qi) => `
+      <div class="question">
+        <div class="question-text">Q${qi+1}. ${q.q}</div>
+        <div class="options">
+          ${q.options.map((o, oi) => `<div class="option" data-qi="${qi}" data-oi="${oi}"><span class="option-lbl">${LABELS[oi]}</span>${o}</div>`).join('')}
+        </div>
+        <div class="explanation" id="exp${qi}" style="display:none">💡 ${q.explanation}</div>
+      </div>`).join('');
+    document.querySelectorAll('.option').forEach(el => {
+      el.onclick = () => {
+        if (submitted) return;
+        const qi = +el.dataset.qi, oi = +el.dataset.oi;
+        selected[qi] = oi;
+        document.querySelectorAll(`[data-qi="${qi}"]`).forEach(o => o.classList.remove('selected'));
+        el.classList.add('selected');
+        document.getElementById('submit-btn').disabled = Object.keys(selected).length < QUIZ.length;
+      };
+    });
+  }
+
+  async function submitQuiz(uid) {
+    submitted = true; let score = 0;
+    QUIZ.forEach((q, qi) => {
+      const correct = q.answer, chosen = selected[qi];
+      document.querySelectorAll(`[data-qi="${qi}"]`).forEach(o => {
+        const oi = +o.dataset.oi;
+        if (oi === correct) o.classList.add('correct');
+        else if (oi === chosen) o.classList.add('wrong');
+      });
+      document.getElementById(`exp${qi}`).style.display = 'block';
+      if (chosen === correct) score++;
+    });
+    document.getElementById('submit-btn').style.display = 'none';
+    const pct = Math.round((score / QUIZ.length) * 100);
+    const res = document.getElementById('quiz-result');
+    res.style.display = 'block';
+    res.className = `quiz-result ${pct >= 60 ? 'pass' : 'fail'}`;
+    res.innerHTML = `<div class="quiz-score">${pct >= 60 ? '🎉' : '📖'} Score: ${score}/${QUIZ.length} (${pct}%)</div>
+      <div class="quiz-msg">${pct >= 80 ? 'Excellent! Move to the next topic.' : pct >= 60 ? 'Good. Review what you missed.' : 'Review the lesson and try again.'}</div>`;
+    if (uid) await saveProgress(uid, COURSE_ID, TOPIC_ID, score, QUIZ.length);
+  }
+
+  onAuth(async user => {
+    const gate = document.getElementById('gate-section');
+    const quiz  = document.getElementById('quiz-section');
+    if (user) {
+      gate.style.display = 'none';
+      quiz.style.display = 'block';
+      buildQuiz();
+      document.getElementById('submit-btn').onclick = () => submitQuiz(user.uid);
+      const prog = await getProgress(user.uid, COURSE_ID, TOPIC_ID);
+      if (prog?.completed) {
+        const res = document.getElementById('quiz-result');
+        res.style.display = 'block';
+        res.className = 'quiz-result pass';
+        res.innerHTML = `<div class="quiz-score">✅ Completed — Best score: ${prog.percent}%</div>
+          <div class="quiz-msg">You can retake the quiz anytime.</div>`;
+      }
+    }
+  });
+</script>
+</body>
+</html>

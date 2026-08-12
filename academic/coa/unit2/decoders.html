@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Decoders — COA Unit 2 | Chandras EDU</title>
+  <meta name="description" content="n-to-2^n decoders with enable inputs, gate-level construction, minterm generation, and how a decoder implements any Boolean function directly — with a 3-to-8 worked example.">
+  <link rel="canonical" href="https://courses.chandrashaker.in/academic/coa/unit2/decoders.html">
+  <link rel="stylesheet" href="../../../css/style.css">
+
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Chandras EDU">
+  <meta property="og:title" content="Decoders — COA Unit 2 | Chandras EDU">
+  <meta property="og:description" content="n-to-2^n decoders with enable inputs, gate-level construction, minterm generation, and how a decoder implements any Boolean function directly — with a 3-to-8 worked example.">
+  <meta property="og:url" content="https://courses.chandrashaker.in/academic/coa/unit2/decoders.html">
+  <meta property="og:image" content="https://courses.chandrashaker.in/images/coa/fig_decoder_encoder.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Decoders — COA Unit 2 | Chandras EDU">
+  <meta name="twitter:description" content="n-to-2^n decoders with enable inputs, gate-level construction, minterm generation, and how a decoder implements any Boolean function directly — with a 3-to-8 worked example.">
+  <meta name="twitter:image" content="https://courses.chandrashaker.in/images/coa/fig_decoder_encoder.png">
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Courses", "item": "https://courses.chandrashaker.in/" },
+    { "@type": "ListItem", "position": 2, "name": "COA", "item": "https://courses.chandrashaker.in/academic/coa/" },
+    { "@type": "ListItem", "position": 3, "name": "Unit 2", "item": "https://courses.chandrashaker.in/academic/coa/unit2/" },
+    { "@type": "ListItem", "position": 4, "name": "Decoders" }
+  ]
+}
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LearningResource",
+  "name": "Decoders",
+  "description": "n-to-2^n decoders with enable inputs, gate-level construction, minterm generation, and how a decoder implements any Boolean function directly — with a 3-to-8 worked example.",
+  "url": "https://courses.chandrashaker.in/academic/coa/unit2/decoders.html",
+  "image": "https://courses.chandrashaker.in/images/coa/fig_decoder_encoder.png",
+  "learningResourceType": "Lesson",
+  "educationalLevel": "Undergraduate",
+  "about": { "@type": "Thing", "name": "Computer Organization and Architecture" },
+  "isPartOf": {
+    "@type": "Course",
+    "name": "Computer Organization and Architecture",
+    "provider": { "@type": "Organization", "name": "Chandras EDU", "url": "https://chandrashaker.in" }
+  },
+  "publisher": { "@type": "Organization", "name": "Chandras EDU", "url": "https://chandrashaker.in" }
+}
+  </script>
+  <link rel="icon" href="/favicon.ico">
+</head>
+<body>
+<nav class="nav"><div id="main-nav"></div></nav>
+
+<div style="max-width:820px;margin:.5rem auto;padding:0 1.25rem">
+  <div class="ad-slot">Advertisement</div>
+</div>
+
+<div class="page-narrow" role="main">
+
+  <nav class="breadcrumb">
+    <a href="../../../index.html">Courses</a><span class="sep">/</span>
+    <a href="../index.html">COA</a><span class="sep">/</span>
+    <a href="index.html">Unit 2</a><span class="sep">/</span>
+    <span>Combinational Logic</span><span class="sep">/</span>
+    <span class="cur">Decoders</span>
+  </nav>
+
+  <div style="background:var(--primary);border-radius:var(--radius-lg);padding:1.1rem 1.4rem;margin-bottom:1.5rem;color:#fff">
+    <div style="font-size:.75rem;opacity:.75;margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.05em">COA › Unit 2: Combinational Logic › Topic 8</div>
+    <h1 style="font-size:1.4rem;font-weight:700;color:#fff;margin-bottom:.5rem">Decoders</h1>
+    <div style="display:flex;gap:.75rem;flex-wrap:wrap">
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">⏱ 17 min read</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📝 Quiz inside</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📖 Mano Ch. 4</span>
+    </div>
+  </div>
+
+  <!-- FULL LESSON — visible to everyone -->
+  <div class="lesson">
+    <p>A <strong>decoder</strong> is a combinational circuit that converts binary information from <em>n</em> input lines into a maximum of 2ⁿ unique output lines — with, at most, one output line active for each valid input combination. It's a workhorse of real digital systems, from memory addressing to instruction decoding in the CPU you'll study later in this course.</p>
+
+    <h2 id="2to4">2-to-4 Decoder</h2>
+    <table>
+      <thead><tr><th>A1</th><th>A0</th><th>D0</th><th>D1</th><th>D2</th><th>D3</th></tr></thead>
+      <tbody>
+        <tr><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td></tr>
+        <tr><td>0</td><td>1</td><td>0</td><td>1</td><td>0</td><td>0</td></tr>
+        <tr><td>1</td><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td></tr>
+        <tr><td>1</td><td>1</td><td>0</td><td>0</td><td>0</td><td>1</td></tr>
+      </tbody>
+    </table>
+    <p>Each output is simply a minterm of the inputs: D0 = A1′A0′, D1 = A1′A0, D2 = A1A0′, D3 = A1A0. This is worth recognizing directly: <strong>a decoder is literally a physical implementation of the minterm-generation step</strong> from the K-map topic in Unit 1 — each decoder output IS one minterm, realized in hardware.</p>
+
+    <h2 id="Enable">Enable Input</h2>
+    <p>Most real decoder chips add an <strong>enable</strong> input E: every output AND gate gets a third input tied to E, so <em>all</em> outputs stay 0 whenever E=0, regardless of the address inputs. This is what makes decoders useful as chip-select logic — only the addressed chip's enable line goes active. Here's D2 = A1A0′E (using B for A0 to keep the gate diagram uncluttered) built out explicitly — the other three outputs are built identically, just with different true/complemented combinations of the address bits:</p>
+    <div style="text-align:center;margin:1.25rem 0">
+      <svg viewBox="-8 -8 350 116" style="max-width:480px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
+        <text x="0" y="29" font-size="13" fill="var(--text)">A</text>
+        <line x1="14" y1="25" x2="100" y2="25" stroke="var(--primary)" stroke-width="2"/>
+
+        <text x="0" y="54" font-size="13" fill="var(--text)">B</text>
+        <line x1="14" y1="50" x2="30" y2="50" stroke="var(--primary)" stroke-width="2"/>
+        <path d="M30,35 L30,65 L64,50 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="3" stroke-linejoin="round"/>
+        <circle cx="70" cy="50" r="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="76" y1="50" x2="100" y2="50" stroke="var(--primary)" stroke-width="2"/>
+
+        <text x="0" y="79" font-size="13" fill="var(--text)">E</text>
+        <line x1="14" y1="75" x2="100" y2="75" stroke="var(--primary)" stroke-width="2"/>
+
+        <path d="M100,10 L136,10 A40,40 0 0 1 136,90 L100,90 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="3" stroke-linejoin="round"/>
+        <line x1="176" y1="50" x2="210" y2="50" stroke="var(--primary)" stroke-width="2"/>
+        <text x="214" y="54" font-size="13" fill="var(--text)">D2 = AB′E</text>
+      </svg>
+    </div>
+    <p>Zooming back out, here's the whole 2-to-4 decoder as a single block — the gate detail above is what's actually inside it:</p>
+    <div style="text-align:center;margin:1.25rem 0">
+      <svg viewBox="-20 0 250 155" style="max-width:340px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
+        <text x="-18" y="37" font-size="12" fill="var(--text)">A</text>
+        <line x1="0" y1="33" x2="60" y2="33" stroke="var(--primary)" stroke-width="2"/>
+        <text x="-18" y="84" font-size="12" fill="var(--text)">B</text>
+        <line x1="0" y1="80" x2="60" y2="80" stroke="var(--primary)" stroke-width="2"/>
+        <text x="-18" y="131" font-size="12" fill="var(--text)">E</text>
+        <line x1="0" y1="127" x2="60" y2="127" stroke="var(--primary)" stroke-width="2"/>
+        <rect x="60" y="10" width="100" height="140" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <text x="110" y="76" font-size="13" font-weight="700" text-anchor="middle" fill="var(--text)">2-to-4</text>
+        <text x="110" y="92" font-size="13" font-weight="700" text-anchor="middle" fill="var(--text)">DECODER</text>
+        <line x1="160" y1="28" x2="200" y2="28" stroke="var(--primary)" stroke-width="2"/>
+        <text x="204" y="32" font-size="12" fill="var(--text)">D₀</text>
+        <line x1="160" y1="63" x2="200" y2="63" stroke="var(--primary)" stroke-width="2"/>
+        <text x="204" y="67" font-size="12" fill="var(--text)">D₁</text>
+        <line x1="160" y1="98" x2="200" y2="98" stroke="var(--primary)" stroke-width="2"/>
+        <text x="204" y="102" font-size="12" fill="var(--text)">D₂</text>
+        <line x1="160" y1="133" x2="200" y2="133" stroke="var(--primary)" stroke-width="2"/>
+        <text x="204" y="137" font-size="12" fill="var(--text)">D₃</text>
+      </svg>
+    </div>
+
+    <h2 id="Worked-3to8">Worked Example — 3-to-8 Decoder</h2>
+    <p>A 3-to-8 decoder takes 3 input lines (A2 A1 A0) and activates exactly one of 8 output lines (D0–D7), matching the input's binary value.</p>
+
+    <div style="text-align:center;margin:1.25rem 0">
+      <img src="../../../images/coa/fig_decoder_encoder.png"
+           alt="3-to-8 decoder activating a single output line, alongside a 4-to-2 priority encoder"
+           style="max-width:100%;border-radius:6px;border:1px solid #e0e0e0">
+      <div style="font-size:.78rem;color:#777;margin-top:.4rem">Fig 1: A 3-to-8 decoder selects exactly one of eight outputs — here, input 101 (5) activates only D5</div>
+    </div>
+
+    <p>Input A2A1A0 = 101 (decimal 5) activates <strong>only D5</strong> — every other output stays at 0. This "exactly one active line" property is precisely why decoders are the standard building block for memory address selection: each memory chip or memory bank gets wired to one decoder output, guaranteeing only one is ever selected at a time.</p>
+
+    <h2 id="Function-Implementation">Implementing Any Boolean Function</h2>
+    <p>Since every decoder output already <em>is</em> one minterm, implementing any Boolean function of n variables is just: feed the n variables into an n-to-2ⁿ decoder, then OR together whichever decoder outputs correspond to the function's minterms. This is the canonical-SOP idea from Unit 1, built directly in hardware with zero simplification needed.</p>
+    <p><strong>Small example:</strong> F(A,B) = Σm(1,2) on a 2-to-4 decoder — checking against the truth table above, D1=A′B=m1 and D2=AB′=m2, so F = D1 + D2: a single 2-input OR gate feeding off two of the decoder's outputs, no separate AND-gate array needed at all, since the decoder already built every minterm.</p>
+    <div style="text-align:center;margin:1.25rem 0">
+      <svg viewBox="-20 0 325 155" style="max-width:440px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
+        <text x="-14" y="37" font-size="12" fill="var(--text)">A</text>
+        <line x1="0" y1="33" x2="20" y2="33" stroke="var(--primary)" stroke-width="2"/>
+        <text x="-14" y="84" font-size="12" fill="var(--text)">B</text>
+        <line x1="0" y1="80" x2="20" y2="80" stroke="var(--primary)" stroke-width="2"/>
+        <rect x="20" y="10" width="90" height="140" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <text x="65" y="76" font-size="13" font-weight="700" text-anchor="middle" fill="var(--text)">2-to-4</text>
+        <text x="65" y="92" font-size="13" font-weight="700" text-anchor="middle" fill="var(--text)">DECODER</text>
+
+        <line x1="110" y1="18" x2="140" y2="18" stroke="var(--primary)" stroke-width="2"/>
+        <text x="144" y="22" font-size="12" fill="var(--text-2)">D₀ (unused)</text>
+
+        <line x1="110" y1="63" x2="140" y2="63" stroke="var(--primary)" stroke-width="2"/>
+        <text x="112" y="58" font-size="11" fill="var(--text-2)">D₁</text>
+        <line x1="140" y1="63" x2="140" y2="45" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="140" y1="45" x2="179" y2="45" stroke="var(--primary)" stroke-width="2"/>
+
+        <line x1="110" y1="98" x2="140" y2="98" stroke="var(--primary)" stroke-width="2"/>
+        <text x="112" y="112" font-size="11" fill="var(--text-2)">D₂</text>
+        <line x1="140" y1="98" x2="140" y2="75" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="140" y1="75" x2="179" y2="75" stroke="var(--primary)" stroke-width="2"/>
+
+        <line x1="110" y1="133" x2="140" y2="133" stroke="var(--primary)" stroke-width="2"/>
+        <text x="144" y="137" font-size="12" fill="var(--text-2)">D₃ (unused)</text>
+
+        <path d="M170,30 Q194,60 170,90 Q224,90 251,60 Q224,30 170,30 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="3" stroke-linejoin="round"/>
+        <line x1="251" y1="60" x2="290" y2="60" stroke="var(--primary)" stroke-width="2"/>
+        <text x="294" y="64" font-size="13" font-weight="700" fill="var(--text)">F</text>
+      </svg>
+    </div>
+
+    <h3>Worked Example — F(A,B,C) = Σm(1,3,5,6) on a 3-to-8 Decoder</h3>
+    <p>The same idea scales directly to a larger decoder — the exact function used as a running example across several Unit 1 pages, implemented with a 3-to-8 decoder: connect an OR gate to decoder outputs D1, D3, D5, and D6:</p>
+    <p style="text-align:center;font-size:1.1rem;font-weight:700;color:var(--primary);margin:1rem 0">F = D1 + D3 + D5 + D6</p>
+    <div style="text-align:center;margin:1.25rem 0">
+      <img src="../../../images/coa/fig_decoder_function_implementation.png"
+           alt="3-to-8 decoder with outputs D1, D3, D5, D6 routed into an OR gate to implement F=Σm(1,3,5,6)"
+           style="max-width:100%;border-radius:6px;border:1px solid #e0e0e0">
+      <div style="font-size:.78rem;color:#777;margin-top:.4rem">Fig 2: The four active minterm outputs feed directly into an OR gate — no AND gates or K-map simplification needed</div>
+    </div>
+    <p>No K-map simplification needed at all — the decoder-plus-OR-gate approach trades gate-minimization effort for a completely mechanical implementation process, at the cost of needing a full decoder (which internally uses more gates than a minimized custom circuit would).</p>
+
+    <h2>Common Pitfalls</h2>
+    <ul>
+      <li><strong>A decoder's outputs are mutually exclusive by design</strong> — at most one output is active for any valid input combination; if a decoder circuit shows two outputs active simultaneously, there's a wiring or logic error.</li>
+      <li><strong>Forgetting the enable input disables ALL outputs, not just one.</strong> E=0 forces every decoder output to 0 simultaneously — it doesn't select a "default" output, it silences the whole decoder.</li>
+      <li><strong>Assuming the decoder-plus-OR technique needs any AND gates or K-map work.</strong> It deliberately needs neither — every minterm already exists at a decoder output; the only job left is OR-ing the right ones together.</li>
+    </ul>
+
+    <h2>Applications</h2>
+    <ul>
+      <li><strong>Memory address decoding:</strong> the address bus feeds a decoder, and each decoder output selects exactly one memory chip or memory bank — this is the single most common real-world use of decoders in computer organization.</li>
+      <li><strong>Seven-segment display drivers</strong> are specialized decoders (BCD-to-seven-segment) that turn a 4-bit digit code into the right combination of active segments.</li>
+      <li><strong>Instruction opcode decoding</strong> inside a CPU's control unit (a later unit in this course) uses decoder logic to turn a compact opcode field into one active control signal per instruction type.</li>
+    </ul>
+  </div>
+
+  <div class="ad-slot">Advertisement</div>
+
+  <!-- QUIZ GATE -->
+  <div id="gate-section">
+    <div class="gate">
+      <div class="gate-blur">
+        <div class="quiz">
+          <div class="quiz-title">📝 Quick Quiz — 5 Questions</div>
+        </div>
+      </div>
+      <div class="gate-overlay">
+        <div class="gate-box">
+          <div class="lock">🔒</div>
+          <h3>Login to take the quiz</h3>
+          <p>Create a free account to take the quiz and track your progress across all topics.</p>
+          <div class="gate-btns">
+            <a href="../../../login.html" class="btn btn-primary btn-sm">Login</a>
+            <a href="../../../login.html" class="btn btn-outline btn-sm">Register Free</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="quiz" id="quiz-section" style="display:none">
+    <div class="quiz-title">📝 Quick Quiz — 5 Questions</div>
+    <div id="quiz-body"></div>
+    <button class="btn btn-primary" id="submit-btn" disabled>Submit Quiz</button>
+    <div class="quiz-result" id="quiz-result" style="display:none"></div>
+  </div>
+
+  <div class="topic-nav">
+    <a href="magnitude-comparator.html">
+      <div class="nav-dir">← Previous</div>
+      <div class="nav-title">Magnitude Comparator</div>
+    </a>
+    <a href="encoders.html" class="next">
+      <div class="nav-dir">Next →</div>
+      <div class="nav-title">Encoders</div>
+    </a>
+  </div>
+
+</div>
+
+<div style="max-width:820px;margin:.5rem auto;padding:0 1.25rem">
+  <div class="ad-slot">Advertisement</div>
+</div>
+<footer class="footer">© 2026 Chandra Shaker · <a href="https://chandrashaker.in">chandrashaker.in</a> · <em>Reference: M. Morris Mano, Digital Design / Computer System Architecture — Decoders.</em></footer>
+
+<script type="module">
+  import { initNav } from '../../../js/nav.js';
+  import { onAuth, saveProgress, getProgress } from '../../../js/firebase-config.js';
+  initNav(3);
+
+  const COURSE_ID = 'coa';
+  const TOPIC_ID  = 'decoders';
+  const LABELS    = ['A','B','C','D'];
+  const QUIZ = [
+    { q:"A 4-to-16 decoder has all 4 inputs set to 1010. Which single output line is active?", options:["D10","D5","D1010","D4"], answer:0, explanation:"1010₂ = decimal 10, so output D10 is the single active line — a decoder's output index always matches the binary value of its inputs." },
+    { q:"What does setting a decoder's enable input E=0 do?", options:["Forces every output to 0, regardless of the other inputs", "Selects a special \"default\" output", "Has no effect on the outputs", "Only disables the highest-numbered output"], answer:0, explanation:"E is ANDed into every output gate, so E=0 forces all outputs to 0 simultaneously — this is what makes decoders useful as chip-select logic." },
+    { q:"Using a 2-to-4 decoder and an OR gate, how would you implement F(A,B) = Σm(0,3)?", options:["Connect the OR gate to decoder outputs D0 and D3", "Connect the OR gate to all 4 decoder outputs", "Connect the OR gate to D1 and D2 instead", "This function can't be implemented with a decoder"], answer:0, explanation:"Each decoder output already is one minterm. Implementing a sum-of-minterms function just means OR-ing together the outputs matching the function's 1-minterms — here, D0 and D3." },
+    { q:"In the 3-to-8 decoder worked example implementing F(A,B,C)=Σm(1,3,5,6), which decoder outputs feed the OR gate?", options:["D1, D3, D5, D6", "D0, D2, D4, D7", "All 8 outputs", "Only D6"], answer:0, explanation:"F's minterm list is (1,3,5,6), and since each decoder output IS one minterm, the OR gate is wired to exactly D1, D3, D5, and D6." },
+    { q:"Why is it accurate to say a decoder \"physically implements\" minterm generation from K-map minimization, rather than being loosely related to it?", options:["Because each decoder output line is, by construction, exactly the AND of the input variables (complemented as needed) for one specific minterm — a hardware realization of the minterm itself", "Because decoders and K-maps both use the same truth table format", "Because decoders were originally designed as K-map visualization tools", "Because a decoder's outputs happen to number the same as a K-map's cells, purely coincidentally"], answer:0, explanation:"Each decoder output is literally the AND of the (possibly complemented) input variables for one minterm — not just similar to minterm generation, but a direct hardware realization of it." }
+  ];
+
+  let selected = {}, submitted = false;
+
+  function buildQuiz() {
+    document.getElementById('quiz-body').innerHTML = QUIZ.map((q, qi) => `
+      <div class="question">
+        <div class="question-text">Q${qi+1}. ${q.q}</div>
+        <div class="options">
+          ${q.options.map((o, oi) => `<div class="option" data-qi="${qi}" data-oi="${oi}"><span class="option-lbl">${LABELS[oi]}</span>${o}</div>`).join('')}
+        </div>
+        <div class="explanation" id="exp${qi}" style="display:none">💡 ${q.explanation}</div>
+      </div>`).join('');
+    document.querySelectorAll('.option').forEach(el => {
+      el.onclick = () => {
+        if (submitted) return;
+        const qi = +el.dataset.qi, oi = +el.dataset.oi;
+        selected[qi] = oi;
+        document.querySelectorAll(`[data-qi="${qi}"]`).forEach(o => o.classList.remove('selected'));
+        el.classList.add('selected');
+        document.getElementById('submit-btn').disabled = Object.keys(selected).length < QUIZ.length;
+      };
+    });
+  }
+
+  async function submitQuiz(uid) {
+    submitted = true; let score = 0;
+    QUIZ.forEach((q, qi) => {
+      const correct = q.answer, chosen = selected[qi];
+      document.querySelectorAll(`[data-qi="${qi}"]`).forEach(o => {
+        const oi = +o.dataset.oi;
+        if (oi === correct) o.classList.add('correct');
+        else if (oi === chosen) o.classList.add('wrong');
+      });
+      document.getElementById(`exp${qi}`).style.display = 'block';
+      if (chosen === correct) score++;
+    });
+    document.getElementById('submit-btn').style.display = 'none';
+    const pct = Math.round((score / QUIZ.length) * 100);
+    const res = document.getElementById('quiz-result');
+    res.style.display = 'block';
+    res.className = `quiz-result ${pct >= 60 ? 'pass' : 'fail'}`;
+    res.innerHTML = `<div class="quiz-score">${pct >= 60 ? '🎉' : '📖'} Score: ${score}/${QUIZ.length} (${pct}%)</div>
+      <div class="quiz-msg">${pct >= 80 ? 'Excellent! Move to the next topic.' : pct >= 60 ? 'Good. Review what you missed.' : 'Review the lesson and try again.'}</div>`;
+    if (uid) await saveProgress(uid, COURSE_ID, TOPIC_ID, score, QUIZ.length);
+  }
+
+  onAuth(async user => {
+    const gate = document.getElementById('gate-section');
+    const quiz  = document.getElementById('quiz-section');
+    if (user) {
+      gate.style.display = 'none';
+      quiz.style.display = 'block';
+      buildQuiz();
+      document.getElementById('submit-btn').onclick = () => submitQuiz(user.uid);
+      const prog = await getProgress(user.uid, COURSE_ID, TOPIC_ID);
+      if (prog?.completed) {
+        const res = document.getElementById('quiz-result');
+        res.style.display = 'block';
+        res.className = 'quiz-result pass';
+        res.innerHTML = `<div class="quiz-score">✅ Completed — Best score: ${prog.percent}%</div>
+          <div class="quiz-msg">You can retake the quiz anytime.</div>`;
+      }
+    }
+  });
+</script>
+</body>
+</html>

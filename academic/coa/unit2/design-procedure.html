@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Design Procedure — COA Unit 2 | Chandras EDU</title>
+  <meta name="description" content="The four-step combinational circuit design procedure — specification, truth table, K-map minimization, logic diagram — with two full worked examples.">
+  <link rel="canonical" href="https://courses.chandrashaker.in/academic/coa/unit2/design-procedure.html">
+  <link rel="stylesheet" href="../../../css/style.css">
+
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Chandras EDU">
+  <meta property="og:title" content="Design Procedure — COA Unit 2 | Chandras EDU">
+  <meta property="og:description" content="The four-step combinational circuit design procedure — specification, truth table, K-map minimization, logic diagram — with two full worked examples.">
+  <meta property="og:url" content="https://courses.chandrashaker.in/academic/coa/unit2/design-procedure.html">
+  <meta property="og:image" content="https://courses.chandrashaker.in/images/coa/fig_design_procedure.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Design Procedure — COA Unit 2 | Chandras EDU">
+  <meta name="twitter:description" content="The four-step combinational circuit design procedure — specification, truth table, K-map minimization, logic diagram — with two full worked examples.">
+  <meta name="twitter:image" content="https://courses.chandrashaker.in/images/coa/fig_design_procedure.png">
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Courses", "item": "https://courses.chandrashaker.in/" },
+    { "@type": "ListItem", "position": 2, "name": "COA", "item": "https://courses.chandrashaker.in/academic/coa/" },
+    { "@type": "ListItem", "position": 3, "name": "Unit 2", "item": "https://courses.chandrashaker.in/academic/coa/unit2/" },
+    { "@type": "ListItem", "position": 4, "name": "Design Procedure" }
+  ]
+}
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LearningResource",
+  "name": "Design Procedure",
+  "description": "The four-step combinational circuit design procedure — specification, truth table, K-map minimization, logic diagram — with two full worked examples.",
+  "url": "https://courses.chandrashaker.in/academic/coa/unit2/design-procedure.html",
+  "image": "https://courses.chandrashaker.in/images/coa/fig_design_procedure.png",
+  "learningResourceType": "Lesson",
+  "educationalLevel": "Undergraduate",
+  "about": { "@type": "Thing", "name": "Computer Organization and Architecture" },
+  "isPartOf": {
+    "@type": "Course",
+    "name": "Computer Organization and Architecture",
+    "provider": { "@type": "Organization", "name": "Chandras EDU", "url": "https://chandrashaker.in" }
+  },
+  "publisher": { "@type": "Organization", "name": "Chandras EDU", "url": "https://chandrashaker.in" }
+}
+  </script>
+  <link rel="icon" href="/favicon.ico">
+  <style>
+    .kmap-table { border-collapse:collapse; font-size:.82rem; margin:0 auto; }
+    .kmap-table th, .kmap-table td { border:1px solid var(--border); width:50px; height:42px; text-align:center; padding:0; }
+    .kmap-table th { background:var(--bg-3); font-weight:700; color:var(--text-2); font-size:.75rem; }
+    .kmap-table .corner { font-size:.65rem; color:var(--text-3); font-weight:600; }
+    .kmap-table td .val { font-weight:700; font-size:1rem; }
+    .kmap-table td .idx { display:block; font-size:.6rem; color:var(--text-3); }
+    .kmap-table td.one { background:#e8f5e9; }
+    .kmap-table td.one .val { color:var(--success); }
+    .kmap-table td.zero .val { color:var(--text-3); }
+    .kmap-overlay { position:relative; display:inline-block; }
+    .kmap-overlay svg { position:absolute; top:0; left:0; pointer-events:none; }
+    .kmap-legend { display:flex; justify-content:center; gap:1.25rem; flex-wrap:wrap; margin:-.5rem 0 1rem; font-size:.8rem; color:var(--text-2); }
+    .kmap-legend span.sw { display:inline-block; width:14px; height:14px; border-radius:4px; margin-right:.35rem; vertical-align:-2px; border:2.5px solid; }
+  </style>
+</head>
+<body>
+<nav class="nav"><div id="main-nav"></div></nav>
+
+<div style="max-width:820px;margin:.5rem auto;padding:0 1.25rem">
+  <div class="ad-slot">Advertisement</div>
+</div>
+
+<div class="page-narrow" role="main">
+
+  <nav class="breadcrumb">
+    <a href="../../../index.html">Courses</a><span class="sep">/</span>
+    <a href="../index.html">COA</a><span class="sep">/</span>
+    <a href="index.html">Unit 2</a><span class="sep">/</span>
+    <span>Combinational Logic</span><span class="sep">/</span>
+    <span class="cur">Design Procedure</span>
+  </nav>
+
+  <div style="background:var(--primary);border-radius:var(--radius-lg);padding:1.1rem 1.4rem;margin-bottom:1.5rem;color:#fff">
+    <div style="font-size:.75rem;opacity:.75;margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.05em">COA › Unit 2: Combinational Logic › Topic 3</div>
+    <h1 style="font-size:1.4rem;font-weight:700;color:#fff;margin-bottom:.5rem">Design Procedure</h1>
+    <div style="display:flex;gap:.75rem;flex-wrap:wrap">
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">⏱ 18 min read</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📝 Quiz inside</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📖 Mano Ch. 4</span>
+    </div>
+  </div>
+
+  <!-- FULL LESSON — visible to everyone -->
+  <div class="lesson">
+    <p><strong>Design</strong> runs the opposite direction from analysis: starting from a word-description of what's needed, and ending with a working, minimized logic diagram. Every remaining building block in this unit — adders, comparators, decoders, encoders, multiplexers — was itself originally derived using exactly this procedure, starting from a truth table that defines the desired behavior.</p>
+
+    <h2 id="Design-Procedure">The Procedure</h2>
+    <ol>
+      <li><strong>Specification.</strong> State the problem precisely. Determine the required number of inputs and outputs, and assign a letter symbol to each.</li>
+      <li><strong>Truth table.</strong> Derive the truth table that defines the exact required relationship between every input combination and its corresponding output(s).</li>
+      <li><strong>Simplify.</strong> Obtain the simplified Boolean function for each output, as a function of the input variables — using K-maps (Unit 1) or algebraic manipulation.</li>
+      <li><strong>Draw and verify.</strong> Draw the logic diagram from the simplified expressions, and check it against the original specification — ideally by re-deriving the truth table from the diagram and confirming it matches step 2.</li>
+    </ol>
+
+    <div style="text-align:center;margin:1.25rem 0">
+      <img src="../../../images/coa/fig_design_procedure.png"
+           alt="The four-step combinational circuit design procedure: specification, truth table, Boolean functions, logic diagram"
+           style="max-width:100%;border-radius:6px;border:1px solid #e0e0e0">
+      <div style="font-size:.78rem;color:#777;margin-top:.4rem">Fig 1: The four-step design procedure, applied to every combinational circuit in this unit</div>
+    </div>
+
+    <h2 id="Worked-1">Worked Example 1 — Full Design Cycle</h2>
+    <p><strong>Specification:</strong> design a circuit with two inputs A, B that outputs 1 whenever exactly one of the two inputs is 1 (deliberately the same function analyzed on the previous page, so the two directions of the process can be compared directly).</p>
+    <p><strong>Step 1 — Specification:</strong> two inputs (A, B), one output (F). F = 1 when exactly one input is 1.</p>
+    <p><strong>Step 2 — Truth table:</strong></p>
+    <table>
+      <thead><tr><th>A</th><th>B</th><th>F</th></tr></thead>
+      <tbody>
+        <tr><td>0</td><td>0</td><td>0</td></tr>
+        <tr><td>0</td><td>1</td><td>1</td></tr>
+        <tr><td>1</td><td>0</td><td>1</td></tr>
+        <tr><td>1</td><td>1</td><td>0</td></tr>
+      </tbody>
+    </table>
+    <p><strong>Step 3 — Simplify:</strong> reading the 1-rows directly gives the canonical sum: F = A′B + AB′. With only two variables and two minterms that aren't adjacent on a K-map (no simplification possible — they sit diagonally opposite), this is already the minimal SOP form.</p>
+    <p><strong>Step 4 — Draw and verify:</strong> two NOT gates, two 2-input AND gates, one 2-input OR gate — exactly the circuit analyzed on the previous page. Re-deriving its truth table (already done there) confirms it matches step 2 exactly. Design cycle complete.</p>
+
+    <div class="box box-tip">
+      🚀 <strong>Beyond the textbook:</strong> in practice, this exact two-input "differs" function is common enough that it has its own dedicated gate symbol — XOR — rather than being redrawn from AND/OR/NOT every time. Real digital design flows almost never build XOR this way; they simply <em>use</em> an XOR gate directly. This example is valuable specifically because it demonstrates the design procedure end-to-end on a function simple enough to fully verify by hand.
+    </div>
+
+    <h2 id="Worked-2">Worked Example 2 — 3-Input Majority Function</h2>
+    <p><strong>Specification:</strong> design a circuit with three inputs A, B, C and one output F, where F = 1 whenever a <strong>majority</strong> (2 or more) of the inputs are 1.</p>
+    <p><strong>Step 2 — Truth table → minterms:</strong> F is 1 for input combinations with two or three 1s: m3 (011), m5 (101), m6 (110), m7 (111). So F(A,B,C) = Σm(3,5,6,7).</p>
+    <p><strong>Step 3 — Simplify with a K-map:</strong></p>
+    <div style="display:flex;justify-content:center;margin:1.25rem 0">
+      <div class="kmap-overlay">
+        <table class="kmap-table">
+          <tr><th class="corner">A\BC</th><th>00</th><th>01</th><th>11</th><th>10</th></tr>
+          <tr><th>0</th>
+            <td class="zero"><span class="val">0</span><span class="idx">m0</span></td>
+            <td class="zero"><span class="val">0</span><span class="idx">m1</span></td>
+            <td class="one"><span class="val">1</span><span class="idx">m3</span></td>
+            <td class="zero"><span class="val">0</span><span class="idx">m2</span></td>
+          </tr>
+          <tr><th>1</th>
+            <td class="zero"><span class="val">0</span><span class="idx">m4</span></td>
+            <td class="one"><span class="val">1</span><span class="idx">m5</span></td>
+            <td class="one"><span class="val">1</span><span class="idx">m7</span></td>
+            <td class="one"><span class="val">1</span><span class="idx">m6</span></td>
+          </tr>
+        </table>
+        <svg width="262" height="155" viewBox="0 0 262 155">
+          <rect x="152.3" y="58.7" width="46" height="84.4" rx="10" fill="none" stroke="#2e7d32" stroke-width="3"/>
+          <rect x="104.3" y="104.9" width="92" height="36.2" rx="10" fill="none" stroke="#8e24aa" stroke-width="3"/>
+          <rect x="156.3" y="106.9" width="88" height="32.2" rx="8" fill="none" stroke="var(--primary)" stroke-width="3"/>
+        </svg>
+      </div>
+    </div>
+    <div class="kmap-legend">
+      <span><span class="sw" style="border-color:var(--primary)"></span>Pair {m6,m7} → AB</span>
+      <span><span class="sw" style="border-color:#8e24aa"></span>Pair {m5,m7} → AC</span>
+      <span><span class="sw" style="border-color:#2e7d32"></span>Pair {m3,m7} → BC</span>
+    </div>
+    <p>Three valid pairs exist, and each one shares cell m7 with the other two — a normal and expected overlap (recall from Unit 1: a group only needs to <em>cover</em> a 1, nothing forbids the same 1 from being covered more than once):</p>
+    <div class="box box-eg">
+      <pre>Pair {m6, m7} (A=1, B=1, C varies): term = AB
+Pair {m5, m7} (A=1, C=1, B varies): term = AC
+Pair {m3, m7} (B=1, C=1, A varies): term = BC
+
+F = AB + AC + BC</pre>
+    </div>
+    <p><strong>Step 4 — Draw and verify:</strong> the minimal circuit needs 3 two-input AND gates (one per product term) feeding a 3-input OR gate — or equivalently, two cascaded 2-input OR gates. Either is a direct, mechanical translation of the SOP expression above: five gates total, and no further simplification is possible since every group is already a maximal pair.</p>
+
+    <h2>Common Pitfalls</h2>
+    <ul>
+      <li><strong>Skipping the re-derivation in step 4</strong> — a common shortcut that hides algebra mistakes. A slip in Boolean simplification can produce a circuit that looks correct on paper but doesn't actually implement the specification.</li>
+      <li><strong>Forgetting that a K-map group can overlap another group.</strong> As the majority-function example shows, using the same 1-cell in multiple groups is completely normal and often unavoidable for functions like this one.</li>
+      <li><strong>Jumping straight to a circuit from the truth table, skipping minimization.</strong> An unminimized SOP (one AND gate per row that's a 1) always works, but a K-map-minimized version is smaller, cheaper, and usually faster — minimization is a required step, not an optional polish.</li>
+    </ul>
+
+    <h2>Applications</h2>
+    <ul>
+      <li><strong>Every circuit on the remaining pages of this unit</strong> — adders, comparators, decoders, encoders, multiplexers — is a direct product of this exact four-step design procedure, just with more inputs, more outputs, and more involved simplification.</li>
+      <li><strong>Majority-vote circuits specifically</strong> are used in triple-modular-redundancy (TMR) fault-tolerant systems — three identical subsystems compute the same result, and a majority circuit like the one designed above picks the answer that at least two of them agree on.</li>
+      <li><strong>Hardware description languages</strong> (Verilog, VHDL) let engineers skip drawing the gate-level diagram by hand, but the underlying logic — specification → truth table → simplified equations → circuit — is exactly what the compiler/synthesis tool does automatically underneath.</li>
+    </ul>
+  </div>
+
+  <div class="ad-slot">Advertisement</div>
+
+  <!-- QUIZ GATE -->
+  <div id="gate-section">
+    <div class="gate">
+      <div class="gate-blur">
+        <div class="quiz">
+          <div class="quiz-title">📝 Quick Quiz — 5 Questions</div>
+        </div>
+      </div>
+      <div class="gate-overlay">
+        <div class="gate-box">
+          <div class="lock">🔒</div>
+          <h3>Login to take the quiz</h3>
+          <p>Create a free account to take the quiz and track your progress across all topics.</p>
+          <div class="gate-btns">
+            <a href="../../../login.html" class="btn btn-primary btn-sm">Login</a>
+            <a href="../../../login.html" class="btn btn-outline btn-sm">Register Free</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="quiz" id="quiz-section" style="display:none">
+    <div class="quiz-title">📝 Quick Quiz — 5 Questions</div>
+    <div id="quiz-body"></div>
+    <button class="btn btn-primary" id="submit-btn" disabled>Submit Quiz</button>
+    <div class="quiz-result" id="quiz-result" style="display:none"></div>
+  </div>
+
+  <div class="topic-nav">
+    <a href="analysis-procedure.html">
+      <div class="nav-dir">← Previous</div>
+      <div class="nav-title">Analysis Procedure</div>
+    </a>
+    <a href="adders-subtractors.html" class="next">
+      <div class="nav-dir">Next →</div>
+      <div class="nav-title">Binary Adder &amp; Subtractor</div>
+    </a>
+  </div>
+
+</div>
+
+<div style="max-width:820px;margin:.5rem auto;padding:0 1.25rem">
+  <div class="ad-slot">Advertisement</div>
+</div>
+<footer class="footer">© 2026 Chandra Shaker · <a href="https://chandrashaker.in">chandrashaker.in</a> · <em>Reference: M. Morris Mano, Digital Design / Computer System Architecture — Combinational Circuit Design Procedure.</em></footer>
+
+<script type="module">
+  import { initNav } from '../../../js/nav.js';
+  import { onAuth, saveProgress, getProgress } from '../../../js/firebase-config.js';
+  initNav(3);
+
+  const COURSE_ID = 'coa';
+  const TOPIC_ID  = 'design-procedure';
+  const LABELS    = ['A','B','C','D'];
+  const QUIZ = [
+    { q:"What is the correct order of steps in the combinational circuit design procedure?", options:["Specification → truth table → simplify (K-map) → draw and verify", "Draw the circuit → truth table → specification → simplify", "Simplify first, then figure out what the problem is asking", "Truth table → draw circuit → simplify afterward if there's time"], answer:0, explanation:"The procedure runs: precise problem specification, truth table, minimization (typically via K-map), then the logic diagram with verification — minimization always happens before the circuit is drawn, not after." },
+    { q:"In Worked Example 1 (F=1 when exactly one of A, B is 1), why is F = A′B + AB′ already the minimal SOP form with no further K-map simplification possible?", options:["The two 1-minterms (A′B and AB′) sit diagonally opposite on the K-map, so they aren't adjacent and can't be grouped together", "Two-variable functions can never be simplified", "The truth table has too few rows to use a K-map", "F = A′B + AB′ is not actually a valid SOP expression"], answer:0, explanation:"On a 2-variable K-map, minterms m1 (A′B) and m2 (AB′) are diagonally opposite, not adjacent — K-map grouping requires adjacency, so no pair can be formed and the unminimized 2-term SOP is already minimal." },
+    { q:"For the 3-input majority function F(A,B,C)=Σm(3,5,6,7), what is the minimal SOP expression obtained from the K-map?", options:["F = AB + AC + BC", "F = A + B + C", "F = ABC", "F = AB + C"], answer:0, explanation:"The three valid pairs {m6,m7}, {m5,m7}, {m3,m7} give terms AB, AC, and BC respectively — all three overlap at m7, which is normal, expected K-map behavior." },
+    { q:"Why does the design procedure's final step explicitly include re-deriving the truth table from the finished logic diagram?", options:["Because algebraic simplification is error-prone, and re-deriving the table independently catches mistakes that look correct on paper but implement the wrong circuit", "Because it replaces the need for step 3 (simplification) entirely", "Because it reduces the total number of gates used", "Because documentation standards require every diagram to include a truth table"], answer:0, explanation:"A slip in applying a Boolean identity can produce a circuit that looks right but doesn't implement the specification. Independently re-deriving the truth table from the diagram is a check that catches exactly that class of error." },
+    { q:"In the majority-function K-map, the three grouped pairs {m6,m7}, {m5,m7}, and {m3,m7} all include cell m7. Is this a mistake?", options:["No — a single 1-cell can legitimately belong to multiple K-map groups; this overlap is normal and often unavoidable", "Yes — each 1-cell must belong to exactly one group, so this K-map grouping is invalid", "Yes — m7 should have been left out of the K-map entirely", "No, but only because m7 happens to equal 1 in binary"], answer:0, explanation:"K-map groups only need to cover a 1-cell, not claim it exclusively — the same 1 can and often must appear in more than one group, exactly as it does here with m7." }
+  ];
+
+  let selected = {}, submitted = false;
+
+  function buildQuiz() {
+    document.getElementById('quiz-body').innerHTML = QUIZ.map((q, qi) => `
+      <div class="question">
+        <div class="question-text">Q${qi+1}. ${q.q}</div>
+        <div class="options">
+          ${q.options.map((o, oi) => `<div class="option" data-qi="${qi}" data-oi="${oi}"><span class="option-lbl">${LABELS[oi]}</span>${o}</div>`).join('')}
+        </div>
+        <div class="explanation" id="exp${qi}" style="display:none">💡 ${q.explanation}</div>
+      </div>`).join('');
+    document.querySelectorAll('.option').forEach(el => {
+      el.onclick = () => {
+        if (submitted) return;
+        const qi = +el.dataset.qi, oi = +el.dataset.oi;
+        selected[qi] = oi;
+        document.querySelectorAll(`[data-qi="${qi}"]`).forEach(o => o.classList.remove('selected'));
+        el.classList.add('selected');
+        document.getElementById('submit-btn').disabled = Object.keys(selected).length < QUIZ.length;
+      };
+    });
+  }
+
+  async function submitQuiz(uid) {
+    submitted = true; let score = 0;
+    QUIZ.forEach((q, qi) => {
+      const correct = q.answer, chosen = selected[qi];
+      document.querySelectorAll(`[data-qi="${qi}"]`).forEach(o => {
+        const oi = +o.dataset.oi;
+        if (oi === correct) o.classList.add('correct');
+        else if (oi === chosen) o.classList.add('wrong');
+      });
+      document.getElementById(`exp${qi}`).style.display = 'block';
+      if (chosen === correct) score++;
+    });
+    document.getElementById('submit-btn').style.display = 'none';
+    const pct = Math.round((score / QUIZ.length) * 100);
+    const res = document.getElementById('quiz-result');
+    res.style.display = 'block';
+    res.className = `quiz-result ${pct >= 60 ? 'pass' : 'fail'}`;
+    res.innerHTML = `<div class="quiz-score">${pct >= 60 ? '🎉' : '📖'} Score: ${score}/${QUIZ.length} (${pct}%)</div>
+      <div class="quiz-msg">${pct >= 80 ? 'Excellent! Move to the next topic.' : pct >= 60 ? 'Good. Review what you missed.' : 'Review the lesson and try again.'}</div>`;
+    if (uid) await saveProgress(uid, COURSE_ID, TOPIC_ID, score, QUIZ.length);
+  }
+
+  onAuth(async user => {
+    const gate = document.getElementById('gate-section');
+    const quiz  = document.getElementById('quiz-section');
+    if (user) {
+      gate.style.display = 'none';
+      quiz.style.display = 'block';
+      buildQuiz();
+      document.getElementById('submit-btn').onclick = () => submitQuiz(user.uid);
+      const prog = await getProgress(user.uid, COURSE_ID, TOPIC_ID);
+      if (prog?.completed) {
+        const res = document.getElementById('quiz-result');
+        res.style.display = 'block';
+        res.className = 'quiz-result pass';
+        res.innerHTML = `<div class="quiz-score">✅ Completed — Best score: ${prog.percent}%</div>
+          <div class="quiz-msg">You can retake the quiz anytime.</div>`;
+      }
+    }
+  });
+</script>
+</body>
+</html>
