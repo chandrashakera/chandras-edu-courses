@@ -277,9 +277,9 @@ a:hover { text-decoration: underline; color: var(--primary-dk); }
 .module-status.pending { color: var(--text-3); }
 
 /* ── FOOTER ──────────────────────────────────────────────────── */
-.footer { border-top: 3px solid var(--primary); margin-top: 3rem; padding: 1.25rem; text-align: center; font-size: .8rem; color: var(--text-3); background: var(--bg-2); }
-.footer a { color: var(--primary); }
-.footer a:hover { color: var(--accent); }
+.footer { border-top: 1px solid var(--border-2); margin-top: 3rem; padding: 1.25rem; text-align: center; font-size: .85rem; color: #ffffff; background: var(--primary); }
+.footer a { color: var(--accent); }
+.footer a:hover { color: #ffffff; text-decoration: underline; }
 
 /* ── RESPONSIVE ──────────────────────────────────────────────── */
 @media (max-width: 640px) {
