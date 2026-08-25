@@ -75,53 +75,64 @@
     <div style="font-size:.75rem;opacity:.75;margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.05em">COA › Unit 2: Combinational Logic › Topic 1</div>
     <h1 style="font-size:1.4rem;font-weight:700;color:#fff;margin-bottom:.5rem">Combinational Circuits</h1>
     <div style="display:flex;gap:.75rem;flex-wrap:wrap">
-      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">⏱ 12 min read</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">⏱ 7 min read</span>
       <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📝 Quiz inside</span>
-      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📖 Mano Ch. 4</span>
     </div>
   </div>
 
   <!-- FULL LESSON — visible to everyone -->
   <div class="lesson">
-    <p>Unit 1 built the vocabulary — bits, gates, Boolean algebra, K-maps. This unit is where that vocabulary starts building actual functional circuits: adders, comparators, decoders, encoders, multiplexers — the components every digital system, including the CPU you'll study later in this course, is assembled from. Every one of them shares a single defining property, and this page is about exactly that property: what it means for a circuit to be <strong>combinational</strong>.</p>
+    <p>Unit 1 covered bits, gates, and Boolean algebra. In this unit, we use that to build real circuits — adders, comparators, decoders, encoders, multiplexers. All of these share one property: they are <strong>combinational</strong>. This page explains what that means.</p>
 
     <h2 id="Definition">Definition</h2>
-    <p>A <strong>combinational circuit</strong> is an interconnection of logic gates whose output values, at any instant, depend <strong>only on the present combination of input values</strong> — never on what the inputs were doing a moment ago, and never on a clock signal. Feed the same inputs in twice, at different times, and a combinational circuit always produces exactly the same outputs.</p>
-    <p>This sounds almost too simple to state, but it's precisely what separates every circuit in this "Combinational Logic" group from the "Sequential Logic" group later in this unit:</p>
+    <p>A <strong>combinational circuit</strong> is a group of logic gates connected together, where the output depends <strong>only on the current inputs</strong> — never on past inputs, and never on a clock. The same set of inputs always produces the same output, no matter when you apply them.</p>
+    <p>This is what separates a combinational circuit from a <strong>sequential circuit</strong>, covered later in this unit:</p>
     <div class="box box-warn">
-      ⚠️ The moment a circuit's outputs depend on more than just the current inputs — say, if storage elements (flip-flops) feed back into the gate network, so the circuit "remembers" something about earlier inputs — it's no longer purely combinational. That's a <strong>sequential circuit</strong>, covered starting with the Latches &amp; Flip-Flops topic later in this unit. Everything in this "Combinational Logic" group assumes zero memory of past inputs.
+      ⚠️ If a circuit's output depends on more than just its current inputs — for example, if flip-flops store the circuit's own past output and feed it back in as an input — it is a sequential circuit, not a combinational one. Sequential circuits start with the Latches &amp; Flip-Flops topic later in this unit.
     </div>
 
     <h2 id="Block-Model">The n-Input, m-Output Block Model</h2>
-    <p>Every combinational circuit, no matter how complex internally, fits the same general shape: <em>n</em> binary input signals go in, <em>m</em> binary output signals come out, and each output is some Boolean function of the <em>n</em> inputs — computed purely by a network of logic gates with <strong>no feedback path</strong> from a later gate back to an earlier one.</p>
+    <p>Every combinational circuit fits the same basic shape: <em>n</em> inputs go in, <em>m</em> outputs come out. Each output is a Boolean function of the inputs. There is <strong>no feedback</strong> — no gate's output ever loops back to an earlier gate.</p>
 
     <div style="text-align:center;margin:1.25rem 0">
-      <img src="../../../images/coa/fig_combinational_block.png"
-           alt="Block diagram of a combinational circuit: n inputs, m outputs, no memory of past inputs"
-           style="max-width:100%;border-radius:6px;border:1px solid #e0e0e0">
+      <svg viewBox="0 0 400 185" style="max-width:420px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
+        <text x="102" y="15" font-size="13" font-weight="700" text-anchor="middle" fill="var(--text-2)">n inputs</text>
+        <line x1="65" y1="50" x2="140" y2="50" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="65" y1="95" x2="140" y2="95" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="65" y1="140" x2="140" y2="140" stroke="var(--primary)" stroke-width="2"/>
+
+        <rect x="140" y="25" width="140" height="140" rx="8" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <text x="210" y="88" font-size="14" font-weight="700" text-anchor="middle" fill="var(--text)">Combinational</text>
+        <text x="210" y="108" font-size="14" font-weight="700" text-anchor="middle" fill="var(--text)">Circuit</text>
+
+        <text x="317" y="15" font-size="13" font-weight="700" text-anchor="middle" fill="var(--text-2)">m outputs</text>
+        <line x1="280" y1="50" x2="355" y2="50" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="280" y1="95" x2="355" y2="95" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="280" y1="140" x2="355" y2="140" stroke="var(--primary)" stroke-width="2"/>
+      </svg>
       <div style="font-size:.78rem;color:#777;margin-top:.4rem">Fig 1: The general shape every combinational circuit takes — n inputs in, m outputs out, decided purely by the present input combination</div>
     </div>
 
-    <p>The "no feedback" condition is what guarantees the outputs settle to a stable value shortly after the inputs are applied (the actual delay depends on how many gate levels a signal has to pass through, called <strong>propagation delay</strong>) — and then hold that value until the inputs change again. A circuit with a feedback loop can instead oscillate, or hold a value even after its inputs change, which is exactly the memory behavior a sequential circuit relies on and a combinational circuit must never exhibit.</p>
+    <p>In real systems, a combinational circuit's inputs often come from a storage register, and its outputs are often stored back into a register. If those registers are counted as part of the circuit, the whole thing becomes a <strong>sequential circuit</strong> — because now it has memory.</p>
+
+    <p>Because there's no feedback, the output always settles to a stable value shortly after the inputs change. This short delay is called <strong>propagation delay</strong>. A circuit with feedback can instead get "stuck," or keep changing on its own — that's memory, and a combinational circuit must never have it.</p>
 
     <h2 id="Truth-Table">Truth-Table Specification</h2>
-    <p>For <em>n</em> input variables, there are exactly <strong>2ⁿ possible input combinations</strong>, and a combinational circuit produces exactly one output combination for each — which is precisely why a <strong>truth table</strong> can fully specify a combinational circuit's behavior, and why every combinational circuit can equally be described by a set of Boolean functions, one per output. These two descriptions (table and equations) are always interchangeable — the rest of this course moves freely between them, whichever is more convenient for the task at hand.</p>
+    <p>For <em>n</em> input variables, there are <strong>2ⁿ possible input combinations</strong>. Each combination gives exactly one output value. This is why a <strong>truth table</strong> can fully describe any combinational circuit — and why the same circuit can also be described with Boolean equations instead. Both mean the same thing.</p>
 
     <h3>Worked Example — Counting Rows</h3>
-    <p>A magnitude comparator (a later topic in this unit) that compares two 4-bit numbers has 8 input lines (4 bits for each number). Its complete truth table therefore has 2⁸ = <strong>256 rows</strong> — every one of those 256 rows must have a defined output, or the specification is incomplete. This is a useful sanity check to run on any combinational circuit before starting a design: count the inputs, compute 2ⁿ, and that's exactly how many rows a truth table for it would need.</p>
+    <p>A circuit with 3 inputs has 2³ = <strong>8</strong> possible input combinations. So its truth table needs exactly 8 rows — one for every combination, each with a defined output.</p>
 
     <h2>Common Pitfalls</h2>
     <ul>
-      <li><strong>Assuming "more gates" automatically means "not combinational."</strong> Gate count has nothing to do with it — a 50-gate circuit with no feedback is just as combinational as a single AND gate. The only thing that matters is the absence of memory/feedback.</li>
-      <li><strong>Forgetting that a truth table isn't complete until every one of the 2ⁿ input rows is assigned an output</strong> — leaving rows unspecified makes the circuit's behavior ambiguous for those inputs, unless they're explicitly marked as don't-cares (Unit 1).</li>
-      <li><strong>Confusing "no clock" with "instantaneous."</strong> A combinational circuit still takes a small, nonzero amount of time (propagation delay) for its outputs to settle after the inputs change — it just has no <em>memory</em> of what the inputs were before that change.</li>
+      <li><strong>More gates doesn't mean "not combinational."</strong> What matters is whether there's feedback — not how many gates the circuit has.</li>
+      <li><strong>A truth table isn't complete until every row has an output.</strong> Even inputs that seem unlikely still need a defined output value.</li>
     </ul>
 
     <h2>Applications</h2>
     <ul>
-      <li><strong>Every circuit on the remaining pages of this unit</strong> — adders, comparators, decoders, encoders, multiplexers — is a combinational circuit in exactly this sense, differing only in how many inputs/outputs they have and what function they compute.</li>
-      <li><strong>A CPU's ALU</strong> (studied later in this course) is, at its core, one very large combinational circuit: given the two operand registers and an operation code as inputs, it produces the result as output, with no memory of the previous instruction's operands.</li>
-      <li><strong>Hardware description languages</strong> (Verilog, VHDL) distinguish combinational and sequential logic explicitly in their syntax (e.g., Verilog's <code>always @(*)</code> vs. <code>always @(posedge clk)</code>) — understanding which category a piece of logic belongs to is a prerequisite for writing correct HDL code, not just a classroom distinction.</li>
+      <li><strong>Every circuit in the rest of this unit</strong> — adders, comparators, decoders, encoders, multiplexers — is a combinational circuit.</li>
+      <li><strong>A CPU's ALU</strong> (arithmetic logic unit) is a large combinational circuit — it computes a result from its inputs with no memory of earlier instructions.</li>
     </ul>
   </div>
 

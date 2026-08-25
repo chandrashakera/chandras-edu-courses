@@ -90,22 +90,21 @@
     <div style="font-size:.75rem;opacity:.75;margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.05em">COA › Unit 2: Combinational Logic › Topic 3</div>
     <h1 style="font-size:1.4rem;font-weight:700;color:#fff;margin-bottom:.5rem">Design Procedure</h1>
     <div style="display:flex;gap:.75rem;flex-wrap:wrap">
-      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">⏱ 18 min read</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">⏱ 12 min read</span>
       <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📝 Quiz inside</span>
-      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📖 Mano Ch. 4</span>
     </div>
   </div>
 
   <!-- FULL LESSON — visible to everyone -->
   <div class="lesson">
-    <p><strong>Design</strong> runs the opposite direction from analysis: starting from a word-description of what's needed, and ending with a working, minimized logic diagram. Every remaining building block in this unit — adders, comparators, decoders, encoders, multiplexers — was itself originally derived using exactly this procedure, starting from a truth table that defines the desired behavior.</p>
+    <p><strong>Design</strong> is the opposite of analysis: you start with a description of what's needed, and end with a working logic diagram. Every circuit in this unit — adders, comparators, decoders, encoders, multiplexers — was built using this same procedure.</p>
 
     <h2 id="Design-Procedure">The Procedure</h2>
     <ol>
-      <li><strong>Specification.</strong> State the problem precisely. Determine the required number of inputs and outputs, and assign a letter symbol to each.</li>
-      <li><strong>Truth table.</strong> Derive the truth table that defines the exact required relationship between every input combination and its corresponding output(s).</li>
-      <li><strong>Simplify.</strong> Obtain the simplified Boolean function for each output, as a function of the input variables — using K-maps (Unit 1) or algebraic manipulation.</li>
-      <li><strong>Draw and verify.</strong> Draw the logic diagram from the simplified expressions, and check it against the original specification — ideally by re-deriving the truth table from the diagram and confirming it matches step 2.</li>
+      <li><strong>Specification.</strong> State the problem. Decide how many inputs and outputs you need, and give each one a letter symbol.</li>
+      <li><strong>Truth table.</strong> Write the truth table that shows the required output for every input combination.</li>
+      <li><strong>Simplify.</strong> Find the simplified Boolean function for each output — using a K-map (Unit 1) or algebra.</li>
+      <li><strong>Draw and verify.</strong> Draw the logic diagram, then check it's correct — ideally by re-deriving the truth table from the diagram and comparing it to step 2.</li>
     </ol>
 
     <div style="text-align:center;margin:1.25rem 0">
@@ -116,28 +115,98 @@
     </div>
 
     <h2 id="Worked-1">Worked Example 1 — Full Design Cycle</h2>
-    <p><strong>Specification:</strong> design a circuit with two inputs A, B that outputs 1 whenever exactly one of the two inputs is 1 (deliberately the same function analyzed on the previous page, so the two directions of the process can be compared directly).</p>
+    <p><strong>Specification:</strong> design a circuit with two inputs A, B. The output F should be 1 whenever exactly one of the inputs is 1.</p>
     <p><strong>Step 1 — Specification:</strong> two inputs (A, B), one output (F). F = 1 when exactly one input is 1.</p>
     <p><strong>Step 2 — Truth table:</strong></p>
     <table>
       <thead><tr><th>A</th><th>B</th><th>F</th></tr></thead>
       <tbody>
         <tr><td>0</td><td>0</td><td>0</td></tr>
-        <tr><td>0</td><td>1</td><td>1</td></tr>
-        <tr><td>1</td><td>0</td><td>1</td></tr>
+        <tr><td>0</td><td>1</td><td style="background:#e8f5e9;color:var(--success);font-weight:700">1</td></tr>
+        <tr><td>1</td><td>0</td><td style="background:#e8f5e9;color:var(--success);font-weight:700">1</td></tr>
         <tr><td>1</td><td>1</td><td>0</td></tr>
       </tbody>
     </table>
-    <p><strong>Step 3 — Simplify:</strong> reading the 1-rows directly gives the canonical sum: F = A′B + AB′. With only two variables and two minterms that aren't adjacent on a K-map (no simplification possible — they sit diagonally opposite), this is already the minimal SOP form.</p>
-    <p><strong>Step 4 — Draw and verify:</strong> two NOT gates, two 2-input AND gates, one 2-input OR gate — exactly the circuit analyzed on the previous page. Re-deriving its truth table (already done there) confirms it matches step 2 exactly. Design cycle complete.</p>
+    <p><strong>Step 3 — Simplify:</strong> reading the 1-rows gives F = A′B + AB′. The two minterms sit diagonally opposite on the K-map, so they can't be grouped together — this is already the simplest form.</p>
+    <p><strong>Step 4 — Draw and verify:</strong> two NOT gates, two AND gates, one OR gate. Re-deriving the truth table from this diagram gives the same table as step 2 — the design is correct.</p>
+
+    <div style="text-align:center;margin:1.25rem 0">
+      <svg viewBox="0 35 630 160" style="max-width:650px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
+        <text x="5" y="61" font-size="13" fill="var(--text)">A</text>
+        <line x1="15" y1="57" x2="170" y2="57" stroke="var(--primary)" stroke-width="2"/>
+        <circle cx="40" cy="57" r="3" fill="var(--primary)"/>
+        <line x1="40" y1="57" x2="40" y2="90" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="40" y1="90" x2="50" y2="90" stroke="var(--primary)" stroke-width="2"/>
+        <path d="M50,78 L50,102 L78,90 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5" stroke-linejoin="round"/>
+        <circle cx="82" cy="90" r="4" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5"/>
+        <text x="90" y="84" font-size="11" fill="var(--text-2)">A′</text>
+        <line x1="86" y1="90" x2="105" y2="90" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="105" y1="90" x2="105" y2="147" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="105" y1="147" x2="170" y2="147" stroke="var(--primary)" stroke-width="2"/>
+
+        <text x="5" y="177" font-size="13" fill="var(--text)">B</text>
+        <line x1="15" y1="173" x2="170" y2="173" stroke="var(--primary)" stroke-width="2"/>
+        <circle cx="25" cy="173" r="3" fill="var(--primary)"/>
+        <line x1="25" y1="173" x2="25" y2="140" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="25" y1="140" x2="50" y2="140" stroke="var(--primary)" stroke-width="2"/>
+        <path d="M50,128 L50,152 L78,140 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5" stroke-linejoin="round"/>
+        <circle cx="82" cy="140" r="4" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5"/>
+        <text x="90" y="134" font-size="11" fill="var(--text-2)">B′</text>
+        <line x1="86" y1="140" x2="110" y2="140" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="110" y1="140" x2="110" y2="83" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="110" y1="83" x2="170" y2="83" stroke="var(--primary)" stroke-width="2"/>
+
+        <path d="M170,45 L195,45 A25,25 0 0 1 195,95 L170,95 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="3" stroke-linejoin="round"/>
+        <text x="226" y="66" font-size="11" fill="var(--text-2)">AB′</text>
+        <line x1="220" y1="70" x2="250" y2="70" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="250" y1="70" x2="250" y2="100" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="250" y1="100" x2="280" y2="100" stroke="var(--primary)" stroke-width="2"/>
+
+        <path d="M170,135 L195,135 A25,25 0 0 1 195,185 L170,185 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="3" stroke-linejoin="round"/>
+        <text x="226" y="155" font-size="11" fill="var(--text-2)">A′B</text>
+        <line x1="220" y1="160" x2="250" y2="160" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="250" y1="160" x2="250" y2="130" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="250" y1="130" x2="280" y2="130" stroke="var(--primary)" stroke-width="2"/>
+
+        <path d="M270,85 Q294,115 270,145 Q324,145 351,115 Q324,85 270,85 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="3" stroke-linejoin="round"/>
+        <line x1="351" y1="115" x2="385" y2="115" stroke="var(--primary)" stroke-width="2"/>
+        <text x="391" y="119" font-size="13" fill="var(--text)">F</text>
+
+        <text x="410" y="124" font-size="22" fill="var(--text-2)">≡</text>
+
+        <text x="437" y="104" font-size="13" fill="var(--text)">A</text>
+        <line x1="450" y1="100" x2="492" y2="100" stroke="var(--primary)" stroke-width="2"/>
+        <text x="437" y="134" font-size="13" fill="var(--text)">B</text>
+        <line x1="450" y1="130" x2="492" y2="130" stroke="var(--primary)" stroke-width="2"/>
+
+        <path d="M482,85 Q506,115 482,145" fill="none" stroke="var(--primary)" stroke-width="3"/>
+        <path d="M490,85 Q514,115 490,145 Q544,145 571,115 Q544,85 490,85 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="3" stroke-linejoin="round"/>
+        <line x1="571" y1="115" x2="605" y2="115" stroke="var(--primary)" stroke-width="2"/>
+        <text x="611" y="119" font-size="13" fill="var(--text)">F</text>
+      </svg>
+      <div style="font-size:.78rem;color:#777;margin-top:.4rem">Same circuit as in Analysis Procedure — and the single XOR gate it's equivalent to</div>
+    </div>
 
     <div class="box box-tip">
-      🚀 <strong>Beyond the textbook:</strong> in practice, this exact two-input "differs" function is common enough that it has its own dedicated gate symbol — XOR — rather than being redrawn from AND/OR/NOT every time. Real digital design flows almost never build XOR this way; they simply <em>use</em> an XOR gate directly. This example is valuable specifically because it demonstrates the design procedure end-to-end on a function simple enough to fully verify by hand.
+      🚀 This "exactly one input is 1" function is common enough that it has its own gate symbol — XOR — instead of being built from AND/OR/NOT every time.
     </div>
 
     <h2 id="Worked-2">Worked Example 2 — 3-Input Majority Function</h2>
-    <p><strong>Specification:</strong> design a circuit with three inputs A, B, C and one output F, where F = 1 whenever a <strong>majority</strong> (2 or more) of the inputs are 1.</p>
-    <p><strong>Step 2 — Truth table → minterms:</strong> F is 1 for input combinations with two or three 1s: m3 (011), m5 (101), m6 (110), m7 (111). So F(A,B,C) = Σm(3,5,6,7).</p>
+    <p><strong>Specification:</strong> design a circuit with three inputs A, B, C and one output F. F should be 1 whenever 2 or more of the inputs are 1 (a "majority" function).</p>
+    <p><strong>Step 2 — Truth table → minterms:</strong> F is 1 for the rows with two or three 1s: m3 (011), m5 (101), m6 (110), m7 (111). So F(A,B,C) = Σm(3,5,6,7).</p>
+    <table>
+      <thead><tr><th>A</th><th>B</th><th>C</th><th>F</th><th>minterm</th></tr></thead>
+      <tbody>
+        <tr><td>0</td><td>0</td><td>0</td><td>0</td><td>m0</td></tr>
+        <tr><td>0</td><td>0</td><td>1</td><td>0</td><td>m1</td></tr>
+        <tr><td>0</td><td>1</td><td>0</td><td>0</td><td>m2</td></tr>
+        <tr><td>0</td><td>1</td><td>1</td><td style="background:#e8f5e9;color:var(--success);font-weight:700">1</td><td>m3</td></tr>
+        <tr><td>1</td><td>0</td><td>0</td><td>0</td><td>m4</td></tr>
+        <tr><td>1</td><td>0</td><td>1</td><td style="background:#e8f5e9;color:var(--success);font-weight:700">1</td><td>m5</td></tr>
+        <tr><td>1</td><td>1</td><td>0</td><td style="background:#e8f5e9;color:var(--success);font-weight:700">1</td><td>m6</td></tr>
+        <tr><td>1</td><td>1</td><td>1</td><td style="background:#e8f5e9;color:var(--success);font-weight:700">1</td><td>m7</td></tr>
+      </tbody>
+    </table>
     <p><strong>Step 3 — Simplify with a K-map:</strong></p>
     <div style="display:flex;justify-content:center;margin:1.25rem 0">
       <div class="kmap-overlay">
@@ -168,28 +237,70 @@
       <span><span class="sw" style="border-color:#8e24aa"></span>Pair {m5,m7} → AC</span>
       <span><span class="sw" style="border-color:#2e7d32"></span>Pair {m3,m7} → BC</span>
     </div>
-    <p>Three valid pairs exist, and each one shares cell m7 with the other two — a normal and expected overlap (recall from Unit 1: a group only needs to <em>cover</em> a 1, nothing forbids the same 1 from being covered more than once):</p>
-    <div class="box box-eg">
-      <pre>Pair {m6, m7} (A=1, B=1, C varies): term = AB
-Pair {m5, m7} (A=1, C=1, B varies): term = AC
-Pair {m3, m7} (B=1, C=1, A varies): term = BC
+    <p>All three pairs share cell m7 — that's fine, a 1-cell can be part of more than one group.</p>
+    <p style="text-align:center;font-size:1.1rem;font-weight:700;color:var(--primary);margin:1rem 0">F = AB + AC + BC</p>
+    <p><strong>Step 4 — Draw and verify:</strong> 3 AND gates (one per term in F) feeding a single OR gate — 4 gates total.</p>
 
-F = AB + AC + BC</pre>
+    <div style="text-align:center;margin:1.25rem 0">
+      <svg viewBox="0 20 555 270" style="max-width:520px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
+        <text x="5" y="61" font-size="13" fill="var(--text)">A</text>
+        <line x1="15" y1="57" x2="170" y2="57" stroke="var(--primary)" stroke-width="2"/>
+        <circle cx="40" cy="57" r="3" fill="var(--primary)"/>
+        <line x1="40" y1="57" x2="40" y2="147" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="40" y1="147" x2="170" y2="147" stroke="var(--primary)" stroke-width="2"/>
+
+        <text x="5" y="87" font-size="13" fill="var(--text)">B</text>
+        <line x1="15" y1="83" x2="170" y2="83" stroke="var(--primary)" stroke-width="2"/>
+        <circle cx="55" cy="83" r="3" fill="var(--primary)"/>
+        <line x1="55" y1="83" x2="55" y2="237" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="55" y1="237" x2="170" y2="237" stroke="var(--primary)" stroke-width="2"/>
+
+        <text x="5" y="267" font-size="13" fill="var(--text)">C</text>
+        <line x1="15" y1="263" x2="170" y2="263" stroke="var(--primary)" stroke-width="2"/>
+        <circle cx="25" cy="263" r="3" fill="var(--primary)"/>
+        <line x1="25" y1="263" x2="25" y2="173" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="25" y1="173" x2="170" y2="173" stroke="var(--primary)" stroke-width="2"/>
+
+        <path d="M170,45 L195,45 A25,25 0 0 1 195,95 L170,95 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="3" stroke-linejoin="round"/>
+        <text x="226" y="65" font-size="11" fill="var(--text-2)">AB</text>
+        <line x1="220" y1="70" x2="250" y2="70" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="250" y1="70" x2="250" y2="100" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="250" y1="100" x2="280" y2="100" stroke="var(--primary)" stroke-width="2"/>
+
+        <path d="M170,135 L195,135 A25,25 0 0 1 195,185 L170,185 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="3" stroke-linejoin="round"/>
+        <text x="226" y="155" font-size="11" fill="var(--text-2)">AC</text>
+        <line x1="220" y1="160" x2="250" y2="160" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="250" y1="160" x2="250" y2="130" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="250" y1="130" x2="280" y2="130" stroke="var(--primary)" stroke-width="2"/>
+
+        <path d="M170,225 L195,225 A25,25 0 0 1 195,275 L170,275 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="3" stroke-linejoin="round"/>
+        <text x="226" y="245" font-size="11" fill="var(--text-2)">BC</text>
+        <line x1="220" y1="250" x2="405" y2="250" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="405" y1="250" x2="405" y2="213" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="405" y1="213" x2="429" y2="213" stroke="var(--primary)" stroke-width="2"/>
+
+        <path d="M270,85 Q294,115 270,145 Q324,145 351,115 Q324,85 270,85 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="3" stroke-linejoin="round"/>
+        <line x1="351" y1="115" x2="390" y2="115" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="390" y1="115" x2="390" y2="183" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="390" y1="183" x2="429" y2="183" stroke="var(--primary)" stroke-width="2"/>
+
+        <path d="M420,168 Q444,198 420,228 Q474,228 501,198 Q474,168 420,168 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="3" stroke-linejoin="round"/>
+        <line x1="501" y1="198" x2="530" y2="198" stroke="var(--primary)" stroke-width="2"/>
+        <text x="536" y="202" font-size="13" fill="var(--text)">F</text>
+      </svg>
+      <div style="font-size:.78rem;color:#777;margin-top:.4rem">AB and AC combine first, then that result combines with BC — same-size gates throughout</div>
     </div>
-    <p><strong>Step 4 — Draw and verify:</strong> the minimal circuit needs 3 two-input AND gates (one per product term) feeding a 3-input OR gate — or equivalently, two cascaded 2-input OR gates. Either is a direct, mechanical translation of the SOP expression above: five gates total, and no further simplification is possible since every group is already a maximal pair.</p>
 
     <h2>Common Pitfalls</h2>
     <ul>
-      <li><strong>Skipping the re-derivation in step 4</strong> — a common shortcut that hides algebra mistakes. A slip in Boolean simplification can produce a circuit that looks correct on paper but doesn't actually implement the specification.</li>
-      <li><strong>Forgetting that a K-map group can overlap another group.</strong> As the majority-function example shows, using the same 1-cell in multiple groups is completely normal and often unavoidable for functions like this one.</li>
-      <li><strong>Jumping straight to a circuit from the truth table, skipping minimization.</strong> An unminimized SOP (one AND gate per row that's a 1) always works, but a K-map-minimized version is smaller, cheaper, and usually faster — minimization is a required step, not an optional polish.</li>
+      <li><strong>Skipping the re-derivation in step 4.</strong> A mistake in simplifying can produce a circuit that looks right but doesn't match the specification — always check.</li>
+      <li><strong>A K-map group can overlap another group.</strong> The same 1-cell can belong to more than one group, as it does with m7 above.</li>
     </ul>
 
     <h2>Applications</h2>
     <ul>
-      <li><strong>Every circuit on the remaining pages of this unit</strong> — adders, comparators, decoders, encoders, multiplexers — is a direct product of this exact four-step design procedure, just with more inputs, more outputs, and more involved simplification.</li>
-      <li><strong>Majority-vote circuits specifically</strong> are used in triple-modular-redundancy (TMR) fault-tolerant systems — three identical subsystems compute the same result, and a majority circuit like the one designed above picks the answer that at least two of them agree on.</li>
-      <li><strong>Hardware description languages</strong> (Verilog, VHDL) let engineers skip drawing the gate-level diagram by hand, but the underlying logic — specification → truth table → simplified equations → circuit — is exactly what the compiler/synthesis tool does automatically underneath.</li>
+      <li><strong>Every circuit in the rest of this unit</strong> — adders, comparators, decoders, encoders, multiplexers — is built using this same four-step procedure.</li>
+      <li><strong>Majority circuits</strong> like the one above are used when 3 identical systems compute the same result, and you want to pick the answer that at least 2 of them agree on.</li>
     </ul>
   </div>
 
