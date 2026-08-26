@@ -4,18 +4,18 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Decimal (BCD) Adder — COA Unit 2 | Chandras EDU</title>
-  <meta name="description" content="Correcting a binary sum into valid BCD with the add-6 rule: the Z condition derived from K-map minimization, a correction-circuit block diagram, and two worked examples.">
+  <meta name="description" content="Correcting a binary sum into valid BCD with the add-6 rule: the Output-carry condition derived from K-map minimization, a correction-circuit block diagram, and two worked examples.">
   <link rel="canonical" href="https://courses.chandrashaker.in/academic/coa/unit2/decimal-adder.html">
   <link rel="stylesheet" href="../../../css/style.css">
 
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="Chandras EDU">
   <meta property="og:title" content="Decimal (BCD) Adder — COA Unit 2 | Chandras EDU">
-  <meta property="og:description" content="Correcting a binary sum into valid BCD with the add-6 rule: the Z condition derived from K-map minimization, a correction-circuit block diagram, and two worked examples.">
+  <meta property="og:description" content="Correcting a binary sum into valid BCD with the add-6 rule: the Output-carry condition derived from K-map minimization, a correction-circuit block diagram, and two worked examples.">
   <meta property="og:url" content="https://courses.chandrashaker.in/academic/coa/unit2/decimal-adder.html">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Decimal (BCD) Adder — COA Unit 2 | Chandras EDU">
-  <meta name="twitter:description" content="Correcting a binary sum into valid BCD with the add-6 rule: the Z condition derived from K-map minimization, a correction-circuit block diagram, and two worked examples.">
+  <meta name="twitter:description" content="Correcting a binary sum into valid BCD with the add-6 rule: the Output-carry condition derived from K-map minimization, a correction-circuit block diagram, and two worked examples.">
 
   <script type="application/ld+json">
 {
@@ -34,7 +34,7 @@
   "@context": "https://schema.org",
   "@type": "LearningResource",
   "name": "Decimal (BCD) Adder",
-  "description": "Correcting a binary sum into valid BCD with the add-6 rule: the Z condition derived from K-map minimization, a correction-circuit block diagram, and two worked examples.",
+  "description": "Correcting a binary sum into valid BCD with the add-6 rule: the Output-carry condition derived from K-map minimization, a correction-circuit block diagram, and two worked examples.",
   "url": "https://courses.chandrashaker.in/academic/coa/unit2/decimal-adder.html",
   "learningResourceType": "Lesson",
   "educationalLevel": "Undergraduate",
@@ -70,7 +70,7 @@
     <div style="font-size:.75rem;opacity:.75;margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.05em">COA › Unit 2: Combinational Logic › Topic 6</div>
     <h1 style="font-size:1.4rem;font-weight:700;color:#fff;margin-bottom:.5rem">Decimal (BCD) Adder</h1>
     <div style="display:flex;gap:.75rem;flex-wrap:wrap">
-      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">⏱ 16 min read</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">⏱ 19 min read</span>
       <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📝 Quiz inside</span>
       <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📖 Mano Ch. 4</span>
     </div>
@@ -81,78 +81,179 @@
     <p>The previous page's binary adder reappears here almost unchanged — a <strong>BCD adder</strong> reuses it directly, adding just one correction step to keep the result inside valid decimal-digit codes. Recall from Unit 1: <strong>BCD</strong> represents each decimal digit (0–9) as a 4-bit binary pattern 0000–1001; patterns 1010–1111 are invalid and never occur. Adding two BCD digits with an ordinary 4-bit binary adder works fine <em>only if the result also lands in 0–9</em> — but 9+9=18 in binary is 10010, which isn't valid BCD at all. The fix is a well-known correction rule.</p>
 
     <h2 id="Correction-Rule">The Correction Rule</h2>
-    <p>Feed both BCD digits (plus any carry-in from the previous decade) into an ordinary 4-bit binary adder, producing a raw binary sum K (0–19) and a carry C. Then:</p>
+    <p>Feed both BCD digits (plus any carry-in from the previous decade) into an ordinary 4-bit binary adder, producing a raw binary sum Z (0–19) and a carry K. Laying out every possible sum from 0 to 19 shows exactly where the raw binary result stops matching valid BCD, and what adding 0110 does to fix it:</p>
+    <table>
+      <thead><tr><th>Decimal</th><th>K</th><th>Z₈Z₄Z₂Z₁ (raw binary sum)</th><th>Output carry</th><th>S₈S₄S₂S₁ (BCD sum)</th></tr></thead>
+      <tbody>
+        <tr><td>0</td><td>0</td><td>0000</td><td>0</td><td>0000</td></tr>
+        <tr><td>1</td><td>0</td><td>0001</td><td>0</td><td>0001</td></tr>
+        <tr><td>2</td><td>0</td><td>0010</td><td>0</td><td>0010</td></tr>
+        <tr><td>3</td><td>0</td><td>0011</td><td>0</td><td>0011</td></tr>
+        <tr><td>4</td><td>0</td><td>0100</td><td>0</td><td>0100</td></tr>
+        <tr><td>5</td><td>0</td><td>0101</td><td>0</td><td>0101</td></tr>
+        <tr><td>6</td><td>0</td><td>0110</td><td>0</td><td>0110</td></tr>
+        <tr><td>7</td><td>0</td><td>0111</td><td>0</td><td>0111</td></tr>
+        <tr><td>8</td><td>0</td><td>1000</td><td>0</td><td>1000</td></tr>
+        <tr><td>9</td><td>0</td><td>1001</td><td>0</td><td>1001</td></tr>
+        <tr><td>10</td><td>0</td><td>1010</td><td style="background:#fff8e1;color:var(--accent-text);font-weight:700">1</td><td>0000</td></tr>
+        <tr><td>11</td><td>0</td><td>1011</td><td style="background:#fff8e1;color:var(--accent-text);font-weight:700">1</td><td>0001</td></tr>
+        <tr><td>12</td><td>0</td><td>1100</td><td style="background:#fff8e1;color:var(--accent-text);font-weight:700">1</td><td>0010</td></tr>
+        <tr><td>13</td><td>0</td><td>1101</td><td style="background:#fff8e1;color:var(--accent-text);font-weight:700">1</td><td>0011</td></tr>
+        <tr><td>14</td><td>0</td><td>1110</td><td style="background:#fff8e1;color:var(--accent-text);font-weight:700">1</td><td>0100</td></tr>
+        <tr><td>15</td><td>0</td><td>1111</td><td style="background:#fff8e1;color:var(--accent-text);font-weight:700">1</td><td>0101</td></tr>
+        <tr><td>16</td><td>1</td><td>0000</td><td style="background:#fff8e1;color:var(--accent-text);font-weight:700">1</td><td>0110</td></tr>
+        <tr><td>17</td><td>1</td><td>0001</td><td style="background:#fff8e1;color:var(--accent-text);font-weight:700">1</td><td>0111</td></tr>
+        <tr><td>18</td><td>1</td><td>0010</td><td style="background:#fff8e1;color:var(--accent-text);font-weight:700">1</td><td>1000</td></tr>
+        <tr><td>19</td><td>1</td><td>0011</td><td style="background:#fff8e1;color:var(--accent-text);font-weight:700">1</td><td>1001</td></tr>
+      </tbody>
+    </table>
+    <p>Up to 9, the raw binary sum and the correct BCD digit are identical column-for-column — no correction needed. From 10 onward (highlighted), the two diverge, and adding 0110 brings S back into range every time, with Output carry=1 carrying into the next decade exactly when it should. This is the rule in numbers:</p>
     <ul>
-      <li>If <strong>K ≤ 9 and C = 0</strong>, the binary sum is already valid BCD — use it as-is.</li>
-      <li>If <strong>K ≥ 10, or C = 1</strong> (a carry occurred), the sum is invalid or represents 16–19 — add <strong>0110 (6)</strong> to push it back into the correct BCD digit, and this correction step's own decade-carry becomes the carry into the next decade.</li>
+      <li>If <strong>Z ≤ 9 and K = 0</strong>, the binary sum is already valid BCD — use it as-is.</li>
+      <li>If <strong>Z ≥ 10, or K = 1</strong> (a carry occurred), the sum is invalid or represents 16–19 — add <strong>0110 (6)</strong> to push it back into the correct BCD digit, and this correction step's own decade-carry becomes the carry into the next decade.</li>
     </ul>
-    <p>Detecting "K ≥ 10 or C = 1" from the binary sum's individual bits (call them K₃K₂K₁K₀, weights 8-4-2-1) needs one more small piece of logic. K≥10 happens for the patterns 1010–1111 — exactly the six BCD don't-cares from Unit 1 — which K-map down to the condition K₃K₂ + K₃K₁ (K₃ is 1 <em>and</em> either K₂ or K₁ is also 1). Combined with the adder's own carry:</p>
+    <p>Detecting "Z ≥ 10 or K = 1" from the binary sum's individual bits (call them Z₈Z₄Z₂Z₁, weights 8-4-2-1) needs one more small piece of logic. Z≥10 happens for the patterns 1010–1111 — exactly the six BCD don't-cares from Unit 1 — which K-map down to the condition Z₈Z₄ + Z₈Z₂ (Z₈ is 1 <em>and</em> either Z₄ or Z₂ is also 1). Combined with the adder's own carry:</p>
     <div class="box box-eg">
-      <pre>Z = C + K₃K₂ + K₃K₁     (Z = 1 means "add 6", and Z doubles as the carry into the next decade)</pre>
+      <pre>Output carry = K + Z₈Z₄ + Z₈Z₂     (Output carry = 1 means "add 6", and Output carry doubles as the carry into the next decade)</pre>
     </div>
 
-    <h2 id="Block-Diagram">Correction-Circuit Block Diagram</h2>
+    <p id="Block-Diagram">Here's the standard textbook layout for the correction logic: a single 3-input OR gate (fed directly by the carry K and both AND-gate outputs) produces the <strong>Output carry</strong>, which is wired straight into two of the second adder's inputs — no extra gating needed there.</p>
     <div style="text-align:center;margin:1.25rem 0">
-      <svg viewBox="-15 -10 522 215" style="max-width:600px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
-        <text x="-12" y="29" font-size="13" fill="var(--text)">A</text>
-        <line x1="2" y1="25" x2="40" y2="25" stroke="var(--primary)" stroke-width="2"/>
-        <text x="-12" y="59" font-size="13" fill="var(--text)">B</text>
-        <line x1="2" y1="55" x2="40" y2="55" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="60" y1="80" x2="60" y2="98" stroke="var(--primary)" stroke-width="2"/>
-        <text x="44" y="112" font-size="11" fill="var(--text-2)">Cᵢₙ</text>
-        <rect x="40" y="10" width="90" height="70" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
-        <text x="85" y="42" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">4-BIT</text>
-        <text x="85" y="58" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">ADDER</text>
+      <svg viewBox="-95 -30 700 460" style="max-width:920px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg" font-family="inherit">
+        <!-- top adder: A and B are each 4-bit buses -->
+        <line x1="195" y1="-15" x2="195" y2="10" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="205" y1="-15" x2="205" y2="10" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="215" y1="-15" x2="215" y2="10" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="225" y1="-15" x2="225" y2="10" stroke="var(--primary)" stroke-width="2"/>
+        <text x="210" y="-19" font-size="13" text-anchor="middle" fill="var(--text)">A</text>
+        <line x1="315" y1="-15" x2="315" y2="10" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="325" y1="-15" x2="325" y2="10" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="335" y1="-15" x2="335" y2="10" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="345" y1="-15" x2="345" y2="10" stroke="var(--primary)" stroke-width="2"/>
+        <text x="330" y="-19" font-size="13" text-anchor="middle" fill="var(--text)">B</text>
+        <line x1="390" y1="80" x2="360" y2="80" stroke="var(--primary)" stroke-width="2"/>
+        <text x="394" y="84" font-size="11" fill="var(--text-2)">Cᵢₙ</text>
+        <rect x="180" y="10" width="180" height="80" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <text x="270" y="46" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">4-BIT</text>
+        <text x="270" y="62" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">ADDER</text>
 
-        <line x1="130" y1="25" x2="310" y2="25" stroke="var(--primary)" stroke-width="2"/>
-        <text x="200" y="19" font-size="11" fill="var(--text-2)">K (binary sum)</text>
-        <line x1="130" y1="55" x2="145" y2="55" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="145" y1="55" x2="145" y2="165" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="145" y1="165" x2="150" y2="165" stroke="var(--primary)" stroke-width="2"/>
-        <text x="103" y="120" font-size="11" fill="var(--text-2)">K,C</text>
+        <!-- K exits the left edge; Z8,Z4,Z2,Z1 exit the bottom -->
+        <line x1="180" y1="30" x2="140" y2="30" stroke="var(--primary)" stroke-width="2"/>
+        <text x="136" y="26" font-size="11" text-anchor="end" fill="var(--text-2)">K</text>
+        <line x1="260" y1="90" x2="260" y2="112" stroke="var(--primary)" stroke-width="2"/>
+        <text x="257" y="124" font-size="11" text-anchor="end" fill="var(--text-2)">Z₈</text>
+        <line x1="290" y1="90" x2="290" y2="110" stroke="var(--primary)" stroke-width="2"/>
+        <text x="287" y="124" font-size="11" text-anchor="end" fill="var(--text-2)">Z₄</text>
+        <line x1="320" y1="90" x2="320" y2="110" stroke="var(--primary)" stroke-width="2"/>
+        <text x="317" y="124" font-size="11" text-anchor="end" fill="var(--text-2)">Z₂</text>
+        <line x1="350" y1="90" x2="350" y2="110" stroke="var(--primary)" stroke-width="2"/>
+        <text x="347" y="124" font-size="11" text-anchor="end" fill="var(--text-2)">Z₁</text>
 
-        <rect x="150" y="140" width="110" height="50" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
-        <text x="205" y="169" font-size="11" font-weight="700" text-anchor="middle" fill="var(--text)">CORRECTION</text>
+        <!-- Z8 taps into AND1 (top) and AND2 (top) -->
+        <circle cx="260" cy="112" r="3" fill="var(--primary)"/>
+        <line x1="260" y1="112" x2="240" y2="112" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="260" y1="112" x2="260" y2="167" stroke="var(--primary)" stroke-width="2"/>
+        <circle cx="260" cy="167" r="3" fill="var(--primary)"/>
+        <line x1="260" y1="167" x2="240" y2="167" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="260" y1="167" x2="260" y2="260" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="260" y1="260" x2="480" y2="260" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="480" y1="260" x2="480" y2="300" stroke="var(--primary)" stroke-width="2"/>
 
-        <line x1="260" y1="165" x2="290" y2="165" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="290" y1="165" x2="290" y2="55" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="290" y1="55" x2="310" y2="55" stroke="var(--primary)" stroke-width="2"/>
-        <text x="264" y="160" font-size="11" fill="var(--text-2)">Z</text>
+        <!-- Z4 taps into AND1 (bottom) -->
+        <line x1="290" y1="110" x2="290" y2="138" stroke="var(--primary)" stroke-width="2"/>
+        <circle cx="290" cy="138" r="3" fill="var(--primary)"/>
+        <line x1="290" y1="138" x2="240" y2="138" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="290" y1="138" x2="290" y2="270" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="290" y1="270" x2="505" y2="270" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="505" y1="270" x2="505" y2="300" stroke="var(--primary)" stroke-width="2"/>
 
-        <rect x="310" y="10" width="100" height="70" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
-        <text x="360" y="42" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">4-BIT</text>
-        <text x="360" y="58" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">ADDER</text>
+        <!-- Z2 taps into AND2 (bottom) -->
+        <line x1="320" y1="110" x2="320" y2="193" stroke="var(--primary)" stroke-width="2"/>
+        <circle cx="320" cy="193" r="3" fill="var(--primary)"/>
+        <line x1="320" y1="193" x2="240" y2="193" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="320" y1="193" x2="320" y2="280" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="320" y1="280" x2="530" y2="280" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="530" y1="280" x2="530" y2="300" stroke="var(--primary)" stroke-width="2"/>
 
-        <line x1="410" y1="25" x2="435" y2="25" stroke="var(--primary)" stroke-width="2"/>
-        <text x="439" y="29" font-size="11" fill="var(--text-2)">S (valid BCD)</text>
-        <text x="290" y="200" font-size="11" fill="var(--text-2)">Z also = Cout to next decade</text>
+        <!-- Z1 passes straight through, no gate -->
+        <line x1="350" y1="110" x2="350" y2="290" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="350" y1="290" x2="555" y2="290" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="555" y1="290" x2="555" y2="300" stroke="var(--primary)" stroke-width="2"/>
+
+        <!-- AND1 (mirrored: inputs on the right, output to the left) : Z8 . Z4 -->
+        <path d="M240,100 L215,100 A25,25 0 0 0 215,150 L240,150 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5"/>
+        <text x="137" y="118" font-size="9" text-anchor="middle" fill="var(--text-2)">Z₈Z₄</text>
+        <line x1="190" y1="125" x2="84" y2="125" stroke="var(--primary)" stroke-width="2"/>
+
+        <!-- AND2 (mirrored) : Z8 . Z2 -->
+        <path d="M240,155 L215,155 A25,25 0 0 0 215,205 L240,205 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5"/>
+        <text x="137" y="173" font-size="9" text-anchor="middle" fill="var(--text-2)">Z₈Z₂</text>
+        <line x1="190" y1="180" x2="93" y2="180" stroke="var(--primary)" stroke-width="2"/>
+
+        <!-- K drops straight down and enters the OR gate's top input from the right -->
+        <line x1="140" y1="30" x2="140" y2="95" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="140" y1="95" x2="93" y2="95" stroke="var(--primary)" stroke-width="2"/>
+
+        <!-- OR gate (mirrored, compact 3-input: K, Z8Z4, Z8Z2) -> Output carry -->
+        <path d="M105,75 Q60,138 105,200 Q72,200 45,138 Q72,75 105,75 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5"/>
+
+        <!-- Output carry: tip, dot, label, and route to the second adder's 0110 operand -->
+        <circle cx="45" cy="138" r="3" fill="var(--primary)"/>
+        <line x1="45" y1="138" x2="0" y2="138" stroke="var(--primary)" stroke-width="2"/>
+        <text x="-4" y="142" font-size="10.5" text-anchor="end" fill="var(--text-2)">Output carry</text>
+
+        <line x1="45" y1="138" x2="45" y2="330" stroke="var(--primary)" stroke-width="2"/>
+        <circle cx="45" cy="330" r="3" fill="var(--primary)"/>
+        <line x1="45" y1="330" x2="460" y2="330" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="45" y1="330" x2="45" y2="350" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="45" y1="350" x2="460" y2="350" stroke="var(--primary)" stroke-width="2"/>
+
+        <!-- "0" ties for the constant's zero bits -->
+        <text x="428" y="314" font-size="11" fill="var(--text-2)">0</text>
+        <line x1="445" y1="310" x2="460" y2="310" stroke="var(--primary)" stroke-width="2"/>
+        <text x="428" y="374" font-size="11" fill="var(--text-2)">0</text>
+        <line x1="445" y1="370" x2="460" y2="370" stroke="var(--primary)" stroke-width="2"/>
+
+        <!-- bottom adder (widened for clearer S output spacing) -->
+        <rect x="460" y="300" width="120" height="80" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <text x="520" y="336" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">4-BIT</text>
+        <text x="520" y="352" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">ADDER</text>
+
+        <line x1="480" y1="380" x2="480" y2="400" stroke="var(--primary)" stroke-width="2"/>
+        <text x="480" y="422" font-size="15" font-weight="700" text-anchor="middle" fill="var(--text)">S<tspan font-size="11" dy="3">8</tspan></text>
+        <line x1="505" y1="380" x2="505" y2="400" stroke="var(--primary)" stroke-width="2"/>
+        <text x="505" y="422" font-size="15" font-weight="700" text-anchor="middle" fill="var(--text)">S<tspan font-size="11" dy="3">4</tspan></text>
+        <line x1="530" y1="380" x2="530" y2="400" stroke="var(--primary)" stroke-width="2"/>
+        <text x="530" y="422" font-size="15" font-weight="700" text-anchor="middle" fill="var(--text)">S<tspan font-size="11" dy="3">2</tspan></text>
+        <line x1="555" y1="380" x2="555" y2="400" stroke="var(--primary)" stroke-width="2"/>
+        <text x="555" y="422" font-size="15" font-weight="700" text-anchor="middle" fill="var(--text)">S<tspan font-size="11" dy="3">1</tspan></text>
       </svg>
     </div>
-    <p>The second adder adds 0110 (if Z=1) or 0000 (if Z=0) to K — that constant is itself just gated by Z (four AND gates, one per bit of the constant 0110, all controlled by the same Z line — a small enough addition that it's usually left out of the block diagram). The output S is guaranteed valid BCD, and Z doubles as the carry into the next decade's adder.</p>
+    <p>The second adder adds 0110 (if Output carry=1) or 0000 (if Output carry=0) to Z. Since 0110 only has two 1-bits, no extra gate is needed to apply it — the Output carry wire itself is connected straight to the "4" and "2" bit positions, while the other two positions of the constant are simply tied low. The output S is guaranteed valid BCD, and the Output carry doubles as the carry into the next decade's adder.</p>
 
-    <h2 id="Worked-1">Worked Example 1 — 8 + 7 in BCD (K ≥ 10 case)</h2>
+    <h2 id="Worked-1">Worked Example 1 — 8 + 7 in BCD (Z ≥ 10 case)</h2>
     <div class="box box-eg">
       <pre>A = 1000 (8), B = 0111 (7), Cᵢₙ = 0
-Binary adder:  1000 + 0111 = 1111  →  K = 1111 (15), C = 0
+Binary adder:  1000 + 0111 = 1111  →  Z = 1111 (15), K = 0
 
-Check: K₃K₂ = 1·1 = 1  →  Z = C + K₃K₂ + K₃K₁ = 0 + 1 + 1 = 1  (add 6)
+Check: Z₈Z₄ = 1·1 = 1  →  Output carry = K + Z₈Z₄ + Z₈Z₂ = 0 + 1 + 1 = 1  (add 6)
 
-Correction adder: 1111 + 0110 = 1 0101  →  S = 0101 (5), decade carry Z = 1
+Correction adder: 1111 + 0110 = 1 0101  →  S = 0101 (5), decade carry (Output carry) = 1
 
 Result: "1" and "5" → 15 in BCD, correctly split across two decimal digit positions.  Check: 8+7=15 ✓</pre>
     </div>
 
-    <h2 id="Worked-2">Worked Example 2 — 9 + 9 in BCD (C = 1 case)</h2>
-    <p>This case is worth working through separately, because the adder's own carry-out C — not just a large K — is what triggers the correction:</p>
+    <h2 id="Worked-2">Worked Example 2 — 9 + 9 in BCD (K = 1 case)</h2>
+    <p>This case is worth working through separately, because the adder's own carry-out K — not just a large Z — is what triggers the correction:</p>
     <div class="box box-eg">
       <pre>A = 1001 (9), B = 1001 (9), Cᵢₙ = 0
-Binary adder:  1001 + 1001 = 1 0010  →  4-bit result K = 0010 (2), C = 1 (overflowed the 4-bit adder)
+Binary adder:  1001 + 1001 = 1 0010  →  4-bit result Z = 0010 (2), K = 1 (overflowed the 4-bit adder)
 
-Check: K₃K₂ = 0, K₃K₁ = 0, but C = 1  →  Z = C + K₃K₂ + K₃K₁ = 1 + 0 + 0 = 1  (add 6)
+Check: Z₈Z₄ = 0, Z₈Z₂ = 0, but K = 1  →  Output carry = K + Z₈Z₄ + Z₈Z₂ = 1 + 0 + 0 = 1  (add 6)
 
-Correction adder: 0010 + 0110 = 1000  →  S = 1000 (8), decade carry Z = 1
+Correction adder: 0010 + 0110 = 1000  →  S = 1000 (8), decade carry (Output carry) = 1
 
-Result: "1" and "8" → 18 in BCD.  Check: 9+9=18 ✓  Notice K alone (0010=2) looked deceptively small — only checking C caught it.</pre>
+Result: "1" and "8" → 18 in BCD.  Check: 9+9=18 ✓  Notice Z alone (0010=2) looked deceptively small — only checking K caught it.</pre>
     </div>
 
     <div class="box box-tip">
@@ -162,15 +263,15 @@ Result: "1" and "8" → 18 in BCD.  Check: 9+9=18 ✓  Notice K alone (0010=2) l
     <h2>Common Pitfalls</h2>
     <ul>
       <li><strong>Forgetting the correction step entirely and just using the raw binary sum as BCD.</strong> A binary adder alone gives the arithmetically correct <em>binary</em> sum, but that's not automatically a valid BCD digit — 9+6=15 in binary is 1111, not the BCD digit sequence "1" "5".</li>
-      <li><strong>Checking only K≥10 and forgetting the adder's own carry C.</strong> As Worked Example 2 shows, a binary sum of 16–19 (9+9=18) already overflowed the 4-bit adder (C=1) even though the remaining 4 bits alone (K=0010) look deceptively small — Z must account for both conditions.</li>
-      <li><strong>Assuming the correction adder's own carry-out is the decade carry.</strong> It's Z — computed from the <em>first</em> adder's K and C — that's wired forward to the next decade, not necessarily anything from the second adder.</li>
+      <li><strong>Checking only Z≥10 and forgetting the adder's own carry K.</strong> As Worked Example 2 shows, a binary sum of 16–19 (9+9=18) already overflowed the 4-bit adder (K=1) even though the remaining 4 bits alone (Z=0010) look deceptively small — Output carry must account for both conditions.</li>
+      <li><strong>Assuming the correction adder's own carry-out is the decade carry.</strong> It's Output carry — computed from the <em>first</em> adder's Z and K — that's wired forward to the next decade, not necessarily anything from the second adder.</li>
     </ul>
 
     <h2>Applications</h2>
     <ul>
       <li><strong>Decimal-display calculators, POS terminals, and older financial hardware</strong> that compute directly in BCD (avoiding binary-to-decimal conversion errors) rely on exactly this add-6 correction circuit, cascaded one decade per digit.</li>
       <li><strong>Digital clocks and BCD counters</strong> (the Registers &amp; Counters topic in this unit's Sequential Logic group) commonly use BCD arithmetic internally specifically because it maps directly onto seven-segment digit displays without any extra conversion logic.</li>
-      <li><strong>Multi-digit decimal arithmetic</strong> chains several BCD adders together, one per digit, with each stage's Z output feeding the next stage's Cᵢₙ — the same ripple-carry idea from the previous topic, just at the level of whole decimal digits instead of individual bits.</li>
+      <li><strong>Multi-digit decimal arithmetic</strong> chains several BCD adders together, one per digit, with each stage's Output carry feeding the next stage's Cᵢₙ — the same ripple-carry idea from the previous topic, just at the level of whole decimal digits instead of individual bits.</li>
     </ul>
   </div>
 
@@ -233,10 +334,10 @@ Result: "1" and "8" → 18 in BCD.  Check: 9+9=18 ✓  Notice K alone (0010=2) l
   const LABELS    = ['A','B','C','D'];
   const QUIZ = [
     { q:"Why can't a plain 4-bit binary adder be used by itself to add two BCD digits?", options:["Its raw binary sum can exceed 9 or produce a carry, which isn't a valid single BCD digit without correction", "Binary adders cannot add numbers larger than 4", "BCD digits are 8 bits wide, not 4", "A binary adder can only add even numbers"], answer:0, explanation:"A binary sum like 9+6=1111 (15) is arithmetically correct in binary but isn't a valid BCD digit — BCD only uses patterns 0000-1001, so a correction step is required whenever the sum reaches 10 or higher." },
-    { q:"What is the correction condition Z (\"add 6\") for a BCD adder, in terms of the binary sum bits K₃K₂K₁K₀ and carry C?", options:["Z = C + K₃K₂ + K₃K₁", "Z = K₀ + K₁", "Z = C only, ignoring the K bits entirely", "Z = K₃ + K₂ + K₁ + K₀"], answer:0, explanation:"Z is 1 when the adder produced a carry (C=1) or when the binary sum itself is 10-15 (the pattern K₃K₂ + K₃K₁, derived from K-mapping the six invalid BCD patterns)." },
-    { q:"In Worked Example 1 (8 + 7 in BCD), what is the final corrected sum and decade carry?", options:["S = 0101 (5) with Z = 1, representing \"15\"", "S = 1111 (15) with no carry", "S = 0000 with Z = 1", "S = 0101 with Z = 0"], answer:0, explanation:"1000+0111=1111 (K=15,C=0); since K₃K₂=1, Z=1, so 0110 is added: 1111+0110=1 0101, giving S=0101 (5) and Z=1 — together representing the decimal result 15." },
-    { q:"In Worked Example 2 (9 + 9 in BCD), the first adder produces K=0010 (only 2) with C=1. Why does this still trigger the +6 correction?", options:["Because Z checks the adder's own carry C, not just the size of K — C=1 alone makes Z=1 regardless of how small K looks", "It doesn't trigger correction — K=2 is a valid BCD digit on its own", "Because K=0010 itself is greater than 9", "Because 9+9 can't be computed by a 4-bit adder at all"], answer:0, explanation:"Z = C + K₃K₂ + K₃K₁. Here C=1 even though K₃K₂=K₃K₁=0, so Z=1 anyway. This is exactly the case the pitfalls section warns about: checking only \"K≥10\" and forgetting C would incorrectly skip the correction." },
-    { q:"In the two-adder BCD adder block diagram, what determines the carry passed into the next decade's adder?", options:["Z (from the first adder's K and C), not necessarily the second adder's own carry-out", "Always 0, regardless of the computation", "The second adder's carry-out only, ignoring Z entirely", "Whichever of A or B was larger"], answer:0, explanation:"Z — the correction-trigger signal computed from the first adder's raw sum K and carry C — is wired forward as the decade carry, not some separate signal from the second (correction) adder." }
+    { q:"What is the correction condition Output carry (\"add 6\") for a BCD adder, in terms of the binary sum bits Z₈Z₄Z₂Z₁ and carry K?", options:["Output carry = K + Z₈Z₄ + Z₈Z₂", "Output carry = Z₁ + Z₂", "Output carry = K only, ignoring the Z bits entirely", "Output carry = Z₈ + Z₄ + Z₂ + Z₁"], answer:0, explanation:"Output carry is 1 when the adder produced a carry (K=1) or when the binary sum itself is 10-15 (the pattern Z₈Z₄ + Z₈Z₂, derived from K-mapping the six invalid BCD patterns)." },
+    { q:"In Worked Example 1 (8 + 7 in BCD), what is the final corrected sum and decade carry?", options:["S = 0101 (5) with Output carry = 1, representing \"15\"", "S = 1111 (15) with no carry", "S = 0000 with Output carry = 1", "S = 0101 with Output carry = 0"], answer:0, explanation:"1000+0111=1111 (Z=15,K=0); since Z₈Z₄=1, Output carry=1, so 0110 is added: 1111+0110=1 0101, giving S=0101 (5) and Output carry=1 — together representing the decimal result 15." },
+    { q:"In Worked Example 2 (9 + 9 in BCD), the first adder produces Z=0010 (only 2) with K=1. Why does this still trigger the +6 correction?", options:["Because Output carry checks the adder's own carry K, not just the size of Z — K=1 alone makes Output carry=1 regardless of how small Z looks", "It doesn't trigger correction — Z=2 is a valid BCD digit on its own", "Because Z=0010 itself is greater than 9", "Because 9+9 can't be computed by a 4-bit adder at all"], answer:0, explanation:"Output carry = K + Z₈Z₄ + Z₈Z₂. Here K=1 even though Z₈Z₄=Z₈Z₂=0, so Output carry=1 anyway. This is exactly the case the pitfalls section warns about: checking only \"Z≥10\" and forgetting K would incorrectly skip the correction." },
+    { q:"In the two-adder BCD adder block diagram, what determines the carry passed into the next decade's adder?", options:["Output carry (from the first adder's Z and K), not necessarily the second adder's own carry-out", "Always 0, regardless of the computation", "The second adder's carry-out only, ignoring Output carry entirely", "Whichever of A or B was larger"], answer:0, explanation:"Output carry — the correction-trigger signal computed from the first adder's raw sum Z and carry K — is wired forward as the decade carry, not some separate signal from the second (correction) adder." }
   ];
 
   let selected = {}, submitted = false;

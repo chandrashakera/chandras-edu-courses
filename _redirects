@@ -4,3 +4,7 @@
 /academic/coa          /academic/coa/index.html          301
 /academic/coa/unit1    /academic/coa/unit1/index.html    301
 /professional/genai    /professional/genai/index.html    301
+
+# Slug renames — keep old bookmarked/shared links resolving
+/academic/coa/unit2/adders-subtractors.html    /academic/coa/unit2/binary-adder.html    301
+/academic/coa/unit2/adders-subtractors         /academic/coa/unit2/binary-adder.html    301

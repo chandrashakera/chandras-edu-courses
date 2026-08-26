@@ -4,18 +4,18 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Binary Subtractor — COA Unit 2 | Chandras EDU</title>
-  <meta name="description" content="The full subtractor, and how one XOR gate per bit turns an ordinary binary adder into a combined adder-subtractor using 2's complement — with a worked example.">
+  <meta name="description" content="Half subtractor and full subtractor built from gates, and how one XOR gate per bit turns an ordinary binary adder into a combined adder-subtractor using 2's complement — with a worked example.">
   <link rel="canonical" href="https://courses.chandrashaker.in/academic/coa/unit2/binary-subtractor.html">
   <link rel="stylesheet" href="../../../css/style.css">
 
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="Chandras EDU">
   <meta property="og:title" content="Binary Subtractor — COA Unit 2 | Chandras EDU">
-  <meta property="og:description" content="The full subtractor, and how one XOR gate per bit turns an ordinary binary adder into a combined adder-subtractor using 2's complement — with a worked example.">
+  <meta property="og:description" content="Half subtractor and full subtractor built from gates, and how one XOR gate per bit turns an ordinary binary adder into a combined adder-subtractor using 2's complement — with a worked example.">
   <meta property="og:url" content="https://courses.chandrashaker.in/academic/coa/unit2/binary-subtractor.html">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Binary Subtractor — COA Unit 2 | Chandras EDU">
-  <meta name="twitter:description" content="The full subtractor, and how one XOR gate per bit turns an ordinary binary adder into a combined adder-subtractor using 2's complement — with a worked example.">
+  <meta name="twitter:description" content="Half subtractor and full subtractor built from gates, and how one XOR gate per bit turns an ordinary binary adder into a combined adder-subtractor using 2's complement — with a worked example.">
 
   <script type="application/ld+json">
 {
@@ -34,7 +34,7 @@
   "@context": "https://schema.org",
   "@type": "LearningResource",
   "name": "Binary Subtractor",
-  "description": "The full subtractor, and how one XOR gate per bit turns an ordinary binary adder into a combined adder-subtractor using 2's complement — with a worked example.",
+  "description": "Half subtractor and full subtractor built from gates, and how one XOR gate per bit turns an ordinary binary adder into a combined adder-subtractor using 2's complement — with a worked example.",
   "url": "https://courses.chandrashaker.in/academic/coa/unit2/binary-subtractor.html",
   "learningResourceType": "Lesson",
   "educationalLevel": "Undergraduate",
@@ -70,7 +70,7 @@
     <div style="font-size:.75rem;opacity:.75;margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.05em">COA › Unit 2: Combinational Logic › Topic 5</div>
     <h1 style="font-size:1.4rem;font-weight:700;color:#fff;margin-bottom:.5rem">Binary Subtractor</h1>
     <div style="display:flex;gap:.75rem;flex-wrap:wrap">
-      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">⏱ 16 min read</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">⏱ 20 min read</span>
       <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📝 Quiz inside</span>
       <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📖 Mano Ch. 4</span>
     </div>
@@ -78,7 +78,50 @@
 
   <!-- FULL LESSON — visible to everyone -->
   <div class="lesson">
-    <p>The previous page built an adder from the ground up. This page does the same for subtraction — first as its own circuit, the <strong>full subtractor</strong>, and then as a trick that lets one circuit do both addition and subtraction, reusing almost all of the same hardware.</p>
+    <p>The previous page built an adder from the ground up. This page does the same for subtraction — starting with a single-bit <strong>half subtractor</strong>, then the <strong>full subtractor</strong> that can be chained, and finally a trick that lets one circuit do both addition and subtraction, reusing almost all of the same hardware.</p>
+
+    <h2 id="Half-Subtractor">Half Subtractor</h2>
+    <p>A <strong>half subtractor</strong> takes two single bits — a <strong>minuend</strong> A and a <strong>subtrahend</strong> B — and computes A − B, producing a <strong>difference</strong> bit D and a <strong>borrow</strong> bit Bₒᵤₜ (a borrow of 1 means "this position couldn't subtract on its own, so it had to borrow from the next position").</p>
+    <table>
+      <thead><tr><th>A</th><th>B</th><th>D (Difference)</th><th>Bₒᵤₜ (Borrow)</th></tr></thead>
+      <tbody>
+        <tr><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+        <tr><td>0</td><td>1</td><td>1</td><td>1</td></tr>
+        <tr><td>1</td><td>0</td><td>1</td><td>0</td></tr>
+        <tr><td>1</td><td>1</td><td>0</td><td>0</td></tr>
+      </tbody>
+    </table>
+    <p style="text-align:center;font-size:1.1rem;font-weight:700;color:var(--primary);margin:1rem 0">D = A ⊕ B &nbsp;&nbsp; Bₒᵤₜ = A′B</p>
+    <p>D is exactly XOR, same as a half adder's sum. Bₒᵤₜ is 1 only when A=0 and B=1 — the only row where a borrow is actually needed:</p>
+    <div style="text-align:center;margin:1.25rem 0">
+      <svg viewBox="-8 -8 240 168" style="max-width:320px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
+        <text x="0" y="29" font-size="13" fill="var(--text)">A</text>
+        <line x1="14" y1="25" x2="50" y2="25" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="20" y1="25" x2="20" y2="105" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="20" y1="105" x2="35" y2="105" stroke="var(--primary)" stroke-width="2"/>
+
+        <text x="0" y="59" font-size="13" fill="var(--text)">B</text>
+        <line x1="14" y1="55" x2="50" y2="55" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="25" y1="55" x2="25" y2="135" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="25" y1="135" x2="85" y2="135" stroke="var(--primary)" stroke-width="2"/>
+
+        <path d="M41,10 Q65,40 41,70" fill="none" stroke="var(--primary)" stroke-width="3" stroke-linejoin="round"/>
+        <path d="M50,10 Q74,40 50,70 Q104,70 131,40 Q104,10 50,10 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="3" stroke-linejoin="round"/>
+        <line x1="131" y1="40" x2="160" y2="40" stroke="var(--primary)" stroke-width="2"/>
+        <text x="164" y="44" font-size="13" fill="var(--text)">D</text>
+
+        <path d="M35,93 L35,117 L63,105 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5" stroke-linejoin="round"/>
+        <circle cx="67" cy="105" r="4" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5"/>
+        <text x="42" y="88" font-size="11" fill="var(--text-2)">A′</text>
+        <line x1="71" y1="105" x2="85" y2="105" stroke="var(--primary)" stroke-width="2"/>
+
+        <path d="M85,90 L121,90 A30,30 0 0 1 121,150 L85,150 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="3" stroke-linejoin="round"/>
+        <line x1="151" y1="120" x2="195" y2="120" stroke="var(--primary)" stroke-width="2"/>
+        <text x="199" y="124" font-size="13" fill="var(--text)">B</text>
+      </svg>
+      <div style="font-size:.78rem;color:#777;margin-top:.4rem">Fig 1: Half subtractor — one XOR gate makes the difference, one NOT + AND gate makes the borrow</div>
+    </div>
+    <p>Like the half adder, a half subtractor has no way to accept a <strong>borrow-in</strong> from a previous, less significant position — so it only works for the very lowest bit of a multi-bit subtraction.</p>
 
     <h2 id="Full-Subtractor">Full Subtractor</h2>
     <p>A <strong>full subtractor</strong> computes A − B for one bit position, given a <strong>borrow-in</strong> Bᵢₙ from the previous, less significant position. It produces a <strong>difference</strong> bit D and a <strong>borrow-out</strong> Bₒᵤₜ (a borrow-out of 1 means "this position couldn't subtract on its own, so it had to borrow from the next position").</p>
@@ -97,6 +140,45 @@
     </table>
     <p style="text-align:center;font-size:1.1rem;font-weight:700;color:var(--primary);margin:1rem 0">D = A ⊕ B ⊕ Bᵢₙ &nbsp;&nbsp; Bₒᵤₜ = A′B + A′Bᵢₙ + BBᵢₙ</p>
     <p>Notice the difference equation D is <em>exactly the same shape</em> as the full adder's sum equation from the previous page (S = A ⊕ B ⊕ Cᵢₙ) — XOR doesn't care whether you call the inputs "carry" or "borrow," it just outputs 1 when an odd number of its inputs are 1. The borrow equation looks similar to the adder's carry equation too, just with A complemented — worth comparing the two side by side.</p>
+    <p>Just like the full adder, the easiest way to build a full subtractor is to reuse two half subtractors plus one OR gate:</p>
+    <div style="text-align:center;margin:1.25rem 0">
+      <svg viewBox="-15 -25 445 190" style="max-width:560px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
+        <text x="0" y="32" font-size="13" fill="var(--text)">A</text>
+        <line x1="14" y1="28" x2="50" y2="28" stroke="var(--primary)" stroke-width="2"/>
+        <text x="0" y="66" font-size="13" fill="var(--text)">B</text>
+        <line x1="14" y1="62" x2="50" y2="62" stroke="var(--primary)" stroke-width="2"/>
+        <rect x="50" y="10" width="70" height="70" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <text x="85" y="54" font-size="15" font-weight="700" text-anchor="middle" fill="var(--text)">HS₁</text>
+
+        <line x1="120" y1="28" x2="180" y2="28" stroke="var(--primary)" stroke-width="2"/>
+        <text x="138" y="22" font-size="11" fill="var(--text-2)">D₁</text>
+        <line x1="120" y1="62" x2="145" y2="62" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="145" y1="62" x2="145" y2="105" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="145" y1="105" x2="289" y2="105" stroke="var(--primary)" stroke-width="2"/>
+        <text x="152" y="118" font-size="11" fill="var(--text-2)">B₁</text>
+
+        <text x="0" y="99" font-size="13" fill="var(--text)">Bᵢₙ</text>
+        <line x1="22" y1="95" x2="160" y2="95" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="160" y1="95" x2="160" y2="62" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="160" y1="62" x2="180" y2="62" stroke="var(--primary)" stroke-width="2"/>
+
+        <rect x="180" y="10" width="70" height="70" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
+        <text x="215" y="54" font-size="15" font-weight="700" text-anchor="middle" fill="var(--text)">HS₂</text>
+
+        <line x1="250" y1="28" x2="290" y2="28" stroke="var(--primary)" stroke-width="2"/>
+        <text x="294" y="32" font-size="13" fill="var(--text)">D</text>
+        <line x1="250" y1="62" x2="265" y2="62" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="265" y1="62" x2="265" y2="135" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="265" y1="135" x2="289" y2="135" stroke="var(--primary)" stroke-width="2"/>
+        <text x="250" y="98" font-size="11" fill="var(--text-2)">B₂</text>
+
+        <path d="M280,90 Q304,120 280,150 Q334,150 361,120 Q334,90 280,90 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="3" stroke-linejoin="round"/>
+        <line x1="361" y1="120" x2="395" y2="120" stroke="var(--primary)" stroke-width="2"/>
+        <text x="399" y="124" font-size="13" fill="var(--text)">Bₒᵤₜ</text>
+      </svg>
+      <div style="font-size:.78rem;color:#777;margin-top:.4rem">Fig 2: A full subtractor built from two half subtractors and one OR gate — HS₁ computes A−B, HS₂ then subtracts Bᵢₙ from that result</div>
+    </div>
+    <p>HS₁ computes A − B, giving a partial difference D₁ and a borrow B₁. HS₂ then subtracts Bᵢₙ from D₁, giving the final difference D and a second borrow B₂. B₁ and B₂ can never both be 1 at the same time, so — exactly like the full adder's two carries — simply OR-ing them together gives the correct Bₒᵤₜ.</p>
 
     <h2 id="Combined">Combined Adder–Subtractor</h2>
     <p>Building a whole separate subtractor circuit is wasteful. Unit 1 already showed that 2's complement turns subtraction into addition:</p>
@@ -124,15 +206,18 @@
       </svg>
       <div style="font-size:.78rem;color:#777;margin-top:.4rem">Fig 1: One XOR gate per bit of B — the same M line that flips this gate also becomes the first stage's carry-in</div>
     </div>
-    <p>Put one of these XOR gates in front of every B input of the 4-bit ripple carry adder from the previous page, and the full circuit looks like this — same four full adders, with one XOR gate (⊕) added in front of each B input:</p>
+    <p>Put one of these XOR gates in front of every B input of the 4-bit ripple carry adder from the previous page, and the full circuit looks like this — same four full adders, with one XOR gate added in front of each B input:</p>
     <div style="text-align:center;margin:1.25rem 0">
       <svg viewBox="-15 -90 520 240" style="max-width:640px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
         <text x="24" y="-8" font-size="11" fill="var(--text-2)">A₃</text>
         <line x1="35" y1="-2" x2="35" y2="10" stroke="var(--primary)" stroke-width="2"/>
         <text x="61" y="-78" font-size="11" fill="var(--text-2)">B₃</text>
-        <line x1="75" y1="-72" x2="75" y2="-59" stroke="var(--primary)" stroke-width="2"/>
-        <circle cx="75" cy="-45" r="14" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5"/>
-        <text x="75" y="-40" font-size="14" text-anchor="middle" fill="var(--primary)">⊕</text>
+        <line x1="75" y1="-72" x2="75" y2="-55" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="75" y1="-55" x2="82" y2="-55" stroke="var(--primary)" stroke-width="2"/>
+        <g transform="translate(75,-45) rotate(90)">
+          <path d="M-12,-10 Q-6,0 -12,10" fill="none" stroke="var(--primary)" stroke-width="2.5" stroke-linejoin="round"/>
+          <path d="M-8,-10 Q-2,0 -8,10 Q6,10 14,0 Q6,-10 -8,-10 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5" stroke-linejoin="round"/>
+        </g>
         <line x1="75" y1="-31" x2="75" y2="10" stroke="var(--primary)" stroke-width="2"/>
         <rect x="20" y="10" width="70" height="70" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
         <text x="55" y="54" font-size="14" font-weight="700" text-anchor="middle" fill="var(--text)">FA₃</text>
@@ -142,9 +227,12 @@
         <text x="139" y="-8" font-size="11" fill="var(--text-2)">A₂</text>
         <line x1="150" y1="-2" x2="150" y2="10" stroke="var(--primary)" stroke-width="2"/>
         <text x="176" y="-78" font-size="11" fill="var(--text-2)">B₂</text>
-        <line x1="190" y1="-72" x2="190" y2="-59" stroke="var(--primary)" stroke-width="2"/>
-        <circle cx="190" cy="-45" r="14" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5"/>
-        <text x="190" y="-40" font-size="14" text-anchor="middle" fill="var(--primary)">⊕</text>
+        <line x1="190" y1="-72" x2="190" y2="-55" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="190" y1="-55" x2="197" y2="-55" stroke="var(--primary)" stroke-width="2"/>
+        <g transform="translate(190,-45) rotate(90)">
+          <path d="M-12,-10 Q-6,0 -12,10" fill="none" stroke="var(--primary)" stroke-width="2.5" stroke-linejoin="round"/>
+          <path d="M-8,-10 Q-2,0 -8,10 Q6,10 14,0 Q6,-10 -8,-10 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5" stroke-linejoin="round"/>
+        </g>
         <line x1="190" y1="-31" x2="190" y2="10" stroke="var(--primary)" stroke-width="2"/>
         <rect x="135" y="10" width="70" height="70" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
         <text x="170" y="54" font-size="14" font-weight="700" text-anchor="middle" fill="var(--text)">FA₂</text>
@@ -154,9 +242,12 @@
         <text x="254" y="-8" font-size="11" fill="var(--text-2)">A₁</text>
         <line x1="265" y1="-2" x2="265" y2="10" stroke="var(--primary)" stroke-width="2"/>
         <text x="291" y="-78" font-size="11" fill="var(--text-2)">B₁</text>
-        <line x1="305" y1="-72" x2="305" y2="-59" stroke="var(--primary)" stroke-width="2"/>
-        <circle cx="305" cy="-45" r="14" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5"/>
-        <text x="305" y="-40" font-size="14" text-anchor="middle" fill="var(--primary)">⊕</text>
+        <line x1="305" y1="-72" x2="305" y2="-55" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="305" y1="-55" x2="312" y2="-55" stroke="var(--primary)" stroke-width="2"/>
+        <g transform="translate(305,-45) rotate(90)">
+          <path d="M-12,-10 Q-6,0 -12,10" fill="none" stroke="var(--primary)" stroke-width="2.5" stroke-linejoin="round"/>
+          <path d="M-8,-10 Q-2,0 -8,10 Q6,10 14,0 Q6,-10 -8,-10 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5" stroke-linejoin="round"/>
+        </g>
         <line x1="305" y1="-31" x2="305" y2="10" stroke="var(--primary)" stroke-width="2"/>
         <rect x="250" y="10" width="70" height="70" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
         <text x="285" y="54" font-size="14" font-weight="700" text-anchor="middle" fill="var(--text)">FA₁</text>
@@ -166,9 +257,12 @@
         <text x="369" y="-8" font-size="11" fill="var(--text-2)">A₀</text>
         <line x1="380" y1="-2" x2="380" y2="10" stroke="var(--primary)" stroke-width="2"/>
         <text x="406" y="-78" font-size="11" fill="var(--text-2)">B₀</text>
-        <line x1="420" y1="-72" x2="420" y2="-59" stroke="var(--primary)" stroke-width="2"/>
-        <circle cx="420" cy="-45" r="14" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5"/>
-        <text x="420" y="-40" font-size="14" text-anchor="middle" fill="var(--primary)">⊕</text>
+        <line x1="420" y1="-72" x2="420" y2="-55" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="420" y1="-55" x2="427" y2="-55" stroke="var(--primary)" stroke-width="2"/>
+        <g transform="translate(420,-45) rotate(90)">
+          <path d="M-12,-10 Q-6,0 -12,10" fill="none" stroke="var(--primary)" stroke-width="2.5" stroke-linejoin="round"/>
+          <path d="M-8,-10 Q-2,0 -8,10 Q6,10 14,0 Q6,-10 -8,-10 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5" stroke-linejoin="round"/>
+        </g>
         <line x1="420" y1="-31" x2="420" y2="10" stroke="var(--primary)" stroke-width="2"/>
         <rect x="365" y="10" width="70" height="70" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
         <text x="400" y="54" font-size="14" font-weight="700" text-anchor="middle" fill="var(--text)">FA₀</text>
@@ -181,13 +275,17 @@
         <line x1="205" y1="45" x2="250" y2="45" stroke="var(--primary)" stroke-width="2"/>
         <line x1="320" y1="45" x2="365" y2="45" stroke="var(--primary)" stroke-width="2"/>
 
-        <text x="0" y="-49" font-size="11" fill="var(--text)">M</text>
-        <line x1="14" y1="-45" x2="61" y2="-45" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="89" y1="-45" x2="176" y2="-45" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="204" y1="-45" x2="291" y2="-45" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="319" y1="-45" x2="406" y2="-45" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="434" y1="-45" x2="450" y2="-45" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="450" y1="-45" x2="450" y2="45" stroke="var(--primary)" stroke-width="2"/>
+        <text x="0" y="-67" font-size="11" fill="var(--text)">M</text>
+        <line x1="14" y1="-63" x2="450" y2="-63" stroke="var(--primary)" stroke-width="2"/>
+        <circle cx="69" cy="-63" r="3" fill="var(--primary)"/>
+        <line x1="69" y1="-63" x2="69" y2="-55" stroke="var(--primary)" stroke-width="2"/>
+        <circle cx="184" cy="-63" r="3" fill="var(--primary)"/>
+        <line x1="184" y1="-63" x2="184" y2="-55" stroke="var(--primary)" stroke-width="2"/>
+        <circle cx="299" cy="-63" r="3" fill="var(--primary)"/>
+        <line x1="299" y1="-63" x2="299" y2="-55" stroke="var(--primary)" stroke-width="2"/>
+        <circle cx="414" cy="-63" r="3" fill="var(--primary)"/>
+        <line x1="414" y1="-63" x2="414" y2="-55" stroke="var(--primary)" stroke-width="2"/>
+        <line x1="450" y1="-63" x2="450" y2="45" stroke="var(--primary)" stroke-width="2"/>
         <line x1="450" y1="45" x2="435" y2="45" stroke="var(--primary)" stroke-width="2"/>
         <text x="445" y="64" font-size="11" fill="var(--text-2)">Cᵢₙ (=M)</text>
       </svg>
@@ -264,7 +362,7 @@
   </div>
 
   <div class="topic-nav">
-    <a href="adders-subtractors.html">
+    <a href="binary-adder.html">
       <div class="nav-dir">← Previous</div>
       <div class="nav-title">Binary Adder</div>
     </a>
