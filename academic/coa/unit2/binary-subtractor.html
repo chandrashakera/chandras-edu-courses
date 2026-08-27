@@ -138,7 +138,7 @@
       </tbody>
     </table>
     <p style="text-align:center;font-size:1.1rem;font-weight:700;color:var(--primary);margin:1rem 0">D = A ⊕ B ⊕ Bᵢₙ &nbsp;&nbsp; Bₒᵤₜ = A′B + A′Bᵢₙ + BBᵢₙ</p>
-    <p>Notice the difference equation D is <em>exactly the same shape</em> as the full adder's sum equation from the previous page (S = A ⊕ B ⊕ Cᵢₙ) — XOR doesn't care whether you call the inputs "carry" or "borrow," it just outputs 1 when an odd number of its inputs are 1. The borrow equation looks similar to the adder's carry equation too, just with A complemented — worth comparing the two side by side.</p>
+    <p>Notice that D is <em>exactly the same equation</em> as the full adder's sum from the previous page (S = A ⊕ B ⊕ Cᵢₙ) — XOR just outputs 1 when an odd number of its inputs are 1, whether you call those inputs "carry" or "borrow." The borrow equation is also similar to the adder's carry equation, just with A inverted.</p>
     <p>Just like the full adder, the easiest way to build a full subtractor is to reuse two half subtractors plus one OR gate:</p>
     <div style="text-align:center;margin:1.25rem 0">
       <svg viewBox="-15 -25 445 190" style="max-width:560px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
@@ -182,7 +182,7 @@
     <h2 id="Combined">Combined Adder–Subtractor</h2>
     <p>Building a whole separate subtractor circuit is wasteful. Unit 1 already showed that 2's complement turns subtraction into addition:</p>
     <p style="text-align:center;font-size:1.1rem;font-weight:700;color:var(--primary);margin:1rem 0">A − B = A + B′ + 1</p>
-    <p>where B′ means every bit of B inverted. That same trick lets one adder circuit handle both addition and subtraction, controlled by a single line <strong>M</strong> (mode: 0 = add, 1 = subtract). The idea: put one <strong>XOR gate</strong> in front of every bit of B, with all those XOR gates — and the very first stage's carry-in — sharing the same M line:</p>
+    <p>where B′ means every bit of B inverted. That same trick lets one adder circuit handle both addition and subtraction, controlled by a single line <strong>M</strong> (mode: 0 = add, 1 = subtract). The idea: put one <strong>XOR gate</strong> in front of every bit of B, and feed that same M line into the first stage's carry-in too:</p>
     <ul>
       <li><strong>M = 0:</strong> each XOR gate passes its B bit through unchanged (B ⊕ 0 = B), and the first stage's carry-in is 0. The circuit computes <strong>A + B</strong> — ordinary addition.</li>
       <li><strong>M = 1:</strong> each XOR gate inverts its B bit (B ⊕ 1 = B′), and the first stage's carry-in is 1. The circuit computes <strong>A + B′ + 1</strong>, which is exactly A − B.</li>

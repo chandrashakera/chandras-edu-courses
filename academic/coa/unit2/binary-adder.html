@@ -77,7 +77,7 @@
 
   <!-- FULL LESSON — visible to everyone -->
   <div class="lesson">
-    <p>Addition is the operation almost everything else in a computer is built on top of — subtraction, multiplication, even comparison usually reduce to addition somewhere underneath. This page builds an adder up in three small steps: a single-bit half adder, a single-bit full adder that can be chained, and finally a complete multi-bit binary adder made by connecting full adders together.</p>
+    <p>Addition is one of the most basic operations in a computer — even subtraction, multiplication, and comparison are usually built from it. This page builds an adder in three small steps: a single-bit half adder, a single-bit full adder that can be chained, and a complete multi-bit binary adder made by connecting full adders together.</p>
 
     <h2 id="Half-Adder">Half Adder</h2>
     <p>A <strong>half adder</strong> is the simplest possible adding circuit: it takes two single bits, A and B, and adds them — producing a <strong>sum</strong> bit S and a <strong>carry</strong> bit C.</p>
@@ -115,7 +115,7 @@
       </svg>
       <div style="font-size:.78rem;color:#777;margin-top:.4rem">Fig 1: Half adder — one XOR gate makes the sum, one AND gate makes the carry</div>
     </div>
-    <p>The name is deliberate: it only does "half" the job. A half adder has no way to accept a <strong>carry-in</strong> from an earlier, less significant bit position — so it can only be used for the very lowest bit of a multi-bit addition, where there's genuinely nothing to carry in from.</p>
+    <p>The name is deliberate: it only does "half" the job. A half adder has no <strong>carry-in</strong> input at all, so it can only be used for the lowest bit of a multi-bit addition — the one position that never needs to carry anything in.</p>
 
     <h2 id="Full-Adder">Full Adder</h2>
     <p>A <strong>full adder</strong> fixes that gap: it adds <strong>three</strong> bits — A, B, and a carry-in <strong>Cᵢₙ</strong> from the previous, less significant position — producing a sum S and a carry-out <strong>Cₒᵤₜ</strong>. This extra Cᵢₙ input is what lets full adders be chained together.</p>
@@ -175,7 +175,7 @@
     <p>HA₁ adds A and B, giving a partial sum S₁ and a carry C₁. HA₂ then adds S₁ and Cᵢₙ, giving the final sum S and a second carry C₂. C₁ and C₂ can never both be 1 at the same time, so simply OR-ing them together gives the correct Cₒᵤₜ, without needing any 3-input gate.</p>
 
     <h2 id="Binary-Adder">Binary Adder — Chaining Full Adders</h2>
-    <p>A <strong>binary adder</strong> adds two full binary numbers, not just single bits. It's built by connecting full adders in a chain: the carry-out of each stage feeds directly into the carry-in of the next, more significant stage. This is called a <strong>ripple carry adder</strong>, because a carry made at the least significant bit can, in the worst case, "ripple" all the way up through every stage before the final result settles.</p>
+    <p>A <strong>binary adder</strong> adds two full binary numbers, not just single bits. It's built by connecting full adders in a chain: each stage's carry-out feeds directly into the next stage's carry-in. This is called a <strong>ripple carry adder</strong> — a carry made at the lowest bit can "ripple" all the way up through every stage before the final answer is ready.</p>
     <p>Adding two 4-bit numbers takes four full adders, each stage's carry-out wired straight into the next stage's carry-in:</p>
     <div style="text-align:center;margin:1.25rem 0">
       <svg viewBox="-15 -25 500 165" style="max-width:640px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
@@ -225,7 +225,7 @@
       </svg>
       <div style="font-size:.78rem;color:#777;margin-top:.4rem">Fig 3: A 4-bit ripple carry adder — four full adders, each carry-out feeding the next carry-in. C₀ is the carry into the very first (rightmost) stage, normally tied to 0; C₄ is the final carry-out.</div>
     </div>
-    <p>In general, adding two <em>n</em>-bit numbers needs <em>n</em> full adders (or one half adder for the lowest bit, where there's genuinely no carry-in, plus <em>n−1</em> full adders for the rest).</p>
+    <p>In general, adding two <em>n</em>-bit numbers needs <em>n</em> full adders. (The lowest bit could use a half adder instead, since it never has a carry-in — but using a full adder there too, with its carry-in simply tied to 0, keeps every stage identical.)</p>
 
     <h3>Worked Example — 4-Bit Addition</h3>
     <p>Add A = 1001₂ (9) and B = 0110₂ (6), working right to left (bit 0 first) so each stage's carry-out becomes the next stage's carry-in:</p>

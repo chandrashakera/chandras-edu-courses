@@ -77,7 +77,7 @@
 
   <!-- FULL LESSON — visible to everyone -->
   <div class="lesson">
-    <p>The previous page's binary adder reappears here almost unchanged — a <strong>BCD adder</strong> reuses it directly, adding just one correction step to keep the result inside valid decimal-digit codes. Recall from Unit 1: <strong>BCD</strong> represents each decimal digit (0–9) as a 4-bit binary pattern 0000–1001; patterns 1010–1111 are invalid and never occur. Adding two BCD digits with an ordinary 4-bit binary adder works fine <em>only if the result also lands in 0–9</em> — but 9+9=18 in binary is 10010, which isn't valid BCD at all. The fix is a well-known correction rule.</p>
+    <p>The previous page's binary adder reappears here almost unchanged. A <strong>BCD adder</strong> reuses it directly and just adds one correction step to keep the result a valid decimal digit. Recall from Unit 1: <strong>BCD</strong> represents each decimal digit (0–9) as a 4-bit pattern 0000–1001; the patterns 1010–1111 are invalid and never occur. An ordinary 4-bit binary adder works fine only when the result also lands in 0–9 — but 9+9=18 is 10010 in binary, which isn't valid BCD at all. The fix is a well-known correction rule.</p>
 
     <h2 id="Correction-Rule">The Correction Rule</h2>
     <p>Feed both BCD digits (plus any carry-in from the previous decade) into an ordinary 4-bit binary adder, producing a raw binary sum Z (0–19) and a carry K. Laying out every possible sum from 0 to 19 shows exactly where the raw binary result stops matching valid BCD, and what adding 0110 does to fix it:</p>
@@ -111,7 +111,7 @@
       <li>If <strong>Z ≤ 9 and K = 0</strong>, the binary sum is already valid BCD — use it as-is.</li>
       <li>If <strong>Z ≥ 10, or K = 1</strong> (a carry occurred), the sum is invalid or represents 16–19 — add <strong>0110 (6)</strong> to push it back into the correct BCD digit, and this correction step's own decade-carry becomes the carry into the next decade.</li>
     </ul>
-    <p>Detecting "Z ≥ 10 or K = 1" from the binary sum's individual bits (call them Z₈Z₄Z₂Z₁, weights 8-4-2-1) needs one more small piece of logic. Z≥10 happens for the patterns 1010–1111 — exactly the six BCD don't-cares from Unit 1 — which K-map down to the condition Z₈Z₄ + Z₈Z₂ (Z₈ is 1 <em>and</em> either Z₄ or Z₂ is also 1). Combined with the adder's own carry:</p>
+    <p>To detect "Z ≥ 10 or K = 1" directly from the sum's individual bits (call them Z₈Z₄Z₂Z₁, weights 8-4-2-1), we need one more small piece of logic. Z≥10 happens exactly for the patterns 1010–1111 — the same six BCD don't-cares from Unit 1. K-mapping those patterns gives the simple condition Z₈Z₄ + Z₈Z₂ (true when Z₈ is 1 <em>and</em> either Z₄ or Z₂ is also 1). Add in the adder's own carry, and the full correction condition is:</p>
     <div class="box box-eg">
       <pre>Output carry = K + Z₈Z₄ + Z₈Z₂     (Output carry = 1 means "add 6", and Output carry doubles as the carry into the next decade)</pre>
     </div>
