@@ -53,11 +53,11 @@ a:hover { text-decoration: underline; color: var(--primary-dk); }
 
 /* ── NAV — matches blog exactly ─────────────────────────────── */
 .nav {
-  background: var(--primary);
-  border-bottom: 3px solid var(--accent);
   position: sticky; top: 0; z-index: 100;
 }
 .nav-inner {
+  background: var(--primary);
+  border-bottom: 3px solid var(--accent);
   max-width: 1100px; margin: 0 auto;
   padding: 0 1.25rem;
   height: 46px;
