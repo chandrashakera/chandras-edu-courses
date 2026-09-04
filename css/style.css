@@ -37,6 +37,20 @@ body {
 a { color: var(--primary); text-decoration: none; }
 a:hover { text-decoration: underline; color: var(--primary-dk); }
 
+/* ── SITE HEADER (logo row) — matches chandrashaker.com ───────── */
+.site-header { background: #fff; }
+.site-header-inner {
+  max-width: 1100px; margin: 0 auto;
+  padding: .75rem 1.25rem;
+  display: flex; align-items: center;
+}
+.site-logo { display: flex; align-items: center; gap: .75rem; text-decoration: none; }
+.site-logo:hover { text-decoration: none; }
+.site-logo-img { width: 44px; height: 44px; border-radius: 8px; display: block; }
+.site-logo-text { display: flex; flex-direction: column; line-height: 1.2; }
+.site-logo-title { font-size: 1.3rem; font-weight: 700; color: var(--primary); }
+.site-logo-tagline { font-size: .78rem; font-weight: 700; color: #FF8F00; text-transform: uppercase; letter-spacing: .02em; border-top: 1px solid #ebebeb; padding-top: 10px; margin-top: 10px; }
+
 /* ── NAV — matches blog exactly ─────────────────────────────── */
 .nav {
   background: var(--primary);
@@ -47,7 +61,7 @@ a:hover { text-decoration: underline; color: var(--primary-dk); }
   max-width: 1100px; margin: 0 auto;
   padding: 0 1.25rem;
   height: 46px;
-  display: flex; align-items: center; justify-content: space-between;
+  display: flex; align-items: center; justify-content: flex-end;
 }
 .nav-brand {
   font-size: 1rem; font-weight: 700;
@@ -277,11 +291,12 @@ a:hover { text-decoration: underline; color: var(--primary-dk); }
 .module-status.pending { color: var(--text-3); }
 
 /* ── FOOTER ──────────────────────────────────────────────────── */
-.footer { border-top: 1px solid var(--border-2); margin-top: 3rem; padding: 1.25rem; text-align: center; font-size: .85rem; color: #ffffff; background: var(--primary); }
-.footer a { color: var(--accent); }
-.footer a:hover { color: #ffffff; text-decoration: underline; }
+.footer { border-top: 2px solid #999999; margin-top: 3rem; padding: 1.25rem; text-align: center; font-size: .8rem; color: #ffffff; background: var(--primary); }
 
 /* ── RESPONSIVE ──────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .site-header-inner { justify-content: center; }
+}
 @media (max-width: 640px) {
   .nav-links .hide-mobile { display: none; }
   .topic-nav { flex-direction: column; }

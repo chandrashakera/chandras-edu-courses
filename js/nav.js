@@ -1,4 +1,4 @@
-// js/nav.js — shared nav bar, no course tabs in header
+// js/nav.js — shared header + nav bar + footer, matching chandrashaker.com's branding
 import { onAuth, logout } from './firebase-config.js';
 
 export function initNav(depth = 0) {
@@ -6,14 +6,31 @@ export function initNav(depth = 0) {
   const nav = document.getElementById('main-nav');
   if (nav) {
     nav.innerHTML = `
-      <div class="nav-inner">
-        <a href="${root}/index.html" class="nav-brand">CHANDRAS <span>EDU</span></a>
-        <div class="nav-links">
-          <a href="https://chandrashaker.in" class="hide-mobile" target="_blank" rel="noopener">Blog</a>
-          <span class="nav-user" id="nav-user"></span>
-          <a href="${root}/login.html" class="nav-btn" id="nav-auth-btn">Login</a>
+      <header class="site-header">
+        <div class="site-header-inner">
+          <a href="${root}/index.html" class="site-logo">
+            <img src="${root}/images/logo-mark.png" alt="Chandras EDU" class="site-logo-img">
+            <span class="site-logo-text">
+              <span class="site-logo-title">CHANDRAS EDU</span>
+              <span class="site-logo-tagline">Never Stop Learning</span>
+            </span>
+          </a>
         </div>
-      </div>`;
+      </header>
+      <nav class="nav">
+        <div class="nav-inner">
+          <div class="nav-links">
+            <a href="https://chandrashaker.in" class="hide-mobile" target="_blank" rel="noopener">Blog</a>
+            <span class="nav-user" id="nav-user"></span>
+            <a href="${root}/login.html" class="nav-btn" id="nav-auth-btn">Login</a>
+          </div>
+        </div>
+      </nav>`;
+  }
+  const footer = document.getElementById('main-footer');
+  if (footer) {
+    footer.className = 'footer';
+    footer.textContent = '© 2026 CHANDRAS EDU.';
   }
   onAuth(user => {
     const btn     = document.getElementById('nav-auth-btn');

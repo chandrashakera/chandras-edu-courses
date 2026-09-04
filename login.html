@@ -8,14 +8,7 @@
   <link rel="icon" href="/favicon.ico">
 </head>
 <body>
-<nav class="nav">
-  <div class="nav-inner">
-    <a href="index.html" class="nav-brand">CHANDRAS <span>EDU</span></a>
-    <div class="nav-links">
-      <a href="https://chandrashaker.in" class="hide-mobile" target="_blank" rel="noopener">Blog</a>
-    </div>
-  </div>
-</nav>
+<div id="main-nav"></div>
 
 <div class="auth-wrap" role="main">
 
@@ -73,8 +66,12 @@
 
 </div>
 
+<footer id="main-footer"></footer>
+
 <script type="module">
+  import { initNav } from './js/nav.js';
   import { loginGoogle, loginEmail, registerEmail } from './js/firebase-config.js';
+  initNav(0);
 
   const showErr = (id, msg) => {
     const e = document.getElementById(id);
