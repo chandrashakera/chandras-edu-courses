@@ -20,7 +20,6 @@ export function initNav(depth = 0) {
       <nav class="nav">
         <div class="nav-inner">
           <div class="nav-links">
-            <a href="https://chandrashaker.in" class="hide-mobile" target="_blank" rel="noopener">Blog</a>
             <span class="nav-user" id="nav-user"></span>
             <a href="${root}/login.html" class="nav-btn" id="nav-auth-btn">Login</a>
           </div>

@@ -298,7 +298,6 @@ a:hover { text-decoration: underline; color: var(--primary-dk); }
   .site-header-inner { justify-content: center; }
 }
 @media (max-width: 640px) {
-  .nav-links .hide-mobile { display: none; }
   .topic-nav { flex-direction: column; }
   .topic-nav a { max-width: 100%; }
   .courses-grid { grid-template-columns: 1fr; }
