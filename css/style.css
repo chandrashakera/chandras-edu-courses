@@ -46,10 +46,10 @@ a:hover { text-decoration: underline; color: var(--primary-dk); }
 }
 .site-logo { display: flex; align-items: center; gap: .75rem; text-decoration: none; }
 .site-logo:hover { text-decoration: none; }
-.site-logo-img { width: 44px; height: 44px; border-radius: 8px; display: block; }
+.site-logo-img { width: 64px; height: 64px; border-radius: 8px; display: block; }
 .site-logo-text { display: flex; flex-direction: column; line-height: 1.2; }
-.site-logo-title { font-size: 1.3rem; font-weight: 700; color: var(--primary); }
-.site-logo-tagline { font-size: .78rem; font-weight: 700; color: #FF8F00; text-transform: uppercase; letter-spacing: .02em; border-top: 1px solid #ebebeb; padding-top: 10px; margin-top: 10px; }
+.site-logo-title { font-size: 2rem; font-weight: 700; color: var(--primary); }
+.site-logo-tagline { font-size: .875rem; font-weight: 700; color: #FF8F00; text-transform: uppercase; letter-spacing: .02em; border-top: 1px solid #ebebeb; padding-top: 10px; margin-top: 10px; }
 
 /* ── NAV — matches blog exactly ─────────────────────────────── */
 .nav {
@@ -289,6 +289,7 @@ a:hover { text-decoration: underline; color: var(--primary-dk); }
 /* ── RESPONSIVE ──────────────────────────────────────────────── */
 @media (max-width: 768px) {
   .site-header-inner { justify-content: center; }
+  .site-logo-title { font-size: 1.5rem; }
 }
 @media (max-width: 640px) {
   .topic-nav { flex-direction: column; }
