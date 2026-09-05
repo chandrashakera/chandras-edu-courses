@@ -38,7 +38,7 @@ a { color: var(--primary); text-decoration: none; }
 a:hover { text-decoration: underline; color: var(--primary-dk); }
 
 /* ── SITE HEADER (logo row) — matches chandrashaker.com ───────── */
-.site-header { background: #fff; padding-top: 25px; }
+.site-header { background: #fff; padding-top: 15px; }
 .site-header-inner {
   max-width: 1080px; margin: 0 auto;
   padding: .75rem 25px;
@@ -284,7 +284,7 @@ a:hover { text-decoration: underline; color: var(--primary-dk); }
 .module-status.pending { color: var(--text-3); }
 
 /* ── FOOTER ──────────────────────────────────────────────────── */
-.footer { border-top: 2px solid #999999; max-width: 1080px; margin: 1.25rem auto 25px; padding: .6rem 25px; text-align: left; font-size: .8rem; color: #ffffff; background: var(--primary); }
+.footer { border-top: 2px solid #999999; max-width: 1080px; margin: 1.25rem auto 15px; padding: .6rem 25px; text-align: left; font-size: .8rem; color: #ffffff; background: var(--primary); }
 
 /* ── RESPONSIVE ──────────────────────────────────────────────── */
 @media (max-width: 768px) {
