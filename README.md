@@ -59,20 +59,11 @@ Same process — copy any `module-*.html` file, edit content and mark-complete b
 
 ## AdSense Integration
 
-When approved, in each HTML file replace:
+Monetized via **Auto ads** (matching chandrashaker.com), not manual ad-slot placeholders. When approved, add the Auto ads script tag once to the `<head>` of each page (or a shared include if one gets added later):
 ```html
-<div class="ad-slot">Advertisement</div>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXX" crossorigin="anonymous"></script>
 ```
-with:
-```html
-<ins class="adsbygoogle"
-     style="display:block"
-     data-ad-client="ca-pub-XXXX"
-     data-ad-slot="XXXX"
-     data-ad-format="auto"
-     data-full-width-responsive="true"></ins>
-<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-```
+Google's script scans the page and inserts ads automatically — no per-page placeholder markup needed.
 
 ---
 
