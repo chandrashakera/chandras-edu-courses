@@ -1,655 +1,655 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://courses.chandrashaker.in/</loc>
+    <loc>https://chandrashaker.com/courses/</loc>
     <lastmod>2026-08-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://courses.chandrashaker.in/academic/</loc>
+    <loc>https://chandrashaker.com/courses/academic/</loc>
     <lastmod>2026-08-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://courses.chandrashaker.in/academic/coa/</loc>
+    <loc>https://chandrashaker.com/courses/academic/coa/</loc>
     <lastmod>2026-08-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://courses.chandrashaker.in/academic/dld/</loc>
+    <loc>https://chandrashaker.com/courses/academic/dld/</loc>
     <lastmod>2026-08-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://courses.chandrashaker.in/academic/dld/unit1/</loc>
+    <loc>https://chandrashaker.com/courses/academic/dld/unit1/</loc>
     <lastmod>2026-08-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://courses.chandrashaker.in/academic/dld/unit1/number-systems.html</loc>
+    <loc>https://chandrashaker.com/courses/academic/dld/unit1/number-systems</loc>
     <lastmod>2026-08-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://courses.chandrashaker.in/academic/dld/unit1/fixed-floating-point.html</loc>
+    <loc>https://chandrashaker.com/courses/academic/dld/unit1/fixed-floating-point</loc>
     <lastmod>2026-08-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://courses.chandrashaker.in/academic/dld/unit1/complements.html</loc>
+    <loc>https://chandrashaker.com/courses/academic/dld/unit1/complements</loc>
     <lastmod>2026-08-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://courses.chandrashaker.in/academic/dld/unit1/error-detection-correction.html</loc>
+    <loc>https://chandrashaker.com/courses/academic/dld/unit1/error-detection-correction</loc>
     <lastmod>2026-08-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://courses.chandrashaker.in/academic/dld/unit1/boolean-algebra-theorems.html</loc>
+    <loc>https://chandrashaker.com/courses/academic/dld/unit1/boolean-algebra-theorems</loc>
     <lastmod>2026-08-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://courses.chandrashaker.in/academic/dld/unit1/canonical-standard-forms.html</loc>
+    <loc>https://chandrashaker.com/courses/academic/dld/unit1/canonical-standard-forms</loc>
     <lastmod>2026-08-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://courses.chandrashaker.in/academic/dld/unit1/digital-logic-gates-overview.html</loc>
+    <loc>https://chandrashaker.com/courses/academic/dld/unit1/digital-logic-gates-overview</loc>
     <lastmod>2026-08-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://courses.chandrashaker.in/academic/dld/unit2/</loc>
+    <loc>https://chandrashaker.com/courses/academic/dld/unit2/</loc>
     <lastmod>2026-08-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://courses.chandrashaker.in/academic/dld/unit2/kmap-2-3-variable.html</loc>
+    <loc>https://chandrashaker.com/courses/academic/dld/unit2/kmap-2-3-variable</loc>
     <lastmod>2026-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://courses.chandrashaker.in/academic/dld/unit2/kmap-4-variable.html</loc>
+    <loc>https://chandrashaker.com/courses/academic/dld/unit2/kmap-4-variable</loc>
     <lastmod>2026-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://courses.chandrashaker.in/academic/dld/unit2/pos-simplification.html</loc>
+    <loc>https://chandrashaker.com/courses/academic/dld/unit2/pos-simplification</loc>
     <lastmod>2026-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://courses.chandrashaker.in/academic/dld/unit2/dont-care-conditions.html</loc>
+    <loc>https://chandrashaker.com/courses/academic/dld/unit2/dont-care-conditions</loc>
     <lastmod>2026-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://courses.chandrashaker.in/academic/dld/unit2/nand-nor-implementation.html</loc>
+    <loc>https://chandrashaker.com/courses/academic/dld/unit2/nand-nor-implementation</loc>
     <lastmod>2026-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://courses.chandrashaker.in/academic/dld/unit3/</loc>
+    <loc>https://chandrashaker.com/courses/academic/dld/unit3/</loc>
     <lastmod>2026-08-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://courses.chandrashaker.in/academic/dld/unit3/combinational-circuit-design.html</loc>
+    <loc>https://chandrashaker.com/courses/academic/dld/unit3/combinational-circuit-design</loc>
     <lastmod>2026-08-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://courses.chandrashaker.in/academic/dld/unit3/binary-adder-subtractor.html</loc>
+    <loc>https://chandrashaker.com/courses/academic/dld/unit3/binary-adder-subtractor</loc>
     <lastmod>2026-08-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://courses.chandrashaker.in/academic/dld/unit3/bcd-adder-binary-multiplier.html</loc>
+    <loc>https://chandrashaker.com/courses/academic/dld/unit3/bcd-adder-binary-multiplier</loc>
     <lastmod>2026-08-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://courses.chandrashaker.in/academic/dld/unit3/magnitude-comparator.html</loc>
+    <loc>https://chandrashaker.com/courses/academic/dld/unit3/magnitude-comparator</loc>
     <lastmod>2026-08-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://courses.chandrashaker.in/academic/dld/unit3/decoders-encoders.html</loc>
+    <loc>https://chandrashaker.com/courses/academic/dld/unit3/decoders-encoders</loc>
     <lastmod>2026-08-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://courses.chandrashaker.in/academic/dld/unit3/multiplexers-demultiplexers.html</loc>
+    <loc>https://chandrashaker.com/courses/academic/dld/unit3/multiplexers-demultiplexers</loc>
     <lastmod>2026-08-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://courses.chandrashaker.in/academic/dld/unit4/</loc>
+    <loc>https://chandrashaker.com/courses/academic/dld/unit4/</loc>
     <lastmod>2026-08-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://courses.chandrashaker.in/academic/dld/unit4/latches.html</loc>
+    <loc>https://chandrashaker.com/courses/academic/dld/unit4/latches</loc>
     <lastmod>2026-08-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://courses.chandrashaker.in/academic/dld/unit4/flipflops.html</loc>
+    <loc>https://chandrashaker.com/courses/academic/dld/unit4/flipflops</loc>
     <lastmod>2026-08-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://courses.chandrashaker.in/academic/dld/unit4/asynchronous-counters.html</loc>
+    <loc>https://chandrashaker.com/courses/academic/dld/unit4/asynchronous-counters</loc>
     <lastmod>2026-08-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://courses.chandrashaker.in/academic/dld/unit4/synchronous-counters.html</loc>
+    <loc>https://chandrashaker.com/courses/academic/dld/unit4/synchronous-counters</loc>
     <lastmod>2026-08-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://courses.chandrashaker.in/academic/dld/unit4/shift-registers.html</loc>
+    <loc>https://chandrashaker.com/courses/academic/dld/unit4/shift-registers</loc>
     <lastmod>2026-08-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://courses.chandrashaker.in/academic/dld/unit5/</loc>
+    <loc>https://chandrashaker.com/courses/academic/dld/unit5/</loc>
     <lastmod>2026-08-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://courses.chandrashaker.in/academic/dld/unit5/moore-mealy-fsm.html</loc>
+    <loc>https://chandrashaker.com/courses/academic/dld/unit5/moore-mealy-fsm</loc>
     <lastmod>2026-08-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://courses.chandrashaker.in/academic/dld/unit5/state-diagrams-tables.html</loc>
+    <loc>https://chandrashaker.com/courses/academic/dld/unit5/state-diagrams-tables</loc>
     <lastmod>2026-08-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://courses.chandrashaker.in/academic/dld/unit5/state-reduction-assignment.html</loc>
+    <loc>https://chandrashaker.com/courses/academic/dld/unit5/state-reduction-assignment</loc>
     <lastmod>2026-08-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://courses.chandrashaker.in/academic/dld/unit5/fsm-design-sequence-detector.html</loc>
+    <loc>https://chandrashaker.com/courses/academic/dld/unit5/fsm-design-sequence-detector</loc>
     <lastmod>2026-08-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://courses.chandrashaker.in/academic/dld/unit5/programmable-logic-devices.html</loc>
+    <loc>https://chandrashaker.com/courses/academic/dld/unit5/programmable-logic-devices</loc>
     <lastmod>2026-08-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://courses.chandrashaker.in/academic/coa/unit1/</loc>
+    <loc>https://chandrashaker.com/courses/academic/coa/unit1/</loc>
     <lastmod>2026-07-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://courses.chandrashaker.in/academic/coa/unit2/</loc>
+    <loc>https://chandrashaker.com/courses/academic/coa/unit2/</loc>
     <lastmod>2026-08-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://courses.chandrashaker.in/academic/coa/unit2/combinational-circuits.html</loc>
+    <loc>https://chandrashaker.com/courses/academic/coa/unit2/combinational-circuits</loc>
     <lastmod>2026-08-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://courses.chandrashaker.in/academic/coa/unit2/analysis-procedure.html</loc>
+    <loc>https://chandrashaker.com/courses/academic/coa/unit2/analysis-procedure</loc>
     <lastmod>2026-08-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://courses.chandrashaker.in/academic/coa/unit2/design-procedure.html</loc>
+    <loc>https://chandrashaker.com/courses/academic/coa/unit2/design-procedure</loc>
     <lastmod>2026-08-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://courses.chandrashaker.in/academic/coa/unit2/binary-adder.html</loc>
+    <loc>https://chandrashaker.com/courses/academic/coa/unit2/binary-adder</loc>
     <lastmod>2026-08-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://courses.chandrashaker.in/academic/coa/unit2/binary-subtractor.html</loc>
+    <loc>https://chandrashaker.com/courses/academic/coa/unit2/binary-subtractor</loc>
     <lastmod>2026-08-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://courses.chandrashaker.in/academic/coa/unit2/decimal-adder.html</loc>
+    <loc>https://chandrashaker.com/courses/academic/coa/unit2/decimal-adder</loc>
     <lastmod>2026-08-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://courses.chandrashaker.in/academic/coa/unit2/binary-multiplier.html</loc>
+    <loc>https://chandrashaker.com/courses/academic/coa/unit2/binary-multiplier</loc>
     <lastmod>2026-08-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://courses.chandrashaker.in/academic/coa/unit2/magnitude-comparator.html</loc>
+    <loc>https://chandrashaker.com/courses/academic/coa/unit2/magnitude-comparator</loc>
     <lastmod>2026-08-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://courses.chandrashaker.in/academic/coa/unit2/decoders.html</loc>
+    <loc>https://chandrashaker.com/courses/academic/coa/unit2/decoders</loc>
     <lastmod>2026-08-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://courses.chandrashaker.in/academic/coa/unit2/encoders.html</loc>
+    <loc>https://chandrashaker.com/courses/academic/coa/unit2/encoders</loc>
     <lastmod>2026-08-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://courses.chandrashaker.in/academic/coa/unit2/multiplexers.html</loc>
+    <loc>https://chandrashaker.com/courses/academic/coa/unit2/multiplexers</loc>
     <lastmod>2026-08-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://courses.chandrashaker.in/academic/coa/unit2/sequential-circuits.html</loc>
+    <loc>https://chandrashaker.com/courses/academic/coa/unit2/sequential-circuits</loc>
     <lastmod>2026-08-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://courses.chandrashaker.in/academic/coa/unit2/latches.html</loc>
+    <loc>https://chandrashaker.com/courses/academic/coa/unit2/latches</loc>
     <lastmod>2026-08-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://courses.chandrashaker.in/academic/coa/unit2/flip-flops.html</loc>
+    <loc>https://chandrashaker.com/courses/academic/coa/unit2/flip-flops</loc>
     <lastmod>2026-08-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://courses.chandrashaker.in/academic/coa/unit2/analysis-of-sequential-circuits.html</loc>
+    <loc>https://chandrashaker.com/courses/academic/coa/unit2/analysis-of-sequential-circuits</loc>
     <lastmod>2026-08-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://courses.chandrashaker.in/academic/coa/unit2/registers.html</loc>
+    <loc>https://chandrashaker.com/courses/academic/coa/unit2/registers</loc>
     <lastmod>2026-08-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://courses.chandrashaker.in/academic/coa/unit2/shift-registers.html</loc>
+    <loc>https://chandrashaker.com/courses/academic/coa/unit2/shift-registers</loc>
     <lastmod>2026-08-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://courses.chandrashaker.in/academic/coa/unit2/ripple-counters.html</loc>
+    <loc>https://chandrashaker.com/courses/academic/coa/unit2/ripple-counters</loc>
     <lastmod>2026-08-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://courses.chandrashaker.in/academic/coa/unit2/synchronous-counters.html</loc>
+    <loc>https://chandrashaker.com/courses/academic/coa/unit2/synchronous-counters</loc>
     <lastmod>2026-08-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://courses.chandrashaker.in/academic/coa/unit2/other-counters.html</loc>
+    <loc>https://chandrashaker.com/courses/academic/coa/unit2/other-counters</loc>
     <lastmod>2026-08-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://courses.chandrashaker.in/academic/coa/unit3/</loc>
+    <loc>https://chandrashaker.com/courses/academic/coa/unit3/</loc>
     <lastmod>2026-08-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://courses.chandrashaker.in/academic/coa/unit3/register-transfer-language.html</loc>
+    <loc>https://chandrashaker.com/courses/academic/coa/unit3/register-transfer-language</loc>
     <lastmod>2026-08-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://courses.chandrashaker.in/academic/coa/unit3/register-transfer.html</loc>
+    <loc>https://chandrashaker.com/courses/academic/coa/unit3/register-transfer</loc>
     <lastmod>2026-08-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://courses.chandrashaker.in/academic/coa/unit3/bus-memory-transfers.html</loc>
+    <loc>https://chandrashaker.com/courses/academic/coa/unit3/bus-memory-transfers</loc>
     <lastmod>2026-08-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://courses.chandrashaker.in/academic/coa/unit3/arithmetic-microoperations.html</loc>
+    <loc>https://chandrashaker.com/courses/academic/coa/unit3/arithmetic-microoperations</loc>
     <lastmod>2026-08-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://courses.chandrashaker.in/academic/coa/unit3/logic-microoperations.html</loc>
+    <loc>https://chandrashaker.com/courses/academic/coa/unit3/logic-microoperations</loc>
     <lastmod>2026-08-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://courses.chandrashaker.in/academic/coa/unit3/shift-microoperations.html</loc>
+    <loc>https://chandrashaker.com/courses/academic/coa/unit3/shift-microoperations</loc>
     <lastmod>2026-08-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://courses.chandrashaker.in/academic/coa/unit3/arithmetic-logic-shift-unit.html</loc>
+    <loc>https://chandrashaker.com/courses/academic/coa/unit3/arithmetic-logic-shift-unit</loc>
     <lastmod>2026-08-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://courses.chandrashaker.in/academic/coa/unit3/instruction-codes.html</loc>
+    <loc>https://chandrashaker.com/courses/academic/coa/unit3/instruction-codes</loc>
     <lastmod>2026-08-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://courses.chandrashaker.in/academic/coa/unit3/computer-registers.html</loc>
+    <loc>https://chandrashaker.com/courses/academic/coa/unit3/computer-registers</loc>
     <lastmod>2026-08-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://courses.chandrashaker.in/academic/coa/unit3/computer-instructions.html</loc>
+    <loc>https://chandrashaker.com/courses/academic/coa/unit3/computer-instructions</loc>
     <lastmod>2026-08-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://courses.chandrashaker.in/academic/coa/unit3/timing-and-control.html</loc>
+    <loc>https://chandrashaker.com/courses/academic/coa/unit3/timing-and-control</loc>
     <lastmod>2026-08-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://courses.chandrashaker.in/academic/coa/unit3/instruction-cycle.html</loc>
+    <loc>https://chandrashaker.com/courses/academic/coa/unit3/instruction-cycle</loc>
     <lastmod>2026-08-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://courses.chandrashaker.in/academic/coa/unit3/memory-reference-instructions.html</loc>
+    <loc>https://chandrashaker.com/courses/academic/coa/unit3/memory-reference-instructions</loc>
     <lastmod>2026-08-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://courses.chandrashaker.in/academic/coa/unit3/io-and-interrupt.html</loc>
+    <loc>https://chandrashaker.com/courses/academic/coa/unit3/io-and-interrupt</loc>
     <lastmod>2026-08-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://courses.chandrashaker.in/academic/coa/unit1/data-types-number-systems.html</loc>
+    <loc>https://chandrashaker.com/courses/academic/coa/unit1/data-types-number-systems</loc>
     <lastmod>2026-07-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://courses.chandrashaker.in/academic/coa/unit1/complements.html</loc>
+    <loc>https://chandrashaker.com/courses/academic/coa/unit1/complements</loc>
     <lastmod>2026-07-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://courses.chandrashaker.in/academic/coa/unit1/fixed-point-representation.html</loc>
+    <loc>https://chandrashaker.com/courses/academic/coa/unit1/fixed-point-representation</loc>
     <lastmod>2026-07-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://courses.chandrashaker.in/academic/coa/unit1/floating-point-representation.html</loc>
+    <loc>https://chandrashaker.com/courses/academic/coa/unit1/floating-point-representation</loc>
     <lastmod>2026-07-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://courses.chandrashaker.in/academic/coa/unit1/binary-codes.html</loc>
+    <loc>https://chandrashaker.com/courses/academic/coa/unit1/binary-codes</loc>
     <lastmod>2026-07-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://courses.chandrashaker.in/academic/coa/unit1/binary-storage-registers.html</loc>
+    <loc>https://chandrashaker.com/courses/academic/coa/unit1/binary-storage-registers</loc>
     <lastmod>2026-07-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://courses.chandrashaker.in/academic/coa/unit1/binary-logic.html</loc>
+    <loc>https://chandrashaker.com/courses/academic/coa/unit1/binary-logic</loc>
     <lastmod>2026-07-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://courses.chandrashaker.in/academic/coa/unit1/digital-logic-gates.html</loc>
+    <loc>https://chandrashaker.com/courses/academic/coa/unit1/digital-logic-gates</loc>
     <lastmod>2026-07-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://courses.chandrashaker.in/academic/coa/unit1/k-map-representation.html</loc>
+    <loc>https://chandrashaker.com/courses/academic/coa/unit1/k-map-representation</loc>
     <lastmod>2026-07-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://courses.chandrashaker.in/academic/coa/unit1/introduction-digital-computers.html</loc>
+    <loc>https://chandrashaker.com/courses/academic/coa/unit1/introduction-digital-computers</loc>
     <lastmod>2026-08-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://courses.chandrashaker.in/academic/coa/unit1/block-diagram-digital-computer.html</loc>
+    <loc>https://chandrashaker.com/courses/academic/coa/unit1/block-diagram-digital-computer</loc>
     <lastmod>2026-08-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://courses.chandrashaker.in/academic/coa/unit1/computer-organization-vs-architecture.html</loc>
+    <loc>https://chandrashaker.com/courses/academic/coa/unit1/computer-organization-vs-architecture</loc>
     <lastmod>2026-08-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://courses.chandrashaker.in/academic/coa/unit1/computer-design.html</loc>
+    <loc>https://chandrashaker.com/courses/academic/coa/unit1/computer-design</loc>
     <lastmod>2026-08-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://courses.chandrashaker.in/professional/</loc>
+    <loc>https://chandrashaker.com/courses/professional/</loc>
     <lastmod>2026-08-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://courses.chandrashaker.in/professional/genai/</loc>
+    <loc>https://chandrashaker.com/courses/professional/genai/</loc>
     <lastmod>2026-08-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://courses.chandrashaker.in/professional/genai/modules/module-1-1-what-is-generative-ai.html</loc>
+    <loc>https://chandrashaker.com/courses/professional/genai/modules/module-1-1-what-is-generative-ai</loc>
     <lastmod>2026-08-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://courses.chandrashaker.in/professional/genai/modules/module-1-2-chatgpt-vs-claude-vs-gemini.html</loc>
+    <loc>https://chandrashaker.com/courses/professional/genai/modules/module-1-2-chatgpt-vs-claude-vs-gemini</loc>
     <lastmod>2026-08-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://courses.chandrashaker.in/professional/genai/modules/module-1-3-how-indian-companies-use-genai.html</loc>
+    <loc>https://chandrashaker.com/courses/professional/genai/modules/module-1-3-how-indian-companies-use-genai</loc>
     <lastmod>2026-08-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://courses.chandrashaker.in/professional/genai/modules/module-1-4-risks-and-responsible-use.html</loc>
+    <loc>https://chandrashaker.com/courses/professional/genai/modules/module-1-4-risks-and-responsible-use</loc>
     <lastmod>2026-08-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://courses.chandrashaker.in/professional/genai/modules/module-2-1-anatomy-of-a-good-prompt.html</loc>
+    <loc>https://chandrashaker.com/courses/professional/genai/modules/module-2-1-anatomy-of-a-good-prompt</loc>
     <lastmod>2026-08-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://courses.chandrashaker.in/professional/genai/modules/module-2-2-zero-shot-few-shot-cot.html</loc>
+    <loc>https://chandrashaker.com/courses/professional/genai/modules/module-2-2-zero-shot-few-shot-cot</loc>
     <lastmod>2026-08-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://courses.chandrashaker.in/professional/genai/modules/module-2-3-role-prompting-personas.html</loc>
+    <loc>https://chandrashaker.com/courses/professional/genai/modules/module-2-3-role-prompting-personas</loc>
     <lastmod>2026-08-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://courses.chandrashaker.in/professional/genai/modules/module-2-4-common-prompt-mistakes.html</loc>
+    <loc>https://chandrashaker.com/courses/professional/genai/modules/module-2-4-common-prompt-mistakes</loc>
     <lastmod>2026-08-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://courses.chandrashaker.in/professional/genai/modules/module-3-1-genai-for-developers.html</loc>
+    <loc>https://chandrashaker.com/courses/professional/genai/modules/module-3-1-genai-for-developers</loc>
     <lastmod>2026-08-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://courses.chandrashaker.in/professional/genai/modules/module-3-2-genai-for-analysts.html</loc>
+    <loc>https://chandrashaker.com/courses/professional/genai/modules/module-3-2-genai-for-analysts</loc>
     <lastmod>2026-08-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://courses.chandrashaker.in/professional/genai/modules/module-3-3-genai-for-managers.html</loc>
+    <loc>https://chandrashaker.com/courses/professional/genai/modules/module-3-3-genai-for-managers</loc>
     <lastmod>2026-08-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://courses.chandrashaker.in/professional/genai/modules/module-3-4-prompt-library.html</loc>
+    <loc>https://chandrashaker.com/courses/professional/genai/modules/module-3-4-prompt-library</loc>
     <lastmod>2026-08-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://courses.chandrashaker.in/professional/genai/modules/module-4-1-rag-explained.html</loc>
+    <loc>https://chandrashaker.com/courses/professional/genai/modules/module-4-1-rag-explained</loc>
     <lastmod>2026-08-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://courses.chandrashaker.in/professional/genai/modules/module-4-2-ai-agents-workflows.html</loc>
+    <loc>https://chandrashaker.com/courses/professional/genai/modules/module-4-2-ai-agents-workflows</loc>
     <lastmod>2026-08-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://courses.chandrashaker.in/professional/genai/modules/module-4-3-finetuning-vs-prompting.html</loc>
+    <loc>https://chandrashaker.com/courses/professional/genai/modules/module-4-3-finetuning-vs-prompting</loc>
     <lastmod>2026-08-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://courses.chandrashaker.in/professional/genai/modules/module-4-4-nocode-ai-tools.html</loc>
+    <loc>https://chandrashaker.com/courses/professional/genai/modules/module-4-4-nocode-ai-tools</loc>
     <lastmod>2026-08-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://courses.chandrashaker.in/professional/genai/modules/module-5-1-genai-certifications.html</loc>
+    <loc>https://chandrashaker.com/courses/professional/genai/modules/module-5-1-genai-certifications</loc>
     <lastmod>2026-08-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://courses.chandrashaker.in/professional/genai/modules/module-5-2-resume-linkedin-naukri.html</loc>
+    <loc>https://chandrashaker.com/courses/professional/genai/modules/module-5-2-resume-linkedin-naukri</loc>
     <lastmod>2026-08-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://courses.chandrashaker.in/professional/genai/modules/module-5-3-ai-freelancing-india.html</loc>
+    <loc>https://chandrashaker.com/courses/professional/genai/modules/module-5-3-ai-freelancing-india</loc>
     <lastmod>2026-08-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://courses.chandrashaker.in/professional/genai/modules/module-5-4-final-project.html</loc>
+    <loc>https://chandrashaker.com/courses/professional/genai/modules/module-5-4-final-project</loc>
     <lastmod>2026-08-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>

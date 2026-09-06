@@ -27,7 +27,7 @@ export function generateCertificate({ name, course, subtitle = '', date }) {
   doc.setFont('helvetica', 'bold');
   doc.setFontSize(11);
   doc.setTextColor(255, 255, 255);
-  doc.text('CHANDRAS EDU · courses.chandrashaker.in', W / 2, 12, { align: 'center' });
+  doc.text('CHANDRAS EDU · chandrashaker.com/courses', W / 2, 12, { align: 'center' });
 
   // Certificate heading
   doc.setFont('helvetica', 'bold');
@@ -104,11 +104,11 @@ export function generateCertificate({ name, course, subtitle = '', date }) {
   doc.setFont('helvetica', 'normal');
   doc.setFontSize(9);
   doc.setTextColor(255, 255, 255);
-  doc.text('courses.chandrashaker.in  ·  Free Engineering & Professional Courses', W / 2, H - 5, { align: 'center' });
+  doc.text('chandrashaker.com/courses  ·  Free Engineering & Professional Courses', W / 2, H - 5, { align: 'center' });
 
   doc.save(`Certificate-${name.replace(/\s+/g, '_')}-${course.replace(/\s+/g, '_')}.pdf`);
 }
 
 export function getShareableLink(courseId, userName) {
-  return `https://courses.chandrashaker.in/certificate.html?course=${encodeURIComponent(courseId)}&user=${encodeURIComponent(userName)}&date=${encodeURIComponent(new Date().toLocaleDateString('en-IN'))}`;
+  return `https://chandrashaker.com/courses/certificate.html?course=${encodeURIComponent(courseId)}&user=${encodeURIComponent(userName)}&date=${encodeURIComponent(new Date().toLocaleDateString('en-IN'))}`;
 }

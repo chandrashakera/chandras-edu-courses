@@ -6,23 +6,23 @@ Chandras EDU offers two course tracks: Academic engineering subjects for B.Tech 
 
 ## Academic
 
-- [Computer Organization and Architecture](https://courses.chandrashaker.in/academic/coa/index.html): Number systems, logic gates, combinational and sequential circuits, CPU design, memory hierarchy, and I/O organization.
-- [COA Unit 1 — Number Systems & Logic](https://courses.chandrashaker.in/academic/coa/unit1/index.html): Data types, complements, fixed/floating-point representation, binary codes, binary logic, storage registers, logic gates, and K-map representation.
-- [COA Unit 2 — Combinational & Sequential Logic](https://courses.chandrashaker.in/academic/coa/unit2/index.html): Combinational circuits, analysis and design procedure, binary/decimal adders, binary multipliers, magnitude comparators, decoders, encoders, and multiplexers, each as its own topic; plus sequential logic — SR/D/JK/T latches and flip-flops, shift registers, ring/Johnson counters, and asynchronous/synchronous counter design.
-- [COA Unit 3 — Register Transfer & Basic Computer Organization](https://courses.chandrashaker.in/academic/coa/unit3/index.html): Register transfer language, controlled register transfer hardware, bus and memory transfers, and the arithmetic/logic/shift micro-operations (plus a combined arithmetic logic shift unit) that a CPU's ALU is built from; then a complete simple computer — instruction codes, registers, the full instruction set, timing/control, the fetch-decode-execute cycle, memory-reference instruction RTL, and I/O with interrupts.
-- [Digital Logic Design](https://courses.chandrashaker.in/academic/dld/index.html): Number systems and codes, error detection/correction, Boolean algebra, K-map minimization, combinational and sequential circuits, state machines, and PLDs.
-- [DLD Unit 1 — Number Systems, Codes & Boolean Algebra](https://courses.chandrashaker.in/academic/dld/unit1/index.html): Binary/octal/decimal/hex conversion, fixed/floating-point representation, 1's/2's complement, parity and Hamming error correction codes, Boolean algebra theorems, canonical forms, and the seven basic logic gates.
-- [DLD Unit 2 — Gate-Level Minimization (K-Maps)](https://courses.chandrashaker.in/academic/dld/unit2/index.html): 2/3/4-variable Karnaugh maps, SOP and POS simplification, don't-care conditions, and converting minimal expressions into NAND-NAND or NOR-NOR circuits.
-- [DLD Unit 3 — Combinational Logic Circuits](https://courses.chandrashaker.in/academic/dld/unit3/index.html): Combinational circuit analysis and design procedure, binary adder/subtractor, BCD adder and binary multiplier, magnitude comparator, decoders and encoders, and multiplexers/demultiplexers.
-- [DLD Unit 4 — Sequential Logic Circuits](https://courses.chandrashaker.in/academic/dld/unit4/index.html): Latches, flip-flops and timing (setup/hold, race-around, master-slave JK), asynchronous ripple counters, synchronous counter design, and shift registers with ring/Johnson counters.
-- [DLD Unit 5 — State Machines & PLDs](https://courses.chandrashaker.in/academic/dld/unit5/index.html): Moore vs Mealy finite state machines, state diagrams and tables, state reduction and assignment, a full FSM design worked example (overlap-aware sequence detector), and programmable logic devices (ROM, PLA, PAL).
+- [Computer Organization and Architecture](https://chandrashaker.com/courses/academic/coa/): Number systems, logic gates, combinational and sequential circuits, CPU design, memory hierarchy, and I/O organization.
+- [COA Unit 1 — Number Systems & Logic](https://chandrashaker.com/courses/academic/coa/unit1/): Data types, complements, fixed/floating-point representation, binary codes, binary logic, storage registers, logic gates, and K-map representation.
+- [COA Unit 2 — Combinational & Sequential Logic](https://chandrashaker.com/courses/academic/coa/unit2/): Combinational circuits, analysis and design procedure, binary/decimal adders, binary multipliers, magnitude comparators, decoders, encoders, and multiplexers, each as its own topic; plus sequential logic — SR/D/JK/T latches and flip-flops, shift registers, ring/Johnson counters, and asynchronous/synchronous counter design.
+- [COA Unit 3 — Register Transfer & Basic Computer Organization](https://chandrashaker.com/courses/academic/coa/unit3/): Register transfer language, controlled register transfer hardware, bus and memory transfers, and the arithmetic/logic/shift micro-operations (plus a combined arithmetic logic shift unit) that a CPU's ALU is built from; then a complete simple computer — instruction codes, registers, the full instruction set, timing/control, the fetch-decode-execute cycle, memory-reference instruction RTL, and I/O with interrupts.
+- [Digital Logic Design](https://chandrashaker.com/courses/academic/dld/): Number systems and codes, error detection/correction, Boolean algebra, K-map minimization, combinational and sequential circuits, state machines, and PLDs.
+- [DLD Unit 1 — Number Systems, Codes & Boolean Algebra](https://chandrashaker.com/courses/academic/dld/unit1/): Binary/octal/decimal/hex conversion, fixed/floating-point representation, 1's/2's complement, parity and Hamming error correction codes, Boolean algebra theorems, canonical forms, and the seven basic logic gates.
+- [DLD Unit 2 — Gate-Level Minimization (K-Maps)](https://chandrashaker.com/courses/academic/dld/unit2/): 2/3/4-variable Karnaugh maps, SOP and POS simplification, don't-care conditions, and converting minimal expressions into NAND-NAND or NOR-NOR circuits.
+- [DLD Unit 3 — Combinational Logic Circuits](https://chandrashaker.com/courses/academic/dld/unit3/): Combinational circuit analysis and design procedure, binary adder/subtractor, BCD adder and binary multiplier, magnitude comparator, decoders and encoders, and multiplexers/demultiplexers.
+- [DLD Unit 4 — Sequential Logic Circuits](https://chandrashaker.com/courses/academic/dld/unit4/): Latches, flip-flops and timing (setup/hold, race-around, master-slave JK), asynchronous ripple counters, synchronous counter design, and shift registers with ring/Johnson counters.
+- [DLD Unit 5 — State Machines & PLDs](https://chandrashaker.com/courses/academic/dld/unit5/): Moore vs Mealy finite state machines, state diagrams and tables, state reduction and assignment, a full FSM design worked example (overlap-aware sequence detector), and programmable logic devices (ROM, PLA, PAL).
 
 ## Professional
 
-- [Generative AI: Zero to Job-Ready](https://courses.chandrashaker.in/professional/genai/index.html): A 20-module course covering GenAI foundations, prompt engineering, applied AI for developers/analysts/managers, RAG and agents, and career growth strategies.
+- [Generative AI: Zero to Job-Ready](https://chandrashaker.com/courses/professional/genai/): A 20-module course covering GenAI foundations, prompt engineering, applied AI for developers/analysts/managers, RAG and agents, and career growth strategies.
 
 ## Other
 
-- [Homepage](https://courses.chandrashaker.in/index.html)
-- [Sitemap](https://courses.chandrashaker.in/sitemap.xml)
+- [Homepage](https://chandrashaker.com/courses/)
+- [Sitemap](https://chandrashaker.com/courses/sitemap.xml)
 - [Main blog — chandrashaker.in](https://chandrashaker.in)
