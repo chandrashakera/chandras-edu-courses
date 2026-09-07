@@ -40,7 +40,14 @@ export async function initSidebar() {
   // <group>" header path — the flat numbered list itself is unchanged.)
   const groupEntry = Object.entries(mod.GROUPS).find(([, list]) => list.some(t => t.href.replace(/\.html$/, '') === currentFile));
   const groupLabel = groupEntry && mod.GROUP_LABELS ? mod.GROUP_LABELS[groupEntry[0]] : null;
-  const pathParts = [course.toUpperCase(), `Unit ${unitNum}`, groupLabel].filter(Boolean);
+  // href targets match the breadcrumb's own — relative to the content page
+  // itself (not this module), which is always 3 folders deep under
+  // academic/<course>/unit<N>/.
+  const pathParts = [
+    `<a href="../index.html">${course.toUpperCase()}</a>`,
+    `<a href="index.html">Unit ${unitNum}</a>`,
+    groupLabel,
+  ].filter(Boolean);
   const pathHTML = `<div class="sidebar-path">${pathParts.join(' <span class="sidebar-path-sep">›</span> ')}</div>`;
 
   const listHTML = topics.map((t, i) => {

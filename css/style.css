@@ -351,6 +351,8 @@ a:hover { text-decoration: underline; color: var(--primary-dk); }
   border-bottom: 1px solid var(--border);
 }
 .sidebar-path-sep { color: var(--border-2); margin: 0 .15rem; }
+.sidebar-path a { color: var(--primary); text-decoration: none; }
+.sidebar-path a:hover { text-decoration: underline; }
 .sidebar-list { display: flex; flex-direction: column; gap: .35rem; }
 .sidebar-list a {
   color: var(--text); text-decoration: none; font-size: .85rem; line-height: 1.35;
