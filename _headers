@@ -1,10 +1,16 @@
 # Cloudflare Pages custom headers
-# Force revalidation on the shared nav/footer script and stylesheet so
-# header/footer/style edits reach visitors on their very next page load
-# instead of sitting in their browser cache for hours.
+# Force revalidation on shared scripts/stylesheets/data files so edits
+# reach visitors on their very next page load instead of sitting in
+# Cloudflare's edge cache (default ~4h) or the browser's own cache.
 
 /js/nav.js
   Cache-Control: no-cache
 
+/js/sidebar.js
+  Cache-Control: no-cache
+
 /css/style.css
+  Cache-Control: no-cache
+
+/js/curriculum/*
   Cache-Control: no-cache
