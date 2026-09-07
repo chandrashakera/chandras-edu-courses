@@ -8,3 +8,7 @@ export const GROUPS = {
       { id:'nand-nor-implementation', title:'NAND/NOR Implementation',                 desc:'Converting a minimal SOP or POS directly into an all-NAND or all-NOR circuit.', time:'18 min', href:'nand-nor-implementation.html', status:'active' },
     ],
   };
+
+export const GROUP_LABELS = {
+  'tg-kmap': '🗺️ K-Map Minimization',
+};

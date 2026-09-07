@@ -20,3 +20,9 @@ export const GROUPS = {
       { id:'computer-design',                      title:'Computer Design',                        desc:'Design levels — gates, registers, processors, and systems.',              time:'13 min', href:'computer-design.html', status:'active' },
     ],
   };
+
+export const GROUP_LABELS = {
+  'tg-data-rep': '📊 Data Representation',
+  'tg-boolean': '⚡ Boolean Algebra & Logic Gates',
+  'tg-digital': '🖥️ Digital Computers',
+};

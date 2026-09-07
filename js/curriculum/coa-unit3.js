@@ -19,3 +19,8 @@ export const GROUPS = {
       { id:'io-and-interrupt',            title:'Input-Output and Interrupt',     desc:'Program-controlled I/O and the interrupt cycle that lets hardware request the CPU\'s attention.', time:'22 min', href:'io-and-interrupt.html', status:'active' },
     ],
   };
+
+export const GROUP_LABELS = {
+  'tg-rtl-microops': '🔀 Register Transfer Language & Micro-operations',
+  'tg-basic-computer-org': '🖥️ Basic Computer Organization & Design',
+};

@@ -14,3 +14,9 @@ export const GROUPS = {
       { id:'digital-logic-gates-overview',title:'Digital Logic Gates Overview',                          desc:'The seven basic gates, their symbols and truth tables, and NAND/NOR universality.',          time:'18 min', href:'digital-logic-gates-overview.html', status:'active' },
     ],
   };
+
+export const GROUP_LABELS = {
+  'tg-numbers': '🔢 Number Systems & Representation',
+  'tg-codes': '🛡️ Error Detection & Correction',
+  'tg-boolean': '⚡ Boolean Algebra & Logic Gates',
+};

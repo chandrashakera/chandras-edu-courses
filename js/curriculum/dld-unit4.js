@@ -8,3 +8,7 @@ export const GROUPS = {
       { id:'shift-registers',          title:'Shift Registers &amp; Applications', desc:'SISO/SIPO/PISO/PIPO transfer modes, and the ring counter and Johnson counter built from a shift register.', time:'18 min', href:'shift-registers.html', status:'active' },
     ],
   };
+
+export const GROUP_LABELS = {
+  'tg-sequential': '⏱ Sequential Logic Circuits',
+};

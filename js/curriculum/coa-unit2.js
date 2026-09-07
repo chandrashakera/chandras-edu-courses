@@ -25,3 +25,8 @@ export const GROUPS = {
       { id:'other-counters',                   title:'Other Counters',                           desc:'Ring and Johnson (twisted-ring) counters built from a shift register, plus the decade counter as a building block.', time:'18 min', href:'other-counters.html', status:'active' },
     ],
   };
+
+export const GROUP_LABELS = {
+  'tg-combinational': '🔗 Combinational Logic',
+  'tg-sequential': '⏱️ Sequential Logic',
+};

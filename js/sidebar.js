@@ -36,6 +36,13 @@ export async function initSidebar() {
   const pageNarrow = document.querySelector('.page-narrow');
   if (!pageNarrow) return;
 
+  // Which group does the current topic belong to? (for the "COA › Unit 1 ›
+  // <group>" header path — the flat numbered list itself is unchanged.)
+  const groupEntry = Object.entries(mod.GROUPS).find(([, list]) => list.some(t => t.href.replace(/\.html$/, '') === currentFile));
+  const groupLabel = groupEntry && mod.GROUP_LABELS ? mod.GROUP_LABELS[groupEntry[0]] : null;
+  const pathParts = [course.toUpperCase(), `Unit ${unitNum}`, groupLabel].filter(Boolean);
+  const pathHTML = `<div class="sidebar-path">${pathParts.join(' <span class="sidebar-path-sep">›</span> ')}</div>`;
+
   const listHTML = topics.map((t, i) => {
     const topicFile = t.href.replace(/\.html$/, '');
     const isActive = topicFile === currentFile;
@@ -52,6 +59,7 @@ export async function initSidebar() {
   aside.innerHTML = `
     <button class="sidebar-toggle-btn" type="button" aria-expanded="true">✕ Hide Topics</button>
     <button class="drawer-close-btn" type="button" aria-label="Close topic list">✕ Close</button>
+    ${pathHTML}
     <nav class="sidebar-list">${listHTML}</nav>
   `;
   shell.appendChild(aside);

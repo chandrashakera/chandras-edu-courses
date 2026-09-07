@@ -9,3 +9,7 @@ export const GROUPS = {
       { id:'multiplexers-demultiplexers',  title:'Multiplexers &amp; Demultiplexers',       desc:'Data selection, using a MUX as a universal function generator, and demultiplexing.',                     time:'18 min', href:'multiplexers-demultiplexers.html', status:'active' },
     ],
   };
+
+export const GROUP_LABELS = {
+  'tg-combinational': '🔗 Combinational Logic Circuits',
+};

@@ -8,3 +8,7 @@ export const GROUPS = {
       { id:'programmable-logic-devices',   title:'Programmable Logic Devices',             desc:'ROM, PLA, and PAL — three ways to implement combinational logic as a programmable AND/OR array.',              time:'18 min', href:'programmable-logic-devices.html', status:'active' },
     ],
   };
+
+export const GROUP_LABELS = {
+  'tg-statemachines': '🧭 State Machines & PLDs',
+};
