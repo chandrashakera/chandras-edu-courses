@@ -155,7 +155,9 @@ Orange = highest frequency in 2026 Indian IT JDs. Add these first.</p>
 <script type="module">
   import { initNav } from '../../../js/nav.js';
   import { onAuth, logout, markModuleComplete, getProgress } from '../../../js/firebase-config.js';
+  import { initSidebar } from '../../../js/sidebar.js';
   initNav(3);
+  initSidebar();
 
   const COURSE_ID = 'genai';
   const MODULE_ID = 'm-5-2';
