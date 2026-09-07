@@ -217,7 +217,9 @@ Test A=1,B=0,C=0 (m4, expect F=0): (0+1)(0+0+0) = (1)(0) = 0 ✓</pre>
 <script type="module">
   import { initNav } from '../../../js/nav.js';
   import { onAuth, saveProgress, getProgress } from '../../../js/firebase-config.js';
+  import { initSidebar } from '../../../js/sidebar.js';
   initNav(3);
+  initSidebar();
 
   const COURSE_ID = 'dld';
   const TOPIC_ID  = 'pos-simplification';

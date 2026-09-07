@@ -208,7 +208,9 @@ T2:  D0,…,D7 ← Decode IR(14-12),  AR ← IR(11-0),  I ← IR(15)</pre></div>
 <script type="module">
   import { initNav } from '../../../js/nav.js';
   import { onAuth, saveProgress, getProgress } from '../../../js/firebase-config.js';
+  import { initSidebar } from '../../../js/sidebar.js';
   initNav(3);
+  initSidebar();
 
   const COURSE_ID = 'coa';
   const TOPIC_ID  = 'instruction-cycle';

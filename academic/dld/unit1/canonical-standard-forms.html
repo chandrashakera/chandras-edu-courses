@@ -187,7 +187,9 @@ Standard SOP:   F = A′B′C + AB′        (AB′C′ + AB′C = AB′(C′+C)
 <script type="module">
   import { initNav } from '../../../js/nav.js';
   import { onAuth, saveProgress, getProgress } from '../../../js/firebase-config.js';
+  import { initSidebar } from '../../../js/sidebar.js';
   initNav(3);
+  initSidebar();
 
   const COURSE_ID = 'dld';
   const TOPIC_ID  = 'canonical-standard-forms';

@@ -197,7 +197,9 @@ V = C₄ ⊕ C₃ = 0 ⊕ 1 = 1  → overflow correctly flagged
 <script type="module">
   import { initNav } from '../../../js/nav.js';
   import { onAuth, saveProgress, getProgress } from '../../../js/firebase-config.js';
+  import { initSidebar } from '../../../js/sidebar.js';
   initNav(3);
+  initSidebar();
 
   const COURSE_ID = 'coa';
   const TOPIC_ID  = 'arithmetic-microoperations';

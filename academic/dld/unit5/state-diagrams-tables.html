@@ -209,7 +209,9 @@ Mealy:  Present State | Next State / Output pair, for each input value
 <script type="module">
   import { initNav } from '../../../js/nav.js';
   import { onAuth, saveProgress, getProgress } from '../../../js/firebase-config.js';
+  import { initSidebar } from '../../../js/sidebar.js';
   initNav(3);
+  initSidebar();
 
   const COURSE_ID = 'dld';
   const TOPIC_ID  = 'state-diagrams-tables';

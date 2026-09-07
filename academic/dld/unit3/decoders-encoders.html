@@ -317,7 +317,9 @@ A₂ = D₄ + D₅ + D₆ + D₇    (inputs whose index has bit 2 set)</pre>
 <script type="module">
   import { initNav } from '../../../js/nav.js';
   import { onAuth, saveProgress, getProgress } from '../../../js/firebase-config.js';
+  import { initSidebar } from '../../../js/sidebar.js';
   initNav(3);
+  initSidebar();
 
   const COURSE_ID = 'dld';
   const TOPIC_ID  = 'decoders-encoders';
