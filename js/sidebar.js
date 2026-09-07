@@ -49,6 +49,7 @@ async function resolveCoaDld() {
   // itself (not this module), which is always 3 folders deep under
   // academic/<course>/unit<N>/.
   const pathParts = [
+    `<a href="../../../index.html">Courses</a>`,
     `<a href="../index.html">${course.toUpperCase()}</a>`,
     `<a href="index.html">Unit ${unitNum}</a>`,
     groupLabel,
@@ -86,7 +87,7 @@ async function resolveGenai() {
   // GenAI has no dedicated per-unit page (the course index lists all 5
   // units together), so unlike COA/DLD's "Unit N", it's shown as plain
   // text rather than a link — there's nowhere for it to point.
-  const pathHTML = `<div class="sidebar-path"><a href="../index.html">GENAI</a> <span class="sidebar-path-sep">›</span> Unit ${unit.num}: ${unit.title}</div>`;
+  const pathHTML = `<div class="sidebar-path"><a href="../../../index.html">Courses</a> <span class="sidebar-path-sep">›</span> <a href="../index.html">GENAI</a> <span class="sidebar-path-sep">›</span> Unit ${unit.num}: ${unit.title}</div>`;
 
   const listHTML = unit.modules.map(mm => {
     const modFile = mm.href.replace(/\.html$/, '').replace(/^modules\//, '');

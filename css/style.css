@@ -40,7 +40,7 @@ a:hover { text-decoration: underline; color: var(--primary-dk); }
 /* ── SITE HEADER (logo row) — matches chandrashaker.com ───────── */
 .site-header { background: #fff; padding-top: 15px; }
 .site-header-inner {
-  max-width: 1400px; margin: 0 auto;
+  max-width: 1340px; margin: 0 auto;
   padding: .75rem 25px;
   display: flex; align-items: center;
 }
@@ -58,7 +58,7 @@ a:hover { text-decoration: underline; color: var(--primary-dk); }
 .nav-inner {
   background: var(--primary);
   border-bottom: 3px solid var(--accent);
-  max-width: 1400px; margin: 0 auto;
+  max-width: 1340px; margin: 0 auto;
   padding: 0 15px;
   height: 46px;
   display: flex; align-items: center; justify-content: space-between;
@@ -84,7 +84,7 @@ a:hover { text-decoration: underline; color: var(--primary-dk); }
 .nav-user { font-size: .8rem; color: rgba(255,255,255,.75); max-width:160px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
 
 /* ── LAYOUT ──────────────────────────────────────────────────── */
-.page { max-width: 1400px; margin: 0 auto; padding: 1.75rem 1.25rem; }
+.page { max-width: 1340px; margin: 0 auto; padding: 1.75rem 1.25rem; }
 .page-narrow { max-width: 1080px; margin: 0 auto; padding: 1.75rem 1.25rem; }
 
 /* ── BREADCRUMB ──────────────────────────────────────────────── */
@@ -284,7 +284,7 @@ a:hover { text-decoration: underline; color: var(--primary-dk); }
 .module-status.pending { color: var(--text-3); }
 
 /* ── FOOTER ──────────────────────────────────────────────────── */
-.footer { border-top: 2px solid #999999; max-width: 1400px; margin: 1.25rem auto 15px; padding: .6rem 25px; text-align: left; font-size: .8rem; color: #ffffff; background: var(--primary); }
+.footer { border-top: 2px solid #999999; max-width: 1340px; margin: 1.25rem auto 15px; padding: .6rem 25px; text-align: left; font-size: .8rem; color: #ffffff; background: var(--primary); }
 
 /* ── COURSE GUIDES CARD (links out to chandrashaker.com) ────────── */
 .guide-links { display: flex; flex-direction: column; gap: .5rem; margin-top: auto; padding-top: .5rem; }
@@ -365,9 +365,9 @@ a:hover { text-decoration: underline; color: var(--primary-dk); }
    1400px shell matching the site header/nav/footer. */
 @media (min-width: 1366px) {
   .sidebar-shell {
-    max-width: 1400px; display: flex; justify-content: flex-start; gap: 28px;
+    max-width: 1340px; display: flex; justify-content: center; gap: 28px;
   }
-  .sidebar-shell > .page-narrow { margin: 0; } /* override page-narrow's own auto-margin, which otherwise fights flex-start's own positioning */
+  .sidebar-shell > .page-narrow { margin: 0; } /* override page-narrow's own auto-margin, which otherwise absorbs the shell's free space instead of justify-content:center */
   .sidebar-toggle-btn {
     display: block; width: 100%; margin-bottom: .5rem;
     background: var(--primary); color: #fff; border: none; border-radius: var(--radius);
