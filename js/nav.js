@@ -19,6 +19,11 @@ export function initNav(depth = 0) {
       </header>
       <nav class="nav">
         <div class="nav-inner">
+          <div class="nav-links nav-site-links">
+            <a href="https://chandrashaker.com/">Home</a>
+            <a href="https://chandrashaker.com/about/">About</a>
+            <a href="https://chandrashaker.com/contact/">Contact</a>
+          </div>
           <div class="nav-links">
             <span class="nav-user" id="nav-user"></span>
             <a href="${root}/login.html" class="nav-btn" id="nav-auth-btn">Login</a>

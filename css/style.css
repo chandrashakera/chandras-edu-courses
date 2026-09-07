@@ -61,7 +61,7 @@ a:hover { text-decoration: underline; color: var(--primary-dk); }
   max-width: 1080px; margin: 0 auto;
   padding: 0 15px;
   height: 46px;
-  display: flex; align-items: center; justify-content: flex-end;
+  display: flex; align-items: center; justify-content: space-between;
 }
 .nav-brand {
   font-size: 1rem; font-weight: 700;
@@ -301,4 +301,7 @@ a:hover { text-decoration: underline; color: var(--primary-dk); }
   .topic-nav a { max-width: 100%; }
   .courses-grid { grid-template-columns: 1fr; }
   .lesson h2 { font-size: 1.05rem; }
+  .nav-inner { flex-wrap: wrap; height: auto; padding: 8px 15px; row-gap: 6px; }
+  .nav-site-links { width: 100%; justify-content: center; }
+  .nav-inner > .nav-links:not(.nav-site-links) { width: 100%; justify-content: center; }
 }
