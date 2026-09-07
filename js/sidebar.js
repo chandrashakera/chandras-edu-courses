@@ -17,10 +17,16 @@ export async function initSidebar() {
   const currentFile = page.replace(/\.html$/, '');
   if (currentFile === '' || currentFile === 'index') return; // unit landing page already shows the full topic grid
 
-  const root = '../../../'; // academic/<course>/unit<N>/<page> is always 3 folders deep
+  // Resolved relative to THIS module's own URL, not the calling page's —
+  // dynamic import() inside a module always resolves against that module's
+  // location. sidebar.js and js/curriculum/ are siblings under js/, so this
+  // path is fixed regardless of the page's folder depth or any URL prefix
+  // (e.g. the /courses/ prefix chandrashaker.com proxies this site under —
+  // a page-relative '../../../' guess broke there while working by pure
+  // coincidence on a bare-root localhost deployment).
   let mod;
   try {
-    mod = await import(`${root}js/curriculum/${course}-unit${unitNum}.js`);
+    mod = await import(`./curriculum/${course}-unit${unitNum}.js`);
   } catch {
     return; // no curriculum data file for this unit yet — fail silently
   }
