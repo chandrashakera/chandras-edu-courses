@@ -133,6 +133,7 @@ a:hover { text-decoration: underline; color: var(--primary-dk); }
   text-decoration: none; display: flex; flex-direction: column; color: var(--text);
   background: var(--bg-2);
   transition: box-shadow .15s, border-color .15s;
+  min-height: 360px; /* uniform box size across COA/DLD/GenAI — a floor only, so the much-longer Course Guides card (which shares this class) is unaffected */
 }
 .course-card:hover { box-shadow: var(--shadow-md); text-decoration: none; border-color: var(--primary); }
 .course-card.professional { border-top-color: var(--accent); }
