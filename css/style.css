@@ -137,6 +137,7 @@ a:hover { text-decoration: underline; color: var(--primary-dk); }
 }
 .course-card:hover { box-shadow: var(--shadow-md); text-decoration: none; border-color: var(--primary); }
 .course-card.professional { border-top-color: var(--accent); }
+.courses-grid-fill { grid-template-columns: repeat(auto-fill, minmax(300px,1fr)); } /* auto-fill (not auto-fit) reserves track width even when unoccupied, so a single card here sizes to one track — matching a COA/DLD card exactly — instead of stretching to fill the whole row */
 .course-card.professional:hover { border-color: var(--accent); }
 .course-card h2 { font-size: 1rem; color: var(--primary); margin: .6rem 0 .4rem; font-weight: 700; }
 .course-card.professional h2 { color: var(--accent); }
