@@ -125,7 +125,7 @@ a:hover { text-decoration: underline; color: var(--primary-dk); }
 }
 
 /* ── COURSE CARDS ────────────────────────────────────────────── */
-.courses-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px,1fr)); gap: 1.25rem; margin-top: .75rem; }
+.courses-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px,1fr)); gap: 1.25rem; margin-top: .75rem; align-items: start; }
 .course-card {
   border-radius: var(--radius-lg); padding: 1.5rem;
   border: 1px solid var(--border);
