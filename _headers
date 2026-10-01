@@ -9,6 +9,9 @@
 /js/sidebar.js
   Cache-Control: no-cache
 
+/js/copy-prompt.js
+  Cache-Control: no-cache
+
 /css/style.css
   Cache-Control: no-cache
 

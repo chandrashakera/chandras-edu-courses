@@ -12,7 +12,7 @@
 // SIDEBAR_REVISED_WIDECONTAINER_BRIEF.md).
 
 export async function initSidebar() {
-  const data = await resolveCoaDld() ?? await resolveGenai();
+  const data = await resolveCoaDld() ?? await resolveGenai() ?? await resolveAiTools();
   if (!data) return;
   buildSidebar(data.pathHTML, data.listHTML);
 }
@@ -93,6 +93,46 @@ async function resolveGenai() {
     const modFile = mm.href.replace(/\.html$/, '').replace(/^modules\//, '');
     const isActive = modFile === currentFile;
     return `<a href="${mm.href.replace(/^modules\//, '')}" class="sidebar-topic${isActive ? ' active' : ''}">${mm.label}. ${mm.title}</a>`;
+  }).join('');
+
+  return { pathHTML, listHTML };
+}
+
+// ── AI Tools: professional/ai-tools/modules/<module>.html ──────────────────
+// Shows all 13 modules together (not just one group), since the whole course
+// is roughly the size of a single COA/DLD unit — modules 5-13 have no href
+// and render disabled/greyed rather than being filtered out, so "coming
+// soon" is visible rather than just absent.
+async function resolveAiTools() {
+  const m = location.pathname.match(/professional\/ai-tools\/modules\/([^\/]*)$/);
+  if (!m) return null;
+  const currentFile = m[1].replace(/\.html$/, '');
+  if (!currentFile) return null;
+
+  let mod;
+  try {
+    mod = await import('./curriculum/ai-tools.js');
+  } catch {
+    return null;
+  }
+  const groupEntry = Object.entries(mod.GROUPS).find(([, list]) => list.some(t => t.href && t.href.replace(/\.html$/, '') === currentFile));
+  const groupLabel = groupEntry && mod.GROUP_LABELS ? mod.GROUP_LABELS[groupEntry[0]] : null;
+  const pathParts = [
+    `<a href="../../../index.html">Courses</a>`,
+    `<a href="../index.html">AI Tools</a>`,
+    groupLabel,
+  ].filter(Boolean);
+  const pathHTML = `<div class="sidebar-path">${pathParts.join(' <span class="sidebar-path-sep">›</span> ')}</div>`;
+
+  let n = 0;
+  const listHTML = Object.values(mod.GROUPS).flat().map(t => {
+    n++;
+    if (t.status !== 'active' || !t.href) {
+      return `<span class="sidebar-topic sidebar-topic-disabled">${n}. ${t.title} <em>(Coming soon)</em></span>`;
+    }
+    const topicFile = t.href.replace(/\.html$/, '');
+    const isActive = topicFile === currentFile;
+    return `<a href="${t.href}" class="sidebar-topic${isActive ? ' active' : ''}">${n}. ${t.title}</a>`;
   }).join('');
 
   return { pathHTML, listHTML };
