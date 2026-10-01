@@ -23,7 +23,7 @@
 
   <!-- Module header -->
   <div style="background:var(--primary);border-radius:var(--radius-lg);padding:1.25rem 1.5rem;margin-bottom:1.75rem;color:#fff">
-    <div style="font-size:.78rem;opacity:.75;margin-bottom:.35rem">GENERATIVE AI: ZERO TO JOB-READY › Unit 2: Prompt Engineering › MODULE 2.1</div>
+    <div style="font-size:.78rem;opacity:.75;margin-bottom:.35rem">GENERATIVE AI: ZERO TO JOB-READY › Module 2: Prompt Engineering › MODULE 2.1</div>
     <h1 style="font-size:1.4rem;font-weight:700;margin-bottom:.6rem;color:#fff">Anatomy of a Good Prompt</h1>
     <div style="display:flex;gap:.75rem;flex-wrap:wrap">
       <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.78rem">⏱ 12 min read</span>
@@ -35,7 +35,7 @@
   <div class="lesson">
 </p>
 </p>
-<p>Welcome to Unit 2. In Unit 1 you built a mental model of what GenAI is and where it fails. Now you start using it effectively.</p>
+<p>Welcome to Module 2. In Unit 1 you built a mental model of what GenAI is and where it fails. Now you start using it effectively.</p>
 
 <p>This module teaches the single most important practical skill in this course: how to write a prompt that actually gets what you want. Most people who are disappointed with AI outputs are not using a bad tool — they are writing bad prompts. The model is only as good as the instructions you give it.</p>
 
@@ -47,7 +47,10 @@
 
 <p>Before learning what makes a good prompt, look at what makes a bad one.</p>
 
-</p>
+<div class="prompt-box">
+  <span class="prompt-label">A typical weak prompt</span>
+  <div class="prompt-text">Write about AI in the Indian IT industry.</div>
+</div>
 <p>The bad prompt is not wrong — it is just empty. The model has no idea who you are, what level of detail you need, what format you want, or what context matters. So it produces a generic, mediocre response.</p>
 
 <p>The good prompt gives the model everything it needs to produce exactly what you want on the first try.</p>
@@ -58,35 +61,75 @@
 
 <p>Every effective prompt is built from some combination of these six components. You do not need all six every time — but knowing each one lets you diagnose why a prompt is failing and fix it.</p>
 
-</p>
+<table>
+  <thead><tr><th>Component</th><th>What it does</th><th>Example</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Role</strong></td><td>Who the model should act as</td><td>"You are a data analyst at an Indian fintech startup."</td></tr>
+    <tr><td><strong>Task</strong></td><td>The exact action you want</td><td>"Summarise this sales report in 5 bullet points."</td></tr>
+    <tr><td><strong>Context</strong></td><td>Background the model needs for your situation</td><td>"This is for a client meeting tomorrow morning."</td></tr>
+    <tr><td><strong>Format</strong></td><td>Length, structure, layout</td><td>"Under 100 words, as a bulleted list."</td></tr>
+    <tr><td><strong>Examples</strong></td><td>A sample of the style or output you want</td><td>"Match the tone of this example: ..."</td></tr>
+    <tr><td><strong>Constraints</strong></td><td>What to avoid or limits to respect</td><td>"Do not use technical jargon."</td></tr>
+  </tbody>
+</table>
+<p>You rarely need all six at once. Start with Task, add Context and Format first — those three fix most weak prompts on their own.</p>
 <hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
 
 <h2>Seeing all six in action</h2>
 
 <p>Here is the same task — asking for help preparing for a job interview — written as a weak prompt, then rebuilt using all six components.</p>
 
-</p>
+<div class="prompt-box">
+  <span class="prompt-label">Weak prompt</span>
+  <div class="prompt-text">Help me prepare for a job interview.</div>
+</div>
 <p>What is wrong with this? The model does not know your background, the role you are applying for, what stage of interview preparation you are at, how much time you have, or what format of help you want. The output will be a generic list that could apply to anyone applying anywhere.</p>
 
-</p>
+<div class="prompt-box">
+  <span class="prompt-label">Rebuilt using all six components</span>
+  <div class="prompt-text">Role: You are a senior technical interview coach who has prepared many freshers for Indian IT placements.
+Task: Build me a focused interview preparation plan.
+Context: I am a final-year B.Tech CSE student interviewing for a Software Engineer Trainee role at Infosys next week. My strengths are Java and DBMS; I am weak on system design basics.
+Format: A day-by-day plan for the next 5 days, as a table with columns Day, Topic, What to practise. Keep each row to one line.
+Examples: Match the tone of a mentor giving direct, practical advice — not generic motivational tips.
+Constraints: Keep the whole plan under 300 words. Do not include generic "be confident" advice.</div>
+</div>
 <p>The second prompt will produce a personalised, structured, immediately usable preparation plan — not a generic bullet list. The difference in output quality will be dramatic, and it took about 60 seconds longer to write.</p>
 
 <hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
 
 <h2>The most common prompt mistakes — and how to fix them</h2>
 
+<ul>
+  <li><strong>Too vague</strong> — no clear task verb or outcome.</li>
+  <li><strong>No audience</strong> — the model does not know who will read the output.</li>
+  <li><strong>Missing context</strong> — no background on your actual situation.</li>
+  <li><strong>No format</strong> — length, structure, and layout left undefined.</li>
+</ul>
+<p>Module 2.4 covers all ten of these mistakes — and their fixes — in detail.</p>
 <hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
 
 <h2>Tool-specific tips for Indian users</h2>
 
 <p>Different tools respond slightly differently to the same prompt structure. Here is what to know:</p>
 
+<ul>
+  <li><strong>ChatGPT</strong> — responds well to numbered instructions; if it skips part of a long prompt, repeat that part as a short separate sentence at the end.</li>
+  <li><strong>Claude</strong> — handles long, detailed prompts well; you can paste a whole document as context without it losing track of your instructions.</li>
+  <li><strong>Gemini</strong> — say explicitly if you want it to search the web for current information, otherwise it may answer from training data alone.</li>
+</ul>
 <hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
 
 <h2>The prompt improvement loop</h2>
 
 <p>Writing a good prompt is rarely a one-shot activity — it is an iterative loop. Here is the workflow that experienced prompt engineers use:</p>
 
+<ol>
+  <li><strong>Write</strong> — draft your prompt using as many of the six components as the task needs.</li>
+  <li><strong>Test</strong> — run it and read the output carefully, not just skim it.</li>
+  <li><strong>Diagnose</strong> — if something is missing or wrong, identify which component caused it.</li>
+  <li><strong>Refine</strong> — add or fix only that component, then test again.</li>
+</ol>
 <p>Most prompts need 2–3 iterations to reach high quality. This is not a failure — it is the normal workflow. Each iteration teaches you something about what the model needs from you, and over time your first-draft prompts improve because you have internalised what "missing components" look like.</p>
 
 <hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
@@ -95,7 +138,15 @@
 
 <p>Until writing structured prompts feels natural, use this template for any task:</p>
 
-</p>
+<div class="prompt-box">
+  <span class="prompt-label">Six-component prompt template</span>
+  <div class="prompt-text">Role: [who the model should act as]
+Task: [the exact action you want]
+Context: [background details relevant to this task]
+Format: [length, structure, layout]
+Examples: [an example of the style or output you want, if useful]
+Constraints: [anything to avoid or limits to respect]</div>
+</div>
 <p>You will not need this template forever — after 20–30 prompts, structuring this way becomes instinctive. But use it consciously for the next week and your output quality will improve immediately.</p>
 
 <hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">

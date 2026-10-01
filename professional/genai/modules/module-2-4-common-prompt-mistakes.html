@@ -23,7 +23,7 @@
 
   <!-- Module header -->
   <div style="background:var(--primary);border-radius:var(--radius-lg);padding:1.25rem 1.5rem;margin-bottom:1.75rem;color:#fff">
-    <div style="font-size:.78rem;opacity:.75;margin-bottom:.35rem">GENERATIVE AI: ZERO TO JOB-READY › Unit 2: Prompt Engineering › MODULE 2.4</div>
+    <div style="font-size:.78rem;opacity:.75;margin-bottom:.35rem">GENERATIVE AI: ZERO TO JOB-READY › Module 2: Prompt Engineering › MODULE 2.4</div>
     <h1 style="font-size:1.4rem;font-weight:700;margin-bottom:.6rem;color:#fff">Common Prompt Mistakes</h1>
     <div style="display:flex;gap:.75rem;flex-wrap:wrap">
       <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.78rem">⏱ 12 min read</span>
@@ -35,7 +35,7 @@
   <div class="lesson">
 </p>
 </p>
-<p>This is the final module of Unit 2 — and the most practical one. You now have three modules of prompt engineering theory behind you. This module is about what goes wrong when you apply it, and how to fix it fast.</p>
+<p>This is the final module of Module 2 — and the most practical one. You now have three modules of prompt engineering theory behind you. This module is about what goes wrong when you apply it, and how to fix it fast.</p>
 
 <p>Every prompt that fails does so for a diagnosable reason. Once you learn to recognise the patterns, you will spend less time rewriting prompts from scratch and more time refining them precisely. The 10 mistakes in this module account for the vast majority of poor AI outputs that Indian students and IT professionals experience.</p>
 
@@ -45,79 +45,157 @@
 
 <h2>Mistake 1 — Too vague, no task verb</h2>
 
-</p>
-</p>
+<p>A vague prompt gives the model a topic but no clear instruction — no verb telling it what to actually do with that topic. The model has to guess whether you want an explanation, a summary, a list, or something else entirely.</p>
+<div class="box box-warn"><strong>Weak:</strong> "Cloud computing for my project."</div>
+<div class="prompt-box">
+  <span class="prompt-label">Fixed</span>
+  <div class="prompt-text">Explain cloud computing in 3 short paragraphs, suitable for a college project report introduction.</div>
+</div>
+<p>Why it works: "Explain... in 3 short paragraphs" gives the model a clear verb and a clear output shape — there is nothing left to guess.</p>
 <hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
 
 <h2>Mistake 2 — No audience specified</h2>
 
-</p>
-</p>
+<p>Without knowing who will read the output, the model defaults to a generic, middle-of-the-road explanation — too simple for an expert, too technical for a beginner.</p>
+<div class="box box-warn"><strong>Weak:</strong> "Explain how Docker works."</div>
+<div class="prompt-box">
+  <span class="prompt-label">Fixed</span>
+  <div class="prompt-text">Explain how Docker works to a final-year CS student who knows programming but has never used containers before.</div>
+</div>
+<p>Why it works: naming the audience tells the model exactly which concepts to assume and which to explain from scratch.</p>
 <hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
 
 <h2>Mistake 3 — Missing context</h2>
 
-</p>
-</p>
+<p>Context is the background information the model needs to give you an answer that fits your actual situation, not a generic one. Without it, you get advice that could apply to anyone.</p>
+<div class="box box-warn"><strong>Weak:</strong> "How do I ask my manager for a raise?"</div>
+<div class="prompt-box">
+  <span class="prompt-label">Fixed</span>
+  <div class="prompt-text">Context: I am a software engineer with 2 years at an Indian IT services company. I have taken on two extra projects this year and my last review was "exceeds expectations."
+Task: Draft what I should say when asking my manager for a raise.</div>
+</div>
+<p>Why it works: the context lets the model tailor the advice to your actual leverage, instead of giving generic negotiation tips.</p>
 <hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
 
 <h2>Mistake 4 — No format specified</h2>
 
-</p>
-</p>
+<p>If you do not say how long or how the output should be structured, you might get three lines when you wanted a table, or 500 words when you wanted a one-line answer.</p>
+<div class="box box-warn"><strong>Weak:</strong> "Compare SQL and NoSQL databases."</div>
+<div class="prompt-box">
+  <span class="prompt-label">Fixed</span>
+  <div class="prompt-text">Compare SQL and NoSQL databases. Format as a table with columns: Feature, SQL, NoSQL. Keep it to 5 rows.</div>
+</div>
+<p>Why it works: specifying the format removes all ambiguity about length and layout, so you get a usable result on the first try.</p>
 <hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
 
 <h2>Mistake 5 — Multiple tasks in one prompt</h2>
 
-</p>
-</p>
+<p>Stacking several unrelated requests into one prompt makes the model split its attention, and it often does each task shallowly or skips one entirely.</p>
+<div class="box box-warn"><strong>Weak:</strong> "Write my resume summary, suggest interview questions, and explain what a data lake is."</div>
+<div class="prompt-box">
+  <span class="prompt-label">Fixed</span>
+  <div class="prompt-text">Write a 2-line resume summary for a data analyst with 1 year of experience in SQL and Power BI.</div>
+</div>
+<p>Why it works: one focused task gets the model's full attention. Ask the other two questions as separate prompts.</p>
 <hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
 
 <h2>Mistake 6 — Accepting the first output</h2>
 
-</p>
-</p>
+<p>The first response is a first draft, not a final answer. Most beginners stop here — which is exactly why one follow-up prompt is often the single highest-leverage thing you can do.</p>
+<div class="box box-warn"><strong>Weak:</strong> Accepting the first email draft and sending it as-is.</div>
+<div class="prompt-box">
+  <span class="prompt-label">Fixed — a follow-up prompt</span>
+  <div class="prompt-text">This is a good start. Now make it 30% shorter, more direct, and remove any sentence that does not add new information.</div>
+</div>
+<p>Why it works: a targeted follow-up prompt refines the output far faster than rewriting the whole prompt from scratch.</p>
 <hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
 
 <h2>Mistake 7 — Not separating generation from verification</h2>
 
-</p>
-</p>
+<p>Asking the model to generate and silently trusting the result skips an easy safety check: asking the model to review its own work against specific criteria, in a separate step.</p>
+<div class="box box-warn"><strong>Weak:</strong> Generating a report summary and sharing it immediately.</div>
+<div class="prompt-box">
+  <span class="prompt-label">Fixed — a verification pass</span>
+  <div class="prompt-text">Check the summary above against the original data. Flag any number, date, or claim that is not directly supported by the source, and explain why.</div>
+</div>
+<p>Why it works: a model asked explicitly to verify catches its own mistakes far more often than one asked to simply "double-check."</p>
 <hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
 
 <h2>Mistake 8 — Wrong technique for the task</h2>
 
-</p>
-</p>
+<p>Using zero-shot for a task that needs reasoning, or chain-of-thought for a simple task, wastes time either way — too shallow an answer in one case, an overlong one in the other.</p>
+<div class="box box-warn"><strong>Weak:</strong> Asking a multi-step budgeting problem with a plain zero-shot prompt, then accepting a number with no working shown.</div>
+<div class="prompt-box">
+  <span class="prompt-label">Fixed</span>
+  <div class="prompt-text">Work through this budget allocation step by step, showing your reasoning for each category, before giving the final numbers.</div>
+</div>
+<p>Why it works: matching chain-of-thought to a problem that actually needs multi-step reasoning produces a correct, checkable answer instead of a guess.</p>
 <hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
 
 <h2>Mistake 9 — Generic domain language</h2>
 
-</p>
-</p>
+<p>Using vague, generic terms instead of the specific terminology of your field makes the model respond with surface-level, textbook answers instead of answers that fit your real context.</p>
+<div class="box box-warn"><strong>Weak:</strong> "Explain how our system handles errors."</div>
+<div class="prompt-box">
+  <span class="prompt-label">Fixed</span>
+  <div class="prompt-text">Explain how a typical microservices architecture handles error propagation between services, using terms like circuit breaker, retry policy, and dead-letter queue.</div>
+</div>
+<p>Why it works: naming the specific domain vocabulary signals the depth and precision you actually want, not a beginner-level explanation.</p>
 <hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
 
 <h2>Mistake 10 — Outdated context in long conversations</h2>
 
-</p>
-</p>
+<p>In a long chat, the model keeps using earlier context even after your actual situation has changed — leading to answers based on facts that are no longer true.</p>
+<div class="box box-warn"><strong>Weak:</strong> Continuing a long chat about "the old API design" after switching to a new design, without telling the model anything changed.</div>
+<div class="prompt-box">
+  <span class="prompt-label">Fixed</span>
+  <div class="prompt-text">Ignore the API design discussed earlier in this chat — we have switched approaches. Here is the new design: [paste new details]. Answer my next questions based only on this.</div>
+</div>
+<p>Why it works: explicitly flagging what has changed stops the model from quietly blending old and new context into a confused answer.</p>
 <hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
 
 <h2>Quick diagnosis guide — what symptom means what</h2>
 
+<table>
+  <thead><tr><th>Symptom</th><th>Likely mistake</th><th>Fix</th></tr></thead>
+  <tbody>
+    <tr><td>Output is generic, could apply to anyone</td><td>No audience or missing context</td><td>Add who it's for and your specific situation</td></tr>
+    <tr><td>Output is the wrong length or shape</td><td>No format specified</td><td>State the exact format and length you want</td></tr>
+    <tr><td>Output covers only part of what you asked</td><td>Multiple tasks in one prompt</td><td>Split into separate prompts</td></tr>
+    <tr><td>Output sounds textbook, not specific to your field</td><td>Generic domain language</td><td>Use your field's actual terminology</td></tr>
+    <tr><td>Output jumps to an answer with no working shown</td><td>Wrong technique for the task</td><td>Add "think step by step" for reasoning tasks</td></tr>
+    <tr><td>Output contradicts something from earlier in the chat</td><td>Outdated context in a long conversation</td><td>Explicitly state what has changed</td></tr>
+  </tbody>
+</table>
 <hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
 
 <h2>The pre-submit prompt checklist</h2>
 
 <p>Print this. Stick it next to your monitor. Use it for the next two weeks until it becomes instinctive.</p>
 
+<div class="box box-tip">
+  <strong>Before you submit any prompt, check:</strong>
+  <ul style="margin-top:.5rem;margin-bottom:0">
+    <li>Does it have a clear task verb? (explain, write, compare, summarise...)</li>
+    <li>Have I said who the output is for?</li>
+    <li>Have I given the context the model needs for my specific situation?</li>
+    <li>Have I specified the format and length?</li>
+    <li>Am I asking for one task, not several at once?</li>
+    <li>If this needs reasoning, have I asked for step-by-step thinking?</li>
+  </ul>
+</div>
 <hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
 
-<h2>Unit 2 — What you have learned</h2>
+<h2>Module 2 — What you have learned</h2>
 
-<p>This is the last module of Unit 2. Here is a quick summary of what you now know:</p>
+<p>This is the last module of Module 2. Here is a quick summary of what you now know:</p>
 
-</p>
+<ul>
+  <li><strong>2.1</strong> — every effective prompt combines some mix of Role, Task, Context, Format, Examples, and Constraints.</li>
+  <li><strong>2.2</strong> — zero-shot for simple tasks, few-shot to match a style, chain-of-thought for reasoning and trade-offs.</li>
+  <li><strong>2.3</strong> — different tools have different prompting quirks worth knowing.</li>
+  <li><strong>2.4</strong> — most bad outputs trace back to one of ten diagnosable mistakes, all fixable with a small, specific addition to the prompt.</li>
+</ul>
 <p>Unit 3 is where all of this becomes practical for your actual job. You will apply these techniques to real developer, analyst, and manager workflows — with specific examples from Indian IT contexts.</p>
 
 <hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">

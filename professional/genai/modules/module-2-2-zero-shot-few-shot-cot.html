@@ -23,7 +23,7 @@
 
   <!-- Module header -->
   <div style="background:var(--primary);border-radius:var(--radius-lg);padding:1.25rem 1.5rem;margin-bottom:1.75rem;color:#fff">
-    <div style="font-size:.78rem;opacity:.75;margin-bottom:.35rem">GENERATIVE AI: ZERO TO JOB-READY › Unit 2: Prompt Engineering › MODULE 2.2</div>
+    <div style="font-size:.78rem;opacity:.75;margin-bottom:.35rem">GENERATIVE AI: ZERO TO JOB-READY › Module 2: Prompt Engineering › MODULE 2.2</div>
     <h1 style="font-size:1.4rem;font-weight:700;margin-bottom:.6rem;color:#fff">Zero-Shot, Few-Shot, CoT</h1>
     <div style="display:flex;gap:.75rem;flex-wrap:wrap">
       <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.78rem">⏱ 12 min read</span>
@@ -43,14 +43,34 @@
 
 <h2>The three techniques — quick overview</h2>
 
+<table>
+  <thead><tr><th>Technique</th><th>What it means</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Zero-shot</strong></td><td>Ask directly, with no examples — the model relies on its training alone.</td></tr>
+    <tr><td><strong>Few-shot</strong></td><td>Give 1–3 examples of the pattern you want before asking for the real task.</td></tr>
+    <tr><td><strong>Chain-of-thought (CoT)</strong></td><td>Ask the model to reason step by step before giving a final answer.</td></tr>
+  </tbody>
+</table>
 <hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
 
 <h2>Technique 1 — Zero-Shot Prompting</h2>
 
 <p>Zero-shot means asking the model to do something directly, without providing any examples. You describe the task and let the model use its training to handle it.</p>
 
-</p>
-</p>
+<div class="prompt-box">
+  <span class="prompt-label">Zero-shot — explaining code</span>
+  <div class="prompt-text">Role: You are a senior developer mentoring a new team member.
+Task: Explain what this function does, line by line, in plain English, with no jargon.
+[paste the code here]</div>
+</div>
+
+<div class="prompt-box">
+  <span class="prompt-label">Zero-shot — drafting an email</span>
+  <div class="prompt-text">Context: I work at Wipro on an API integration project. A third-party vendor has delayed delivering their API documentation by one week.
+Task: Draft an email to my project manager explaining the delay and its impact on our timeline.
+Format: Under 120 words.
+Constraint: Do not apologise in the subject line.</div>
+</div>
 <p>      Role + task + constraint ("no jargon") + the code itself as context. The model has everything it needs. No example of the output style was needed because "line by line, plain English" is clear enough.</p>
 <p>      Context (Wipro, API integration, vendor delay), task (draft email), format (under 120 words), constraint (no apology in subject). Zero-shot is completely sufficient here — the model knows what a professional email looks like.</p>
 <hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
@@ -59,8 +79,37 @@
 
 <p>Few-shot means providing 1–3 examples of the input-output pattern you want before stating your actual task. The model learns the pattern from your examples and applies it.</p>
 
-</p>
-</p>
+<div class="prompt-box">
+  <span class="prompt-label">Few-shot — a LinkedIn post in your style</span>
+  <div class="prompt-text">Here are two LinkedIn posts I have written before:
+
+Example 1: [paste a past post]
+Example 2: [paste another past post]
+
+Now write a new LinkedIn post in the same style, announcing that I completed a certification in cloud computing.</div>
+</div>
+
+<div class="prompt-box">
+  <span class="prompt-label">Few-shot — a bug report in your team's format</span>
+  <div class="prompt-text">Here is an example of how our team writes bug reports:
+
+Title: Login button unresponsive on Safari
+Steps to reproduce: Open login page, click Login
+Expected: Login modal opens
+Actual: No response, no console error
+
+Now write a bug report in the same format for this issue: [describe your bug]</div>
+</div>
+
+<div class="prompt-box">
+  <span class="prompt-label">Few-shot — interview Q&A prep</span>
+  <div class="prompt-text">Here is an example of how I want interview answers structured:
+
+Q: What is a REST API?
+A: A way for two systems to communicate over HTTP using standard methods. Why it matters: most enterprise systems expose data this way.
+
+Now answer in the same Q/A format with a "why it matters" line: What is a microservice? What is CI/CD?</div>
+</div>
 <p>      Without examples, the model would produce a generic "I'm excited to share..." LinkedIn post. With two examples, it learns your exact style — punchy numbered lists, conversational tone, India-specific references, ending with a hook. The output will sound like you, not like AI.</p>
 <p>      The example defines both the exact format and the level of technical precision needed. Zero-shot with just "write a bug report" would give you a generic format. One example gives you your exact team format every time.</p>
 <p>      The single example defines three things at once — the Q&A format, the depth of explanation expected, and the "why it matters" framing. The model replicates all three for every subsequent question. This technique saves hours when building interview prep materials.</p>
@@ -70,8 +119,20 @@
 
 <p>Chain-of-thought prompting asks the model to show its reasoning step by step before giving a final answer. This dramatically improves accuracy on problems that require reasoning, analysis, or multi-step logic.</p>
 
-</p>
-</p>
+<div class="prompt-box">
+  <span class="prompt-label">CoT — a rates problem</span>
+  <div class="prompt-text">Three pipes can fill a tank in 6, 4, and 12 hours respectively. If all three are opened together, how long will it take to fill the tank? Think through this step by step before giving the final answer.</div>
+</div>
+
+<div class="prompt-box">
+  <span class="prompt-label">CoT — a cloud architecture decision</span>
+  <div class="prompt-text">My team of 4 developers is building an internal tool with a budget of ₹50,000/month for cloud hosting. We expect under 1,000 users. Walk through the following before recommending a cloud provider and service tier: 1) our budget constraint, 2) our team size and DevOps experience, 3) our expected scale. Do not give the recommendation until you have evaluated all three.</div>
+</div>
+
+<div class="prompt-box">
+  <span class="prompt-label">CoT — a career decision</span>
+  <div class="prompt-text">I have two job offers: one at a stable 8 LPA role at an MNC in Bangalore, another at a 10 LPA startup role in Pune with less job security. I have family expectations around financial stability. Think through the trade-offs step by step — income, stability, growth, location, and family expectations — before giving me a recommendation.</div>
+</div>
 <p>      "Think through this step by step" is the simplest CoT trigger. Without it, the model often jumps to a number directly — and gets it wrong. With it, the model works out the rates (1/6 + 1/4 + 1/12 = 2/12 + 3/12 + 1/12 = 6/12 = 1/2 per day → 2 days), shows the working, and arrives at the correct answer.</p>
 <p>      The numbered steps force the model to evaluate each dimension before concluding. Without this, the model typically jumps to "use AWS" based on training patterns — missing the budget and team-size constraints entirely. The explicit "do not give the recommendation until..." instruction prevents premature conclusions.</p>
 <p>      Career decisions with Indian-specific context (LPA, city preferences, family expectations around stability vs startup risk) benefit enormously from CoT. The model considers multiple dimensions before concluding — giving you a genuinely reasoned answer, not just "follow your passion."</p>
@@ -81,22 +142,51 @@
 
 <p>The real power comes from combining techniques. Here is a complete example that uses all three — zero-shot structure, few-shot for style, and CoT for the analysis:</p>
 
-</p>
+<div class="prompt-box">
+  <span class="prompt-label">Combining zero-shot, few-shot and CoT</span>
+  <div class="prompt-text">Role: You are a career mentor who has guided many freshers through Indian IT placements.
+Task: Recommend which of my two job offers I should accept.
+Context: Offer A is 8 LPA at a stable MNC in Bangalore. Offer B is 10 LPA at a startup in Pune with less job security. My family expects financial stability.
+Format: Match the tone and structure of this example answer — a short paragraph, then a clear recommendation in bold:
+"For a fresher prioritising learning speed over title, the startup usually wins — but only if runway is 18+ months. Recommendation: Offer B, with a 12-month exit plan if funding looks shaky."
+Before giving your final recommendation, reason through income, stability, growth potential, location, and family expectations one at a time.</div>
+</div>
 <p>This single prompt will produce a structured, interview-ready answer that follows your preferred format, covers the right depth, and shows reasoning at each step. This is the level of prompting that separates good AI users from great ones.</p>
 
 <hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
 
 <h2>When to use which technique</h2>
 
+<table>
+  <thead><tr><th>Use this technique</th><th>When</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Zero-shot</strong></td><td>The task is common and well-defined — writing, explaining, summarising in a standard way.</td></tr>
+    <tr><td><strong>Few-shot</strong></td><td>You need a specific style, tone, or format that is hard to describe in words but easy to show.</td></tr>
+    <tr><td><strong>Chain-of-thought</strong></td><td>The task involves multiple steps, trade-offs, or reasoning — maths, architecture decisions, analysis, recommendations.</td></tr>
+  </tbody>
+</table>
 <hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
 
 <h2>Quick reference — technique comparison</h2>
 
-</p>
+<table>
+  <thead><tr><th>Technique</th><th>When to use</th><th>Example use case</th><th>Output improvement</th></tr></thead>
+  <tbody>
+    <tr><td>Zero-shot</td><td>Simple, well-defined tasks</td><td>Drafting a routine email</td><td>Fast, usually good enough</td></tr>
+    <tr><td>Few-shot</td><td>You need a specific style or format</td><td>Matching your team's bug report format</td><td>Output matches your exact pattern</td></tr>
+    <tr><td>Chain-of-thought</td><td>Multi-step reasoning or trade-offs</td><td>Choosing between two job offers</td><td>Fewer shallow or wrong answers</td></tr>
+  </tbody>
+</table>
 <hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
 
 <h2>Tool-specific notes for 2026</h2>
 
+<ul>
+  <li><strong>ChatGPT</strong> — responds well to direct, explicit step-by-step instructions.</li>
+  <li><strong>Claude</strong> — responds well to detailed, clearly structured prompts, including step-by-step requests.</li>
+  <li><strong>Gemini</strong> — few-shot examples work well, especially when combined with content you have shared directly in the chat.</li>
+</ul>
+<p>In general: newer reasoning-focused models often work through steps on their own, so explicit "think step by step" instructions matter less than they used to — but they rarely hurt.</p>
 <hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
 
 <h2>The three things to remember</h2>
