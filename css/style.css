@@ -106,6 +106,7 @@ a:hover { text-decoration: underline; color: var(--primary-dk); }
   border-bottom: 2px solid var(--accent);
   display: flex; align-items: center; gap: .5rem;
 }
+.section-head.academic { border-bottom-color: var(--primary); }
 
 /* ── HERO BAND ───────────────────────────────────────────────── */
 .hero {
@@ -125,7 +126,7 @@ a:hover { text-decoration: underline; color: var(--primary-dk); }
 }
 
 /* ── COURSE CARDS ────────────────────────────────────────────── */
-.courses-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px,1fr)); gap: 1.25rem; margin-top: .75rem; align-items: start; }
+.courses-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px,1fr)); gap: 1.25rem; margin-top: .75rem; align-items: start; align-content: start; } /* align-content:start stops row tracks from stretching to fill a taller container (e.g. when a sibling flex column with fewer/shorter cards is forced to this column's height) - without it, extra height gets distributed as oversized gaps between rows instead of after the last one */
 .course-card {
   border-radius: var(--radius-lg); padding: 1.5rem;
   border: 1px solid var(--border);
@@ -298,20 +299,22 @@ a:hover { text-decoration: underline; color: var(--primary-dk); }
 /* ── FOOTER ──────────────────────────────────────────────────── */
 .footer { border-top: 2px solid #999999; max-width: 1340px; margin: 1.25rem auto 15px; padding: .6rem 25px; text-align: left; font-size: .8rem; color: #ffffff; background: var(--primary); }
 
-/* ── COURSE GUIDES CARD (links out to chandrashaker.com) ────────── */
-.guide-links { display: flex; flex-direction: column; gap: .5rem; margin-top: auto; padding-top: .5rem; }
-.guide-links a { font-size: .85rem; font-weight: 600; color: var(--primary); text-decoration: underline; }
+/* ── COURSE GUIDES (full-width section, links out to chandrashaker.com) ── */
+.guide-links { display: grid; grid-template-columns: repeat(3, 1fr); gap: .6rem 1.5rem; margin-bottom: 1.5rem; }
+.guide-links a { font-size: .9rem; font-weight: 600; color: var(--primary); text-decoration: underline; }
 .guide-links a:hover { text-decoration: none; }
 
 /* ── RESPONSIVE ──────────────────────────────────────────────── */
 @media (max-width: 768px) {
   .site-header-inner { justify-content: center; }
   .site-logo-title { font-size: 1.5rem; }
+  .guide-links { grid-template-columns: repeat(2, 1fr); }
 }
 @media (max-width: 640px) {
   .topic-nav { flex-direction: column; }
   .topic-nav a { max-width: 100%; }
   .courses-grid { grid-template-columns: 1fr; }
+  .guide-links { grid-template-columns: 1fr; }
   .lesson h2 { font-size: 1.05rem; }
   .nav-inner { flex-wrap: wrap; height: auto; padding: 8px 15px; row-gap: 6px; }
   .nav-site-links { width: 100%; justify-content: center; }
