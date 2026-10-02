@@ -9,11 +9,7 @@ export function initNav(depth = 0) {
       <header class="site-header">
         <div class="site-header-inner">
           <a href="${root}/index.html" class="site-logo">
-            <img src="${root}/images/logo-mark.png" alt="Chandras EDU" class="site-logo-img">
-            <span class="site-logo-text">
-              <span class="site-logo-title">CHANDRAS EDU</span>
-              <span class="site-logo-tagline">Never Stop Learning</span>
-            </span>
+            <img src="${root}/images/logo-lockup.png" alt="CHANDRAS EDU — Never Stop Learning" class="site-logo-img" width="333" height="56">
           </a>
         </div>
       </header>
