@@ -5,14 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3030765874336294" crossorigin="anonymous"></script>
   <title>GenAI for Data and Business Analysts | CHANDRAS EDU</title>
-  <meta name="description" content="An introduction to how data and business analysts can use Generative AI, with a focus on getting accurate, verifiable results from AI output.">
+  <meta name="description" content="Use GenAI as a data or business analyst: prompts for SQL from your schema, data summaries, Python analysis and report writing, with checks before sharing.">
   <link rel="canonical" href="https://chandrashaker.com/courses/professional/genai/modules/module-3-2-genai-for-analysts">
   <link rel="stylesheet" href="../../../css/style.css">
 
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="CHANDRAS EDU">
   <meta property="og:title" content="GenAI for Data and Business Analysts | CHANDRAS EDU">
-  <meta property="og:description" content="An introduction to how data and business analysts can use Generative AI, with a focus on getting accurate, verifiable results from AI output.">
+  <meta property="og:description" content="Use GenAI as a data or business analyst: prompts for SQL from your schema, data summaries, Python analysis and report writing, with checks before sharing.">
   <meta property="og:url" content="https://chandrashaker.com/courses/professional/genai/modules/module-3-2-genai-for-analysts">
   <meta property="og:image" content="https://chandrashaker.com/courses/images/og/genai-v7.png">
   <meta property="og:image:width" content="1200">
@@ -20,7 +20,7 @@
   <meta property="og:image:alt" content="Generative AI: Zero to Job-Ready — CHANDRAS EDU free course">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="GenAI for Data and Business Analysts | CHANDRAS EDU">
-  <meta name="twitter:description" content="An introduction to how data and business analysts can use Generative AI, with a focus on getting accurate, verifiable results from AI output.">
+  <meta name="twitter:description" content="Use GenAI as a data or business analyst: prompts for SQL from your schema, data summaries, Python analysis and report writing, with checks before sharing.">
   <meta name="twitter:image" content="https://chandrashaker.com/courses/images/og/genai-v7.png">
 
   <link rel="icon" href="/favicon.ico">
@@ -38,7 +38,7 @@
 
   <!-- Module header -->
   <div style="background:var(--primary);border-radius:var(--radius-lg);padding:1.25rem 1.5rem;margin-bottom:1.75rem;color:#fff">
-    <div style="font-size:.78rem;opacity:.75;margin-bottom:.35rem">GENERATIVE AI: ZERO TO JOB-READY › Unit 3: GenAI for Your Job › MODULE 3.2</div>
+    <div style="font-size:.78rem;opacity:.75;margin-bottom:.35rem">GENERATIVE AI: ZERO TO JOB-READY › Module 3: GenAI for Your Job › MODULE 3.2</div>
     <h1 style="font-size:1.4rem;font-weight:700;margin-bottom:.6rem;color:#fff">GenAI for Analysts</h1>
     <div style="display:flex;gap:.75rem;flex-wrap:wrap">
       <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.78rem">⏱ 12 min read</span>
@@ -48,84 +48,136 @@
 
   <!-- FULL LESSON — visible to everyone, including search engines -->
   <div class="lesson">
-</p>
-</p>
-<p>In Module 3.1 you saw how developers use GenAI for code generation and debugging. This module is for the other half of every Indian IT team — the analysts, business analysts, and data analysts who work with data, reports, dashboards, and stakeholder communication every day.</p>
+<p>In Module 3.1 you saw how developers use GenAI for code generation and debugging. This sub-module is for the other half of every Indian IT team — the analysts, business analysts, and data analysts who work with data, reports, dashboards, and stakeholder communication every day.</p>
 
-<p>If you are in a data analyst, business analyst, or reporting role — or planning to enter one — this module shows you exactly where AI saves the most time and produces the highest quality output.</p>
+<p>If you are in a data analyst, business analyst, or reporting role — or planning to enter one — this sub-module shows you where AI saves the most time and where your own judgement still matters most.</p>
 
 <hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
 
 <h2>Why analysts are the biggest beneficiaries of GenAI</h2>
 
-</p>
-<p>The analyst role is shifting fast. Natural language querying, automated insight generation, analytics code generation, and RAG-based internal data search are the highest-ROI GenAI use cases in data analytics in 2025. The analysts who learn to use these tools effectively are completing in 30 minutes what used to take a full day.</p>
+<p>An analyst's day is full of tasks that are slow to do by hand but easy to check: writing SQL, cleaning data with Python, turning tables into summaries and writing the same report every week. These are exactly the tasks GenAI drafts well — and because you know the data, you can verify the draft quickly.</p>
+
+<p>The analyst role is shifting fast. Asking questions of data in plain English, generating first-draft insights, writing analysis code and searching internal documents with AI are becoming everyday tools. Analysts who learn to use them well spend less time on mechanical work and more time on the questions that actually need a human.</p>
 
 <hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
 
 <h2>Use case 1 — SQL generation from plain English</h2>
 
-</p>
+<p>The single most important rule: give the model your actual schema. Without it, the model guesses table and column names, and the query fails or, worse, runs and returns the wrong numbers.</p>
 
-</p>
-</p>
+<div class="prompt-box">
+  <span class="prompt-label">Prompt 3.2A: SQL from your schema</span>
+  <div class="prompt-text">You are an expert in PostgreSQL.
+Schema:
+customers(customer_id, name, circle, signup_date)
+recharges(recharge_id, customer_id, amount_inr, recharge_date, plan_type)
+
+Business question: For FY 2025–26 (1 April 2025 to 31 March 2026), find the total recharge amount and the number of active customers in each telecom circle. A customer is active if they recharged at least once in that period.
+Output: one row per circle, sorted by total amount (highest first), with columns circle, active_customers, total_amount_inr.
+After the query, explain in 3 lines how it works and list any assumptions you made.</div>
+</div>
+
+<div class="box box-warn"><strong>Check before you share:</strong> a query that runs without error is not necessarily correct. Test it on a small slice of data where you already know the answer — for example, one circle and one month — and confirm the numbers match.</div>
+
 <hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
 
 <h2>Use case 2 — Data summarisation and insight generation</h2>
 
-</p>
+<p>Paste the key numbers, not the whole spreadsheet, and set strict rules for the summary. Constraints such as "every sentence must contain a number" stop the model from writing vague filler.</p>
 
-</p>
-</p>
+<div class="prompt-box">
+  <span class="prompt-label">Prompt 3.2B: Executive summary from a table</span>
+  <div class="prompt-text">Here are quarterly sales figures for our three regions (₹ crore):
+Region | Q1 | Q2 | Q3
+North  | 42 | 45 | 39
+South  | 51 | 58 | 63
+West   | 37 | 36 | 41
+
+Write an executive summary for the Head of Sales:
+- Two short paragraphs, direct tone
+- Every sentence must contain a number
+- Point out the biggest change and the one region that needs attention
+- Do not guess reasons for changes; instead, list two questions I should investigate</div>
+</div>
+
+<p>Notice the last instruction. The model does not know why South grew or North dipped — you do, or you can find out. Asking it for questions instead of reasons keeps invented explanations out of your report.</p>
+
 <hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
 
 <h2>Use case 3 — Python for data analysis</h2>
 
-</p>
+<p>AI is very good at writing the repetitive part of analysis: loading files, cleaning columns, grouping and plotting. Describe your data exactly and say which libraries to use.</p>
 
-</p>
-<p>  </li>
-</ul></p>
+<div class="prompt-box">
+  <span class="prompt-label">Prompt 3.2C: Analysis boilerplate</span>
+  <div class="prompt-text">Write Python code using pandas and matplotlib.
+Input: sales.csv with columns order_date (DD-MM-YYYY), state, category, revenue_inr.
+Tasks:
+1. Load the file and convert order_date to a date.
+2. Remove rows where revenue_inr is missing or negative, and print how many rows were removed.
+3. Create monthly revenue by category for FY 2025–26 (April to March).
+4. Plot a line chart of monthly revenue per category, with axis labels in ₹ lakh.
+Add a short comment above each step.</div>
+</div>
+
+<p>Run the code on your data and check the row counts it prints. If the numbers of removed or remaining rows look wrong, the cleaning logic is wrong — fix that before you trust any chart.</p>
+
 <hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
 
 <h2>Use case 4 — Report and presentation writing</h2>
 
-</p>
+<p>The hardest part of a report is the "so what": what a number means for the business. AI can draft this argument from your finding, but only you can confirm it is true for your domain.</p>
 
-</p>
-</p>
+<div class="prompt-box">
+  <span class="prompt-label">Prompt 3.2D: Turning a finding into a business message</span>
+  <div class="prompt-text">Finding: Customer support tickets about delivery delays rose from 8% to 14% of all tickets between Q1 and Q2, mostly in two cities.
+Audience: Operations Director, who has 2 minutes to read this.
+Write:
+1. A one-line headline
+2. A 3-sentence "so what" explaining the business impact
+3. Two recommended next steps
+Keep claims limited to what the finding supports. Mark anything that is an assumption as [ASSUMPTION].</div>
+</div>
+
 <hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
 
 <h2>The AI-assisted analyst workflow</h2>
 
-</p>
-</p>
-</p>
-</p>
-</p>
-</p>
-<hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
+<ol>
+  <li><strong>Define the business question yourself.</strong> Be clear about what decision the analysis supports.</li>
+  <li><strong>Share structure, not sensitive data.</strong> Give the schema, column names and sample values; mask or remove personal and client data.</li>
+  <li><strong>Generate the query or code.</strong> Use a detailed prompt with exact output requirements.</li>
+  <li><strong>Validate on known numbers.</strong> Spot-check results against figures you already trust.</li>
+  <li><strong>Draft the narrative.</strong> Let AI write the first version of the summary or report.</li>
+  <li><strong>Add your judgement and sign off.</strong> Correct the reasons, add context and check every number before sharing.</li>
+</ol>
 
 <hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
 
 <h2>The three things to remember</h2>
 
-</p>
-<p>    <ul><li><strong>Schema and context are everything for SQL and Python generation</strong> — paste your actual table schema, column names, Indian-specific terms (fiscal year, circles, LPA), and exact output requirements. Vague prompts produce skeleton code you have to rewrite. Specific prompts produce production-ready first drafts.</li></ul></p>
-<p>    <ul><li><strong>AI writes the draft, you provide the business judgement</strong> — AI can generate the narrative from numbers but cannot know why a number is surprising, what changed in the business, or what a specific stakeholder needs to hear. Your value as an analyst is that contextual judgement — not the mechanical writing.</li></ul></p>
-<p>    <ul><li><strong>Always verify AI-generated query output before sharing</strong> — a query that runs without error is not necessarily logically correct. Spot-check against known data points. This one habit separates analysts who trust AI appropriately from those who create problems for themselves and their teams.</li></ul></p>
+<ul>
+  <li><strong>Schema and context are everything for SQL and Python generation</strong> — paste your actual table schema, column names, Indian-specific terms (fiscal year, circles, LPA), and exact output requirements. Vague prompts produce skeleton code you have to rewrite. Specific prompts produce much better first drafts.</li>
+  <li><strong>AI writes the draft, you provide the business judgement</strong> — AI can generate the narrative from numbers but cannot know why a number is surprising, what changed in the business, or what a specific stakeholder needs to hear. Your value as an analyst is that contextual judgement — not the mechanical writing.</li>
+  <li><strong>Always verify AI-generated query output before sharing</strong> — a query that runs without error is not necessarily logically correct. Spot-check against known data points. This one habit separates analysts who trust AI appropriately from those who create problems for themselves and their teams.</li>
+</ul>
+
 <hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
 
-</p>
-<p>  <p>Three tasks covering the core analyst use cases. Each should take 15–20 minutes.</p></p>
-<p>    <ul><li><strong>SQL generation:</strong> Write a prompt asking AI to generate a SQL query for a real analysis you need to do — or a practice dataset you are working with. Include your full schema, the business question, and any filters or output format requirements. Run the query (if you have access to a database) and note any corrections needed.</li></ul></p>
-<p>    <ul><li><strong>Data summarisation:</strong> Take any table of numbers you have worked with recently — a report, an assignment dataset, or publicly available data (Kaggle India datasets work well). Paste the key numbers into a prompt and ask AI to write an executive summary with specific constraints: two paragraphs, every sentence must contain a number, direct tone. Compare the output to how you would have written it.</li></ul></p>
-<p>    <ul><li><strong>Report narrative:</strong> Take one insight from your analysis — a pattern, an anomaly, or a performance gap — and ask AI to write a "so what" statement explaining the business implication. The model should generate the business argument, not just repeat the number. Note whether the implication is accurate for your domain context.</li></ul></p>
-<p>    <ul><li><strong>Add all three prompts to your AI Learning Journal</strong> under "Module 3.2 — Analyst Prompts." These go into your prompt library in Module 3.4.</li></ul></p>
-<p>  <p>After this assignment you will have a concrete sense of where AI genuinely accelerates analyst work and where your own business judgement is irreplaceable.</p></p>
+<h2>Your assignment</h2>
 
-</p>
-<p>  Sources and data references</p>
+<p>Three tasks covering the core analyst use cases. Each should take 15–20 minutes.</p>
+
+<ul>
+  <li><strong>SQL generation:</strong> Write a prompt asking AI to generate a SQL query for a real analysis you need to do — or a practice dataset you are working with. Include your full schema, the business question, and any filters or output format requirements. Run the query (if you have access to a database) and note any corrections needed.</li>
+  <li><strong>Data summarisation:</strong> Take any table of numbers you have worked with recently — a report, an assignment dataset, or publicly available data (Kaggle India datasets work well). Paste the key numbers into a prompt and ask AI to write an executive summary with specific constraints: two paragraphs, every sentence must contain a number, direct tone. Compare the output to how you would have written it.</li>
+  <li><strong>Report narrative:</strong> Take one insight from your analysis — a pattern, an anomaly, or a performance gap — and ask AI to write a "so what" statement explaining the business implication. The model should generate the business argument, not just repeat the number. Note whether the implication is accurate for your domain context.</li>
+  <li><strong>Add all three prompts to your AI Learning Journal</strong> under "Module 3.2 — Analyst Prompts." These go into your prompt library in Module 3.4.</li>
+</ul>
+
+<p>After this assignment you will have a concrete sense of where AI genuinely accelerates analyst work and where your own business judgement is irreplaceable.</p>
+
 <!-- Assignment -->
     <div style="background:#fffbeb;border:1px solid #fcd34d;border-radius:var(--radius-lg);padding:1.25rem 1.5rem;margin-top:2rem">
       <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.75rem">

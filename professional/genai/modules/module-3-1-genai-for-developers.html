@@ -5,14 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3030765874336294" crossorigin="anonymous"></script>
   <title>Using GenAI for Developers: A Practical Guide | CHANDRAS EDU</title>
-  <meta name="description" content="Practical guidance on using AI for code generation in everyday development work, with tips on prompt specificity and choosing the right AI tool.">
+  <meta name="description" content="Use GenAI as a developer: ready prompts for code generation, debugging, code review, unit tests and documentation, plus a safe AI-assisted workflow.">
   <link rel="canonical" href="https://chandrashaker.com/courses/professional/genai/modules/module-3-1-genai-for-developers">
   <link rel="stylesheet" href="../../../css/style.css">
 
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="CHANDRAS EDU">
   <meta property="og:title" content="Using GenAI for Developers: A Practical Guide | CHANDRAS EDU">
-  <meta property="og:description" content="Practical guidance on using AI for code generation in everyday development work, with tips on prompt specificity and choosing the right AI tool.">
+  <meta property="og:description" content="Use GenAI as a developer: ready prompts for code generation, debugging, code review, unit tests and documentation, plus a safe AI-assisted workflow.">
   <meta property="og:url" content="https://chandrashaker.com/courses/professional/genai/modules/module-3-1-genai-for-developers">
   <meta property="og:image" content="https://chandrashaker.com/courses/images/og/genai-v7.png">
   <meta property="og:image:width" content="1200">
@@ -20,7 +20,7 @@
   <meta property="og:image:alt" content="Generative AI: Zero to Job-Ready — CHANDRAS EDU free course">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Using GenAI for Developers: A Practical Guide | CHANDRAS EDU">
-  <meta name="twitter:description" content="Practical guidance on using AI for code generation in everyday development work, with tips on prompt specificity and choosing the right AI tool.">
+  <meta name="twitter:description" content="Use GenAI as a developer: ready prompts for code generation, debugging, code review, unit tests and documentation, plus a safe AI-assisted workflow.">
   <meta name="twitter:image" content="https://chandrashaker.com/courses/images/og/genai-v7.png">
 
   <link rel="icon" href="/favicon.ico">
@@ -38,7 +38,7 @@
 
   <!-- Module header -->
   <div style="background:var(--primary);border-radius:var(--radius-lg);padding:1.25rem 1.5rem;margin-bottom:1.75rem;color:#fff">
-    <div style="font-size:.78rem;opacity:.75;margin-bottom:.35rem">GENERATIVE AI: ZERO TO JOB-READY › Unit 3: GenAI for Your Job › MODULE 3.1</div>
+    <div style="font-size:.78rem;opacity:.75;margin-bottom:.35rem">GENERATIVE AI: ZERO TO JOB-READY › Module 3: GenAI for Your Job › MODULE 3.1</div>
     <h1 style="font-size:1.4rem;font-weight:700;margin-bottom:.6rem;color:#fff">GenAI for Developers</h1>
     <div style="display:flex;gap:.75rem;flex-wrap:wrap">
       <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.78rem">⏱ 12 min read</span>
@@ -48,96 +48,188 @@
 
   <!-- FULL LESSON — visible to everyone, including search engines -->
   <div class="lesson">
-</p>
-</p>
-<p>Welcome to Unit 3. You now have the prompt engineering skills from Unit 2. This unit is about applying those skills to your actual work — starting with the role most of you are entering or preparing for: software development.</p>
+<p>Welcome to Module 3. You now have the prompt engineering skills from Module 2. This module is about applying those skills to your actual work — starting with the role most of you are entering or preparing for: software development.</p>
 
-<p>This module is not theoretical. Every technique here maps to a task you will encounter in your first week at TCS, Infosys, Wipro, HCL, or any Indian IT company — or in your current academic projects if you are still in college.</p>
+<p>This sub-module is not theoretical. Every technique here maps to a task you will meet in your first weeks at an Indian IT company — or in your current academic projects if you are still in college.</p>
 
 <hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
 
 <h2>Why AI is now a baseline skill for developers</h2>
 
-</p>
-<p>At Infosys, 28 million lines of code were generated using AI tools in FY26. At Accenture, teams using Copilot saw pull request time drop from 9.6 days to 2.4 days — a 4x acceleration. Code review turnaround improved by 67%.</p>
+<p>AI coding assistants are now a normal part of software work at large IT companies. Here is what the evidence actually says — both sides of it:</p>
 
-<p>This is not a future prediction. It is the current working environment at every major Indian IT company. Developers who use AI tools effectively are completing the same work in half the time. Those who do not are working twice as hard to keep up.</p>
+<ul>
+  <li><strong>Scale:</strong> In its Q3 FY26 results call (January 2026), Infosys said its teams had generated over 28 million lines of code using AI.</li>
+  <li><strong>Gains in an enterprise trial:</strong> In a study GitHub ran with Accenture developers (published 2024), the group using GitHub Copilot opened 8.69% more pull requests, had a 15% higher pull-request merge rate and 84% more successful builds. Developers accepted around 30% of Copilot's suggestions, which means they rejected most of them.</li>
+  <li><strong>A warning from independent research:</strong> In a July 2025 randomised trial by METR, experienced open-source developers working on their own large projects took 19% <em>longer</em> with AI tools, even though they believed AI had made them faster.</li>
+</ul>
+
+<p>The lesson: AI does not make every developer faster automatically. It helps most when you know which tasks to give it and you review its output quickly and carefully. That is exactly what this sub-module teaches.</p>
 
 <hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
 
 <h2>Use case 1 — Code generation</h2>
 
-</p>
+<p>For anything beyond a one-liner, describe the feature the way you would brief a colleague: stack, inputs, outputs, rules and edge cases. Use the six-component structure from Module 2.1.</p>
 
-</p>
-For simpler functions — utility methods, data transformations, standard CRUD operations — GitHub Copilot inside VS Code is the fastest tool. It auto-completes as you type, with no prompt needed. For complex features like the one above, Claude or ChatGPT with a detailed prompt is more reliable.</p>
+<div class="prompt-box">
+  <span class="prompt-label">Prompt 3.1A: Feature code generation</span>
+  <div class="prompt-text">You are a senior Python developer.
+Context: I am building a REST API with FastAPI and SQLAlchemy for an online grocery store. Orders have fields: order_id (int), customer_id (int), items (list of {sku, qty, price_inr}), status ("PLACED", "PACKED", "SHIPPED", "DELIVERED", "CANCELLED").
+Task: Write a POST endpoint /orders/{order_id}/cancel that cancels an order.
+Rules:
+- Only orders in PLACED or PACKED status can be cancelled; otherwise return HTTP 409 with a clear message.
+- Return 404 if the order does not exist.
+- Log every cancellation with order_id and timestamp.
+Output: the endpoint code, then a short list of the edge cases you handled.</div>
+</div>
+
+<p>For simpler functions — utility methods, data transformations, standard CRUD operations — GitHub Copilot inside VS Code is often the quickest option: it suggests code as you type, with no separate prompt needed. For complex features like the one above, a chat assistant (Claude, ChatGPT or Gemini) with a detailed prompt usually gives a more complete first draft. Always add your exact framework versions to the prompt.</p>
 
 <hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
 
 <h2>Use case 2 — Debugging</h2>
 
-</p>
+<p>Most debugging prompts fail because they paste only the error. The model needs four things: the error, the code, what you expected and what you already tried. Save this as your universal debugging template.</p>
 
-</p>
-</p>
+<div class="prompt-box">
+  <span class="prompt-label">Prompt 3.1B: Universal debugging template</span>
+  <div class="prompt-text">I am getting an error in my [language + framework + version] code.
+
+Error message (full, unedited):
+[paste]
+
+Relevant code:
+[paste the function and anything it calls]
+
+What I expected: [one or two lines]
+What actually happens: [one or two lines]
+What I have already tried: [list]
+
+Explain the most likely cause in plain language, give the fixed code, and tell me how to confirm the fix works. If there are several possible causes, rank them.</div>
+</div>
+
+<p>Never paste passwords, API keys, client data or proprietary code into a tool your company has not approved — replace them with placeholders first.</p>
+
 <hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
 
 <h2>Use case 3 — Code review and improvement</h2>
 
-</p>
+<p>A good review prompt tells the model what to look for and how to report it. Otherwise you get vague praise or a full rewrite you did not ask for.</p>
 
-</p>
+<div class="prompt-box">
+  <span class="prompt-label">Prompt 3.1C: Structured review prompt</span>
+  <div class="prompt-text">Review the following [language] function as a strict senior reviewer.
+Check, in this order:
+1. Bugs and incorrect logic
+2. Unhandled edge cases (empty input, nulls, very large values)
+3. Security issues (injection, unsafe input handling)
+4. Performance problems
+5. Readability and naming
+
+For each issue give: severity (High/Medium/Low), the line, why it matters, and a suggested fix.
+Do not rewrite the whole function unless I ask.
+
+[paste code]</div>
+</div>
+
 <hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
 
 <h2>Use case 4 — Writing tests</h2>
 
-</p>
+<p>AI is useful for listing test cases you might miss, especially edge cases. Ask for the list first, check it, then ask for the test code.</p>
 
-</p>
+<div class="prompt-box">
+  <span class="prompt-label">Prompt 3.1D: Unit test generation</span>
+  <div class="prompt-text">Here is a Java method that calculates GST-inclusive invoice totals:
+[paste method]
+
+Step 1: List the test cases you would write — normal cases, boundary values, invalid inputs — as a table with input, expected output and reason.
+Step 2: After the table, write JUnit 5 tests for every case.
+Use clear test names that describe the behaviour being tested.</div>
+</div>
+
+<p>Run the generated tests. A test that passes against buggy code is worse than no test, so read each assertion and confirm the expected value is actually correct.</p>
+
 <hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
 
 <h2>Use case 5 — Writing documentation</h2>
 
-</p>
+<p>Documentation is where AI saves time with the least risk, because you can check every line against the code in front of you.</p>
 
-</p>
-</p>
+<div class="prompt-box">
+  <span class="prompt-label">Prompt 3.1E: Docstrings and README</span>
+  <div class="prompt-text">For the Python module below:
+1. Add Google-style docstrings to every public function: purpose, parameters with types, return value and exceptions raised.
+2. Write a short README section with: what the module does, how to install dependencies, and one usage example.
+Do not change any code — documentation only.
+
+[paste module]</div>
+</div>
+
 <hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
 
 <h2>The AI-assisted development workflow</h2>
 
-<p>Here is how the best developers at Indian IT companies structure their AI usage — not using it for everything, but using it at the right points in the workflow:</p>
+<p>Here is how effective developers structure their AI usage — not using it for everything, but using it at the right points in the workflow:</p>
 
-</p>
-</p>
-</p>
-</p>
-</p>
-</p>
+<ol>
+  <li><strong>Plan yourself.</strong> Understand the requirement and decide the approach before you open any AI tool.</li>
+  <li><strong>Generate a first draft.</strong> Use a detailed prompt for features, or in-editor suggestions for boilerplate.</li>
+  <li><strong>Review every line.</strong> Read the code as if a junior colleague wrote it; use the structured review prompt for a second opinion.</li>
+  <li><strong>Test.</strong> Run existing tests, add new ones for the change, and check edge cases.</li>
+  <li><strong>Document.</strong> Update docstrings, comments and the README.</li>
+  <li><strong>Commit with your name on it.</strong> You are responsible for the code, whoever or whatever typed it.</li>
+</ol>
+
 <hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
 
 <h2>What to never do with AI-generated code</h2>
+
+<ul>
+  <li>Never commit code you have not read and understood</li>
+  <li>Never paste passwords, API keys, client data or confidential code into an unapproved AI tool</li>
+  <li>Never skip tests because "the AI wrote it"</li>
+  <li>Never add a library or package an AI suggests without checking that it exists, is maintained and has a compatible licence</li>
+  <li>Never trust AI-generated security code (authentication, encryption, input validation) without expert review</li>
+  <li>Never present AI-written code as entirely your own where disclosure is required</li>
+</ul>
 
 <hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
 
 <h2>The three things to remember</h2>
 
-</p>
-<p>    <ul><li><strong>AI generates a first draft, not a final product</strong> — 46% of code is AI-generated but 12% of suggestions contain errors. The skill is fast, accurate review — not blind acceptance. Read every line before committing.</li></ul></p>
-<p>    <ul><li><strong>Specificity is the difference between useful and generic code</strong> — include your exact stack versions, field names, business logic, error handling requirements, and output format in every code generation prompt. Vague prompts produce skeleton code you have to rewrite anyway.</li></ul></p>
-<p>    <ul><li><strong>Use the right tool for the right task</strong> — Copilot for in-editor boilerplate, Claude for complex logic and thorough code review, ChatGPT for documentation and general-purpose tasks. No single tool is best at everything.</li></ul></p>
+<ul>
+  <li><strong>AI generates a first draft, not a final product</strong> — even in a successful enterprise trial, developers rejected most suggestions. The skill is fast, accurate review — not blind acceptance. Read every line before committing.</li>
+  <li><strong>Specificity is the difference between useful and generic code</strong> — include your exact stack versions, field names, business logic, error handling requirements, and output format in every code generation prompt. Vague prompts produce skeleton code you have to rewrite anyway.</li>
+  <li><strong>Use the right tool for the right task</strong> — in-editor suggestions for boilerplate, a chat assistant with a detailed prompt for complex logic, reviews and documentation. No single tool is best at everything.</li>
+</ul>
+
 <hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
 
-</p>
-<p>  <p>This assignment builds your prompt library for development work. Each task should take 15–20 minutes.</p></p>
-<p>    <ul><li><strong>Code generation:</strong> Pick a function or feature you need to write for a current project, assignment, or practice problem. Write a detailed prompt using the six-component structure. Include your exact stack, requirements, and constraints. Test the output and note what you had to fix.</li></ul></p>
-<p>    <ul><li><strong>Debugging:</strong> Take a bug you are currently stuck on (or have been stuck on recently). Use the universal debugging template from this module. Paste the error, code, and context. Note how long it would have taken you to find this manually versus with AI.</li></ul></p>
-<p>    <ul><li><strong>Code review:</strong> Take any function you have written in the past week — assignment, project, or practice code. Run it through the structured review prompt. Note what the model finds that you did not catch yourself.</li></ul></p>
-<p>    <ul><li><strong>Save all three prompts in your AI Learning Journal</strong> under "Module 3.1 — Developer Prompts." These form the start of your developer prompt library, which you will build out in Module 3.4.</li></ul></p>
-<p>  <p>After this assignment you will have concrete evidence of what AI can and cannot do for your development work — calibrated to your actual stack, not a generic tutorial example.</p></p>
+<h2>Your assignment</h2>
 
-</p>
-<p>  Sources and data references</p>
+<p>This assignment builds your prompt library for development work. Each task should take 15–20 minutes.</p>
+
+<ul>
+  <li><strong>Code generation:</strong> Pick a function or feature you need to write for a current project, assignment, or practice problem. Write a detailed prompt using the six-component structure. Include your exact stack, requirements, and constraints. Test the output and note what you had to fix.</li>
+  <li><strong>Debugging:</strong> Take a bug you are currently stuck on (or have been stuck on recently). Use the universal debugging template from this sub-module. Paste the error, code, and context. Note how long it would have taken you to find this manually versus with AI.</li>
+  <li><strong>Code review:</strong> Take any function you have written in the past week — assignment, project, or practice code. Run it through the structured review prompt. Note what the model finds that you did not catch yourself.</li>
+  <li><strong>Save all three prompts in your AI Learning Journal</strong> under "Module 3.1 — Developer Prompts." These form the start of your developer prompt library, which you will build out in Module 3.4.</li>
+</ul>
+
+<p>After this assignment you will have concrete evidence of what AI can and cannot do for your development work — calibrated to your actual stack, not a generic tutorial example.</p>
+
+<div class="box box-tip">
+  <strong>Sources and dates</strong>
+  <ul style="margin-top:.5rem;margin-bottom:0">
+    <li><a href="https://www.sec.gov/Archives/edgar/data/1067491/000106749126000004/exv99w05.htm" target="_blank" rel="noopener">Infosys Q3 FY26 earnings call transcript</a> (14 January 2026), filed with the US SEC.</li>
+    <li><a href="https://github.blog/news-insights/research/research-quantifying-github-copilots-impact-in-the-enterprise-with-accenture/" target="_blank" rel="noopener">GitHub, "Quantifying GitHub Copilot's impact in the enterprise with Accenture"</a> (2024; research by GitHub, the tool's maker).</li>
+    <li><a href="https://metr.org/blog/2025-07-10-early-2025-ai-experienced-os-dev-study/" target="_blank" rel="noopener">METR, "Measuring the Impact of Early-2025 AI on Experienced Open-Source Developer Productivity"</a> (10 July 2025).</li>
+  </ul>
+  <p style="margin:.5rem 0 0">Last checked: October 2026.</p>
+</div>
+
 <!-- Assignment -->
     <div style="background:#fffbeb;border:1px solid #fcd34d;border-radius:var(--radius-lg);padding:1.25rem 1.5rem;margin-top:2rem">
       <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.75rem">
