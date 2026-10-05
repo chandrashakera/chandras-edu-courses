@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3030765874336294" crossorigin="anonymous"></script>
+  <title>Stack Organization — COA Unit 4 | CHANDRAS EDU</title>
+  <meta name="description" content="Register stack with SP, FULL and EMTY flags, push and pop RTL, memory stack segments, and stack-based expression evaluation using reverse Polish notation.">
+  <link rel="canonical" href="https://chandrashaker.com/courses/academic/coa/unit4/stack-organization">
+  <link rel="stylesheet" href="../../../css/style.css">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="CHANDRAS EDU">
+  <meta property="og:title" content="Stack Organization — COA Unit 4 | CHANDRAS EDU">
+  <meta property="og:description" content="Register stack with SP, FULL and EMTY flags, push and pop RTL, memory stack segments, and stack-based expression evaluation using reverse Polish notation.">
+  <meta property="og:url" content="https://chandrashaker.com/courses/academic/coa/unit4/stack-organization">
+  <meta property="og:image" content="https://chandrashaker.com/courses/images/og/coa-v7.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Computer Organization and Architecture — CHANDRAS EDU free course">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Stack Organization — COA Unit 4 | CHANDRAS EDU">
+  <meta name="twitter:description" content="Register stack with SP, FULL and EMTY flags, push and pop RTL, memory stack segments, and stack-based expression evaluation using reverse Polish notation.">
+  <meta name="twitter:image" content="https://chandrashaker.com/courses/images/og/coa-v7.png">
+  <script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Courses","item":"https://chandrashaker.com/courses/"},{"@type":"ListItem","position":2,"name":"COA","item":"https://chandrashaker.com/courses/academic/coa/"},{"@type":"ListItem","position":3,"name":"Unit 4","item":"https://chandrashaker.com/courses/academic/coa/unit4/"},{"@type":"ListItem","position":4,"name":"Stack Organization"}]}
+  </script>
+  <script type="application/ld+json">
+{"@context":"https://schema.org","@type":"LearningResource","name":"Stack Organization","description":"Register stack with SP, FULL and EMTY flags, push and pop RTL, memory stack segments, and stack-based expression evaluation using reverse Polish notation.","url":"https://chandrashaker.com/courses/academic/coa/unit4/stack-organization","learningResourceType":"Lesson","educationalLevel":"Undergraduate","about":{"@type":"Thing","name":"Computer Organization and Architecture"},"isPartOf":{"@type":"Course","name":"Computer Organization and Architecture","provider":{"@type":"Organization","name":"CHANDRAS EDU","url":"https://chandrashaker.in"}},"publisher":{"@type":"Organization","name":"CHANDRAS EDU","url":"https://chandrashaker.in"}}
+  </script>
+  <link rel="icon" href="/favicon.ico">
+  <style>
+    .truth-table{border-collapse:collapse;margin:1rem auto;font-size:.86rem}
+    .truth-table th,.truth-table td{border:1px solid var(--border);padding:.4rem .65rem;text-align:center}
+    .truth-table th{background:var(--bg-3);font-weight:700}
+    .code-block{font-family:monospace;background:var(--bg-2);border:1px solid var(--border);border-radius:6px;padding:.75rem 1rem;margin:.75rem 0;font-size:.88rem;line-height:1.7}
+    .code-block .rtl{display:flex;justify-content:space-between;gap:2rem}
+    .code-block .rtl span:first-child{white-space:nowrap}
+  </style>
+</head>
+<body>
+<div id="main-nav"></div>
+<div class="page-narrow" role="main">
+
+  <nav class="breadcrumb">
+    <a href="../../../index.html">Courses</a><span class="sep">/</span>
+    <a href="../index.html">Computer Organization and Architecture</a><span class="sep">/</span>
+    <a href="index.html">Unit 4</a><span class="sep">/</span>
+    <span>Central Processing Unit</span><span class="sep">/</span>
+    <span class="cur">Stack Organization</span>
+  </nav>
+
+  <div style="background:var(--primary);border-radius:var(--radius-lg);padding:1.1rem 1.4rem;margin-bottom:1.5rem;color:#fff">
+    <div style="font-size:.75rem;opacity:.75;margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.05em">COA › Unit 4: Central Processing Unit › Topic 4</div>
+    <h1 style="font-size:1.4rem;font-weight:700;color:#fff;margin-bottom:.5rem">Stack Organization</h1>
+    <div style="display:flex;gap:.75rem;flex-wrap:wrap">
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">⏱ 18 min read</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📝 Quiz inside</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📖 Mano, Ch. 8 §8-3</span>
+    </div>
+  </div>
+
+  <div class="lesson">
+    <p>A stack is a last-in, first-out (LIFO) storage device where the item stored most recently is the first to be retrieved. In digital computers the stack is a memory unit paired with an address register called the <strong>stack pointer</strong> (<em>SP</em>), whose value always points to the top item. This topic covers the register stack hardware, the memory stack used by most CPUs, and the reverse Polish notation that makes the stack so useful for arithmetic.</p>
+
+    <h2>Register Stack (Fig. 8-3)</h2>
+    <p>A register stack is a finite collection of registers organised as a 64-word unit. The SP holds a 6-bit address (2⁶ = 64). Three one-bit registers support correct operation: <strong>SP</strong> holds the address of the top item; <strong>FULL</strong> is set to 1 when the stack contains 64 items; <strong>EMTY</strong> is set to 1 when the stack is empty. (Mano spells it <em>EMTY</em>, not EMPTY.) The data register <strong>DR</strong> is the channel through which all words enter and leave.</p>
+
+    <div style="text-align:center;margin:1.25rem 0">
+      <svg width="100%" viewBox="0 0 680 300" role="img" xmlns="http://www.w3.org/2000/svg">
+        <title>Block diagram of a 64-word stack — Fig. 8-3</title>
+        <desc>64-word register stack. Address arrow points down at top right. FULL and EMTY one-bit registers upper left. SP register points right to row 3 which holds item C (top of stack). Rows 2 and 1 hold B and A. Empty rows shown in light grey. DR data register below connected by a dashed line.</desc>
+        <defs><marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+        <text x="408" y="22" font-size="11" text-anchor="middle" fill="var(--text-2)">Address</text>
+        <line x1="408" y1="28" x2="408" y2="42" stroke="var(--text-2)" stroke-width="1" marker-end="url(#arr)" fill="none"/>
+        <text x="448" y="62" font-size="11" text-anchor="start" fill="var(--text-2)">63</text>
+        <rect x="310" y="48" width="130" height="24" rx="2" fill="#d1d5db" stroke="#9ca3af" stroke-width="0.5"/>
+        <rect x="310" y="74" width="130" height="24" rx="2" fill="#d1d5db" stroke="#9ca3af" stroke-width="0.5"/>
+        <rect x="310" y="100" width="130" height="24" rx="2" fill="#d1d5db" stroke="#9ca3af" stroke-width="0.5"/>
+        <text x="448" y="114" font-size="11" text-anchor="start" fill="var(--text-2)">4</text>
+        <rect x="310" y="126" width="130" height="24" rx="2" fill="#ccfbf1" stroke="#0d9488" stroke-width="0.5"/>
+        <text x="375" y="138" font-size="12" font-weight="700" text-anchor="middle" dominant-baseline="central" fill="#134e4a">C</text>
+        <text x="448" y="140" font-size="11" text-anchor="start" fill="var(--text-2)">3</text>
+        <rect x="310" y="152" width="130" height="24" rx="2" fill="#dbeafe" stroke="#3b82f6" stroke-width="0.5"/>
+        <text x="375" y="164" font-size="12" font-weight="700" text-anchor="middle" dominant-baseline="central" fill="#1e40af">B</text>
+        <text x="448" y="166" font-size="11" text-anchor="start" fill="var(--text-2)">2</text>
+        <rect x="310" y="178" width="130" height="24" rx="2" fill="#dbeafe" stroke="#3b82f6" stroke-width="0.5"/>
+        <text x="375" y="190" font-size="12" font-weight="700" text-anchor="middle" dominant-baseline="central" fill="#1e40af">A</text>
+        <text x="448" y="192" font-size="11" text-anchor="start" fill="var(--text-2)">1</text>
+        <rect x="310" y="204" width="130" height="24" rx="2" fill="#d1d5db" stroke="#9ca3af" stroke-width="0.5"/>
+        <text x="448" y="218" font-size="11" text-anchor="start" fill="var(--text-2)">0</text>
+        <rect x="128" y="64" width="54" height="26" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="0.5"/>
+        <text x="155" y="77" font-size="11" font-weight="700" text-anchor="middle" dominant-baseline="central" fill="#92400e">FULL</text>
+        <rect x="196" y="64" width="54" height="26" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="0.5"/>
+        <text x="223" y="77" font-size="11" font-weight="700" text-anchor="middle" dominant-baseline="central" fill="#92400e">EMTY</text>
+        <rect x="160" y="128" width="50" height="26" rx="4" fill="#ede9fe" stroke="#7c3aed" stroke-width="0.5"/>
+        <text x="185" y="141" font-size="11" font-weight="700" text-anchor="middle" dominant-baseline="central" fill="#4c1d95">SP</text>
+        <line x1="210" y1="141" x2="308" y2="138" stroke="var(--text-2)" stroke-width="1" marker-end="url(#arr)" fill="none"/>
+        <line x1="375" y1="228" x2="375" y2="256" stroke="var(--text-2)" stroke-width="1" stroke-dasharray="4 3" fill="none"/>
+        <rect x="310" y="258" width="130" height="28" rx="4" fill="#f3f4f6" stroke="#9ca3af" stroke-width="0.5"/>
+        <text x="375" y="272" font-size="12" font-weight="700" text-anchor="middle" dominant-baseline="central" fill="#374151">DR</text>
+      </svg>
+      <p style="font-size:.8rem;color:var(--text-2);margin-top:.4rem">Adapted from M. Morris Mano, <em>Computer System Architecture</em>, Fig. 8-3</p>
+    </div>
+
+    <p>Initially SP = 0, EMTY = 1, FULL = 0. The first item pushed goes to address 1. When SP wraps around from 63 back to 0 (in 6-bit arithmetic), the stack is full.</p>
+
+    <h2>Push and Pop RTL</h2>
+    <p><strong>Push</strong> (executed when FULL = 0):</p>
+    <div class="code-block">
+      <div class="rtl"><span>SP ← SP + 1</span><span style="color:var(--text-2)">Increment stack pointer</span></div>
+      <div class="rtl"><span>M[SP] ← DR</span><span style="color:var(--text-2)">Write item on top of stack</span></div>
+      <div class="rtl"><span>If (SP = 0) then (FULL ← 1)</span><span style="color:var(--text-2)">Check if stack is full</span></div>
+      <div class="rtl"><span>EMTY ← 0</span><span style="color:var(--text-2)">Mark stack not empty</span></div>
+    </div>
+    <p><strong>Pop</strong> (executed when EMTY = 0):</p>
+    <div class="code-block">
+      <div class="rtl"><span>DR ← M[SP]</span><span style="color:var(--text-2)">Read item from top of stack</span></div>
+      <div class="rtl"><span>SP ← SP − 1</span><span style="color:var(--text-2)">Decrement stack pointer</span></div>
+      <div class="rtl"><span>If (SP = 0) then (EMTY ← 1)</span><span style="color:var(--text-2)">Check if stack is empty</span></div>
+      <div class="rtl"><span>FULL ← 0</span><span style="color:var(--text-2)">Mark stack not full</span></div>
+    </div>
+
+    <h2>Memory Stack (Fig. 8-4)</h2>
+    <p>A memory stack dedicates a segment of main memory to stack operations and uses a processor register as the stack pointer. Three registers provide addresses to memory: <em>PC</em> for instructions, <em>AR</em> for operands, and <em>SP</em> for the stack.</p>
+
+    <div style="text-align:center;margin:1.25rem 0">
+      <svg width="100%" viewBox="0 0 680 360" role="img" xmlns="http://www.w3.org/2000/svg">
+        <title>Computer memory with program, data and stack segments</title>
+        <desc>Vertical memory partitioned into three shaded segments: Program instructions at top (PC points to it), Data operands in middle (AR points), Stack at bottom (SP points, initialized to 4001, grows downward toward 3000).</desc>
+        <defs><marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+        <text x="380" y="22" font-size="11" text-anchor="middle" fill="var(--text-2)">Memory unit</text>
+        <line x1="380" y1="28" x2="380" y2="42" stroke="var(--text-2)" stroke-width="1" marker-end="url(#arr)" fill="none"/>
+        <text x="488" y="58" font-size="11" text-anchor="start" fill="var(--text-2)">1000</text>
+        <rect x="300" y="44" width="160" height="80" fill="#dbeafe" stroke="#3b82f6" stroke-width="0.5"/>
+        <text x="380" y="78" font-size="12" font-weight="700" text-anchor="middle" dominant-baseline="central" fill="#1e40af">Program</text>
+        <text x="380" y="96" font-size="11" text-anchor="middle" fill="#1e40af">(instructions)</text>
+        <text x="488" y="130" font-size="11" text-anchor="start" fill="var(--text-2)">2000</text>
+        <rect x="300" y="126" width="160" height="80" fill="#ccfbf1" stroke="#0d9488" stroke-width="0.5"/>
+        <text x="380" y="160" font-size="12" font-weight="700" text-anchor="middle" dominant-baseline="central" fill="#134e4a">Data</text>
+        <text x="380" y="178" font-size="11" text-anchor="middle" fill="#134e4a">(operands)</text>
+        <text x="488" y="212" font-size="11" text-anchor="start" fill="var(--text-2)">3000</text>
+        <rect x="300" y="208" width="160" height="100" fill="#fef3c7" stroke="#d97706" stroke-width="0.5"/>
+        <text x="380" y="255" font-size="12" font-weight="700" text-anchor="middle" dominant-baseline="central" fill="#92400e">Stack</text>
+        <text x="488" y="272" font-size="11" text-anchor="start" fill="var(--text-2)">3997</text>
+        <rect x="300" y="310" width="160" height="18" fill="var(--bg-2)" stroke="var(--border)" stroke-width="0.5"/>
+        <rect x="300" y="328" width="160" height="18" fill="var(--bg-2)" stroke="var(--border)" stroke-width="0.5"/>
+        <text x="488" y="322" font-size="11" text-anchor="start" fill="var(--text-2)">3999</text>
+        <text x="488" y="340" font-size="11" text-anchor="start" fill="var(--text-2)">4000</text>
+        <text x="488" y="358" font-size="11" text-anchor="start" fill="var(--text-2)">4001 ← SP (init)</text>
+        <rect x="120" y="72" width="60" height="28" rx="4" fill="#ede9fe" stroke="#7c3aed" stroke-width="0.5"/>
+        <text x="150" y="86" font-size="11" font-weight="700" text-anchor="middle" dominant-baseline="central" fill="#4c1d95">PC</text>
+        <line x1="180" y1="86" x2="298" y2="86" stroke="var(--text-2)" stroke-width="1" marker-end="url(#arr)" fill="none"/>
+        <rect x="120" y="154" width="60" height="28" rx="4" fill="#ede9fe" stroke="#7c3aed" stroke-width="0.5"/>
+        <text x="150" y="168" font-size="11" font-weight="700" text-anchor="middle" dominant-baseline="central" fill="#4c1d95">AR</text>
+        <line x1="180" y1="168" x2="298" y2="168" stroke="var(--text-2)" stroke-width="1" marker-end="url(#arr)" fill="none"/>
+        <rect x="120" y="314" width="60" height="28" rx="4" fill="#ede9fe" stroke="#7c3aed" stroke-width="0.5"/>
+        <text x="150" y="328" font-size="11" font-weight="700" text-anchor="middle" dominant-baseline="central" fill="#4c1d95">SP</text>
+        <line x1="180" y1="328" x2="298" y2="328" stroke="var(--text-2)" stroke-width="1" marker-end="url(#arr)" fill="none"/>
+        <rect x="120" y="228" width="60" height="28" rx="4" fill="var(--bg-2)" stroke="var(--border)" stroke-width="0.5"/>
+        <text x="150" y="242" font-size="11" font-weight="700" text-anchor="middle" dominant-baseline="central" fill="var(--text)">DR</text>
+        <text x="244" y="254" font-size="11" text-anchor="end" fill="var(--text-2)">grows ↓</text>
+      </svg>
+      <p style="font-size:.8rem;color:var(--text-2);margin-top:.4rem">Adapted from M. Morris Mano, <em>Computer System Architecture</em>, Fig. 8-4</p>
+    </div>
+
+    <p>SP is initialised to 4001. The stack grows by <em>decreasing</em> address: push decrements SP first, then writes to M[SP]; pop reads M[SP] first, then increments SP. The lowest usable address is 3000. Most CPUs rely on software to check stack limits using two processor registers holding the upper and lower bounds.</p>
+
+    <h2>Reverse Polish Notation and Expression Evaluation</h2>
+    <p>Infix notation places the operator between operands (A + B). <strong>Reverse Polish notation</strong> (RPN), also called postfix, places the operator after: AB+. RPN is ideally suited to stack evaluation — scan left to right; push each operand; when an operator is reached, pop the two top operands, apply the operator, and push the result. The final result remains on top of the stack.</p>
+    <p>Example: evaluate (3 × 4) + (5 × 6). In RPN: <code>3 4 * 5 6 * +</code></p>
+    <table class="truth-table">
+      <thead><tr><th>Symbol</th><th>Stack (bottom → top)</th><th>Action</th></tr></thead>
+      <tbody>
+        <tr><td>3</td><td>3</td><td>Push 3</td></tr>
+        <tr><td>4</td><td>3, 4</td><td>Push 4</td></tr>
+        <tr><td>*</td><td>12</td><td>Pop 4 and 3; push 3×4 = 12</td></tr>
+        <tr><td>5</td><td>12, 5</td><td>Push 5</td></tr>
+        <tr><td>6</td><td>12, 5, 6</td><td>Push 6</td></tr>
+        <tr><td>*</td><td>12, 30</td><td>Pop 6 and 5; push 5×6 = 30</td></tr>
+        <tr><td>+</td><td>42</td><td>Pop 30 and 12; push 12+30 = 42</td></tr>
+      </tbody>
+    </table>
+    <p>Compilers routinely convert infix to RPN before generating machine code because it is the most efficient method for translating arithmetic into machine instructions.</p>
+
+    <h2>Common Pitfalls</h2>
+    <ul>
+      <li><strong>EMTY vs EMPTY.</strong> Mano writes <em>EMTY</em> throughout §8-3. Using EMPTY in an exam answer is a notation mismatch.</li>
+      <li><strong>Growth direction.</strong> The register stack (Fig. 8-3) grows upward — SP increments on push. The memory stack (Fig. 8-4) grows downward — SP decrements on push. The order of the two microoperations reverses accordingly.</li>
+      <li><strong>Erroneous operations.</strong> Pushing when FULL = 1 or popping when EMTY = 1 produces an error. Always check the flag before the operation.</li>
+      <li><strong>RPN operand order.</strong> For subtraction and division, order matters: the first operand popped is the right operand (divisor or subtrahend); the second pop gives the left operand.</li>
+    </ul>
+  </div>
+
+  <div id="gate-section">
+    <div class="gate">
+      <div class="gate-blur"><div class="quiz"><div class="quiz-title">📝 Quick Quiz — 5 Questions</div></div></div>
+      <div class="gate-overlay">
+        <div class="gate-box">
+          <div class="lock">🔒</div>
+          <h3>Login to take the quiz</h3>
+          <p>Create a free account to take the quiz and track your progress across all topics.</p>
+          <div class="gate-btns">
+            <a href="../../../login.html" class="btn btn-primary btn-sm">Login</a>
+            <a href="../../../login.html" class="btn btn-outline btn-sm">Register Free</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="quiz" id="quiz-section" style="display:none">
+    <div class="quiz-title">📝 Quick Quiz — 5 Questions</div>
+    <div id="quiz-body"></div>
+    <button class="btn btn-primary" id="submit-btn" disabled>Submit Quiz</button>
+    <div class="quiz-result" id="quiz-result" style="display:none"></div>
+  </div>
+
+  <div class="topic-nav">
+    <a href="general-register-organization.html">
+      <div class="nav-dir">← Previous</div>
+      <div class="nav-title">General Register Organization</div>
+    </a>
+    <a href="instruction-formats.html" class="next">
+      <div class="nav-dir">Next →</div>
+      <div class="nav-title">Instruction Formats</div>
+    </a>
+  </div>
+
+</div>
+<footer id="main-footer"></footer>
+<script type="module">
+  import { initNav } from '../../../js/nav.js';
+  import { onAuth, saveProgress, getProgress } from '../../../js/firebase-config.js';
+  import { initSidebar } from '../../../js/sidebar.js';
+  initNav(3);
+  initSidebar();
+
+  const COURSE_ID = 'coa';
+  const TOPIC_ID  = 'stack-organization';
+  const LABELS    = ['A','B','C','D'];
+  const QUIZ = [
+    { q:"In Mano's 64-word register stack, what does the EMTY flag indicate when set to 1?", options:["The stack pointer is at address 0","The stack contains no items","The data register is empty","The stack pointer has overflowed"], answer:1, explanation:"EMTY = 1 means the stack contains no items. It is set initially and after a pop that reduces SP to 0. Note the spelling: Mano writes EMTY, not EMPTY." },
+    { q:"For the register stack (Fig. 8-3), which sequence correctly implements a push?", options:["M[SP] ← DR, then SP ← SP + 1","SP ← SP + 1, then M[SP] ← DR","SP ← SP − 1, then M[SP] ← DR","DR ← M[SP], then SP ← SP + 1"], answer:1, explanation:"Push on the register stack increments SP first (pointing to the next higher slot), then writes DR to that location. The memory stack push does the opposite because it grows downward." },
+    { q:"In Fig. 8-4, SP is initialised to 4001 and the stack grows toward lower addresses. What address holds the first item pushed?", options:["4002","4001","4000","3999"], answer:2, explanation:"The memory-stack push decrements SP first (4001 − 1 = 4000) then writes M[SP]. So the first item lands at address 4000." },
+    { q:"Evaluate the RPN expression 5 3 − 2 * using a stack. What is the result?", options:["4","−2","6","1"], answer:0, explanation:"Push 5, push 3, subtract (5 − 3 = 2), push 2, multiply (2 × 2 = 4). Result = 4." },
+    { q:"Which infix expression corresponds to the RPN expression AB*CD*+?", options:["A*B + C*D","A*(B + C)*D","(A + B)*(C + D)","A*B*(C + D)"], answer:0, explanation:"Push A, push B, multiply → A*B. Push C, push D, multiply → C*D. Add the two products → A*B + C*D." }
+  ];
+
+  let selected = {}, submitted = false;
+  function buildQuiz() {
+    document.getElementById('quiz-body').innerHTML = QUIZ.map((q, qi) => `
+      <div class="question">
+        <div class="question-text">Q${qi+1}. ${q.q}</div>
+        <div class="options">${q.options.map((o, oi) => `<div class="option" data-qi="${qi}" data-oi="${oi}"><span class="option-lbl">${LABELS[oi]}</span>${o}</div>`).join('')}</div>
+        <div class="explanation" id="exp${qi}" style="display:none">💡 ${q.explanation}</div>
+      </div>`).join('');
+    document.querySelectorAll('.option').forEach(el => {
+      el.onclick = () => {
+        if (submitted) return;
+        const qi = +el.dataset.qi, oi = +el.dataset.oi;
+        selected[qi] = oi;
+        document.querySelectorAll(`[data-qi="${qi}"]`).forEach(o => o.classList.remove('selected'));
+        el.classList.add('selected');
+        document.getElementById('submit-btn').disabled = Object.keys(selected).length < QUIZ.length;
+      };
+    });
+  }
+  async function submitQuiz(uid) {
+    submitted = true; let score = 0;
+    QUIZ.forEach((q, qi) => {
+      const correct = q.answer, chosen = selected[qi];
+      document.querySelectorAll(`[data-qi="${qi}"]`).forEach(o => {
+        if (+o.dataset.oi === correct) o.classList.add('correct');
+        else if (+o.dataset.oi === chosen) o.classList.add('wrong');
+      });
+      document.getElementById(`exp${qi}`).style.display = 'block';
+      if (chosen === correct) score++;
+    });
+    document.getElementById('submit-btn').style.display = 'none';
+    const pct = Math.round(score / QUIZ.length * 100);
+    const res = document.getElementById('quiz-result');
+    res.style.display = 'block';
+    res.className = `quiz-result ${pct >= 60 ? 'pass' : 'fail'}`;
+    res.innerHTML = `<div class="quiz-score">${pct >= 60 ? '🎉' : '📖'} Score: ${score}/${QUIZ.length} (${pct}%)</div>
+      <div class="quiz-msg">${pct >= 80 ? 'Excellent! Move to the next topic.' : pct >= 60 ? 'Good. Review what you missed.' : 'Review the lesson and try again.'}</div>`;
+    if (uid) await saveProgress(uid, COURSE_ID, TOPIC_ID, score, QUIZ.length);
+  }
+  onAuth(async user => {
+    if (user) {
+      document.getElementById('gate-section').style.display = 'none';
+      document.getElementById('quiz-section').style.display = 'block';
+      buildQuiz();
+      document.getElementById('submit-btn').onclick = () => submitQuiz(user.uid);
+      const prog = await getProgress(user.uid, COURSE_ID, TOPIC_ID);
+      if (prog?.completed) {
+        const res = document.getElementById('quiz-result');
+        res.style.display = 'block'; res.className = 'quiz-result pass';
+        res.innerHTML = `<div class="quiz-score">✅ Completed — Best score: ${prog.percent}%</div><div class="quiz-msg">You can retake the quiz anytime.</div>`;
+      }
+    }
+  });
+</script>
+</body>
+</html>

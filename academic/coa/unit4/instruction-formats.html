@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3030765874336294" crossorigin="anonymous"></script>
+  <title>Instruction Formats — COA Unit 4 | CHANDRAS EDU</title>
+  <meta name="description" content="Instruction formats: opcode, address and mode fields; three-, two-, one- and zero-address instructions; programs for X=(A+B)*(C+D) in each format.">
+  <link rel="canonical" href="https://chandrashaker.com/courses/academic/coa/unit4/instruction-formats">
+  <link rel="stylesheet" href="../../../css/style.css">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="CHANDRAS EDU">
+  <meta property="og:title" content="Instruction Formats — COA Unit 4 | CHANDRAS EDU">
+  <meta property="og:description" content="Instruction formats: opcode, address and mode fields; three-, two-, one- and zero-address instructions; programs for X=(A+B)*(C+D) in each format.">
+  <meta property="og:url" content="https://chandrashaker.com/courses/academic/coa/unit4/instruction-formats">
+  <meta property="og:image" content="https://chandrashaker.com/courses/images/og/coa-v7.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Computer Organization and Architecture — CHANDRAS EDU free course">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Instruction Formats — COA Unit 4 | CHANDRAS EDU">
+  <meta name="twitter:description" content="Instruction formats: opcode, address and mode fields; three-, two-, one- and zero-address instructions; programs for X=(A+B)*(C+D) in each format.">
+  <meta name="twitter:image" content="https://chandrashaker.com/courses/images/og/coa-v7.png">
+  <script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Courses","item":"https://chandrashaker.com/courses/"},{"@type":"ListItem","position":2,"name":"COA","item":"https://chandrashaker.com/courses/academic/coa/"},{"@type":"ListItem","position":3,"name":"Unit 4","item":"https://chandrashaker.com/courses/academic/coa/unit4/"},{"@type":"ListItem","position":4,"name":"Instruction Formats"}]}
+  </script>
+  <script type="application/ld+json">
+{"@context":"https://schema.org","@type":"LearningResource","name":"Instruction Formats","description":"Instruction formats: opcode, address and mode fields; three-, two-, one- and zero-address instructions; programs for X=(A+B)*(C+D) in each format.","url":"https://chandrashaker.com/courses/academic/coa/unit4/instruction-formats","learningResourceType":"Lesson","educationalLevel":"Undergraduate","about":{"@type":"Thing","name":"Computer Organization and Architecture"},"isPartOf":{"@type":"Course","name":"Computer Organization and Architecture","provider":{"@type":"Organization","name":"CHANDRAS EDU","url":"https://chandrashaker.in"}},"publisher":{"@type":"Organization","name":"CHANDRAS EDU","url":"https://chandrashaker.in"}}
+  </script>
+  <link rel="icon" href="/favicon.ico">
+  <style>
+    .code-block{font-family:monospace;background:var(--bg-2);border:1px solid var(--border);border-radius:6px;padding:.75rem 1rem;margin:.75rem 0;font-size:.88rem;line-height:1.9}
+    .code-block .row{display:flex;gap:2rem}
+    .code-block .row span:first-child{min-width:180px}
+    .code-block .row span:last-child{color:var(--text-2)}
+  </style>
+</head>
+<body>
+<div id="main-nav"></div>
+<div class="page-narrow" role="main">
+
+  <nav class="breadcrumb">
+    <a href="../../../index.html">Courses</a><span class="sep">/</span>
+    <a href="../index.html">Computer Organization and Architecture</a><span class="sep">/</span>
+    <a href="index.html">Unit 4</a><span class="sep">/</span>
+    <span>Central Processing Unit</span><span class="sep">/</span>
+    <span class="cur">Instruction Formats</span>
+  </nav>
+
+  <div style="background:var(--primary);border-radius:var(--radius-lg);padding:1.1rem 1.4rem;margin-bottom:1.5rem;color:#fff">
+    <div style="font-size:.75rem;opacity:.75;margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.05em">COA › Unit 4: Central Processing Unit › Topic 5</div>
+    <h1 style="font-size:1.4rem;font-weight:700;color:#fff;margin-bottom:.5rem">Instruction Formats</h1>
+    <div style="display:flex;gap:.75rem;flex-wrap:wrap">
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">⏱ 16 min read</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📝 Quiz inside</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📖 Mano, Ch. 8 §8-4</span>
+    </div>
+  </div>
+
+  <div class="lesson">
+    <p>An instruction format is the binary layout of a machine instruction as it appears in memory or in a control register. The bits are divided into fields — most commonly an <strong>operation code</strong> (opcode), an <strong>address</strong> field, and a <strong>mode</strong> field. The number of address fields determines the CPU organisation and strongly influences the number of instructions a program needs to execute a given task.</p>
+
+    <h2>Fields in an Instruction</h2>
+    <p>The three standard fields are: (1) the <strong>opcode field</strong>, which specifies the operation; (2) the <strong>address field</strong>, which designates a memory address or a processor register; and (3) the <strong>mode field</strong>, which specifies how the operand or effective address is determined. Special fields exist for certain instructions — for example, a shift-count field in a shift instruction.</p>
+    <p>A register address is a k-bit field that selects one of 2<sup>k</sup> registers. For example, 16 registers require a 4-bit register address field.</p>
+
+    <h2>Four Instruction Format Types</h2>
+    <p>Most computers fall into one of three CPU organisations: single accumulator, general register, or stack. The number of explicit address fields depends on the organisation.</p>
+
+    <div style="text-align:center;margin:1.25rem 0">
+      <svg width="100%" viewBox="0 0 680 340" role="img" xmlns="http://www.w3.org/2000/svg">
+        <title>Instruction format bit-field layouts for three-, two-, one- and zero-address organisations</title>
+        <desc>Four horizontal bit-field strips. Three-address: Opcode plus three Address fields, used in general register computers. Two-address: Opcode plus two Address fields, most common. One-address: Opcode plus one Address field, for accumulator computers. Zero-address: Opcode only, used in stack computers where operands are implicit.</desc>
+        <text x="44" y="60" font-size="11" text-anchor="end" fill="var(--text-2)">Three-</text>
+        <text x="44" y="74" font-size="11" text-anchor="end" fill="var(--text-2)">address</text>
+        <rect x="50" y="48" width="80" height="36" rx="4" fill="#ede9fe" stroke="#7c3aed" stroke-width="0.5"/>
+        <text x="90" y="66" font-size="12" font-weight="700" text-anchor="middle" dominant-baseline="central" fill="#4c1d95">Opcode</text>
+        <rect x="132" y="48" width="138" height="36" rx="4" fill="#dbeafe" stroke="#3b82f6" stroke-width="0.5"/>
+        <text x="201" y="66" font-size="12" font-weight="700" text-anchor="middle" dominant-baseline="central" fill="#1e40af">Address 1</text>
+        <rect x="272" y="48" width="138" height="36" rx="4" fill="#dbeafe" stroke="#3b82f6" stroke-width="0.5"/>
+        <text x="341" y="66" font-size="12" font-weight="700" text-anchor="middle" dominant-baseline="central" fill="#1e40af">Address 2</text>
+        <rect x="412" y="48" width="138" height="36" rx="4" fill="#dbeafe" stroke="#3b82f6" stroke-width="0.5"/>
+        <text x="481" y="66" font-size="12" font-weight="700" text-anchor="middle" dominant-baseline="central" fill="#1e40af">Address 3</text>
+        <text x="560" y="66" font-size="11" text-anchor="start" fill="var(--text-2)">General register</text>
+        <text x="44" y="136" font-size="11" text-anchor="end" fill="var(--text-2)">Two-</text>
+        <text x="44" y="150" font-size="11" text-anchor="end" fill="var(--text-2)">address</text>
+        <rect x="50" y="124" width="80" height="36" rx="4" fill="#ede9fe" stroke="#7c3aed" stroke-width="0.5"/>
+        <text x="90" y="142" font-size="12" font-weight="700" text-anchor="middle" dominant-baseline="central" fill="#4c1d95">Opcode</text>
+        <rect x="132" y="124" width="200" height="36" rx="4" fill="#ccfbf1" stroke="#0d9488" stroke-width="0.5"/>
+        <text x="232" y="142" font-size="12" font-weight="700" text-anchor="middle" dominant-baseline="central" fill="#134e4a">Address 1</text>
+        <rect x="334" y="124" width="200" height="36" rx="4" fill="#ccfbf1" stroke="#0d9488" stroke-width="0.5"/>
+        <text x="434" y="142" font-size="12" font-weight="700" text-anchor="middle" dominant-baseline="central" fill="#134e4a">Address 2</text>
+        <text x="544" y="142" font-size="11" text-anchor="start" fill="var(--text-2)">Most common</text>
+        <text x="44" y="216" font-size="11" text-anchor="end" fill="var(--text-2)">One-</text>
+        <text x="44" y="230" font-size="11" text-anchor="end" fill="var(--text-2)">address</text>
+        <rect x="50" y="204" width="80" height="36" rx="4" fill="#ede9fe" stroke="#7c3aed" stroke-width="0.5"/>
+        <text x="90" y="222" font-size="12" font-weight="700" text-anchor="middle" dominant-baseline="central" fill="#4c1d95">Opcode</text>
+        <rect x="132" y="204" width="400" height="36" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="0.5"/>
+        <text x="332" y="222" font-size="12" font-weight="700" text-anchor="middle" dominant-baseline="central" fill="#92400e">Address</text>
+        <text x="544" y="222" font-size="11" text-anchor="start" fill="var(--text-2)">Accumulator</text>
+        <text x="44" y="296" font-size="11" text-anchor="end" fill="var(--text-2)">Zero-</text>
+        <text x="44" y="310" font-size="11" text-anchor="end" fill="var(--text-2)">address</text>
+        <rect x="50" y="284" width="480" height="36" rx="4" fill="#ede9fe" stroke="#7c3aed" stroke-width="0.5"/>
+        <text x="290" y="302" font-size="12" font-weight="700" text-anchor="middle" dominant-baseline="central" fill="#4c1d95">Opcode only (no address field)</text>
+        <text x="544" y="302" font-size="11" text-anchor="start" fill="var(--text-2)">Stack</text>
+        <text x="50" y="106" font-size="11" text-anchor="start" fill="var(--text-2)">← longer word (more bits) · fewer instructions</text>
+        <text x="50" y="338" font-size="11" text-anchor="start" fill="var(--text-2)">PUSH / POP still carry one address field (the memory operand)</text>
+      </svg>
+      <p style="font-size:.8rem;color:var(--text-2);margin-top:.4rem">Adapted from M. Morris Mano, <em>Computer System Architecture</em>, §8-4</p>
+    </div>
+
+    <h2>Evaluating X = (A+B)*(C+D) — Four Formats Compared</h2>
+    <p>Operands reside in memory at A, B, C, D; result stored at X.</p>
+
+    <p><strong>Three-address instructions</strong> — three instructions total:</p>
+    <div class="code-block">
+      <div class="row"><span>ADD R1, A, B</span><span>R1 ← M[A] + M[B]</span></div>
+      <div class="row"><span>ADD R2, C, D</span><span>R2 ← M[C] + M[D]</span></div>
+      <div class="row"><span>MUL X, R1, R2</span><span>M[X] ← R1 * R2</span></div>
+    </div>
+
+    <p><strong>Two-address instructions</strong> — MOV needed to set up registers:</p>
+    <div class="code-block">
+      <div class="row"><span>MOV R1, A</span><span>R1 ← M[A]</span></div>
+      <div class="row"><span>ADD R1, B</span><span>R1 ← R1 + M[B]</span></div>
+      <div class="row"><span>MOV R2, C</span><span>R2 ← M[C]</span></div>
+      <div class="row"><span>ADD R2, D</span><span>R2 ← R2 + M[D]</span></div>
+      <div class="row"><span>MUL R1, R2</span><span>R1 ← R1 * R2</span></div>
+      <div class="row"><span>MOV X, R1</span><span>M[X] ← R1</span></div>
+    </div>
+
+    <p><strong>One-address instructions</strong> — all operations through implied accumulator AC:</p>
+    <div class="code-block">
+      <div class="row"><span>LOAD A</span><span>AC ← M[A]</span></div>
+      <div class="row"><span>ADD B</span><span>AC ← AC + M[B]</span></div>
+      <div class="row"><span>STORE T</span><span>M[T] ← AC</span></div>
+      <div class="row"><span>LOAD C</span><span>AC ← M[C]</span></div>
+      <div class="row"><span>ADD D</span><span>AC ← AC + M[D]</span></div>
+      <div class="row"><span>MUL T</span><span>AC ← AC * M[T]</span></div>
+      <div class="row"><span>STORE X</span><span>M[X] ← AC</span></div>
+    </div>
+
+    <p><strong>Zero-address instructions</strong> — stack computer; TOS = top of stack:</p>
+    <div class="code-block">
+      <div class="row"><span>PUSH A</span><span>TOS ← A</span></div>
+      <div class="row"><span>PUSH B</span><span>TOS ← B</span></div>
+      <div class="row"><span>ADD</span><span>TOS ← (A + B)</span></div>
+      <div class="row"><span>PUSH C</span><span>TOS ← C</span></div>
+      <div class="row"><span>PUSH D</span><span>TOS ← D</span></div>
+      <div class="row"><span>ADD</span><span>TOS ← (C + D)</span></div>
+      <div class="row"><span>MUL</span><span>TOS ← (C+D)*(A+B)</span></div>
+      <div class="row"><span>POP X</span><span>M[X] ← TOS</span></div>
+    </div>
+
+    <h2>Common Pitfalls</h2>
+    <ul>
+      <li><strong>Confusing instruction count with instruction width.</strong> Three-address programs have fewer instructions but each instruction word is wider (more bits). Zero-address programs have more instructions but each word is narrower.</li>
+      <li><strong>MOV direction.</strong> In two-address format, <code>MOV R1, A</code> means R1 ← M[A] — the register is the destination. Follow Mano's convention.</li>
+      <li><strong>Temporary location in one-address programs.</strong> The result of A+B must be stored to T before computing C+D, because AC is overwritten by LOAD C.</li>
+      <li><strong>PUSH and POP have one address.</strong> Zero-address refers only to arithmetic instructions like ADD and MUL. PUSH X and POP X still carry a memory address.</li>
+    </ul>
+  </div>
+
+  <div id="gate-section">
+    <div class="gate">
+      <div class="gate-blur"><div class="quiz"><div class="quiz-title">📝 Quick Quiz — 5 Questions</div></div></div>
+      <div class="gate-overlay">
+        <div class="gate-box">
+          <div class="lock">🔒</div>
+          <h3>Login to take the quiz</h3>
+          <p>Create a free account to take the quiz and track your progress across all topics.</p>
+          <div class="gate-btns">
+            <a href="../../../login.html" class="btn btn-primary btn-sm">Login</a>
+            <a href="../../../login.html" class="btn btn-outline btn-sm">Register Free</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="quiz" id="quiz-section" style="display:none">
+    <div class="quiz-title">📝 Quick Quiz — 5 Questions</div>
+    <div id="quiz-body"></div>
+    <button class="btn btn-primary" id="submit-btn" disabled>Submit Quiz</button>
+    <div class="quiz-result" id="quiz-result" style="display:none"></div>
+  </div>
+
+  <div class="topic-nav">
+    <a href="stack-organization.html">
+      <div class="nav-dir">← Previous</div>
+      <div class="nav-title">Stack Organization</div>
+    </a>
+    <a href="addressing-modes.html" class="next">
+      <div class="nav-dir">Next →</div>
+      <div class="nav-title">Addressing Modes</div>
+    </a>
+  </div>
+
+</div>
+<footer id="main-footer"></footer>
+<script type="module">
+  import { initNav } from '../../../js/nav.js';
+  import { onAuth, saveProgress, getProgress } from '../../../js/firebase-config.js';
+  import { initSidebar } from '../../../js/sidebar.js';
+  initNav(3);
+  initSidebar();
+
+  const COURSE_ID = 'coa';
+  const TOPIC_ID  = 'instruction-formats';
+  const LABELS    = ['A','B','C','D'];
+  const QUIZ = [
+    { q:"A CPU has 32 processor registers. How many bits are needed for a single register address field?", options:["4","5","6","8"], answer:1, explanation:"32 = 2⁵, so 5 bits uniquely address all 32 registers." },
+    { q:"How many instructions are needed to evaluate X = (A+B)*(C+D) using three-address instructions?", options:["3","5","6","8"], answer:0, explanation:"Three instructions: ADD R1,A,B; ADD R2,C,D; MUL X,R1,R2. Three-address formats produce the shortest instruction count." },
+    { q:"In a one-address (accumulator) program for X = (A+B)*(C+D), why is a temporary memory location T required?", options:["The ALU cannot hold two values","The result of A+B must be saved before AC is overwritten computing C+D","Memory cannot be accessed twice in one program","ADD requires two explicit operands"], answer:1, explanation:"After LOAD A and ADD B, AC holds A+B. Executing LOAD C overwrites AC. STORE T saves A+B to memory before that." },
+    { q:"In zero-address (stack) instruction format, which instruction still requires an explicit address field?", options:["ADD","MUL","PUSH","Neither ADD nor MUL needs one"], answer:2, explanation:"PUSH X and POP X carry a memory address. Arithmetic instructions like ADD and MUL operate on the two top stack items with no explicit address field." },
+    { q:"Which instruction format results in the longest individual instruction words?", options:["Zero-address","One-address","Two-address","Three-address"], answer:3, explanation:"Three-address instructions hold three address fields plus the opcode, making each instruction word the widest. They produce fewest instructions but the longest words." }
+  ];
+
+  let selected = {}, submitted = false;
+  function buildQuiz() {
+    document.getElementById('quiz-body').innerHTML = QUIZ.map((q, qi) => `
+      <div class="question">
+        <div class="question-text">Q${qi+1}. ${q.q}</div>
+        <div class="options">${q.options.map((o, oi) => `<div class="option" data-qi="${qi}" data-oi="${oi}"><span class="option-lbl">${LABELS[oi]}</span>${o}</div>`).join('')}</div>
+        <div class="explanation" id="exp${qi}" style="display:none">💡 ${q.explanation}</div>
+      </div>`).join('');
+    document.querySelectorAll('.option').forEach(el => {
+      el.onclick = () => {
+        if (submitted) return;
+        const qi = +el.dataset.qi, oi = +el.dataset.oi;
+        selected[qi] = oi;
+        document.querySelectorAll(`[data-qi="${qi}"]`).forEach(o => o.classList.remove('selected'));
+        el.classList.add('selected');
+        document.getElementById('submit-btn').disabled = Object.keys(selected).length < QUIZ.length;
+      };
+    });
+  }
+  async function submitQuiz(uid) {
+    submitted = true; let score = 0;
+    QUIZ.forEach((q, qi) => {
+      const correct = q.answer, chosen = selected[qi];
+      document.querySelectorAll(`[data-qi="${qi}"]`).forEach(o => {
+        if (+o.dataset.oi === correct) o.classList.add('correct');
+        else if (+o.dataset.oi === chosen) o.classList.add('wrong');
+      });
+      document.getElementById(`exp${qi}`).style.display = 'block';
+      if (chosen === correct) score++;
+    });
+    document.getElementById('submit-btn').style.display = 'none';
+    const pct = Math.round(score / QUIZ.length * 100);
+    const res = document.getElementById('quiz-result');
+    res.style.display = 'block';
+    res.className = `quiz-result ${pct >= 60 ? 'pass' : 'fail'}`;
+    res.innerHTML = `<div class="quiz-score">${pct >= 60 ? '🎉' : '📖'} Score: ${score}/${QUIZ.length} (${pct}%)</div>
+      <div class="quiz-msg">${pct >= 80 ? 'Excellent! Move to the next topic.' : pct >= 60 ? 'Good. Review what you missed.' : 'Review the lesson and try again.'}</div>`;
+    if (uid) await saveProgress(uid, COURSE_ID, TOPIC_ID, score, QUIZ.length);
+  }
+  onAuth(async user => {
+    if (user) {
+      document.getElementById('gate-section').style.display = 'none';
+      document.getElementById('quiz-section').style.display = 'block';
+      buildQuiz();
+      document.getElementById('submit-btn').onclick = () => submitQuiz(user.uid);
+      const prog = await getProgress(user.uid, COURSE_ID, TOPIC_ID);
+      if (prog?.completed) {
+        const res = document.getElementById('quiz-result');
+        res.style.display = 'block'; res.className = 'quiz-result pass';
+        res.innerHTML = `<div class="quiz-score">✅ Completed — Best score: ${prog.percent}%</div><div class="quiz-msg">You can retake the quiz anytime.</div>`;
+      }
+    }
+  });
+</script>
+</body>
+</html>

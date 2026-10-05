@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3030765874336294" crossorigin="anonymous"></script>
+  <title>Addressing Modes — COA Unit 4 | CHANDRAS EDU</title>
+  <meta name="description" content="Addressing modes from Mano §8-5, from implied to base register, with effective addresses worked out for the nine cases in Table 8-4 (Fig. 8-7).">
+  <link rel="canonical" href="https://chandrashaker.com/courses/academic/coa/unit4/addressing-modes">
+  <link rel="stylesheet" href="../../../css/style.css">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="CHANDRAS EDU">
+  <meta property="og:title" content="Addressing Modes — COA Unit 4 | CHANDRAS EDU">
+  <meta property="og:description" content="Addressing modes from Mano §8-5, from implied to base register, with effective addresses worked out for the nine cases in Table 8-4 (Fig. 8-7).">
+  <meta property="og:url" content="https://chandrashaker.com/courses/academic/coa/unit4/addressing-modes">
+  <meta property="og:image" content="https://chandrashaker.com/courses/images/og/coa-v7.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Computer Organization and Architecture — CHANDRAS EDU free course">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Addressing Modes — COA Unit 4 | CHANDRAS EDU">
+  <meta name="twitter:description" content="Addressing modes from Mano §8-5, from implied to base register, with effective addresses worked out for the nine cases in Table 8-4 (Fig. 8-7).">
+  <meta name="twitter:image" content="https://chandrashaker.com/courses/images/og/coa-v7.png">
+  <script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Courses","item":"https://chandrashaker.com/courses/"},{"@type":"ListItem","position":2,"name":"COA","item":"https://chandrashaker.com/courses/academic/coa/"},{"@type":"ListItem","position":3,"name":"Unit 4","item":"https://chandrashaker.com/courses/academic/coa/unit4/"},{"@type":"ListItem","position":4,"name":"Addressing Modes"}]}
+  </script>
+  <script type="application/ld+json">
+{"@context":"https://schema.org","@type":"LearningResource","name":"Addressing Modes","description":"Addressing modes from Mano §8-5, from implied to base register, with effective addresses worked out for the nine cases in Table 8-4 (Fig. 8-7).","url":"https://chandrashaker.com/courses/academic/coa/unit4/addressing-modes","learningResourceType":"Lesson","educationalLevel":"Undergraduate","about":{"@type":"Thing","name":"Computer Organization and Architecture"},"isPartOf":{"@type":"Course","name":"Computer Organization and Architecture","provider":{"@type":"Organization","name":"CHANDRAS EDU","url":"https://chandrashaker.in"}},"publisher":{"@type":"Organization","name":"CHANDRAS EDU","url":"https://chandrashaker.in"}}
+  </script>
+  <link rel="icon" href="/favicon.ico">
+  <style>
+    .truth-table{border-collapse:collapse;margin:1rem auto;font-size:.86rem;width:100%}
+    .truth-table th,.truth-table td{border:1px solid var(--border);padding:.4rem .65rem}
+    .truth-table th{background:var(--bg-3);font-weight:700;text-align:left}
+    .truth-table td{text-align:center}
+    .truth-table td:first-child{text-align:left}
+  </style>
+</head>
+<body>
+<div id="main-nav"></div>
+<div class="page-narrow" role="main">
+
+  <nav class="breadcrumb">
+    <a href="../../../index.html">Courses</a><span class="sep">/</span>
+    <a href="../index.html">Computer Organization and Architecture</a><span class="sep">/</span>
+    <a href="index.html">Unit 4</a><span class="sep">/</span>
+    <span>Central Processing Unit</span><span class="sep">/</span>
+    <span class="cur">Addressing Modes</span>
+  </nav>
+
+  <div style="background:var(--primary);border-radius:var(--radius-lg);padding:1.1rem 1.4rem;margin-bottom:1.5rem;color:#fff">
+    <div style="font-size:.75rem;opacity:.75;margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.05em">COA › Unit 4: Central Processing Unit › Topic 6</div>
+    <h1 style="font-size:1.4rem;font-weight:700;color:#fff;margin-bottom:.5rem">Addressing Modes</h1>
+    <div style="display:flex;gap:.75rem;flex-wrap:wrap">
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">⏱ 18 min read</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📝 Quiz inside</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📖 Mano, Ch. 8 §8-5</span>
+    </div>
+  </div>
+
+  <div class="lesson">
+    <p>The addressing mode of an instruction specifies the rule for interpreting or modifying the address field before the operand is referenced. Modes serve two purposes: to give programmers flexibility (pointers, loop counters, array indexing, program relocation) and to reduce the number of bits needed in the address field. The <strong>effective address</strong> is the final memory address computed according to the given mode. Mano §8-5 describes the addressing modes from implied to base register; Table 8-4 works out the effective address for nine of them.</p>
+
+    <h2>Instruction Format with Mode Field (Fig. 8-6)</h2>
+    <p>Some computers encode the mode in a distinct binary field alongside the opcode and address. Others fold both opcode and mode into a single code. In either case, three phases govern every instruction: fetch, decode, execute. During decode the control unit reads the mode field to determine how to locate the operand.</p>
+
+    <div style="text-align:center;margin:1.25rem 0">
+      <svg width="100%" viewBox="0 0 680 130" role="img" xmlns="http://www.w3.org/2000/svg">
+        <title>Instruction format with mode field — Fig. 8-6</title>
+        <desc>Three-field instruction format strip: Opcode specifies the operation, Mode selects the addressing mode, Address holds the raw bits interpreted according to the mode to compute the effective address.</desc>
+        <text x="340" y="20" font-size="11" text-anchor="middle" fill="var(--text-2)">Instruction format with mode field (Fig. 8-6)</text>
+        <rect x="60" y="34" width="140" height="48" rx="6" fill="#ede9fe" stroke="#7c3aed" stroke-width="0.5"/>
+        <text x="130" y="54" font-size="12" font-weight="700" text-anchor="middle" dominant-baseline="central" fill="#4c1d95">Opcode</text>
+        <text x="130" y="72" font-size="11" text-anchor="middle" fill="#4c1d95">specifies operation</text>
+        <rect x="206" y="34" width="140" height="48" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="0.5"/>
+        <text x="276" y="54" font-size="12" font-weight="700" text-anchor="middle" dominant-baseline="central" fill="#92400e">Mode</text>
+        <text x="276" y="72" font-size="11" text-anchor="middle" fill="#92400e">selects addressing mode</text>
+        <rect x="352" y="34" width="268" height="48" rx="6" fill="#ccfbf1" stroke="#0d9488" stroke-width="0.5"/>
+        <text x="486" y="54" font-size="12" font-weight="700" text-anchor="middle" dominant-baseline="central" fill="#134e4a">Address</text>
+        <text x="486" y="72" font-size="11" text-anchor="middle" fill="#134e4a">interpreted per mode → effective address</text>
+        <text x="130" y="108" font-size="11" text-anchor="middle" fill="var(--text-2)">What to do</text>
+        <text x="276" y="108" font-size="11" text-anchor="middle" fill="var(--text-2)">How to find operand</text>
+        <text x="486" y="108" font-size="11" text-anchor="middle" fill="var(--text-2)">Raw address bits</text>
+      </svg>
+      <p style="font-size:.8rem;color:var(--text-2);margin-top:.4rem">Adapted from M. Morris Mano, <em>Computer System Architecture</em>, Fig. 8-6</p>
+    </div>
+
+    <p>Two modes need no address field at all — implied and immediate. The remaining seven all use the address field, but interpret it differently.</p>
+
+    <h2>The Addressing Modes</h2>
+    <p><strong>1. Implied mode.</strong> The operand is specified implicitly in the instruction definition — no address field needed. All accumulator-referenced instructions are implied-mode (the operand location AC is implied). Zero-address stack instructions are also implied-mode — operands are implied to be on top of the stack.</p>
+
+    <p><strong>2. Immediate mode.</strong> The operand field of the instruction contains the actual operand, not its address. No memory access is needed. Useful for loading a constant into a register. The effective address is the address of the instruction's second word (201 in the numerical example below).</p>
+
+    <p><strong>3. Register mode.</strong> The address field specifies a processor register that contains the operand. No memory access is required. A k-bit field selects one of 2<sup>k</sup> registers. There is no memory effective address.</p>
+
+    <p><strong>4. Register indirect mode.</strong> The address field specifies a register whose <em>contents</em> give the memory address of the operand. The instruction uses fewer bits than a direct address field would require. The programmer must load the desired address into the register beforehand.</p>
+
+    <p><strong>5. Autoincrement or autodecrement mode.</strong> Like register indirect, but the register is automatically incremented after (autoincrement) or decremented before (autodecrement) the operand is accessed. Autoincrement is useful for stepping forward through a data table; autodecrement for stepping backward or implementing a stack.</p>
+
+    <p><strong>6. Direct address mode.</strong> The address field of the instruction directly gives the effective address. The operand is fetched from that memory location in one access. In branch instructions the address field is the branch target.</p>
+
+    <p><strong>7. Indirect address mode.</strong> The address field points to a memory word that contains the effective address. The control unit makes two memory accesses beyond the instruction fetch: first to read the effective address, then to read the operand.</p>
+
+    <p><strong>8. Relative address mode.</strong> The effective address is the sum of the address field (a signed displacement) and the program counter, which has already been incremented past the instruction. Relative addressing produces position-independent code and needs fewer address bits because the displacement is small.</p>
+
+    <p><strong>9. Indexed addressing mode.</strong> The effective address is the sum of the address field and the content of an index register (XR). The address field holds the base (beginning) of a data array; XR holds the element offset. The index register can be incremented to access successive array elements.</p>
+
+    <p>Base register addressing mode is computed the same way as indexed, but the register is called a base register and is used for program relocation rather than array indexing. Mano discusses it in §8-5 prose but it does not appear as a separate row in Table 8-4.</p>
+
+    <h2>Numerical Example (Fig. 8-7, Table 8-4)</h2>
+    <p>Instruction at address 200: "Load to AC". Mode field selects the mode; address part = 500. Registers after fetch: PC = 202, R1 = 400, XR = 100. Memory: M[500] = 800, M[800] = 300, M[400] = 700, M[702] = 325, M[600] = 900, M[399] = 450.</p>
+
+    <div style="text-align:center;margin:1.25rem 0">
+      <svg width="100%" viewBox="0 0 480 310" role="img" xmlns="http://www.w3.org/2000/svg">
+        <title>Numerical example for addressing modes — Fig. 8-7 register and memory state</title>
+        <desc>Left column shows four register boxes: PC=200, R1=400, XR=100, AC. Right column shows a memory table with key addresses and contents: 200 Load to AC with Mode field, 201 Address=500, 202 Next instruction, 399=450, 400=700, 500=800, 600=900, 702=325, 800=300.</desc>
+        <rect x="20" y="20" width="90" height="28" rx="4" fill="var(--bg-2)" stroke="var(--border)" stroke-width="0.5"/>
+        <text x="65" y="34" font-size="11" font-weight="700" text-anchor="middle" dominant-baseline="central" fill="var(--text)">PC = 200</text>
+        <rect x="20" y="58" width="90" height="28" rx="4" fill="var(--bg-2)" stroke="var(--border)" stroke-width="0.5"/>
+        <text x="65" y="72" font-size="11" font-weight="700" text-anchor="middle" dominant-baseline="central" fill="var(--text)">R1 = 400</text>
+        <rect x="20" y="96" width="90" height="28" rx="4" fill="var(--bg-2)" stroke="var(--border)" stroke-width="0.5"/>
+        <text x="65" y="110" font-size="11" font-weight="700" text-anchor="middle" dominant-baseline="central" fill="var(--text)">XR = 100</text>
+        <rect x="20" y="134" width="90" height="28" rx="4" fill="var(--bg-2)" stroke="var(--border)" stroke-width="0.5"/>
+        <text x="65" y="148" font-size="11" font-weight="700" text-anchor="middle" dominant-baseline="central" fill="var(--text)">AC</text>
+        <rect x="200" y="10" width="260" height="294" rx="4" fill="var(--bg-2)" stroke="var(--border)" stroke-width="0.5"/>
+        <text x="268" y="28" font-size="11" font-weight="700" text-anchor="middle" fill="var(--text-2)">Address</text>
+        <text x="390" y="28" font-size="11" font-weight="700" text-anchor="middle" fill="var(--text-2)">Memory</text>
+        <line x1="200" y1="35" x2="460" y2="35" stroke="var(--border)" stroke-width="0.5"/>
+        <line x1="320" y1="10" x2="320" y2="304" stroke="var(--border)" stroke-width="0.5"/>
+        <text x="260" y="52" font-size="11" text-anchor="middle" fill="var(--text-2)">200</text>
+        <text x="390" y="52" font-size="11" text-anchor="middle" fill="var(--text)">Load to AC | Mode</text>
+        <line x1="200" y1="60" x2="460" y2="60" stroke="var(--border)" stroke-width="0.5"/>
+        <text x="260" y="77" font-size="11" text-anchor="middle" fill="var(--text-2)">201</text>
+        <text x="390" y="77" font-size="11" text-anchor="middle" fill="var(--text)">Address = 500</text>
+        <line x1="200" y1="85" x2="460" y2="85" stroke="var(--border)" stroke-width="0.5"/>
+        <text x="260" y="102" font-size="11" text-anchor="middle" fill="var(--text-2)">202</text>
+        <text x="390" y="102" font-size="11" text-anchor="middle" fill="var(--text-2)">Next instruction</text>
+        <line x1="200" y1="110" x2="460" y2="110" stroke="var(--border)" stroke-width="0.5"/>
+        <text x="260" y="130" font-size="11" text-anchor="middle" fill="var(--text-2)">399</text>
+        <text x="390" y="130" font-size="11" text-anchor="middle" fill="var(--text)">450</text>
+        <line x1="200" y1="140" x2="460" y2="140" stroke="var(--border)" stroke-width="0.5"/>
+        <text x="260" y="157" font-size="11" text-anchor="middle" fill="var(--text-2)">400</text>
+        <text x="390" y="157" font-size="11" text-anchor="middle" fill="var(--text)">700</text>
+        <line x1="200" y1="165" x2="460" y2="165" stroke="var(--border)" stroke-width="0.5"/>
+        <text x="260" y="182" font-size="11" text-anchor="middle" fill="var(--text-2)">500</text>
+        <text x="390" y="182" font-size="11" text-anchor="middle" fill="var(--text)">800</text>
+        <line x1="200" y1="190" x2="460" y2="190" stroke="var(--border)" stroke-width="0.5"/>
+        <text x="260" y="207" font-size="11" text-anchor="middle" fill="var(--text-2)">600</text>
+        <text x="390" y="207" font-size="11" text-anchor="middle" fill="var(--text)">900</text>
+        <line x1="200" y1="215" x2="460" y2="215" stroke="var(--border)" stroke-width="0.5"/>
+        <text x="260" y="232" font-size="11" text-anchor="middle" fill="var(--text-2)">702</text>
+        <text x="390" y="232" font-size="11" text-anchor="middle" fill="var(--text)">325</text>
+        <line x1="200" y1="240" x2="460" y2="240" stroke="var(--border)" stroke-width="0.5"/>
+        <text x="260" y="260" font-size="11" text-anchor="middle" fill="var(--text-2)">800</text>
+        <text x="390" y="260" font-size="11" text-anchor="middle" fill="var(--text)">300</text>
+      </svg>
+      <p style="font-size:.8rem;color:var(--text-2);margin-top:.4rem">Adapted from M. Morris Mano, <em>Computer System Architecture</em>, Fig. 8-7</p>
+    </div>
+
+    <p>Effective address and operand loaded into AC for each of the nine modes (Table 8-4):</p>
+    <div style="overflow-x:auto">
+    <table class="truth-table">
+      <thead><tr><th>Mode</th><th>Effective address</th><th>Operand (AC)</th><th>How computed</th></tr></thead>
+      <tbody>
+        <tr><td>Direct address</td><td>500</td><td>800</td><td>EA = address part = 500</td></tr>
+        <tr><td>Immediate operand</td><td>201</td><td>500</td><td>Operand = address part itself; EA = 201</td></tr>
+        <tr><td>Indirect address</td><td>800</td><td>300</td><td>EA = M[500] = 800; operand = M[800] = 300</td></tr>
+        <tr><td>Relative address</td><td>702</td><td>325</td><td>EA = PC + 500 = 202 + 500 = 702</td></tr>
+        <tr><td>Indexed address</td><td>600</td><td>900</td><td>EA = XR + 500 = 100 + 500 = 600</td></tr>
+        <tr><td>Register</td><td>—</td><td>400</td><td>Operand = R1 = 400; no memory EA</td></tr>
+        <tr><td>Register indirect</td><td>400</td><td>700</td><td>EA = R1 = 400; operand = M[400] = 700</td></tr>
+        <tr><td>Autoincrement</td><td>400</td><td>700</td><td>EA = R1 = 400; R1 incremented to 401 after access</td></tr>
+        <tr><td>Autodecrement</td><td>399</td><td>450</td><td>R1 decremented to 399 before access; EA = 399</td></tr>
+      </tbody>
+    </table>
+    </div>
+
+    <h2>Common Pitfalls</h2>
+    <ul>
+      <li><strong>Relative mode PC value.</strong> By the time EA is computed, PC has already been incremented. In the example PC = 202 (not 200 or 201) is added to the address part.</li>
+      <li><strong>Indirect vs register indirect.</strong> Indirect mode reads the EA from a <em>memory</em> location (two extra accesses). Register indirect reads it from a <em>register</em> (one extra access, no register indirect address in memory).</li>
+      <li><strong>Autoincrement vs autodecrement order.</strong> Autoincrement increments <em>after</em> the access; autodecrement decrements <em>before</em>.</li>
+      <li><strong>Nine modes in Table 8-4.</strong> Mano lists exactly nine rows. Base register mode is explained in §8-5 prose but is not a separate Table 8-4 entry — it is computed identically to indexed mode but used differently (relocation rather than array indexing).</li>
+    </ul>
+  </div>
+
+  <div id="gate-section">
+    <div class="gate">
+      <div class="gate-blur"><div class="quiz"><div class="quiz-title">📝 Quick Quiz — 5 Questions</div></div></div>
+      <div class="gate-overlay">
+        <div class="gate-box">
+          <div class="lock">🔒</div>
+          <h3>Login to take the quiz</h3>
+          <p>Create a free account to take the quiz and track your progress across all topics.</p>
+          <div class="gate-btns">
+            <a href="../../../login.html" class="btn btn-primary btn-sm">Login</a>
+            <a href="../../../login.html" class="btn btn-outline btn-sm">Register Free</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="quiz" id="quiz-section" style="display:none">
+    <div class="quiz-title">📝 Quick Quiz — 5 Questions</div>
+    <div id="quiz-body"></div>
+    <button class="btn btn-primary" id="submit-btn" disabled>Submit Quiz</button>
+    <div class="quiz-result" id="quiz-result" style="display:none"></div>
+  </div>
+
+  <div class="topic-nav">
+    <a href="instruction-formats.html">
+      <div class="nav-dir">← Previous</div>
+      <div class="nav-title">Instruction Formats</div>
+    </a>
+  </div>
+
+</div>
+<footer id="main-footer"></footer>
+<script type="module">
+  import { initNav } from '../../../js/nav.js';
+  import { onAuth, saveProgress, getProgress } from '../../../js/firebase-config.js';
+  import { initSidebar } from '../../../js/sidebar.js';
+  initNav(3);
+  initSidebar();
+
+  const COURSE_ID = 'coa';
+  const TOPIC_ID  = 'addressing-modes';
+  const LABELS    = ['A','B','C','D'];
+  const QUIZ = [
+    { q:"Using the Fig. 8-7 values (PC=202, address part=500, M[500]=800, M[800]=300), what is the operand loaded into AC in indirect address mode?", options:["800","500","300","400"], answer:2, explanation:"Indirect mode: EA = M[500] = 800; operand = M[800] = 300. Two memory accesses are needed beyond the instruction fetch." },
+    { q:"In relative address mode using the Fig. 8-7 values, what is the effective address?", options:["500","700","702","600"], answer:2, explanation:"EA = PC + address part = 202 + 500 = 702. PC has already been incremented to 202 by the time the EA is computed." },
+    { q:"How many addressing modes does Mano list as separate rows in Table 8-4 of §8-5?", options:["7","8","9","11"], answer:2, explanation:"Table 8-4 has exactly nine rows: direct address, immediate operand, indirect address, relative address, indexed address, register, register indirect, autoincrement, and autodecrement." },
+    { q:"In autoincrement mode using R1 = 400, what is the operand and what value does R1 hold after the instruction executes?", options:["Operand = M[400] = 700; R1 = 401","Operand = M[401]; R1 = 401","Operand = M[399] = 450; R1 = 399","Operand = R1 = 400; R1 = 401"], answer:0, explanation:"Autoincrement accesses memory at the current R1 = 400 first (operand = M[400] = 700), then increments R1 to 401. Autodecrement would decrement R1 to 399 before access." },
+    { q:"Which addressing mode requires two memory accesses beyond the instruction fetch to obtain the operand?", options:["Direct","Register indirect","Indexed","Indirect"], answer:3, explanation:"Indirect mode first reads the EA from M[address part], then reads the operand from that EA — two extra memory accesses. The other three modes listed need only one extra memory access (or none, for register indirect)." }
+  ];
+
+  let selected = {}, submitted = false;
+  function buildQuiz() {
+    document.getElementById('quiz-body').innerHTML = QUIZ.map((q, qi) => `
+      <div class="question">
+        <div class="question-text">Q${qi+1}. ${q.q}</div>
+        <div class="options">${q.options.map((o, oi) => `<div class="option" data-qi="${qi}" data-oi="${oi}"><span class="option-lbl">${LABELS[oi]}</span>${o}</div>`).join('')}</div>
+        <div class="explanation" id="exp${qi}" style="display:none">💡 ${q.explanation}</div>
+      </div>`).join('');
+    document.querySelectorAll('.option').forEach(el => {
+      el.onclick = () => {
+        if (submitted) return;
+        const qi = +el.dataset.qi, oi = +el.dataset.oi;
+        selected[qi] = oi;
+        document.querySelectorAll(`[data-qi="${qi}"]`).forEach(o => o.classList.remove('selected'));
+        el.classList.add('selected');
+        document.getElementById('submit-btn').disabled = Object.keys(selected).length < QUIZ.length;
+      };
+    });
+  }
+  async function submitQuiz(uid) {
+    submitted = true; let score = 0;
+    QUIZ.forEach((q, qi) => {
+      const correct = q.answer, chosen = selected[qi];
+      document.querySelectorAll(`[data-qi="${qi}"]`).forEach(o => {
+        if (+o.dataset.oi === correct) o.classList.add('correct');
+        else if (+o.dataset.oi === chosen) o.classList.add('wrong');
+      });
+      document.getElementById(`exp${qi}`).style.display = 'block';
+      if (chosen === correct) score++;
+    });
+    document.getElementById('submit-btn').style.display = 'none';
+    const pct = Math.round(score / QUIZ.length * 100);
+    const res = document.getElementById('quiz-result');
+    res.style.display = 'block';
+    res.className = `quiz-result ${pct >= 60 ? 'pass' : 'fail'}`;
+    res.innerHTML = `<div class="quiz-score">${pct >= 60 ? '🎉' : '📖'} Score: ${score}/${QUIZ.length} (${pct}%)</div>
+      <div class="quiz-msg">${pct >= 80 ? 'Excellent! Move to the next topic.' : pct >= 60 ? 'Good. Review what you missed.' : 'Review the lesson and try again.'}</div>`;
+    if (uid) await saveProgress(uid, COURSE_ID, TOPIC_ID, score, QUIZ.length);
+  }
+  onAuth(async user => {
+    if (user) {
+      document.getElementById('gate-section').style.display = 'none';
+      document.getElementById('quiz-section').style.display = 'block';
+      buildQuiz();
+      document.getElementById('submit-btn').onclick = () => submitQuiz(user.uid);
+      const prog = await getProgress(user.uid, COURSE_ID, TOPIC_ID);
+      if (prog?.completed) {
+        const res = document.getElementById('quiz-result');
+        res.style.display = 'block'; res.className = 'quiz-result pass';
+        res.innerHTML = `<div class="quiz-score">✅ Completed — Best score: ${prog.percent}%</div><div class="quiz-msg">You can retake the quiz anytime.</div>`;
+      }
+    }
+  });
+</script>
+</body>
+</html>
