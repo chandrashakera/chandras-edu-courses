@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3030765874336294" crossorigin="anonymous"></script>
+  <title>General Register Organization — COA Unit 4 | CHANDRAS EDU</title>
+  <meta name="description" content="A common bus connects CPU registers through two MUXes and an ALU. Explore SELA, SELB, SELD selectors, the 14-bit control word, and bus-organised microoperations.">
+  <link rel="canonical" href="https://chandrashaker.com/courses/academic/coa/unit4/general-register-organization">
+  <link rel="stylesheet" href="../../../css/style.css">
+
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="CHANDRAS EDU">
+  <meta property="og:title" content="General Register Organization — COA Unit 4 | CHANDRAS EDU">
+  <meta property="og:description" content="A common bus connects CPU registers through two MUXes and an ALU. Explore SELA, SELB, SELD selectors, the 14-bit control word, and bus-organised microoperations.">
+  <meta property="og:url" content="https://chandrashaker.com/courses/academic/coa/unit4/general-register-organization">
+  <meta property="og:image" content="https://chandrashaker.com/courses/images/og/coa-v7.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Computer Organization and Architecture — CHANDRAS EDU free course">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="General Register Organization — COA Unit 4 | CHANDRAS EDU">
+  <meta name="twitter:description" content="A common bus connects CPU registers through two MUXes and an ALU. Explore SELA, SELB, SELD selectors, the 14-bit control word, and bus-organised microoperations.">
+  <meta name="twitter:image" content="https://chandrashaker.com/courses/images/og/coa-v7.png">
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Courses", "item": "https://chandrashaker.com/courses/" },
+    { "@type": "ListItem", "position": 2, "name": "COA", "item": "https://chandrashaker.com/courses/academic/coa/" },
+    { "@type": "ListItem", "position": 3, "name": "Unit 4", "item": "https://chandrashaker.com/courses/academic/coa/unit4/" },
+    { "@type": "ListItem", "position": 4, "name": "General Register Organization" }
+  ]
+}
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LearningResource",
+  "name": "General Register Organization",
+  "description": "A common bus connects CPU registers through two MUXes and an ALU. Explore SELA, SELB, SELD selectors, the 14-bit control word, and bus-organised microoperations.",
+  "url": "https://chandrashaker.com/courses/academic/coa/unit4/general-register-organization",
+  "learningResourceType": "Lesson",
+  "educationalLevel": "Undergraduate",
+  "about": { "@type": "Thing", "name": "Computer Organization and Architecture" },
+  "isPartOf": {
+    "@type": "Course",
+    "name": "Computer Organization and Architecture",
+    "provider": { "@type": "Organization", "name": "CHANDRAS EDU", "url": "https://chandrashaker.in" }
+  },
+  "publisher": { "@type": "Organization", "name": "CHANDRAS EDU", "url": "https://chandrashaker.in" }
+}
+  </script>
+  <link rel="icon" href="/favicon.ico">
+  <style>
+    .truth-table { border-collapse:collapse; margin:1rem auto; font-size:.86rem; }
+    .truth-table th, .truth-table td { border:1px solid var(--border); padding:.4rem .65rem; text-align:center; }
+    .truth-table th { background:var(--bg-3); color:var(--text); font-weight:700; }
+  </style>
+</head>
+<body>
+<div id="main-nav"></div>
+
+<div class="page-narrow" role="main">
+
+  <nav class="breadcrumb">
+    <a href="../../../index.html">Courses</a><span class="sep">/</span>
+    <a href="../index.html">Computer Organization and Architecture</a><span class="sep">/</span>
+    <a href="index.html">Unit 4</a><span class="sep">/</span>
+    <span>Central Processing Unit</span><span class="sep">/</span>
+    <span class="cur">General Register Organization</span>
+  </nav>
+
+  <div style="background:var(--primary);border-radius:var(--radius-lg);padding:1.1rem 1.4rem;margin-bottom:1.5rem;color:#fff">
+    <div style="font-size:.75rem;opacity:.75;margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.05em">COA › Unit 4: Central Processing Unit › Topic 3</div>
+    <h1 style="font-size:1.4rem;font-weight:700;color:#fff;margin-bottom:.5rem">General Register Organization</h1>
+    <div style="display:flex;gap:.75rem;flex-wrap:wrap">
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">⏱ 18 min read</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📝 Quiz inside</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📖 Mano, Ch. 8</span>
+    </div>
+  </div>
+
+  <div class="lesson">
+    <p>Processors need fast temporary storage for intermediate results — partial products during multiplication, pointer values during address computation, return addresses during subroutine calls. Using main memory for all of these is expensive: a memory access is the slowest operation a CPU performs. The solution is a small register file inside the CPU, connected through a shared bus and a single arithmetic logic unit. The resulting structure — a <em>general register organisation</em> — is the internal datapath most modern CPUs are built around.</p>
+
+    <h2>The Bus-Organised Register File (Fig. 8-2)</h2>
+    <p>Mano's example uses seven registers, R1 through R7, plus an external input path. All register outputs connect to two multiplexers; the single ALU output feeds all registers through a decoder. This T-shaped topology avoids the n² wiring that direct register-to-register connections would require.</p>
+    <div style="text-align:center;margin:1.25rem 0">
+      <svg width="100%" viewBox="0 0 680 500" role="img" xmlns="http://www.w3.org/2000/svg">
+        <title>General register organisation — register file with common ALU</title>
+        <defs><marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+        <rect x="20" y="40" width="64" height="26" rx="4" fill="#dbeafe" stroke="#3b82f6" stroke-width="1"/><text x="52" y="53" font-size="12" font-weight="700" text-anchor="middle" fill="#1e40af">R1</text>
+        <rect x="20" y="72" width="64" height="26" rx="4" fill="#dbeafe" stroke="#3b82f6" stroke-width="1"/><text x="52" y="85" font-size="12" font-weight="700" text-anchor="middle" fill="#1e40af">R2</text>
+        <rect x="20" y="104" width="64" height="26" rx="4" fill="#dbeafe" stroke="#3b82f6" stroke-width="1"/><text x="52" y="117" font-size="12" font-weight="700" text-anchor="middle" fill="#1e40af">R3</text>
+        <rect x="20" y="136" width="64" height="26" rx="4" fill="#dbeafe" stroke="#3b82f6" stroke-width="1"/><text x="52" y="149" font-size="12" font-weight="700" text-anchor="middle" fill="#1e40af">R4</text>
+        <rect x="20" y="168" width="64" height="26" rx="4" fill="#dbeafe" stroke="#3b82f6" stroke-width="1"/><text x="52" y="181" font-size="12" font-weight="700" text-anchor="middle" fill="#1e40af">R5</text>
+        <rect x="20" y="200" width="64" height="26" rx="4" fill="#dbeafe" stroke="#3b82f6" stroke-width="1"/><text x="52" y="213" font-size="12" font-weight="700" text-anchor="middle" fill="#1e40af">R6</text>
+        <rect x="20" y="232" width="64" height="26" rx="4" fill="#dbeafe" stroke="#3b82f6" stroke-width="1"/><text x="52" y="245" font-size="12" font-weight="700" text-anchor="middle" fill="#1e40af">R7</text>
+        <line x1="20" y1="53" x2="10" y2="53" stroke="var(--text-2)" stroke-width="0.8"/>
+        <line x1="20" y1="85" x2="10" y2="85" stroke="var(--text-2)" stroke-width="0.8"/>
+        <line x1="20" y1="117" x2="10" y2="117" stroke="var(--text-2)" stroke-width="0.8"/>
+        <line x1="20" y1="149" x2="10" y2="149" stroke="var(--text-2)" stroke-width="0.8"/>
+        <line x1="20" y1="181" x2="10" y2="181" stroke="var(--text-2)" stroke-width="0.8"/>
+        <line x1="20" y1="213" x2="10" y2="213" stroke="var(--text-2)" stroke-width="0.8"/>
+        <line x1="20" y1="245" x2="10" y2="245" stroke="var(--text-2)" stroke-width="0.8"/>
+        <text x="6" y="149" font-size="10" text-anchor="middle" fill="var(--text-2)" transform="rotate(-90 6 149)">Load (7 lines)</text>
+        <line x1="84" y1="53" x2="178" y2="53" stroke="var(--text-2)" stroke-width="0.5"/>
+        <line x1="84" y1="85" x2="178" y2="85" stroke="var(--text-2)" stroke-width="0.5"/>
+        <line x1="84" y1="117" x2="178" y2="117" stroke="var(--text-2)" stroke-width="0.5"/>
+        <line x1="84" y1="149" x2="178" y2="149" stroke="var(--text-2)" stroke-width="0.5"/>
+        <line x1="84" y1="181" x2="178" y2="181" stroke="var(--text-2)" stroke-width="0.5"/>
+        <line x1="84" y1="213" x2="178" y2="213" stroke="var(--text-2)" stroke-width="0.5"/>
+        <line x1="84" y1="245" x2="178" y2="245" stroke="var(--text-2)" stroke-width="0.5"/>
+        <line x1="178" y1="38" x2="178" y2="248" stroke="var(--text-2)" stroke-width="0.8"/>
+        <line x1="178" y1="53" x2="446" y2="53" stroke="var(--text-2)" stroke-width="0.5"/>
+        <line x1="178" y1="85" x2="446" y2="85" stroke="var(--text-2)" stroke-width="0.5"/>
+        <line x1="178" y1="117" x2="446" y2="117" stroke="var(--text-2)" stroke-width="0.5"/>
+        <line x1="178" y1="149" x2="446" y2="149" stroke="var(--text-2)" stroke-width="0.5"/>
+        <line x1="178" y1="181" x2="446" y2="181" stroke="var(--text-2)" stroke-width="0.5"/>
+        <line x1="178" y1="213" x2="446" y2="213" stroke="var(--text-2)" stroke-width="0.5"/>
+        <line x1="178" y1="245" x2="446" y2="245" stroke="var(--text-2)" stroke-width="0.5"/>
+        <line x1="446" y1="38" x2="446" y2="248" stroke="var(--text-2)" stroke-width="0.8"/>
+        <rect x="180" y="38" width="66" height="214" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1"/>
+        <text x="213" y="128" font-size="12" font-weight="700" text-anchor="middle" fill="#92400e">MUX</text>
+        <text x="213" y="145" font-size="12" font-weight="700" text-anchor="middle" fill="#92400e">A</text>
+        <text x="213" y="162" font-size="10" text-anchor="middle" fill="#92400e">SELA</text>
+        <rect x="448" y="38" width="66" height="214" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1"/>
+        <text x="481" y="128" font-size="12" font-weight="700" text-anchor="middle" fill="#92400e">MUX</text>
+        <text x="481" y="145" font-size="12" font-weight="700" text-anchor="middle" fill="#92400e">B</text>
+        <text x="481" y="162" font-size="10" text-anchor="middle" fill="#92400e">SELB</text>
+        <text x="560" y="14" font-size="11" text-anchor="middle" fill="var(--text-2)">Input (code 000)</text>
+        <line x1="213" y1="14" x2="481" y2="14" stroke="var(--text-2)" stroke-width="1" fill="none"/>
+        <line x1="560" y1="14" x2="481" y2="14" stroke="var(--text-2)" stroke-width="1" fill="none"/>
+        <line x1="213" y1="14" x2="213" y2="36" stroke="var(--text-2)" stroke-width="1" marker-end="url(#arr)" fill="none"/>
+        <line x1="481" y1="14" x2="481" y2="36" stroke="var(--text-2)" stroke-width="1" marker-end="url(#arr)" fill="none"/>
+        <text x="213" y="263" font-size="11" text-anchor="middle" fill="var(--text-2)">Bus A</text>
+        <text x="481" y="263" font-size="11" text-anchor="middle" fill="var(--text-2)">Bus B</text>
+        <line x1="213" y1="252" x2="213" y2="304" stroke="var(--text-2)" stroke-width="1" marker-end="url(#arr)" fill="none"/>
+        <line x1="481" y1="252" x2="481" y2="304" stroke="var(--text-2)" stroke-width="1" marker-end="url(#arr)" fill="none"/>
+        <rect x="294" y="306" width="100" height="52" rx="8" fill="#dcfce7" stroke="#16a34a" stroke-width="1"/>
+        <text x="344" y="326" font-size="12" font-weight="700" text-anchor="middle" fill="#14532d">ALU</text>
+        <text x="344" y="344" font-size="11" text-anchor="middle" fill="#14532d">OPR ↑</text>
+        <line x1="344" y1="358" x2="344" y2="378" stroke="var(--text-2)" stroke-width="1" marker-end="url(#arr)" fill="none"/>
+        <rect x="282" y="380" width="124" height="44" rx="8" fill="#ede9fe" stroke="#7c3aed" stroke-width="1"/>
+        <text x="344" y="398" font-size="12" font-weight="700" text-anchor="middle" fill="#4c1d95">3×8 decoder</text>
+        <text x="344" y="414" font-size="11" text-anchor="middle" fill="#4c1d95">SELD ↑</text>
+        <line x1="282" y1="402" x2="84" y2="402" stroke="var(--text-2)" stroke-width="1" marker-end="url(#arr)" fill="none"/>
+        <text x="183" y="396" font-size="11" text-anchor="middle" fill="var(--text-2)">7 load lines</text>
+        <line x1="397" y1="332" x2="432" y2="332" stroke="var(--text-2)" stroke-width="1" marker-end="url(#arr)" fill="none"/>
+        <text x="436" y="336" font-size="11" fill="var(--text-2)">Output</text>
+        <rect x="52" y="452" width="576" height="32" rx="4" fill="var(--bg-2)" stroke="var(--border)" stroke-width="1"/>
+        <text x="162" y="468" font-size="11" text-anchor="middle" fill="var(--text-2)">SELA (3 bits)</text>
+        <text x="278" y="468" font-size="11" text-anchor="middle" fill="var(--text-2)">SELB (3 bits)</text>
+        <text x="396" y="468" font-size="11" text-anchor="middle" fill="var(--text-2)">SELD (3 bits)</text>
+        <text x="540" y="468" font-size="11" text-anchor="middle" fill="var(--text-2)">OPR (5 bits)</text>
+        <line x1="218" y1="452" x2="218" y2="484" stroke="var(--border)" stroke-width="0.5"/>
+        <line x1="334" y1="452" x2="334" y2="484" stroke="var(--border)" stroke-width="0.5"/>
+        <line x1="464" y1="452" x2="464" y2="484" stroke="var(--border)" stroke-width="0.5"/>
+        <text x="340" y="443" font-size="11" text-anchor="middle" fill="var(--text-2)">14-bit control word</text>
+      </svg>
+    </div>
+    <p><strong>MUX A</strong> (SELA) selects a source register for bus A. <strong>MUX B</strong> (SELB) selects a source register for bus B. Both drive the <strong>ALU</strong>, which performs the operation selected by OPR. The ALU output feeds the <strong>3×8 decoder</strong> (SELD), which activates the load input of exactly one destination register. When SELA or SELB = 000, the external Input is placed on that bus. When SELD = 000, the result is available on the external output only — no register is written.</p>
+
+    <h2>The 14-Bit Control Word and ALU Operations</h2>
+    <p>The four selector fields form a 14-bit control word: SELA (3 bits) + SELB (3 bits) + SELD (3 bits) + OPR (5 bits). Table 8-1 gives the register encoding: binary code 000 selects external Input (for SELA/SELB) or no destination (for SELD); codes 001–111 select R1–R7. Table 8-2 lists eleven named ALU operations, including ADD (00010), SUB (00101), AND (01000), OR (01010), XOR (01100), COMA (01110), SHRA (10000), and SHLA (11000).</p>
+    <p>To execute <strong>R1 ← R2 + R3</strong>: set SELA = 010 (R2 on bus A), SELB = 011 (R3 on bus B), OPR = 00010 (ADD), SELD = 001 (result into R1). The 14-bit control word is <code>010 011 001 00010</code>. On the clock edge the ALU result is loaded into R1.</p>
+
+    <h2>Common Pitfalls</h2>
+    <ul>
+      <li><strong>Confusing SELD with SELB.</strong> SELB selects a source register to read; SELD selects the destination register to write. Same 3-bit encoding, opposite purpose.</li>
+      <li><strong>Three bits encoding seven registers.</strong> Code 000 is reserved, leaving only codes 001–111 for registers. A CPU with eight general-purpose registers needs a different convention or an extra bit.</li>
+      <li><strong>OPR ignoring bus B.</strong> For single-operand operations (TSFA, INCA, COMA, shifts), the ALU uses only bus A. SELB must still hold a valid code — the MUX always drives bus B — but the OPR circuitry disregards it.</li>
+      <li><strong>Read-before-write on the same register.</strong> If SELA = SELD = 001, the operation reads R1 at the start of the clock cycle and writes the result at the clock edge. This is correct: R1 ← R1 + R2 behaves as expected.</li>
+    </ul>
+  </div>
+
+  <div id="gate-section">
+    <div class="gate">
+      <div class="gate-blur">
+        <div class="quiz">
+          <div class="quiz-title">📝 Quick Quiz — 5 Questions</div>
+        </div>
+      </div>
+      <div class="gate-overlay">
+        <div class="gate-box">
+          <div class="lock">🔒</div>
+          <h3>Login to take the quiz</h3>
+          <p>Create a free account to take the quiz and track your progress across all topics.</p>
+          <div class="gate-btns">
+            <a href="../../../login.html" class="btn btn-primary btn-sm">Login</a>
+            <a href="../../../login.html" class="btn btn-outline btn-sm">Register Free</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="quiz" id="quiz-section" style="display:none">
+    <div class="quiz-title">📝 Quick Quiz — 5 Questions</div>
+    <div id="quiz-body"></div>
+    <button class="btn btn-primary" id="submit-btn" disabled>Submit Quiz</button>
+    <div class="quiz-result" id="quiz-result" style="display:none"></div>
+  </div>
+
+  <div class="topic-nav">
+    <a href="address-sequencing.html">
+      <div class="nav-dir">← Previous</div>
+      <div class="nav-title">Address Sequencing</div>
+    </a>
+  </div>
+
+</div>
+
+<footer id="main-footer"></footer>
+
+<script type="module">
+  import { initNav } from '../../../js/nav.js';
+  import { onAuth, saveProgress, getProgress } from '../../../js/firebase-config.js';
+  import { initSidebar } from '../../../js/sidebar.js';
+  initNav(3);
+  initSidebar();
+
+  const COURSE_ID = 'coa';
+  const TOPIC_ID  = 'general-register-organization';
+  const LABELS    = ['A','B','C','D'];
+  const QUIZ = [
+    { q:"In the general register organisation of Fig. 8-2, what is the purpose of the SELD field?", options:["Select the source register for bus A","Select the ALU operation","Select the destination register to receive the ALU output","Select the source register for bus B"], answer:2, explanation:"SELD drives the 3×8 decoder that activates one register's load input. SELA and SELB select sources; OPR selects the operation." },
+    { q:"How many bits are in the complete control word for Mano's 7-register CPU?", options:["11","12","14","16"], answer:2, explanation:"SELA (3) + SELB (3) + SELD (3) + OPR (5) = 14 bits." },
+    { q:"The control word 010 011 001 00010 is applied. Which RTL statement does it implement?", options:["R2 ← R1 + R3","R1 ← R2 + R3","R3 ← R1 + R2","R1 ← R2 − R3"], answer:1, explanation:"SELA = 010 → R2 on bus A; SELB = 011 → R3 on bus B; OPR = 00010 → ADD; SELD = 001 → result into R1. RTL: R1 ← R2 + R3." },
+    { q:"SELA = 000 is applied to MUX A. What appears on bus A?", options:["The content of R7","Zero","The external input data","The output of the ALU"], answer:2, explanation:"From Table 8-1, code 000 for SELA or SELB routes the external Input, not any register." },
+    { q:"A CPU is designed with 15 general-purpose registers. How many bits are needed for each of SELA, SELB, and SELD if code 0000 is reserved?", options:["3 bits","4 bits","5 bits","8 bits"], answer:1, explanation:"15 registers + 1 reserved code = 16 possible values. ⌈log₂ 16⌉ = 4 bits. Three bits can only encode 8 values, which is insufficient." }
+  ];
+
+  let selected = {}, submitted = false;
+
+  function buildQuiz() {
+    document.getElementById('quiz-body').innerHTML = QUIZ.map((q, qi) => `
+      <div class="question">
+        <div class="question-text">Q${qi+1}. ${q.q}</div>
+        <div class="options">
+          ${q.options.map((o, oi) => `<div class="option" data-qi="${qi}" data-oi="${oi}"><span class="option-lbl">${LABELS[oi]}</span>${o}</div>`).join('')}
+        </div>
+        <div class="explanation" id="exp${qi}" style="display:none">💡 ${q.explanation}</div>
+      </div>`).join('');
+    document.querySelectorAll('.option').forEach(el => {
+      el.onclick = () => {
+        if (submitted) return;
+        const qi = +el.dataset.qi, oi = +el.dataset.oi;
+        selected[qi] = oi;
+        document.querySelectorAll(`[data-qi="${qi}"]`).forEach(o => o.classList.remove('selected'));
+        el.classList.add('selected');
+        document.getElementById('submit-btn').disabled = Object.keys(selected).length < QUIZ.length;
+      };
+    });
+  }
+
+  async function submitQuiz(uid) {
+    submitted = true; let score = 0;
+    QUIZ.forEach((q, qi) => {
+      const correct = q.answer, chosen = selected[qi];
+      document.querySelectorAll(`[data-qi="${qi}"]`).forEach(o => {
+        const oi = +o.dataset.oi;
+        if (oi === correct) o.classList.add('correct');
+        else if (oi === chosen) o.classList.add('wrong');
+      });
+      document.getElementById(`exp${qi}`).style.display = 'block';
+      if (chosen === correct) score++;
+    });
+    document.getElementById('submit-btn').style.display = 'none';
+    const pct = Math.round((score / QUIZ.length) * 100);
+    const res = document.getElementById('quiz-result');
+    res.style.display = 'block';
+    res.className = `quiz-result ${pct >= 60 ? 'pass' : 'fail'}`;
+    res.innerHTML = `<div class="quiz-score">${pct >= 60 ? '🎉' : '📖'} Score: ${score}/${QUIZ.length} (${pct}%)</div>
+      <div class="quiz-msg">${pct >= 80 ? 'Excellent! Move to the next topic.' : pct >= 60 ? 'Good. Review what you missed.' : 'Review the lesson and try again.'}</div>`;
+    if (uid) await saveProgress(uid, COURSE_ID, TOPIC_ID, score, QUIZ.length);
+  }
+
+  onAuth(async user => {
+    const gate = document.getElementById('gate-section');
+    const quiz  = document.getElementById('quiz-section');
+    if (user) {
+      gate.style.display = 'none';
+      quiz.style.display = 'block';
+      buildQuiz();
+      document.getElementById('submit-btn').onclick = () => submitQuiz(user.uid);
+      const prog = await getProgress(user.uid, COURSE_ID, TOPIC_ID);
+      if (prog?.completed) {
+        const res = document.getElementById('quiz-result');
+        res.style.display = 'block';
+        res.className = 'quiz-result pass';
+        res.innerHTML = `<div class="quiz-score">✅ Completed — Best score: ${prog.percent}%</div>
+          <div class="quiz-msg">You can retake the quiz anytime.</div>`;
+      }
+    }
+  });
+</script>
+</body>
+</html>

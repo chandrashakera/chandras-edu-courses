@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3030765874336294" crossorigin="anonymous"></script>
+  <title>Address Sequencing — COA Unit 4 | CHANDRAS EDU</title>
+  <meta name="description" content="Address sequencing determines which microinstruction executes next. Learn incrementing, branching, opcode mapping, and subroutine call in microprogrammed control.">
+  <link rel="canonical" href="https://chandrashaker.com/courses/academic/coa/unit4/address-sequencing">
+  <link rel="stylesheet" href="../../../css/style.css">
+
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="CHANDRAS EDU">
+  <meta property="og:title" content="Address Sequencing — COA Unit 4 | CHANDRAS EDU">
+  <meta property="og:description" content="Address sequencing determines which microinstruction executes next. Learn incrementing, branching, opcode mapping, and subroutine call in microprogrammed control.">
+  <meta property="og:url" content="https://chandrashaker.com/courses/academic/coa/unit4/address-sequencing">
+  <meta property="og:image" content="https://chandrashaker.com/courses/images/og/coa-v7.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Computer Organization and Architecture — CHANDRAS EDU free course">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Address Sequencing — COA Unit 4 | CHANDRAS EDU">
+  <meta name="twitter:description" content="Address sequencing determines which microinstruction executes next. Learn incrementing, branching, opcode mapping, and subroutine call in microprogrammed control.">
+  <meta name="twitter:image" content="https://chandrashaker.com/courses/images/og/coa-v7.png">
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Courses", "item": "https://chandrashaker.com/courses/" },
+    { "@type": "ListItem", "position": 2, "name": "COA", "item": "https://chandrashaker.com/courses/academic/coa/" },
+    { "@type": "ListItem", "position": 3, "name": "Unit 4", "item": "https://chandrashaker.com/courses/academic/coa/unit4/" },
+    { "@type": "ListItem", "position": 4, "name": "Address Sequencing" }
+  ]
+}
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LearningResource",
+  "name": "Address Sequencing",
+  "description": "Address sequencing determines which microinstruction executes next. Learn incrementing, branching, opcode mapping, and subroutine call in microprogrammed control.",
+  "url": "https://chandrashaker.com/courses/academic/coa/unit4/address-sequencing",
+  "learningResourceType": "Lesson",
+  "educationalLevel": "Undergraduate",
+  "about": { "@type": "Thing", "name": "Computer Organization and Architecture" },
+  "isPartOf": {
+    "@type": "Course",
+    "name": "Computer Organization and Architecture",
+    "provider": { "@type": "Organization", "name": "CHANDRAS EDU", "url": "https://chandrashaker.in" }
+  },
+  "publisher": { "@type": "Organization", "name": "CHANDRAS EDU", "url": "https://chandrashaker.in" }
+}
+  </script>
+  <link rel="icon" href="/favicon.ico">
+  <style>
+    .truth-table { border-collapse:collapse; margin:1rem auto; font-size:.86rem; }
+    .truth-table th, .truth-table td { border:1px solid var(--border); padding:.4rem .65rem; text-align:center; }
+    .truth-table th { background:var(--bg-3); color:var(--text); font-weight:700; }
+  </style>
+</head>
+<body>
+<div id="main-nav"></div>
+
+<div class="page-narrow" role="main">
+
+  <nav class="breadcrumb">
+    <a href="../../../index.html">Courses</a><span class="sep">/</span>
+    <a href="../index.html">Computer Organization and Architecture</a><span class="sep">/</span>
+    <a href="index.html">Unit 4</a><span class="sep">/</span>
+    <span>Microprogrammed Control</span><span class="sep">/</span>
+    <span class="cur">Address Sequencing</span>
+  </nav>
+
+  <div style="background:var(--primary);border-radius:var(--radius-lg);padding:1.1rem 1.4rem;margin-bottom:1.5rem;color:#fff">
+    <div style="font-size:.75rem;opacity:.75;margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.05em">COA › Unit 4: Microprogrammed Control › Topic 2</div>
+    <h1 style="font-size:1.4rem;font-weight:700;color:#fff;margin-bottom:.5rem">Address Sequencing</h1>
+    <div style="display:flex;gap:.75rem;flex-wrap:wrap">
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">⏱ 16 min read</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📝 Quiz inside</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📖 Mano, Ch. 7</span>
+    </div>
+  </div>
+
+  <div class="lesson">
+    <p>A microprogram stored in control memory is not executed strictly from beginning to end. Each machine instruction maps to its own microprogram routine, those routines share a common fetch sequence, and conditional branches may take different paths depending on status bits. The hardware that computes which address to load into the CAR for the next clock cycle is the <strong>microprogram sequencer</strong>. Understanding its four capabilities is the central task of this topic.</p>
+
+    <h2>Four Required Capabilities</h2>
+    <p>Mano identifies four operations the sequencer must support:</p>
+    <ol>
+      <li><strong>Increment the CAR</strong> — execute the next microinstruction in sequence.</li>
+      <li><strong>Unconditional or conditional branch</strong> — jump to the address in the AD field, always or only when a tested status bit has a specific value.</li>
+      <li><strong>Map the machine-instruction opcode to a control memory address</strong> — at the start of each execute phase, jump to the routine for the current machine instruction.</li>
+      <li><strong>Subroutine call and return</strong> — jump to a shared microprogram subroutine and return to the calling address afterwards.</li>
+    </ol>
+
+    <h2>The Sequencer Block (Fig. 7-2)</h2>
+    <div style="text-align:center;margin:1.25rem 0">
+      <svg width="100%" viewBox="0 0 680 470" role="img" xmlns="http://www.w3.org/2000/svg">
+        <title>Address sequencing hardware — microprogram sequencer</title>
+        <defs><marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+        <text x="380" y="18" font-size="11" text-anchor="middle" fill="var(--text-2)">Instruction code</text>
+        <line x1="380" y1="24" x2="380" y2="46" stroke="var(--text-2)" stroke-width="1" marker-end="url(#arr)" fill="none"/>
+        <rect x="300" y="48" width="160" height="38" rx="6" fill="#dcfce7" stroke="#16a34a" stroke-width="1"/>
+        <text x="380" y="67" font-size="12" font-weight="700" text-anchor="middle" fill="#14532d">Mapping logic</text>
+        <line x1="380" y1="86" x2="380" y2="108" stroke="var(--text-2)" stroke-width="1" marker-end="url(#arr)" fill="none"/>
+        <text x="148" y="114" font-size="11" text-anchor="middle" fill="var(--text-2)">Status bits</text>
+        <line x1="148" y1="120" x2="148" y2="142" stroke="var(--text-2)" stroke-width="1" marker-end="url(#arr)" fill="none"/>
+        <rect x="88" y="144" width="120" height="38" rx="6" fill="#fee2e2" stroke="#dc2626" stroke-width="1"/>
+        <text x="148" y="163" font-size="12" font-weight="700" text-anchor="middle" fill="#991b1b">Branch logic</text>
+        <text x="233" y="151" font-size="11" text-anchor="middle" fill="var(--text-2)">MUX</text>
+        <text x="233" y="164" font-size="11" text-anchor="middle" fill="var(--text-2)">select</text>
+        <line x1="208" y1="163" x2="298" y2="163" stroke="var(--text-2)" stroke-width="1" marker-end="url(#arr)" fill="none"/>
+        <rect x="300" y="110" width="200" height="88" rx="6" fill="#dbeafe" stroke="#3b82f6" stroke-width="1"/>
+        <text x="400" y="136" font-size="12" font-weight="700" text-anchor="middle" fill="#1e40af">Multiplexers</text>
+        <text x="400" y="154" font-size="11" text-anchor="middle" fill="#1e40af">0: increment  1: AD field</text>
+        <text x="400" y="170" font-size="11" text-anchor="middle" fill="#1e40af">2: mapping  3: SBR</text>
+        <rect x="530" y="110" width="130" height="38" rx="6" fill="#ccfbf1" stroke="#0d9488" stroke-width="1"/>
+        <text x="595" y="129" font-size="11" font-weight="700" text-anchor="middle" fill="#134e4a">Subroutine reg (SBR)</text>
+        <line x1="530" y1="129" x2="502" y2="129" stroke="var(--text-2)" stroke-width="1" marker-end="url(#arr)" fill="none"/>
+        <line x1="400" y1="198" x2="400" y2="220" stroke="var(--text-2)" stroke-width="1" marker-end="url(#arr)" fill="none"/>
+        <rect x="268" y="222" width="232" height="38" rx="6" fill="#dbeafe" stroke="#3b82f6" stroke-width="1"/>
+        <text x="384" y="241" font-size="12" font-weight="700" text-anchor="middle" fill="#1e40af">Control address register (CAR)</text>
+        <text x="252" y="234" font-size="11" text-anchor="end" fill="var(--text-2)">Clock</text>
+        <line x1="254" y1="239" x2="268" y2="239" stroke="var(--text-2)" stroke-width="1" marker-end="url(#arr)" fill="none"/>
+        <line x1="500" y1="241" x2="530" y2="241" stroke="var(--text-2)" stroke-width="1" marker-end="url(#arr)" fill="none"/>
+        <rect x="532" y="222" width="120" height="38" rx="6" fill="#ccfbf1" stroke="#0d9488" stroke-width="1"/>
+        <text x="592" y="241" font-size="12" font-weight="700" text-anchor="middle" fill="#134e4a">Incrementer</text>
+        <line x1="592" y1="222" x2="592" y2="148" stroke="var(--text-2)" stroke-width="1" marker-end="url(#arr)" fill="none"/>
+        <line x1="400" y1="260" x2="400" y2="288" stroke="var(--text-2)" stroke-width="1" marker-end="url(#arr)" fill="none"/>
+        <rect x="300" y="290" width="200" height="48" rx="6" fill="#ede9fe" stroke="#7c3aed" stroke-width="1"/>
+        <text x="400" y="310" font-size="12" font-weight="700" text-anchor="middle" fill="#4c1d95">Control memory</text>
+        <text x="400" y="327" font-size="11" text-anchor="middle" fill="#4c1d95">(ROM)</text>
+        <line x1="400" y1="338" x2="400" y2="364" stroke="var(--text-2)" stroke-width="1" marker-end="url(#arr)" fill="none"/>
+        <text x="400" y="380" font-size="11" text-anchor="middle" fill="var(--text-2)">Microoperations</text>
+        <text x="96" y="300" font-size="11" fill="var(--text-2)">Branch address</text>
+        <path d="M300 312 L64 312 L64 163" fill="none" stroke="var(--text-2)" stroke-width="1" stroke-dasharray="4 3" marker-end="url(#arr)"/>
+        <text x="96" y="348" font-size="11" fill="var(--text-2)">Select a status bit</text>
+        <path d="M300 330 L44 330 L44 144" fill="none" stroke="var(--text-2)" stroke-width="1" stroke-dasharray="4 3" marker-end="url(#arr)"/>
+      </svg>
+    </div>
+    <p>The <strong>multiplexers</strong> select one of four address sources each cycle. The <strong>incrementer</strong> adds one to the CAR value; its output also feeds the SBR during a subroutine call. The <strong>subroutine register (SBR)</strong> saves the return address. The <strong>branch logic</strong> tests the status bit selected by CD and drives the MUX select lines. The <strong>mapping logic</strong> converts the machine-instruction opcode into a control memory starting address.</p>
+
+    <h2>The BR Field and Four Sequencing Modes</h2>
+    <table class="truth-table">
+      <thead><tr><th>BR</th><th>Operation</th></tr></thead>
+      <tbody>
+        <tr><td>00</td><td>Continue: CAR ← CAR + 1</td></tr>
+        <tr><td>01</td><td>Conditional branch: if CD condition true, CAR ← AD; else CAR ← CAR + 1</td></tr>
+        <tr><td>10</td><td>Map: CAR ← mapping logic output (opcode → control address)</td></tr>
+        <tr><td>11</td><td>Call: SBR ← CAR + 1, CAR ← AD &nbsp;|&nbsp; Return: CAR ← SBR</td></tr>
+      </tbody>
+    </table>
+    <p>When CD = 00 (condition U, always true), a BR = 01 branch is unconditional. The mapping logic is implemented with a PLD or a small ROM that transforms opcode bits into a control memory address. Nested subroutine calls require a hardware stack in the SBR, since one register can only save one return address.</p>
+
+    <h2>Common Pitfalls</h2>
+    <ul>
+      <li><strong>Forgetting the mapping step.</strong> The correct sequence is fetch → map → execute. The sequencer cannot jump from the fetch routine to the correct execute routine without the mapping hardware.</li>
+      <li><strong>Confusing BR and CD.</strong> BR selects what kind of address transition to make; CD selects which status bit to test. Both fields act together for conditional branching.</li>
+      <li><strong>SBR depth.</strong> One SBR register supports only one level of subroutine nesting. A subroutine that calls another subroutine overwrites the first return address.</li>
+      <li><strong>Mapping input.</strong> Mapping logic reads opcode bits from the instruction register, not from the AD field of the current microinstruction.</li>
+    </ul>
+  </div>
+
+  <div id="gate-section">
+    <div class="gate">
+      <div class="gate-blur">
+        <div class="quiz">
+          <div class="quiz-title">📝 Quick Quiz — 5 Questions</div>
+        </div>
+      </div>
+      <div class="gate-overlay">
+        <div class="gate-box">
+          <div class="lock">🔒</div>
+          <h3>Login to take the quiz</h3>
+          <p>Create a free account to take the quiz and track your progress across all topics.</p>
+          <div class="gate-btns">
+            <a href="../../../login.html" class="btn btn-primary btn-sm">Login</a>
+            <a href="../../../login.html" class="btn btn-outline btn-sm">Register Free</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="quiz" id="quiz-section" style="display:none">
+    <div class="quiz-title">📝 Quick Quiz — 5 Questions</div>
+    <div id="quiz-body"></div>
+    <button class="btn btn-primary" id="submit-btn" disabled>Submit Quiz</button>
+    <div class="quiz-result" id="quiz-result" style="display:none"></div>
+  </div>
+
+  <div class="topic-nav">
+    <a href="control-memory.html">
+      <div class="nav-dir">← Previous</div>
+      <div class="nav-title">Control Memory</div>
+    </a>
+    <a href="general-register-organization.html" class="next">
+      <div class="nav-dir">Next →</div>
+      <div class="nav-title">General Register Organization</div>
+    </a>
+  </div>
+
+</div>
+
+<footer id="main-footer"></footer>
+
+<script type="module">
+  import { initNav } from '../../../js/nav.js';
+  import { onAuth, saveProgress, getProgress } from '../../../js/firebase-config.js';
+  import { initSidebar } from '../../../js/sidebar.js';
+  initNav(3);
+  initSidebar();
+
+  const COURSE_ID = 'coa';
+  const TOPIC_ID  = 'address-sequencing';
+  const LABELS    = ['A','B','C','D'];
+  const QUIZ = [
+    { q:"Which component saves the return address when a microprogram subroutine is called?", options:["The control address register (CAR)","The subroutine register (SBR)","The mapping logic","The branch logic"], answer:1, explanation:"The SBR stores CAR + 1 at the moment of the call, so execution can resume at that address after the subroutine finishes." },
+    { q:"A microinstruction has BR = 00. What does the sequencer do next?", options:["Test a status bit and branch to the AD address","Load the opcode into the CAR","Increment the CAR and fetch the next sequential microinstruction","Load the SBR into the CAR"], answer:2, explanation:"BR = 00 selects the increment path. The next address is simply CAR + 1 — no branching or mapping occurs." },
+    { q:"At the end of the fetch routine, what is the input to the mapping logic?", options:["The AD field of the current microinstruction","The opcode bits of the machine instruction in the instruction register","The status bits of the ALU","The content of the SBR"], answer:1, explanation:"Mapping converts the machine instruction's opcode into a control memory starting address for the corresponding execute routine." },
+    { q:"A control memory has 512 words. How many bits must the AD (address) field contain?", options:["7","8","9","10"], answer:2, explanation:"512 = 2⁹, so 9 address bits are needed. Mano's example uses 128 = 2⁷ words with a 7-bit AD field; doubling the memory twice adds 2 bits." },
+    { q:"A subroutine is called from address 45. The SBR stores 46 and the subroutine runs from address 80 to 85. After the return microinstruction, what address is loaded into the CAR?", options:["45","46","80","86"], answer:1, explanation:"The SBR saved CAR + 1 = 46 at call time. The return microinstruction restores SBR into CAR, resuming execution at address 46." }
+  ];
+
+  let selected = {}, submitted = false;
+
+  function buildQuiz() {
+    document.getElementById('quiz-body').innerHTML = QUIZ.map((q, qi) => `
+      <div class="question">
+        <div class="question-text">Q${qi+1}. ${q.q}</div>
+        <div class="options">
+          ${q.options.map((o, oi) => `<div class="option" data-qi="${qi}" data-oi="${oi}"><span class="option-lbl">${LABELS[oi]}</span>${o}</div>`).join('')}
+        </div>
+        <div class="explanation" id="exp${qi}" style="display:none">💡 ${q.explanation}</div>
+      </div>`).join('');
+    document.querySelectorAll('.option').forEach(el => {
+      el.onclick = () => {
+        if (submitted) return;
+        const qi = +el.dataset.qi, oi = +el.dataset.oi;
+        selected[qi] = oi;
+        document.querySelectorAll(`[data-qi="${qi}"]`).forEach(o => o.classList.remove('selected'));
+        el.classList.add('selected');
+        document.getElementById('submit-btn').disabled = Object.keys(selected).length < QUIZ.length;
+      };
+    });
+  }
+
+  async function submitQuiz(uid) {
+    submitted = true; let score = 0;
+    QUIZ.forEach((q, qi) => {
+      const correct = q.answer, chosen = selected[qi];
+      document.querySelectorAll(`[data-qi="${qi}"]`).forEach(o => {
+        const oi = +o.dataset.oi;
+        if (oi === correct) o.classList.add('correct');
+        else if (oi === chosen) o.classList.add('wrong');
+      });
+      document.getElementById(`exp${qi}`).style.display = 'block';
+      if (chosen === correct) score++;
+    });
+    document.getElementById('submit-btn').style.display = 'none';
+    const pct = Math.round((score / QUIZ.length) * 100);
+    const res = document.getElementById('quiz-result');
+    res.style.display = 'block';
+    res.className = `quiz-result ${pct >= 60 ? 'pass' : 'fail'}`;
+    res.innerHTML = `<div class="quiz-score">${pct >= 60 ? '🎉' : '📖'} Score: ${score}/${QUIZ.length} (${pct}%)</div>
+      <div class="quiz-msg">${pct >= 80 ? 'Excellent! Move to the next topic.' : pct >= 60 ? 'Good. Review what you missed.' : 'Review the lesson and try again.'}</div>`;
+    if (uid) await saveProgress(uid, COURSE_ID, TOPIC_ID, score, QUIZ.length);
+  }
+
+  onAuth(async user => {
+    const gate = document.getElementById('gate-section');
+    const quiz  = document.getElementById('quiz-section');
+    if (user) {
+      gate.style.display = 'none';
+      quiz.style.display = 'block';
+      buildQuiz();
+      document.getElementById('submit-btn').onclick = () => submitQuiz(user.uid);
+      const prog = await getProgress(user.uid, COURSE_ID, TOPIC_ID);
+      if (prog?.completed) {
+        const res = document.getElementById('quiz-result');
+        res.style.display = 'block';
+        res.className = 'quiz-result pass';
+        res.innerHTML = `<div class="quiz-score">✅ Completed — Best score: ${prog.percent}%</div>
+          <div class="quiz-msg">You can retake the quiz anytime.</div>`;
+      }
+    }
+  });
+</script>
+</body>
+</html>

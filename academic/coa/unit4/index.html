@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3030765874336294" crossorigin="anonymous"></script>
+  <title>Unit 4 | Microprogrammed Control and CPU | COA | CHANDRAS EDU</title>
+  <meta name="description" content="COA Unit 4: microprogrammed control and CPU organisation, with SVG diagrams and quizzes based on Mano. More topics, including computer arithmetic, coming soon.">
+  <link rel="canonical" href="https://chandrashaker.com/courses/academic/coa/unit4/">
+  <link rel="stylesheet" href="../../../css/style.css">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="CHANDRAS EDU">
+  <meta property="og:title" content="Unit 4 | Microprogrammed Control and CPU | COA | CHANDRAS EDU">
+  <meta property="og:description" content="COA Unit 4: microprogrammed control and CPU organisation, with SVG diagrams and quizzes based on Mano. More topics, including computer arithmetic, coming soon.">
+  <meta property="og:url" content="https://chandrashaker.com/courses/academic/coa/unit4/">
+  <meta property="og:image" content="https://chandrashaker.com/courses/images/og/coa-v7.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Computer Organization and Architecture — CHANDRAS EDU free course">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Unit 4 | Microprogrammed Control and CPU | COA | CHANDRAS EDU">
+  <meta name="twitter:description" content="COA Unit 4: microprogrammed control and CPU organisation, with SVG diagrams and quizzes based on Mano. More topics, including computer arithmetic, coming soon.">
+  <meta name="twitter:image" content="https://chandrashaker.com/courses/images/og/coa-v7.png">
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Courses", "item": "https://chandrashaker.com/courses/" },
+    { "@type": "ListItem", "position": 2, "name": "COA", "item": "https://chandrashaker.com/courses/academic/coa/" },
+    { "@type": "ListItem", "position": 3, "name": "Unit 4" }
+  ]
+}
+  </script>
+  <link rel="icon" href="/favicon.ico">
+</head>
+<body>
+<div id="main-nav"></div>
+
+<div class="page" role="main">
+  <nav class="breadcrumb">
+    <a href="../../../index.html">Courses</a><span class="sep">/</span>
+    <a href="../index.html">Computer Organization and Architecture</a><span class="sep">/</span>
+    <span class="cur">Unit 4</span>
+  </nav>
+
+  <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:1rem;margin-bottom:1.5rem">
+    <div>
+      <span class="badge badge-blue" style="margin-bottom:.5rem;display:inline-block">Unit 4</span>
+      <h1 style="font-size:1.5rem;font-weight:800;color:var(--text)">Microprogrammed Control and CPU</h1>
+      <p style="color:var(--text-2);font-size:.88rem;margin-top:.3rem">3 topics available · more coming soon</p>
+    </div>
+    <div id="unit-progress" style="min-width:180px;display:none">
+      <div class="progress-wrap">
+        <div class="progress-label"><span>Your progress</span><span id="pct">0%</span></div>
+        <div class="progress-bar"><div class="progress-fill" id="pfill" style="width:0%"></div></div>
+      </div>
+      <div style="font-size:.78rem;color:var(--text-3);margin-top:.3rem" id="plabel">0 / 3 topics complete</div>
+    </div>
+  </div>
+
+  <div class="section-head" id="microprogrammed-control">🔧 Microprogrammed Control</div>
+  <p style="color:var(--text-2);font-size:.88rem;margin-bottom:.9rem">How the control unit stores microinstructions in ROM and sequences through them to execute every machine instruction.</p>
+  <div id="tg-microprogrammed-control"></div>
+
+  <div class="section-head" id="cpu" style="margin-top:2rem">🖥️ Central Processing Unit</div>
+  <p style="color:var(--text-2);font-size:.88rem;margin-bottom:.9rem">The register file, instruction formats, addressing modes, and program control that define the programmer's view of the CPU.</p>
+  <div id="tg-cpu"></div>
+
+  <!-- Computer Arithmetic group: re-add (heading, description, #tg-computer-arithmetic) when its topics go live -->
+
+  <div id="login-nudge" style="display:none;margin-top:1.5rem;background:#e8f0fe;border:1px solid #bbdefb;border-left:3px solid var(--primary);border-radius:var(--radius-lg);padding:1rem;text-align:center;font-size:.9rem;color:var(--primary)">
+    <a href="../../../login.html" style="font-weight:700">Login</a> to track your progress and save quiz scores across all topics.
+  </div>
+</div>
+
+<footer id="main-footer"></footer>
+
+<script type="module">
+  import { initNav } from '../../../js/nav.js';
+  import { onAuth, getAllProgress } from '../../../js/firebase-config.js';
+  import { GROUPS } from '../../../js/curriculum/coa-unit4.js';
+  initNav(3);
+
+  const COURSE_ID = 'coa';
+  const ALL_IDS = Object.values(GROUPS).flat().map(t => t.id);
+
+  function renderGroup(containerId, topics, prog = {}) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+    container.innerHTML = `<div class="topic-list">` + topics.map((t, i) => {
+      const p = prog[t.id], done = p?.completed;
+      if (t.status === 'coming') {
+        return `<div class="topic-card" style="opacity:.55;cursor:default">
+          <div class="topic-num" style="background:#f0f0f0;color:#999">🔒</div>
+          <div class="topic-info">
+            <div class="topic-title" style="color:var(--text-2)">${t.title}</div>
+            <div class="topic-desc">${t.desc}</div>
+            <div class="topic-meta"><span>⏱ ${t.time}</span><span style="color:var(--accent);font-weight:600">Coming soon</span></div>
+          </div>
+        </div>`;
+      }
+      return `<a href="${t.href}" class="topic-card">
+        <div class="topic-num ${done ? 'done' : ''}">${done ? '✓' : i+1}</div>
+        <div class="topic-info">
+          <div class="topic-title">${t.title}</div>
+          <div class="topic-desc">${t.desc}</div>
+          <div class="topic-meta">
+            <span>⏱ ${t.time}</span>
+            ${done ? `<span class="score">Quiz: ${p.percent}%</span>` : ''}
+          </div>
+        </div>
+        <div class="topic-arrow">→</div>
+      </a>`;
+    }).join('') + `</div>`;
+  }
+
+  function updateProgress(prog) {
+    const active = Object.values(GROUPS).flat().filter(t => t.status === 'active');
+    const done   = active.filter(t => prog[t.id]?.completed).length;
+    const pct    = active.length ? Math.round((done / active.length) * 100) : 0;
+    document.getElementById('unit-progress').style.display = 'block';
+    document.getElementById('pct').textContent    = pct + '%';
+    document.getElementById('pfill').style.width  = pct + '%';
+    document.getElementById('pfill').className    = 'progress-fill' + (pct === 100 ? ' done' : '');
+    document.getElementById('plabel').textContent = `${done} / ${active.length} active topics complete`;
+  }
+
+  onAuth(async user => {
+    if (user) {
+      const prog = await getAllProgress(user.uid, COURSE_ID, ALL_IDS);
+      Object.entries(GROUPS).forEach(([id, topics]) => renderGroup(id, topics, prog));
+      updateProgress(prog);
+    } else {
+      Object.entries(GROUPS).forEach(([id, topics]) => renderGroup(id, topics));
+      document.getElementById('login-nudge').style.display = 'block';
+    }
+    if (location.hash) {
+      setTimeout(() => {
+        const el = document.querySelector(location.hash);
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 300);
+    }
+  });
+</script>
+</body>
+</html>
