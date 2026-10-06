@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3030765874336294" crossorigin="anonymous"></script>
+  <title>RISC — COA Unit 4 | CHANDRAS EDU</title>
+  <meta name="description" content="RISC versus CISC in Mano §8-8: the seven RISC characteristics, overlapped register windows (Fig. 8-9), and Berkeley RISC I formats (Fig. 8-10).">
+  <link rel="canonical" href="https://chandrashaker.com/courses/academic/coa/unit4/risc">
+  <link rel="stylesheet" href="../../../css/style.css">
+
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="CHANDRAS EDU">
+  <meta property="og:title" content="RISC — COA Unit 4 | CHANDRAS EDU">
+  <meta property="og:description" content="RISC versus CISC in Mano §8-8: the seven RISC characteristics, overlapped register windows (Fig. 8-9), and Berkeley RISC I formats (Fig. 8-10).">
+  <meta property="og:url" content="https://chandrashaker.com/courses/academic/coa/unit4/risc">
+  <meta property="og:image" content="https://chandrashaker.com/courses/images/og/coa-v7.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Computer Organization and Architecture — CHANDRAS EDU free course">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="RISC — COA Unit 4 | CHANDRAS EDU">
+  <meta name="twitter:description" content="RISC versus CISC in Mano §8-8: the seven RISC characteristics, overlapped register windows (Fig. 8-9), and Berkeley RISC I formats (Fig. 8-10).">
+  <meta name="twitter:image" content="https://chandrashaker.com/courses/images/og/coa-v7.png">
+
+  <script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Courses","item":"https://chandrashaker.com/courses/"},{"@type":"ListItem","position":2,"name":"COA","item":"https://chandrashaker.com/courses/academic/coa/"},{"@type":"ListItem","position":3,"name":"Unit 4","item":"https://chandrashaker.com/courses/academic/coa/unit4/"},{"@type":"ListItem","position":4,"name":"RISC"}]}
+  </script>
+  <script type="application/ld+json">
+{"@context":"https://schema.org","@type":"LearningResource","name":"RISC","description":"RISC versus CISC in Mano §8-8: the seven RISC characteristics, overlapped register windows (Fig. 8-9), and Berkeley RISC I formats (Fig. 8-10).","url":"https://chandrashaker.com/courses/academic/coa/unit4/risc","learningResourceType":"Lesson","educationalLevel":"Undergraduate","about":{"@type":"Thing","name":"Computer Organization and Architecture"},"isPartOf":{"@type":"Course","name":"Computer Organization and Architecture","provider":{"@type":"Organization","name":"CHANDRAS EDU","url":"https://chandrashaker.in"}},"publisher":{"@type":"Organization","name":"CHANDRAS EDU","url":"https://chandrashaker.in"}}
+  </script>
+  <link rel="icon" href="/favicon.ico">
+  <style>
+    .fig-wrap { text-align:center; margin:1.5rem 0; }
+    .fig-wrap svg { max-width:700px; width:100%; height:auto; }
+    .fig-caption { font-size:.82rem; color:var(--text-3); margin-top:.4rem; }
+  </style>
+</head>
+<body>
+<div id="main-nav"></div>
+
+<div class="page-narrow" role="main">
+
+  <nav class="breadcrumb">
+    <a href="../../../index.html">Courses</a><span class="sep">/</span>
+    <a href="../index.html">Computer Organization and Architecture</a><span class="sep">/</span>
+    <a href="index.html">Unit 4</a><span class="sep">/</span>
+    <span class="cur">RISC</span>
+  </nav>
+
+  <div style="background:var(--primary);border-radius:var(--radius-lg);padding:1.1rem 1.4rem;margin-bottom:1.5rem;color:#fff">
+    <div style="font-size:.75rem;opacity:.75;margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.05em">COA › Unit 4: CPU Organization › Topic 9</div>
+    <h1 style="font-size:1.4rem;font-weight:700;color:#fff;margin-bottom:.5rem">RISC</h1>
+    <div style="display:flex;gap:.75rem;flex-wrap:wrap">
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">⏱ 15 min read</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📝 Quiz inside</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📖 Mano, §8-8</span>
+    </div>
+  </div>
+
+  <div class="lesson">
+    <p>Reference: M. Morris Mano, <em>Computer System Architecture</em>, §8-8</p>
+
+    <p>As digital hardware became cheaper in the 1970s, instruction sets grew in size and complexity. Computers accumulated hundreds of instructions — complex operations intended to bridge the gap between high-level languages and machine code. By the early 1980s researchers noticed that compilers rarely used most of these complex instructions and that the hardware to decode and execute them slowed down the entire machine. The response was the <strong>Reduced Instruction Set Computer (RISC)</strong> philosophy: fewer, simpler instructions that execute faster within the CPU itself.</p>
+
+    <h2>CISC Characteristics</h2>
+    <p>A <em>complex instruction set computer</em> (CISC) is designed around the goal of providing one machine instruction for each high-level language statement. The major characteristics of CISC architecture are:</p>
+    <ol>
+      <li>A large number of instructions — typically from 100 to 250</li>
+      <li>Some instructions that perform specialised tasks and are used infrequently</li>
+      <li>A large variety of addressing modes — typically from 5 to 20 different modes</li>
+      <li>Variable-length instruction formats</li>
+      <li>Instructions that can manipulate operands directly in memory</li>
+    </ol>
+
+    <h2>RISC Characteristics</h2>
+    <p>RISC architecture reduces execution time by simplifying the instruction set so that each instruction executes in a single clock cycle. The <strong>7 major characteristics of a RISC processor</strong> are:</p>
+    <ol>
+      <li>Relatively few instructions</li>
+      <li>Relatively few addressing modes</li>
+      <li>Memory access limited to load and store instructions only</li>
+      <li>All operations done within the registers of the CPU</li>
+      <li>Fixed-length, easily decoded instruction format</li>
+      <li>Single-cycle instruction execution</li>
+      <li>Hardwired rather than microprogrammed control</li>
+    </ol>
+    <p>Because only load and store instructions access memory, all arithmetic and logic operations work on register operands. This simplifies the control unit, allows fixed-length instructions to be decoded in a single cycle, and makes hardwired control practical. Single-cycle execution is achieved by overlapping the fetch, decode, and execute phases of successive instructions — a technique called <em>pipelining</em>.</p>
+
+    <h2>Overlapped Register Windows (Fig. 8-9)</h2>
+    <p>RISC processors typically include a large number of registers to reduce memory accesses. One important feature is the use of <em>overlapped register windows</em> to accelerate procedure call and return. The concept is illustrated in Fig. 8-9.</p>
+
+    <div class="fig-wrap">
+      <svg viewBox="0 0 680 500" style="max-width:680px;width:100%;height:auto" role="img" aria-label="Overlapped register windows — Fig. 8-9" xmlns="http://www.w3.org/2000/svg">
+        <title>Overlapped register windows — Fig. 8-9</title>
+        <desc>Four procedure windows A, B, C, D arranged in a staircase. Each window has local registers and overlap regions shared with adjacent windows. Global registers R0 through R9 are common to all procedures.</desc>
+        <text x="50" y="22" font-size="12" font-weight="600" fill="var(--text,#374151)">Global registers (R0–R9) — common to all procedures</text>
+        <!-- Global registers -->
+        <rect x="50" y="30" width="90" height="44" rx="4" fill="var(--gray-100,#f3f4f6)" stroke="var(--gray-400,#9ca3af)" stroke-width="1"/>
+        <text x="95" y="48" text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="600" fill="var(--text,#374151)">R9</text>
+        <text x="95" y="64" text-anchor="middle" dominant-baseline="central" font-size="11" fill="var(--text-2,#6b7280)">R0</text>
+        <text x="95" y="88" text-anchor="middle" font-size="11" fill="var(--text-2,#6b7280)">Global</text>
+        <!-- Proc A -->
+        <rect x="500" y="110" width="130" height="270" rx="4" fill="var(--teal-50,#f0fdfa)" stroke="var(--teal-600,#0d9488)" stroke-width="1"/>
+        <text x="565" y="132" text-anchor="middle" font-size="13" font-weight="700" fill="var(--teal-800,#115e59)">Proc A</text>
+        <text x="565" y="165" text-anchor="middle" font-size="11" fill="var(--teal-700,#0f766e)">R15–R10</text>
+        <text x="565" y="179" text-anchor="middle" font-size="10" fill="var(--teal-600,#0d9488)">common D/A</text>
+        <text x="565" y="220" text-anchor="middle" font-size="11" fill="var(--teal-700,#0f766e)">R25–R16</text>
+        <text x="565" y="234" text-anchor="middle" font-size="10" fill="var(--teal-600,#0d9488)">local A</text>
+        <text x="565" y="275" text-anchor="middle" font-size="11" fill="var(--teal-700,#0f766e)">R31–R26</text>
+        <text x="565" y="289" text-anchor="middle" font-size="10" fill="var(--teal-600,#0d9488)">common A/B</text>
+        <line x1="500" y1="200" x2="630" y2="200" stroke="var(--teal-300,#99f6e4)" stroke-width="0.5" stroke-dasharray="3 2"/>
+        <line x1="500" y1="258" x2="630" y2="258" stroke="var(--teal-300,#99f6e4)" stroke-width="0.5" stroke-dasharray="3 2"/>
+        <!-- Proc B -->
+        <rect x="370" y="180" width="130" height="280" rx="4" fill="var(--blue-50,#eff6ff)" stroke="var(--blue-500,#3b82f6)" stroke-width="1"/>
+        <text x="435" y="202" text-anchor="middle" font-size="13" font-weight="700" fill="var(--blue-800,#1e40af)">Proc B</text>
+        <text x="435" y="238" text-anchor="middle" font-size="11" fill="var(--blue-700,#1d4ed8)">R31–R26</text>
+        <text x="435" y="252" text-anchor="middle" font-size="10" fill="var(--blue-500,#3b82f6)">common A/B</text>
+        <text x="435" y="293" text-anchor="middle" font-size="11" fill="var(--blue-700,#1d4ed8)">R41–R32</text>
+        <text x="435" y="307" text-anchor="middle" font-size="10" fill="var(--blue-500,#3b82f6)">local B</text>
+        <text x="435" y="348" text-anchor="middle" font-size="11" fill="var(--blue-700,#1d4ed8)">R47–R42</text>
+        <text x="435" y="362" text-anchor="middle" font-size="10" fill="var(--blue-500,#3b82f6)">common B/C</text>
+        <line x1="370" y1="268" x2="500" y2="268" stroke="var(--blue-200,#bfdbfe)" stroke-width="0.5" stroke-dasharray="3 2"/>
+        <line x1="370" y1="328" x2="500" y2="328" stroke="var(--blue-200,#bfdbfe)" stroke-width="0.5" stroke-dasharray="3 2"/>
+        <!-- Proc C -->
+        <rect x="240" y="250" width="130" height="200" rx="4" fill="var(--purple-50,#faf5ff)" stroke="var(--purple-500,#a855f7)" stroke-width="1"/>
+        <text x="305" y="272" text-anchor="middle" font-size="13" font-weight="700" fill="var(--purple-800,#6b21a8)">Proc C</text>
+        <text x="305" y="308" text-anchor="middle" font-size="11" fill="var(--purple-700,#7e22ce)">R47–R42</text>
+        <text x="305" y="322" text-anchor="middle" font-size="10" fill="var(--purple-500,#a855f7)">common B/C</text>
+        <text x="305" y="363" text-anchor="middle" font-size="11" fill="var(--purple-700,#7e22ce)">R57–R48</text>
+        <text x="305" y="377" text-anchor="middle" font-size="10" fill="var(--purple-500,#a855f7)">local C</text>
+        <text x="305" y="415" text-anchor="middle" font-size="11" fill="var(--purple-700,#7e22ce)">R63–R58</text>
+        <text x="305" y="429" text-anchor="middle" font-size="10" fill="var(--purple-500,#a855f7)">common C/D</text>
+        <line x1="240" y1="338" x2="370" y2="338" stroke="var(--purple-200,#e9d5ff)" stroke-width="0.5" stroke-dasharray="3 2"/>
+        <line x1="240" y1="398" x2="370" y2="398" stroke="var(--purple-200,#e9d5ff)" stroke-width="0.5" stroke-dasharray="3 2"/>
+        <!-- Proc D -->
+        <rect x="110" y="320" width="130" height="140" rx="4" fill="var(--orange-50,#fff7ed)" stroke="var(--orange-500,#f97316)" stroke-width="1"/>
+        <text x="175" y="342" text-anchor="middle" font-size="13" font-weight="700" fill="var(--orange-800,#7c2d12)">Proc D</text>
+        <text x="175" y="378" text-anchor="middle" font-size="11" fill="var(--orange-700,#c2410c)">R63–R58</text>
+        <text x="175" y="392" text-anchor="middle" font-size="10" fill="var(--orange-500,#f97316)">common C/D</text>
+        <text x="175" y="430" text-anchor="middle" font-size="11" fill="var(--orange-700,#c2410c)">R73–R64</text>
+        <text x="175" y="444" text-anchor="middle" font-size="10" fill="var(--orange-500,#f97316)">local D</text>
+        <line x1="110" y1="408" x2="240" y2="408" stroke="var(--orange-200,#fed7aa)" stroke-width="0.5" stroke-dasharray="3 2"/>
+        <text x="50" y="480" font-size="10" fill="var(--text-3,#9ca3af)">Total: 74 registers. Window size = 32 (10 local + 6 low-overlap + 6 high-overlap + 10 global). 4 windows, 10 global (R0–R9).</text>
+        <text x="50" y="494" font-size="10" fill="var(--text-3,#9ca3af)">Adapted from M. Morris Mano, Computer System Architecture, Fig. 8-9</text>
+      </svg>
+      <p class="fig-caption">Figure 8-9 — Overlapped register windows (Mano §8-8)</p>
+    </div>
+
+    <p>In Fig. 8-9 the system has a total of <strong>74 registers</strong>. Registers R0 through R9 are <strong>10 global registers</strong> available to all procedures. The remaining 64 registers are divided into <strong>4 windows</strong> for procedures A, B, C, and D. Each window consists of 10 local registers and two sets of 6 registers that overlap with the adjacent windows. Using the formula: window size = L + 2C + G = 10 + 12 + 10 = 32 registers visible to each active procedure; register file = (L + C) × W + G = (10 + 6) × 4 + 10 = 74 total registers.</p>
+
+    <p>The overlap is the key mechanism: the <em>high registers</em> of the calling procedure are the same physical registers as the <em>low registers</em> of the called procedure. Parameters are automatically available to the called procedure without copying — the same bits are simply visible under different register names in the two windows.</p>
+
+    <h2>Berkeley RISC I — Instruction Set and Formats</h2>
+    <p>Berkeley RISC I, developed at the University of California, Berkeley, was one of the first projects demonstrating the RISC approach. It is a 32-bit integrated circuit CPU with a <strong>32-bit fixed-length instruction format</strong>, a total of <strong>31 instructions</strong> grouped in three categories, and <strong>3 addressing modes</strong>: register, register-immediate, and PC-relative.</p>
+
+    <p>Figure 8-10 shows the three instruction formats. The opcode field is 8 bits wide: 7 bits specify the operation and the 8th bit controls whether the status register is updated after an ALU operation.</p>
+
+    <div class="fig-wrap">
+      <svg viewBox="0 0 680 370" style="max-width:680px;width:100%;height:auto" role="img" aria-label="Berkeley RISC I instruction formats — Fig. 8-10" xmlns="http://www.w3.org/2000/svg">
+        <title>Berkeley RISC I instruction formats — Fig. 8-10</title>
+        <desc>Three 32-bit instruction formats. Register mode: Opcode 8 bits (31-24), Rd 5 bits (23-19), Rs 5 bits (18-14), mode bit 0 (13), Not used 8 bits (12-5), S2 5 bits (4-0). Register-immediate mode: same header, mode bit 1, S2 13 bits (12-0). PC-relative mode: Opcode 8 bits (31-24), COND 5 bits (23-19), Y 19 bits (18-0).</desc>
+        <text x="340" y="20" text-anchor="middle" font-size="12" font-weight="600" fill="var(--text,#374151)">Berkeley RISC I instruction formats (Fig. 8-10) — 32-bit fixed-length</text>
+        <!-- Bit position labels row 1 -->
+        <text x="95" y="44" text-anchor="middle" font-size="10" fill="var(--text-2,#6b7280)">31 · · · 24</text>
+        <text x="178" y="44" text-anchor="middle" font-size="10" fill="var(--text-2,#6b7280)">23 · · 19</text>
+        <text x="252" y="44" text-anchor="middle" font-size="10" fill="var(--text-2,#6b7280)">18 · · 14</text>
+        <text x="303" y="44" text-anchor="middle" font-size="10" fill="var(--text-2,#6b7280)">13</text>
+        <text x="363" y="44" text-anchor="middle" font-size="10" fill="var(--text-2,#6b7280)">12 · · · 5</text>
+        <text x="440" y="44" text-anchor="middle" font-size="10" fill="var(--text-2,#6b7280)">4 · · 0</text>
+        <!-- Format (a) Register mode -->
+        <rect x="50" y="52" width="90" height="36" rx="4" fill="var(--purple-50,#faf5ff)" stroke="var(--purple-500,#a855f7)" stroke-width="1"/>
+        <text x="95" y="70" text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="600" fill="var(--purple-800,#6b21a8)">Opcode</text>
+        <text x="95" y="81" text-anchor="middle" dominant-baseline="central" font-size="10" fill="var(--purple-600,#9333ea)">8 bits</text>
+        <rect x="142" y="52" width="72" height="36" rx="4" fill="var(--blue-50,#eff6ff)" stroke="var(--blue-500,#3b82f6)" stroke-width="1"/>
+        <text x="178" y="70" text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="600" fill="var(--blue-800,#1e40af)">Rd</text>
+        <text x="178" y="81" text-anchor="middle" dominant-baseline="central" font-size="10" fill="var(--blue-600,#2563eb)">5 bits</text>
+        <rect x="216" y="52" width="72" height="36" rx="4" fill="var(--blue-50,#eff6ff)" stroke="var(--blue-500,#3b82f6)" stroke-width="1"/>
+        <text x="252" y="70" text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="600" fill="var(--blue-800,#1e40af)">Rs</text>
+        <text x="252" y="81" text-anchor="middle" dominant-baseline="central" font-size="10" fill="var(--blue-600,#2563eb)">5 bits</text>
+        <rect x="290" y="52" width="26" height="36" rx="4" fill="var(--gray-100,#f3f4f6)" stroke="var(--gray-400,#9ca3af)" stroke-width="1"/>
+        <text x="303" y="66" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" fill="var(--text,#374151)">0</text>
+        <text x="303" y="79" text-anchor="middle" dominant-baseline="central" font-size="10" fill="var(--text-2,#6b7280)">1 b</text>
+        <rect x="318" y="52" width="90" height="36" rx="4" fill="var(--gray-100,#f3f4f6)" stroke="var(--gray-400,#9ca3af)" stroke-width="1"/>
+        <text x="363" y="66" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" fill="var(--text,#374151)">Not used</text>
+        <text x="363" y="79" text-anchor="middle" dominant-baseline="central" font-size="10" fill="var(--text-2,#6b7280)">8 bits</text>
+        <rect x="410" y="52" width="60" height="36" rx="4" fill="var(--teal-50,#f0fdfa)" stroke="var(--teal-500,#14b8a6)" stroke-width="1"/>
+        <text x="440" y="66" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" fill="var(--teal-800,#115e59)">S2</text>
+        <text x="440" y="79" text-anchor="middle" dominant-baseline="central" font-size="10" fill="var(--teal-600,#0d9488)">5 bits (reg)</text>
+        <text x="490" y="76" font-size="11" fill="var(--text-2,#6b7280)">(a) Register mode</text>
+        <!-- Bit position labels row 2 -->
+        <text x="95" y="116" text-anchor="middle" font-size="10" fill="var(--text-2,#6b7280)">31 · · · 24</text>
+        <text x="178" y="116" text-anchor="middle" font-size="10" fill="var(--text-2,#6b7280)">23 · · 19</text>
+        <text x="252" y="116" text-anchor="middle" font-size="10" fill="var(--text-2,#6b7280)">18 · · 14</text>
+        <text x="303" y="116" text-anchor="middle" font-size="10" fill="var(--text-2,#6b7280)">13</text>
+        <text x="394" y="116" text-anchor="middle" font-size="10" fill="var(--text-2,#6b7280)">12 · · · · · · 0</text>
+        <!-- Format (b) Register-immediate -->
+        <rect x="50" y="124" width="90" height="36" rx="4" fill="var(--purple-50,#faf5ff)" stroke="var(--purple-500,#a855f7)" stroke-width="1"/>
+        <text x="95" y="142" text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="600" fill="var(--purple-800,#6b21a8)">Opcode</text>
+        <text x="95" y="153" text-anchor="middle" dominant-baseline="central" font-size="10" fill="var(--purple-600,#9333ea)">8 bits</text>
+        <rect x="142" y="124" width="72" height="36" rx="4" fill="var(--blue-50,#eff6ff)" stroke="var(--blue-500,#3b82f6)" stroke-width="1"/>
+        <text x="178" y="142" text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="600" fill="var(--blue-800,#1e40af)">Rd</text>
+        <text x="178" y="153" text-anchor="middle" dominant-baseline="central" font-size="10" fill="var(--blue-600,#2563eb)">5 bits</text>
+        <rect x="216" y="124" width="72" height="36" rx="4" fill="var(--blue-50,#eff6ff)" stroke="var(--blue-500,#3b82f6)" stroke-width="1"/>
+        <text x="252" y="142" text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="600" fill="var(--blue-800,#1e40af)">Rs</text>
+        <text x="252" y="153" text-anchor="middle" dominant-baseline="central" font-size="10" fill="var(--blue-600,#2563eb)">5 bits</text>
+        <rect x="290" y="124" width="26" height="36" rx="4" fill="var(--amber-50,#fffbeb)" stroke="var(--amber-500,#f59e0b)" stroke-width="1"/>
+        <text x="303" y="138" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" fill="var(--amber-800,#78350f)">1</text>
+        <text x="303" y="151" text-anchor="middle" dominant-baseline="central" font-size="10" fill="var(--amber-700,#b45309)">1 b</text>
+        <rect x="318" y="124" width="152" height="36" rx="4" fill="var(--teal-50,#f0fdfa)" stroke="var(--teal-500,#14b8a6)" stroke-width="1"/>
+        <text x="394" y="138" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" fill="var(--teal-800,#115e59)">S2</text>
+        <text x="394" y="151" text-anchor="middle" dominant-baseline="central" font-size="10" fill="var(--teal-600,#0d9488)">13 bits (signed constant)</text>
+        <text x="490" y="148" font-size="11" fill="var(--text-2,#6b7280)">(b) Register-immediate</text>
+        <!-- Bit position labels row 3 -->
+        <text x="95" y="188" text-anchor="middle" font-size="10" fill="var(--text-2,#6b7280)">31 · · · 24</text>
+        <text x="178" y="188" text-anchor="middle" font-size="10" fill="var(--text-2,#6b7280)">23 · · 19</text>
+        <text x="343" y="188" text-anchor="middle" font-size="10" fill="var(--text-2,#6b7280)">18 · · · · · · · · 0</text>
+        <!-- Format (c) PC-relative -->
+        <rect x="50" y="196" width="90" height="36" rx="4" fill="var(--purple-50,#faf5ff)" stroke="var(--purple-500,#a855f7)" stroke-width="1"/>
+        <text x="95" y="214" text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="600" fill="var(--purple-800,#6b21a8)">Opcode</text>
+        <text x="95" y="225" text-anchor="middle" dominant-baseline="central" font-size="10" fill="var(--purple-600,#9333ea)">8 bits</text>
+        <rect x="142" y="196" width="72" height="36" rx="4" fill="var(--orange-50,#fff7ed)" stroke="var(--orange-500,#f97316)" stroke-width="1"/>
+        <text x="178" y="214" text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="600" fill="var(--orange-800,#7c2d12)">COND</text>
+        <text x="178" y="225" text-anchor="middle" dominant-baseline="central" font-size="10" fill="var(--orange-600,#ea580c)">5 bits</text>
+        <rect x="216" y="196" width="254" height="36" rx="4" fill="var(--teal-50,#f0fdfa)" stroke="var(--teal-500,#14b8a6)" stroke-width="1"/>
+        <text x="343" y="214" text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="600" fill="var(--teal-800,#115e59)">Y</text>
+        <text x="343" y="225" text-anchor="middle" dominant-baseline="central" font-size="10" fill="var(--teal-600,#0d9488)">19 bits (PC-relative address)</text>
+        <text x="490" y="220" font-size="11" fill="var(--text-2,#6b7280)">(c) PC-relative mode</text>
+        <!-- Notes -->
+        <line x1="50" y1="252" x2="630" y2="252" stroke="var(--border,#e5e7eb)" stroke-width="0.5" stroke-dasharray="2 2"/>
+        <text x="50" y="270" font-size="10" fill="var(--text-2,#6b7280)">Opcode: 7 bits for the operation + 1 bit to enable or suppress status register update after an ALU operation.</text>
+        <text x="50" y="286" font-size="10" fill="var(--text-2,#6b7280)">Bit 13 selects the second source: 0 = register (S2 is a 5-bit register address; bits 12–5 unused), 1 = immediate (S2 is a 13-bit signed constant, bits 12–0).</text>
+        <text x="50" y="302" font-size="10" fill="var(--text-2,#6b7280)">COND (5 bits): selects one of 16 branch conditions; used with JMP and CALL instructions.</text>
+        <text x="50" y="318" font-size="10" fill="var(--text-2,#6b7280)">Y (19 bits): signed PC-relative offset; used by JMPR and CALLR for forward/backward branches without a full register address.</text>
+        <text x="50" y="348" font-size="10" fill="var(--text-3,#9ca3af)">Adapted from M. Morris Mano, Computer System Architecture, Fig. 8-10</text>
+      </svg>
+      <p class="fig-caption">Figure 8-10 — Berkeley RISC I instruction formats (Mano §8-8)</p>
+    </div>
+
+    <p>Table 8-12 lists all <strong>31 instructions of Berkeley RISC I</strong> in three categories: data manipulation (arithmetic, logic, shift), data transfer (load, store, PSW transfer), and program control (jump, call, return, interrupt). Every instruction uses three operands; the second source S2 can be either a register or a 13-bit signed immediate, selected by bit 13.</p>
+
+    <h2>Common Pitfalls</h2>
+    <ul>
+      <li><strong>Confusing RISC and CISC instruction counts.</strong> RISC has fewer instructions (Berkeley RISC I has 31); a typical CISC has 100–250. Fewer instructions does not mean less capability — compilers generate sequences of simple instructions to achieve the same effect as one complex one, usually faster.</li>
+      <li><strong>Misunderstanding overlapped windows.</strong> The overlap registers are not copies — they are the same physical registers visible under different names in adjacent windows. No data movement occurs during a procedure call; the caller simply stores parameters in its high-overlap registers, which automatically appear as the low-overlap registers of the callee.</li>
+      <li><strong>Assuming RISC means no memory access.</strong> RISC restricts memory access to load and store instructions only; all other operations use register operands. This is different from having no memory access at all.</li>
+    </ul>
+
+    <h2>Key Points</h2>
+    <ul>
+      <li>CISC has <strong>5 major characteristics</strong> including large instruction counts (100–250), many addressing modes, variable-length formats, and memory operands.</li>
+      <li>RISC has <strong>7 major characteristics</strong>: few instructions, few addressing modes, memory access only via load/store, register-only operations, fixed-length format, single-cycle execution, and hardwired control.</li>
+      <li>Fig. 8-9 shows a <strong>74-register file</strong> with <strong>10 global registers</strong> (R0–R9) and <strong>4 windows</strong> of 32 registers each. Adjacent windows share 6 overlap registers that pass parameters without copying.</li>
+      <li>Berkeley RISC I has <strong>31 instructions</strong>, a <strong>32-bit fixed-length format</strong>, and <strong>3 addressing modes</strong>: register, register-immediate, and PC-relative.</li>
+      <li>The <strong>opcode field is 8 bits</strong>: 7 bits for the operation, 1 bit to control status register update. Bit 13 selects between a 5-bit register address and a 13-bit signed immediate for the second source operand.</li>
+    </ul>
+  </div>
+
+  <!-- QUIZ GATE -->
+  <div id="gate-section">
+    <div class="gate">
+      <div class="gate-blur">
+        <div class="quiz"><div class="quiz-title">📝 Quick Quiz — 5 Questions</div></div>
+      </div>
+      <div class="gate-overlay">
+        <div class="gate-box">
+          <div class="lock">🔒</div>
+          <h3>Login to take the quiz</h3>
+          <p>Create a free account to take the quiz and track your progress across all topics.</p>
+          <div class="gate-btns">
+            <a href="../../../login.html" class="btn btn-primary btn-sm">Login</a>
+            <a href="../../../login.html" class="btn btn-outline btn-sm">Register Free</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="quiz" id="quiz-section" style="display:none">
+    <div class="quiz-title">📝 Quick Quiz — 5 Questions</div>
+    <div id="quiz-body"></div>
+    <button class="btn btn-primary" id="submit-btn" disabled>Submit Quiz</button>
+    <div class="quiz-result" id="quiz-result" style="display:none"></div>
+  </div>
+
+  <div class="topic-nav">
+    <a href="program-control.html">
+      <div class="nav-dir">← Previous</div>
+      <div class="nav-title">Program Control</div>
+    </a>
+  </div>
+
+</div>
+
+<footer id="main-footer"></footer>
+
+<script type="module">
+  import { initNav } from '../../../js/nav.js';
+  import { onAuth, saveProgress, getProgress } from '../../../js/firebase-config.js';
+  import { initSidebar } from '../../../js/sidebar.js';
+  initNav(3);
+  initSidebar();
+
+  const COURSE_ID = 'coa';
+  const TOPIC_ID  = 'risc';
+  const LABELS    = ['A','B','C','D'];
+  const QUIZ = [
+    {
+      q: "How many major characteristics does RISC architecture have according to Mano §8-8?",
+      options: ["5","6","7","8"],
+      answer: 2,
+      explanation: "RISC has 7 major characteristics: few instructions, few addressing modes, load/store-only memory access, register-only operations, fixed-length format, single-cycle execution, and hardwired control."
+    },
+    {
+      q: "In the overlapped register windows of Fig. 8-9, what is the total number of registers in the register file?",
+      options: ["64","70","74","80"],
+      answer: 2,
+      explanation: "The register file = (L + C) × W + G = (10 + 6) × 4 + 10 = 74 registers total. 10 global (R0–R9) plus 4 windows of 16 local+overlap registers each."
+    },
+    {
+      q: "How do overlapped register windows pass parameters between a calling and a called procedure?",
+      options: ["By copying register values into a memory buffer","By sharing the same physical registers — the caller's high-overlap registers are the callee's low-overlap registers","By pushing all parameters onto the stack before the call","By writing parameters to fixed global memory locations"],
+      answer: 1,
+      explanation: "The overlap registers are the same physical registers visible under different names in adjacent windows. The caller stores parameters in its high-overlap registers; those same bits automatically appear as the callee's low-overlap registers — no copying occurs."
+    },
+    {
+      q: "In Berkeley RISC I's instruction format (Fig. 8-10), what does bit 13 of the instruction select?",
+      options: ["Whether to update the status register after the operation","The addressing mode: 0 = register source (S2 is 5-bit reg address), 1 = immediate source (S2 is 13-bit constant)","The condition code for a branch instruction","The width of the data operand (byte, short, or long)"],
+      answer: 1,
+      explanation: "Bit 13 selects the second source: 0 means S2 is a 5-bit register address (bits 4–0), with bits 12–5 unused; 1 means S2 is a 13-bit sign-extended immediate constant (bits 12–0)."
+    },
+    {
+      q: "How many instructions does Berkeley RISC I have in total (Table 8-12)?",
+      options: ["16","24","31","32"],
+      answer: 2,
+      explanation: "Berkeley RISC I has exactly 31 instructions, listed in Table 8-12 and grouped into data manipulation, data transfer, and program control categories."
+    }
+  ];
+
+  let selected = {}, submitted = false;
+
+  function buildQuiz() {
+    document.getElementById('quiz-body').innerHTML = QUIZ.map((q, qi) => `
+      <div class="question">
+        <div class="question-text">Q${qi+1}. ${q.q}</div>
+        <div class="options">
+          ${q.options.map((o, oi) => `<div class="option" data-qi="${qi}" data-oi="${oi}"><span class="option-lbl">${LABELS[oi]}</span>${o}</div>`).join('')}
+        </div>
+        <div class="explanation" id="exp${qi}" style="display:none">💡 ${q.explanation}</div>
+      </div>`).join('');
+    document.querySelectorAll('.option').forEach(el => {
+      el.onclick = () => {
+        if (submitted) return;
+        const qi = +el.dataset.qi, oi = +el.dataset.oi;
+        selected[qi] = oi;
+        document.querySelectorAll(`[data-qi="${qi}"]`).forEach(o => o.classList.remove('selected'));
+        el.classList.add('selected');
+        document.getElementById('submit-btn').disabled = Object.keys(selected).length < QUIZ.length;
+      };
+    });
+  }
+
+  async function submitQuiz(uid) {
+    submitted = true; let score = 0;
+    QUIZ.forEach((q, qi) => {
+      const correct = q.answer, chosen = selected[qi];
+      document.querySelectorAll(`[data-qi="${qi}"]`).forEach(o => {
+        const oi = +o.dataset.oi;
+        if (oi === correct) o.classList.add('correct');
+        else if (oi === chosen) o.classList.add('wrong');
+      });
+      document.getElementById(`exp${qi}`).style.display = 'block';
+      if (chosen === correct) score++;
+    });
+    document.getElementById('submit-btn').style.display = 'none';
+    const pct = Math.round((score / QUIZ.length) * 100);
+    const res = document.getElementById('quiz-result');
+    res.style.display = 'block';
+    res.className = `quiz-result ${pct >= 60 ? 'pass' : 'fail'}`;
+    res.innerHTML = `<div class="quiz-score">${pct >= 60 ? '🎉' : '📖'} Score: ${score}/${QUIZ.length} (${pct}%)</div>
+      <div class="quiz-msg">${pct >= 80 ? 'Excellent! Move to the next topic.' : pct >= 60 ? 'Good. Review what you missed.' : 'Review the lesson and try again.'}</div>`;
+    if (uid) await saveProgress(uid, COURSE_ID, TOPIC_ID, score, QUIZ.length);
+  }
+
+  onAuth(async user => {
+    const gate = document.getElementById('gate-section');
+    const quiz  = document.getElementById('quiz-section');
+    if (user) {
+      gate.style.display = 'none';
+      quiz.style.display = 'block';
+      buildQuiz();
+      document.getElementById('submit-btn').onclick = () => submitQuiz(user.uid);
+      const prog = await getProgress(user.uid, COURSE_ID, TOPIC_ID);
+      if (prog?.completed) {
+        const res = document.getElementById('quiz-result');
+        res.style.display = 'block';
+        res.className = 'quiz-result pass';
+        res.innerHTML = `<div class="quiz-score">✅ Completed — Best score: ${prog.percent}%</div>
+          <div class="quiz-msg">You can retake the quiz anytime.</div>`;
+      }
+    }
+  });
+</script>
+</body>
+</html>

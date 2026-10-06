@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3030765874336294" crossorigin="anonymous"></script>
+  <title>Program Control — COA Unit 4 | CHANDRAS EDU</title>
+  <meta name="description" content="Program control in Mano §8-7: branch, call, return, and interrupt instructions; the four status bits C, S, Z, and V; and subroutine call RTL.">
+  <link rel="canonical" href="https://chandrashaker.com/courses/academic/coa/unit4/program-control">
+  <link rel="stylesheet" href="../../../css/style.css">
+
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="CHANDRAS EDU">
+  <meta property="og:title" content="Program Control — COA Unit 4 | CHANDRAS EDU">
+  <meta property="og:description" content="Program control in Mano §8-7: branch, call, return, and interrupt instructions; the four status bits C, S, Z, and V; and subroutine call RTL.">
+  <meta property="og:url" content="https://chandrashaker.com/courses/academic/coa/unit4/program-control">
+  <meta property="og:image" content="https://chandrashaker.com/courses/images/og/coa-v7.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Computer Organization and Architecture — CHANDRAS EDU free course">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Program Control — COA Unit 4 | CHANDRAS EDU">
+  <meta name="twitter:description" content="Program control in Mano §8-7: branch, call, return, and interrupt instructions; the four status bits C, S, Z, and V; and subroutine call RTL.">
+  <meta name="twitter:image" content="https://chandrashaker.com/courses/images/og/coa-v7.png">
+
+  <script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Courses","item":"https://chandrashaker.com/courses/"},{"@type":"ListItem","position":2,"name":"COA","item":"https://chandrashaker.com/courses/academic/coa/"},{"@type":"ListItem","position":3,"name":"Unit 4","item":"https://chandrashaker.com/courses/academic/coa/unit4/"},{"@type":"ListItem","position":4,"name":"Program Control"}]}
+  </script>
+  <script type="application/ld+json">
+{"@context":"https://schema.org","@type":"LearningResource","name":"Program Control","description":"Program control in Mano §8-7: branch, call, return, and interrupt instructions; the four status bits C, S, Z, and V; and subroutine call RTL.","url":"https://chandrashaker.com/courses/academic/coa/unit4/program-control","learningResourceType":"Lesson","educationalLevel":"Undergraduate","about":{"@type":"Thing","name":"Computer Organization and Architecture"},"isPartOf":{"@type":"Course","name":"Computer Organization and Architecture","provider":{"@type":"Organization","name":"CHANDRAS EDU","url":"https://chandrashaker.in"}},"publisher":{"@type":"Organization","name":"CHANDRAS EDU","url":"https://chandrashaker.in"}}
+  </script>
+  <link rel="icon" href="/favicon.ico">
+  <style>
+    .fig-wrap { text-align:center; margin:1.5rem 0; }
+    .fig-wrap svg { max-width:700px; width:100%; height:auto; }
+    .fig-caption { font-size:.82rem; color:var(--text-3); margin-top:.4rem; }
+    .rtl-box { background:var(--bg-3); border-left:3px solid var(--primary); border-radius:var(--radius); padding:.75rem 1rem; font-family:var(--font-mono,monospace); font-size:.88rem; margin:1rem 0; line-height:1.8; }
+  </style>
+</head>
+<body>
+<div id="main-nav"></div>
+
+<div class="page-narrow" role="main">
+
+  <nav class="breadcrumb">
+    <a href="../../../index.html">Courses</a><span class="sep">/</span>
+    <a href="../index.html">Computer Organization and Architecture</a><span class="sep">/</span>
+    <a href="index.html">Unit 4</a><span class="sep">/</span>
+    <span class="cur">Program Control</span>
+  </nav>
+
+  <div style="background:var(--primary);border-radius:var(--radius-lg);padding:1.1rem 1.4rem;margin-bottom:1.5rem;color:#fff">
+    <div style="font-size:.75rem;opacity:.75;margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.05em">COA › Unit 4: CPU Organization › Topic 8</div>
+    <h1 style="font-size:1.4rem;font-weight:700;color:#fff;margin-bottom:.5rem">Program Control</h1>
+    <div style="display:flex;gap:.75rem;flex-wrap:wrap">
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">⏱ 16 min read</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📝 Quiz inside</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📖 Mano, §8-7</span>
+    </div>
+  </div>
+
+  <div class="lesson">
+    <p>Reference: M. Morris Mano, <em>Computer System Architecture</em>, §8-7</p>
+
+    <p>Under normal sequential execution the program counter is incremented after every fetch so that instructions execute one after another in memory order. Program control instructions break this sequence by loading a new value into the program counter, causing the CPU to branch to a different part of the program. Section 8-7 covers the instructions that alter program flow — branches, calls, returns, and interrupts — and the status bits that make conditional branching possible.</p>
+
+    <h2>Program Control Instructions</h2>
+    <p>Table 8-10 lists 7 typical program control instructions. Branch and jump instructions are used interchangeably in many architectures, though some use them to distinguish different addressing modes. The compare and test instructions do not change program flow directly; they update status bits, which a subsequent conditional branch then tests.</p>
+
+    <div style="overflow-x:auto">
+      <table class="truth-table">
+        <caption style="font-size:.85rem;margin-bottom:.4rem">Table 8-10 — Typical program control instructions (Mano §8-7)</caption>
+        <thead><tr><th>Name</th><th>Mnemonic</th><th>Action</th></tr></thead>
+        <tbody>
+          <tr><td>Branch</td><td>BR</td><td>PC ← branch address (conditional or unconditional)</td></tr>
+          <tr><td>Jump</td><td>JMP</td><td>Unconditional transfer to specified address</td></tr>
+          <tr><td>Skip</td><td>SKP</td><td>Increment PC by 1 extra if condition is met (skip next instruction)</td></tr>
+          <tr><td>Call</td><td>CALL</td><td>Save return address; transfer to subroutine</td></tr>
+          <tr><td>Return</td><td>RET</td><td>Restore return address into PC; resume caller</td></tr>
+          <tr><td>Compare (by subtraction)</td><td>CMP</td><td>Set status bits from A − B; result discarded</td></tr>
+          <tr><td>Test (by ANDing)</td><td>TST</td><td>Set status bits from A AND B; result discarded</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2>Status Bit Conditions</h2>
+    <p>A status register supplements the ALU by storing condition codes from the most recent operation. Figure 8-8 shows the block diagram of an 8-bit ALU with a 4-bit status register. The four status bits are named C, S, Z, and V, set or cleared by ALU operations as follows:</p>
+
+    <div class="fig-wrap">
+      <svg viewBox="0 0 680 500" style="max-width:700px;width:100%;height:auto" role="img" aria-label="8-bit ALU with 4-bit status register — Fig. 8-8" xmlns="http://www.w3.org/2000/svg">
+        <title>8-bit ALU with 4-bit status register — Fig. 8-8</title>
+        <desc>8-bit ALU receives A and B (8 bits each). Carry C7 and C8 exit the left side. A tap on C8 near the ALU branches up into the XOR gate bottom input and left-down to carry bit C. C7 enters the XOR top input. The XOR output sets overflow bit V. F7 taps off the output bus to set sign bit S. The full bus feeds the Check-for-zero block whose output sets Z. All four status bits V, Z, S, C are stored in the status register on the left.</desc>
+        <defs>
+          <marker id="arr88" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </marker>
+        </defs>
+        <!-- Status register -->
+        <rect x="52" y="90" width="158" height="176" rx="4" fill="var(--bg-amber-50,#fef3c7)" stroke="var(--amber-700,#b45309)" stroke-width="1"/>
+        <line x1="52" y1="134" x2="210" y2="134" stroke="var(--amber-700,#b45309)" stroke-width="0.5"/>
+        <line x1="52" y1="178" x2="210" y2="178" stroke="var(--amber-700,#b45309)" stroke-width="0.5"/>
+        <line x1="52" y1="222" x2="210" y2="222" stroke="var(--amber-700,#b45309)" stroke-width="0.5"/>
+        <text x="131" y="112" text-anchor="middle" dominant-baseline="central" font-size="13" font-weight="600" fill="var(--amber-800,#78350f)">V — overflow</text>
+        <text x="131" y="156" text-anchor="middle" dominant-baseline="central" font-size="13" font-weight="600" fill="var(--amber-800,#78350f)">Z — zero</text>
+        <text x="131" y="200" text-anchor="middle" dominant-baseline="central" font-size="13" font-weight="600" fill="var(--amber-800,#78350f)">S — sign</text>
+        <text x="131" y="244" text-anchor="middle" dominant-baseline="central" font-size="13" font-weight="600" fill="var(--amber-800,#78350f)">C — carry</text>
+        <text x="131" y="280" text-anchor="middle" font-size="11" fill="var(--amber-700,#92400e)">Status register (4 bits)</text>
+        <!-- A B inputs -->
+        <text x="500" y="18" text-anchor="middle" font-size="13" fill="var(--text,#374151)">A</text>
+        <text x="590" y="18" text-anchor="middle" font-size="13" fill="var(--text,#374151)">B</text>
+        <line x1="500" y1="24" x2="500" y2="40" stroke="var(--text-2,#6b7280)" stroke-width="1" fill="none"/>
+        <text x="512" y="38" font-size="11" fill="var(--text-2,#6b7280)">8</text>
+        <line x1="500" y1="40" x2="500" y2="66" stroke="var(--text-2,#6b7280)" stroke-width="1" marker-end="url(#arr88)" fill="none"/>
+        <line x1="590" y1="24" x2="590" y2="40" stroke="var(--text-2,#6b7280)" stroke-width="1" fill="none"/>
+        <text x="602" y="38" font-size="11" fill="var(--text-2,#6b7280)">8</text>
+        <line x1="590" y1="40" x2="590" y2="66" stroke="var(--text-2,#6b7280)" stroke-width="1" marker-end="url(#arr88)" fill="none"/>
+        <!-- ALU block -->
+        <rect x="440" y="66" width="200" height="110" rx="6" fill="var(--blue-50,#dbeafe)" stroke="var(--blue-700,#1d4ed8)" stroke-width="1"/>
+        <text x="540" y="121" text-anchor="middle" dominant-baseline="central" font-size="15" font-weight="700" fill="var(--blue-800,#1e40af)">8-bit ALU</text>
+        <!-- C7 exits ALU at y=94 -->
+        <text x="438" y="88" text-anchor="end" font-size="12" fill="var(--text,#374151)">C₇</text>
+        <path d="M 440 94 L 404 94 Q 398 94 398 100 L 398 108 Q 398 114 392 114 L 378 114"
+              fill="none" stroke="var(--text-2,#6b7280)" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+        <!-- C8 exits ALU at y=146; tap dot at x=418 -->
+        <text x="438" y="140" text-anchor="end" font-size="12" fill="var(--text,#374151)">C₈</text>
+        <line x1="440" y1="146" x2="418" y2="146" stroke="var(--text-2,#6b7280)" stroke-width="1" fill="none"/>
+        <circle cx="418" cy="146" r="3.5" fill="var(--text-2,#6b7280)"/>
+        <!-- C8 → XOR bottom input -->
+        <path d="M 418 146 L 418 136 Q 418 130 412 130 L 378 130"
+              fill="none" stroke="var(--text-2,#6b7280)" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+        <!-- C8 → C row -->
+        <path d="M 418 146 L 322 146 Q 316 146 316 152 L 316 238 Q 316 244 310 244 L 210 244"
+              fill="none" stroke="var(--text-2,#6b7280)" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arr88)"/>
+        <text x="263" y="237" text-anchor="middle" font-size="12" fill="var(--text,#374151)">C</text>
+        <!-- XOR gate body -->
+        <path d="M 308 121 C 330 121 350 108 378 114 Q 368 121 378 128 C 350 134 330 121 308 121 Z"
+              fill="var(--gray-100,#f3f4f6)" stroke="var(--text-2,#6b7280)" stroke-width="1.3" stroke-linejoin="round"/>
+        <!-- XOR extra arc -->
+        <path d="M 378 114 Q 393 121 378 128"
+              fill="none" stroke="var(--text-2,#6b7280)" stroke-width="1.3" stroke-linecap="round"/>
+        <line x1="294" y1="121" x2="308" y2="121" stroke="var(--text-2,#6b7280)" stroke-width="1" fill="none"/>
+        <text x="344" y="125" text-anchor="middle" font-size="11" fill="var(--text,#374151)">XOR</text>
+        <!-- V output -->
+        <path d="M 294 121 L 294 112 Q 294 112 288 112 L 210 112"
+              fill="none" stroke="var(--text-2,#6b7280)" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arr88)"/>
+        <text x="251" y="106" text-anchor="middle" font-size="12" fill="var(--text,#374151)">V</text>
+        <!-- F7-F0 bus -->
+        <line x1="540" y1="176" x2="540" y2="208" stroke="var(--text-2,#6b7280)" stroke-width="1" fill="none"/>
+        <text x="554" y="196" font-size="11" fill="var(--text-2,#6b7280)">F₇–F₀</text>
+        <circle cx="540" cy="210" r="3.5" fill="var(--text-2,#6b7280)"/>
+        <text x="554" y="218" font-size="11" fill="var(--text-2,#6b7280)">F₇ → S</text>
+        <!-- F7 → S -->
+        <path d="M 540 210 L 394 210 Q 388 210 388 204 L 388 200 Q 388 194 382 194 L 210 194"
+              fill="none" stroke="var(--text-2,#6b7280)" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arr88)"/>
+        <text x="298" y="188" text-anchor="middle" font-size="12" fill="var(--text,#374151)">S</text>
+        <!-- Bus to zero-check -->
+        <line x1="540" y1="210" x2="540" y2="340" stroke="var(--text-2,#6b7280)" stroke-width="1" fill="none"/>
+        <text x="554" y="288" font-size="11" fill="var(--text-2,#6b7280)">8</text>
+        <line x1="540" y1="340" x2="540" y2="342" stroke="var(--text-2,#6b7280)" stroke-width="1" marker-end="url(#arr88)" fill="none"/>
+        <!-- Check for zero block -->
+        <rect x="440" y="344" width="200" height="52" rx="6" fill="var(--gray-100,#f3f4f6)" stroke="var(--gray-400,#9ca3af)" stroke-width="1"/>
+        <text x="540" y="364" text-anchor="middle" dominant-baseline="central" font-size="13" font-weight="600" fill="var(--text,#374151)">Check for zero</text>
+        <text x="540" y="382" text-anchor="middle" dominant-baseline="central" font-size="11" fill="var(--text-2,#6b7280)">output</text>
+        <!-- Z route -->
+        <path d="M 440 370 L 378 370 Q 372 370 372 364 L 372 162 Q 372 156 366 156 L 210 156"
+              fill="none" stroke="var(--text-2,#6b7280)" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arr88)"/>
+        <text x="290" y="150" text-anchor="middle" font-size="12" fill="var(--text,#374151)">Z</text>
+        <!-- Output F -->
+        <line x1="540" y1="396" x2="540" y2="446" stroke="var(--text-2,#6b7280)" stroke-width="1" marker-end="url(#arr88)" fill="none"/>
+        <text x="554" y="430" font-size="12" fill="var(--text,#374151)">Output F</text>
+        <text x="340" y="476" text-anchor="middle" font-size="10" fill="var(--text-3,#9ca3af)">Adapted from M. Morris Mano, Computer System Architecture, Fig. 8-8</text>
+      </svg>
+      <p class="fig-caption">Figure 8-8 — Status register bits (Mano §8-7)</p>
+    </div>
+
+    <p>The four status bits are set or cleared after each ALU operation:</p>
+    <ul>
+      <li><strong>C (carry):</strong> set to 1 if the end carry C₈ is 1 after an addition; cleared to 0 otherwise.</li>
+      <li><strong>S (sign):</strong> set to 1 if the highest-order bit F₇ of the result is 1 (indicating a negative value in 2's complement); cleared otherwise.</li>
+      <li><strong>Z (zero):</strong> set to 1 if all bits of the ALU output are 0; cleared if any bit is 1.</li>
+      <li><strong>V (overflow):</strong> set to 1 if the exclusive-OR of the last two carries (C₇ and C₈) equals 1, indicating 2's complement overflow; cleared otherwise.</li>
+    </ul>
+
+    <p>For an 8-bit ALU, overflow (V = 1) means the result is greater than +127 or less than −128. The XOR of C₇ and C₈ detects this because overflow occurs exactly when the carry into the sign bit differs from the carry out of it.</p>
+
+    <h2>Conditional Branch Instructions</h2>
+    <p>Table 8-11 lists conditional branch instructions organised in three groups. Each mnemonic begins with B (for branch) followed by an abbreviation of the condition.</p>
+
+    <div style="overflow-x:auto">
+      <table class="truth-table">
+        <caption style="font-size:.85rem;margin-bottom:.4rem">Table 8-11 — Conditional branch instructions (Mano §8-7)</caption>
+        <thead><tr><th>Mnemonic</th><th>Branch condition</th><th>Tested condition</th></tr></thead>
+        <tbody>
+          <tr><td colspan="3" style="background:var(--bg-3);font-weight:600;font-size:.82rem">Flag-based conditions</td></tr>
+          <tr><td>BZ</td><td>Branch if zero</td><td>Z = 1</td></tr>
+          <tr><td>BNZ</td><td>Branch if not zero</td><td>Z = 0</td></tr>
+          <tr><td>BC</td><td>Branch if carry</td><td>C = 1</td></tr>
+          <tr><td>BNC</td><td>Branch if no carry</td><td>C = 0</td></tr>
+          <tr><td>BP</td><td>Branch if plus</td><td>S = 0</td></tr>
+          <tr><td>BM</td><td>Branch if minus</td><td>S = 1</td></tr>
+          <tr><td>BV</td><td>Branch if overflow</td><td>V = 1</td></tr>
+          <tr><td>BNV</td><td>Branch if no overflow</td><td>V = 0</td></tr>
+          <tr><td colspan="3" style="background:var(--bg-3);font-weight:600;font-size:.82rem">Unsigned compare conditions (A − B)</td></tr>
+          <tr><td>BHI</td><td>Branch if higher</td><td>A &gt; B</td></tr>
+          <tr><td>BHE</td><td>Branch if higher or equal</td><td>A ≥ B</td></tr>
+          <tr><td>BLO</td><td>Branch if lower</td><td>A &lt; B</td></tr>
+          <tr><td>BLOE</td><td>Branch if lower or equal</td><td>A ≤ B</td></tr>
+          <tr><td>BE</td><td>Branch if equal</td><td>A = B</td></tr>
+          <tr><td>BNE</td><td>Branch if not equal</td><td>A ≠ B</td></tr>
+          <tr><td colspan="3" style="background:var(--bg-3);font-weight:600;font-size:.82rem">Signed compare conditions (A − B)</td></tr>
+          <tr><td>BGT</td><td>Branch if greater than</td><td>A &gt; B</td></tr>
+          <tr><td>BGE</td><td>Branch if greater or equal</td><td>A ≥ B</td></tr>
+          <tr><td>BLT</td><td>Branch if less than</td><td>A &lt; B</td></tr>
+          <tr><td>BLE</td><td>Branch if less or equal</td><td>A ≤ B</td></tr>
+          <tr><td>BE</td><td>Branch if equal</td><td>A = B</td></tr>
+          <tr><td>BNE</td><td>Branch if not equal</td><td>A ≠ B</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>Note that BE and BNE appear in both the unsigned and signed groups because the test for equality (Z = 1) is the same regardless of whether the operands are treated as signed or unsigned. The terms <em>higher</em> and <em>lower</em> apply to unsigned comparison; <em>greater than</em> and <em>less than</em> apply to signed comparison, where the V and S bits must both be considered.</p>
+
+    <h2>Subroutine Call and Return</h2>
+    <p>A subroutine is a self-contained sequence of instructions that can be called from multiple points in a program. When a CALL instruction executes, the CPU must save the return address (the address of the next instruction after CALL) so the subroutine knows where to return. The most efficient mechanism uses a memory stack, implemented with the following RTL:</p>
+
+    <div class="rtl-box">
+      <strong>CALL subroutine:</strong><br>
+      SP ← SP − 1 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Decrement stack pointer<br>
+      M[SP] ← PC &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Push return address onto stack<br>
+      PC ← effective address &nbsp;&nbsp;Transfer control to subroutine
+    </div>
+
+    <div class="rtl-box">
+      <strong>Return from subroutine (RET):</strong><br>
+      PC ← M[SP] &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Pop return address into PC<br>
+      SP ← SP + 1 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Increment stack pointer
+    </div>
+
+    <p>Using a stack for return addresses means that nested and recursive subroutine calls are handled automatically — each call pushes a new return address, and each return pops the most recent one, always returning to the correct caller.</p>
+
+    <h2>Program Interrupt</h2>
+    <p>Program interrupt transfers control from a running program to a service routine in response to an event that occurs asynchronously or as an error condition. Section 8-7 identifies three major types of interrupt:</p>
+
+    <ul>
+      <li><strong>External interrupts</strong> — initiated by signals from input/output devices, timing circuits, or power-failure detectors outside the CPU. These are asynchronous with respect to the currently executing program.</li>
+      <li><strong>Internal interrupts</strong> — also called <em>traps</em>, triggered by illegal or erroneous instruction execution: register overflow, division by zero, invalid operation code, stack overflow, or protection violation. They are synchronous — the same instruction always causes the same trap.</li>
+      <li><strong>Software interrupts</strong> — initiated by executing a special instruction (a supervisor call). The program deliberately invokes an interrupt, typically to switch from user mode to supervisor mode in order to request an operating-system service.</li>
+    </ul>
+
+    <p>The interrupt mechanism is similar to a subroutine call: the CPU pushes the program counter and the program status word (PSW) onto the stack, then loads the branch address of the service routine into the PC. When the service routine finishes, a <em>return from interrupt</em> instruction pops the PSW and PC, restoring the CPU state exactly as it was when the interrupt occurred.</p>
+
+    <h2>Common Pitfalls</h2>
+    <ul>
+      <li><strong>Confusing signed and unsigned branch conditions.</strong> After CMP A, B, the instruction BHI tests whether A is <em>unsigned</em> higher than B; BGT tests whether A is <em>signed</em> greater than B. The two give different results for the same bit patterns when the values are negative.</li>
+      <li><strong>Forgetting that compare and test discard the result.</strong> CMP sets status bits from A − B but does not store the difference; TST sets them from A AND B but discards the AND. The original operands are preserved.</li>
+      <li><strong>Overflow vs carry.</strong> C flags a carry out of the most significant bit (relevant for unsigned arithmetic); V flags a sign-bit change caused by overflow (relevant for signed 2's complement arithmetic). They are independent.</li>
+    </ul>
+
+    <h2>Key Points</h2>
+    <ul>
+      <li>Table 8-10 lists <strong>7 program control instructions</strong>. Branch, jump, skip, call, return, compare, and test.</li>
+      <li>The status register holds <strong>4 bits — C, S, Z, V</strong> — derived from C₈, F₇, the zero-check circuit, and XOR(C₇, C₈) respectively.</li>
+      <li>Table 8-11 groups conditional branch instructions into <strong>3 groups</strong>: flag-based, unsigned compare, and signed compare conditions.</li>
+      <li>Subroutine CALL stores the return address on the stack and transfers to the subroutine; RET pops it back into PC.</li>
+      <li>The <strong>3 interrupt types</strong> are external (asynchronous hardware events), internal (traps from erroneous instructions), and software (deliberate supervisor calls).</li>
+    </ul>
+  </div>
+
+  <!-- QUIZ GATE -->
+  <div id="gate-section">
+    <div class="gate">
+      <div class="gate-blur">
+        <div class="quiz"><div class="quiz-title">📝 Quick Quiz — 5 Questions</div></div>
+      </div>
+      <div class="gate-overlay">
+        <div class="gate-box">
+          <div class="lock">🔒</div>
+          <h3>Login to take the quiz</h3>
+          <p>Create a free account to take the quiz and track your progress across all topics.</p>
+          <div class="gate-btns">
+            <a href="../../../login.html" class="btn btn-primary btn-sm">Login</a>
+            <a href="../../../login.html" class="btn btn-outline btn-sm">Register Free</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="quiz" id="quiz-section" style="display:none">
+    <div class="quiz-title">📝 Quick Quiz — 5 Questions</div>
+    <div id="quiz-body"></div>
+    <button class="btn btn-primary" id="submit-btn" disabled>Submit Quiz</button>
+    <div class="quiz-result" id="quiz-result" style="display:none"></div>
+  </div>
+
+  <div class="topic-nav">
+    <a href="data-transfer-manipulation.html">
+      <div class="nav-dir">← Previous</div>
+      <div class="nav-title">Data Transfer and Manipulation</div>
+    </a>
+    <a href="risc.html" class="next">
+      <div class="nav-dir">Next →</div>
+      <div class="nav-title">RISC</div>
+    </a>
+  </div>
+
+</div>
+
+<footer id="main-footer"></footer>
+
+<script type="module">
+  import { initNav } from '../../../js/nav.js';
+  import { onAuth, saveProgress, getProgress } from '../../../js/firebase-config.js';
+  import { initSidebar } from '../../../js/sidebar.js';
+  initNav(3);
+  initSidebar();
+
+  const COURSE_ID = 'coa';
+  const TOPIC_ID  = 'program-control';
+  const LABELS    = ['A','B','C','D'];
+  const QUIZ = [
+    {
+      q: "Which status bit is set to 1 when the XOR of the last two carries C₇ and C₈ equals 1?",
+      options: ["C — carry","S — sign","Z — zero","V — overflow"],
+      answer: 3,
+      explanation: "V (overflow) is set by XOR(C₇, C₈). This detects 2's complement overflow, which occurs when the carry into the sign bit differs from the carry out of it."
+    },
+    {
+      q: "What does the CALL instruction store on the stack before transferring to the subroutine?",
+      options: ["The current value of the accumulator","The address of the next instruction after CALL (the return address)","The first instruction of the subroutine","The contents of all processor registers"],
+      answer: 1,
+      explanation: "CALL decrements SP, stores PC (the return address — the address of the instruction after CALL) at M[SP], then loads PC with the subroutine's effective address."
+    },
+    {
+      q: "An internal interrupt (trap) is caused by:",
+      options: ["An I/O device requesting attention","An illegal or erroneous instruction such as division by zero","A programmer executing a supervisor call instruction","A power failure signal from an external circuit"],
+      answer: 1,
+      explanation: "Internal interrupts are triggered by illegal or erroneous program execution — division by zero, register overflow, invalid opcode, or protection violation. They are synchronous with the instruction stream."
+    },
+    {
+      q: "After CMP A, B is executed, which statement is true?",
+      options: ["The difference A − B is stored back in A","The status bits are set based on A − B, but the result is discarded","Both A and B are replaced by the result","The instruction only works if A and B are equal"],
+      answer: 1,
+      explanation: "CMP performs A − B to set the status bits (C, S, Z, V) but does not store the result anywhere. The original values of A and B are preserved."
+    },
+    {
+      q: "Table 8-10 lists how many typical program control instructions?",
+      options: ["5","6","7","8"],
+      answer: 2,
+      explanation: "Table 8-10 lists exactly 7 program control instructions: Branch, Jump, Skip, Call, Return, Compare, and Test."
+    }
+  ];
+
+  let selected = {}, submitted = false;
+
+  function buildQuiz() {
+    document.getElementById('quiz-body').innerHTML = QUIZ.map((q, qi) => `
+      <div class="question">
+        <div class="question-text">Q${qi+1}. ${q.q}</div>
+        <div class="options">
+          ${q.options.map((o, oi) => `<div class="option" data-qi="${qi}" data-oi="${oi}"><span class="option-lbl">${LABELS[oi]}</span>${o}</div>`).join('')}
+        </div>
+        <div class="explanation" id="exp${qi}" style="display:none">💡 ${q.explanation}</div>
+      </div>`).join('');
+    document.querySelectorAll('.option').forEach(el => {
+      el.onclick = () => {
+        if (submitted) return;
+        const qi = +el.dataset.qi, oi = +el.dataset.oi;
+        selected[qi] = oi;
+        document.querySelectorAll(`[data-qi="${qi}"]`).forEach(o => o.classList.remove('selected'));
+        el.classList.add('selected');
+        document.getElementById('submit-btn').disabled = Object.keys(selected).length < QUIZ.length;
+      };
+    });
+  }
+
+  async function submitQuiz(uid) {
+    submitted = true; let score = 0;
+    QUIZ.forEach((q, qi) => {
+      const correct = q.answer, chosen = selected[qi];
+      document.querySelectorAll(`[data-qi="${qi}"]`).forEach(o => {
+        const oi = +o.dataset.oi;
+        if (oi === correct) o.classList.add('correct');
+        else if (oi === chosen) o.classList.add('wrong');
+      });
+      document.getElementById(`exp${qi}`).style.display = 'block';
+      if (chosen === correct) score++;
+    });
+    document.getElementById('submit-btn').style.display = 'none';
+    const pct = Math.round((score / QUIZ.length) * 100);
+    const res = document.getElementById('quiz-result');
+    res.style.display = 'block';
+    res.className = `quiz-result ${pct >= 60 ? 'pass' : 'fail'}`;
+    res.innerHTML = `<div class="quiz-score">${pct >= 60 ? '🎉' : '📖'} Score: ${score}/${QUIZ.length} (${pct}%)</div>
+      <div class="quiz-msg">${pct >= 80 ? 'Excellent! Move to the next topic.' : pct >= 60 ? 'Good. Review what you missed.' : 'Review the lesson and try again.'}</div>`;
+    if (uid) await saveProgress(uid, COURSE_ID, TOPIC_ID, score, QUIZ.length);
+  }
+
+  onAuth(async user => {
+    const gate = document.getElementById('gate-section');
+    const quiz  = document.getElementById('quiz-section');
+    if (user) {
+      gate.style.display = 'none';
+      quiz.style.display = 'block';
+      buildQuiz();
+      document.getElementById('submit-btn').onclick = () => submitQuiz(user.uid);
+      const prog = await getProgress(user.uid, COURSE_ID, TOPIC_ID);
+      if (prog?.completed) {
+        const res = document.getElementById('quiz-result');
+        res.style.display = 'block';
+        res.className = 'quiz-result pass';
+        res.innerHTML = `<div class="quiz-score">✅ Completed — Best score: ${prog.percent}%</div>
+          <div class="quiz-msg">You can retake the quiz anytime.</div>`;
+      }
+    }
+  });
+</script>
+</body>
+</html>

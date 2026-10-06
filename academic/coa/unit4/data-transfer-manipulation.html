@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3030765874336294" crossorigin="anonymous"></script>
+  <title>Data Transfer and Manipulation — COA Unit 4 | CHANDRAS EDU</title>
+  <meta name="description" content="Data transfer, arithmetic, logic, and shift instruction groups in Mano §8-6, with Tables 8-5 through 8-9 and the shift instruction field format.">
+  <link rel="canonical" href="https://chandrashaker.com/courses/academic/coa/unit4/data-transfer-manipulation">
+  <link rel="stylesheet" href="../../../css/style.css">
+
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="CHANDRAS EDU">
+  <meta property="og:title" content="Data Transfer and Manipulation — COA Unit 4 | CHANDRAS EDU">
+  <meta property="og:description" content="Data transfer, arithmetic, logic, and shift instruction groups in Mano §8-6, with Tables 8-5 through 8-9 and the shift instruction field format.">
+  <meta property="og:url" content="https://chandrashaker.com/courses/academic/coa/unit4/data-transfer-manipulation">
+  <meta property="og:image" content="https://chandrashaker.com/courses/images/og/coa-v7.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Computer Organization and Architecture — CHANDRAS EDU free course">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Data Transfer and Manipulation — COA Unit 4 | CHANDRAS EDU">
+  <meta name="twitter:description" content="Data transfer, arithmetic, logic, and shift instruction groups in Mano §8-6, with Tables 8-5 through 8-9 and the shift instruction field format.">
+  <meta name="twitter:image" content="https://chandrashaker.com/courses/images/og/coa-v7.png">
+
+  <script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Courses","item":"https://chandrashaker.com/courses/"},{"@type":"ListItem","position":2,"name":"COA","item":"https://chandrashaker.com/courses/academic/coa/"},{"@type":"ListItem","position":3,"name":"Unit 4","item":"https://chandrashaker.com/courses/academic/coa/unit4/"},{"@type":"ListItem","position":4,"name":"Data Transfer and Manipulation"}]}
+  </script>
+  <script type="application/ld+json">
+{"@context":"https://schema.org","@type":"LearningResource","name":"Data Transfer and Manipulation","description":"Data transfer, arithmetic, logic, and shift instruction groups in Mano §8-6, with Tables 8-5 through 8-9 and the shift instruction field format.","url":"https://chandrashaker.com/courses/academic/coa/unit4/data-transfer-manipulation","learningResourceType":"Lesson","educationalLevel":"Undergraduate","about":{"@type":"Thing","name":"Computer Organization and Architecture"},"isPartOf":{"@type":"Course","name":"Computer Organization and Architecture","provider":{"@type":"Organization","name":"CHANDRAS EDU","url":"https://chandrashaker.in"}},"publisher":{"@type":"Organization","name":"CHANDRAS EDU","url":"https://chandrashaker.in"}}
+  </script>
+  <link rel="icon" href="/favicon.ico">
+  <style>
+    .fig-wrap { text-align:center; margin:1.5rem 0; }
+    .fig-wrap svg { max-width:640px; width:100%; height:auto; }
+    .fig-caption { font-size:.82rem; color:var(--text-3); margin-top:.4rem; }
+  </style>
+</head>
+<body>
+<div id="main-nav"></div>
+
+<div class="page-narrow" role="main">
+
+  <nav class="breadcrumb">
+    <a href="../../../index.html">Courses</a><span class="sep">/</span>
+    <a href="../index.html">Computer Organization and Architecture</a><span class="sep">/</span>
+    <a href="index.html">Unit 4</a><span class="sep">/</span>
+    <span class="cur">Data Transfer and Manipulation</span>
+  </nav>
+
+  <div style="background:var(--primary);border-radius:var(--radius-lg);padding:1.1rem 1.4rem;margin-bottom:1.5rem;color:#fff">
+    <div style="font-size:.75rem;opacity:.75;margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.05em">COA › Unit 4: CPU Organization › Topic 7</div>
+    <h1 style="font-size:1.4rem;font-weight:700;color:#fff;margin-bottom:.5rem">Data Transfer and Manipulation</h1>
+    <div style="display:flex;gap:.75rem;flex-wrap:wrap">
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">⏱ 15 min read</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📝 Quiz inside</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📖 Mano, §8-6</span>
+    </div>
+  </div>
+
+  <div class="lesson">
+    <p>Reference: M. Morris Mano, <em>Computer System Architecture</em>, §8-6</p>
+
+    <p>A CPU's instruction set divides naturally into groups by what each instruction does to data. Section 8-6 of Mano identifies four such groups — data transfer, arithmetic, logic and bit manipulation, and shift — and provides representative tables of mnemonics for each. Understanding these groups clarifies why an instruction set is organised the way it is and how the ALU, shifter, and registers cooperate to execute each category.</p>
+
+    <h2>Data Transfer Instructions</h2>
+    <p>Data transfer instructions move the content of one location to another without changing the value itself. Table 8-5 lists 8 typical instructions of this kind. The most common transfers are between memory and processor registers, between registers and input/output terminals, and between two processor registers.</p>
+
+    <div style="overflow-x:auto">
+      <table class="truth-table">
+        <caption style="font-size:.85rem;margin-bottom:.4rem">Table 8-5 — Typical data transfer instructions (Mano §8-6)</caption>
+        <thead><tr><th>Name</th><th>Mnemonic</th><th>Typical action</th></tr></thead>
+        <tbody>
+          <tr><td>Load</td><td>LD</td><td>Memory → processor register (usually the accumulator)</td></tr>
+          <tr><td>Store</td><td>ST</td><td>Processor register → memory</td></tr>
+          <tr><td>Move</td><td>MOV</td><td>Register → register (or memory ↔ memory on some architectures)</td></tr>
+          <tr><td>Exchange</td><td>XCH</td><td>Swap two registers, or a register and a memory word</td></tr>
+          <tr><td>Input</td><td>IN</td><td>I/O terminal → processor register</td></tr>
+          <tr><td>Output</td><td>OUT</td><td>Processor register → I/O terminal</td></tr>
+          <tr><td>Push</td><td>PUSH</td><td>Processor register → top of memory stack</td></tr>
+          <tr><td>Pop</td><td>POP</td><td>Top of memory stack → processor register</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>Each instruction can occur with a variety of addressing modes (covered in Topic 4.6). For instance, the load-to-accumulator instruction in immediate mode is sometimes written LDI, while some assemblers use a special prefix such as <code>#</code> to indicate the immediate operand. The mnemonic convention varies between architectures; the important point is that the same transfer operation may appear under different names.</p>
+
+    <h2>Arithmetic Instructions</h2>
+    <p>Arithmetic instructions perform numerical computations on operands stored in registers or memory. Table 8-7 lists 9 typical arithmetic instructions. The four basic operations — increment, decrement, add, subtract — are almost universally available. Multiply and divide may be omitted on small processors, in which case software subroutines perform them.</p>
+
+    <div style="overflow-x:auto">
+      <table class="truth-table">
+        <caption style="font-size:.85rem;margin-bottom:.4rem">Table 8-7 — Typical arithmetic instructions (Mano §8-6)</caption>
+        <thead><tr><th>Name</th><th>Mnemonic</th></tr></thead>
+        <tbody>
+          <tr><td>Increment</td><td>INC</td></tr>
+          <tr><td>Decrement</td><td>DEC</td></tr>
+          <tr><td>Add</td><td>ADD</td></tr>
+          <tr><td>Subtract</td><td>SUB</td></tr>
+          <tr><td>Multiply</td><td>MUL</td></tr>
+          <tr><td>Divide</td><td>DIV</td></tr>
+          <tr><td>Add with carry</td><td>ADDC</td></tr>
+          <tr><td>Subtract with borrow</td><td>SUBB</td></tr>
+          <tr><td>Negate (2's complement)</td><td>NEG</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>Many computers provide multiple variants of add and subtract to handle different data types — for example, ADDI for binary integers, ADDF for floating-point operands, and ADDD for BCD decimal. The <em>add with carry</em> instruction supports double-precision arithmetic by including the carry from a previous lower-word addition. <em>Subtract with borrow</em> is its counterpart. The <em>negate</em> instruction forms the 2's complement of a value, effectively reversing its sign when using signed representation.</p>
+
+    <h2>Logical and Bit Manipulation Instructions</h2>
+    <p>Logical instructions treat each bit of a register independently as a Boolean variable. Table 8-8 lists 10 typical logical and bit manipulation instructions. They make it possible to clear a selected bit to 0, set it to 1, or complement it, which is useful for masking, flag control, and selective complement operations.</p>
+
+    <div style="overflow-x:auto">
+      <table class="truth-table">
+        <caption style="font-size:.85rem;margin-bottom:.4rem">Table 8-8 — Typical logical and bit manipulation instructions (Mano §8-6)</caption>
+        <thead><tr><th>Name</th><th>Mnemonic</th><th>Effect</th></tr></thead>
+        <tbody>
+          <tr><td>Clear</td><td>CLR</td><td>All bits of operand → 0</td></tr>
+          <tr><td>Complement</td><td>COM</td><td>1's complement of operand</td></tr>
+          <tr><td>AND</td><td>AND</td><td>Bit-by-bit AND — used to clear selected bits (mask)</td></tr>
+          <tr><td>OR</td><td>OR</td><td>Bit-by-bit OR — used to set selected bits</td></tr>
+          <tr><td>Exclusive-OR</td><td>XOR</td><td>Bit-by-bit XOR — used to complement selected bits</td></tr>
+          <tr><td>Clear carry</td><td>CLRC</td><td>Carry flag → 0</td></tr>
+          <tr><td>Set carry</td><td>SETC</td><td>Carry flag → 1</td></tr>
+          <tr><td>Complement carry</td><td>COMC</td><td>Carry flag ← NOT carry</td></tr>
+          <tr><td>Enable interrupt</td><td>EI</td><td>Interrupt flip-flop → 1</td></tr>
+          <tr><td>Disable interrupt</td><td>DI</td><td>Interrupt flip-flop → 0</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>The AND instruction is also called a <em>mask</em> because ANDing a register with a pattern of 0s clears the corresponding bit positions while leaving the rest unchanged. OR sets selected bits, and XOR complements them — all without disturbing the other bits. The carry and interrupt control instructions in Table 8-8 manipulate individual flag flip-flops rather than whole registers.</p>
+
+    <h2>Shift Instructions</h2>
+    <p>Shift instructions move the bits of a register left or right by one or more positions. Table 8-9 defines 8 shift instructions covering 4 types: logical shift, arithmetic shift, rotate, and rotate-through-carry. Each type has both a left and a right variant.</p>
+
+    <div style="overflow-x:auto">
+      <table class="truth-table">
+        <caption style="font-size:.85rem;margin-bottom:.4rem">Table 8-9 — Typical shift instructions (Mano §8-6)</caption>
+        <thead><tr><th>Name</th><th>Mnemonic</th><th>Bit shifted in at the vacated end</th></tr></thead>
+        <tbody>
+          <tr><td>Logical shift right</td><td>SHR</td><td>0</td></tr>
+          <tr><td>Logical shift left</td><td>SHL</td><td>0</td></tr>
+          <tr><td>Arithmetic shift right</td><td>SHRA</td><td>Sign bit (leftmost bit preserved)</td></tr>
+          <tr><td>Arithmetic shift left</td><td>SHLA</td><td>0 (same as logical shift left)</td></tr>
+          <tr><td>Rotate right</td><td>ROR</td><td>Rightmost bit wraps to leftmost</td></tr>
+          <tr><td>Rotate left</td><td>ROL</td><td>Leftmost bit wraps to rightmost</td></tr>
+          <tr><td>Rotate right through carry</td><td>RORC</td><td>Carry bit; rightmost bit → carry</td></tr>
+          <tr><td>Rotate left through carry</td><td>ROLC</td><td>Carry bit; leftmost bit → carry</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>A <em>logical shift</em> inserts 0 at the vacated end and is useful for unsigned multiplication or division by powers of 2. An <em>arithmetic shift</em> right preserves the sign bit to maintain the correct sign in signed 2's complement arithmetic; arithmetic shift left inserts 0 and is identical to logical shift left. <em>Rotate</em> instructions are circular — no bit is lost; the bit shifted out reappears at the other end. <em>Rotate-through-carry</em> treats the carry flag as an extra bit of the register, effectively providing a 9-bit (or 17-bit on a 16-bit machine) circular shift.</p>
+
+    <p>Some processors encode all shift information in a single multi-field instruction format rather than providing separate mnemonics. One such format uses five fields:</p>
+
+    <div class="fig-wrap">
+      <svg viewBox="0 0 680 200" style="max-width:680px;width:100%;height:auto" role="img" aria-label="Shift instruction field format" xmlns="http://www.w3.org/2000/svg">
+        <title>Shift instruction field format</title>
+        <desc>Five-field shift instruction format: OP (operation code), REG (register address), TYPE (2-bit shift type selector), RL (1-bit direction right or left), COUNT (k-bit shift amount).</desc>
+        <text x="340" y="22" text-anchor="middle" font-size="12" font-weight="600" fill="var(--text,#374151)">Shift instruction format (§8-6)</text>
+        <!-- OP field -->
+        <rect x="50" y="36" width="100" height="48" rx="4" fill="var(--bg-3,#ede9fe)" stroke="var(--primary,#6d28d9)" stroke-width="1"/>
+        <text x="100" y="56" text-anchor="middle" dominant-baseline="central" font-size="13" font-weight="600" fill="var(--primary,#6d28d9)">OP</text>
+        <text x="100" y="73" text-anchor="middle" dominant-baseline="central" font-size="11" fill="var(--primary,#6d28d9)">operation code</text>
+        <!-- REG field -->
+        <rect x="152" y="36" width="120" height="48" rx="4" fill="var(--bg-3,#dbeafe)" stroke="var(--primary,#1d4ed8)" stroke-width="1"/>
+        <text x="212" y="56" text-anchor="middle" dominant-baseline="central" font-size="13" font-weight="600" fill="var(--primary,#1e40af)">REG</text>
+        <text x="212" y="73" text-anchor="middle" dominant-baseline="central" font-size="11" fill="var(--primary,#1e40af)">register address</text>
+        <!-- TYPE field -->
+        <rect x="274" y="36" width="80" height="48" rx="4" fill="var(--bg-3,#fef3c7)" stroke="var(--primary,#b45309)" stroke-width="1"/>
+        <text x="314" y="56" text-anchor="middle" dominant-baseline="central" font-size="13" font-weight="600" fill="var(--primary,#92400e)">TYPE</text>
+        <text x="314" y="73" text-anchor="middle" dominant-baseline="central" font-size="11" fill="var(--primary,#92400e)">2 bits</text>
+        <!-- RL field -->
+        <rect x="356" y="36" width="60" height="48" rx="4" fill="var(--bg-3,#fef3c7)" stroke="var(--primary,#b45309)" stroke-width="1"/>
+        <text x="386" y="56" text-anchor="middle" dominant-baseline="central" font-size="13" font-weight="600" fill="var(--primary,#92400e)">RL</text>
+        <text x="386" y="73" text-anchor="middle" dominant-baseline="central" font-size="11" fill="var(--primary,#92400e)">1 bit</text>
+        <!-- COUNT field -->
+        <rect x="418" y="36" width="212" height="48" rx="4" fill="var(--bg-3,#d1fae5)" stroke="var(--primary,#065f46)" stroke-width="1"/>
+        <text x="524" y="56" text-anchor="middle" dominant-baseline="central" font-size="13" font-weight="600" fill="var(--primary,#065f46)">COUNT</text>
+        <text x="524" y="73" text-anchor="middle" dominant-baseline="central" font-size="11" fill="var(--primary,#065f46)">k bits — shift amount</text>
+        <!-- Annotations -->
+        <text x="100" y="110" text-anchor="middle" font-size="11" fill="var(--text-2,#6b7280)">what to do</text>
+        <text x="212" y="110" text-anchor="middle" font-size="11" fill="var(--text-2,#6b7280)">which register</text>
+        <text x="314" y="110" text-anchor="middle" font-size="11" fill="var(--text-2,#6b7280)">logical / arithmetic /</text>
+        <text x="314" y="124" text-anchor="middle" font-size="11" fill="var(--text-2,#6b7280)">rotate / rotate-carry</text>
+        <text x="386" y="110" text-anchor="middle" font-size="11" fill="var(--text-2,#6b7280)">right / left</text>
+        <text x="524" y="110" text-anchor="middle" font-size="11" fill="var(--text-2,#6b7280)">up to 2ᵏ − 1 positions</text>
+        <line x1="50" y1="143" x2="630" y2="143" stroke="var(--border,#e5e7eb)" stroke-width="0.5" stroke-dasharray="2 2"/>
+        <text x="50" y="162" font-size="10" fill="var(--text-3,#9ca3af)">TYPE encodes 4 shift variants: logical, arithmetic, rotate, rotate-through-carry (Table 8-9). RL: 0 = right, 1 = left. COUNT: number of positions.</text>
+        <text x="50" y="178" font-size="10" fill="var(--text-3,#9ca3af)">Adapted from M. Morris Mano, Computer System Architecture, §8-6</text>
+      </svg>
+    </div>
+
+    <p>In this format, the TYPE field is 2 bits wide, encoding the four shift variants; RL is a single bit selecting direction; and COUNT is a k-bit field allowing up to 2<sup>k</sup> − 1 positions in one instruction. With such a format a single instruction can specify the shift type, direction, and count simultaneously.</p>
+
+    <h2>Common Pitfalls</h2>
+    <ul>
+      <li><strong>Confusing logical and arithmetic right shift.</strong> A logical right shift always inserts 0, treating the operand as unsigned. An arithmetic right shift replicates the sign bit, preserving the sign in 2's complement. Applying logical right shift to a negative signed integer gives a wrong result.</li>
+      <li><strong>Assuming mnemonic names are standard.</strong> Table 8-5 through Table 8-9 list representative names; actual architectures use different mnemonics for the same operations. Always consult the specific instruction set reference.</li>
+      <li><strong>Overlooking carry in multi-word shifts.</strong> Shifting a value wider than one register requires chaining shifts with RORC or ROLC so the carry correctly bridges the two words.</li>
+    </ul>
+
+    <h2>Key Points</h2>
+    <ul>
+      <li>Table 8-5 lists <strong>8 data transfer instructions</strong>; no arithmetic is performed — only the location of the data changes.</li>
+      <li>Table 8-7 lists <strong>9 arithmetic instructions</strong>. Multiply and divide may be absent on small processors and implemented in software.</li>
+      <li>Table 8-8 lists <strong>10 logical and bit manipulation instructions</strong>. AND clears selected bits, OR sets them, XOR complements them.</li>
+      <li>Table 8-9 lists <strong>8 shift instructions</strong> covering <strong>4 types</strong>: logical, arithmetic, rotate, and rotate-through-carry, each with left and right variants.</li>
+      <li>The shift instruction field format (§8-6) packs type, direction, and count into one instruction using five fields: OP, REG, TYPE (2 bits), RL (1 bit), COUNT (k bits).</li>
+    </ul>
+  </div>
+
+  <!-- QUIZ GATE -->
+  <div id="gate-section">
+    <div class="gate">
+      <div class="gate-blur">
+        <div class="quiz"><div class="quiz-title">📝 Quick Quiz — 5 Questions</div></div>
+      </div>
+      <div class="gate-overlay">
+        <div class="gate-box">
+          <div class="lock">🔒</div>
+          <h3>Login to take the quiz</h3>
+          <p>Create a free account to take the quiz and track your progress across all topics.</p>
+          <div class="gate-btns">
+            <a href="../../../login.html" class="btn btn-primary btn-sm">Login</a>
+            <a href="../../../login.html" class="btn btn-outline btn-sm">Register Free</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="quiz" id="quiz-section" style="display:none">
+    <div class="quiz-title">📝 Quick Quiz — 5 Questions</div>
+    <div id="quiz-body"></div>
+    <button class="btn btn-primary" id="submit-btn" disabled>Submit Quiz</button>
+    <div class="quiz-result" id="quiz-result" style="display:none"></div>
+  </div>
+
+  <div class="topic-nav">
+    <a href="addressing-modes.html">
+      <div class="nav-dir">← Previous</div>
+      <div class="nav-title">Addressing Modes</div>
+    </a>
+    <a href="program-control.html" class="next">
+      <div class="nav-dir">Next →</div>
+      <div class="nav-title">Program Control</div>
+    </a>
+  </div>
+
+</div>
+
+<footer id="main-footer"></footer>
+
+<script type="module">
+  import { initNav } from '../../../js/nav.js';
+  import { onAuth, saveProgress, getProgress } from '../../../js/firebase-config.js';
+  import { initSidebar } from '../../../js/sidebar.js';
+  initNav(3);
+  initSidebar();
+
+  const COURSE_ID = 'coa';
+  const TOPIC_ID  = 'data-transfer-manipulation';
+  const LABELS    = ['A','B','C','D'];
+  const QUIZ = [
+    {
+      q: "Table 8-5 lists how many typical data transfer instructions?",
+      options: ["6","8","10","12"],
+      answer: 1,
+      explanation: "Table 8-5 lists exactly 8 data transfer instructions: LD, ST, MOV, XCH, IN, OUT, PUSH, POP."
+    },
+    {
+      q: "What does an arithmetic right shift insert at the vacated leftmost bit position?",
+      options: ["0 always","1 always","A copy of the original sign bit","The carry flag value"],
+      answer: 2,
+      explanation: "An arithmetic right shift replicates the sign bit (leftmost bit) into the vacated position, preserving the sign of a 2's complement number."
+    },
+    {
+      q: "How many shift types does Table 8-9 define?",
+      options: ["2","4","6","8"],
+      answer: 1,
+      explanation: "Table 8-9 defines 4 types of shift: logical, arithmetic, rotate, and rotate-through-carry. Each type has a left and right variant, giving 8 entries in the table."
+    },
+    {
+      q: "In the shift instruction field format from §8-6, which field selects the direction of the shift?",
+      options: ["OP","TYPE","RL","COUNT"],
+      answer: 2,
+      explanation: "RL is a 1-bit field: 0 selects right, 1 selects left. TYPE selects the shift variant (logical, arithmetic, rotate, rotate-carry); COUNT gives the number of positions."
+    },
+    {
+      q: "Which logical instruction is used to clear selected bits in a register to 0?",
+      options: ["OR","XOR","AND","COM"],
+      answer: 2,
+      explanation: "AND with a mask pattern of 0s clears the corresponding bit positions to 0 while leaving the other bits unchanged. OR sets bits; XOR complements them; COM complements all bits."
+    }
+  ];
+
+  let selected = {}, submitted = false;
+
+  function buildQuiz() {
+    document.getElementById('quiz-body').innerHTML = QUIZ.map((q, qi) => `
+      <div class="question">
+        <div class="question-text">Q${qi+1}. ${q.q}</div>
+        <div class="options">
+          ${q.options.map((o, oi) => `<div class="option" data-qi="${qi}" data-oi="${oi}"><span class="option-lbl">${LABELS[oi]}</span>${o}</div>`).join('')}
+        </div>
+        <div class="explanation" id="exp${qi}" style="display:none">💡 ${q.explanation}</div>
+      </div>`).join('');
+    document.querySelectorAll('.option').forEach(el => {
+      el.onclick = () => {
+        if (submitted) return;
+        const qi = +el.dataset.qi, oi = +el.dataset.oi;
+        selected[qi] = oi;
+        document.querySelectorAll(`[data-qi="${qi}"]`).forEach(o => o.classList.remove('selected'));
+        el.classList.add('selected');
+        document.getElementById('submit-btn').disabled = Object.keys(selected).length < QUIZ.length;
+      };
+    });
+  }
+
+  async function submitQuiz(uid) {
+    submitted = true; let score = 0;
+    QUIZ.forEach((q, qi) => {
+      const correct = q.answer, chosen = selected[qi];
+      document.querySelectorAll(`[data-qi="${qi}"]`).forEach(o => {
+        const oi = +o.dataset.oi;
+        if (oi === correct) o.classList.add('correct');
+        else if (oi === chosen) o.classList.add('wrong');
+      });
+      document.getElementById(`exp${qi}`).style.display = 'block';
+      if (chosen === correct) score++;
+    });
+    document.getElementById('submit-btn').style.display = 'none';
+    const pct = Math.round((score / QUIZ.length) * 100);
+    const res = document.getElementById('quiz-result');
+    res.style.display = 'block';
+    res.className = `quiz-result ${pct >= 60 ? 'pass' : 'fail'}`;
+    res.innerHTML = `<div class="quiz-score">${pct >= 60 ? '🎉' : '📖'} Score: ${score}/${QUIZ.length} (${pct}%)</div>
+      <div class="quiz-msg">${pct >= 80 ? 'Excellent! Move to the next topic.' : pct >= 60 ? 'Good. Review what you missed.' : 'Review the lesson and try again.'}</div>`;
+    if (uid) await saveProgress(uid, COURSE_ID, TOPIC_ID, score, QUIZ.length);
+  }
+
+  onAuth(async user => {
+    const gate = document.getElementById('gate-section');
+    const quiz  = document.getElementById('quiz-section');
+    if (user) {
+      gate.style.display = 'none';
+      quiz.style.display = 'block';
+      buildQuiz();
+      document.getElementById('submit-btn').onclick = () => submitQuiz(user.uid);
+      const prog = await getProgress(user.uid, COURSE_ID, TOPIC_ID);
+      if (prog?.completed) {
+        const res = document.getElementById('quiz-result');
+        res.style.display = 'block';
+        res.className = 'quiz-result pass';
+        res.innerHTML = `<div class="quiz-score">✅ Completed — Best score: ${prog.percent}%</div>
+          <div class="quiz-msg">You can retake the quiz anytime.</div>`;
+      }
+    }
+  });
+</script>
+</body>
+</html>

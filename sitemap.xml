@@ -487,6 +487,24 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://chandrashaker.com/courses/academic/coa/unit4/data-transfer-manipulation</loc>
+    <lastmod>2026-10-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://chandrashaker.com/courses/academic/coa/unit4/program-control</loc>
+    <lastmod>2026-10-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://chandrashaker.com/courses/academic/coa/unit4/risc</loc>
+    <lastmod>2026-10-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://chandrashaker.com/courses/academic/coa/unit1/data-types-number-systems</loc>
     <lastmod>2026-07-18</lastmod>
     <changefreq>monthly</changefreq>
