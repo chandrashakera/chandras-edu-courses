@@ -1,4 +1,4 @@
-// js/curriculum/coa-unit4.js — COA Unit 4 topic list (Batch 3: 9 live topics; computer arithmetic group empty until later batches)
+// js/curriculum/coa-unit4.js — COA Unit 4 topic list (Batch 4: 12 live topics; computer arithmetic group empty until later batches)
 export const GROUPS = {
     'tg-microprogrammed-control': [
       { id:'control-memory',      title:'Control Memory',      desc:'ROM stores microinstructions as binary control words; CAR sequences through them.',      time:'16 min', href:'control-memory.html',      status:'active' },
@@ -13,7 +13,11 @@ export const GROUPS = {
       { id:'program-control', title:'Program Control', desc:'Branch, call, return, and interrupt instructions in Mano §8-7; the four status bits C, S, Z, V; and the subroutine call RTL.', time:'16 min', href:'program-control.html', status:'active' },
       { id:'risc', title:'RISC', desc:'RISC versus CISC in Mano §8-8; the seven RISC characteristics; overlapped register windows (Fig. 8-9); Berkeley RISC I formats (Fig. 8-10).', time:'15 min', href:'risc.html', status:'active' },
     ],
-    'tg-computer-arithmetic': [],
+    'tg-computer-arithmetic': [
+      { id:'addition-subtraction', title:'Addition and Subtraction', desc:'Signed-magnitude and signed-2\'s complement addition and subtraction in §10-2, with hardware block diagram (Fig. 10-1), flowchart (Fig. 10-2), and overflow detection.', time:'15 min', href:'addition-subtraction.html', status:'active' },
+      { id:'multiplication-algorithms', title:'Multiplication Algorithms', desc:'Signed-magnitude multiply hardware and flowchart (Fig. 10-5, 10-6), Booth\'s algorithm for signed-2\'s complement numbers (Fig. 10-8), and array multiplier in §10-3.', time:'18 min', href:'multiplication-algorithms.html', status:'active' },
+      { id:'division-algorithms', title:'Division Algorithms', desc:'Hardware divide algorithm for signed-magnitude data in §10-4: divide overflow detection (DVF), restoring algorithm flowchart (Fig. 10-13), and numerical example.', time:'15 min', href:'division-algorithms.html', status:'active' },
+    ],
 };
 
 export const GROUP_LABELS = {
