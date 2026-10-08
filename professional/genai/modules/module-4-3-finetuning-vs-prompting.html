@@ -5,14 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3030765874336294" crossorigin="anonymous"></script>
   <title>Fine-Tuning vs Prompting: What to Use | CHANDRAS EDU</title>
-  <meta name="description" content="A decision guide for the right sequence — prompting, then RAG, then fine-tuning — including the hidden lifecycle costs that make fine-tuning rarely worth it.">
+  <meta name="description" content="When to use prompting, RAG or fine-tuning: a four-level decision ladder, LoRA and QLoRA explained, real scenarios, and the ongoing costs teams often miss.">
   <link rel="canonical" href="https://chandrashaker.com/courses/professional/genai/modules/module-4-3-finetuning-vs-prompting">
   <link rel="stylesheet" href="../../../css/style.css">
 
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="CHANDRAS EDU">
   <meta property="og:title" content="Fine-Tuning vs Prompting: What to Use | CHANDRAS EDU">
-  <meta property="og:description" content="A decision guide for the right sequence — prompting, then RAG, then fine-tuning — including the hidden lifecycle costs that make fine-tuning rarely worth it.">
+  <meta property="og:description" content="When to use prompting, RAG or fine-tuning: a four-level decision ladder, LoRA and QLoRA explained, real scenarios, and the ongoing costs teams often miss.">
   <meta property="og:url" content="https://chandrashaker.com/courses/professional/genai/modules/module-4-3-finetuning-vs-prompting">
   <meta property="og:image" content="https://chandrashaker.com/courses/images/og/genai-v7.png">
   <meta property="og:image:width" content="1200">
@@ -20,7 +20,7 @@
   <meta property="og:image:alt" content="Generative AI: Zero to Job-Ready — CHANDRAS EDU free course">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Fine-Tuning vs Prompting: What to Use | CHANDRAS EDU">
-  <meta name="twitter:description" content="A decision guide for the right sequence — prompting, then RAG, then fine-tuning — including the hidden lifecycle costs that make fine-tuning rarely worth it.">
+  <meta name="twitter:description" content="When to use prompting, RAG or fine-tuning: a four-level decision ladder, LoRA and QLoRA explained, real scenarios, and the ongoing costs teams often miss.">
   <meta name="twitter:image" content="https://chandrashaker.com/courses/images/og/genai-v7.png">
 
   <link rel="icon" href="/favicon.ico">
@@ -38,7 +38,7 @@
 
   <!-- Module header -->
   <div style="background:var(--primary);border-radius:var(--radius-lg);padding:1.25rem 1.5rem;margin-bottom:1.75rem;color:#fff">
-    <div style="font-size:.78rem;opacity:.75;margin-bottom:.35rem">GENERATIVE AI: ZERO TO JOB-READY › Unit 4: Advanced Techniques › MODULE 4.3</div>
+    <div style="font-size:.78rem;opacity:.75;margin-bottom:.35rem">GENERATIVE AI: ZERO TO JOB-READY › Module 4: Advanced Techniques › MODULE 4.3</div>
     <h1 style="font-size:1.4rem;font-weight:700;margin-bottom:.6rem;color:#fff">Fine-Tuning vs Prompting</h1>
     <div style="display:flex;gap:.75rem;flex-wrap:wrap">
       <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.78rem">⏱ 12 min read</span>
@@ -48,80 +48,145 @@
 
   <!-- FULL LESSON — visible to everyone, including search engines -->
   <div class="lesson">
-</p>
-</p>
-<p>You now understand prompting (Units 1–2), RAG (Module 4.1), and agents (Module 4.2). This module answers the question that comes up in almost every Indian IT AI project discussion: when is prompting enough, when should you use RAG, and when do you actually need to fine-tune?</p>
+<p>You now understand prompting (Modules 1–2), RAG (Module 4.1) and agents (Module 4.2). This sub-module answers the question that comes up in almost every AI project discussion: when is prompting enough, when should you use RAG, and when do you actually need to fine-tune?</p>
 
-<p>This is not a deeply technical module — you do not need to run a training job to understand it. You need to understand the decision logic, the trade-offs, and the cost implications. That understanding is what separates a professional who can discuss AI architecture from one who can only use AI tools.</p>
+<p>This is not a deeply technical sub-module — you do not need to run a training job to follow it. You need to understand the decision logic, the trade-offs and the cost implications. That understanding is what separates a professional who can discuss AI architecture from one who can only use AI tools.</p>
 
 <hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
 
 <h2>The honest answer most teams miss</h2>
 
-<p>The right sequence in 2026 is: <strong>Prompt → RAG → Fine-tune → Distill.</strong> Move to the next level only when the previous level genuinely cannot solve the problem.</p>
+<p>The sensible order is: <strong>Prompt → RAG → Fine-tune → Distill.</strong> Move to the next level only when the previous level genuinely cannot solve the problem. Each step up costs more time, money and maintenance.</p>
 
 <hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
 
 <h2>The four-level decision ladder</h2>
 
-</p>
-</p>
-</p>
-</p>
+<ol>
+  <li><strong>Prompting</strong> — better instructions, examples and output formats (Module 2). Cheapest and fastest to change. Always try this first.</li>
+  <li><strong>RAG</strong> — when the model lacks the right knowledge: private, recent or domain-specific documents (Module 4.1).</li>
+  <li><strong>Fine-tuning</strong> — when the model has the knowledge but cannot reliably behave the way you need, even with good prompts: a fixed format, a specific tone, a narrow task done the same way every time.</li>
+  <li><strong>Distillation</strong> — training a smaller, cheaper model to copy a larger model's behaviour on your task, usually to cut cost or speed up responses at high volume.</li>
+</ol>
+
 <hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
 
 <h2>Prompting vs RAG vs fine-tuning — full comparison</h2>
+
+<div style="overflow-x:auto">
+<table>
+  <thead><tr><th></th><th>Prompting</th><th>RAG</th><th>Fine-tuning</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Solves</strong></td><td>Unclear instructions, wrong format</td><td>Missing or outdated knowledge</td><td>Inconsistent behaviour or style</td></tr>
+    <tr><td><strong>Data needed</strong></td><td>A few examples</td><td>Your documents</td><td>Hundreds to thousands of good examples</td></tr>
+    <tr><td><strong>Time to set up</strong></td><td>Minutes to days</td><td>Days to weeks</td><td>Weeks, plus evaluation</td></tr>
+    <tr><td><strong>Updating</strong></td><td>Edit the prompt</td><td>Update the documents</td><td>Retrain and re-test</td></tr>
+    <tr><td><strong>Cost</strong></td><td>Lowest</td><td>Moderate, ongoing upkeep</td><td>Highest, ongoing upkeep</td></tr>
+    <tr><td><strong>Shows sources</strong></td><td>No</td><td>Yes</td><td>No</td></tr>
+  </tbody>
+</table>
+</div>
 
 <hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
 
 <h2>When fine-tuning is actually the right answer</h2>
 
-<p>Fine-tuning is for form, not facts. You use it to shape behaviour, style, structured output, and refusal patterns — not to inject knowledge that changes frequently. Here are the four situations where fine-tuning genuinely makes sense:</p>
+<p>Fine-tuning is for form, not facts. You use it to shape behaviour, style, structured output and refusal patterns — not to add knowledge that changes often. Here are the four situations where fine-tuning genuinely makes sense:</p>
+
+<ul>
+  <li><strong>A strict output format</strong> — every response must follow the same structure (for example, a fixed JSON schema for a downstream system), and prompting still produces too many errors.</li>
+  <li><strong>A consistent voice or domain style</strong> — responses must sound the same way every time, such as a bank's customer-service tone or a specific report style.</li>
+  <li><strong>A narrow, repeated task at high volume</strong> — classifying tickets into a company's own categories, or extracting the same fields from the same document type, millions of times.</li>
+  <li><strong>A smaller, cheaper model</strong> — when prompts with a large model work but cost too much at scale, fine-tuning or distilling a smaller model can keep quality while cutting cost.</li>
+</ul>
 
 <hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
 
 <h2>The three fine-tuning methods you will hear about</h2>
 
-<p>You do not need to run fine-tuning yourself to be in this conversation. But knowing what LoRA and QLoRA mean — and why they matter — is now expected in Indian IT AI project discussions.</p>
+<p>You do not need to run fine-tuning yourself to be in this conversation. But knowing what LoRA and QLoRA mean — and why they matter — is useful in AI project discussions.</p>
 
-</p>
+<ul>
+  <li><strong>Full fine-tuning</strong> — all of the model's weights are updated. Most flexible, but needs the most computing power and storage, because you end up with a complete new copy of the model.</li>
+  <li><strong>LoRA (Low-Rank Adaptation)</strong> — the original model is frozen and small extra "adapter" layers are trained instead. Much cheaper, and one base model can serve several adapters for different tasks. Introduced in a 2021 research paper.</li>
+  <li><strong>QLoRA</strong> — LoRA on a compressed (quantised) version of the base model, so even large models can be fine-tuned on a single high-end GPU. Introduced in a 2023 research paper.</li>
+</ul>
+
 <hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
 
 <h2>Real Indian IT scenarios — which approach?</h2>
 
-</p>
+<div style="overflow-x:auto">
+<table>
+  <thead><tr><th>Scenario</th><th>Best approach</th><th>Why</th></tr></thead>
+  <tbody>
+    <tr><td>An insurance client wants staff to ask questions about 300 policy documents that change every quarter</td><td>RAG</td><td>Knowledge gap; documents change often; answers need sources</td></tr>
+    <tr><td>A team wants status emails in a consistent, polite format</td><td>Prompting</td><td>A good template and examples solve it</td></tr>
+    <tr><td>A bank needs millions of support messages classified into its own 40 categories, cheaply and consistently</td><td>Fine-tuning (possibly a small model)</td><td>Narrow, repeated task at high volume; prompting is too costly or inconsistent</td></tr>
+    <tr><td>An HR chatbot gives wrong leave rules because the policy changed last month</td><td>RAG (update the documents)</td><td>The facts changed; retraining would be the wrong fix</td></tr>
+  </tbody>
+</table>
+</div>
+
 <hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
 
 <h2>The decision framework — four questions to ask</h2>
+
+<ol>
+  <li><strong>Is the problem a knowledge gap?</strong> If the model lacks private, recent or domain facts → use RAG.</li>
+  <li><strong>Is it a behaviour problem?</strong> If the model knows enough but answers in the wrong way → improve the prompt first: clearer instructions, examples, an output format.</li>
+  <li><strong>Would prompting genuinely fail here?</strong> Only if well-tested prompts still fail consistently, consider fine-tuning — and only if you have enough good training examples.</li>
+  <li><strong>Is the cost justified over time?</strong> Count the ongoing effort — evaluation, retraining and maintenance — not just the first training run.</li>
+</ol>
 
 <hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
 
 <h2>The hidden cost of fine-tuning most teams miss</h2>
 
-<p>When teams decide to fine-tune, they typically budget for compute costs. The real cost is elsewhere. The operational cost of maintaining a fine-tuned model — adapter versioning, rollback plans, retraining cadence, and base-model drift management — are recurring costs, not one-time work.</p>
+<p>When teams decide to fine-tune, they usually budget for the training run. The bigger cost comes later. A fine-tuned model must be evaluated, versioned, monitored and retrained — and these are recurring costs, not one-time work.</p>
 
-<p>When a hosted provider updates their base model, your adapter may degrade silently. Plan quarterly revalidation. Treat training configs, seeds, and dataset snapshots as code. Budget three to five times the training cost for ongoing lifecycle ownership over the next 12 months. The real cost is not the training compute — it is the evaluation, data curation, and lifecycle ownership.</p>
+<p>If the provider updates or retires the base model, your fine-tuned version may need to be rebuilt and re-tested. Treat training data, settings and evaluation sets like code: versioned and kept. The real cost is not the training compute — it is the evaluation, data curation and ongoing ownership.</p>
 
-<p>This is why the decision framework above consistently recommends exhausting prompting and RAG before committing to fine-tuning. For most Indian IT enterprise use cases in 2026, the correct answer is a well-engineered RAG system combined with carefully crafted prompts — not a fine-tuned model.</p>
+<p>This is why the decision framework above recommends exhausting prompting and RAG before committing to fine-tuning. For most enterprise document and Q&amp;A use cases, a well-built RAG system with carefully written prompts is the better first answer.</p>
 
 <hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
 
 <h2>The three things to remember</h2>
 
-</p>
-<p>    <ul><li><strong>The right sequence is Prompt → RAG → Fine-tune</strong> — prompting solves approximately 70% of problems, RAG solves most knowledge-gap problems, and fine-tuning is for the remaining cases where behaviour genuinely cannot be achieved through prompting. Moving to fine-tuning before exhausting the earlier levels wastes significant time and money.</li></ul></p>
-<p>    <ul><li><strong>Fine-tuning is for form, not facts</strong> — use it to teach consistent behaviour, style, format, and output patterns. Never use it to inject factual knowledge that changes over time. That is what RAG is for. The best 2026 architecture is hybrid: RAG for volatile knowledge, fine-tuning for stable behaviour.</li></ul></p>
-<p>    <ul><li><strong>The hidden cost is lifecycle, not training</strong> — fine-tuning creates an ongoing maintenance obligation. Adapter versioning, quarterly revalidation, and base model drift management are recurring costs. Budget three to five times the training cost for the first year of operations. This calculation alone rules out fine-tuning for most Indian IT enterprise use cases.</li></ul></p>
+<ul>
+  <li><strong>The right sequence is Prompt → RAG → Fine-tune</strong> — prompting solves many problems on its own, RAG solves most knowledge-gap problems, and fine-tuning is for the remaining cases where the behaviour you need cannot be achieved through prompting. Jumping to fine-tuning early wastes time and money.</li>
+  <li><strong>Fine-tuning is for form, not facts</strong> — use it to teach consistent behaviour, style, format and output patterns. Never use it to add factual knowledge that changes over time; that is what RAG is for. Many real systems combine both: RAG for changing knowledge, fine-tuning for stable behaviour.</li>
+  <li><strong>The hidden cost is lifecycle, not training</strong> — fine-tuning creates an ongoing maintenance obligation: evaluation, versioning, monitoring and retraining when the base model changes. Count these costs before deciding.</li>
+</ul>
+
 <hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
 
-</p>
-<p>  <p>This assignment develops the architectural reasoning skill that distinguishes AI practitioners from AI tool users.</p></p>
-<p>    <ul><li><strong>Choose a real AI use case</strong> from your domain — either the RAG use case from Assignment 4.1, the agent workflow from Assignment 4.2, or a new one. Describe it in two sentences: what the system does and who uses it.</li></ul></p>
-<p>    <ul><li><strong>Work through the four-question decision framework:</strong></p>
-<p>      <ul></p>
-<p>        <li>Is the problem a knowledge gap? → if yes, describe the RAG implementation</li></ul></p>
-<p>        <ul><li>Is it a behaviour problem? → if yes, describe what prompting approach to try first</li></ul></p>
-<p>        <ul><li>Would prompting genuinely fail here? → if ye
+<h2>Your assignment</h2>
+
+<p>This assignment develops the architectural reasoning skill that distinguishes AI practitioners from AI tool users.</p>
+
+<ul>
+  <li><strong>Choose a use case:</strong> take the RAG use case from Assignment 4.1, the agent workflow from Assignment 4.2, or a new one from your domain. Describe it in two sentences: what the system does and who uses it.</li>
+  <li><strong>Work through the four-question framework:</strong>
+    <ul>
+      <li>Is the problem a knowledge gap? → if yes, describe the RAG implementation.</li>
+      <li>Is it a behaviour problem? → if yes, describe the prompting approach you would try first.</li>
+      <li>Would prompting genuinely fail here? → if yes, explain why, and what training examples you would need for fine-tuning.</li>
+      <li>Is the cost justified over time? → list the ongoing tasks (evaluation, updates, monitoring) and who would own them.</li>
+    </ul>
+  </li>
+  <li><strong>Write your recommendation:</strong> one paragraph naming your chosen approach and the main reason, as you would explain it to a project manager.</li>
+  <li><strong>Save it in your AI Learning Journal</strong> under "Module 4.3 — Architecture Decision."</li>
+</ul>
+
+<div class="box box-tip">
+  <strong>Sources and dates</strong>
+  <ul style="margin-top:.5rem;margin-bottom:0">
+    <li><a href="https://arxiv.org/abs/2106.09685" target="_blank" rel="noopener">Hu et al., "LoRA: Low-Rank Adaptation of Large Language Models"</a> (2021).</li>
+    <li><a href="https://arxiv.org/abs/2305.14314" target="_blank" rel="noopener">Dettmers et al., "QLoRA: Efficient Finetuning of Quantized LLMs"</a> (2023).</li>
+  </ul>
+  <p style="margin:.5rem 0 0">Last checked: October 2026.</p>
+</div>
 
     <!-- Assignment -->
     <div style="background:#fffbeb;border:1px solid #fcd34d;border-radius:var(--radius-lg);padding:1.25rem 1.5rem;margin-top:2rem">
