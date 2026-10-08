@@ -523,6 +523,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://chandrashaker.com/courses/academic/coa/unit4/floating-point-arithmetic</loc>
+    <lastmod>2026-10-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://chandrashaker.com/courses/academic/coa/unit1/data-types-number-systems</loc>
     <lastmod>2026-07-18</lastmod>
     <changefreq>monthly</changefreq>
