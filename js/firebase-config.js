@@ -62,3 +62,21 @@ export async function markModuleComplete(uid, courseId, moduleId) {
     completedAt: new Date().toISOString()
   }, { merge: true });
 }
+
+// ── Quiz result with a real pass mark (GenAI sub-modules) ─────
+// Completion is written only on a pass; a failed attempt never touches
+// completed/score/percent, so an earlier completion is kept.
+export async function saveQuizResult(uid, courseId, topicId, score, total, passMark) {
+  const ref  = doc(db, "users", uid, "progress", `${courseId}__${topicId}`);
+  const snap = await getDoc(ref), prev = snap.exists() ? snap.data() : {};
+  const data = { attempts: (prev.attempts || 0) + 1, lastScore: score, lastAttemptAt: new Date().toISOString() };
+  if (score >= passMark) {
+    const best = Math.max(prev.score ?? 0, score);
+    Object.assign(data, {
+      completed: true, score: best, total, percent: Math.round(best / total * 100),
+      completedAt: prev.completedAt || new Date().toISOString()
+    });
+  }
+  await setDoc(ref, data, { merge: true });
+  return score >= passMark;
+}
