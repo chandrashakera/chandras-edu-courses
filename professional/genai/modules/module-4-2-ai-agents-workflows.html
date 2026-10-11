@@ -2136,9 +2136,9 @@ z
 
 <hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
 
-<h2>Your assignment</h2>
+<h2>Practice (optional)</h2>
 
-<p>This assignment builds your ability to design and supervise an agent workflow. Each task should take 15–20 minutes.</p>
+<p>These tasks build your ability to design and supervise an agent workflow. Each task should take 15–20 minutes.</p>
 
 <ul>
   <li><strong>Pick an agent workflow:</strong> choose one repetitive, multi-step task from your college, internship or target role — for example, compiling attendance shortages, triaging lab equipment complaints or checking expense claims. Write the goal in one clear sentence.</li>
@@ -2161,13 +2161,34 @@ z
     <div style="background:#fffbeb;border:1px solid #fcd34d;border-radius:var(--radius-lg);padding:1.25rem 1.5rem;margin-top:2rem">
       <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.75rem">
         <span style="font-size:1.1rem">✏️</span>
-        <span style="font-weight:700;color:#92400e">Assignment 4.2</span>
+        <span style="font-weight:700;color:#92400e">Save your practice</span>
       </div>
-      <p style="color:#78350f;font-size:.9rem">Complete the practical assignment for this module to reinforce your learning. Mark this module as complete when done.</p>
-      <button class="btn btn-success btn-sm" id="mark-done-btn" style="margin-top:.75rem">✅ Mark as Complete</button>
-      <div id="done-msg" style="display:none;color:var(--success);font-size:.88rem;margin-top:.5rem;font-weight:600">✅ Module completed! Great work.</div>
+      <p style="color:#78350f;font-size:.9rem">Complete the practice tasks above and save them in your AI Learning Journal — you will use them in the Final Project.</p>
     </div>
   </div><!-- end lesson -->
+
+  <div id="gate-section">
+    <div class="gate">
+      <div class="gate-blur"><div class="quiz"><div class="quiz-title">📝 Quick Quiz — 5 Questions</div></div></div>
+      <div class="gate-overlay"><div class="gate-box">
+        <div class="lock">🔒</div>
+        <h3>Login to take the quiz</h3>
+        <p>Create a free account to take the quiz and track your progress. Pass with 4 out of 5 to complete this sub-module.</p>
+        <div class="gate-btns">
+          <a href="../../../login.html" class="btn btn-primary btn-sm">Login</a>
+          <a href="../../../login.html" class="btn btn-outline btn-sm">Register Free</a>
+        </div>
+      </div></div>
+    </div>
+  </div>
+
+  <div class="quiz" id="quiz-section" style="display:none">
+    <div class="quiz-title">📝 Quick Quiz — 5 Questions · Pass mark 4/5</div>
+    <div id="quiz-body"></div>
+    <button class="btn btn-primary" id="submit-btn" disabled>Submit Quiz</button>
+    <div class="quiz-result" id="quiz-result" style="display:none"></div>
+    <button class="btn btn-outline btn-sm" id="retry-btn" style="display:none;margin-top:.75rem">Try again</button>
+  </div>
 
 <!-- Prev / Next -->
   <div class="topic-nav">
@@ -2180,31 +2201,37 @@ z
 
 <script type="module">
   import { initNav } from '../../../js/nav.js';
-  import { onAuth, logout, markModuleComplete, getProgress } from '../../../js/firebase-config.js';
   import { initSidebar } from '../../../js/sidebar.js';
+  import { initQuiz } from '../../../js/quiz.js';
   initNav(3);
   initSidebar();
 
   const COURSE_ID = 'genai';
   const MODULE_ID = 'm-4-2';
-
-  onAuth(async user => {
-    if (user) {
-      const prog = await getProgress(user.uid, COURSE_ID, MODULE_ID);
-      if (prog?.completed) {
-        document.getElementById('mark-done-btn').style.display = 'none';
-        document.getElementById('done-msg').style.display = 'block';
-      }
-
-      document.getElementById('mark-done-btn').onclick = async () => {
-        await markModuleComplete(user.uid, COURSE_ID, MODULE_ID);
-        document.getElementById('mark-done-btn').style.display = 'none';
-        document.getElementById('done-msg').style.display = 'block';
-      };
-    }
-    // Content is always visible. Logged-out users simply won't see
-    // their completion status or be able to mark modules complete.
-  });
+  const PASS_MARK = 4;
+  const QUIZ = [
+    { q:"What is the defining difference between a chatbot and an AI agent?",
+      options:["Agents use bigger models","Chatbots cannot use English","An agent works towards a goal over several steps and can take actions with tools; a chatbot answers","There is no difference"],
+      answer:2,
+      explanation:"Tool use and multi-step action are what make an agent." },
+    { q:"Which list matches the five core components of an AI agent?",
+      options:["Perception, reasoning, memory, planning, tool use","Input, output, cache, cookie, server","Prompt, token, temperature, context, model","Goal, budget, team, deadline, review"],
+      answer:0,
+      explanation:"These five building blocks describe almost any agent system." },
+    { q:"In an invoice-processing agent, which step should need human approval?",
+      options:["Reading the invoice","Extracting the invoice number","Logging the step","Releasing a payment"],
+      answer:3,
+      explanation:"Approval gates belong on actions that are risky or hard to undo, such as payments." },
+    { q:"What is an \"error cascade\" in an agent workflow?",
+      options:["A fast agent","A mistake in one step feeding into later steps and growing into a wrong action","An agent with too many tools","A planned retry"],
+      answer:1,
+      explanation:"Because steps build on each other, small errors can compound — which is why logging and checkpoints matter." },
+    { q:"According to the EY–CII report (November 2025), what share of surveyed leaders said they were already deploying agentic AI?",
+      options:["About 24%","About 4%","About 74%","100%"],
+      answer:0,
+      explanation:"24% of leaders reported deploying agentic AI; 47% of enterprises had multiple GenAI use cases live." }
+  ];
+  initQuiz({ courseId: COURSE_ID, moduleId: MODULE_ID, passMark: PASS_MARK, questions: QUIZ });
 </script>
 </body>
 </html>

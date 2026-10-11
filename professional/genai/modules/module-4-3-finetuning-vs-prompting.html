@@ -161,12 +161,12 @@
 
 <hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
 
-<h2>Your assignment</h2>
+<h2>Practice (optional)</h2>
 
-<p>This assignment develops the architectural reasoning skill that distinguishes AI practitioners from AI tool users.</p>
+<p>These tasks develop the architectural reasoning skill that distinguishes AI practitioners from AI tool users.</p>
 
 <ul>
-  <li><strong>Choose a use case:</strong> take the RAG use case from Assignment 4.1, the agent workflow from Assignment 4.2, or a new one from your domain. Describe it in two sentences: what the system does and who uses it.</li>
+  <li><strong>Choose a use case:</strong> take the RAG use case from Practice 4.1, the agent workflow from Practice 4.2, or a new one from your domain. Describe it in two sentences: what the system does and who uses it.</li>
   <li><strong>Work through the four-question framework:</strong>
     <ul>
       <li>Is the problem a knowledge gap? → if yes, describe the RAG implementation.</li>
@@ -192,13 +192,34 @@
     <div style="background:#fffbeb;border:1px solid #fcd34d;border-radius:var(--radius-lg);padding:1.25rem 1.5rem;margin-top:2rem">
       <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.75rem">
         <span style="font-size:1.1rem">✏️</span>
-        <span style="font-weight:700;color:#92400e">Assignment 4.3</span>
+        <span style="font-weight:700;color:#92400e">Save your practice</span>
       </div>
-      <p style="color:#78350f;font-size:.9rem">Complete the practical assignment for this module to reinforce your learning. Mark this module as complete when done.</p>
-      <button class="btn btn-success btn-sm" id="mark-done-btn" style="margin-top:.75rem">✅ Mark as Complete</button>
-      <div id="done-msg" style="display:none;color:var(--success);font-size:.88rem;margin-top:.5rem;font-weight:600">✅ Module completed! Great work.</div>
+      <p style="color:#78350f;font-size:.9rem">Complete the practice tasks above and save them in your AI Learning Journal — you will use them in the Final Project.</p>
     </div>
   </div><!-- end lesson -->
+
+  <div id="gate-section">
+    <div class="gate">
+      <div class="gate-blur"><div class="quiz"><div class="quiz-title">📝 Quick Quiz — 5 Questions</div></div></div>
+      <div class="gate-overlay"><div class="gate-box">
+        <div class="lock">🔒</div>
+        <h3>Login to take the quiz</h3>
+        <p>Create a free account to take the quiz and track your progress. Pass with 4 out of 5 to complete this sub-module.</p>
+        <div class="gate-btns">
+          <a href="../../../login.html" class="btn btn-primary btn-sm">Login</a>
+          <a href="../../../login.html" class="btn btn-outline btn-sm">Register Free</a>
+        </div>
+      </div></div>
+    </div>
+  </div>
+
+  <div class="quiz" id="quiz-section" style="display:none">
+    <div class="quiz-title">📝 Quick Quiz — 5 Questions · Pass mark 4/5</div>
+    <div id="quiz-body"></div>
+    <button class="btn btn-primary" id="submit-btn" disabled>Submit Quiz</button>
+    <div class="quiz-result" id="quiz-result" style="display:none"></div>
+    <button class="btn btn-outline btn-sm" id="retry-btn" style="display:none;margin-top:.75rem">Try again</button>
+  </div>
 
 <!-- Prev / Next -->
   <div class="topic-nav">
@@ -211,31 +232,37 @@
 
 <script type="module">
   import { initNav } from '../../../js/nav.js';
-  import { onAuth, logout, markModuleComplete, getProgress } from '../../../js/firebase-config.js';
   import { initSidebar } from '../../../js/sidebar.js';
+  import { initQuiz } from '../../../js/quiz.js';
   initNav(3);
   initSidebar();
 
   const COURSE_ID = 'genai';
   const MODULE_ID = 'm-4-3';
-
-  onAuth(async user => {
-    if (user) {
-      const prog = await getProgress(user.uid, COURSE_ID, MODULE_ID);
-      if (prog?.completed) {
-        document.getElementById('mark-done-btn').style.display = 'none';
-        document.getElementById('done-msg').style.display = 'block';
-      }
-
-      document.getElementById('mark-done-btn').onclick = async () => {
-        await markModuleComplete(user.uid, COURSE_ID, MODULE_ID);
-        document.getElementById('mark-done-btn').style.display = 'none';
-        document.getElementById('done-msg').style.display = 'block';
-      };
-    }
-    // Content is always visible. Logged-out users simply won't see
-    // their completion status or be able to mark modules complete.
-  });
+  const PASS_MARK = 4;
+  const QUIZ = [
+    { q:"What is the recommended order when customising an LLM for a task?",
+      options:["Fine-tune → RAG → Prompt","Distill → Fine-tune → Prompt","Prompt → RAG → Fine-tune → Distill","Always fine-tune first"],
+      answer:2,
+      explanation:"Move to the next level only when the previous one cannot solve the problem; each step costs more." },
+    { q:"An HR chatbot gives wrong leave rules because the policy changed last month. What is the right fix?",
+      options:["Fine-tune the model on old policies","Update the documents in the RAG knowledge base","Add a persona","Increase the model size"],
+      answer:1,
+      explanation:"Facts changed, so update the knowledge source. Retraining would be the wrong fix." },
+    { q:"When does fine-tuning make sense?",
+      options:["To add facts that change every week","To fix a single typo","To make answers show sources","When well-tested prompts still fail to produce a strict, consistent format or behaviour at scale"],
+      answer:3,
+      explanation:"Fine-tuning is for form, not facts — consistent behaviour, style or structured output." },
+    { q:"What does LoRA do?",
+      options:["Freezes the base model and trains small adapter layers","Retrains every weight in the model","Deletes the base model","Replaces RAG"],
+      answer:0,
+      explanation:"LoRA (2021) is much cheaper than full fine-tuning; QLoRA (2023) applies it to a compressed model." },
+    { q:"Which is the hidden cost of fine-tuning most teams miss?",
+      options:["The cost of a laptop","Ongoing evaluation, versioning, monitoring and retraining when the base model changes","The cost of writing one prompt","Electricity for one training run only"],
+      answer:1,
+      explanation:"The real cost is lifecycle ownership, not the first training run." }
+  ];
+  initQuiz({ courseId: COURSE_ID, moduleId: MODULE_ID, passMark: PASS_MARK, questions: QUIZ });
 </script>
 </body>
 </html>
