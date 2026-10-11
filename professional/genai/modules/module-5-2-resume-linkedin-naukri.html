@@ -38,7 +38,7 @@
 
   <!-- Module header -->
   <div style="background:var(--primary);border-radius:var(--radius-lg);padding:1.25rem 1.5rem;margin-bottom:1.75rem;color:#fff">
-    <div style="font-size:.78rem;opacity:.75;margin-bottom:.35rem">GENERATIVE AI: ZERO TO JOB-READY › Unit 5: Career & India › MODULE 5.2</div>
+    <div style="font-size:.78rem;opacity:.75;margin-bottom:.35rem">GENERATIVE AI: ZERO TO JOB-READY › Module 5: Career & India › MODULE 5.2</div>
     <h1 style="font-size:1.4rem;font-weight:700;margin-bottom:.6rem;color:#fff">Resume, LinkedIn and Naukri</h1>
     <div style="display:flex;gap:.75rem;flex-wrap:wrap">
       <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.78rem">⏱ 12 min read</span>
@@ -48,103 +48,158 @@
 
   <!-- FULL LESSON — visible to everyone, including search engines -->
   <div class="lesson">
-</p>
-</p>
-<p>You have now completed 17 of 20 modules. You have built prompt engineering skills, applied them to real developer, analyst, and manager tasks, understood RAG and agents, made smart certification choices, and built at least one portfolio project. This module is about making all of that visible to recruiters — in exactly the right language, in exactly the right places.</p>
+<p>You have now completed most of this course. You have built prompt engineering skills, applied them to developer, analyst and manager tasks, understood RAG and agents, and planned your certifications. This sub-module is about making all of that visible to recruiters — in the right words, in the right places.</p>
 
-<p>Most students undersell their AI skills on their profiles. Not because the skills are weak — but because they do not know the specific keywords, formats, and framing that Indian IT recruiters and ATS systems look for in 2026.</p>
+<p>Most students undersell their AI skills on their profiles. Not because the skills are weak, but because they do not use the keywords, formats and framing that recruiters and applicant tracking systems (ATS) look for.</p>
 
 <hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
 
-<h2>The stakes — what Indian recruiters see in 8 seconds</h2>
+<h2>The stakes — what recruiters see first</h2>
 
-<p>According to Naukri's 2025 hiring report, 68% of fresher resumes are rejected within 8 seconds — not for lack of skills, but poor formatting and keyword gaps. LinkedIn keyword optimisation delivers a 70% boost in profile views. Profiles with AI skills listed are receiving 2x the recruiter responses compared to profiles without them, according to the 2026 Naukri JobSpeak analysis.</p>
+<p>Recruiters handling campus and lateral hiring often scan a resume in seconds before deciding whether to read on, and many companies first filter applications with keyword-based software. Two things decide whether you get past that first look: the right keywords in the right places, and evidence — specific bullets that show what you did and what changed because of it.</p>
+
+<p>The good news: both are fixable today, and AI can help you do it — as long as every claim stays true.</p>
 
 <hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
 
 <h2>Part 1 — Resume: the AI skills section</h2>
 
-<h3>The keywords that actually appear in Indian IT job descriptions</h3>
+<h3>The keywords that commonly appear in AI-related job descriptions</h3>
 
-<p>These are the AI-related terms extracted from real 2026 job descriptions at TCS, Infosys, Wipro, HCL, and product companies in India. Add the ones that match your actual skills — never list skills you cannot discuss in an interview.</p>
+<p>These terms appear frequently in AI-related job descriptions for IT services and product roles. Add only the ones that match your actual skills — never list a skill you cannot discuss in an interview.</p>
 
-</p>
-Orange = highest frequency in 2026 Indian IT JDs. Add these first.</p>
+<ul>
+  <li><strong>Core:</strong> Generative AI, Large Language Models (LLMs), Prompt Engineering</li>
+  <li><strong>Techniques:</strong> Retrieval-Augmented Generation (RAG), AI Agents, Fine-tuning, Embeddings, Vector Databases</li>
+  <li><strong>Practice:</strong> AI-assisted development, Responsible AI, Data privacy, Evaluation of AI outputs</li>
+  <li><strong>Tools (only those you have used):</strong> ChatGPT, Claude, Gemini, GitHub Copilot, Microsoft Copilot, Python, LangChain, automation tools such as n8n or Zapier</li>
+</ul>
+
+<p>Before you apply, check the exact wording in the job description and mirror it where it is true for you — for example, "LLMs" in one JD and "Large Language Models" in another.</p>
 
 <h3>Writing AI skills bullets that convert</h3>
 
 <p>The difference between a weak and strong resume bullet is specificity and outcome. Generic bullets fail ATS filters and fail to impress recruiters who read past them.</p>
 
-</p>
-<p>The formula for every AI skills bullet: <strong>[Technique/tool] + [specific task] + [quantified outcome or context]</strong></p>
+<p><strong>The formula for every AI skills bullet:</strong> [Technique/tool] + [specific task] + [measured result or context]</p>
+
+<div class="box box-eg"><strong>Weak:</strong> "Used ChatGPT for my project."<br>
+<strong>Strong:</strong> "Built a prompt template in Claude to draft test cases from user stories for our final-year project, cutting test-writing time from about 3 hours to 1 hour per module."<br>
+<span style="font-size:.85rem;color:var(--text-2)">Illustrative example — use only numbers you actually measured. If you have no number, describe the scale or context instead ("for 40+ user stories").</span></div>
 
 <h3>Where to place AI skills on a fresher resume</h3>
 
-</p>
+<ul>
+  <li><strong>Professional summary</strong> — one line naming your AI skills and your target role.</li>
+  <li><strong>Technical skills</strong> — an "AI and GenAI" line at the top of the section.</li>
+  <li><strong>Projects</strong> — at least one project bullet that shows AI used for a real task, written with the formula above.</li>
+  <li><strong>Certifications</strong> — completed or in-progress certificates from Module 5.1, with the month.</li>
+</ul>
 
-</p>
 <h3>Professional summary — use AI to write it right</h3>
 
-<p>The professional summary is the most under-optimised section on most Indian fresher resumes. Here is a prompt that produces a strong summary:</p>
+<p>The professional summary is the most under-optimised section on most fresher resumes. Here is a prompt that produces a strong first draft:</p>
 
-</p>
+<div class="prompt-box">
+  <span class="prompt-label">Prompt 5.2A: Professional summary</span>
+  <div class="prompt-text">Write a 3-sentence professional summary for my resume.
+Target role: [e.g., Associate Software Engineer at an IT services company]
+My degree and year: [e.g., BTech ECE, 2027]
+My skills: [list, including AI skills you genuinely have]
+My best project: [one line, with a real result]
+Rules:
+- Use the keywords "Generative AI" and "Prompt Engineering" only if they appear in my skills list
+- No buzzwords like "passionate" or "hardworking"
+- No claims that are not in the information above
+Give me two versions: one for IT services companies and one for product companies.</div>
+</div>
+
 <hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
 
-<h2>Part 2 — LinkedIn: getting found by Indian IT recruiters</h2>
+<h2>Part 2 — LinkedIn: getting found by recruiters</h2>
 
-<p>LinkedIn delivers 70% more profile views with keyword-optimised profiles. For Indian IT students, the four highest-impact sections are Headline, About, Skills, and Featured.</p>
+<p>Recruiters search LinkedIn by keywords and filter by skills. For students, four sections matter most:</p>
 
-</p>
+<ul>
+  <li><strong>Headline</strong> — not just "Student at [college]". Use your target role plus your strongest skills, for example: "Final-year ECE | Python, Generative AI, Prompt Engineering | Aspiring Software Engineer".</li>
+  <li><strong>About</strong> — three short paragraphs: what you do now, what you have built (with one real result), and what role you are looking for. Include your main keywords naturally once.</li>
+  <li><strong>Skills</strong> — add the AI skills you can genuinely discuss and pin the most relevant ones at the top. Ask classmates or mentors who have seen your work to endorse specific skills.</li>
+  <li><strong>Featured</strong> — pin your best proof: a GitHub project, a short case study, a certificate, or a post explaining something you built.</li>
+</ul>
 
-</p>
-</p>
-
-</p>
-</p>
-
-</p>
-</p>
-
-</p>
 <hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
 
-<h2>Part 3 — Naukri: India's highest-volume job platform</h2>
+<h2>Part 3 — Naukri: optimising your profile</h2>
 
-<p>Naukri has 7.83 crore resumes and dominates 70% of Indian job search traffic. The platform has its own keyword matching algorithm — different from LinkedIn — that scores your profile against JDs. Here is how to optimise for it.</p>
+<p>Naukri is one of India's largest job platforms, and many IT employers and recruitment firms search its resume database directly. Its search works on the words in your profile, so:</p>
 
-</p>
+<ul>
+  <li><strong>Resume headline</strong> — one line with your target role and top skills, written the way recruiters search ("Fresher — Python Developer with Generative AI skills").</li>
+  <li><strong>Key skills</strong> — add AI terms exactly as they appear in job descriptions you are targeting, only where they are true for you.</li>
+  <li><strong>Profile summary</strong> — reuse your resume summary, adjusted for the roles you are applying to.</li>
+  <li><strong>Projects and certifications</strong> — fill these fields; empty sections make a profile look incomplete.</li>
+  <li><strong>Keep it current</strong> — review and update your profile regularly, especially after finishing a project or certificate.</li>
+</ul>
 
-</p>
 <h3>Using AI to tailor your Naukri application for each JD</h3>
 
-</p>
+<div class="prompt-box">
+  <span class="prompt-label">Prompt 5.2B: JD tailoring</span>
+  <div class="prompt-text">Here is a job description: [paste JD]
+Here is my current resume: [paste resume text]
+
+1. List the 10 most important keywords and skills in the JD.
+2. Mark each one: already in my resume / true for me but missing / not true for me.
+3. For the "true but missing" items only, suggest exact wording to add to my summary, skills or project bullets.
+4. Do not invent experience, numbers or tools I have not listed.</div>
+</div>
+
+<p>Review every suggestion before using it. If a suggested line is not true for you, delete it — interviewers will ask about everything on your resume.</p>
+
 <hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
 
 <h2>The complete pre-application checklist</h2>
+
+<ol>
+  <li>Resume summary names your target role and your real AI skills.</li>
+  <li>The keywords from this JD appear in your resume where they are true.</li>
+  <li>At least one project bullet follows Tool + Task + Result, with a real number or context.</li>
+  <li>Every skill listed is one you can explain and demonstrate in an interview.</li>
+  <li>LinkedIn headline, About and Featured are updated and consistent with your resume.</li>
+  <li>Naukri resume headline, key skills and profile summary are updated.</li>
+  <li>Links (GitHub, portfolio, certificates) open correctly and are public.</li>
+  <li>No personal data you do not want shared (home address, Aadhaar number) appears anywhere.</li>
+</ol>
 
 <hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
 
 <h2>The three things to remember</h2>
 
-</p>
-<p>    <ul><li><strong>Keywords before content — ATS never sees what it cannot find</strong> — "Generative AI", "Prompt Engineering", and "Large Language Models" must appear in your LinkedIn headline, Naukri Key Skills field, and resume Professional Summary. Without these exact phrases, your profile is invisible to the recruiter filters at TCS, Infosys, Wipro, and HCL's AI CoE hiring teams.</li></ul></p>
-<p>    <ul><li><strong>Outcomes beat activity in every bullet point</strong> — "Used AI for coding tasks" tells a recruiter nothing. "Reduced code review time by 40% using Claude for automated pre-review checks" tells them exactly what you can do and what value you bring. Apply the formula Tool + Task + Result to every skills bullet you write.</li></ul></p>
-<p>    <ul><li><strong>Tailor every application with one prompt</strong> — the JD tailoring prompt in this module takes 5 minutes per application and meaningfully increases your shortlisting rate. The same resume sent to 50 jobs performs worse than a tailored resume sent to 10 well-matched jobs. Quality beats volume on Indian ATS systems.</li></ul></p>
+<ul>
+  <li><strong>Keywords before content — software never sees what it cannot find</strong> — the AI terms that truly describe your skills must appear in your LinkedIn headline, Naukri key skills and resume summary, in the same wording the job descriptions use.</li>
+  <li><strong>Outcomes beat activity in every bullet point</strong> — "Used AI for coding tasks" tells a recruiter nothing. A bullet with the tool, the task and a real result tells them exactly what you can do. Apply the formula Tool + Task + Result to every skills bullet you write.</li>
+  <li><strong>Tailor every application — honestly</strong> — the JD tailoring prompt takes about 5 minutes per application. A tailored resume sent to fewer, well-matched jobs usually does better than the same resume sent everywhere — and every line must stay true.</li>
+</ul>
+
 <hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
 
-</p>
-<p>  <p>This is the most directly career-impactful assignment in the course. Block 2 hours and complete all three updates today.</p></p>
-<p>    <ul><li><strong>Resume:</strong></p>
-<p>      <ul></p>
-<p>        <li>Run the Professional Summary prompt with your actual details</li></ul></p>
-<p>        <ul><li>Add AI skills to the top of your Technical Skills section using the keyword list from this module</li></ul></p>
-<p>        <ul><li>Rewrite your best project bullet using the Tool + Task + Result formula</li></ul></p>
-<p>        <ul><li>List your certification (or planned certification) in the Certifications section</li></ul></p>
-<p>      </ul></p>
-<p>    </li></p>
-<p>    <ul><li><strong>LinkedIn:</strong></p>
-<p>      <ul></p>
-<p>        <li>Rewr
+<h2>Your assignment</h2>
+
+<p>This is the most directly career-impactful assignment in the course. Block 2 hours and complete all three updates.</p>
+
+<ul>
+  <li><strong>Resume:</strong>
+    <ul>
+      <li>Run the Professional Summary prompt with your actual details</li>
+      <li>Add AI skills to the top of your Technical Skills section using the keyword list from this sub-module</li>
+      <li>Rewrite your best project bullet using the Tool + Task + Result formula</li>
+      <li>List your certification (or planned certification) in the Certifications section</li>
+    </ul>
+  </li>
+  <li><strong>LinkedIn:</strong> rewrite your headline and About section, update your Skills, and pin one piece of proof in Featured.</li>
+  <li><strong>Naukri:</strong> update your resume headline, key skills and profile summary, then run the JD tailoring prompt on one real job you want to apply for.</li>
+  <li><strong>Save the before-and-after versions</strong> in your AI Learning Journal under "Module 5.2 — Profile Update."</li>
+</ul>
 
     <!-- Assignment -->
     <div style="background:#fffbeb;border:1px solid #fcd34d;border-radius:var(--radius-lg);padding:1.25rem 1.5rem;margin-top:2rem">
