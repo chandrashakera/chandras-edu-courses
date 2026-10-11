@@ -38,7 +38,7 @@
 
   <!-- Module header -->
   <div style="background:var(--primary);border-radius:var(--radius-lg);padding:1.25rem 1.5rem;margin-bottom:1.75rem;color:#fff">
-    <div style="font-size:.78rem;opacity:.75;margin-bottom:.35rem">GENERATIVE AI: ZERO TO JOB-READY › Unit 3: GenAI for Your Job › MODULE 3.4</div>
+    <div style="font-size:.78rem;opacity:.75;margin-bottom:.35rem">GENERATIVE AI: ZERO TO JOB-READY › Module 3: GenAI for Your Job › MODULE 3.4</div>
     <h1 style="font-size:1.4rem;font-weight:700;margin-bottom:.6rem;color:#fff">Your Prompt Library</h1>
     <div style="display:flex;gap:.75rem;flex-wrap:wrap">
       <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.78rem">⏱ 12 min read</span>
@@ -48,37 +48,48 @@
 
   <!-- FULL LESSON — visible to everyone, including search engines -->
   <div class="lesson">
-</p>
-</p>
-<p>This is the final module of Unit 3 — and the most directly actionable one. Over the past three modules you built prompts for developers, analysts, and managers. This module shows you how to collect, organise, and maintain all of them into a personal prompt library that compounds in value over time.</p>
+<p>This is the final sub-module of Module 3 — and the most directly actionable one. Over the past three sub-modules you built prompts for developers, analysts and managers. This sub-module shows you how to collect, organise and maintain them as a personal prompt library that grows in value over time.</p>
 
-<p>A prompt library is the single most practical career deliverable of this course. It is what separates someone who uses AI occasionally from someone who uses it systematically.</p>
+<p>A prompt library is one of the most practical career deliverables of this course. It is what separates someone who uses AI occasionally from someone who uses it systematically.</p>
 
 <hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
 
 <h2>What is a prompt library and why does it matter?</h2>
 
-<p>The value compounds over time. Your first 10 prompts save you 30 minutes a week. Your first 50 prompts save you 2–3 hours. Engineers and analysts who have been maintaining prompt libraries for a year report saving 8–10 hours a week — the equivalent of a part-time job.</p>
+<p>A prompt library is your own organised collection of tested, reusable prompts for the tasks you do again and again. Instead of rewriting a good prompt from memory each time, you copy it, fill in the details and run it.</p>
 
-<p>There are three specific benefits beyond time saving:</p>
+<p>The value compounds over time: every prompt you add and refine saves effort on every future use. There are three specific benefits beyond time saving:</p>
 
-<strong>Consistency</strong> — the same prompt produces the same quality output every time. You stop getting variable results because you stop writing variable prompts.
-
-<strong>Institutional knowledge</strong> — your library captures what works for <em>your</em> specific context: your company, your clients, your tech stack, your role. Generic prompts from the internet do not have this. Yours do.
-
-<strong>Career portability</strong> — your prompt library moves with you. When you change teams, companies, or roles, your library accelerates your ramp-up. It is a professional asset in the same way a portfolio is.
+<ul>
+  <li><strong>Consistency</strong> — a tested prompt produces reliably good output. You stop getting variable results because you stop writing variable prompts.</li>
+  <li><strong>Institutional knowledge</strong> — your library captures what works for your specific context: your role, your tech stack, your kind of clients. Generic prompts from the internet do not have this. Yours do.</li>
+  <li><strong>Career portability</strong> — your prompt library moves with you. When you change teams, companies or roles, it speeds up your ramp-up. It is a professional asset in the same way a portfolio is. (Keep company-confidential details out of it.)</li>
+</ul>
 
 <hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
 
 <h2>The prompt library entry format</h2>
 
-<p>Every prompt in your library should follow a consistent entry format. This makes it searchable, maintainable, and shareable with your team.</p>
+<p>Every prompt in your library should follow a consistent entry format. This makes it searchable, maintainable and shareable with your team.</p>
 
-<p>The <code>[PLACEHOLDERS]</code> pattern is the most important element. Instead of a prompt that is hardcoded to one project, you write a reusable template:</p>
+<div class="prompt-box">
+  <span class="prompt-label">Library entry template</span>
+  <div class="prompt-text">Name: [short, searchable name — e.g. "Client delay email"]
+Category: [Developer / Analyst / Manager / Career]
+When to use: [one line describing the situation]
+Prompt: [the full prompt, with [PLACEHOLDERS] for anything that changes]
+Works best in: [tool you tested it in]
+Rating: [High / Medium / Low]
+Last tested: [month and year]
+Notes: [what to watch for, follow-up prompt that helps]</div>
+</div>
 
-<p>Instead of: <em>"You are a TCS delivery manager writing to Sarah Chen at UK Insurance about the API delay..."</em></p>
+<p>The <strong>[PLACEHOLDERS]</strong> pattern is the most important element. Instead of a prompt that is hard-coded to one project, you write a reusable template:</p>
 
-<p>Write: <em>"You are a [ROLE] writing to [RECIPIENT] at [COMPANY] about [SITUATION]..."</em></p>
+<ul>
+  <li><strong>Instead of:</strong> "You are a delivery manager writing to Sarah Chen at UK Insurance about the API delay…"</li>
+  <li><strong>Write:</strong> "You are a [ROLE] writing to [RECIPIENT] at [COMPANY] about [SITUATION]…"</li>
+</ul>
 
 <p>This turns a one-time prompt into a reusable template for every similar situation.</p>
 
@@ -86,83 +97,164 @@
 
 <h2>Starter library — 10 prompts to begin with</h2>
 
-<p>Here are 10 fully written, ready-to-use prompts across the roles covered in Unit 3. Copy these directly into your library and customise the placeholders.</p>
+<p>Here are 10 ready-to-use prompts across the roles covered in Module 3. Copy them into your library and customise the placeholders. Test each one before you rate it.</p>
 
-</p>
-</p>
-</p>
-</p>
-</p>
-</p>
-</p>
-</p>
-</p>
-</p>
+<div class="prompt-box">
+  <span class="prompt-label">1. Feature code (Developer)</span>
+  <div class="prompt-text">You are a senior [LANGUAGE] developer. I am building [FEATURE] using [FRAMEWORK + VERSION]. Write [FUNCTION/ENDPOINT] that [WHAT IT DOES]. Rules: [BUSINESS RULES]. Handle these edge cases: [LIST]. Output the code, then a short list of edge cases you handled.</div>
+</div>
+
+<div class="prompt-box">
+  <span class="prompt-label">2. Universal debug (Developer)</span>
+  <div class="prompt-text">I am getting an error in my [LANGUAGE + FRAMEWORK + VERSION] code.
+Error (full): [PASTE]
+Code: [PASTE]
+Expected: [ONE LINE]  Actual: [ONE LINE]  Already tried: [LIST]
+Explain the most likely cause, give the fixed code, and tell me how to confirm the fix.</div>
+</div>
+
+<div class="prompt-box">
+  <span class="prompt-label">3. Pre-commit review (Developer)</span>
+  <div class="prompt-text">Review this [LANGUAGE] code as a strict senior reviewer. Check in order: bugs, unhandled edge cases, security, performance, readability. For each issue give severity, line, reason and fix. Do not rewrite the whole code.
+[PASTE CODE]</div>
+</div>
+
+<div class="prompt-box">
+  <span class="prompt-label">4. SQL from schema (Analyst)</span>
+  <div class="prompt-text">You are an expert in [DATABASE]. Schema: [TABLES AND COLUMNS]. Business question: [QUESTION]. Output one query with columns [LIST], sorted by [FIELD]. Then explain it in 3 lines and list any assumptions.</div>
+</div>
+
+<div class="prompt-box">
+  <span class="prompt-label">5. Insight summary (Analyst)</span>
+  <div class="prompt-text">Here are the key numbers: [TABLE]. Write an executive summary for [AUDIENCE] in two short paragraphs. Every sentence must contain a number. Do not guess reasons for changes; list two questions I should investigate instead.</div>
+</div>
+
+<div class="prompt-box">
+  <span class="prompt-label">6. Report "so what" (Analyst)</span>
+  <div class="prompt-text">Finding: [FINDING WITH NUMBERS]. Audience: [ROLE], who has two minutes. Write a one-line headline, a 3-sentence business implication and two next steps. Mark any assumption as [ASSUMPTION].</div>
+</div>
+
+<div class="prompt-box">
+  <span class="prompt-label">7. Difficult email (Manager)</span>
+  <div class="prompt-text">Role: I am a [ROLE] at [COMPANY TYPE]. Recipient: [WHO], relationship: [GOOD / NEW / STRAINED]. Situation: [WHAT HAPPENED]. Goal: [WHAT I NEED]. Tone: polite, direct, no blame. Under [N] words, with subject line and one clear request.</div>
+</div>
+
+<div class="prompt-box">
+  <span class="prompt-label">8. Meeting notes to actions (Manager)</span>
+  <div class="prompt-text">Turn these notes into: decisions, action items (table: Action, Owner, Due date), open questions, risks. Use only what is in the notes; write "Not assigned" for missing owners or dates. Under 200 words.
+[PASTE NOTES]</div>
+</div>
+
+<div class="prompt-box">
+  <span class="prompt-label">9. Weekly RAG status (Manager)</span>
+  <div class="prompt-text">Write a weekly status report for [PROJECT] from these facts: [FACTS]. Sections: overall status (Red/Amber/Green) with one-line reason; table Area | Status | Comment; top 3 achievements; risks with mitigation and owner; help needed. Use only the facts given.</div>
+</div>
+
+<div class="prompt-box">
+  <span class="prompt-label">10. Mock interview (Career)</span>
+  <div class="prompt-text">You are a technical interviewer for [ROLE] at [COMPANY TYPE], hiring freshers. Ask me one question at a time on [TOPICS]. After each answer, score it out of 10 and give one specific improvement. Start when I say "ready".</div>
+</div>
+
 <hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
 
 <h2>Where to store your library</h2>
 
-</p>
-<p>Avoid storing prompts in chat history. Chat history is not searchable, not organised, and gets lost. Your library needs to be a document you intentionally maintain.</p>
+<p>Avoid storing prompts in chat history. Chat history is hard to search, not organised, and gets lost. Your library needs to be a document you intentionally maintain. Any of these works:</p>
+
+<ul>
+  <li><strong>A single document</strong> (Google Docs, Word) — simplest; one heading per category, one entry per prompt.</li>
+  <li><strong>A notes or database app</strong> (for example Notion or OneNote) — easier to tag, filter and rate entries.</li>
+  <li><strong>Text files in a Git repository</strong> — good for developers; prompts are versioned like code.</li>
+  <li><strong>Your team's shared space</strong> — only with your company's approval, and never with client-confidential details.</li>
+</ul>
+
+<p>The best tool is the one you will actually open every day. Start simple; move later if you need to.</p>
 
 <hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
 
 <h2>Prompts by role — what your library should contain</h2>
 
-<p>Use this checklist to identify gaps in your library. Aim to have at least one tested prompt per category before Unit 5.</p>
+<p>Use this checklist to identify gaps in your library. Aim to have at least one tested prompt in each category before Module 5.</p>
 
-</p>
-<p>      <ul><li>Code generation (your stack)</li></ul></p>
-<p>      <ul><li>Universal debug template</li></ul></p>
-<p>      <ul><li>Code review (pre-commit)</li></ul></p>
-<p>      <ul><li>Unit test generation</li></ul></p>
-<p>      <ul><li>Docstring / README generation</li></ul></p>
-<p>      <ul><li>SQL generation (your DB)</li></ul></p>
-<p>    </ul></p>
-<p>      <ul><li>SQL from schema (your tables)</li></ul></p>
-<p>      <ul><li>Data insight summary</li></ul></p>
-<p>      <ul><li>Anomaly identification</li></ul></p>
-<p>      <ul><li>Python analysis boilerplate</li></ul></p>
-<p>      <ul><li>Report narrative template</li></ul></p>
-<p>      <ul><li>Slide content from findings</li></ul></p>
-<p>    </ul></p>
-<p>      <ul><li>Difficult email template</li></ul></p>
-<p>      <ul><li>Client status update</li></ul></p>
-<p>      <ul><li>Meeting notes → summary</li></ul></p>
-<p>      <ul><li>Weekly status report</li></ul></p>
-<p>      <ul><li>Escalation email</li></ul></p>
-<p>      <ul><li>QBR / presentation outline</li></ul></p>
-<p>    </ul></p>
-<p>      <ul><li>Concept explainer for interviews</li></ul></p>
-<p>      <ul><li>Mock interview question generator</li></ul></p>
-<p>      <ul><li>LinkedIn post (your style)</li></ul></p>
-<p>      <ul><li>Resume bullet rewriter</li></ul></p>
-<p>      <ul><li>Devil's advocate for plans</li></ul></p>
-<p>      <ul><li>Company AI research template</li></ul></p>
-<p>    </ul></p>
+<div style="overflow-x:auto">
+<table>
+  <thead><tr><th>Developer</th><th>Analyst</th><th>Manager</th><th>Career</th></tr></thead>
+  <tbody>
+    <tr><td>Code generation (your stack)</td><td>SQL from schema (your tables)</td><td>Difficult email template</td><td>Concept explainer for interviews</td></tr>
+    <tr><td>Universal debug template</td><td>Data insight summary</td><td>Client status update</td><td>Mock interview question generator</td></tr>
+    <tr><td>Code review (pre-commit)</td><td>Anomaly identification</td><td>Meeting notes → summary</td><td>LinkedIn post (your style)</td></tr>
+    <tr><td>Unit test generation</td><td>Python analysis boilerplate</td><td>Weekly status report</td><td>Resume bullet rewriter</td></tr>
+    <tr><td>Docstring / README generation</td><td>Report narrative template</td><td>Escalation email</td><td>Devil's advocate for plans</td></tr>
+    <tr><td>SQL generation (your database)</td><td>Slide content from findings</td><td>QBR / presentation outline</td><td>Company AI research template</td></tr>
+  </tbody>
+</table>
+</div>
+
 <hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
 
 <h2>How to grow and maintain your library</h2>
 
 <p>A prompt library that is not maintained quickly becomes a graveyard of prompts you do not trust. Three habits keep it alive:</p>
 
-<strong>1. Add immediately, refine later.</strong> When a prompt works well — even once — add it to the library immediately with a note on what it did well. You can refine the wording later. The barrier to entry should be as low as possible.
+<ol>
+  <li><strong>Add immediately, refine later.</strong> When a prompt works well — even once — add it to the library with a note on what it did well. You can refine the wording later. Keep the barrier to adding as low as possible.</li>
+  <li><strong>Rate every prompt after testing.</strong> Use a simple rating: High (use as-is), Medium (use with one follow-up), Low (starting point only). Prompts that keep landing at Low should be rewritten or deleted.</li>
+  <li><strong>Review and update regularly.</strong> AI tools change fast. A prompt that worked best in one tool may work better in another after a model update. Review your library every few months, re-test your most-used prompts, and update the "Last tested" date.</li>
+</ol>
 
-<strong>2. Rate every prompt after testing.</strong> Use a simple quality rating: High (use as-is), Medium (use with one follow-up), Low (starting point only). Prompts that consistently land at Low should be rewritten or deleted.
+<hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
 
-<strong>3. Review and update quarterly.</strong> AI tools change fast. A prompt that worked best in Claude Sonnet 3.5 may work better in ChatGPT after a model update. Review your library every three months, test you
+<h2>The three things to remember</h2>
+
+<ul>
+  <li><strong>Save what works, in one place</strong> — a tested prompt is worth keeping. Chat history is not a library.</li>
+  <li><strong>Templates beat one-offs</strong> — use [PLACEHOLDERS] so one prompt works for every similar situation.</li>
+  <li><strong>Maintain it like code</strong> — rate, re-test and update prompts as tools change.</li>
+</ul>
+
+<hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
+
+<h2>Practice (optional)</h2>
+
+<ul>
+  <li><strong>Set up your library</strong> in the tool you chose, with the four categories from the checklist.</li>
+  <li><strong>Add the 10 starter prompts</strong> plus the prompts you saved in Modules 3.1–3.3, in the entry format above.</li>
+  <li><strong>Test and rate five of them</strong> on real tasks, and fill in "Works best in" and "Last tested".</li>
+  <li><strong>Mark the gaps</strong> in the role checklist that you will fill next. Your library becomes Section 2 of your Final Project toolkit.</li>
+</ul>
 
     <!-- Assignment -->
     <div style="background:#fffbeb;border:1px solid #fcd34d;border-radius:var(--radius-lg);padding:1.25rem 1.5rem;margin-top:2rem">
       <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.75rem">
         <span style="font-size:1.1rem">✏️</span>
-        <span style="font-weight:700;color:#92400e">Assignment 3.4</span>
+        <span style="font-weight:700;color:#92400e">Save your practice</span>
       </div>
-      <p style="color:#78350f;font-size:.9rem">Complete the practical assignment for this module to reinforce your learning. Mark this module as complete when done.</p>
-      <button class="btn btn-success btn-sm" id="mark-done-btn" style="margin-top:.75rem">✅ Mark as Complete</button>
-      <div id="done-msg" style="display:none;color:var(--success);font-size:.88rem;margin-top:.5rem;font-weight:600">✅ Module completed! Great work.</div>
+      <p style="color:#78350f;font-size:.9rem">Complete the practice tasks above and save them in your AI Learning Journal — you will use them in the Final Project.</p>
     </div>
   </div><!-- end lesson -->
+
+  <div id="gate-section">
+    <div class="gate">
+      <div class="gate-blur"><div class="quiz"><div class="quiz-title">📝 Quick Quiz — 5 Questions</div></div></div>
+      <div class="gate-overlay"><div class="gate-box">
+        <div class="lock">🔒</div>
+        <h3>Login to take the quiz</h3>
+        <p>Create a free account to take the quiz and track your progress. Pass with 4 out of 5 to complete this sub-module.</p>
+        <div class="gate-btns">
+          <a href="../../../login.html" class="btn btn-primary btn-sm">Login</a>
+          <a href="../../../login.html" class="btn btn-outline btn-sm">Register Free</a>
+        </div>
+      </div></div>
+    </div>
+  </div>
+
+  <div class="quiz" id="quiz-section" style="display:none">
+    <div class="quiz-title">📝 Quick Quiz — 5 Questions · Pass mark 4/5</div>
+    <div id="quiz-body"></div>
+    <button class="btn btn-primary" id="submit-btn" disabled>Submit Quiz</button>
+    <div class="quiz-result" id="quiz-result" style="display:none"></div>
+    <button class="btn btn-outline btn-sm" id="retry-btn" style="display:none;margin-top:.75rem">Try again</button>
+  </div>
 
 <!-- Prev / Next -->
   <div class="topic-nav">
@@ -175,31 +267,37 @@
 
 <script type="module">
   import { initNav } from '../../../js/nav.js';
-  import { onAuth, logout, markModuleComplete, getProgress } from '../../../js/firebase-config.js';
   import { initSidebar } from '../../../js/sidebar.js';
+  import { initQuiz } from '../../../js/quiz.js';
   initNav(3);
   initSidebar();
 
   const COURSE_ID = 'genai';
   const MODULE_ID = 'm-3-4';
-
-  onAuth(async user => {
-    if (user) {
-      const prog = await getProgress(user.uid, COURSE_ID, MODULE_ID);
-      if (prog?.completed) {
-        document.getElementById('mark-done-btn').style.display = 'none';
-        document.getElementById('done-msg').style.display = 'block';
-      }
-
-      document.getElementById('mark-done-btn').onclick = async () => {
-        await markModuleComplete(user.uid, COURSE_ID, MODULE_ID);
-        document.getElementById('mark-done-btn').style.display = 'none';
-        document.getElementById('done-msg').style.display = 'block';
-      };
-    }
-    // Content is always visible. Logged-out users simply won't see
-    // their completion status or be able to mark modules complete.
-  });
+  const PASS_MARK = 4;
+  const QUIZ = [
+    { q:"Why should you not use chat history as your prompt library?",
+      options:["It is illegal","It costs money","It is hard to search, not organised and easy to lose","AI tools delete prompts every day"],
+      answer:2,
+      explanation:"A library is a document you intentionally maintain and organise." },
+    { q:"What is the purpose of [PLACEHOLDERS] in a library prompt?",
+      options:["To hide the prompt from others","To turn a one-time prompt into a reusable template for similar situations","To make the prompt longer","To confuse the AI"],
+      answer:1,
+      explanation:"\"[ROLE] writing to [RECIPIENT] at [COMPANY] about [SITUATION]\" works for every similar case." },
+    { q:"A prompt keeps getting a \"Low\" rating after testing. What should you do?",
+      options:["Rewrite it or delete it","Keep using it unchanged","Rate it High anyway","Share it with your whole team"],
+      answer:0,
+      explanation:"Ratings keep the library trustworthy; consistently weak prompts are rewritten or removed." },
+    { q:"Why does the library entry format include \"Last tested\"?",
+      options:["For decoration","To count how many prompts you have","To show the prompt's author","AI tools change, so you need to know when a prompt was last checked and re-test older ones"],
+      answer:3,
+      explanation:"Regular review and re-testing keep the library working as models change." },
+    { q:"What should you keep out of a personal prompt library you take between jobs?",
+      options:["Placeholders","Ratings","Company- or client-confidential details","Prompt names"],
+      answer:2,
+      explanation:"Your library is portable only if it contains reusable templates, not confidential information." }
+  ];
+  initQuiz({ courseId: COURSE_ID, moduleId: MODULE_ID, passMark: PASS_MARK, questions: QUIZ });
 </script>
 </body>
 </html>

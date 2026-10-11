@@ -165,7 +165,7 @@ Keep claims limited to what the finding supports. Mark anything that is an assum
 
 <hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
 
-<h2>Your assignment</h2>
+<h2>Practice (optional)</h2>
 
 <p>Three tasks covering the core analyst use cases. Each should take 15–20 minutes.</p>
 
@@ -176,19 +176,40 @@ Keep claims limited to what the finding supports. Mark anything that is an assum
   <li><strong>Add all three prompts to your AI Learning Journal</strong> under "Module 3.2 — Analyst Prompts." These go into your prompt library in Module 3.4.</li>
 </ul>
 
-<p>After this assignment you will have a concrete sense of where AI genuinely accelerates analyst work and where your own business judgement is irreplaceable.</p>
+<p>After these tasks you will have a concrete sense of where AI genuinely accelerates analyst work and where your own business judgement is irreplaceable.</p>
 
 <!-- Assignment -->
     <div style="background:#fffbeb;border:1px solid #fcd34d;border-radius:var(--radius-lg);padding:1.25rem 1.5rem;margin-top:2rem">
       <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.75rem">
         <span style="font-size:1.1rem">✏️</span>
-        <span style="font-weight:700;color:#92400e">Assignment 3.2</span>
+        <span style="font-weight:700;color:#92400e">Save your practice</span>
       </div>
-      <p style="color:#78350f;font-size:.9rem">Complete the practical assignment for this module to reinforce your learning. Mark this module as complete when done.</p>
-      <button class="btn btn-success btn-sm" id="mark-done-btn" style="margin-top:.75rem">✅ Mark as Complete</button>
-      <div id="done-msg" style="display:none;color:var(--success);font-size:.88rem;margin-top:.5rem;font-weight:600">✅ Module completed! Great work.</div>
+      <p style="color:#78350f;font-size:.9rem">Complete the practice tasks above and save them in your AI Learning Journal — you will use them in the Final Project.</p>
     </div>
   </div><!-- end lesson -->
+
+  <div id="gate-section">
+    <div class="gate">
+      <div class="gate-blur"><div class="quiz"><div class="quiz-title">📝 Quick Quiz — 5 Questions</div></div></div>
+      <div class="gate-overlay"><div class="gate-box">
+        <div class="lock">🔒</div>
+        <h3>Login to take the quiz</h3>
+        <p>Create a free account to take the quiz and track your progress. Pass with 4 out of 5 to complete this sub-module.</p>
+        <div class="gate-btns">
+          <a href="../../../login.html" class="btn btn-primary btn-sm">Login</a>
+          <a href="../../../login.html" class="btn btn-outline btn-sm">Register Free</a>
+        </div>
+      </div></div>
+    </div>
+  </div>
+
+  <div class="quiz" id="quiz-section" style="display:none">
+    <div class="quiz-title">📝 Quick Quiz — 5 Questions · Pass mark 4/5</div>
+    <div id="quiz-body"></div>
+    <button class="btn btn-primary" id="submit-btn" disabled>Submit Quiz</button>
+    <div class="quiz-result" id="quiz-result" style="display:none"></div>
+    <button class="btn btn-outline btn-sm" id="retry-btn" style="display:none;margin-top:.75rem">Try again</button>
+  </div>
 
 <!-- Prev / Next -->
   <div class="topic-nav">
@@ -201,31 +222,37 @@ Keep claims limited to what the finding supports. Mark anything that is an assum
 
 <script type="module">
   import { initNav } from '../../../js/nav.js';
-  import { onAuth, logout, markModuleComplete, getProgress } from '../../../js/firebase-config.js';
   import { initSidebar } from '../../../js/sidebar.js';
+  import { initQuiz } from '../../../js/quiz.js';
   initNav(3);
   initSidebar();
 
   const COURSE_ID = 'genai';
   const MODULE_ID = 'm-3-2';
-
-  onAuth(async user => {
-    if (user) {
-      const prog = await getProgress(user.uid, COURSE_ID, MODULE_ID);
-      if (prog?.completed) {
-        document.getElementById('mark-done-btn').style.display = 'none';
-        document.getElementById('done-msg').style.display = 'block';
-      }
-
-      document.getElementById('mark-done-btn').onclick = async () => {
-        await markModuleComplete(user.uid, COURSE_ID, MODULE_ID);
-        document.getElementById('mark-done-btn').style.display = 'none';
-        document.getElementById('done-msg').style.display = 'block';
-      };
-    }
-    // Content is always visible. Logged-out users simply won't see
-    // their completion status or be able to mark modules complete.
-  });
+  const PASS_MARK = 4;
+  const QUIZ = [
+    { q:"What is the single most important rule for generating SQL with AI?",
+      options:["Give the model your actual schema — table and column names","Ask for the shortest query","Use the word \"SQL\" twice","Let the model guess table names"],
+      answer:0,
+      explanation:"Without the schema, the model guesses names; the query fails or, worse, returns wrong numbers." },
+    { q:"An AI-generated query runs without errors. What should you do before sharing the results?",
+      options:["Share immediately — it ran","Ask the AI if it is correct","Test it on a small slice of data where you already know the answer","Delete it"],
+      answer:2,
+      explanation:"Running without error is not the same as being correct. Spot-check against known figures." },
+    { q:"Why does the summary prompt say \"Do not guess reasons; list two questions I should investigate\"?",
+      options:["To make the summary longer","Because the model does not know why the numbers changed, and this keeps invented explanations out","Because questions look professional","To save tokens"],
+      answer:1,
+      explanation:"The analyst provides the business judgement; the model should not invent causes." },
+    { q:"Which part of the analyst workflow should never be skipped?",
+      options:["Choosing a font","Using the longest prompt","Asking the AI for its opinion","Validating results against numbers you already trust"],
+      answer:3,
+      explanation:"Step 4 — validate on known numbers — separates trustworthy analysis from risky analysis." },
+    { q:"What should you share with an AI tool when your data contains customer details?",
+      options:["The full customer file","The schema, column names and masked sample values — not personal data","Nothing at all, ever","Only the customers' phone numbers"],
+      answer:1,
+      explanation:"Share structure, not sensitive data. Mask or remove personal and client data first." }
+  ];
+  initQuiz({ courseId: COURSE_ID, moduleId: MODULE_ID, passMark: PASS_MARK, questions: QUIZ });
 </script>
 </body>
 </html>
