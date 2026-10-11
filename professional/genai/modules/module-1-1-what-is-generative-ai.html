@@ -38,7 +38,7 @@
 
   <!-- Module header -->
   <div style="background:var(--primary);border-radius:var(--radius-lg);padding:1.25rem 1.5rem;margin-bottom:1.75rem;color:#fff">
-    <div style="font-size:.78rem;opacity:.75;margin-bottom:.35rem">GENERATIVE AI: ZERO TO JOB-READY › Unit 1: Understanding GenAI › MODULE 1.1</div>
+    <div style="font-size:.78rem;opacity:.75;margin-bottom:.35rem">GENERATIVE AI: ZERO TO JOB-READY › Module 1: Understanding GenAI › MODULE 1.1</div>
     <h1 style="font-size:1.4rem;font-weight:700;margin-bottom:.6rem;color:#fff">What is Generative AI</h1>
     <div style="display:flex;gap:.75rem;flex-wrap:wrap">
       <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.78rem">⏱ 12 min read</span>
@@ -48,11 +48,9 @@
 
   <!-- FULL LESSON — visible to everyone, including search engines -->
   <div class="lesson">
-</p>
-</p>
-<p>You have probably used ChatGPT, Copilot, or Gemini by now — maybe to draft an email, explain a bug, or summarise a document. But do you know what is actually happening when you type a message and the AI responds?</p>
+<p>You have probably used ChatGPT, Copilot or Gemini by now — maybe to draft an email, explain a bug or summarise a document. But do you know what is actually happening when you type a message and the AI responds?</p>
 
-<p>This module explains what Generative AI is, how Large Language Models work, and why this matters for your career in Indian IT — all without a single equation.</p>
+<p>This sub-module explains what Generative AI is, how Large Language Models work, and why this matters for your career in Indian IT — all without a single equation.</p>
 
 <hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
 
@@ -60,25 +58,27 @@
 
 <p>Let us start with the two words separately.</p>
 
-<strong>AI (Artificial Intelligence)</strong> is a broad term for software that can perform tasks that normally require human thinking — recognising images, translating languages, making decisions.
+<p><strong>AI (Artificial Intelligence)</strong> is a broad term for software that can perform tasks that normally require human thinking — recognising images, translating languages, making decisions.</p>
 
-<strong>Generative</strong> means it creates new content. Earlier AI systems were mostly <em>discriminative</em> — they classified or predicted things. A spam filter decides: is this email spam or not spam? A recommendation engine decides: which movie should I suggest?
+<p><strong>Generative</strong> means it creates new content. Earlier AI systems were mostly <em>discriminative</em> — they classified or predicted things. A spam filter decides: is this email spam or not spam? A recommendation engine decides: which movie should I suggest?</p>
 
 <p>Generative AI is different. It <em>produces</em> something new — a paragraph of text, a line of code, an image, a piece of music — that did not exist before.</p>
 
-<p>The most powerful form of Generative AI today is built on <strong>Large Language Models (LLMs)</strong>.</p>
+<p>The most powerful form of Generative AI for text today is built on <strong>Large Language Models (LLMs)</strong>.</p>
 
 <hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
 
 <h2>What is a Large Language Model?</h2>
 
-<p>An LLM is a type of AI trained on an enormous amount of text — books, websites, research papers, code repositories, forum posts, and more. The training data for GPT-3 is estimated to include over 300 billion words.</p>
+<p>An LLM is a type of AI trained on an enormous amount of text — books, websites, research papers, code repositories, forum posts and more. GPT-3, for example, was trained on about 300 billion tokens of text (a token is a word or part of a word).</p>
 
 <p>During training, the model learns one thing at a deep level:</p>
 
-<p>That sounds simple. But when you do this billions of times, across hundreds of billions of examples, the model ends up learning something profound — it learns the patterns of human knowledge itself.</p>
+<div class="box box-tip"><strong>Predict the next token.</strong> Given some text, what word (or part of a word) is most likely to come next?</div>
 
-<p>It learns that after "The capital of India is", the word "New" followed by "Delhi" is overwhelmingly likely. It learns that after <code>def calculate_tax(income):</code>, a line of Python code is expected, not a recipe. It learns the tone of a formal email versus a WhatsApp message.</p>
+<p>That sounds simple. But when you do this billions of times, across hundreds of billions of examples, the model ends up learning the patterns of human language and much of the knowledge written in it.</p>
+
+<p>It learns that after "The capital of India is", the words "New Delhi" are overwhelmingly likely. It learns that after <code>def calculate_tax(income):</code>, a line of Python code is expected, not a recipe. It learns the tone of a formal email versus a WhatsApp message.</p>
 
 <p>None of this was explicitly programmed. It emerged from pattern learning at massive scale.</p>
 
@@ -86,28 +86,25 @@
 
 <h2>The "Large" in Large Language Model</h2>
 
-<p>GPT-3 — the model behind early ChatGPT — has <strong>175 billion parameters</strong>. Each parameter is a numerical value tuned during training to capture patterns in language. Think of each parameter as a tiny dial. Training adjusts all 175 billion dials simultaneously — billions of times — until the model becomes very good at predicting what comes next.</p>
+<p>GPT-3, released by OpenAI in 2020, has <strong>175 billion parameters</strong>. Each parameter is a numerical value tuned during training to capture patterns in language. Think of each parameter as a tiny dial. Training adjusts all the dials together, over and over, until the model becomes very good at predicting what comes next.</p>
 
-<strong>Why does size matter?</strong>
-<p>Larger models develop what researchers call <em>emergent abilities</em> — capabilities that smaller models simply do not have. The ability to reason through multi-step problems, write working code, explain complex concepts — these appeared at scale, not by design.</p>
+<p><strong>Why does size matter?</strong> As models grew larger and were trained on more data, they became noticeably better at tasks such as reasoning through multi-step problems, writing working code and explaining complex concepts.</p>
 
-<p>Importantly, the industry has also learned that <em>efficiency matters as much as size</em>. More recent models are not necessarily bigger — they are smarter about how they use their parameters. The exact architecture of GPT-4, Claude, and Gemini is not publicly disclosed, but the trend is clear: better results with leaner, more efficient designs.</p>
+<p>The industry has also learned that <em>efficiency matters as much as size</em>. Newer models are not necessarily bigger — they are better trained and smarter about how they use their parameters. The exact designs of today's ChatGPT, Claude and Gemini models are mostly not publicly disclosed.</p>
 
 <hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
 
 <h2>How does a conversation with ChatGPT actually work?</h2>
 
-<p>When you type a message, the model does not "think" the way you do. It runs through the same five mechanical steps — hundreds of times — to build your response one word at a time.</p>
+<p>When you type a message, the model does not "think" the way you do. It runs through the same mechanical steps — hundreds of times — to build your response one token at a time.</p>
 
-<strong>Step 1 — Tokenisation:</strong> Your text is broken into tokens (chunks of text — roughly words or parts of words). "Generative AI" becomes two tokens. "Chandrashaker" might become three or four.
-
-<strong>Step 2 — Context window:</strong> The model reads all the tokens in your conversation as one long sequence. Modern models like GPT-4 support up to 128,000 tokens — enough for a full novel.
-
-<strong>Step 3 — Probability calculation:</strong> For every possible next token (~50,000 options), the model assigns a probability score.
-
-<strong>Step 4 — Sampling:</strong> Rather than always picking the top-probability token (which would feel robotic and repetitive), the model samples from the top options — introducing natural variation. This is why the same question asked twice gives slightly different answers.
-
-<strong>Step 5 — Repeat:</strong> Steps 3 and 4 repeat for every token in the response until the model decides to stop. A 200-word reply involves hundreds of these cycles.
+<ol>
+  <li><strong>Tokenisation.</strong> Your text is broken into tokens — whole words or parts of words. A common word may be one token; an unusual name may be split into several.</li>
+  <li><strong>Context window.</strong> The model reads all the tokens in the conversation as one long sequence. How much it can read at once — its context window — depends on the model, from tens of thousands of tokens to over a million.</li>
+  <li><strong>Probability calculation.</strong> For every token in its vocabulary — tens of thousands of possibilities or more — the model calculates how likely it is to come next.</li>
+  <li><strong>Sampling.</strong> Rather than always picking the single most likely token (which would sound robotic and repetitive), the model picks from the most likely options with some controlled randomness. This is why the same question asked twice can give slightly different answers.</li>
+  <li><strong>Repeat.</strong> Steps 3 and 4 repeat for every token in the response until the model decides to stop. A 200-word reply involves hundreds of these cycles.</li>
+</ol>
 
 <p>This is why responses stream word by word — the model is generating your reply one token at a time, in real time.</p>
 
@@ -117,25 +114,72 @@
 
 <p>Three misconceptions cause the most problems — either leading to over-trust or unnecessary dismissal of AI tools.</p>
 
-<strong>It does not search the internet by default.</strong> An LLM answers from what it learned during training, not from a live search. This is why it can <em>hallucinate</em> — confidently state something false. Always verify important factual claims independently.
+<p><strong>It does not automatically know today's facts.</strong> An LLM answers from what it learned during training. Some apps add a web search step, but the model itself has no live knowledge, and even with search it can misread or misquote sources. This is why it can <em>hallucinate</em> — confidently state something false. Always verify important factual claims.</p>
 
-<em>Exception: ChatGPT with browsing enabled, Perplexity, and Gemini with live search can fetch real-time information. But the base model cannot.</em>
+<p><strong>It does not understand in the human sense.</strong> The model does sophisticated pattern matching. Its output often looks like genuine understanding, but this explains why AI can fail in surprising ways on new or unusual problems.</p>
 
-<strong>It does not understand in the human sense.</strong> The model does sophisticated pattern matching. This matters less than you might think in practice — outputs are often indistinguishable from genuine understanding — but it explains why AI can fail in surprising ways on genuinely novel problems.
+<p><strong>It does not remember you by itself.</strong> The model only sees what is in the current conversation's context window. Some apps add a "memory" feature that saves notes about you and adds them to future conversations — but that is the app storing information, not the model learning from you. Never assume it knows something you have not told it in this conversation, and be careful what personal information you share.</p>
 
-<strong>It has no memory between conversations.</strong> Each new c
+<hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
+
+<h2>The three things to remember</h2>
+
+<ul>
+  <li><strong>Generative AI creates; earlier AI classified</strong> — LLMs generate new text by predicting the next token, learned from huge amounts of written text.</li>
+  <li><strong>Prediction, not lookup</strong> — the model produces the most likely-sounding answer, not a checked fact. That is why fluent answers can still be wrong.</li>
+  <li><strong>Know the limits</strong> — no automatic live knowledge, no human-style understanding, and no memory beyond what the app gives it. Verify facts and protect personal data.</li>
+</ul>
+
+<hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
+
+<h2>Practice (optional)</h2>
+
+<ul>
+  <li><strong>See sampling in action:</strong> ask any chat assistant the same question twice in two new chats — for example, "Explain cloud computing in two sentences." Note how the answers differ.</li>
+  <li><strong>Test the knowledge limit:</strong> ask a question about something very recent, with web search turned off if your tool allows it. Note whether the model admits it does not know or confidently guesses.</li>
+  <li><strong>Save your notes in your AI Learning Journal</strong> under "Module 1.1 — How LLMs Behave."</li>
+</ul>
+
+<div class="box box-tip">
+  <strong>Sources and dates</strong>
+  <ul style="margin-top:.5rem;margin-bottom:0">
+    <li><a href="https://arxiv.org/abs/2005.14165" target="_blank" rel="noopener">Brown et al., "Language Models are Few-Shot Learners"</a> (GPT-3 paper, 2020) — 175 billion parameters; about 300 billion training tokens.</li>
+  </ul>
+  <p style="margin:.5rem 0 0">Last checked: October 2026.</p>
+</div>
 
     <!-- Assignment -->
     <div style="background:#fffbeb;border:1px solid #fcd34d;border-radius:var(--radius-lg);padding:1.25rem 1.5rem;margin-top:2rem">
       <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.75rem">
         <span style="font-size:1.1rem">✏️</span>
-        <span style="font-weight:700;color:#92400e">Assignment 1.1</span>
+        <span style="font-weight:700;color:#92400e">Save your practice</span>
       </div>
-      <p style="color:#78350f;font-size:.9rem">Complete the practical assignment for this module to reinforce your learning. Mark this module as complete when done.</p>
-      <button class="btn btn-success btn-sm" id="mark-done-btn" style="margin-top:.75rem">✅ Mark as Complete</button>
-      <div id="done-msg" style="display:none;color:var(--success);font-size:.88rem;margin-top:.5rem;font-weight:600">✅ Module completed! Great work.</div>
+      <p style="color:#78350f;font-size:.9rem">Complete the practice tasks above and save them in your AI Learning Journal — you will use them in the Final Project.</p>
     </div>
   </div><!-- end lesson -->
+
+  <div id="gate-section">
+    <div class="gate">
+      <div class="gate-blur"><div class="quiz"><div class="quiz-title">📝 Quick Quiz — 5 Questions</div></div></div>
+      <div class="gate-overlay"><div class="gate-box">
+        <div class="lock">🔒</div>
+        <h3>Login to take the quiz</h3>
+        <p>Create a free account to take the quiz and track your progress. Pass with 4 out of 5 to complete this sub-module.</p>
+        <div class="gate-btns">
+          <a href="../../../login.html" class="btn btn-primary btn-sm">Login</a>
+          <a href="../../../login.html" class="btn btn-outline btn-sm">Register Free</a>
+        </div>
+      </div></div>
+    </div>
+  </div>
+
+  <div class="quiz" id="quiz-section" style="display:none">
+    <div class="quiz-title">📝 Quick Quiz — 5 Questions · Pass mark 4/5</div>
+    <div id="quiz-body"></div>
+    <button class="btn btn-primary" id="submit-btn" disabled>Submit Quiz</button>
+    <div class="quiz-result" id="quiz-result" style="display:none"></div>
+    <button class="btn btn-outline btn-sm" id="retry-btn" style="display:none;margin-top:.75rem">Try again</button>
+  </div>
 
 <!-- Prev / Next -->
   <div class="topic-nav">
@@ -148,31 +192,37 @@
 
 <script type="module">
   import { initNav } from '../../../js/nav.js';
-  import { onAuth, logout, markModuleComplete, getProgress } from '../../../js/firebase-config.js';
   import { initSidebar } from '../../../js/sidebar.js';
+  import { initQuiz } from '../../../js/quiz.js';
   initNav(3);
   initSidebar();
 
   const COURSE_ID = 'genai';
   const MODULE_ID = 'm-1-1';
-
-  onAuth(async user => {
-    if (user) {
-      const prog = await getProgress(user.uid, COURSE_ID, MODULE_ID);
-      if (prog?.completed) {
-        document.getElementById('mark-done-btn').style.display = 'none';
-        document.getElementById('done-msg').style.display = 'block';
-      }
-
-      document.getElementById('mark-done-btn').onclick = async () => {
-        await markModuleComplete(user.uid, COURSE_ID, MODULE_ID);
-        document.getElementById('mark-done-btn').style.display = 'none';
-        document.getElementById('done-msg').style.display = 'block';
-      };
-    }
-    // Content is always visible. Logged-out users simply won't see
-    // their completion status or be able to mark modules complete.
-  });
+  const PASS_MARK = 4;
+  const QUIZ = [
+    { q:"What is the key difference between Generative AI and earlier discriminative AI such as a spam filter?",
+      options:["Generative AI only works with images","Generative AI produces new content; discriminative AI classifies or predicts","Discriminative AI is always more accurate","Generative AI does not need training data"],
+      answer:1,
+      explanation:"A spam filter decides between categories (spam or not). Generative AI creates something new — text, code or images — that did not exist before." },
+    { q:"During training, what is the one core task an LLM learns?",
+      options:["Searching the internet for answers","Storing every document word for word","Translating text into numbers only","Predicting the next token in a piece of text"],
+      answer:3,
+      explanation:"An LLM learns to predict the next token. Doing this at massive scale is what lets it write, summarise and answer questions." },
+    { q:"You ask the same question in two new chats and get slightly different answers. Why?",
+      options:["The model searched different websites","The model samples from the most likely next tokens with some controlled randomness","The model forgot its training","Your internet connection changed"],
+      answer:1,
+      explanation:"In the sampling step the model picks from the top options rather than always the single most likely token, so outputs vary." },
+    { q:"An app says it \"remembers\" you across chats. What is actually happening?",
+      options:["The model retrains itself on each of your messages","The model has a built-in human-like memory","The app saves notes about you and adds them to future conversations","Nothing — no app can do this"],
+      answer:2,
+      explanation:"The model only sees what is in its context window. A memory feature is the app storing information and feeding it back in." },
+    { q:"Why can an LLM state something false with complete confidence?",
+      options:["It is programmed to mislead users","It only works offline","It copies answers from other users","It generates the most likely-sounding answer, not a checked fact"],
+      answer:3,
+      explanation:"Prediction is not verification. A fluent, confident answer can still be wrong — which is why important facts must be checked." }
+  ];
+  initQuiz({ courseId: COURSE_ID, moduleId: MODULE_ID, passMark: PASS_MARK, questions: QUIZ });
 </script>
 </body>
 </html>
