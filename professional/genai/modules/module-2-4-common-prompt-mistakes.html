@@ -48,11 +48,9 @@
 
   <!-- FULL LESSON — visible to everyone, including search engines -->
   <div class="lesson">
-</p>
-</p>
 <p>This is the final module of Module 2 — and the most practical one. You now have three modules of prompt engineering theory behind you. This module is about what goes wrong when you apply it, and how to fix it fast.</p>
 
-<p>Every prompt that fails does so for a diagnosable reason. Once you learn to recognise the patterns, you will spend less time rewriting prompts from scratch and more time refining them precisely. The 10 mistakes in this module account for the vast majority of poor AI outputs that Indian students and IT professionals experience.</p>
+<p>Every prompt that fails does so for a diagnosable reason. Once you learn to recognise the patterns, you will spend less time rewriting prompts from scratch and more time refining them precisely. The 10 mistakes in this sub-module are among the most common reasons for poor AI outputs.</p>
 
 <hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
 
@@ -171,6 +169,7 @@ Task: Draft what I should say when asking my manager for a raise.</div>
 
 <h2>Quick diagnosis guide — what symptom means what</h2>
 
+<div style="overflow-x:auto">
 <table>
   <thead><tr><th>Symptom</th><th>Likely mistake</th><th>Fix</th></tr></thead>
   <tbody>
@@ -182,6 +181,7 @@ Task: Draft what I should say when asking my manager for a raise.</div>
     <tr><td>Output contradicts something from earlier in the chat</td><td>Outdated context in a long conversation</td><td>Explicitly state what has changed</td></tr>
   </tbody>
 </table>
+</div>
 <hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
 
 <h2>The pre-submit prompt checklist</h2>
@@ -191,13 +191,13 @@ Task: Draft what I should say when asking my manager for a raise.</div>
 <div class="box box-tip">
   <strong>Before you submit any prompt, check:</strong>
   <ul style="margin-top:.5rem;margin-bottom:0">
-    <li>Does it have a clear task verb? (explain, write, compare, summarise...)</li>
-    <li>Have I said who the output is for?</li>
-    <li>Have I given the context the model needs for my specific situation?</li>
-    <li>Have I specified the format and length?</li>
-    <li>Am I asking for one task, not several at once?</li>
-    <li>If this needs reasoning, have I asked for step-by-step thinking?</li>
-  </ul>
+<li>Does it have a clear task verb? (explain, write, compare, summarise...)</li>
+<li>Have I said who the output is for?</li>
+<li>Have I given the context the model needs for my specific situation?</li>
+<li>Have I specified the format and length?</li>
+<li>Am I asking for one task, not several at once?</li>
+<li>If this needs reasoning, have I asked for step-by-step thinking?</li>
+</ul>
 </div>
 <hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
 
@@ -206,50 +206,77 @@ Task: Draft what I should say when asking my manager for a raise.</div>
 <p>This is the last module of Module 2. Here is a quick summary of what you now know:</p>
 
 <ul>
-  <li><strong>2.1</strong> — every effective prompt combines some mix of Role, Task, Context, Format, Examples, and Constraints.</li>
-  <li><strong>2.2</strong> — zero-shot for simple tasks, few-shot to match a style, chain-of-thought for reasoning and trade-offs.</li>
-  <li><strong>2.3</strong> — different tools have different prompting quirks worth knowing.</li>
-  <li><strong>2.4</strong> — most bad outputs trace back to one of ten diagnosable mistakes, all fixable with a small, specific addition to the prompt.</li>
+<li><strong>2.1</strong> — every effective prompt combines some mix of Role, Task, Context, Format, Examples, and Constraints.</li>
+<li><strong>2.2</strong> — zero-shot for simple tasks, few-shot to match a style, chain-of-thought for reasoning and trade-offs.</li>
+<li><strong>2.3</strong> — different tools have different prompting quirks worth knowing.</li>
+<li><strong>2.4</strong> — most bad outputs trace back to one of ten diagnosable mistakes, all fixable with a small, specific addition to the prompt.</li>
 </ul>
-<p>Unit 3 is where all of this becomes practical for your actual job. You will apply these techniques to real developer, analyst, and manager workflows — with specific examples from Indian IT contexts.</p>
+<p>Module 3 is where all of this becomes practical for your actual job. You will apply these techniques to real developer, analyst, and manager workflows — with specific examples from Indian IT contexts.</p>
 
 <hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
 
 <h2>The three things to remember</h2>
 
-</p>
-<p>    <ul><li><strong>Bad output is a specification problem, not an AI problem</strong> — every poor output has a diagnosable missing component. Use the symptom-to-fix diagnosis guide to identify it and the pre-submit checklist to prevent it.</li></ul></p>
-<p>    <ul><li><strong>First outputs are starting points</strong> — one targeted follow-up prompt improves output quality by 30–40%. Accepting first outputs is the most common mistake experienced users make.</li></ul></p>
-<p>    <ul><li><strong>Use a two-pass approach for anything important</strong> — generate first, then use a separate prompt to verify. Ask the model to check its own output against specific criteria. It catches its own mistakes well when asked explicitly.</li></ul></p>
+<ul>
+<li><strong>Bad output is a specification problem, not an AI problem</strong> — every poor output has a diagnosable missing component. Use the symptom-to-fix diagnosis guide to identify it and the pre-submit checklist to prevent it.</li>
+<li><strong>First outputs are starting points</strong> — one targeted follow-up prompt often improves the result noticeably. Accepting first outputs is the most common mistake experienced users make.</li>
+<li><strong>Use a two-pass approach for anything important</strong> — generate first, then use a separate prompt to verify. Ask the model to check its own output against specific criteria. It catches its own mistakes well when asked explicitly.</li>
+</ul>
+
 <hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
 
-</p>
-<p>  <p>This is the Unit 2 capstone assignment. It applies everything from all four modules.</p></p>
-<p>    <ul><li><strong>Find 3 prompts you have written in the past</strong> that gave you a disappointing output — or write 3 new weak prompts from scratch. Use real tasks you actually need to complete.</li></ul></p>
-<p>    <ul><li><strong>Diagnose each prompt</strong> using the symptom-to-fix guide in this module. Identify exactly which component was missing or wrong.</li></ul></p>
-<p>    <ul><li><strong>Rewrite each prompt</strong> applying the full Unit 2 toolkit:</p>
-<p>      <ul></p>
-<p>        <li>Six components from Module 2.1 — role, task, context, format, examples, constraints</li></ul></p>
-<p>        <ul><li>Correct technique from Module 2.2 — zero-shot, few-shot, or CoT as appropriate</li></ul></p>
-<p>        <ul><li>Role and audience from Module 2.3 if relevant</li></ul></p>
-<p>      </ul></p>
-<p>    </li></p>
-<p>    <ul><li><strong>Test each rewritten prompt</strong> and note the output quality difference.</li></ul></p>
-<p>    <ul><li><strong>Add these to your AI Learning Journal</strong> under "Prompt Rewrites — Unit 2" with a one-line note on what the most impactful change was for each.</li></ul></p>
-<p>  <p>When you complete this assignment, you have finished Unit 2. You now have the core prompt engineering skills needed for Unit 3 — where you will apply these techniques directly to developer, analyst, and manager workflows in Indian IT contexts.</p></p>
+<h2>Practice (optional)</h2>
 
-</p>
+<p>This is the Module 2 capstone practice. It applies everything from all four sub-modules.</p>
+
+<ul>
+  <li><strong>Collect three weak prompts</strong> — prompts you have written that gave a disappointing output, or three new weak prompts for real tasks you need to complete.</li>
+  <li><strong>Diagnose each one</strong> with the symptom-to-fix guide in this sub-module. Identify exactly which component was missing or wrong.</li>
+  <li><strong>Rewrite each prompt</strong> with the full Module 2 toolkit:
+    <ul>
+      <li>Six components from Module 2.1 — role, task, context, format, examples, constraints</li>
+      <li>The right technique from Module 2.2 — zero-shot, few-shot or chain-of-thought</li>
+      <li>Role and audience from Module 2.3, if relevant</li>
+    </ul>
+  </li>
+  <li><strong>Test each rewrite</strong> and note the difference in output quality.</li>
+  <li><strong>Save them in your AI Learning Journal</strong> under "Module 2 — Prompt Rewrites", with a one-line note on the most useful change for each.</li>
+</ul>
+
+<p>When you finish, you have the core prompt engineering skills needed for Module 3 — where you will apply them to developer, analyst and manager work.</p>
+
 <!-- Assignment -->
     <div style="background:#fffbeb;border:1px solid #fcd34d;border-radius:var(--radius-lg);padding:1.25rem 1.5rem;margin-top:2rem">
       <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.75rem">
         <span style="font-size:1.1rem">✏️</span>
-        <span style="font-weight:700;color:#92400e">Assignment 2.4</span>
+        <span style="font-weight:700;color:#92400e">Save your practice</span>
       </div>
-      <p style="color:#78350f;font-size:.9rem">Complete the practical assignment for this module to reinforce your learning. Mark this module as complete when done.</p>
-      <button class="btn btn-success btn-sm" id="mark-done-btn" style="margin-top:.75rem">✅ Mark as Complete</button>
-      <div id="done-msg" style="display:none;color:var(--success);font-size:.88rem;margin-top:.5rem;font-weight:600">✅ Module completed! Great work.</div>
+      <p style="color:#78350f;font-size:.9rem">Complete the practice tasks above and save them in your AI Learning Journal — you will use them in the Final Project.</p>
     </div>
   </div><!-- end lesson -->
+
+  <div id="gate-section">
+    <div class="gate">
+      <div class="gate-blur"><div class="quiz"><div class="quiz-title">📝 Quick Quiz — 5 Questions</div></div></div>
+      <div class="gate-overlay"><div class="gate-box">
+        <div class="lock">🔒</div>
+        <h3>Login to take the quiz</h3>
+        <p>Create a free account to take the quiz and track your progress. Pass with 4 out of 5 to complete this sub-module.</p>
+        <div class="gate-btns">
+          <a href="../../../login.html" class="btn btn-primary btn-sm">Login</a>
+          <a href="../../../login.html" class="btn btn-outline btn-sm">Register Free</a>
+        </div>
+      </div></div>
+    </div>
+  </div>
+
+  <div class="quiz" id="quiz-section" style="display:none">
+    <div class="quiz-title">📝 Quick Quiz — 5 Questions · Pass mark 4/5</div>
+    <div id="quiz-body"></div>
+    <button class="btn btn-primary" id="submit-btn" disabled>Submit Quiz</button>
+    <div class="quiz-result" id="quiz-result" style="display:none"></div>
+    <button class="btn btn-outline btn-sm" id="retry-btn" style="display:none;margin-top:.75rem">Try again</button>
+  </div>
 
 <!-- Prev / Next -->
   <div class="topic-nav">
@@ -262,31 +289,37 @@ Task: Draft what I should say when asking my manager for a raise.</div>
 
 <script type="module">
   import { initNav } from '../../../js/nav.js';
-  import { onAuth, logout, markModuleComplete, getProgress } from '../../../js/firebase-config.js';
   import { initSidebar } from '../../../js/sidebar.js';
+  import { initQuiz } from '../../../js/quiz.js';
   initNav(3);
   initSidebar();
 
   const COURSE_ID = 'genai';
   const MODULE_ID = 'm-2-4';
-
-  onAuth(async user => {
-    if (user) {
-      const prog = await getProgress(user.uid, COURSE_ID, MODULE_ID);
-      if (prog?.completed) {
-        document.getElementById('mark-done-btn').style.display = 'none';
-        document.getElementById('done-msg').style.display = 'block';
-      }
-
-      document.getElementById('mark-done-btn').onclick = async () => {
-        await markModuleComplete(user.uid, COURSE_ID, MODULE_ID);
-        document.getElementById('mark-done-btn').style.display = 'none';
-        document.getElementById('done-msg').style.display = 'block';
-      };
-    }
-    // Content is always visible. Logged-out users simply won't see
-    // their completion status or be able to mark modules complete.
-  });
+  const PASS_MARK = 4;
+  const QUIZ = [
+    { q:"\"Write my resume summary, suggest interview questions, and explain what a data lake is.\" What is the main mistake?",
+      options:["No audience","Multiple tasks in one prompt","Wrong technique","Generic domain language"],
+      answer:1,
+      explanation:"Stacking unrelated tasks splits the model's attention. Split them into separate prompts." },
+    { q:"The output contradicts something you said earlier in a long chat after your plans changed. What is the fix?",
+      options:["Start shouting in capital letters","Switch AI tools","Explicitly state what has changed, or start a fresh chat with the current facts","Ask the same question again"],
+      answer:2,
+      explanation:"Mistake 10: outdated context. Tell the model what changed so it stops using old facts." },
+    { q:"What is the \"two-pass\" approach recommended for anything important?",
+      options:["Generate first, then use a separate prompt to check the output against specific criteria","Ask two different people","Write the prompt twice","Use two AI tools at the same time"],
+      answer:0,
+      explanation:"Separating generation from verification is an easy safety check (Mistake 7)." },
+    { q:"The output jumps straight to an answer on a multi-step budgeting problem. What does the diagnosis guide suggest?",
+      options:["Add more examples","Shorten the prompt","Add a persona","Use the right technique — ask the model to think step by step"],
+      answer:3,
+      explanation:"Reasoning tasks need chain-of-thought; plain zero-shot can skip the working (Mistake 8)." },
+    { q:"How should you treat the first output the model gives you?",
+      options:["As the final answer","As a starting point — one targeted follow-up prompt often improves it","As always wrong","As something to delete"],
+      answer:1,
+      explanation:"Mistake 6: accepting the first output. A precise follow-up is often the highest-value next step." }
+  ];
+  initQuiz({ courseId: COURSE_ID, moduleId: MODULE_ID, passMark: PASS_MARK, questions: QUIZ });
 </script>
 </body>
 </html>

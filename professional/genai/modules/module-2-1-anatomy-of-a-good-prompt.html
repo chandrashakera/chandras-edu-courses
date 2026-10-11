@@ -48,9 +48,7 @@
 
   <!-- FULL LESSON — visible to everyone, including search engines -->
   <div class="lesson">
-</p>
-</p>
-<p>Welcome to Module 2. In Unit 1 you built a mental model of what GenAI is and where it fails. Now you start using it effectively.</p>
+<p>Welcome to Module 2. In Module 1 you built a mental model of what GenAI is and where it fails. Now you start using it effectively.</p>
 
 <p>This module teaches the single most important practical skill in this course: how to write a prompt that actually gets what you want. Most people who are disappointed with AI outputs are not using a bad tool — they are writing bad prompts. The model is only as good as the instructions you give it.</p>
 
@@ -76,6 +74,7 @@
 
 <p>Every effective prompt is built from some combination of these six components. You do not need all six every time — but knowing each one lets you diagnose why a prompt is failing and fix it.</p>
 
+<div style="overflow-x:auto">
 <table>
   <thead><tr><th>Component</th><th>What it does</th><th>Example</th></tr></thead>
   <tbody>
@@ -87,6 +86,7 @@
     <tr><td><strong>Constraints</strong></td><td>What to avoid or limits to respect</td><td>"Do not use technical jargon."</td></tr>
   </tbody>
 </table>
+</div>
 <p>You rarely need all six at once. Start with Task, add Context and Format first — those three fix most weak prompts on their own.</p>
 <hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
 
@@ -116,10 +116,10 @@ Constraints: Keep the whole plan under 300 words. Do not include generic "be con
 <h2>The most common prompt mistakes — and how to fix them</h2>
 
 <ul>
-  <li><strong>Too vague</strong> — no clear task verb or outcome.</li>
-  <li><strong>No audience</strong> — the model does not know who will read the output.</li>
-  <li><strong>Missing context</strong> — no background on your actual situation.</li>
-  <li><strong>No format</strong> — length, structure, and layout left undefined.</li>
+<li><strong>Too vague</strong> — no clear task verb or outcome.</li>
+<li><strong>No audience</strong> — the model does not know who will read the output.</li>
+<li><strong>Missing context</strong> — no background on your actual situation.</li>
+<li><strong>No format</strong> — length, structure, and layout left undefined.</li>
 </ul>
 <p>Module 2.4 covers all ten of these mistakes — and their fixes — in detail.</p>
 <hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
@@ -129,9 +129,9 @@ Constraints: Keep the whole plan under 300 words. Do not include generic "be con
 <p>Different tools respond slightly differently to the same prompt structure. Here is what to know:</p>
 
 <ul>
-  <li><strong>ChatGPT</strong> — responds well to numbered instructions; if it skips part of a long prompt, repeat that part as a short separate sentence at the end.</li>
-  <li><strong>Claude</strong> — handles long, detailed prompts well; you can paste a whole document as context without it losing track of your instructions.</li>
-  <li><strong>Gemini</strong> — say explicitly if you want it to search the web for current information, otherwise it may answer from training data alone.</li>
+<li><strong>ChatGPT</strong> — responds well to numbered instructions; if it skips part of a long prompt, repeat that part as a short separate sentence at the end.</li>
+<li><strong>Claude</strong> — handles long, detailed prompts well; you can paste a whole document as context without it losing track of your instructions.</li>
+<li><strong>Gemini</strong> — say explicitly if you want it to search the web for current information, otherwise it may answer from training data alone.</li>
 </ul>
 <hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
 
@@ -140,12 +140,12 @@ Constraints: Keep the whole plan under 300 words. Do not include generic "be con
 <p>Writing a good prompt is rarely a one-shot activity — it is an iterative loop. Here is the workflow that experienced prompt engineers use:</p>
 
 <ol>
-  <li><strong>Write</strong> — draft your prompt using as many of the six components as the task needs.</li>
-  <li><strong>Test</strong> — run it and read the output carefully, not just skim it.</li>
-  <li><strong>Diagnose</strong> — if something is missing or wrong, identify which component caused it.</li>
-  <li><strong>Refine</strong> — add or fix only that component, then test again.</li>
+<li><strong>Write</strong> — draft your prompt using as many of the six components as the task needs.</li>
+<li><strong>Test</strong> — run it and read the output carefully, not just skim it.</li>
+<li><strong>Diagnose</strong> — if something is missing or wrong, identify which component caused it.</li>
+<li><strong>Refine</strong> — add or fix only that component, then test again.</li>
 </ol>
-<p>Most prompts need 2–3 iterations to reach high quality. This is not a failure — it is the normal workflow. Each iteration teaches you something about what the model needs from you, and over time your first-draft prompts improve because you have internalised what "missing components" look like.</p>
+<p>Most prompts need a few rounds of refinement to reach high quality. This is not a failure — it is the normal workflow. Each iteration teaches you something about what the model needs from you, and over time your first-draft prompts improve because you have internalised what "missing components" look like.</p>
 
 <hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
 
@@ -168,35 +168,63 @@ Constraints: [anything to avoid or limits to respect]</div>
 
 <h2>The three things to remember</h2>
 
-</p>
-<p>    <ul><li><strong>A prompt is a specification, not a question</strong> — the more precisely you define role, task, context, format, examples, and constraints, the better the output. Vague prompts produce vague results.</li></ul></p>
-<p>    <ul><li><strong>The six components are your diagnostic toolkit</strong> — when a prompt gives a bad output, check which component is missing. Adding the missing piece is almost always faster than rewriting the prompt from scratch.</li></ul></p>
-<p>    <ul><li><strong>Refinement is the workflow, not a fallback</strong> — professional prompt engineers iterate 2–3 times per task. Accepting the first output and blaming the tool is the most common mistake beginners make.</li></ul></p>
+<ul>
+<li><strong>A prompt is a specification, not a question</strong> — the more precisely you define role, task, context, format, examples, and constraints, the better the output. Vague prompts produce vague results.</li>
+<li><strong>The six components are your diagnostic toolkit</strong> — when a prompt gives a bad output, check which component is missing. Adding the missing piece is almost always faster than rewriting the prompt from scratch.</li>
+<li><strong>Refinement is the workflow, not a fallback</strong> — experienced users usually refine a prompt more than once. Accepting the first output and blaming the tool is the most common mistake beginners make.</li>
+</ul>
+
 <hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
 
-</p>
-<p>  <p>This is the core skill-building exercise for Unit 2. Each rewrite should take 5–10 minutes.</p></p>
-<p>    <ul><li><strong>Take these three weak prompts</strong> and rewrite each one using the six-component structure:</p>
-<p>      <ul></p>
-<p>        <li><code>explain data structures</code></li></ul></p>
-<p>        <ul><li><code>write a LinkedIn post about my project</code></li></ul></p>
-<p>        <ul><li><code>how do I get a job in AI</code></li></ul></p>
-<p>      </ul></p>
-<p>    </li></p>
-<p>    <ul><li><strong>For each rewrite</strong>, explicitly label which components you used — Role, Task, Context, Format, Examples, Constraints. Not all six are required, but you should consciously choose which ones to include and why.</li></ul></p>
-<p>    <ul><li><strong>Test your rewritten prompts</strong> in ChatGPT, Claude, or Gemini (free tier). Compare the output quality to what th
+<h2>Practice (optional)</h2>
+
+<p>This is the core skill-building exercise for Module 2. Each rewrite should take 5–10 minutes.</p>
+
+<ul>
+  <li><strong>Rewrite three weak prompts</strong> using the six-component structure:
+    <ul>
+      <li><code>explain data structures</code></li>
+      <li><code>write a LinkedIn post about my project</code></li>
+      <li><code>how do I get a job in AI</code></li>
+    </ul>
+  </li>
+  <li><strong>Label the components</strong> you used in each rewrite — Role, Task, Context, Format, Examples, Constraints. Not all six are required; choose consciously.</li>
+  <li><strong>Test and compare:</strong> run the weak and rewritten versions in ChatGPT, Claude or Gemini (free tier) and note what improved.</li>
+  <li><strong>Save your best rewrite</strong> in your AI Learning Journal under "Module 2.1 — Prompt Rewrites."</li>
+</ul>
 
     <!-- Assignment -->
     <div style="background:#fffbeb;border:1px solid #fcd34d;border-radius:var(--radius-lg);padding:1.25rem 1.5rem;margin-top:2rem">
       <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.75rem">
         <span style="font-size:1.1rem">✏️</span>
-        <span style="font-weight:700;color:#92400e">Assignment 2.1</span>
+        <span style="font-weight:700;color:#92400e">Save your practice</span>
       </div>
-      <p style="color:#78350f;font-size:.9rem">Complete the practical assignment for this module to reinforce your learning. Mark this module as complete when done.</p>
-      <button class="btn btn-success btn-sm" id="mark-done-btn" style="margin-top:.75rem">✅ Mark as Complete</button>
-      <div id="done-msg" style="display:none;color:var(--success);font-size:.88rem;margin-top:.5rem;font-weight:600">✅ Module completed! Great work.</div>
+      <p style="color:#78350f;font-size:.9rem">Complete the practice tasks above and save them in your AI Learning Journal — you will use them in the Final Project.</p>
     </div>
   </div><!-- end lesson -->
+
+  <div id="gate-section">
+    <div class="gate">
+      <div class="gate-blur"><div class="quiz"><div class="quiz-title">📝 Quick Quiz — 5 Questions</div></div></div>
+      <div class="gate-overlay"><div class="gate-box">
+        <div class="lock">🔒</div>
+        <h3>Login to take the quiz</h3>
+        <p>Create a free account to take the quiz and track your progress. Pass with 4 out of 5 to complete this sub-module.</p>
+        <div class="gate-btns">
+          <a href="../../../login.html" class="btn btn-primary btn-sm">Login</a>
+          <a href="../../../login.html" class="btn btn-outline btn-sm">Register Free</a>
+        </div>
+      </div></div>
+    </div>
+  </div>
+
+  <div class="quiz" id="quiz-section" style="display:none">
+    <div class="quiz-title">📝 Quick Quiz — 5 Questions · Pass mark 4/5</div>
+    <div id="quiz-body"></div>
+    <button class="btn btn-primary" id="submit-btn" disabled>Submit Quiz</button>
+    <div class="quiz-result" id="quiz-result" style="display:none"></div>
+    <button class="btn btn-outline btn-sm" id="retry-btn" style="display:none;margin-top:.75rem">Try again</button>
+  </div>
 
 <!-- Prev / Next -->
   <div class="topic-nav">
@@ -209,31 +237,37 @@ Constraints: [anything to avoid or limits to respect]</div>
 
 <script type="module">
   import { initNav } from '../../../js/nav.js';
-  import { onAuth, logout, markModuleComplete, getProgress } from '../../../js/firebase-config.js';
   import { initSidebar } from '../../../js/sidebar.js';
+  import { initQuiz } from '../../../js/quiz.js';
   initNav(3);
   initSidebar();
 
   const COURSE_ID = 'genai';
   const MODULE_ID = 'm-2-1';
-
-  onAuth(async user => {
-    if (user) {
-      const prog = await getProgress(user.uid, COURSE_ID, MODULE_ID);
-      if (prog?.completed) {
-        document.getElementById('mark-done-btn').style.display = 'none';
-        document.getElementById('done-msg').style.display = 'block';
-      }
-
-      document.getElementById('mark-done-btn').onclick = async () => {
-        await markModuleComplete(user.uid, COURSE_ID, MODULE_ID);
-        document.getElementById('mark-done-btn').style.display = 'none';
-        document.getElementById('done-msg').style.display = 'block';
-      };
-    }
-    // Content is always visible. Logged-out users simply won't see
-    // their completion status or be able to mark modules complete.
-  });
+  const PASS_MARK = 4;
+  const QUIZ = [
+    { q:"A prompt gives a generic answer that could apply to anyone. Which component is most likely missing?",
+      options:["Format","Context","Examples","Constraints"],
+      answer:1,
+      explanation:"Without context about your specific situation, the model can only give a generic answer." },
+    { q:"Which list matches the six components of a well-structured prompt?",
+      options:["Role, Task, Context, Format, Examples, Constraints","Topic, Length, Tone, Style, Grammar, Spelling","Question, Answer, Source, Date, Author, Link","Input, Output, Model, Token, Temperature, Context"],
+      answer:0,
+      explanation:"The six components are Role, Task, Context, Format, Examples and Constraints. Not every prompt needs all six." },
+    { q:"\"Under 100 words, as a bulleted list\" is an example of which component?",
+      options:["Role","Context","Format","Examples"],
+      answer:2,
+      explanation:"Format covers length, structure and layout of the output." },
+    { q:"Your prompt's output is the wrong length. What does the prompt improvement loop tell you to do?",
+      options:["Rewrite the whole prompt from scratch","Switch to a different AI tool","Give up and write it yourself","Diagnose which component caused it, fix only that component, and test again"],
+      answer:3,
+      explanation:"Write → Test → Diagnose → Refine. Fixing the missing component is usually faster than starting over." },
+    { q:"What does it mean to treat a prompt as a specification?",
+      options:["Make it as short as possible","Define precisely what you want — role, task, context, format, examples, constraints — so the output matches your need","Use technical words only","Always ask a question instead of giving an instruction"],
+      answer:1,
+      explanation:"The more precisely you specify what you want, the better and more usable the output." }
+  ];
+  initQuiz({ courseId: COURSE_ID, moduleId: MODULE_ID, passMark: PASS_MARK, questions: QUIZ });
 </script>
 </body>
 </html>

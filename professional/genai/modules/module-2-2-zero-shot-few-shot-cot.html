@@ -48,8 +48,6 @@
 
   <!-- FULL LESSON — visible to everyone, including search engines -->
   <div class="lesson">
-</p>
-</p>
 <p>In Module 2.1 you learned the six components of a well-structured prompt. This module teaches three specific techniques that sit on top of that foundation — the highest-impact methods professional prompt engineers use every day.</p>
 
 <p>These are not advanced or theoretical. They are practical patterns you can start using in your next AI session. By the end of this module you will know exactly when to use each technique and how to combine them.</p>
@@ -58,6 +56,7 @@
 
 <h2>The three techniques — quick overview</h2>
 
+<div style="overflow-x:auto">
 <table>
   <thead><tr><th>Technique</th><th>What it means</th></tr></thead>
   <tbody>
@@ -66,6 +65,7 @@
     <tr><td><strong>Chain-of-thought (CoT)</strong></td><td>Ask the model to reason step by step before giving a final answer.</td></tr>
   </tbody>
 </table>
+</div>
 <hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
 
 <h2>Technique 1 — Zero-Shot Prompting</h2>
@@ -148,7 +148,7 @@ Now answer in the same Q/A format with a "why it matters" line: What is a micros
   <span class="prompt-label">CoT — a career decision</span>
   <div class="prompt-text">I have two job offers: one at a stable 8 LPA role at an MNC in Bangalore, another at a 10 LPA startup role in Pune with less job security. I have family expectations around financial stability. Think through the trade-offs step by step — income, stability, growth, location, and family expectations — before giving me a recommendation.</div>
 </div>
-<p>      "Think through this step by step" is the simplest CoT trigger. Without it, the model often jumps to a number directly — and gets it wrong. With it, the model works out the rates (1/6 + 1/4 + 1/12 = 2/12 + 3/12 + 1/12 = 6/12 = 1/2 per day → 2 days), shows the working, and arrives at the correct answer.</p>
+<p>      "Think through this step by step" is the simplest CoT trigger. Without it, the model often jumps to a number directly — and gets it wrong. With it, the model works out the rates (1/6 + 1/4 + 1/12 = 2/12 + 3/12 + 1/12 = 6/12 = 1/2 of the tank per hour → 2 hours), shows the working, and arrives at the correct answer.</p>
 <p>      The numbered steps force the model to evaluate each dimension before concluding. Without this, the model typically jumps to "use AWS" based on training patterns — missing the budget and team-size constraints entirely. The explicit "do not give the recommendation until..." instruction prevents premature conclusions.</p>
 <p>      Career decisions with Indian-specific context (LPA, city preferences, family expectations around stability vs startup risk) benefit enormously from CoT. The model considers multiple dimensions before concluding — giving you a genuinely reasoned answer, not just "follow your passion."</p>
 <hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
@@ -172,6 +172,7 @@ Before giving your final recommendation, reason through income, stability, growt
 
 <h2>When to use which technique</h2>
 
+<div style="overflow-x:auto">
 <table>
   <thead><tr><th>Use this technique</th><th>When</th></tr></thead>
   <tbody>
@@ -180,10 +181,12 @@ Before giving your final recommendation, reason through income, stability, growt
     <tr><td><strong>Chain-of-thought</strong></td><td>The task involves multiple steps, trade-offs, or reasoning — maths, architecture decisions, analysis, recommendations.</td></tr>
   </tbody>
 </table>
+</div>
 <hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
 
 <h2>Quick reference — technique comparison</h2>
 
+<div style="overflow-x:auto">
 <table>
   <thead><tr><th>Technique</th><th>When to use</th><th>Example use case</th><th>Output improvement</th></tr></thead>
   <tbody>
@@ -192,36 +195,70 @@ Before giving your final recommendation, reason through income, stability, growt
     <tr><td>Chain-of-thought</td><td>Multi-step reasoning or trade-offs</td><td>Choosing between two job offers</td><td>Fewer shallow or wrong answers</td></tr>
   </tbody>
 </table>
+</div>
 <hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
 
 <h2>Tool-specific notes for 2026</h2>
 
 <ul>
-  <li><strong>ChatGPT</strong> — responds well to direct, explicit step-by-step instructions.</li>
-  <li><strong>Claude</strong> — responds well to detailed, clearly structured prompts, including step-by-step requests.</li>
-  <li><strong>Gemini</strong> — few-shot examples work well, especially when combined with content you have shared directly in the chat.</li>
+<li><strong>ChatGPT</strong> — responds well to direct, explicit step-by-step instructions.</li>
+<li><strong>Claude</strong> — responds well to detailed, clearly structured prompts, including step-by-step requests.</li>
+<li><strong>Gemini</strong> — few-shot examples work well, especially when combined with content you have shared directly in the chat.</li>
 </ul>
 <p>In general: newer reasoning-focused models often work through steps on their own, so explicit "think step by step" instructions matter less than they used to — but they rarely hurt.</p>
 <hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
 
 <h2>The three things to remember</h2>
 
-</p>
-<p>    <ul><li><strong>Zero-shot first, always</strong> — most well-structured prompts work without examples. Only add examples (few-shot) or reasoning steps (CoT) when zero-shot output is not good enough. Adding complexity before it is needed slows you down.</li></ul></p>
-<p>    <ul><li><strong>Few-shot is about style, not information</strong> — use it when you want the model to match a specific format, tone, or structure. One well-chosen example beats three paragraphs of format instructions every time.</li></ul></p>
-<p>    <ul><li><strong>Chain-of-thought prevents wrong answers on h
+<ul>
+<li><strong>Zero-shot first, always</strong> — most well-structured prompts work without examples. Only add examples (few-shot) or reasoning steps (CoT) when zero-shot output is not good enough. Adding complexity before it is needed slows you down.</li>
+<li><strong>Few-shot is about style, not information</strong> — use it when you want the model to match a specific format, tone, or structure. One well-chosen example beats three paragraphs of format instructions every time.</li>
+<li><strong>Chain-of-thought prevents wrong answers on hard problems</strong> — for maths, logic and multi-factor decisions, asking the model to reason step by step makes errors visible and less likely. Always check the final answer yourself.</li>
+</ul>
+
+<hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
+
+<h2>Practice (optional)</h2>
+
+<ul>
+  <li><strong>Zero-shot:</strong> write a zero-shot prompt for a short email you actually need to send, using a clear task, context and format.</li>
+  <li><strong>Few-shot:</strong> paste one or two examples of your own writing (a post, a report section) and ask for a new piece in the same style. Compare it with a zero-shot version.</li>
+  <li><strong>Chain-of-thought:</strong> give the pipes problem from this sub-module to a chat assistant twice — once with "Think through this step by step" and once without. Check both answers against the correct one (2 hours).</li>
+  <li><strong>Save the prompt that worked best</strong> in your AI Learning Journal under "Module 2.2 — Techniques."</li>
+</ul>
 
     <!-- Assignment -->
     <div style="background:#fffbeb;border:1px solid #fcd34d;border-radius:var(--radius-lg);padding:1.25rem 1.5rem;margin-top:2rem">
       <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.75rem">
         <span style="font-size:1.1rem">✏️</span>
-        <span style="font-weight:700;color:#92400e">Assignment 2.2</span>
+        <span style="font-weight:700;color:#92400e">Save your practice</span>
       </div>
-      <p style="color:#78350f;font-size:.9rem">Complete the practical assignment for this module to reinforce your learning. Mark this module as complete when done.</p>
-      <button class="btn btn-success btn-sm" id="mark-done-btn" style="margin-top:.75rem">✅ Mark as Complete</button>
-      <div id="done-msg" style="display:none;color:var(--success);font-size:.88rem;margin-top:.5rem;font-weight:600">✅ Module completed! Great work.</div>
+      <p style="color:#78350f;font-size:.9rem">Complete the practice tasks above and save them in your AI Learning Journal — you will use them in the Final Project.</p>
     </div>
   </div><!-- end lesson -->
+
+  <div id="gate-section">
+    <div class="gate">
+      <div class="gate-blur"><div class="quiz"><div class="quiz-title">📝 Quick Quiz — 5 Questions</div></div></div>
+      <div class="gate-overlay"><div class="gate-box">
+        <div class="lock">🔒</div>
+        <h3>Login to take the quiz</h3>
+        <p>Create a free account to take the quiz and track your progress. Pass with 4 out of 5 to complete this sub-module.</p>
+        <div class="gate-btns">
+          <a href="../../../login.html" class="btn btn-primary btn-sm">Login</a>
+          <a href="../../../login.html" class="btn btn-outline btn-sm">Register Free</a>
+        </div>
+      </div></div>
+    </div>
+  </div>
+
+  <div class="quiz" id="quiz-section" style="display:none">
+    <div class="quiz-title">📝 Quick Quiz — 5 Questions · Pass mark 4/5</div>
+    <div id="quiz-body"></div>
+    <button class="btn btn-primary" id="submit-btn" disabled>Submit Quiz</button>
+    <div class="quiz-result" id="quiz-result" style="display:none"></div>
+    <button class="btn btn-outline btn-sm" id="retry-btn" style="display:none;margin-top:.75rem">Try again</button>
+  </div>
 
 <!-- Prev / Next -->
   <div class="topic-nav">
@@ -234,31 +271,37 @@ Before giving your final recommendation, reason through income, stability, growt
 
 <script type="module">
   import { initNav } from '../../../js/nav.js';
-  import { onAuth, logout, markModuleComplete, getProgress } from '../../../js/firebase-config.js';
   import { initSidebar } from '../../../js/sidebar.js';
+  import { initQuiz } from '../../../js/quiz.js';
   initNav(3);
   initSidebar();
 
   const COURSE_ID = 'genai';
   const MODULE_ID = 'm-2-2';
-
-  onAuth(async user => {
-    if (user) {
-      const prog = await getProgress(user.uid, COURSE_ID, MODULE_ID);
-      if (prog?.completed) {
-        document.getElementById('mark-done-btn').style.display = 'none';
-        document.getElementById('done-msg').style.display = 'block';
-      }
-
-      document.getElementById('mark-done-btn').onclick = async () => {
-        await markModuleComplete(user.uid, COURSE_ID, MODULE_ID);
-        document.getElementById('mark-done-btn').style.display = 'none';
-        document.getElementById('done-msg').style.display = 'block';
-      };
-    }
-    // Content is always visible. Logged-out users simply won't see
-    // their completion status or be able to mark modules complete.
-  });
+  const PASS_MARK = 4;
+  const QUIZ = [
+    { q:"What does \"zero-shot\" prompting mean?",
+      options:["Asking for a task with no examples in the prompt","Asking the model to answer in zero words","A prompt that failed once","Giving exactly three examples"],
+      answer:0,
+      explanation:"Zero-shot means asking directly without examples. For most well-structured prompts, it is enough." },
+    { q:"You want a LinkedIn post that matches your own style. Which technique fits best?",
+      options:["Zero-shot with a long topic description","Chain-of-thought","Few-shot — include one or two of your past posts as examples","Role prompting alone"],
+      answer:2,
+      explanation:"Few-shot is about style and format: examples show the model the exact pattern to copy." },
+    { q:"Three pipes fill a tank in 6, 4 and 12 hours. Opened together, how long do they take?",
+      options:["2 days","22 hours","7.3 hours","2 hours"],
+      answer:3,
+      explanation:"1/6 + 1/4 + 1/12 = 6/12 = 1/2 of the tank per hour, so the tank fills in 2 hours." },
+    { q:"What is the simplest way to trigger chain-of-thought reasoning?",
+      options:["Add \"Think through this step by step\"","Write the prompt in capital letters","Ask the same question twice","Add a persona"],
+      answer:0,
+      explanation:"Asking for step-by-step reasoning makes the working visible and reduces jumps to wrong answers." },
+    { q:"Which order does this sub-module recommend?",
+      options:["Always start with chain-of-thought","Start with few-shot examples every time","Start zero-shot; add examples or step-by-step reasoning only if the output is not good enough","Use all three techniques in every prompt"],
+      answer:2,
+      explanation:"Zero-shot first. Add complexity only when it is needed." }
+  ];
+  initQuiz({ courseId: COURSE_ID, moduleId: MODULE_ID, passMark: PASS_MARK, questions: QUIZ });
 </script>
 </body>
 </html>
