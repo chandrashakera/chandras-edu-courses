@@ -80,7 +80,6 @@
     <div style="display:flex;gap:.75rem;flex-wrap:wrap">
       <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">⏱ 16 min read</span>
       <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📝 Quiz inside</span>
-      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📖 Mano, Ch. 5</span>
     </div>
   </div>
 
@@ -129,6 +128,7 @@ Output equation:      Y = Q</pre>
 
     <h2 id="State-Table">Step 2 — State Table</h2>
     <p>A state table lists every combination of present state and input, alongside the resulting next state and output — reading it straight off the equations above:</p>
+    <div style="overflow-x:auto">
     <table class="truth-table">
       <thead><tr><th>Present State (Q)</th><th>Input (X)</th><th>Next State (D)</th><th>Output (Y)</th></tr></thead>
       <tbody>
@@ -138,6 +138,7 @@ Output equation:      Y = Q</pre>
         <tr><td>1</td><td>1</td><td>0</td><td>1</td></tr>
       </tbody>
     </table>
+    </div>
     <p>Reading a row: "if the circuit is currently in state Q=0 and X=1 arrives, the next state becomes 1 (and while still in state Q=0, the output Y was 0)." Notice the output here depends only on the present state, not on X — that specific pattern (output = f(state) only) is called a <strong>Moore</strong> machine, one of the two standard sequential-circuit models covered in more depth later in this course.</p>
 
     <h2 id="State-Diagram">Step 3 — State Diagram</h2>

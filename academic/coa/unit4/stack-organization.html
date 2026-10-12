@@ -55,7 +55,7 @@
     <div style="display:flex;gap:.75rem;flex-wrap:wrap">
       <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">⏱ 18 min read</span>
       <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📝 Quiz inside</span>
-      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📖 Mano, Ch. 8 §8-3</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📌 Supplementary (beyond syllabus)</span>
     </div>
   </div>
 
@@ -168,6 +168,7 @@
     <h2>Reverse Polish Notation and Expression Evaluation</h2>
     <p>Infix notation places the operator between operands (A + B). <strong>Reverse Polish notation</strong> (RPN), also called postfix, places the operator after: AB+. RPN is ideally suited to stack evaluation — scan left to right; push each operand; when an operator is reached, pop the two top operands, apply the operator, and push the result. The final result remains on top of the stack.</p>
     <p>Example: evaluate (3 × 4) + (5 × 6). In RPN: <code>3 4 * 5 6 * +</code></p>
+    <div style="overflow-x:auto">
     <table class="truth-table">
       <thead><tr><th>Symbol</th><th>Stack (bottom → top)</th><th>Action</th></tr></thead>
       <tbody>
@@ -180,6 +181,7 @@
         <tr><td>+</td><td>42</td><td>Pop 30 and 12; push 12+30 = 42</td></tr>
       </tbody>
     </table>
+    </div>
     <p>Compilers routinely convert infix to RPN before generating machine code because it is the most efficient method for translating arithmetic into machine instructions.</p>
 
     <h2>Common Pitfalls</h2>

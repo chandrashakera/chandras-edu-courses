@@ -79,7 +79,6 @@
     <div style="display:flex;gap:.75rem;flex-wrap:wrap">
       <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">⏱ 16 min read</span>
       <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📝 Quiz inside</span>
-      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📖 Mano, Ch. 7</span>
     </div>
   </div>
 
@@ -143,6 +142,7 @@
     <p>The <strong>multiplexers</strong> select one of four address sources each cycle. The <strong>incrementer</strong> adds one to the CAR value; its output also feeds the SBR during a subroutine call. The <strong>subroutine register (SBR)</strong> saves the return address. The <strong>branch logic</strong> tests the status bit selected by CD and drives the MUX select lines. The <strong>mapping logic</strong> converts the machine-instruction opcode into a control memory starting address.</p>
 
     <h2>The BR Field and Four Sequencing Modes</h2>
+    <div style="overflow-x:auto">
     <table class="truth-table">
       <thead><tr><th>BR</th><th>Operation</th></tr></thead>
       <tbody>
@@ -152,6 +152,7 @@
         <tr><td>11</td><td>Call: SBR ← CAR + 1, CAR ← AD &nbsp;|&nbsp; Return: CAR ← SBR</td></tr>
       </tbody>
     </table>
+    </div>
     <p>When CD = 00 (condition U, always true), a BR = 01 branch is unconditional. The mapping logic is implemented with a PLD or a small ROM that transforms opcode bits into a control memory address. Nested subroutine calls require a hardware stack in the SBR, since one register can only save one return address.</p>
 
     <h2>Common Pitfalls</h2>

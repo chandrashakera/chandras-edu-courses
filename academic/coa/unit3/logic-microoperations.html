@@ -84,7 +84,6 @@
     <div style="display:flex;gap:.75rem;flex-wrap:wrap">
       <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">⏱ 16 min read</span>
       <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📝 Quiz inside</span>
-      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📖 Mano, Ch. 4</span>
     </div>
   </div>
 
@@ -93,6 +92,7 @@
     <p>Where an arithmetic micro-operation treats a register as one big number (with carries rippling between bit positions), a <strong>logic micro-operation</strong> treats it as a plain array of independent bits — each bit position is computed with no interaction with its neighbors at all. That independence is exactly what makes logic micro-operations useful for something arithmetic can't do cleanly: manipulating individual bits of a register on purpose.</p>
 
     <h2>The Four Basic Logic Micro-operations</h2>
+    <div style="overflow-x:auto">
     <table class="truth-table">
       <thead><tr><th>Operation</th><th>RTL Statement</th><th>Per-bit rule</th></tr></thead>
       <tbody>
@@ -102,9 +102,11 @@
         <tr><td>Complement</td><td>A ← A′</td><td>every bit flipped</td></tr>
       </tbody>
     </table>
+    </div>
 
     <h2>Selective Bit Manipulation with a Mask</h2>
     <p>Treat a second register B as a <strong>mask</strong> — a 1 in some bit position of B marks "touch this bit of A," a 0 means "leave it alone." Which logic operation you pick determines <em>what</em> happens to the marked bits:</p>
+    <div style="overflow-x:auto">
     <table class="truth-table">
       <thead><tr><th>Name</th><th>RTL</th><th>Effect on marked bits (where B=1)</th></tr></thead>
       <tbody>
@@ -114,7 +116,9 @@
         <tr><td>Mask (AND)</td><td>A ← A ∧ B</td><td>Kept as-is; unmarked bits (B=0) are forced to 0 instead</td></tr>
       </tbody>
     </table>
+    </div>
     <p>Worked example — A = 1010 1100, B = 0000 1111 used as the mask:</p>
+    <div style="overflow-x:auto">
     <table class="bit-table">
       <thead><tr><th></th><th>b7</th><th>b6</th><th>b5</th><th>b4</th><th>b3</th><th>b2</th><th>b1</th><th>b0</th></tr></thead>
       <tbody>
@@ -126,6 +130,7 @@
         <tr><td>Mask (A∧B)</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="hi">1</td><td class="hi">1</td><td class="hi">0</td><td class="hi">0</td></tr>
       </tbody>
     </table>
+    </div>
     <p>Only the four bits marked by B=1 (positions b3–b0, highlighted) are ever affected by selective-set/complement/clear — the unmarked bits (b7–b4) pass straight through unchanged in all three. Mask is the odd one out: it keeps A's marked bits but actively zeroes the unmarked ones, rather than leaving them alone.</p>
 
     <h3>Insert — Mask, Then Set</h3>

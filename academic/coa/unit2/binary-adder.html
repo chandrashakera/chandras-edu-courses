@@ -84,6 +84,7 @@
 
     <h2 id="Half-Adder">Half Adder</h2>
     <p>A <strong>half adder</strong> is the simplest possible adding circuit: it takes two single bits, A and B, and adds them — producing a <strong>sum</strong> bit S and a <strong>carry</strong> bit C.</p>
+    <div style="overflow-x:auto">
     <table>
       <thead><tr><th>A</th><th>B</th><th>S (Sum)</th><th>C (Carry)</th></tr></thead>
       <tbody>
@@ -93,6 +94,7 @@
         <tr><td>1</td><td>1</td><td>0</td><td>1</td></tr>
       </tbody>
     </table>
+    </div>
     <p style="text-align:center;font-size:1.1rem;font-weight:700;color:var(--primary);margin:1rem 0">S = A ⊕ B &nbsp;&nbsp; C = A · B</p>
     <p>Both equations can be read straight off the truth table — the sum column is exactly XOR, and the carry column is exactly AND. Here's a half adder built from those two gates:</p>
     <div style="text-align:center;margin:1.25rem 0">
@@ -122,6 +124,7 @@
 
     <h2 id="Full-Adder">Full Adder</h2>
     <p>A <strong>full adder</strong> fixes that gap: it adds <strong>three</strong> bits — A, B, and a carry-in <strong>Cᵢₙ</strong> from the previous, less significant position — producing a sum S and a carry-out <strong>Cₒᵤₜ</strong>. This extra Cᵢₙ input is what lets full adders be chained together.</p>
+    <div style="overflow-x:auto">
     <table>
       <thead><tr><th>A</th><th>B</th><th>Cᵢₙ</th><th>S</th><th>Cₒᵤₜ</th></tr></thead>
       <tbody>
@@ -135,6 +138,7 @@
         <tr><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td></tr>
       </tbody>
     </table>
+    </div>
     <p style="text-align:center;font-size:1.1rem;font-weight:700;color:var(--primary);margin:1rem 0">S = A ⊕ B ⊕ Cᵢₙ &nbsp;&nbsp; Cₒᵤₜ = AB + BCᵢₙ + ACᵢₙ</p>
     <p>The carry-out equation is worth remembering as a pattern rather than by rote: it's 1 whenever <strong>at least two of the three inputs are 1</strong> — this is called a "majority" function.</p>
     <p>The easiest way to build a full adder is to reuse two half adders plus one OR gate, instead of wiring the equations above from scratch:</p>
@@ -232,6 +236,7 @@
 
     <h3>Worked Example — 4-Bit Addition</h3>
     <p>Add A = 1001₂ (9) and B = 0110₂ (6), working right to left (bit 0 first) so each stage's carry-out becomes the next stage's carry-in:</p>
+    <div style="overflow-x:auto">
     <table>
       <thead><tr><th>Bit position</th><th>4</th><th>3</th><th>2</th><th>1</th><th>0</th></tr></thead>
       <tbody>
@@ -241,6 +246,7 @@
         <tr><td><strong>Result</strong></td><td><strong>0</strong></td><td><strong>1</strong></td><td><strong>1</strong></td><td><strong>1</strong></td><td><strong>1</strong></td></tr>
       </tbody>
     </table>
+    </div>
     <p>Reading the result row left to right (bit 4 down to bit 0) gives <strong>01111₂ = 15</strong>. Bit 4 is the final carry-out C₄ — here it's 0, meaning the answer fit in 4 bits with nothing left over. Check: 9 + 6 = 15. ✓</p>
 
     <div class="box box-tip">

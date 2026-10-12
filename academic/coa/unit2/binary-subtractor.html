@@ -84,6 +84,7 @@
 
     <h2 id="Half-Subtractor">Half Subtractor</h2>
     <p>A <strong>half subtractor</strong> takes two single bits — a <strong>minuend</strong> A and a <strong>subtrahend</strong> B — and computes A − B, producing a <strong>difference</strong> bit D and a <strong>borrow</strong> bit Bₒᵤₜ (a borrow of 1 means "this position couldn't subtract on its own, so it had to borrow from the next position").</p>
+    <div style="overflow-x:auto">
     <table>
       <thead><tr><th>A</th><th>B</th><th>D (Difference)</th><th>Bₒᵤₜ (Borrow)</th></tr></thead>
       <tbody>
@@ -93,6 +94,7 @@
         <tr><td>1</td><td>1</td><td>0</td><td>0</td></tr>
       </tbody>
     </table>
+    </div>
     <p style="text-align:center;font-size:1.1rem;font-weight:700;color:var(--primary);margin:1rem 0">D = A ⊕ B &nbsp;&nbsp; Bₒᵤₜ = A′B</p>
     <p>D is exactly XOR, same as a half adder's sum. Bₒᵤₜ is 1 only when A=0 and B=1 — the only row where a borrow is actually needed:</p>
     <div style="text-align:center;margin:1.25rem 0">
@@ -127,6 +129,7 @@
 
     <h2 id="Full-Subtractor">Full Subtractor</h2>
     <p>A <strong>full subtractor</strong> computes A − B for one bit position, given a <strong>borrow-in</strong> Bᵢₙ from the previous, less significant position. It produces a <strong>difference</strong> bit D and a <strong>borrow-out</strong> Bₒᵤₜ (a borrow-out of 1 means "this position couldn't subtract on its own, so it had to borrow from the next position").</p>
+    <div style="overflow-x:auto">
     <table>
       <thead><tr><th>A</th><th>B</th><th>Bᵢₙ</th><th>D</th><th>Bₒᵤₜ</th></tr></thead>
       <tbody>
@@ -140,6 +143,7 @@
         <tr><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td></tr>
       </tbody>
     </table>
+    </div>
     <p style="text-align:center;font-size:1.1rem;font-weight:700;color:var(--primary);margin:1rem 0">D = A ⊕ B ⊕ Bᵢₙ &nbsp;&nbsp; Bₒᵤₜ = A′B + A′Bᵢₙ + BBᵢₙ</p>
     <p>Notice that D is <em>exactly the same equation</em> as the full adder's sum from the previous page (S = A ⊕ B ⊕ Cᵢₙ) — XOR just outputs 1 when an odd number of its inputs are 1, whether you call those inputs "carry" or "borrow." The borrow equation is also similar to the adder's carry equation, just with A inverted.</p>
     <p>Just like the full adder, the easiest way to build a full subtractor is to reuse two half subtractors plus one OR gate:</p>
@@ -297,6 +301,7 @@
     <h3>Worked Example — Same Hardware, Both Operations</h3>
     <p>Let A = 1001₂ (9), B = 0101₂ (5).</p>
     <p><strong>M = 0 (add):</strong> B passes through unchanged.</p>
+    <div style="overflow-x:auto">
     <table>
       <thead><tr><th>Bit position</th><th>4</th><th>3</th><th>2</th><th>1</th><th>0</th></tr></thead>
       <tbody>
@@ -305,8 +310,10 @@
         <tr><td><strong>Result</strong></td><td><strong>0</strong></td><td><strong>1</strong></td><td><strong>1</strong></td><td><strong>1</strong></td><td><strong>0</strong></td></tr>
       </tbody>
     </table>
+    </div>
     <p>01110₂ = 14. Check: 9 + 5 = 14. ✓</p>
     <p><strong>M = 1 (subtract):</strong> every bit of B is inverted (0101 → 1010), and the carry-in to bit 0 is 1.</p>
+    <div style="overflow-x:auto">
     <table>
       <thead><tr><th>Bit position</th><th>4</th><th>3</th><th>2</th><th>1</th><th>0</th></tr></thead>
       <tbody>
@@ -315,6 +322,7 @@
         <tr><td><strong>Result</strong></td><td><strong>1</strong></td><td><strong>0</strong></td><td><strong>1</strong></td><td><strong>0</strong></td><td><strong>0</strong></td></tr>
       </tbody>
     </table>
+    </div>
     <p>10100₂ = 20. Bit 4 (the final carry-out) is <strong>discarded</strong> — it isn't extra information here, it's expected whenever A ≥ B and confirms the subtraction didn't need to borrow. Dropping it leaves 0100₂ = 4. Check: 9 − 5 = 4. ✓ Same four full adders, same four XOR gates, same wiring — only the single control bit M changed.</p>
 
     <h2>Common Pitfalls</h2>

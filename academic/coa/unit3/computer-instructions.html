@@ -81,7 +81,6 @@
     <div style="display:flex;gap:.75rem;flex-wrap:wrap">
       <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">⏱ 20 min read</span>
       <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📝 Quiz inside</span>
-      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📖 Mano, Ch. 5</span>
     </div>
   </div>
 
@@ -134,6 +133,7 @@
     <p>One bit position, one instruction — the control unit just needs to test <code>opcode=111 AND I' AND bit-N</code> to know exactly which register-reference instruction is executing, no arithmetic decoding required.</p>
 
     <h2>Memory-Reference Instructions (7)</h2>
+    <div style="overflow-x:auto">
     <table class="truth-table">
       <thead><tr><th>Symbol</th><th>Opcode</th><th>Description</th></tr></thead>
       <tbody>
@@ -146,9 +146,11 @@
         <tr><td>ISZ</td><td>110</td><td>Increment memory word; skip next instruction if the result is zero</td></tr>
       </tbody>
     </table>
+    </div>
 
     <h2>Register-Reference Instructions (12)</h2>
     <p>Opcode 111, I = 0. Each hex code is the full 16-bit word, since there's no separate address.</p>
+    <div style="overflow-x:auto">
     <table class="truth-table">
       <thead><tr><th>Symbol</th><th>Hex</th><th>Description</th></tr></thead>
       <tbody>
@@ -166,9 +168,11 @@
         <tr><td>HLT</td><td>7001</td><td>Halt — clear the S (start/stop) flip-flop</td></tr>
       </tbody>
     </table>
+    </div>
 
     <h2>Input-Output Instructions (6)</h2>
     <p>Opcode 111, I = 1.</p>
+    <div style="overflow-x:auto">
     <table class="truth-table">
       <thead><tr><th>Symbol</th><th>Hex</th><th>Description</th></tr></thead>
       <tbody>
@@ -180,6 +184,7 @@
         <tr><td>IOF</td><td>F040</td><td>Clear IEN — interrupts disabled</td></tr>
       </tbody>
     </table>
+    </div>
 
     <h2>Common Pitfalls</h2>
     <ul>

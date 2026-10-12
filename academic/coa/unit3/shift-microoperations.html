@@ -84,7 +84,6 @@
     <div style="display:flex;gap:.75rem;flex-wrap:wrap">
       <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">⏱ 16 min read</span>
       <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📝 Quiz inside</span>
-      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📖 Mano, Ch. 4</span>
     </div>
   </div>
 
@@ -94,6 +93,7 @@
 
     <h2>Logical Shift</h2>
     <p>The simplest case: a 0 always fills the vacated position, and whatever bit falls off the other end is simply discarded.</p>
+    <div style="overflow-x:auto">
     <table class="bit-table">
       <thead><tr><th></th><th>b3</th><th>b2</th><th>b1</th><th>b0</th></tr></thead>
       <tbody>
@@ -101,10 +101,12 @@
         <tr><td>After shr (shift right)</td><td class="hi">0</td><td>1</td><td>1</td><td>0</td></tr>
       </tbody>
     </table>
+    </div>
     <p>The rightmost bit (0) is lost, and a fresh 0 (highlighted) enters at b3. Logical shifts are the right choice whenever the register holds unsigned data with no sign bit to protect.</p>
 
     <h2>Circular Shift (Rotate)</h2>
     <p>Instead of discarding the bit that falls off, feed it back in at the <em>other</em> end — no information is ever lost, the whole register just rotates in place.</p>
+    <div style="overflow-x:auto">
     <table class="bit-table">
       <thead><tr><th></th><th>b3</th><th>b2</th><th>b1</th><th>b0</th></tr></thead>
       <tbody>
@@ -112,10 +114,12 @@
         <tr><td>After cir (circular right)</td><td class="hi">1</td><td>1</td><td>0</td><td>1</td></tr>
       </tbody>
     </table>
+    </div>
     <p>b0's original value (1) is exactly what reappears at b3 (highlighted) — nothing is discarded, unlike the logical case.</p>
 
     <h2>Arithmetic Shift</h2>
     <p>Arithmetic shift treats the register as a signed 2's-complement number. Arithmetic <strong>right</strong> shift fills the vacated bit with a <em>copy of the sign bit</em> instead of a plain 0 — this is what correctly implements "divide by 2" for negative numbers:</p>
+    <div style="overflow-x:auto">
     <table class="bit-table">
       <thead><tr><th></th><th>b3 (sign)</th><th>b2</th><th>b1</th><th>b0</th></tr></thead>
       <tbody>
@@ -123,6 +127,7 @@
         <tr><td>After ashr</td><td class="hi">1</td><td>1</td><td>0</td><td>0</td></tr>
       </tbody>
     </table>
+    </div>
     <p>1100₂ = −4, and −7 ÷ 2 rounded toward −∞ is indeed −4 — a plain logical shift (filling with 0) would have wrongly turned a negative number positive. Arithmetic <strong>left</strong> shift, by contrast, uses exactly the same mechanics as a logical left shift (0 fills in at the bottom) — the only difference is that arithmetic left shift is defined to represent "multiply by 2," which means it must additionally be checked for <strong>overflow</strong>: if the sign bit changes value as a direct result of the shift, the result no longer fits and the multiply has overflowed.</p>
 
     <h2>A Combinational Shifter</h2>

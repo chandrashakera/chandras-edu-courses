@@ -80,7 +80,6 @@
     <div style="display:flex;gap:.75rem;flex-wrap:wrap">
       <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">⏱ 18 min read</span>
       <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📝 Quiz inside</span>
-      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📖 Mano, Ch. 4</span>
     </div>
   </div>
 
@@ -89,6 +88,7 @@
     <p>A <strong>micro-operation</strong> is the smallest unit of work a CPU performs in one clock cycle on data held in registers — one register transfer, possibly combined with a simple operation along the way. Arithmetic micro-operations are the first of three families this unit covers (logic and shift are next); together, all three are exactly what an ALU is built from.</p>
 
     <h2>The Basic Arithmetic Micro-operations</h2>
+    <div style="overflow-x:auto">
     <table class="truth-table">
       <thead><tr><th>Operation</th><th>RTL Statement</th></tr></thead>
       <tbody>
@@ -98,6 +98,7 @@
         <tr><td>Decrement</td><td>R1 ← R1 − 1</td></tr>
       </tbody>
     </table>
+    </div>
     <p>Subtraction is written as addition of the 2's complement — R2′ (bitwise complement) plus a carry-in of 1 — because that's exactly what turns a plain binary adder into a subtractor with almost no extra hardware, as Unit 2's Binary Adder &amp; Subtractor topic derived in full.</p>
 
     <h2>One Circuit, Four Operations</h2>

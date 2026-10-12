@@ -80,7 +80,6 @@
     <div style="display:flex;gap:.75rem;flex-wrap:wrap">
       <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">⏱ 16 min read</span>
       <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📝 Quiz inside</span>
-      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📖 Mano, Ch. 4</span>
     </div>
   </div>
 
@@ -124,6 +123,7 @@
     <div class="box box-eg" style="text-align:center">P: R2 ← R1,  R1 ← R2</div>
     <p>This is a genuine simultaneous exchange — both transfers use the values present <em>before</em> the clock edge, not a sequential "do this, then that." Building it correctly requires the hardware to latch both new values from the old ones at once (in practice, edge-triggered flip-flops sampling their D inputs simultaneously handle this automatically — see Unit 2's Flip-Flops topic).</p>
 
+    <div style="overflow-x:auto">
     <table class="truth-table">
       <thead><tr><th>Symbol</th><th>Meaning</th><th>Example</th></tr></thead>
       <tbody>
@@ -134,6 +134,7 @@
         <tr><td>,</td><td>Separates simultaneous transfers</td><td>R2 ← R1, R1 ← R2</td></tr>
       </tbody>
     </table>
+    </div>
 
     <h2>Common Pitfalls</h2>
     <ul>

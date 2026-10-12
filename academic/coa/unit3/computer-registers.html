@@ -80,7 +80,6 @@
     <div style="display:flex;gap:.75rem;flex-wrap:wrap">
       <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">⏱ 18 min read</span>
       <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📝 Quiz inside</span>
-      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📖 Mano, Ch. 5</span>
     </div>
   </div>
 
@@ -89,6 +88,7 @@
     <p>Every idea from the first half of this unit — registers, a shared bus, memory read/write — comes together here as one concrete machine. The Basic Computer has eight named registers plus a handful of single-bit control flip-flops, all connected through one 16-bit common bus (Unit 3's Bus &amp; Memory Transfers topic, applied directly).</p>
 
     <h2>The Register Set</h2>
+    <div style="overflow-x:auto">
     <table class="truth-table">
       <thead><tr><th>Register</th><th>Bits</th><th>Function</th></tr></thead>
       <tbody>
@@ -103,8 +103,10 @@
         <tr><td><strong>SC</strong></td><td>4</td><td>Sequence Counter — not programmer-visible; sequences the control unit through each instruction's timing states</td></tr>
       </tbody>
     </table>
+    </div>
 
     <h2>Control Flip-Flops</h2>
+    <div style="overflow-x:auto">
     <table class="truth-table">
       <thead><tr><th>Flip-Flop</th><th>Meaning</th></tr></thead>
       <tbody>
@@ -117,6 +119,7 @@
         <tr><td><strong>FGO</strong></td><td>Output flag — set when the output device is ready to accept a new character in OUTR</td></tr>
       </tbody>
     </table>
+    </div>
 
     <h2>Connected by One Common Bus</h2>
     <div style="text-align:center;margin:1.25rem 0">

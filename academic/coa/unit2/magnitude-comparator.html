@@ -80,7 +80,6 @@
     <div style="display:flex;gap:.75rem;flex-wrap:wrap">
       <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">⏱ 16 min read</span>
       <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📝 Quiz inside</span>
-      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📖 Mano Ch. 4</span>
     </div>
   </div>
 
@@ -89,6 +88,7 @@
     <p>A <strong>magnitude comparator</strong> takes two binary numbers and reports which is larger — three mutually-exclusive outputs: <strong>A&gt;B</strong>, <strong>A=B</strong>, and <strong>A&lt;B</strong>, exactly one of which is 1 for any given pair of inputs. It's a question that comes up constantly in real hardware, from sorting circuits to CPU branch conditions.</p>
 
     <h2 id="1-Bit">1-Bit Comparator</h2>
+    <div style="overflow-x:auto">
     <table class="truth-table">
       <thead><tr><th>A</th><th>B</th><th>A&gt;B</th><th>A=B</th><th>A&lt;B</th></tr></thead>
       <tbody>
@@ -98,6 +98,7 @@
         <tr><td>1</td><td>1</td><td>0</td><td>1</td><td>0</td></tr>
       </tbody>
     </table>
+    </div>
     <p>All three read off directly, no K-map needed:</p>
     <div class="box box-eg">
       <pre>(A&gt;B) = A B′

@@ -80,7 +80,6 @@
     <div style="display:flex;gap:.75rem;flex-wrap:wrap">
       <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">⏱ 18 min read</span>
       <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📝 Quiz inside</span>
-      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📖 Mano, Ch. 6</span>
     </div>
   </div>
 
@@ -196,6 +195,7 @@
     </ul>
 
     <h2 id="Comparison">Ring vs. Johnson Counter</h2>
+    <div style="overflow-x:auto">
     <table class="truth-table">
       <thead><tr><th>Feature</th><th>Ring Counter</th><th>Johnson Counter</th></tr></thead>
       <tbody>
@@ -205,6 +205,7 @@
         <tr><td>Decoding a state</td><td>Single bit is already the decoded output</td><td>Needs a 2-input gate per state to decode</td></tr>
       </tbody>
     </table>
+    </div>
 
     <h2 id="Decade">BCD / Decade Counter</h2>
     <p>A <strong>decade counter</strong> is simply any counter that cycles through 10 states before wrapping back to 0 — the general name for what both dedicated counter topics in this unit built a version of. The <a href="ripple-counters.html">ripple counter topic</a> built one by adding a NAND reset gate to a plain 4-bit ripple counter; the <a href="synchronous-counters.html">synchronous counter topic's</a> 4-step design procedure can equally be run against a 10-state sequence to derive a version that wraps 1001→0000 with no reset gate at all, purely from its next-state logic. From the outside, both look identical:</p>

@@ -82,7 +82,6 @@
     <div style="display:flex;gap:.75rem;flex-wrap:wrap">
       <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">⏱ 22 min read</span>
       <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📝 Quiz inside</span>
-      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📖 Mano, Ch. 5</span>
     </div>
   </div>
 
@@ -127,6 +126,7 @@ ISZ (D6):
     <p>AND, ADD, LDA, and ISZ all read memory into DR first instead of operating on <code>M[AR]</code> directly. This isn't extra caution — it's a hard constraint from Bus &amp; Memory Transfers: the common bus carries one value per clock pulse, so a memory word has to land in a register before it can be combined with AC on the <em>next</em> pulse. DR exists specifically to be that landing spot.</p>
 
     <h2>Two Instructions Worth Slowing Down On</h2>
+    <div style="overflow-x:auto">
     <table class="truth-table">
       <thead><tr><th>Instruction</th><th>What's actually happening</th></tr></thead>
       <tbody>
@@ -134,6 +134,7 @@ ISZ (D6):
         <tr><td>ISZ</td><td>Increments the memory word first, then tests whether that <em>new, incremented</em> value is zero — not whether the original value was zero. It's a built-in decrement-and-test loop-counter pattern (counting up to zero rather than down).</td></tr>
       </tbody>
     </table>
+    </div>
 
     <h2>Common Pitfalls</h2>
     <ul>

@@ -80,7 +80,6 @@
     <div style="display:flex;gap:.75rem;flex-wrap:wrap">
       <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">⏱ 18 min read</span>
       <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📝 Quiz inside</span>
-      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📖 Mano, Ch. 6</span>
     </div>
   </div>
 
@@ -130,6 +129,7 @@
 
     <h2 id="Up-Down">Up vs. Down Counter Rules</h2>
     <p>Whether a ripple counter counts up or down depends on two independent choices: which clock edge each flip-flop triggers on, and whether the next stage is driven by Q or by Q′:</p>
+    <div style="overflow-x:auto">
     <table class="truth-table">
       <thead><tr><th>Clock Triggering</th><th>Next Stage Driven By</th><th>Counter Mode</th></tr></thead>
       <tbody>
@@ -139,6 +139,7 @@
         <tr><td>Positive edge (↑)</td><td>Q′</td><td><strong>UP</strong></td></tr>
       </tbody>
     </table>
+    </div>
     <p>The pattern: negative-edge-triggered + Q, or positive-edge-triggered + Q′, both count up; the other two combinations count down. Intuitively, Q′ falls exactly when Q rises, so driving the next stage from Q′ instead of Q effectively flips which transition of the original bit ripples the carry forward.</p>
 
     <h2 id="Down">3-Bit Asynchronous Down-Counter</h2>

@@ -105,7 +105,6 @@
     <div style="display:flex;gap:.75rem;flex-wrap:wrap">
       <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">⏱ 18 min read</span>
       <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📝 Quiz inside</span>
-      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📖 Mano Ch. 1</span>
     </div>
   </div>
 
@@ -120,6 +119,7 @@
     <p>The most common decimal code is <strong>BCD (Binary-Coded Decimal)</strong>, also called the <strong>8421 code</strong> because each bit position carries the ordinary binary weight 8, 4, 2, 1. Each decimal digit (0–9) is encoded on its own, in 4 bits, using its normal binary value.</p>
     <p>Since 4 bits give 16 possible patterns but only 10 decimal digits exist, <strong>six patterns (1010–1111) are simply unused</strong> in BCD.</p>
     <div class="box box-tip">BCD is not the same as converting the whole decimal number to binary. Each digit is coded separately.</div>
+    <div style="overflow-x:auto">
     <table>
       <thead><tr><th>Decimal</th><th>BCD (digit by digit)</th><th>Straight binary (whole number)</th></tr></thead>
       <tbody>
@@ -127,6 +127,7 @@
         <tr><td>99</td><td>1001 1001</td><td>1100011</td></tr>
       </tbody>
     </table>
+    </div>
 
     <h2>Self-Complementing Codes</h2>
     <p>A code is called <strong>self-complementing</strong> if the 9's complement of a decimal digit can be found just by flipping every bit of its code — no subtraction needed.</p>
@@ -145,6 +146,7 @@ Check: the 9's complement of 6 is 9 − 6 = 3.  ✓  No subtraction needed — j
     <h2>Gray Code</h2>
     <p><strong>Gray code</strong> (also called <em>reflected binary</em> or a <em>unit-distance</em> code) has one defining property: <strong>consecutive values differ in exactly one bit position.</strong> Ordinary binary doesn't have this — going from 0111 to 1000 flips all four bits at once.</p>
     <p>This matters in hardware because a transition that's supposed to change one bit can, in practice, change different bits at very slightly different instants. In ordinary binary that can produce a wildly wrong intermediate value for a few nanoseconds; in Gray code, at most one bit is ever mid-transition, so the worst case is being one step off — never wildly wrong.</p>
+    <div style="overflow-x:auto">
     <table>
       <thead><tr><th>Decimal</th><th>Binary</th><th>Gray Code</th></tr></thead>
       <tbody>
@@ -158,6 +160,7 @@ Check: the 9's complement of 6 is 9 − 6 = 3.  ✓  No subtraction needed — j
         <tr><td>7</td><td>0111</td><td>0100</td></tr>
       </tbody>
     </table>
+    </div>
 
     <div style="text-align:center;margin:1.25rem 0">
       <img src="../../../images/coa/fig5_gray_code_conversion.png"
@@ -189,6 +192,7 @@ Check: the 9's complement of 6 is 9 − 6 = 3.  ✓  No subtraction needed — j
     </ul>
 
     <h2>Summary</h2>
+    <div style="overflow-x:auto">
     <table>
       <thead><tr><th>Code</th><th>Purpose</th><th>Key property</th></tr></thead>
       <tbody>
@@ -199,6 +203,7 @@ Check: the 9's complement of 6 is 9 − 6 = 3.  ✓  No subtraction needed — j
         <tr><td>Parity</td><td>Error detection</td><td>Catches odd numbers of bit flips only</td></tr>
       </tbody>
     </table>
+    </div>
   </div>
 
   <!-- QUIZ GATE — only the interactive quiz requires login -->

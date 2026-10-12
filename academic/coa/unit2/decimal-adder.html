@@ -84,6 +84,7 @@
 
     <h2 id="Correction-Rule">The Correction Rule</h2>
     <p>Feed both BCD digits (plus any carry-in from the previous decade) into an ordinary 4-bit binary adder, producing a raw binary sum Z (0–19) and a carry K. Laying out every possible sum from 0 to 19 shows exactly where the raw binary result stops matching valid BCD, and what adding 0110 does to fix it:</p>
+    <div style="overflow-x:auto">
     <table>
       <thead><tr><th>Decimal</th><th>K</th><th>Z₈Z₄Z₂Z₁ (raw binary sum)</th><th>Output carry</th><th>S₈S₄S₂S₁ (BCD sum)</th></tr></thead>
       <tbody>
@@ -109,6 +110,7 @@
         <tr><td>19</td><td>1</td><td>0011</td><td style="background:#fff8e1;color:var(--accent-text);font-weight:700">1</td><td>1001</td></tr>
       </tbody>
     </table>
+    </div>
     <p>Up to 9, the raw binary sum and the correct BCD digit are identical column-for-column — no correction needed. From 10 onward (highlighted), the two diverge, and adding 0110 brings S back into range every time, with Output carry=1 carrying into the next decade exactly when it should. This is the rule in numbers:</p>
     <ul>
       <li>If <strong>Z ≤ 9 and K = 0</strong>, the binary sum is already valid BCD — use it as-is.</li>

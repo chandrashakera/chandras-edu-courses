@@ -80,7 +80,6 @@
     <div style="display:flex;gap:.75rem;flex-wrap:wrap">
       <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">⏱ 18 min read</span>
       <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📝 Quiz inside</span>
-      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📖 Mano, Ch. 5</span>
     </div>
   </div>
 
@@ -112,6 +111,7 @@
 
     <h2>Direct vs. Indirect Addressing</h2>
     <p>Bit 15, <strong>I</strong>, controls how the address field is interpreted for memory-reference instructions:</p>
+    <div style="overflow-x:auto">
     <table class="truth-table">
       <thead><tr><th>I</th><th>Mode</th><th>Meaning</th></tr></thead>
       <tbody>
@@ -119,6 +119,7 @@
         <tr><td>1</td><td>Indirect</td><td>The address field points to a memory word that itself holds the effective address — AR ← M[IR(0–11)], one extra memory read before execution can begin.</td></tr>
       </tbody>
     </table>
+    </div>
     <p>Indirect addressing trades one extra memory access for a real capability: the effective address can now be <em>changed at runtime</em> — useful for anything that needs to compute an address rather than hardcode it (array indexing, pointer-following) without needing a wider address field.</p>
 
     <h2>Recognizing the Instruction Category</h2>

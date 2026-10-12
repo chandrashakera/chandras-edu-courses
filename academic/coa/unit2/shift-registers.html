@@ -80,7 +80,6 @@
     <div style="display:flex;gap:.75rem;flex-wrap:wrap">
       <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">⏱ 22 min read</span>
       <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📝 Quiz inside</span>
-      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📖 Mano, Ch. 6</span>
     </div>
   </div>
 
@@ -395,6 +394,7 @@
 
     <h2 id="ShiftLoad">Shift vs. Parallel-Load Operation</h2>
     <p>PISO and PIPO both need a control line telling every stage, on each clock, whether to shift or to load — exactly the SHIFT/LOAD′ line from the PISO cell above:</p>
+    <div style="overflow-x:auto">
     <table class="truth-table">
       <thead><tr><th>SHIFT/LOAD′</th><th>Each Stage's D Input Becomes</th><th>Result</th></tr></thead>
       <tbody>
@@ -402,6 +402,7 @@
         <tr><td><strong>0 (Load)</strong></td><td>External parallel bit I<sub>n</sub></td><td>All stages capture parallel data simultaneously</td></tr>
       </tbody>
     </table>
+    </div>
     <p>SISO and SIPO don't need this line at all — with no parallel-load path built in, they only ever shift, so the MUX (and its control line) simply isn't there.</p>
 
     <h2>Common Pitfalls</h2>

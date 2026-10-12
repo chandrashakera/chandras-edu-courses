@@ -81,7 +81,6 @@
     <div style="display:flex;gap:.75rem;flex-wrap:wrap">
       <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">⏱ 16 min read</span>
       <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📝 Quiz inside</span>
-      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📖 Mano Ch. 4</span>
     </div>
   </div>
 
@@ -137,6 +136,7 @@ A₂ = D₄ + D₅ + D₆ + D₇    (inputs whose index has bit 2 set)</pre>
 
     <h2 id="Priority-Encoder">Priority Encoder</h2>
     <p>A <strong>priority encoder</strong> solves this by resolving conflicts: if two or more inputs are active simultaneously, the encoder outputs the code corresponding to the <strong>highest-priority</strong> input — conventionally, the input with the highest index, ignoring lower-indexed ones even if they're also active.</p>
+    <div style="overflow-x:auto">
     <table class="truth-table">
       <thead><tr><th>D₃</th><th>D₂</th><th>D₁</th><th>D₀</th><th>A₁</th><th>A₀</th><th>V</th></tr></thead>
       <tbody>
@@ -147,6 +147,7 @@ A₂ = D₄ + D₅ + D₆ + D₇    (inputs whose index has bit 2 set)</pre>
         <tr><td>1</td><td class="dc">X</td><td class="dc">X</td><td class="dc">X</td><td>1</td><td>1</td><td>1</td></tr>
       </tbody>
     </table>
+    </div>
     <p>The X's are don't-cares (Unit 1 again) — once D₃ is known to be 1, D₂/D₁/D₀ genuinely don't matter for the output, since D₃ always wins regardless. <strong>V</strong> is a valid-output flag, 0 only when no input is active at all (needed because A₁=A₀=0 is otherwise ambiguous — does it mean "D₀ is active" or "nothing is active"?).</p>
     <p>As a block, this 4-input priority encoder looks just like a plain encoder with one extra output pin for V:</p>
     <div style="text-align:center;margin:1.25rem 0">

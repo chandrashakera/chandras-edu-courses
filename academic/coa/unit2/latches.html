@@ -81,7 +81,6 @@
     <div style="display:flex;gap:.75rem;flex-wrap:wrap">
       <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">⏱ 16 min read</span>
       <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📝 Quiz inside</span>
-      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📖 Mano, Ch. 5</span>
     </div>
   </div>
 
@@ -119,6 +118,7 @@
       </svg>
     </div>
     <p>Top gate: <strong>Q = NOR(R, Q′)</strong>. Bottom gate: <strong>Q′ = NOR(S, Q)</strong>.</p>
+    <div style="overflow-x:auto">
     <table class="truth-table">
       <thead><tr><th>S</th><th>R</th><th>Q<sub>next</sub></th><th>State</th></tr></thead>
       <tbody>
@@ -128,6 +128,7 @@
         <tr class="forbidden"><td>1</td><td>1</td><td>Invalid</td><td><strong>Forbidden</strong></td></tr>
       </tbody>
     </table>
+    </div>
     <p>S=R=1 forces both Q and Q′ to 0, breaking the Q=Q̄′ relationship the latch depends on — this combination must always be avoided.</p>
 
     <h3>Worked Example — Tracing a Sequence</h3>

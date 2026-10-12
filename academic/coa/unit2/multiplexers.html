@@ -105,7 +105,6 @@
     <div style="display:flex;gap:.75rem;flex-wrap:wrap">
       <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">⏱ 16 min read</span>
       <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📝 Quiz inside</span>
-      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📖 Mano Ch. 4</span>
     </div>
   </div>
 
@@ -145,6 +144,7 @@
       <div style="font-size:.78rem;color:#777;margin-top:.4rem">Fig 1: A 4-to-1 MUX — the 2-bit select address S₁S₀ (entering the top) picks which of I₀–I₃ reaches the output Y</div>
     </div>
 
+    <div style="overflow-x:auto">
     <table>
       <thead><tr><th>S₁</th><th>S₀</th><th>Y</th></tr></thead>
       <tbody>
@@ -154,6 +154,7 @@
         <tr><td>1</td><td>1</td><td>I₃</td></tr>
       </tbody>
     </table>
+    </div>
     <p>The Boolean expression for the output makes the "selecting" behavior explicit:</p>
     <p style="text-align:center;font-size:1.1rem;font-weight:700;color:var(--primary);margin:1rem 0">Y = S₁′S₀′I₀ + S₁′S₀I₁ + S₁S₀′I₂ + S₁S₀I₃</p>
     <p>Only one of the four AND terms can be "enabled" (its select-line combination true) at any time — exactly the term matching the current select value — so Y always equals exactly one of the four data inputs, never a mixture.</p>
@@ -164,6 +165,7 @@
 
     <h2 id="Worked-XOR">Worked Example — Implementing XOR</h2>
     <p>Implement F(A, B) = A ⊕ B using a 4-to-1 MUX, with A and B driving the select lines (S₁=A, S₀=B):</p>
+    <div style="overflow-x:auto">
     <table>
       <thead><tr><th>S₁=A</th><th>S₀=B</th><th>Required F</th><th>Wire MUX input to...</th></tr></thead>
       <tbody>
@@ -173,6 +175,7 @@
         <tr><td>1</td><td>1</td><td>0</td><td>I₃ = 0</td></tr>
       </tbody>
     </table>
+    </div>
 
     <div style="text-align:center;margin:1.25rem 0">
       <svg viewBox="-5 -25 255 180" style="max-width:340px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">

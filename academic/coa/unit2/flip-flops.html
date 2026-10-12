@@ -80,7 +80,6 @@
     <div style="display:flex;gap:.75rem;flex-wrap:wrap">
       <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">⏱ 20 min read</span>
       <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📝 Quiz inside</span>
-      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📖 Mano, Ch. 5</span>
     </div>
   </div>
 
@@ -254,6 +253,7 @@
 
     <h2 id="Characteristic-Excitation">Characteristic &amp; Excitation Equations</h2>
     <p>A <strong>characteristic equation</strong> gives the next state Q<sub>n+1</sub> as a function of the flip-flop's inputs and its present state Q<sub>n</sub>. An <strong>excitation table</strong> flips that around — for a desired Q<sub>n</sub>→Q<sub>n+1</sub> transition, what input values are required to produce it. Excitation tables are the direct link between "what sequence of states do I want" and "how do I wire the inputs," and they're exactly what synchronous counter design (a later topic) is built on.</p>
+    <div style="overflow-x:auto">
     <table class="truth-table">
       <thead><tr><th>Type</th><th>Characteristic Equation</th><th>Qₙ→Qₙ₊₁</th><th>Required Input(s)</th></tr></thead>
       <tbody>
@@ -275,6 +275,7 @@
         <tr><td>1→1</td><td>S=X, R=0</td></tr>
       </tbody>
     </table>
+    </div>
     <p>The <strong>X</strong> (don't-care) entries in JK and T are exactly what a later K-map minimization step (used heavily when designing counters and control units) gets to exploit — whenever an input can be either 0 or 1 without affecting the transition, that freedom is what lets the simplification choose whichever value produces a smaller circuit. D and SR, by contrast, have no don't-cares: every transition pins down an exact required value.</p>
 
     <h2 id="Timing">Setup Time, Hold Time &amp; Clock Skew</h2>

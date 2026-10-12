@@ -75,7 +75,6 @@
     <div style="display:flex;gap:.75rem;flex-wrap:wrap">
       <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">⏱ 17 min read</span>
       <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📝 Quiz inside</span>
-      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📖 Mano Ch. 4</span>
     </div>
   </div>
 
@@ -84,6 +83,7 @@
     <p>A <strong>decoder</strong> is a combinational circuit that converts binary information from <em>n</em> input lines into a maximum of 2ⁿ unique output lines — with, at most, one output line active for each valid input combination. It's a workhorse of real digital systems, from memory addressing to instruction decoding in the CPU you'll study later in this course.</p>
 
     <h2 id="2to4">2-to-4 Decoder</h2>
+    <div style="overflow-x:auto">
     <table>
       <thead><tr><th>A₁</th><th>A₀</th><th>D₀</th><th>D₁</th><th>D₂</th><th>D₃</th></tr></thead>
       <tbody>
@@ -93,6 +93,7 @@
         <tr><td>1</td><td>1</td><td>0</td><td>0</td><td>0</td><td>1</td></tr>
       </tbody>
     </table>
+    </div>
     <p>Each output is simply a minterm of the inputs: D₀ = A₁′A₀′, D₁ = A₁′A₀, D₂ = A₁A₀′, D₃ = A₁A₀. This is worth recognizing directly: <strong>a decoder is literally a physical implementation of the minterm-generation step</strong> from the K-map topic in Unit 1 — each decoder output IS one minterm, realized in hardware.</p>
 
     <h2 id="Enable">Enable Input</h2>

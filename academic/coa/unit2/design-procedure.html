@@ -116,6 +116,7 @@
     <p><strong>Specification:</strong> design a circuit with two inputs A, B. The output F should be 1 whenever exactly one of the inputs is 1.</p>
     <p><strong>Step 1 — Specification:</strong> two inputs (A, B), one output (F). F = 1 when exactly one input is 1.</p>
     <p><strong>Step 2 — Truth table:</strong></p>
+    <div style="overflow-x:auto">
     <table>
       <thead><tr><th>A</th><th>B</th><th>F</th></tr></thead>
       <tbody>
@@ -125,6 +126,7 @@
         <tr><td>1</td><td>1</td><td>0</td></tr>
       </tbody>
     </table>
+    </div>
     <p><strong>Step 3 — Simplify:</strong> reading the 1-rows gives F = A′B + AB′. The two minterms sit diagonally opposite on the K-map, so they can't be grouped together — this is already the simplest form.</p>
     <p><strong>Step 4 — Draw and verify:</strong> two NOT gates, two AND gates, one OR gate. Re-deriving the truth table from this diagram gives the same table as step 2 — the design is correct.</p>
 
@@ -192,6 +194,7 @@
     <h2 id="Worked-2">Worked Example 2 — 3-Input Majority Function</h2>
     <p><strong>Specification:</strong> design a circuit with three inputs A, B, C and one output F. F should be 1 whenever 2 or more of the inputs are 1 (a "majority" function).</p>
     <p><strong>Step 2 — Truth table → minterms:</strong> F is 1 for the rows with two or three 1s: m3 (011), m5 (101), m6 (110), m7 (111). So F(A,B,C) = Σm(3,5,6,7).</p>
+    <div style="overflow-x:auto">
     <table>
       <thead><tr><th>A</th><th>B</th><th>C</th><th>F</th><th>minterm</th></tr></thead>
       <tbody>
@@ -205,9 +208,11 @@
         <tr><td>1</td><td>1</td><td>1</td><td style="background:#e8f5e9;color:var(--success);font-weight:700">1</td><td>m7</td></tr>
       </tbody>
     </table>
+    </div>
     <p><strong>Step 3 — Simplify with a K-map:</strong></p>
     <div style="display:flex;justify-content:center;margin:1.25rem 0">
       <div class="kmap-overlay">
+        <div style="overflow-x:auto">
         <table class="kmap-table">
           <tr><th class="corner">A\BC</th><th>00</th><th>01</th><th>11</th><th>10</th></tr>
           <tr><th>0</th>
@@ -223,6 +228,7 @@
             <td class="one"><span class="val">1</span><span class="idx">m6</span></td>
           </tr>
         </table>
+        </div>
         <svg width="262" height="155" viewBox="0 0 262 155">
           <rect x="152.3" y="58.7" width="46" height="84.4" rx="10" fill="none" stroke="#2e7d32" stroke-width="3"/>
           <rect x="104.3" y="104.9" width="92" height="36.2" rx="10" fill="none" stroke="#8e24aa" stroke-width="3"/>

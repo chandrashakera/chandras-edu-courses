@@ -93,7 +93,6 @@
     <div style="display:flex;gap:.75rem;flex-wrap:wrap">
       <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">⏱ 24 min read</span>
       <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📝 Quiz inside</span>
-      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📖 Mano, Ch. 6</span>
     </div>
   </div>
 
@@ -114,6 +113,7 @@
 
     <h2 id="Worked">Worked Example — 3-Bit Synchronous Up-Counter (JK Flip-Flops)</h2>
     <p>Three JK flip-flops, state AₙBₙCₙ (A = MSB), counting 000 through 111. Steps 1 and 2 combined — for each present state, the required next state and the JK excitation values that produce it:</p>
+    <div style="overflow-x:auto">
     <table class="truth-table">
       <thead><tr><th>AₙBₙCₙ</th><th>Aₙ₊₁Bₙ₊₁Cₙ₊₁</th><th>J<sub>A</sub>,K<sub>A</sub></th><th>J<sub>B</sub>,K<sub>B</sub></th><th>J<sub>C</sub>,K<sub>C</sub></th></tr></thead>
       <tbody>
@@ -127,11 +127,13 @@
         <tr><td>111</td><td>000</td><td>X, 1</td><td>X, 1</td><td>X, 1</td></tr>
       </tbody>
     </table>
+    </div>
 
     <h3 id="KMaps">Step 3 — K-Maps for J<sub>A</sub> and K<sub>A</sub></h3>
     <p>Reading the J<sub>A</sub> and K<sub>A</sub> columns above onto 3-variable K-maps (rows = A, columns = BC in Gray-code order) shows every A=1 row entry is a don't-care in both maps — which leaves a single 1 in each, at ABC=011 for J<sub>A</sub> and ABC=111 for K<sub>A</sub>, each free to pair up with the don't-care directly below it:</p>
     <div class="kmap-wrap">
       <div class="kmap-overlay" id="kmapA-wrap">
+        <div style="overflow-x:auto">
         <table class="kmap-table" id="kmapJA">
           <tr><th class="corner">A\BC</th><th>00</th><th>01</th><th>11</th><th>10</th></tr>
           <tr><th>0</th>
@@ -147,12 +149,14 @@
             <td class="dc"><span class="val">X</span><span class="idx">m6</span></td>
           </tr>
         </table>
+        </div>
         <svg id="kmapA-svg" width="261" height="192" viewBox="0 0 261 192">
           <rect x="156.3" y="58.7" width="52" height="88.4" rx="10" fill="none" stroke="#8e24aa" stroke-width="3"/>
         </svg>
         <div class="kmap-cap">J<sub>A</sub> = BC</div>
       </div>
       <div class="kmap-overlay" id="kmapK-wrap">
+        <div style="overflow-x:auto">
         <table class="kmap-table" id="kmapKA">
           <tr><th class="corner">A\BC</th><th>00</th><th>01</th><th>11</th><th>10</th></tr>
           <tr><th>0</th>
@@ -168,6 +172,7 @@
             <td class="zero"><span class="val">0</span><span class="idx">m6</span></td>
           </tr>
         </table>
+        </div>
         <svg id="kmapK-svg" width="261" height="192" viewBox="0 0 261 192">
           <rect x="156.3" y="58.7" width="52" height="88.4" rx="10" fill="none" stroke="#8e24aa" stroke-width="3"/>
         </svg>
