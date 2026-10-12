@@ -22,6 +22,7 @@
   <link rel="canonical" href="https://chandrashaker.com/courses/professional/genai/">
   <link rel="stylesheet" href="../../css/style.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js" integrity="sha512-ZDSPMa/JM1D+7kdg2x3BsruQ6T/JpJo3jWDWkCZsP+5yVyp1KfESqLI+7RqB5k24F7p2cV7i2YHh/890y6P6Sw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -142,25 +143,22 @@
     </div>
   </div>
 
-  <!-- Certificate section (shown on 100% completion) -->
-  <div id="cert-section" class="cert-wrap" style="display:none;margin-top:2rem">
-    <div style="font-size:2.5rem">🏆</div>
-    <h2>Course Complete — Congratulations!</h2>
-    <p style="color:var(--text-2);margin-top:.5rem">You have completed all 20 modules. Download your certificate.</p>
-    <div class="cert-actions">
-      <button class="btn btn-success" id="dl-cert">⬇ Download Certificate (PDF)</button>
-      <button class="btn btn-outline" id="share-cert">🔗 Copy Shareable Link</button>
+  <!-- Your certificate -->
+  <div id="cert-card" class="cert-wrap" style="margin-top:2rem;text-align:left">
+    <h2 style="text-align:center">🏆 Your certificate</h2>
+    <div id="cert-card-body" style="margin-top:.75rem">
+      <p style="text-align:center;color:var(--text-2)">Sign in to track progress and earn your certificate.</p>
+      <p style="text-align:center;margin-top:.75rem"><a class="btn btn-primary btn-sm" href="../../login.html">Login</a></p>
     </div>
   </div>
-
 </div>
 
 <footer id="main-footer"></footer>
 
 <script type="module">
   import { initNav } from '../../js/nav.js';
-  import { onAuth, getAllProgress, markModuleComplete } from '../../js/firebase-config.js';
-  import { generateCertificate, getShareableLink } from '../../js/certificate.js';
+  import { onAuth, getAllProgress } from '../../js/firebase-config.js';
+  import { checkEligibility, getExistingCertificate, claimCertificate, validateName, renderCertificateHTML, NAME_HELP } from '../../js/certificate.js';
   import { UNITS } from '../../js/curriculum/genai.js';
   initNav(2);
 
@@ -209,7 +207,60 @@
     document.getElementById('prog-text').textContent = `${done} / ${ALL_IDS.length} modules`;
     document.getElementById('prog-fill').style.width = pct + '%';
     document.getElementById('prog-fill').className = 'progress-fill' + (pct === 100 ? ' done' : '');
-    if (pct === 100) document.getElementById('cert-section').style.display = 'block';
+  }
+
+  const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c]));
+  const MOD = Object.fromEntries(UNITS.flatMap(u => u.modules.map(m => [m.id, m])));
+  const body = () => document.getElementById('cert-card-body');
+
+  async function renderCertCard(user, prog) {
+    const el = body();
+    el.innerHTML = '<p style="text-align:center;color:var(--text-2)">Checking your progress…</p>';
+    const [elig, existing] = await Promise.all([checkEligibility(user.uid, COURSE_ID, prog), getExistingCertificate(user.uid, COURSE_ID)]);
+    if (existing) {
+      el.innerHTML = `<p style="text-align:center;color:var(--text-2)">Your certificate has been issued.</p>
+        <p style="text-align:center;margin-top:.5rem">Certificate ID: <strong>${esc(existing.certId)}</strong></p>
+        <p style="text-align:center;margin-top:.75rem"><a class="btn btn-success" href="../../certificate.html?id=${encodeURIComponent(existing.certId)}">View your certificate</a></p>`;
+      return;
+    }
+    if (!elig.eligible) {
+      const items = elig.missing.map(id => MOD[id]).filter(Boolean)
+        .map(m => `<li><a href="${m.href}">${esc(m.label)} ${esc(m.title)}</a></li>`).join('');
+      el.innerHTML = `<p style="text-align:center;color:var(--text-2)"><strong>${elig.done} / ${elig.total} complete.</strong> Pass the quiz in each sub-module (4 out of 5) to earn your certificate. Still to do:</p>
+        <ul style="margin:.6rem 0 0 1.4rem;font-size:.9rem;columns:2;column-gap:2rem">${items}</ul>`;
+      return;
+    }
+    const first = validateName(user.displayName || '');
+    el.innerHTML = `<p style="text-align:center;color:var(--text-2)">You have completed all ${elig.total} sub-modules. Claim your certificate.</p>
+      <label for="cert-name" style="display:block;font-weight:600;font-size:.92rem;margin:.9rem 0 .3rem">Your name as it should appear on the certificate</label>
+      <input type="text" id="cert-name" maxlength="80" autocomplete="name" value="${first.ok ? esc(first.name) : ''}" style="width:100%;max-width:440px;padding:.55rem .7rem;border:1.5px solid var(--border);border-radius:var(--radius);font-size:1rem">
+      <div style="font-size:.8rem;color:var(--text-3);margin-top:.3rem">Use your full name as on your college ID or official documents. Check spelling and capitalisation. ${esc(NAME_HELP)}</div>
+      <div id="cert-name-err" style="color:var(--error);font-size:.85rem;min-height:1.1rem;margin-top:.25rem"></div>
+      <div id="cert-preview" style="margin:.75rem 0"></div>
+      <label style="display:flex;gap:.5rem;align-items:flex-start;font-size:.9rem;margin:.5rem 0"><input type="checkbox" id="cert-confirm" style="margin-top:.2rem"><span>I confirm this is my name exactly as it should appear on my certificate.</span></label>
+      <p style="font-size:.82rem;color:var(--text-3);margin:.25rem 0 .75rem">Anyone with your certificate link can see your name, the course and the date.</p>
+      <div style="text-align:center"><button class="btn btn-success" id="cert-claim" disabled>Claim certificate</button></div>
+      <div id="cert-claim-err" style="color:var(--error);font-size:.85rem;text-align:center;min-height:1.1rem;margin-top:.4rem"></div>`;
+    const draft = { certId: 'CE-GENAI-' + new Date().getFullYear() + '-XXXXXX', name: first.ok ? first.name : '', courseTitle: 'Generative AI: Zero to Job-Ready', track: 'Professional', completedOn: elig.completedOn };
+    const view = renderCertificateHTML(draft, document.getElementById('cert-preview'), { draft: true });
+    const input = document.getElementById('cert-name'), confirmBox = document.getElementById('cert-confirm'), btn = document.getElementById('cert-claim');
+    const refresh = () => {
+      const v = validateName(input.value);
+      document.getElementById('cert-name-err').textContent = input.value && !v.ok ? v.error : '';
+      view.setName(v.ok ? v.name : '');
+      btn.disabled = !(v.ok && confirmBox.checked);
+    };
+    input.oninput = refresh; confirmBox.onchange = refresh; refresh();
+    btn.onclick = async () => {
+      btn.disabled = true; btn.textContent = 'Creating your certificate…';
+      try {
+        const cert = await claimCertificate(user.uid, COURSE_ID, input.value);
+        location.href = '../../certificate.html?id=' + encodeURIComponent(cert.certId);
+      } catch (err) {
+        document.getElementById('cert-claim-err').textContent = err.message || 'Something went wrong. Please try again.';
+        btn.textContent = 'Claim certificate'; refresh();
+      }
+    };
   }
 
   onAuth(async user => {
@@ -217,19 +268,8 @@
       const prog = await getAllProgress(user.uid, COURSE_ID, ALL_IDS);
       renderUnits(prog);
       updateProgress(prog);
-
-      const name = user.displayName || user.email.split('@')[0];
-      document.getElementById('dl-cert').onclick = () =>
-        generateCertificate({
-          name,
-          course: 'Generative AI: Zero to Job-Ready',
-          subtitle: 'Prompt Engineering · AI Tools · Career Growth',
-          date: new Date().toLocaleDateString('en-IN')
-        });
-      document.getElementById('share-cert').onclick = () => {
-        navigator.clipboard.writeText(getShareableLink('genai', name))
-          .then(() => alert('Certificate link copied!'));
-      };
+      try { await renderCertCard(user, prog); }
+      catch (err) { console.error(err); body().innerHTML = '<p style="text-align:center;color:var(--text-2)">Could not load your certificate status. Please refresh the page.</p>'; }
     } else {
       renderUnits();
       document.getElementById('login-nudge').style.display = 'block';
