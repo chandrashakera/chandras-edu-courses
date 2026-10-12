@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Verify a Certificate | CHANDRAS EDU</title>
+  <meta name="description" content="Verify a CHANDRAS EDU certificate of completion: check the learner's name, the course and the completion date using the certificate ID or QR code.">
+  <meta name="robots" content="noindex">
+  <link rel="canonical" href="https://chandrashaker.com/courses/certificate">
+  <link rel="icon" href="favicon.ico">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js" integrity="sha512-ZDSPMa/JM1D+7kdg2x3BsruQ6T/JpJo3jWDWkCZsP+5yVyp1KfESqLI+7RqB5k24F7p2cV7i2YHh/890y6P6Sw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+<body>
+
+<div id="main-nav"></div>
+
+<div class="page" role="main" style="max-width:1020px">
+  <h1 style="font-size:1.5rem;font-weight:800;margin:1.25rem 0 .9rem">Verify a certificate</h1>
+
+  <div id="state-loading" style="color:var(--text-2)">Checking the certificate…</div>
+
+  <div id="state-valid" style="display:none">
+    <div id="valid-banner" style="background:#e8f5e9;border:1px solid #a5d6a7;border-left:4px solid var(--success);border-radius:var(--radius-lg);padding:.85rem 1.1rem;margin-bottom:1.1rem">
+      <div style="font-weight:700;color:#1b5e20">✅ Valid certificate</div>
+      <div id="valid-details" style="font-size:.9rem;color:var(--text-2);margin-top:.25rem"></div>
+    </div>
+    <div id="cert-view"></div>
+    <div class="cert-actions" style="margin-top:1.1rem">
+      <button class="btn btn-primary" id="btn-pdf">⬇ Download PDF</button>
+      <a class="btn btn-outline" id="btn-linkedin" target="_blank" rel="noopener">in Add to LinkedIn</a>
+      <button class="btn btn-outline" id="btn-copy">🔗 Copy verification link</button>
+    </div>
+    <div id="copy-msg" style="text-align:center;font-size:.85rem;color:var(--success);min-height:1.2rem;margin-top:.4rem"></div>
+
+    <div id="correct-box" style="display:none;margin-top:1.25rem;background:var(--bg-2);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1rem 1.1rem">
+      <button class="btn btn-outline btn-sm" id="btn-correct-open">Correct the name (one time, within 7 days)</button>
+      <div id="correct-form" style="display:none;margin-top:.85rem">
+        <label for="correct-name" style="font-weight:600;font-size:.9rem;display:block;margin-bottom:.3rem">Your name as it should appear on the certificate</label>
+        <input type="text" id="correct-name" maxlength="80" autocomplete="name" style="width:100%;max-width:420px;padding:.5rem .65rem;border:1.5px solid var(--border);border-radius:var(--radius);font-size:1rem">
+        <div style="font-size:.8rem;color:var(--text-3);margin-top:.3rem">Use your full name as on your college ID or official documents. Check spelling and capitalisation. Use English letters; accented letters such as é are allowed.</div>
+        <div id="correct-err" style="color:var(--error);font-size:.85rem;min-height:1.1rem;margin-top:.3rem"></div>
+        <label style="display:flex;gap:.5rem;align-items:flex-start;font-size:.88rem;margin:.4rem 0"><input type="checkbox" id="correct-confirm" style="margin-top:.2rem"> <span>I confirm this is my name exactly as it should appear on my certificate. After this the name is locked.</span></label>
+        <button class="btn btn-primary btn-sm" id="btn-correct-save" disabled>Save corrected name</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="state-notfound" style="display:none;background:#fff8e1;border:1px solid #ffe082;border-radius:var(--radius-lg);padding:1rem 1.2rem">
+    <div style="font-weight:700">No certificate found</div>
+    <p style="margin-top:.35rem;color:var(--text-2)">No certificate found with this ID. Check the link or contact <a href="mailto:mailchandrasedu@gmail.com">mailchandrasedu@gmail.com</a>.</p>
+  </div>
+
+  <div id="state-legacy" style="display:none;background:#fff8e1;border:1px solid #ffe082;border-radius:var(--radius-lg);padding:1rem 1.2rem">
+    <div style="font-weight:700">This link cannot be verified</div>
+    <p style="margin-top:.35rem;color:var(--text-2)">This link was created before certificate IDs were introduced (October 2026). It cannot be verified. Learners who completed the course can sign in and claim a verifiable certificate from the course page.</p>
+    <p style="margin-top:.6rem"><a class="btn btn-primary btn-sm" href="professional/genai/">Go to the Generative AI course</a></p>
+  </div>
+
+  <div id="state-lookup" style="display:none">
+    <p style="color:var(--text-2);margin-bottom:.75rem">Enter the certificate ID printed on the certificate, or scan its QR code.</p>
+    <form id="lookup-form" style="display:flex;gap:.6rem;flex-wrap:wrap">
+      <input type="text" id="lookup-id" placeholder="CE-GENAI-2026-XXXXXX" autocomplete="off" style="flex:1;min-width:220px;max-width:360px;padding:.5rem .65rem;border:1.5px solid var(--border);border-radius:var(--radius);font-size:1rem">
+      <button class="btn btn-primary" type="submit">Verify</button>
+    </form>
+  </div>
+</div>
+
+<footer id="main-footer"></footer>
+
+<script type="module">
+  import { initNav } from './js/nav.js';
+  import { onAuth } from './js/firebase-config.js';
+  import {
+    getCertificate, renderCertificateHTML, downloadCertificatePDF, linkedInAddUrl, certificateUrl,
+    isValidCertId, formatDate, canCorrectName, correctName, validateName
+  } from './js/certificate.js';
+  initNav(0);
+
+  const $ = id => document.getElementById(id);
+  const show = id => { ['loading','valid','notfound','legacy','lookup'].forEach(s => $('state-' + s).style.display = s === id ? 'block' : 'none'); };
+  const params = new URLSearchParams(location.search);
+  const id = (params.get('id') || '').trim().toUpperCase();
+
+  let cert = null, user = null, view = null;
+
+  function renderCert() {
+    $('cert-view').innerHTML = '';
+    view = renderCertificateHTML(cert, $('cert-view'));
+    $('valid-details').textContent =
+      `Issued to ${cert.name} · ${cert.courseTitle} · completed on ${formatDate(cert.completedOn)}` +
+      (cert.issuedAt ? ` · issued on ${formatDate(cert.issuedAt)}` : '') + ` · ID ${cert.certId}`;
+    $('btn-linkedin').href = linkedInAddUrl(cert);
+    const may = !!user && canCorrectName(cert, user.uid);
+    $('correct-box').style.display = may ? 'block' : 'none';
+  }
+
+  async function init() {
+    if (id) {
+      if (!isValidCertId(id)) return show('notfound');
+      try { cert = await getCertificate(id); } catch (e) { console.error(e); return show('notfound'); }
+      if (!cert) return show('notfound');
+      show('valid'); renderCert();
+      onAuth(u => { user = u; if (cert) renderCert(); });
+    } else if (params.has('course') || params.has('user') || params.has('date')) {
+      show('legacy');
+    } else {
+      show('lookup');
+    }
+  }
+
+  $('btn-pdf').onclick = async () => { $('btn-pdf').disabled = true; try { await downloadCertificatePDF(cert); } finally { $('btn-pdf').disabled = false; } };
+  $('btn-copy').onclick = async () => {
+    const url = certificateUrl(cert);
+    try { await navigator.clipboard.writeText(url); $('copy-msg').textContent = 'Verification link copied.'; }
+    catch { window.prompt('Copy this verification link:', url); }
+  };
+  $('lookup-form').onsubmit = e => { e.preventDefault(); const v = $('lookup-id').value.trim().toUpperCase(); if (v) location.href = 'certificate.html?id=' + encodeURIComponent(v); };
+
+  // One owner correction within 7 days
+  const refreshCorrect = () => { const v = validateName($('correct-name').value); $('correct-err').textContent = $('correct-name').value && !v.ok ? v.error : ''; $('btn-correct-save').disabled = !(v.ok && $('correct-confirm').checked); };
+  $('btn-correct-open').onclick = () => { $('correct-form').style.display = 'block'; $('correct-name').value = cert.name; $('correct-name').focus(); refreshCorrect(); };
+  $('correct-name').oninput = refreshCorrect;
+  $('correct-confirm').onchange = refreshCorrect;
+  $('btn-correct-save').onclick = async () => {
+    $('btn-correct-save').disabled = true;
+    try { cert = await correctName(user.uid, cert.certId, $('correct-name').value); $('correct-form').style.display = 'none'; renderCert(); }
+    catch (e) { $('correct-err').textContent = e.message; }
+  };
+
+  init();
+</script>
+</body>
+</html>
