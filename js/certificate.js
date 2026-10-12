@@ -18,7 +18,8 @@ const ID_FORMAT = /^CE-[A-Z0-9]{2,12}-\d{4}-[A-Z2-9]{6}$/;
 const LOGO_URL = new URL('../images/logo-lockup-v2.png', import.meta.url).href;
 
 // ── Names ─────────────────────────────────────────────────────
-export function normalizeName(s) { return String(s || '').replace(/\s+/g, ' ').trim(); }
+// Phones type curly apostrophes (O’Brien); store and show a straight one so the name passes the rule.
+export function normalizeName(s) { return String(s || '').replace(/[‘’]/g, "'").replace(/\s+/g, ' ').trim(); }
 export function validateName(raw) {
   const name = normalizeName(raw);
   if (name.length < 2)  return { ok:false, name, error:'Enter at least 2 characters.' };
