@@ -149,9 +149,9 @@
 
 <hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
 
-<h2>Your assignment</h2>
+<h2>Practice (optional)</h2>
 
-<p>This assignment does not require you to start freelancing immediately — it requires you to identify one specific opportunity and take the first concrete step toward it.</p>
+<p>These tasks do not require you to start freelancing immediately — it requires you to identify one specific opportunity and take the first concrete step toward it.</p>
 
 <ul>
   <li><strong>Choose one service</strong> from the six in this sub-module that best matches your current skills and interests. Be specific — not "AI automation" but "n8n workflow for weekly email report generation."</li>
@@ -175,13 +175,34 @@
     <div style="background:#fffbeb;border:1px solid #fcd34d;border-radius:var(--radius-lg);padding:1.25rem 1.5rem;margin-top:2rem">
       <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.75rem">
         <span style="font-size:1.1rem">✏️</span>
-        <span style="font-weight:700;color:#92400e">Assignment 5.3</span>
+        <span style="font-weight:700;color:#92400e">Save your practice</span>
       </div>
-      <p style="color:#78350f;font-size:.9rem">Complete the practical assignment for this module to reinforce your learning. Mark this module as complete when done.</p>
-      <button class="btn btn-success btn-sm" id="mark-done-btn" style="margin-top:.75rem">✅ Mark as Complete</button>
-      <div id="done-msg" style="display:none;color:var(--success);font-size:.88rem;margin-top:.5rem;font-weight:600">✅ Module completed! Great work.</div>
+      <p style="color:#78350f;font-size:.9rem">Complete the practice tasks above and save them in your AI Learning Journal — you will use them in the Final Project.</p>
     </div>
   </div><!-- end lesson -->
+
+  <div id="gate-section">
+    <div class="gate">
+      <div class="gate-blur"><div class="quiz"><div class="quiz-title">📝 Quick Quiz — 5 Questions</div></div></div>
+      <div class="gate-overlay"><div class="gate-box">
+        <div class="lock">🔒</div>
+        <h3>Login to take the quiz</h3>
+        <p>Create a free account to take the quiz and track your progress. Pass with 4 out of 5 to complete this sub-module.</p>
+        <div class="gate-btns">
+          <a href="../../../login.html" class="btn btn-primary btn-sm">Login</a>
+          <a href="../../../login.html" class="btn btn-outline btn-sm">Register Free</a>
+        </div>
+      </div></div>
+    </div>
+  </div>
+
+  <div class="quiz" id="quiz-section" style="display:none">
+    <div class="quiz-title">📝 Quick Quiz — 5 Questions · Pass mark 4/5</div>
+    <div id="quiz-body"></div>
+    <button class="btn btn-primary" id="submit-btn" disabled>Submit Quiz</button>
+    <div class="quiz-result" id="quiz-result" style="display:none"></div>
+    <button class="btn btn-outline btn-sm" id="retry-btn" style="display:none;margin-top:.75rem">Try again</button>
+  </div>
 
 <!-- Prev / Next -->
   <div class="topic-nav">
@@ -194,31 +215,37 @@
 
 <script type="module">
   import { initNav } from '../../../js/nav.js';
-  import { onAuth, logout, markModuleComplete, getProgress } from '../../../js/firebase-config.js';
   import { initSidebar } from '../../../js/sidebar.js';
+  import { initQuiz } from '../../../js/quiz.js';
   initNav(3);
   initSidebar();
 
   const COURSE_ID = 'genai';
   const MODULE_ID = 'm-5-3';
-
-  onAuth(async user => {
-    if (user) {
-      const prog = await getProgress(user.uid, COURSE_ID, MODULE_ID);
-      if (prog?.completed) {
-        document.getElementById('mark-done-btn').style.display = 'none';
-        document.getElementById('done-msg').style.display = 'block';
-      }
-
-      document.getElementById('mark-done-btn').onclick = async () => {
-        await markModuleComplete(user.uid, COURSE_ID, MODULE_ID);
-        document.getElementById('mark-done-btn').style.display = 'none';
-        document.getElementById('done-msg').style.display = 'block';
-      };
-    }
-    // Content is always visible. Logged-out users simply won't see
-    // their completion status or be able to mark modules complete.
-  });
+  const PASS_MARK = 4;
+  const QUIZ = [
+    { q:"What is the fastest route to a first freelance client, according to this sub-module?",
+      options:["Bidding on 100 marketplace jobs","Building a perfect portfolio first","Solving a real problem for someone in your own network, often for a testimonial","Advertising on social media"],
+      answer:2,
+      explanation:"One strong testimonial from a real project becomes your portfolio, LinkedIn post and marketplace example." },
+    { q:"How should you price your first AI services?",
+      options:["Charge per word the AI writes","Price the outcome, research comparable offers, start with small fixed-price projects and raise prices as proof builds","Always charge the highest rate you see","Never charge anything"],
+      answer:1,
+      explanation:"There is no single correct rate; use a method and remember fees and taxes are deducted." },
+    { q:"How should a freelancer present AI-assisted work to a client?",
+      options:["Hide AI use completely","Deliver raw AI output to save time","Claim everything is handwritten","Be transparent about AI use, review everything and add human judgement"],
+      answer:3,
+      explanation:"Disclosure plus genuine value builds repeat clients and referrals." },
+    { q:"For income from 1 April 2026, which law governs income tax in India?",
+      options:["The Income-tax Act, 2025","The Income-tax Act, 1961 only","The GST Act","No law applies to freelancers"],
+      answer:0,
+      explanation:"The 2025 Act replaced the 1961 Act; many section numbers changed, so older guides may quote old sections. Confirm details with a chartered accountant." },
+    { q:"You do occasional freelance work for foreign clients. Which statement about GST is correct, as on October 2026?",
+      options:["GST registration is never needed","Registration is generally required once service turnover crosses ₹20 lakh in a year (₹10 lakh in some states); qualifying exports are zero-rated","Foreign clients must pay 18% GST to you","GST applies only to goods"],
+      answer:1,
+      explanation:"Below the threshold registration is usually optional; registered exporters usually file a Letter of Undertaking (LUT)." }
+  ];
+  initQuiz({ courseId: COURSE_ID, moduleId: MODULE_ID, passMark: PASS_MARK, questions: QUIZ });
 </script>
 </body>
 </html>
