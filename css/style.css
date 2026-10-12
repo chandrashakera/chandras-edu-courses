@@ -123,7 +123,7 @@ a:hover { text-decoration: underline; color: var(--primary-dk); }
 }
 
 /* ── COURSE CARDS ────────────────────────────────────────────── */
-.courses-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px,1fr)); gap: 1.25rem; margin-top: .75rem; align-items: start; align-content: start; } /* align-content:start stops row tracks from stretching to fill a taller container (e.g. when a sibling flex column with fewer/shorter cards is forced to this column's height) - without it, extra height gets distributed as oversized gaps between rows instead of after the last one */
+.courses-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px,1fr)); gap: 1.25rem; margin-top: .75rem; align-items: stretch; align-content: start; } /* align-content:start stops row tracks from stretching to fill a taller container (e.g. when a sibling flex column with fewer/shorter cards is forced to this column's height) - without it, extra height gets distributed as oversized gaps between rows instead of after the last one */
 .course-card {
   border-radius: var(--radius-lg); padding: 1.5rem;
   border: 1px solid var(--border);
@@ -131,12 +131,45 @@ a:hover { text-decoration: underline; color: var(--primary-dk); }
   text-decoration: none; display: flex; flex-direction: column; color: var(--text);
   background: var(--bg-2);
   transition: box-shadow .15s, border-color .15s;
-  min-height: 410px; /* uniform box size across COA/DLD/GenAI/AI Tools — a floor only, so the much-longer Course Guides card (which shares this class) is unaffected */
 }
 .course-card:hover { box-shadow: var(--shadow-md); text-decoration: none; border-color: var(--primary); }
 .course-card.professional { border-top-color: var(--accent); }
 .courses-grid-fill { grid-template-columns: repeat(auto-fill, minmax(300px,1fr)); } /* auto-fill (not auto-fit) reserves track width even when unoccupied, so a single card here sizes to one track — matching a COA/DLD card exactly — instead of stretching to fill the whole row */
 .course-card.professional:hover { border-color: var(--accent); }
+/* ── HOME: ACADEMIC + PROFESSIONAL COLUMNS ───────────────────────
+   Stacked below 720px (unchanged). From 720px: two columns. With subgrid, the columns share row
+   tracks (heading, intro, then one track per card row), so intros share a height and paired cards
+   share top and bottom lines; each card only grows by the height difference to its partner.
+   Card rows per column: 2 below 1312px (one card wide), 1 from 1312px (two cards wide).
+   Without subgrid the intro gets a two-line minimum and cards stretch within their row. */
+.home-cols { display: grid; grid-template-columns: 1fr; gap: 2rem; }
+.home-col { display: flex; flex-direction: column; }
+.home-col .courses-grid { flex: 1; }
+@media (min-width: 720px) {
+  .home-cols { grid-template-columns: 1fr 1fr; }
+}
+@media (min-width: 1312px) {
+  .home-col .courses-grid { grid-template-columns: 1fr 1fr; }
+}
+@supports (grid-template-rows: subgrid) {
+  @media (min-width: 720px) {
+    .home-cols { grid-template-rows: auto auto auto auto; }
+    .home-col { display: grid; grid-row: span 4; grid-template-rows: subgrid; row-gap: 0; }
+    .home-col .courses-grid { grid-template-columns: 1fr; grid-row: span 2; grid-template-rows: subgrid; align-items: stretch; align-content: stretch; }
+  }
+  @media (min-width: 1312px) {
+    .home-cols { grid-template-rows: auto auto auto; }
+    .home-col { grid-row: span 3; }
+    .home-col .courses-grid { grid-template-columns: 1fr 1fr; grid-row: span 1; grid-template-rows: auto; grid-auto-rows: 1fr; }
+  }
+}
+@supports not (grid-template-rows: subgrid) {
+  @media (min-width: 720px) {
+    .home-col > p { min-height: 3.2rem; }
+    .home-col .courses-grid { align-items: stretch; }
+    .home-col .course-card { min-height: 22rem; } /* fallback only: columns cannot share rows, so a modest floor keeps paired cards close in height */
+  }
+}
 .course-card h2 { font-size: 1rem; color: var(--primary); margin: .6rem 0 .4rem; font-weight: 700; }
 .course-card.professional h2 { color: var(--accent); }
 .course-card p { font-size: .85rem; color: var(--text-2); margin-bottom: .85rem; line-height: 1.6; }
