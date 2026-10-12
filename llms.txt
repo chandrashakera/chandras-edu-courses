@@ -27,4 +27,5 @@ Chandras EDU offers two course tracks: Academic engineering subjects for B.Tech 
 
 - [Homepage](https://chandrashaker.com/courses/)
 - [Sitemap](https://chandrashaker.com/courses/sitemap.xml)
+- [Verify a certificate](https://chandrashaker.com/courses/certificate): Check a CHANDRAS EDU certificate of completion by its certificate ID or QR code (verification page, not indexed).
 - [Main blog — chandrashaker.in](https://chandrashaker.in)
