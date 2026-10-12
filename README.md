@@ -11,12 +11,16 @@ Pure HTML + Firebase + Cloudflare Pages. No build step needed.
 chandras-edu-courses/
 ├── index.html                          ← Homepage
 ├── login.html                          ← Auth page
+├── certificate.html                    ← Certificate verification page
 ├── _redirects                          ← Cloudflare routing
 ├── css/style.css                       ← All styles
 ├── js/
 │   ├── firebase-config.js              ← Firebase (auth + progress)
 │   ├── nav.js                          ← Shared nav bar
-│   └── certificate.js                  ← PDF certificate generator
+│   ├── quiz.js                         ← Quiz component (gate, 5 questions, pass mark)
+│   ├── certificate.js                  ← Certificate claim, verification, QR and PDF
+│   └── certificates/
+│       └── config.js                   ← Which courses issue certificates, required ids
 ├── academic/
 │   └── coa/
 │       ├── index.html                  ← COA course landing
@@ -53,7 +57,7 @@ Push to GitHub → Cloudflare deploys in ~60 seconds. Done.
 
 ## Adding a New Professional Module
 
-Same process — copy any `module-*.html` file, edit content and mark-complete button.
+Same process — copy any `module-*.html` file, edit content and the quiz questions (`QUIZ` array); see an existing module page.
 
 ---
 

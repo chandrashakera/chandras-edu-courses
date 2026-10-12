@@ -1,8 +1,8 @@
 # Chandras EDU
 
-> Free engineering and professional courses with quizzes, progress tracking, and certificates. Part of the Chandra Shaker (chandrashaker.in) education brand.
+> Free engineering and professional courses with quizzes, progress tracking, and certificates (certificates are currently issued for the Generative AI course). Part of the Chandra Shaker (chandrashaker.in) education brand.
 
-Chandras EDU offers two course tracks: Academic engineering subjects for B.Tech students, and Professional job-readiness courses for working professionals. All content is free to read; login is required to save quiz progress and earn certificates.
+Chandras EDU offers two course tracks: Academic engineering subjects for B.Tech students, and Professional job-readiness courses for working professionals. All content is free to read; login is required to save quiz progress and earn certificates (currently issued for the Generative AI course).
 
 ## Academic
 
@@ -20,7 +20,7 @@ Chandras EDU offers two course tracks: Academic engineering subjects for B.Tech 
 
 ## Professional
 
-- [Generative AI: Zero to Job-Ready](https://chandrashaker.com/courses/professional/genai/): A 20-module course covering GenAI foundations, prompt engineering, applied AI for developers/analysts/managers, RAG and agents, and career growth strategies.
+- [Generative AI: Zero to Job-Ready](https://chandrashaker.com/courses/professional/genai/): A 5-module course covering GenAI foundations, prompt engineering, applied AI for developers/analysts/managers, RAG and agents, and career growth strategies; lessons end with short quizzes, and the course ends with a Final Project and a verifiable certificate.
 - [AI Tools for Everyday Work](https://chandrashaker.com/courses/professional/ai-tools/): A 13-module practical course for teaching staff, office staff, and lab assistants on using free AI tools (ChatGPT, Gemini, Claude) for circulars, Excel, lesson plans, lab manuals and safe/honest use. No coding needed.
 
 ## Other
