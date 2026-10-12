@@ -17,3 +17,15 @@
 
 /js/curriculum/*
   Cache-Control: no-cache
+
+/js/quiz.js
+  Cache-Control: no-cache
+
+/js/firebase-config.js
+  Cache-Control: no-cache
+
+/js/certificate.js
+  Cache-Control: no-cache
+
+/js/certificates/*
+  Cache-Control: no-cache
