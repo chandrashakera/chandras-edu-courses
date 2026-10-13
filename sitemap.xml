@@ -553,6 +553,24 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://chandrashaker.com/courses/academic/coa/unit5/direct-memory-access</loc>
+    <lastmod>2026-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://chandrashaker.com/courses/academic/coa/unit5/memory-hierarchy</loc>
+    <lastmod>2026-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://chandrashaker.com/courses/academic/coa/unit5/main-memory</loc>
+    <lastmod>2026-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://chandrashaker.com/courses/academic/coa/unit1/data-types-number-systems</loc>
     <lastmod>2026-07-18</lastmod>
     <changefreq>monthly</changefreq>

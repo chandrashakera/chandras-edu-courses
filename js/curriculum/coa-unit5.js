@@ -1,5 +1,5 @@
-// COA Unit 5 curriculum — Batch 1: 3 topics live (tg-io-organization)
-// tg-memory-organization: pending Batches 2–3
+// COA Unit 5 curriculum — Batch 2: 6 live topics
+// Batch 3 pending (5.7–5.9, tg-memory-organization)
 
 export const GROUPS = {
   'tg-io-organization': [
@@ -26,9 +26,34 @@ export const GROUPS = {
       href: 'priority-interrupt.html',
       time: '18 min',
       status: 'active'
+    },
+    {
+      id: 'direct-memory-access',
+      title: 'Direct Memory Access',
+      desc: 'DMA controller registers AR and WC (Fig 11-16), bus-request/grant cycle, cycle-stealing method, and DMA transfer sequence from §11-6.',
+      href: 'direct-memory-access.html',
+      time: '15 min',
+      status: 'active'
     }
   ],
-  'tg-memory-organization': []
+  'tg-memory-organization': [
+    {
+      id: 'memory-hierarchy',
+      title: 'Memory Hierarchy',
+      desc: 'Memory hierarchy levels from CPU registers to auxiliary storage (Fig 12-1), cost-speed-capacity trade-offs, access time ratios, cache role, and multiprogramming from §12-1.',
+      href: 'memory-hierarchy.html',
+      time: '15 min',
+      status: 'active'
+    },
+    {
+      id: 'main-memory',
+      title: 'Main Memory',
+      desc: 'Static and dynamic RAM, ROM chips (Fig 12-2, 12-3), memory address map (Table 12-1), and connecting RAM/ROM chips to the CPU (Fig 12-4) from §12-2.',
+      href: 'main-memory.html',
+      time: '15 min',
+      status: 'active'
+    }
+  ]
 };
 
 export const GROUP_LABELS = {
