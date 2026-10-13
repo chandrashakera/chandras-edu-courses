@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3030765874336294" crossorigin="anonymous"></script>
+  <title>Unit 5 | Input-Output &amp; Memory Organization | COA | CHANDRAS EDU</title>
+  <meta name="description" content="COA Unit 5: I/O interface, modes of transfer, priority interrupt, DMA, and memory organisation. Free B.Tech course notes with SVG diagrams and quizzes.">
+  <link rel="canonical" href="https://chandrashaker.com/courses/academic/coa/unit5/">
+  <link rel="stylesheet" href="../../../css/style.css">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="CHANDRAS EDU">
+  <meta property="og:title" content="Unit 5 | Input-Output &amp; Memory Organization | COA | CHANDRAS EDU">
+  <meta property="og:description" content="COA Unit 5: I/O interface, modes of transfer, priority interrupt, DMA, and memory organisation. Free B.Tech course notes with SVG diagrams and quizzes.">
+  <meta property="og:url" content="https://chandrashaker.com/courses/academic/coa/unit5/">
+  <meta property="og:image" content="https://chandrashaker.com/courses/images/og/coa-v7.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Computer Organization and Architecture — CHANDRAS EDU free course">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Unit 5 | Input-Output &amp; Memory Organization | COA | CHANDRAS EDU">
+  <meta name="twitter:description" content="COA Unit 5: I/O interface, modes of transfer, priority interrupt, DMA, and memory organisation. Free B.Tech course notes with SVG diagrams and quizzes.">
+  <meta name="twitter:image" content="https://chandrashaker.com/courses/images/og/coa-v7.png">
+  <script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Courses","item":"https://chandrashaker.com/courses/"},{"@type":"ListItem","position":2,"name":"COA","item":"https://chandrashaker.com/courses/academic/coa/"},{"@type":"ListItem","position":3,"name":"Unit 5"}]}
+  </script>
+  <link rel="icon" href="/favicon.ico">
+</head>
+<body>
+<div id="main-nav"></div>
+
+<div class="page" role="main">
+  <nav class="breadcrumb">
+    <a href="../../../index.html">Courses</a><span class="sep">/</span>
+    <a href="../index.html">Computer Organization and Architecture</a><span class="sep">/</span>
+    <span class="cur">Unit 5</span>
+  </nav>
+
+  <!-- Unit Header -->
+  <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:1rem;margin-bottom:1.5rem">
+    <div>
+      <span class="badge badge-blue" style="margin-bottom:.5rem;display:inline-block">Unit 5</span>
+      <h1 style="font-size:1.5rem;font-weight:800;color:var(--text)">Input-Output &amp; Memory Organization</h1>
+      <p style="color:var(--text-2);font-size:.88rem;margin-top:.3rem">2 topic groups · 3 topics available · more coming soon</p>
+    </div>
+    <div id="unit-progress" style="min-width:180px;display:none">
+      <div class="progress-wrap">
+        <div class="progress-label"><span>Your progress</span><span id="pct">0%</span></div>
+        <div class="progress-bar"><div class="progress-fill" id="pfill" style="width:0%"></div></div>
+      </div>
+      <div style="font-size:.78rem;color:var(--text-3);margin-top:.3rem" id="plabel">0 / 3 topics complete</div>
+    </div>
+  </div>
+
+  <!-- TOPIC GROUP: I/O Organization -->
+  <div class="section-head" id="io-organization">🔌 I/O Organization</div>
+  <p style="color:var(--text-2);font-size:.88rem;margin-bottom:.9rem">How the CPU communicates with peripheral devices: the I/O bus, interface registers, the three modes of data transfer, and how priority interrupts let multiple devices share the CPU.</p>
+  <div id="tg-io-organization"></div>
+
+  <!-- TOPIC GROUP: Memory Organization -->
+  <div class="section-head" id="memory-organization" style="margin-top:2rem">💾 Memory Organization</div>
+  <p style="color:var(--text-2);font-size:.88rem;margin-bottom:.9rem">The memory hierarchy from cache to auxiliary storage, main memory organisation, associative memory, and cache memory mapping techniques.</p>
+  <div id="tg-memory-organization">
+    <p style="color:var(--text-3);font-size:.88rem;padding:.5rem 0">More topics coming soon.</p>
+  </div>
+
+  <div id="login-nudge" style="display:none;margin-top:1.5rem;background:#e8f0fe;border:1px solid #bbdefb;border-left:3px solid var(--primary);border-radius:var(--radius-lg);padding:1rem;text-align:center;font-size:.9rem;color:var(--primary)">
+    <a href="../../../login.html" style="font-weight:700">Login</a> to track your progress and save quiz scores across all topics.
+  </div>
+</div>
+
+<footer id="main-footer"></footer>
+
+<script type="module">
+  import { initNav } from '../../../js/nav.js';
+  import { onAuth, getAllProgress } from '../../../js/firebase-config.js';
+  import { GROUPS } from '../../../js/curriculum/coa-unit5.js';
+  initNav(3);
+
+  const COURSE_ID = 'coa';
+  const ALL_IDS = Object.values(GROUPS).flat().map(t => t.id);
+
+  function renderGroup(containerId, topics, prog = {}) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+    const active = topics.filter(t => t.status === 'active');
+    if (!active.length) return;
+    container.innerHTML = `<div class="topic-list">` + active.map((t, i) => {
+      const p = prog[t.id], done = p?.completed;
+      return `<a href="${t.href}" class="topic-card">
+        <div class="topic-num ${done ? 'done' : ''}">${done ? '✓' : i+1}</div>
+        <div class="topic-info">
+          <div class="topic-title">${t.title}</div>
+          <div class="topic-desc">${t.desc}</div>
+          <div class="topic-meta">
+            <span>⏱ ${t.time}</span>
+            ${done ? `<span class="score">Quiz: ${p.percent}%</span>` : ''}
+          </div>
+        </div>
+        <div class="topic-arrow">→</div>
+      </a>`;
+    }).join('') + `</div>`;
+  }
+
+  function updateProgress(prog) {
+    const active = Object.values(GROUPS).flat().filter(t => t.status === 'active');
+    const done   = active.filter(t => prog[t.id]?.completed).length;
+    const pct    = active.length ? Math.round((done / active.length) * 100) : 0;
+    document.getElementById('unit-progress').style.display = 'block';
+    document.getElementById('pct').textContent    = pct + '%';
+    document.getElementById('pfill').style.width  = pct + '%';
+    document.getElementById('pfill').className    = 'progress-fill' + (pct === 100 ? ' done' : '');
+    document.getElementById('plabel').textContent = `${done} / ${active.length} topics complete`;
+  }
+
+  onAuth(async user => {
+    if (user) {
+      const prog = await getAllProgress(user.uid, COURSE_ID, ALL_IDS);
+      Object.entries(GROUPS).forEach(([id, topics]) => renderGroup(id, topics, prog));
+      updateProgress(prog);
+    } else {
+      Object.entries(GROUPS).forEach(([id, topics]) => renderGroup(id, topics));
+      document.getElementById('login-nudge').style.display = 'block';
+    }
+    if (location.hash) {
+      setTimeout(() => {
+        const el = document.querySelector(location.hash);
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 300);
+    }
+  });
+</script>
+</body>
+</html>

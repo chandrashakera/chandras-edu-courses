@@ -529,6 +529,30 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://chandrashaker.com/courses/academic/coa/unit5/</loc>
+    <lastmod>2026-10-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://chandrashaker.com/courses/academic/coa/unit5/input-output-interface</loc>
+    <lastmod>2026-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://chandrashaker.com/courses/academic/coa/unit5/modes-of-transfer</loc>
+    <lastmod>2026-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://chandrashaker.com/courses/academic/coa/unit5/priority-interrupt</loc>
+    <lastmod>2026-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://chandrashaker.com/courses/academic/coa/unit1/data-types-number-systems</loc>
     <lastmod>2026-07-18</lastmod>
     <changefreq>monthly</changefreq>
