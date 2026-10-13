@@ -1,5 +1,5 @@
-// COA Unit 5 curriculum — Batch 2: 6 live topics
-// Batch 3 pending (5.7–5.9, tg-memory-organization)
+// COA Unit 5 curriculum — Batch 3: 9 live topics; all Unit 5 topics live
+// All topic groups complete.
 
 export const GROUPS = {
   'tg-io-organization': [
@@ -51,6 +51,30 @@ export const GROUPS = {
       desc: 'Static and dynamic RAM, ROM chips (Fig 12-2, 12-3), memory address map (Table 12-1), and connecting RAM/ROM chips to the CPU (Fig 12-4) from §12-2.',
       href: 'main-memory.html',
       time: '15 min',
+      status: 'active'
+    },
+    {
+      id: 'auxiliary-memory',
+      title: 'Auxiliary Memory',
+      desc: 'Magnetic disk tracks and sectors (Fig 12-5), seek and transfer time, hard vs floppy disk, magnetic tape records and inter-record gaps from §12-3.',
+      href: 'auxiliary-memory.html',
+      time: '15 min',
+      status: 'active'
+    },
+    {
+      id: 'associative-memory',
+      title: 'Associative Memory',
+      desc: 'Content-addressable memory block diagram (Fig 12-6), key register mask, match register M, cell array (Fig 12-7), match logic M_i = ∏(x_j + K_j\') from §12-4.',
+      href: 'associative-memory.html',
+      time: '18 min',
+      status: 'active'
+    },
+    {
+      id: 'cache-memory',
+      title: 'Cache Memory',
+      desc: 'Locality of reference, hit ratio, average access time, associative/direct/set-associative mapping (Fig 12-11 to 12-15), LRU/FIFO replacement, write-through vs write-back from §12-5.',
+      href: 'cache-memory.html',
+      time: '22 min',
       status: 'active'
     }
   ]
