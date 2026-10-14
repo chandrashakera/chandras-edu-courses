@@ -33,7 +33,6 @@
   <style>
     .fig-wrap { text-align:center; margin:1.5rem 0; }
     .fig-wrap svg { max-width:640px; width:100%; height:auto; }
-    .fig-caption { font-size:.82rem; color:var(--text-3); margin-top:.4rem; }
   </style>
 </head>
 <body>
@@ -54,7 +53,6 @@
     <div style="display:flex;gap:.75rem;flex-wrap:wrap">
       <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">⏱ 15 min read</span>
       <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📝 Quiz inside</span>
-      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📖 Mano, §8-6</span>
     </div>
   </div>
 
@@ -67,8 +65,7 @@
     <p>Data transfer instructions move the content of one location to another without changing the value itself. Table 8-5 lists 8 typical instructions of this kind. The most common transfers are between memory and processor registers, between registers and input/output terminals, and between two processor registers.</p>
 
     <div style="overflow-x:auto">
-      <table class="truth-table">
-        <caption style="font-size:.85rem;margin-bottom:.4rem">Table 8-5 — Typical data transfer instructions (Mano §8-6)</caption>
+      <table>
         <thead><tr><th>Name</th><th>Mnemonic</th><th>Typical action</th></tr></thead>
         <tbody>
           <tr><td>Load</td><td>LD</td><td>Memory → processor register (usually the accumulator)</td></tr>
@@ -82,6 +79,7 @@
         </tbody>
       </table>
     </div>
+    <p style="font-size:.8rem;color:var(--text-2);margin-top:.4rem">Typical data transfer instructions. Adapted from M. Morris Mano, <em>Computer System Architecture</em>, Table 8-5.</p>
 
     <p>Each instruction can occur with a variety of addressing modes (covered in Topic 4.6). For instance, the load-to-accumulator instruction in immediate mode is sometimes written LDI, while some assemblers use a special prefix such as <code>#</code> to indicate the immediate operand. The mnemonic convention varies between architectures; the important point is that the same transfer operation may appear under different names.</p>
 
@@ -89,8 +87,7 @@
     <p>Arithmetic instructions perform numerical computations on operands stored in registers or memory. Table 8-7 lists 9 typical arithmetic instructions. The four basic operations — increment, decrement, add, subtract — are almost universally available. Multiply and divide may be omitted on small processors, in which case software subroutines perform them.</p>
 
     <div style="overflow-x:auto">
-      <table class="truth-table">
-        <caption style="font-size:.85rem;margin-bottom:.4rem">Table 8-7 — Typical arithmetic instructions (Mano §8-6)</caption>
+      <table>
         <thead><tr><th>Name</th><th>Mnemonic</th></tr></thead>
         <tbody>
           <tr><td>Increment</td><td>INC</td></tr>
@@ -105,6 +102,7 @@
         </tbody>
       </table>
     </div>
+    <p style="font-size:.8rem;color:var(--text-2);margin-top:.4rem">Typical arithmetic instructions. Adapted from M. Morris Mano, <em>Computer System Architecture</em>, Table 8-7.</p>
 
     <p>Many computers provide multiple variants of add and subtract to handle different data types — for example, ADDI for binary integers, ADDF for floating-point operands, and ADDD for BCD decimal. The <em>add with carry</em> instruction supports double-precision arithmetic by including the carry from a previous lower-word addition. <em>Subtract with borrow</em> is its counterpart. The <em>negate</em> instruction forms the 2's complement of a value, effectively reversing its sign when using signed representation.</p>
 
@@ -112,8 +110,7 @@
     <p>Logical instructions treat each bit of a register independently as a Boolean variable. Table 8-8 lists 10 typical logical and bit manipulation instructions. They make it possible to clear a selected bit to 0, set it to 1, or complement it, which is useful for masking, flag control, and selective complement operations.</p>
 
     <div style="overflow-x:auto">
-      <table class="truth-table">
-        <caption style="font-size:.85rem;margin-bottom:.4rem">Table 8-8 — Typical logical and bit manipulation instructions (Mano §8-6)</caption>
+      <table>
         <thead><tr><th>Name</th><th>Mnemonic</th><th>Effect</th></tr></thead>
         <tbody>
           <tr><td>Clear</td><td>CLR</td><td>All bits of operand → 0</td></tr>
@@ -129,6 +126,7 @@
         </tbody>
       </table>
     </div>
+    <p style="font-size:.8rem;color:var(--text-2);margin-top:.4rem">Typical logical and bit manipulation instructions. Adapted from M. Morris Mano, <em>Computer System Architecture</em>, Table 8-8.</p>
 
     <p>The AND instruction is also called a <em>mask</em> because ANDing a register with a pattern of 0s clears the corresponding bit positions while leaving the rest unchanged. OR sets selected bits, and XOR complements them — all without disturbing the other bits. The carry and interrupt control instructions in Table 8-8 manipulate individual flag flip-flops rather than whole registers.</p>
 
@@ -136,8 +134,7 @@
     <p>Shift instructions move the bits of a register left or right by one or more positions. Table 8-9 defines 8 shift instructions covering 4 types: logical shift, arithmetic shift, rotate, and rotate-through-carry. Each type has both a left and a right variant.</p>
 
     <div style="overflow-x:auto">
-      <table class="truth-table">
-        <caption style="font-size:.85rem;margin-bottom:.4rem">Table 8-9 — Typical shift instructions (Mano §8-6)</caption>
+      <table>
         <thead><tr><th>Name</th><th>Mnemonic</th><th>Bit shifted in at the vacated end</th></tr></thead>
         <tbody>
           <tr><td>Logical shift right</td><td>SHR</td><td>0</td></tr>
@@ -151,6 +148,7 @@
         </tbody>
       </table>
     </div>
+    <p style="font-size:.8rem;color:var(--text-2);margin-top:.4rem">Typical shift instructions. Adapted from M. Morris Mano, <em>Computer System Architecture</em>, Table 8-9.</p>
 
     <p>A <em>logical shift</em> inserts 0 at the vacated end and is useful for unsigned multiplication or division by powers of 2. An <em>arithmetic shift</em> right preserves the sign bit to maintain the correct sign in signed 2's complement arithmetic; arithmetic shift left inserts 0 and is identical to logical shift left. <em>Rotate</em> instructions are circular — no bit is lost; the bit shifted out reappears at the other end. <em>Rotate-through-carry</em> treats the carry flag as an extra bit of the register, effectively providing a 9-bit (or 17-bit on a 16-bit machine) circular shift.</p>
 
@@ -192,6 +190,7 @@
         <text x="50" y="162" font-size="10" fill="var(--text-3,#9ca3af)">TYPE encodes 4 shift variants: logical, arithmetic, rotate, rotate-through-carry (Table 8-9). RL: 0 = right, 1 = left. COUNT: number of positions.</text>
         <text x="50" y="178" font-size="10" fill="var(--text-3,#9ca3af)">Adapted from M. Morris Mano, Computer System Architecture, §8-6</text>
       </svg>
+      <p style="font-size:.8rem;color:var(--text-2);margin-top:.4rem">Shift instruction format. Adapted from M. Morris Mano, <em>Computer System Architecture</em>, §8-6.</p>
     </div>
 
     <p>In this format, the TYPE field is 2 bits wide, encoding the four shift variants; RL is a single bit selecting direction; and COUNT is a k-bit field allowing up to 2<sup>k</sup> − 1 positions in one instruction. With such a format a single instruction can specify the shift type, direction, and count simultaneously.</p>

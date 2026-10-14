@@ -28,12 +28,6 @@
 {"@context":"https://schema.org","@type":"LearningResource","name":"Instruction Formats","description":"Instruction formats: opcode, address and mode fields; three-, two-, one- and zero-address instructions; programs for X=(A+B)*(C+D) in each format.","url":"https://chandrashaker.com/courses/academic/coa/unit4/instruction-formats","learningResourceType":"Lesson","educationalLevel":"Undergraduate","about":{"@type":"Thing","name":"Computer Organization and Architecture"},"isPartOf":{"@type":"Course","name":"Computer Organization and Architecture","provider":{"@type":"Organization","name":"CHANDRAS EDU","url":"https://chandrashaker.in"}},"publisher":{"@type":"Organization","name":"CHANDRAS EDU","url":"https://chandrashaker.in"}}
   </script>
   <link rel="icon" href="/favicon.ico">
-  <style>
-    .code-block{font-family:monospace;background:var(--bg-2);border:1px solid var(--border);border-radius:6px;padding:.75rem 1rem;margin:.75rem 0;font-size:.88rem;line-height:1.9}
-    .code-block .row{display:flex;gap:2rem}
-    .code-block .row span:first-child{min-width:180px}
-    .code-block .row span:last-child{color:var(--text-2)}
-  </style>
 </head>
 <body>
 <div id="main-nav"></div>
@@ -53,7 +47,6 @@
     <div style="display:flex;gap:.75rem;flex-wrap:wrap">
       <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">⏱ 16 min read</span>
       <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📝 Quiz inside</span>
-      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📖 Mano, Ch. 8 §8-4</span>
     </div>
   </div>
 
@@ -113,43 +106,43 @@
     <p>Operands reside in memory at A, B, C, D; result stored at X.</p>
 
     <p><strong>Three-address instructions</strong> — three instructions total:</p>
-    <div class="code-block">
-      <div class="row"><span>ADD R1, A, B</span><span>R1 ← M[A] + M[B]</span></div>
-      <div class="row"><span>ADD R2, C, D</span><span>R2 ← M[C] + M[D]</span></div>
-      <div class="row"><span>MUL X, R1, R2</span><span>M[X] ← R1 * R2</span></div>
+    <div class="box box-eg">
+      <pre>ADD R1, A, B     R1 ← M[A] + M[B]
+ADD R2, C, D     R2 ← M[C] + M[D]
+MUL X, R1, R2    M[X] ← R1 * R2</pre>
     </div>
 
     <p><strong>Two-address instructions</strong> — MOV needed to set up registers:</p>
-    <div class="code-block">
-      <div class="row"><span>MOV R1, A</span><span>R1 ← M[A]</span></div>
-      <div class="row"><span>ADD R1, B</span><span>R1 ← R1 + M[B]</span></div>
-      <div class="row"><span>MOV R2, C</span><span>R2 ← M[C]</span></div>
-      <div class="row"><span>ADD R2, D</span><span>R2 ← R2 + M[D]</span></div>
-      <div class="row"><span>MUL R1, R2</span><span>R1 ← R1 * R2</span></div>
-      <div class="row"><span>MOV X, R1</span><span>M[X] ← R1</span></div>
+    <div class="box box-eg">
+      <pre>MOV R1, A     R1 ← M[A]
+ADD R1, B     R1 ← R1 + M[B]
+MOV R2, C     R2 ← M[C]
+ADD R2, D     R2 ← R2 + M[D]
+MUL R1, R2    R1 ← R1 * R2
+MOV X, R1     M[X] ← R1</pre>
     </div>
 
     <p><strong>One-address instructions</strong> — all operations through implied accumulator AC:</p>
-    <div class="code-block">
-      <div class="row"><span>LOAD A</span><span>AC ← M[A]</span></div>
-      <div class="row"><span>ADD B</span><span>AC ← AC + M[B]</span></div>
-      <div class="row"><span>STORE T</span><span>M[T] ← AC</span></div>
-      <div class="row"><span>LOAD C</span><span>AC ← M[C]</span></div>
-      <div class="row"><span>ADD D</span><span>AC ← AC + M[D]</span></div>
-      <div class="row"><span>MUL T</span><span>AC ← AC * M[T]</span></div>
-      <div class="row"><span>STORE X</span><span>M[X] ← AC</span></div>
+    <div class="box box-eg">
+      <pre>LOAD A     AC ← M[A]
+ADD B      AC ← AC + M[B]
+STORE T    M[T] ← AC
+LOAD C     AC ← M[C]
+ADD D      AC ← AC + M[D]
+MUL T      AC ← AC * M[T]
+STORE X    M[X] ← AC</pre>
     </div>
 
     <p><strong>Zero-address instructions</strong> — stack computer; TOS = top of stack:</p>
-    <div class="code-block">
-      <div class="row"><span>PUSH A</span><span>TOS ← A</span></div>
-      <div class="row"><span>PUSH B</span><span>TOS ← B</span></div>
-      <div class="row"><span>ADD</span><span>TOS ← (A + B)</span></div>
-      <div class="row"><span>PUSH C</span><span>TOS ← C</span></div>
-      <div class="row"><span>PUSH D</span><span>TOS ← D</span></div>
-      <div class="row"><span>ADD</span><span>TOS ← (C + D)</span></div>
-      <div class="row"><span>MUL</span><span>TOS ← (C+D)*(A+B)</span></div>
-      <div class="row"><span>POP X</span><span>M[X] ← TOS</span></div>
+    <div class="box box-eg">
+      <pre>PUSH A    TOS ← A
+PUSH B    TOS ← B
+ADD       TOS ← (A + B)
+PUSH C    TOS ← C
+PUSH D    TOS ← D
+ADD       TOS ← (C + D)
+MUL       TOS ← (C+D)*(A+B)
+POP X     M[X] ← TOS</pre>
     </div>
 
     <h2>Common Pitfalls</h2>

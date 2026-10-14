@@ -33,7 +33,6 @@
   <style>
     .fig-wrap { text-align:center; margin:1.5rem 0; }
     .fig-wrap svg { max-width:700px; width:100%; height:auto; }
-    .fig-caption { font-size:.82rem; color:var(--text-3); margin-top:.4rem; }
   </style>
 </head>
 <body>
@@ -86,7 +85,7 @@
     </ol>
     <p>Because only load and store instructions access memory, all arithmetic and logic operations work on register operands. This simplifies the control unit, allows fixed-length instructions to be decoded in a single cycle, and makes hardwired control practical. Single-cycle execution is achieved by overlapping the fetch, decode, and execute phases of successive instructions — a technique called <em>pipelining</em>.</p>
 
-    <h2>Overlapped Register Windows (Fig. 8-9)</h2>
+    <h2>Overlapped Register Windows</h2>
     <p>RISC processors typically include a large number of registers to reduce memory accesses. One important feature is the use of <em>overlapped register windows</em> to accelerate procedure call and return. The concept is illustrated in Fig. 8-9.</p>
 
     <div class="fig-wrap">
@@ -143,7 +142,7 @@
         <text x="50" y="480" font-size="10" fill="var(--text-3,#9ca3af)">Total: 74 registers. Window size = 32 (10 local + 6 low-overlap + 6 high-overlap + 10 global). 4 windows, 10 global (R0–R9).</text>
         <text x="50" y="494" font-size="10" fill="var(--text-3,#9ca3af)">Adapted from M. Morris Mano, Computer System Architecture, Fig. 8-9</text>
       </svg>
-      <p class="fig-caption">Figure 8-9 — Overlapped register windows (Mano §8-8)</p>
+      <p style="font-size:.8rem;color:var(--text-2);margin-top:.4rem">Overlapped register windows. Adapted from M. Morris Mano, <em>Computer System Architecture</em>, Fig. 8-9.</p>
     </div>
 
     <p>In Fig. 8-9 the system has a total of <strong>74 registers</strong>. Registers R0 through R9 are <strong>10 global registers</strong> available to all procedures. The remaining 64 registers are divided into <strong>4 windows</strong> for procedures A, B, C, and D. Each window consists of 10 local registers and two sets of 6 registers that overlap with the adjacent windows. Using the formula: window size = L + 2C + G = 10 + 12 + 10 = 32 registers visible to each active procedure; register file = (L + C) × W + G = (10 + 6) × 4 + 10 = 74 total registers.</p>
@@ -233,7 +232,7 @@
         <text x="50" y="318" font-size="10" fill="var(--text-2,#6b7280)">Y (19 bits): signed PC-relative offset; used by JMPR and CALLR for forward/backward branches without a full register address.</text>
         <text x="50" y="348" font-size="10" fill="var(--text-3,#9ca3af)">Adapted from M. Morris Mano, Computer System Architecture, Fig. 8-10</text>
       </svg>
-      <p class="fig-caption">Figure 8-10 — Berkeley RISC I instruction formats (Mano §8-8)</p>
+      <p style="font-size:.8rem;color:var(--text-2);margin-top:.4rem">Berkeley RISC I instruction formats. Adapted from M. Morris Mano, <em>Computer System Architecture</em>, Fig. 8-10.</p>
     </div>
 
     <p>Table 8-12 lists all <strong>31 instructions of Berkeley RISC I</strong> in three categories: data manipulation (arithmetic, logic, shift), data transfer (load, store, PSW transfer), and program control (jump, call, return, interrupt). Every instruction uses three operands; the second source S2 can be either a register or a 13-bit signed immediate, selected by bit 13.</p>
@@ -309,7 +308,7 @@
   const LABELS    = ['A','B','C','D'];
   const QUIZ = [
     {
-      q: "How many major characteristics does RISC architecture have according to Mano §8-8?",
+      q: "How many major characteristics does RISC architecture have according to the textbook (§8-8)?",
       options: ["5","6","7","8"],
       answer: 2,
       explanation: "RISC has 7 major characteristics: few instructions, few addressing modes, load/store-only memory access, register-only operations, fixed-length format, single-cycle execution, and hardwired control."

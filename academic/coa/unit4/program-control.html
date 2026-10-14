@@ -33,8 +33,6 @@
   <style>
     .fig-wrap { text-align:center; margin:1.5rem 0; }
     .fig-wrap svg { max-width:700px; width:100%; height:auto; }
-    .fig-caption { font-size:.82rem; color:var(--text-3); margin-top:.4rem; }
-    .rtl-box { background:var(--bg-3); border-left:3px solid var(--primary); border-radius:var(--radius); padding:.75rem 1rem; font-family:var(--font-mono,monospace); font-size:.88rem; margin:1rem 0; line-height:1.8; }
   </style>
 </head>
 <body>
@@ -55,7 +53,6 @@
     <div style="display:flex;gap:.75rem;flex-wrap:wrap">
       <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">⏱ 16 min read</span>
       <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📝 Quiz inside</span>
-      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📖 Mano, §8-7</span>
     </div>
   </div>
 
@@ -68,8 +65,7 @@
     <p>Table 8-10 lists 7 typical program control instructions. Branch and jump instructions are used interchangeably in many architectures, though some use them to distinguish different addressing modes. The compare and test instructions do not change program flow directly; they update status bits, which a subsequent conditional branch then tests.</p>
 
     <div style="overflow-x:auto">
-      <table class="truth-table">
-        <caption style="font-size:.85rem;margin-bottom:.4rem">Table 8-10 — Typical program control instructions (Mano §8-7)</caption>
+      <table>
         <thead><tr><th>Name</th><th>Mnemonic</th><th>Action</th></tr></thead>
         <tbody>
           <tr><td>Branch</td><td>BR</td><td>PC ← branch address (conditional or unconditional)</td></tr>
@@ -82,6 +78,7 @@
         </tbody>
       </table>
     </div>
+    <p style="font-size:.8rem;color:var(--text-2);margin-top:.4rem">Typical program control instructions. Adapted from M. Morris Mano, <em>Computer System Architecture</em>, Table 8-10.</p>
 
     <h2>Status Bit Conditions</h2>
     <p>A status register supplements the ALU by storing condition codes from the most recent operation. Figure 8-8 shows the block diagram of an 8-bit ALU with a 4-bit status register. The four status bits are named C, S, Z, and V, set or cleared by ALU operations as follows:</p>
@@ -170,7 +167,7 @@
         <text x="554" y="430" font-size="12" fill="var(--text,#374151)">Output F</text>
         <text x="340" y="476" text-anchor="middle" font-size="10" fill="var(--text-3,#9ca3af)">Adapted from M. Morris Mano, Computer System Architecture, Fig. 8-8</text>
       </svg>
-      <p class="fig-caption">Figure 8-8 — Status register bits (Mano §8-7)</p>
+      <p style="font-size:.8rem;color:var(--text-2);margin-top:.4rem">Status register bits. Adapted from M. Morris Mano, <em>Computer System Architecture</em>, Fig. 8-8.</p>
     </div>
 
     <p>The four status bits are set or cleared after each ALU operation:</p>
@@ -187,8 +184,7 @@
     <p>Table 8-11 lists conditional branch instructions organised in three groups. Each mnemonic begins with B (for branch) followed by an abbreviation of the condition.</p>
 
     <div style="overflow-x:auto">
-      <table class="truth-table">
-        <caption style="font-size:.85rem;margin-bottom:.4rem">Table 8-11 — Conditional branch instructions (Mano §8-7)</caption>
+      <table>
         <thead><tr><th>Mnemonic</th><th>Branch condition</th><th>Tested condition</th></tr></thead>
         <tbody>
           <tr><td colspan="3" style="background:var(--bg-3);font-weight:600;font-size:.82rem">Flag-based conditions</td></tr>
@@ -217,23 +213,24 @@
         </tbody>
       </table>
     </div>
+    <p style="font-size:.8rem;color:var(--text-2);margin-top:.4rem">Conditional branch instructions. Adapted from M. Morris Mano, <em>Computer System Architecture</em>, Table 8-11.</p>
 
     <p>Note that BE and BNE appear in both the unsigned and signed groups because the test for equality (Z = 1) is the same regardless of whether the operands are treated as signed or unsigned. The terms <em>higher</em> and <em>lower</em> apply to unsigned comparison; <em>greater than</em> and <em>less than</em> apply to signed comparison, where the V and S bits must both be considered.</p>
 
     <h2>Subroutine Call and Return</h2>
     <p>A subroutine is a self-contained sequence of instructions that can be called from multiple points in a program. When a CALL instruction executes, the CPU must save the return address (the address of the next instruction after CALL) so the subroutine knows where to return. The most efficient mechanism uses a memory stack, implemented with the following RTL:</p>
 
-    <div class="rtl-box">
-      <strong>CALL subroutine:</strong><br>
-      SP ← SP − 1 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Decrement stack pointer<br>
-      M[SP] ← PC &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Push return address onto stack<br>
-      PC ← effective address &nbsp;&nbsp;Transfer control to subroutine
+    <div class="box box-eg">
+      <pre>CALL subroutine:
+SP ← SP − 1               Decrement stack pointer
+M[SP] ← PC                Push return address onto stack
+PC ← effective address    Transfer control to subroutine</pre>
     </div>
 
-    <div class="rtl-box">
-      <strong>Return from subroutine (RET):</strong><br>
-      PC ← M[SP] &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Pop return address into PC<br>
-      SP ← SP + 1 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Increment stack pointer
+    <div class="box box-eg">
+      <pre>Return from subroutine (RET):
+PC ← M[SP]     Pop return address into PC
+SP ← SP + 1    Increment stack pointer</pre>
     </div>
 
     <p>Using a stack for return addresses means that nested and recursive subroutine calls are handled automatically — each call pushes a new return address, and each return pops the most recent one, always returning to the correct caller.</p>
