@@ -55,8 +55,6 @@
   </script>
   <link rel="icon" href="/favicon.ico">
   <style>
-    .box-eg { background:var(--bg-3); border-left:4px solid var(--primary); border-radius:6px; padding:.9rem 1.1rem; margin:1rem 0; }
-    .box-eg pre { margin:0; font-family:monospace; font-size:.85rem; line-height:1.8; overflow-x:auto; }
   </style>
 </head>
 <body>
@@ -96,7 +94,7 @@
 
     <h2>RTL for the I/O Instructions</h2>
     <p>All six execute in a single state, T3 — opcode 111 instructions never need the indirect-address detour, since they don't use the address field at all (Computer Instructions):</p>
-    <div class="box-eg"><pre>p = D7 I T3   (common condition: opcode=111, I=1, timing T3)
+    <div class="box box-eg"><pre>p = D7 I T3   (common condition: opcode=111, I=1, timing T3)
 
 p B11 (INP):  INPR ← input device,  FGI ← 0
 p B10 (OUT):  output device ← OUTR,  FGO ← 0

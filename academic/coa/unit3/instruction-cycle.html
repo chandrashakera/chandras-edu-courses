@@ -55,8 +55,6 @@
   </script>
   <link rel="icon" href="/favicon.ico">
   <style>
-    .box-eg { background:var(--bg-3); border-left:4px solid var(--primary); border-radius:6px; padding:.9rem 1.1rem; margin:1rem 0; }
-    .box-eg pre { margin:0; font-family:monospace; font-size:.85rem; line-height:1.7; overflow-x:auto; }
   </style>
 </head>
 <body>
@@ -89,7 +87,7 @@
 
     <h2>Fetch and Decode — T0, T1, T2</h2>
     <p>These three timing states are identical for <em>every</em> instruction, no matter what it turns out to be:</p>
-    <div class="box-eg"><pre>T0:  AR ← PC
+    <div class="box box-eg"><pre>T0:  AR ← PC
 T1:  IR ← M[AR],  PC ← PC + 1
 T2:  D0,…,D7 ← Decode IR(14-12),  AR ← IR(11-0),  I ← IR(15)</pre></div>
     <p>T0 points AR at the next instruction. T1 reads it into IR and immediately advances PC — so PC is already pointing past the current instruction before execution even begins. T2 does three things at once: the opcode decoder (Timing and Control) produces D0-D7, the low 12 bits are copied into AR as a tentative address, and I captures the indirect-addressing bit.</p>

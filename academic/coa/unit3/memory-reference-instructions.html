@@ -55,8 +55,6 @@
   </script>
   <link rel="icon" href="/favicon.ico">
   <style>
-    .box-eg { background:var(--bg-3); border-left:4px solid var(--primary); border-radius:6px; padding:.9rem 1.1rem; margin:1rem 0; }
-    .box-eg pre { margin:0; font-family:monospace; font-size:.85rem; line-height:1.8; overflow-x:auto; }
     .truth-table { border-collapse:collapse; margin:1rem auto; font-size:.86rem; }
     .truth-table th, .truth-table td { border:1px solid var(--border); padding:.4rem .65rem; text-align:center; }
     .truth-table th { background:var(--bg-3); color:var(--text); font-weight:700; }
@@ -91,11 +89,11 @@
 
     <h2>Where Execution Starts</h2>
     <p>Every memory-reference instruction's execution begins at <strong>T4</strong>, never T3 — T3 is reserved exclusively for resolving an indirect address:</p>
-    <div class="box-eg"><pre>D7′ I T3:   AR ← M[AR]        (only when I = 1; skipped entirely when I = 0)</pre></div>
+    <div class="box box-eg"><pre>D7′ I T3:   AR ← M[AR]        (only when I = 1; skipped entirely when I = 0)</pre></div>
     <p>By T4, AR is guaranteed to hold the operand's real address either way, so every instruction's execute RTL can simply assume "AR already points at the right place."</p>
 
     <h2>The Full RTL</h2>
-    <div class="box-eg"><pre>AND (D0):
+    <div class="box box-eg"><pre>AND (D0):
   D0T4:  DR ← M[AR]
   D0T5:  AC ← AC ∧ DR,  SC ← 0
 
