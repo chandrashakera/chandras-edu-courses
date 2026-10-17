@@ -222,7 +222,7 @@
             "Write-through is used only for ROM; write-back is used only for RAM","Write-through requires a dirty bit; write-back does not"],
    answer:1,
    explanation:"Write-through keeps main memory always consistent with cache — every write hits both. This is safe for DMA transfers but generates more bus traffic. Write-back (also called copy-back) updates only the cache; the modified block is written to main memory only when it is replaced. A dirty bit marks modified blocks. Write-back reduces bus traffic but risks stale data in main memory."},
-  {q:"In set-associative mapping with k=2 and a 512-word cache, how many main memory words can map to a single index address (cache set)?",
+  {q:"In the two-way set-associative example (32K × 12 main memory, 9-bit index), how many main memory words map to a single set?",
    options:["1","2","512","As many as fit in main memory divided by 512"],
    answer:3,
    explanation:"The 9-bit index selects one of 512 sets, so 32768 / 512 = 64 main memory words map to each set; the set holds only two of them at a time."}
