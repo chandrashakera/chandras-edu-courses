@@ -5,14 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3030765874336294" crossorigin="anonymous"></script>
   <title>Flip-Flops &amp; Timing — DLD Unit 4 | CHANDRAS EDU</title>
-  <meta name="description" content="Edge-triggered vs. level-sensitive storage, characteristic equations and excitation tables for D/T/JK/SR flip-flops, the race-around problem and master-slave JK, and setup/hold time.">
+  <meta name="description" content="Latch versus flip-flop, characteristic equations and excitation tables for D, T, JK and SR flip-flops, the race-around problem, and setup and hold time.">
   <link rel="canonical" href="https://chandrashaker.com/courses/academic/dld/unit4/flipflops">
   <link rel="stylesheet" href="../../../css/style.css">
 
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="CHANDRAS EDU">
   <meta property="og:title" content="Flip-Flops &amp; Timing — DLD Unit 4 | CHANDRAS EDU">
-  <meta property="og:description" content="Edge-triggered vs. level-sensitive storage, characteristic equations and excitation tables for D/T/JK/SR flip-flops, the race-around problem and master-slave JK, and setup/hold time.">
+  <meta property="og:description" content="Latch versus flip-flop, characteristic equations and excitation tables for D, T, JK and SR flip-flops, the race-around problem, and setup and hold time.">
   <meta property="og:url" content="https://chandrashaker.com/courses/academic/dld/unit4/flipflops">
   <meta property="og:image" content="https://chandrashaker.com/courses/images/og/dld-v7.png">
   <meta property="og:image:width" content="1200">
@@ -20,7 +20,7 @@
   <meta property="og:image:alt" content="Digital Logic Design — CHANDRAS EDU free course">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Flip-Flops &amp; Timing — DLD Unit 4 | CHANDRAS EDU">
-  <meta name="twitter:description" content="Edge-triggered vs. level-sensitive storage, characteristic equations and excitation tables for D/T/JK/SR flip-flops, the race-around problem and master-slave JK, and setup/hold time.">
+  <meta name="twitter:description" content="Latch versus flip-flop, characteristic equations and excitation tables for D, T, JK and SR flip-flops, the race-around problem, and setup and hold time.">
   <meta name="twitter:image" content="https://chandrashaker.com/courses/images/og/dld-v7.png">
 
   <script type="application/ld+json">
@@ -40,7 +40,7 @@
   "@context": "https://schema.org",
   "@type": "LearningResource",
   "name": "Flip-Flops & Timing",
-  "description": "Edge-triggered vs. level-sensitive storage, characteristic equations and excitation tables for D/T/JK/SR flip-flops, the race-around problem and master-slave JK, and setup/hold time.",
+  "description": "Latch versus flip-flop, characteristic equations and excitation tables for D, T, JK and SR flip-flops, the race-around problem, and setup and hold time.",
   "url": "https://chandrashaker.com/courses/academic/dld/unit4/flipflops",
   "learningResourceType": "Lesson",
   "educationalLevel": "Undergraduate",
@@ -80,7 +80,6 @@
     <div style="display:flex;gap:.75rem;flex-wrap:wrap">
       <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">⏱ 20 min read</span>
       <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📝 Quiz inside</span>
-      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📖 Mano &amp; Ciletti Ch. 5</span>
     </div>
   </div>
 
@@ -255,7 +254,7 @@
     { q:"For a JK flip-flop transitioning from Qₙ=1 to Qₙ₊₁=0, what are the required J and K values?", options:["J=X, K=1", "J=1, K=X", "J=0, K=0", "J=X, K=X"], answer:0, explanation:"To force a 1→0 transition, K must be 1 (reset); J is a don't-care since K=1 dominates regardless of J's value." },
     { q:"What causes the race-around condition in a level-triggered JK latch?", options:["With J=K=1, if the clock pulse width exceeds the propagation delay, the output toggles repeatedly and unpredictably during one pulse", "The J and K inputs are physically shorted together", "It only happens when J=K=0", "It is caused by using a D flip-flop instead of JK"], answer:0, explanation:"When J=K=1 calls for 'toggle' and the enable stays active longer than one gate delay, the fed-back output keeps re-triggering the toggle, so the final state depends on timing, not design." },
     { q:"In a master-slave JK flip-flop, why does the slave use the inverted clock?", options:["So the slave is only transparent while the master is latched, preventing the master's own output from ever looping back to affect it within one clock cycle", "To make the circuit run twice as fast", "It's arbitrary — any clock signal would work identically", "To eliminate the need for J and K inputs entirely"], answer:0, explanation:"Opposite clock phases guarantee the master and slave are never transparent simultaneously, which is exactly what prevents the race-around problem." },
-    { q:"What is 'setup time' (t_su) in flip-flop timing?", options:["The minimum time the data input must remain stable before the active clock edge", "The minimum time the data input must remain stable after the active clock edge", "The total propagation delay through the flip-flop", "The time between two consecutive clock pulses"], answer:0, explanation:"Setup time is measured before the clock edge — the data must already be stable for at least t_su before the edge for it to be reliably captured; hold time (t_h) is the analogous requirement after the edge." }
+    { q:"What is 'setup time' (t<sub>su</sub>) in flip-flop timing?", options:["The minimum time the data input must remain stable before the active clock edge", "The minimum time the data input must remain stable after the active clock edge", "The total propagation delay through the flip-flop", "The time between two consecutive clock pulses"], answer:0, explanation:"Setup time is measured before the clock edge — the data must already be stable for at least t<sub>su</sub> before the edge for it to be reliably captured; hold time (t<sub>h</sub>) is the analogous requirement after the edge." }
   ];
 
   let selected = {}, submitted = false;

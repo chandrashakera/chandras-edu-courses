@@ -5,14 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3030765874336294" crossorigin="anonymous"></script>
   <title>FSM Design Procedure — Sequence Detector — DLD Unit 5 | CHANDRAS EDU</title>
-  <meta name="description" content="A complete worked FSM design: an overlap-aware Mealy detector for the serial pattern 1101, from state diagram through state table, excitation table, K-maps, and final circuit.">
+  <meta name="description" content="A complete worked FSM design: a Mealy detector for the serial pattern 1101, from state diagram and state assignment through K-maps to the final circuit.">
   <link rel="canonical" href="https://chandrashaker.com/courses/academic/dld/unit5/fsm-design-sequence-detector">
   <link rel="stylesheet" href="../../../css/style.css">
 
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="CHANDRAS EDU">
   <meta property="og:title" content="FSM Design Procedure — Sequence Detector — DLD Unit 5 | CHANDRAS EDU">
-  <meta property="og:description" content="A complete worked FSM design: an overlap-aware Mealy detector for the serial pattern 1101, from state diagram through state table, excitation table, K-maps, and final circuit.">
+  <meta property="og:description" content="A complete worked FSM design: a Mealy detector for the serial pattern 1101, from state diagram and state assignment through K-maps to the final circuit.">
   <meta property="og:url" content="https://chandrashaker.com/courses/academic/dld/unit5/fsm-design-sequence-detector">
   <meta property="og:image" content="https://chandrashaker.com/courses/images/og/dld-v7.png">
   <meta property="og:image:width" content="1200">
@@ -20,7 +20,7 @@
   <meta property="og:image:alt" content="Digital Logic Design — CHANDRAS EDU free course">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="FSM Design Procedure — Sequence Detector — DLD Unit 5 | CHANDRAS EDU">
-  <meta name="twitter:description" content="A complete worked FSM design: an overlap-aware Mealy detector for the serial pattern 1101, from state diagram through state table, excitation table, K-maps, and final circuit.">
+  <meta name="twitter:description" content="A complete worked FSM design: a Mealy detector for the serial pattern 1101, from state diagram and state assignment through K-maps to the final circuit.">
   <meta name="twitter:image" content="https://chandrashaker.com/courses/images/og/dld-v7.png">
 
   <script type="application/ld+json">
@@ -40,7 +40,7 @@
   "@context": "https://schema.org",
   "@type": "LearningResource",
   "name": "FSM Design Procedure — Sequence Detector",
-  "description": "A complete worked FSM design: an overlap-aware Mealy detector for the serial pattern 1101, from state diagram through state table, excitation table, K-maps, and final circuit.",
+  "description": "A complete worked FSM design: a Mealy detector for the serial pattern 1101, from state diagram and state assignment through K-maps to the final circuit.",
   "url": "https://chandrashaker.com/courses/academic/dld/unit5/fsm-design-sequence-detector",
   "learningResourceType": "Lesson",
   "educationalLevel": "Undergraduate",
@@ -91,7 +91,6 @@
     <div style="display:flex;gap:.75rem;flex-wrap:wrap">
       <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">⏱ 24 min read</span>
       <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📝 Quiz inside</span>
-      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📖 Mano &amp; Ciletti Ch. 5</span>
     </div>
   </div>
 
@@ -338,7 +337,7 @@ y = ABx
     { q:"In the 1101 sequence detector, why does state S3 transition to S1 (not S0) when it sees a 1?", options:["That input completes a match, and the same 1 that completed it is also the start of a possible new overlapping match", "It's an arbitrary design choice", "S1 and S0 are actually the same state", "The machine ignores that input entirely"], answer:0, explanation:"The bit that completes '1101' is a '1', which by itself already matches the first character of the pattern — routing to S1 correctly preserves that partial progress for detecting an overlapping next match." },
     { q:"Why is the output for this detector modeled as Mealy rather than Moore?", options:["The match output is tied to a specific transition (leaving S3 on input 1), not to sitting in any particular state", "Moore machines cannot detect patterns", "Mealy machines never need a state register", "There's no real difference in this case"], answer:0, explanation:"There's no dedicated 'currently matched' state whose output is always 1 — the output is 1 exactly on the completing edge, which is the defining feature of a Mealy output." },
     { q:"In the excitation table, what determines the values in the A+ and B+ columns?", options:["The next state read directly from the state table, split into its two assigned bits", "A guess based on the current output", "They are always equal to the current A and B values", "They come from the K-map, not the state table"], answer:0, explanation:"A+B+ is simply the binary code of whatever next state the state table specifies for that present-state/input combination — the excitation table's first job is translating state transitions into individual bit transitions." },
-    { q:"Why does the output equation y = ABx have no don't-cares to simplify with, unlike J_A, K_A, J_B, and K_B?", options:["The output is defined and required to be a specific 0 or 1 for every reachable (A,B,x) combination, with no unused state codes among the reachable rows", "Output equations never have don't-cares in any FSM", "y actually does have don't-cares, they were just omitted by mistake", "ABx is already the simplest possible form for any 3-variable function"], answer:0, explanation:"All four states (00,01,10,11) are used and every input value is defined for each, so the output truth table is fully specified — leaving no don't-care cells for y to exploit." },
+    { q:"Why does the output equation y = ABx have no don't-cares to simplify with, unlike J<sub>A</sub>, K<sub>A</sub>, J<sub>B</sub>, and K<sub>B</sub>?", options:["The output is defined and required to be a specific 0 or 1 for every reachable (A,B,x) combination, with no unused state codes among the reachable rows", "Output equations never have don't-cares in any FSM", "y actually does have don't-cares, they were just omitted by mistake", "ABx is already the simplest possible form for any 3-variable function"], answer:0, explanation:"All four states (00,01,10,11) are used and every input value is defined for each, so the output truth table is fully specified — leaving no don't-care cells for y to exploit." },
     { q:"What is the most common bug this topic warns about when designing a sequence detector?", options:["Falling all the way back to the initial state on every mismatch, which silently breaks overlapping-match detection", "Using too many flip-flops", "Choosing Mealy over Moore", "Forgetting to include a clock signal"], answer:0, explanation:"A naive design that resets to S0 on any mismatch fails to recognize overlapping occurrences of the pattern — the fix is checking whether the mismatched tail still matches a shorter prefix, as S3 does on input 1." }
   ];
 
