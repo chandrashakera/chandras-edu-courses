@@ -141,7 +141,7 @@
         <line x1="190" y1="80" x2="230" y2="80" stroke="var(--primary)" stroke-width="2"/>
         <text x="234" y="84" font-size="13" fill="var(--text)">Y</text>
       </svg>
-      <div style="font-size:.78rem;color:#777;margin-top:.4rem">Fig 1: A 4-to-1 MUX — the 2-bit select address S₁S₀ (entering the top) picks which of I₀–I₃ reaches the output Y</div>
+      <div style="font-size:.78rem;color:#777;margin-top:.4rem">A 4-to-1 MUX — the 2-bit select address S₁S₀ (entering the top) picks which of I₀–I₃ reaches the output Y.</div>
     </div>
 
     <div style="overflow-x:auto">
@@ -204,7 +204,7 @@
         <line x1="190" y1="80" x2="230" y2="80" stroke="var(--primary)" stroke-width="2"/>
         <text x="234" y="84" font-size="13" fill="var(--text)">F</text>
       </svg>
-      <div style="font-size:.78rem;color:#777;margin-top:.4rem">Fig 2: Tying constants to the four data inputs, with A and B as the select lines, turns the MUX itself into an XOR circuit — no AND, OR, or XOR gates anywhere</div>
+      <div style="font-size:.78rem;color:#777;margin-top:.4rem">Tying constants to the four data inputs, with A and B as the select lines, turns the MUX itself into an XOR circuit — no AND, OR, or XOR gates anywhere.</div>
     </div>
 
     <p>Tie I₀ = 0, I₁ = 1, I₂ = 1, I₃ = 0 (constant logic levels — ground and supply voltage, in real hardware), and the MUX's built-in selection logic does the rest. Checking: at A=1, B=0 (select = 10), the MUX routes I₂ (=1) to the output — and indeed 1⊕0 = 1. ✓ No AND, OR, or XOR gates were used anywhere — the multiplexer's internal structure <em>is</em> the entire circuit.</p>
@@ -242,7 +242,7 @@
         <line x1="190" y1="133" x2="230" y2="133" stroke="var(--primary)" stroke-width="2"/>
         <text x="234" y="137" font-size="12" fill="var(--text)">Y₃</text>
       </svg>
-      <div style="font-size:.78rem;color:#777;margin-top:.4rem">Fig 3: A 1-to-4 DEMUX — the select address S₁S₀ picks which single output D is routed to; every other output stays 0</div>
+      <div style="font-size:.78rem;color:#777;margin-top:.4rem">A 1-to-4 DEMUX — the select address S₁S₀ picks which single output D is routed to; every other output stays 0.</div>
     </div>
     <p>Compare this against the previous topic's decoder: a demultiplexer <em>is</em> a decoder, with the single data line D taking the place of the shared enable input. Any decoder with an enable pin can be used as a demultiplexer for free, and vice versa — they're the same circuit wearing two different names depending on how the extra input is used.</p>
 

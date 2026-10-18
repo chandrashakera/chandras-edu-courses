@@ -5,14 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3030765874336294" crossorigin="anonymous"></script>
   <title>Arithmetic Micro-operations — COA Unit 3 | CHANDRAS EDU</title>
-  <meta name="description" content="The register-transfer-level catalog of arithmetic micro-operations — add, subtract, increment, decrement — one binary adder-subtractor circuit, and overflow detection.">
+  <meta name="description" content="Arithmetic micro-operations: add, subtract, increment and decrement, how one binary adder-subtractor circuit does all four, and overflow detection.">
   <link rel="canonical" href="https://chandrashaker.com/courses/academic/coa/unit3/arithmetic-microoperations">
   <link rel="stylesheet" href="../../../css/style.css">
 
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="CHANDRAS EDU">
   <meta property="og:title" content="Arithmetic Micro-operations — COA Unit 3 | CHANDRAS EDU">
-  <meta property="og:description" content="The register-transfer-level catalog of arithmetic micro-operations — add, subtract, increment, decrement — one binary adder-subtractor circuit, and overflow detection.">
+  <meta property="og:description" content="Arithmetic micro-operations: add, subtract, increment and decrement, how one binary adder-subtractor circuit does all four, and overflow detection.">
   <meta property="og:url" content="https://chandrashaker.com/courses/academic/coa/unit3/arithmetic-microoperations">
   <meta property="og:image" content="https://chandrashaker.com/courses/images/og/coa-v7.png">
   <meta property="og:image:width" content="1200">
@@ -20,7 +20,7 @@
   <meta property="og:image:alt" content="Computer Organization and Architecture — CHANDRAS EDU free course">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Arithmetic Micro-operations — COA Unit 3 | CHANDRAS EDU">
-  <meta name="twitter:description" content="The register-transfer-level catalog of arithmetic micro-operations — add, subtract, increment, decrement — one binary adder-subtractor circuit, and overflow detection.">
+  <meta name="twitter:description" content="Arithmetic micro-operations: add, subtract, increment and decrement, how one binary adder-subtractor circuit does all four, and overflow detection.">
   <meta name="twitter:image" content="https://chandrashaker.com/courses/images/og/coa-v7.png">
 
   <script type="application/ld+json">
@@ -40,7 +40,7 @@
   "@context": "https://schema.org",
   "@type": "LearningResource",
   "name": "Arithmetic Micro-operations",
-  "description": "The register-transfer-level catalog of arithmetic micro-operations — add, subtract, increment, decrement — one binary adder-subtractor circuit, and overflow detection.",
+  "description": "Arithmetic micro-operations: add, subtract, increment and decrement, how one binary adder-subtractor circuit does all four, and overflow detection.",
   "url": "https://chandrashaker.com/courses/academic/coa/unit3/arithmetic-microoperations",
   "learningResourceType": "Lesson",
   "educationalLevel": "Undergraduate",
@@ -213,7 +213,7 @@ V = C₄ ⊕ C₃ = 0 ⊕ 1 = 1  → overflow correctly flagged
   const QUIZ = [
     { q:"Why is subtraction (R1 − R2) written in RTL as R1 + R2′ + 1?", options:["This is exactly the 2's complement method of subtraction, letting the same binary adder circuit perform subtraction with minimal extra hardware", "It is only a notational convention with no hardware significance", "R1 + R2' + 1 and R1 - R2 are unrelated quantities that happen to look similar", "Subtraction cannot actually be performed by a binary adder"], answer:0, explanation:"2's complement subtraction is literally addition of the complemented, incremented subtrahend — R2′+1 is -R2 in 2's complement, so R1+R2′+1 computes R1-R2 using ordinary addition hardware." },
     { q:"What single control signal switches the shared adder-subtractor circuit between addition and subtraction?", options:["M — it feeds both the XOR gates on the B input and the first-stage carry-in", "A separate clock signal dedicated to subtraction", "The overflow flag V", "There is no shared control; two entirely separate circuits are always used"], answer:0, explanation:"M=0 passes B through unchanged and sets carry-in to 0 (ordinary addition); M=1 complements B via XOR and sets carry-in to 1, computing A + B′ + 1 (subtraction)." },
-    { q:"What does the overflow detection formula V = C_n ⊕ C_(n-1) compare?", options:["The carry out of the most significant bit against the carry into the most significant bit", "The carry-in of the least significant bit against the final sum", "Two unrelated status flags with no connection to the addition itself", "The value of A against the value of B directly"], answer:0, explanation:"Overflow is detected by comparing the carry generated out of the sign bit position against the carry that fed into it — if they differ, the sign bit was corrupted by an unexpected carry." },
+    { q:"What does the overflow detection formula V = C<sub>n</sub> ⊕ C<sub>n−1</sub> compare?", options:["The carry out of the most significant bit against the carry into the most significant bit", "The carry-in of the least significant bit against the final sum", "Two unrelated status flags with no connection to the addition itself", "The value of A against the value of B directly"], answer:0, explanation:"Overflow is detected by comparing the carry generated out of the sign bit position against the carry that fed into it — if they differ, the sign bit was corrupted by an unexpected carry." },
     { q:"In the worked example (0101 + 0100 = 1001 in 4-bit signed arithmetic), why does this represent overflow even though the raw binary addition is correct?", options:["The true sum, 9, is outside the representable signed 4-bit range of -8 to +7, and the carry-out/carry-in into the sign bit disagree, confirming overflow", "The addition circuit made an arithmetic error", "1001 is not a valid 4-bit binary number", "Overflow only applies to subtraction, never addition"], answer:0, explanation:"5+4=9 cannot be represented in 4-bit 2's complement (range -8 to +7); the mismatched carry into vs. out of the sign bit is exactly the symptom the V flag is designed to catch." },
     { q:"Why is the Program Counter's increment (PC ← PC + 1) usually implemented with a simpler circuit than the full adder-subtractor?", options:["Incrementing by a fixed constant (1) can be done with a chain of half-adders fed a constant carry-in, avoiding the need for a full second n-bit operand register", "The Program Counter is never actually incremented in hardware", "PC increments always use software, never dedicated hardware", "Increment requires more hardware than general addition, not less"], answer:0, explanation:"Since one operand of an increment is the fixed constant 1 rather than an arbitrary register value, a simpler half-adder chain suffices — no need for the full generality (and cost) of the two-operand adder-subtractor." }
   ];

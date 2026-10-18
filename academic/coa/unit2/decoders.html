@@ -5,14 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3030765874336294" crossorigin="anonymous"></script>
   <title>Decoders — COA Unit 2 | CHANDRAS EDU</title>
-  <meta name="description" content="n-to-2^n decoders with enable inputs, gate-level construction, minterm generation, and how a decoder implements any Boolean function directly — with a 3-to-8 worked example.">
+  <meta name="description" content="n-to-2^n decoders with enable inputs, gate-level construction, and how a decoder implements any Boolean function, with a 3-to-8 worked example. COA Unit 2.">
   <link rel="canonical" href="https://chandrashaker.com/courses/academic/coa/unit2/decoders">
   <link rel="stylesheet" href="../../../css/style.css">
 
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="CHANDRAS EDU">
   <meta property="og:title" content="Decoders — COA Unit 2 | CHANDRAS EDU">
-  <meta property="og:description" content="n-to-2^n decoders with enable inputs, gate-level construction, minterm generation, and how a decoder implements any Boolean function directly — with a 3-to-8 worked example.">
+  <meta property="og:description" content="n-to-2^n decoders with enable inputs, gate-level construction, and how a decoder implements any Boolean function, with a 3-to-8 worked example. COA Unit 2.">
   <meta property="og:url" content="https://chandrashaker.com/courses/academic/coa/unit2/decoders">
   <meta property="og:image" content="https://chandrashaker.com/courses/images/og/coa-v7.png">
   <meta property="og:image:width" content="1200">
@@ -20,7 +20,7 @@
   <meta property="og:image:alt" content="Computer Organization and Architecture — CHANDRAS EDU free course">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Decoders — COA Unit 2 | CHANDRAS EDU">
-  <meta name="twitter:description" content="n-to-2^n decoders with enable inputs, gate-level construction, minterm generation, and how a decoder implements any Boolean function directly — with a 3-to-8 worked example.">
+  <meta name="twitter:description" content="n-to-2^n decoders with enable inputs, gate-level construction, and how a decoder implements any Boolean function, with a 3-to-8 worked example. COA Unit 2.">
   <meta name="twitter:image" content="https://chandrashaker.com/courses/images/og/coa-v7.png">
 
   <script type="application/ld+json">
@@ -40,7 +40,7 @@
   "@context": "https://schema.org",
   "@type": "LearningResource",
   "name": "Decoders",
-  "description": "n-to-2^n decoders with enable inputs, gate-level construction, minterm generation, and how a decoder implements any Boolean function directly — with a 3-to-8 worked example.",
+  "description": "n-to-2^n decoders with enable inputs, gate-level construction, and how a decoder implements any Boolean function, with a 3-to-8 worked example. COA Unit 2.",
   "url": "https://chandrashaker.com/courses/academic/coa/unit2/decoders",
   "learningResourceType": "Lesson",
   "educationalLevel": "Undergraduate",
@@ -153,7 +153,7 @@
         <line x1="180" y1="235" x2="210" y2="235" stroke="var(--text-3)" stroke-width="2"/>
         <text x="214" y="239" font-size="11" fill="var(--text-3)">D₇</text>
       </svg>
-      <div style="font-size:.78rem;color:#777;margin-top:.4rem">Fig 1: A 3-to-8 decoder selects exactly one of eight outputs — here, input 101 (5) activates only D₅</div>
+      <div style="font-size:.78rem;color:#777;margin-top:.4rem">A 3-to-8 decoder selects exactly one of eight outputs — here, input 101 (5) activates only D₅.</div>
     </div>
 
     <p>Input A₂A₁A₀ = 101 (decimal 5) activates <strong>only D₅</strong> — every other output stays at 0. This "exactly one active line" property is precisely why decoders are the standard building block for memory address selection: each memory chip or memory bank gets wired to one decoder output, guaranteeing only one is ever selected at a time.</p>
@@ -253,7 +253,7 @@
         <line x1="481" y1="130" x2="515" y2="130" stroke="var(--primary)" stroke-width="2"/>
         <text x="519" y="134" font-size="13" font-weight="700" fill="var(--text)">F</text>
       </svg>
-      <div style="font-size:.78rem;color:#777;margin-top:.4rem">Fig 2: D₁, D₃, D₅, D₆ each feed a 2-input OR gate; the two partial results are OR-ed again to make F. D₀, D₂, D₄, D₇ are unused.</div>
+      <div style="font-size:.78rem;color:#777;margin-top:.4rem">D₁, D₃, D₅, D₆ each feed a 2-input OR gate; the two partial results are OR-ed again to make F. D₀, D₂, D₄, D₇ are unused.</div>
     </div>
     <p>No K-map simplification needed at all — the decoder-plus-OR-gate approach trades gate-minimization effort for a completely mechanical implementation process, at the cost of needing a full decoder (which internally uses more gates than a minimized custom circuit would).</p>
 

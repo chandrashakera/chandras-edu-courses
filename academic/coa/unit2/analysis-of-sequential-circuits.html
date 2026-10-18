@@ -119,7 +119,7 @@
         <line x1="20" y1="55" x2="110" y2="55" stroke="var(--primary)" stroke-width="2"/>
         <text x="110" y="166" font-size="11" fill="var(--text-2)">Q fed back into the XOR gate</text>
       </svg>
-      <div style="font-size:.78rem;color:#777;margin-top:.4rem">Fig 1: D = X ⊕ Q, and the flip-flop's own Q feeds straight back as one of the XOR's inputs.</div>
+      <div style="font-size:.78rem;color:#777;margin-top:.4rem">D = X ⊕ Q, and the flip-flop's own Q feeds straight back as one of the XOR's inputs.</div>
     </div>
     <div class="box box-eg">
       <pre>Next-state equation:  D = X ⊕ Q      (this is what Q becomes after the next clock edge)
@@ -169,7 +169,7 @@ Output equation:      Y = Q</pre>
         <path d="M123,125 L135,119 L135,131 Z" fill="var(--primary)"/>
         <text x="195" y="145" font-size="12" text-anchor="middle" fill="var(--text)">X=1</text>
       </svg>
-      <div style="font-size:.78rem;color:#777;margin-top:.4rem">Fig 2: State diagram — X=0 keeps the circuit in its current state, X=1 always flips it. Each circle's output Y is shown attached to the state, since Y depends only on present state here.</div>
+      <div style="font-size:.78rem;color:#777;margin-top:.4rem">State diagram — X=0 keeps the circuit in its current state, X=1 always flips it. Each circle's output Y is shown attached to the state, since Y depends only on present state here.</div>
     </div>
     <p>Reading this diagram tells the same story as the equations, but visually: from state 0, an X=0 self-loop stays at 0; an X=1 arrow leaves for state 1. State 1 behaves the mirror image. This circuit is, in fact, exactly a <strong>T flip-flop</strong> in disguise — D=X⊕Q is precisely the T flip-flop's characteristic equation with T renamed to X, so "toggle when X=1, hold when X=0" is the whole story.</p>
 

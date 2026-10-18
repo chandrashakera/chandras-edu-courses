@@ -5,14 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3030765874336294" crossorigin="anonymous"></script>
   <title>Binary Subtractor — COA Unit 2 | CHANDRAS EDU</title>
-  <meta name="description" content="Half subtractor and full subtractor built from gates, and how one XOR gate per bit turns an ordinary binary adder into a combined adder-subtractor using 2's complement — with a worked example.">
+  <meta name="description" content="The half and full subtractor built from gates, and how one XOR gate per bit turns a binary adder into an adder-subtractor using 2's complement. COA Unit 2.">
   <link rel="canonical" href="https://chandrashaker.com/courses/academic/coa/unit2/binary-subtractor">
   <link rel="stylesheet" href="../../../css/style.css">
 
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="CHANDRAS EDU">
   <meta property="og:title" content="Binary Subtractor — COA Unit 2 | CHANDRAS EDU">
-  <meta property="og:description" content="Half subtractor and full subtractor built from gates, and how one XOR gate per bit turns an ordinary binary adder into a combined adder-subtractor using 2's complement — with a worked example.">
+  <meta property="og:description" content="The half and full subtractor built from gates, and how one XOR gate per bit turns a binary adder into an adder-subtractor using 2's complement. COA Unit 2.">
   <meta property="og:url" content="https://chandrashaker.com/courses/academic/coa/unit2/binary-subtractor">
   <meta property="og:image" content="https://chandrashaker.com/courses/images/og/coa-v7.png">
   <meta property="og:image:width" content="1200">
@@ -20,7 +20,7 @@
   <meta property="og:image:alt" content="Computer Organization and Architecture — CHANDRAS EDU free course">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Binary Subtractor — COA Unit 2 | CHANDRAS EDU">
-  <meta name="twitter:description" content="Half subtractor and full subtractor built from gates, and how one XOR gate per bit turns an ordinary binary adder into a combined adder-subtractor using 2's complement — with a worked example.">
+  <meta name="twitter:description" content="The half and full subtractor built from gates, and how one XOR gate per bit turns a binary adder into an adder-subtractor using 2's complement. COA Unit 2.">
   <meta name="twitter:image" content="https://chandrashaker.com/courses/images/og/coa-v7.png">
 
   <script type="application/ld+json">
@@ -40,7 +40,7 @@
   "@context": "https://schema.org",
   "@type": "LearningResource",
   "name": "Binary Subtractor",
-  "description": "Half subtractor and full subtractor built from gates, and how one XOR gate per bit turns an ordinary binary adder into a combined adder-subtractor using 2's complement — with a worked example.",
+  "description": "The half and full subtractor built from gates, and how one XOR gate per bit turns a binary adder into an adder-subtractor using 2's complement. COA Unit 2.",
   "url": "https://chandrashaker.com/courses/academic/coa/unit2/binary-subtractor",
   "learningResourceType": "Lesson",
   "educationalLevel": "Undergraduate",
@@ -123,7 +123,7 @@
         <line x1="151" y1="120" x2="195" y2="120" stroke="var(--primary)" stroke-width="2"/>
         <text x="199" y="124" font-size="13" fill="var(--text)">B</text>
       </svg>
-      <div style="font-size:.78rem;color:#777;margin-top:.4rem">Fig 1: Half subtractor — one XOR gate makes the difference, one NOT + AND gate makes the borrow</div>
+      <div style="font-size:.78rem;color:#777;margin-top:.4rem">Half subtractor — one XOR gate makes the difference, one NOT + AND gate makes the borrow.</div>
     </div>
     <p>Like the half adder, a half subtractor has no way to accept a <strong>borrow-in</strong> from a previous, less significant position — so it only works for the very lowest bit of a multi-bit subtraction.</p>
 
@@ -182,7 +182,7 @@
         <line x1="361" y1="120" x2="395" y2="120" stroke="var(--primary)" stroke-width="2"/>
         <text x="399" y="124" font-size="13" fill="var(--text)">Bₒᵤₜ</text>
       </svg>
-      <div style="font-size:.78rem;color:#777;margin-top:.4rem">Fig 2: A full subtractor built from two half subtractors and one OR gate — HS₁ computes A−B, HS₂ then subtracts Bᵢₙ from that result</div>
+      <div style="font-size:.78rem;color:#777;margin-top:.4rem">A full subtractor built from two half subtractors and one OR gate — HS₁ computes A−B, HS₂ then subtracts Bᵢₙ from that result.</div>
     </div>
     <p>HS₁ computes A − B, giving a partial difference D₁ and a borrow B₁. HS₂ then subtracts Bᵢₙ from D₁, giving the final difference D and a second borrow B₂. B₁ and B₂ can never both be 1 at the same time, so — exactly like the full adder's two carries — simply OR-ing them together gives the correct Bₒᵤₜ.</p>
 
@@ -210,7 +210,7 @@
         <line x1="131" y1="40" x2="160" y2="40" stroke="var(--primary)" stroke-width="2"/>
         <text x="164" y="44" font-size="12" fill="var(--text)">Bi′ if M=1</text>
       </svg>
-      <div style="font-size:.78rem;color:#777;margin-top:.4rem">Fig 1: One XOR gate per bit of B — the same M line that flips this gate also becomes the first stage's carry-in</div>
+      <div style="font-size:.78rem;color:#777;margin-top:.4rem">One XOR gate per bit of B — the same M line that flips this gate also becomes the first stage's carry-in.</div>
     </div>
     <p>Put one of these XOR gates in front of every B input of the 4-bit ripple carry adder from the previous page, and the full circuit looks like this — same four full adders, with one XOR gate added in front of each B input:</p>
     <div style="text-align:center;margin:1.25rem 0">
@@ -295,7 +295,7 @@
         <line x1="450" y1="45" x2="435" y2="45" stroke="var(--primary)" stroke-width="2"/>
         <text x="445" y="64" font-size="11" fill="var(--text-2)">Cᵢₙ (=M)</text>
       </svg>
-      <div style="font-size:.78rem;color:#777;margin-top:.4rem">Fig 2: The 4-bit adder-subtractor — one control line M switches the same full-adder chain between addition and subtraction</div>
+      <div style="font-size:.78rem;color:#777;margin-top:.4rem">The 4-bit adder-subtractor — one control line M switches the same full-adder chain between addition and subtraction.</div>
     </div>
 
     <h3>Worked Example — Same Hardware, Both Operations</h3>

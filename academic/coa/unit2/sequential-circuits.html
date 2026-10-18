@@ -5,14 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3030765874336294" crossorigin="anonymous"></script>
   <title>Sequential Circuits — COA Unit 2 | CHANDRAS EDU</title>
-  <meta name="description" content="What makes a circuit sequential: the state concept, the general block diagram (combinational logic plus memory elements with feedback), and how it differs from a combinational circuit.">
+  <meta name="description" content="What makes a circuit sequential: the idea of state, the general block diagram of combinational logic plus memory with feedback, and the latch as an example.">
   <link rel="canonical" href="https://chandrashaker.com/courses/academic/coa/unit2/sequential-circuits">
   <link rel="stylesheet" href="../../../css/style.css">
 
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="CHANDRAS EDU">
   <meta property="og:title" content="Sequential Circuits — COA Unit 2 | CHANDRAS EDU">
-  <meta property="og:description" content="What makes a circuit sequential: the state concept, the general block diagram (combinational logic plus memory elements with feedback), and how it differs from a combinational circuit.">
+  <meta property="og:description" content="What makes a circuit sequential: the idea of state, the general block diagram of combinational logic plus memory with feedback, and the latch as an example.">
   <meta property="og:url" content="https://chandrashaker.com/courses/academic/coa/unit2/sequential-circuits">
   <meta property="og:image" content="https://chandrashaker.com/courses/images/og/coa-v7.png">
   <meta property="og:image:width" content="1200">
@@ -20,7 +20,7 @@
   <meta property="og:image:alt" content="Computer Organization and Architecture — CHANDRAS EDU free course">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Sequential Circuits — COA Unit 2 | CHANDRAS EDU">
-  <meta name="twitter:description" content="What makes a circuit sequential: the state concept, the general block diagram (combinational logic plus memory elements with feedback), and how it differs from a combinational circuit.">
+  <meta name="twitter:description" content="What makes a circuit sequential: the idea of state, the general block diagram of combinational logic plus memory with feedback, and the latch as an example.">
   <meta name="twitter:image" content="https://chandrashaker.com/courses/images/og/coa-v7.png">
 
   <script type="application/ld+json">
@@ -40,7 +40,7 @@
   "@context": "https://schema.org",
   "@type": "LearningResource",
   "name": "Sequential Circuits",
-  "description": "What makes a circuit sequential: the state concept, the general block diagram (combinational logic plus memory elements with feedback), and how it differs from a combinational circuit.",
+  "description": "What makes a circuit sequential: the idea of state, the general block diagram of combinational logic plus memory with feedback, and the latch as an example.",
   "url": "https://chandrashaker.com/courses/academic/coa/unit2/sequential-circuits",
   "learningResourceType": "Lesson",
   "educationalLevel": "Undergraduate",
@@ -75,7 +75,6 @@
     <div style="display:flex;gap:.75rem;flex-wrap:wrap">
       <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">⏱ 12 min read</span>
       <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📝 Quiz inside</span>
-      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📖 Mano, Ch. 5</span>
     </div>
   </div>
 
@@ -121,7 +120,7 @@
         <line x1="50" y1="135" x2="90" y2="135" stroke="var(--primary)" stroke-width="2"/>
         <text x="220" y="216" font-size="11" fill="var(--text-2)">Present State (feedback)</text>
       </svg>
-      <div style="font-size:.78rem;color:#777;margin-top:.4rem">Fig 1: The general shape of every sequential circuit — outputs and the next state both come from the combinational block, and the present state loops back from memory to influence the next computation.</div>
+      <div style="font-size:.78rem;color:#777;margin-top:.4rem">The general shape of every sequential circuit — outputs and the next state both come from the combinational block, and the present state loops back from memory to influence the next computation.</div>
     </div>
     <p>The "present state" feedback line is the entire difference from a purely combinational circuit — remove it, and the memory elements' output would no longer influence the combinational block, collapsing this diagram back into an ordinary combinational circuit with no memory.</p>
 

@@ -5,14 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3030765874336294" crossorigin="anonymous"></script>
   <title>Binary Adder — COA Unit 2 | CHANDRAS EDU</title>
-  <meta name="description" content="Half adder and full adder built from gates, chaining full adders into a ripple-carry binary adder, and a worked 4-bit addition example.">
+  <meta name="description" content="The half adder and full adder built from gates, chaining full adders into a ripple-carry binary adder, and a worked 4-bit addition example. COA Unit 2.">
   <link rel="canonical" href="https://chandrashaker.com/courses/academic/coa/unit2/binary-adder">
   <link rel="stylesheet" href="../../../css/style.css">
 
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="CHANDRAS EDU">
   <meta property="og:title" content="Binary Adder — COA Unit 2 | CHANDRAS EDU">
-  <meta property="og:description" content="Half adder and full adder built from gates, chaining full adders into a ripple-carry binary adder, and a worked 4-bit addition example.">
+  <meta property="og:description" content="The half adder and full adder built from gates, chaining full adders into a ripple-carry binary adder, and a worked 4-bit addition example. COA Unit 2.">
   <meta property="og:url" content="https://chandrashaker.com/courses/academic/coa/unit2/binary-adder">
   <meta property="og:image" content="https://chandrashaker.com/courses/images/og/coa-v7.png">
   <meta property="og:image:width" content="1200">
@@ -20,7 +20,7 @@
   <meta property="og:image:alt" content="Computer Organization and Architecture — CHANDRAS EDU free course">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Binary Adder — COA Unit 2 | CHANDRAS EDU">
-  <meta name="twitter:description" content="Half adder and full adder built from gates, chaining full adders into a ripple-carry binary adder, and a worked 4-bit addition example.">
+  <meta name="twitter:description" content="The half adder and full adder built from gates, chaining full adders into a ripple-carry binary adder, and a worked 4-bit addition example. COA Unit 2.">
   <meta name="twitter:image" content="https://chandrashaker.com/courses/images/og/coa-v7.png">
 
   <script type="application/ld+json">
@@ -40,7 +40,7 @@
   "@context": "https://schema.org",
   "@type": "LearningResource",
   "name": "Binary Adder",
-  "description": "Half adder and full adder built from gates, chaining full adders into a ripple-carry binary adder, and a worked 4-bit addition example.",
+  "description": "The half adder and full adder built from gates, chaining full adders into a ripple-carry binary adder, and a worked 4-bit addition example. COA Unit 2.",
   "url": "https://chandrashaker.com/courses/academic/coa/unit2/binary-adder",
   "learningResourceType": "Lesson",
   "educationalLevel": "Undergraduate",
@@ -118,7 +118,7 @@
         <line x1="116" y1="120" x2="160" y2="120" stroke="var(--primary)" stroke-width="2"/>
         <text x="164" y="124" font-size="13" fill="var(--text)">C</text>
       </svg>
-      <div style="font-size:.78rem;color:#777;margin-top:.4rem">Fig 1: Half adder — one XOR gate makes the sum, one AND gate makes the carry</div>
+      <div style="font-size:.78rem;color:#777;margin-top:.4rem">Half adder — one XOR gate makes the sum, one AND gate makes the carry.</div>
     </div>
     <p>The name is deliberate: it only does "half" the job. A half adder has no <strong>carry-in</strong> input at all, so it can only be used for the lowest bit of a multi-bit addition — the one position that never needs to carry anything in.</p>
 
@@ -177,7 +177,7 @@
         <line x1="361" y1="120" x2="395" y2="120" stroke="var(--primary)" stroke-width="2"/>
         <text x="399" y="124" font-size="13" fill="var(--text)">Cₒᵤₜ</text>
       </svg>
-      <div style="font-size:.78rem;color:#777;margin-top:.4rem">Fig 2: A full adder built from two half adders and one OR gate</div>
+      <div style="font-size:.78rem;color:#777;margin-top:.4rem">A full adder built from two half adders and one OR gate.</div>
     </div>
     <p>HA₁ adds A and B, giving a partial sum S₁ and a carry C₁. HA₂ then adds S₁ and Cᵢₙ, giving the final sum S and a second carry C₂. C₁ and C₂ can never both be 1 at the same time, so simply OR-ing them together gives the correct Cₒᵤₜ, without needing any 3-input gate.</p>
 
@@ -230,7 +230,7 @@
         <line x1="435" y1="45" x2="460" y2="45" stroke="var(--primary)" stroke-width="2"/>
         <text x="464" y="49" font-size="11" fill="var(--text-2)">C₀</text>
       </svg>
-      <div style="font-size:.78rem;color:#777;margin-top:.4rem">Fig 3: A 4-bit ripple carry adder — four full adders, each carry-out feeding the next carry-in. C₀ is the carry into the very first (rightmost) stage, normally tied to 0; C₄ is the final carry-out.</div>
+      <div style="font-size:.78rem;color:#777;margin-top:.4rem">A 4-bit ripple carry adder — four full adders, each carry-out feeding the next carry-in. C₀ is the carry into the very first (rightmost) stage, normally tied to 0; C₄ is the final carry-out.</div>
     </div>
     <p>In general, adding two <em>n</em>-bit numbers needs <em>n</em> full adders. (The lowest bit could use a half adder instead, since it never has a carry-in — but using a full adder there too, with its carry-in simply tied to 0, keeps every stage identical.)</p>
 
