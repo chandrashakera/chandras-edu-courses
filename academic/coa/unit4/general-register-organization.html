@@ -95,7 +95,7 @@
     <p><strong>MUX A</strong> (SELA) selects a source register for bus A. <strong>MUX B</strong> (SELB) selects a source register for bus B. Both drive the <strong>ALU</strong>, which performs the operation selected by OPR. The ALU result is placed on the output bus, which reaches all registers. The <strong>3×8 decoder</strong>, driven by SELD, activates the load input of exactly one destination register, so only that register takes the result at the clock edge. When SELA or SELB = 000, the external Input is placed on that bus. When SELD = 000, the result is available on the external output only — no register is written.</p>
 
     <h2>The 14-Bit Control Word and ALU Operations</h2>
-    <p>The four selector fields form a 14-bit control word: SELA (3 bits) + SELB (3 bits) + SELD (3 bits) + OPR (5 bits). Table 8-1 gives the register encoding: binary code 000 selects external Input (for SELA/SELB) or no destination (for SELD); codes 001–111 select R1–R7. Table 8-2 lists eleven named ALU operations, including ADD (00010), SUB (00101), AND (01000), OR (01010), XOR (01100), COMA (01110), SHRA (10000), and SHLA (11000).</p>
+    <p>The four selector fields form a 14-bit control word: SELA (3 bits) + SELB (3 bits) + SELD (3 bits) + OPR (5 bits). The register encoding is simple: binary code 000 selects external Input (for SELA/SELB) or no destination (for SELD); codes 001–111 select R1–R7. There are eleven named ALU operations, including ADD (00010), SUB (00101), AND (01000), OR (01010), XOR (01100), COMA (01110), SHRA (10000), and SHLA (11000).</p>
     <p>To execute <strong>R1 ← R2 + R3</strong>: set SELA = 010 (R2 on bus A), SELB = 011 (R3 on bus B), OPR = 00010 (ADD), SELD = 001 (result into R1). The 14-bit control word is <code>010 011 001 00010</code>. On the clock edge the ALU result is loaded into R1.</p>
 
     <h2>Common Pitfalls</h2>
@@ -161,10 +161,10 @@
   const TOPIC_ID  = 'general-register-organization';
   const LABELS    = ['A','B','C','D'];
   const QUIZ = [
-    { q:"In the general register organisation of Fig. 8-2, what is the purpose of the SELD field?", options:["Select the source register for bus A","Select the ALU operation","Select the destination register to receive the ALU output","Select the source register for bus B"], answer:2, explanation:"SELD drives the 3×8 decoder that activates one register's load input. SELA and SELB select sources; OPR selects the operation." },
+    { q:"In the general register organisation, what is the purpose of the SELD field?", options:["Select the source register for bus A","Select the ALU operation","Select the destination register to receive the ALU output","Select the source register for bus B"], answer:2, explanation:"SELD drives the 3×8 decoder that activates one register's load input. SELA and SELB select sources; OPR selects the operation." },
     { q:"How many bits are in the complete control word for the 7-register CPU?", options:["11","12","14","16"], answer:2, explanation:"SELA (3) + SELB (3) + SELD (3) + OPR (5) = 14 bits." },
     { q:"The control word 010 011 001 00010 is applied. Which RTL statement does it implement?", options:["R2 ← R1 + R3","R1 ← R2 + R3","R3 ← R1 + R2","R1 ← R2 − R3"], answer:1, explanation:"SELA = 010 → R2 on bus A; SELB = 011 → R3 on bus B; OPR = 00010 → ADD; SELD = 001 → result into R1. RTL: R1 ← R2 + R3." },
-    { q:"SELA = 000 is applied to MUX A. What appears on bus A?", options:["The content of R7","Zero","The external input data","The output of the ALU"], answer:2, explanation:"From Table 8-1, code 000 for SELA or SELB routes the external Input, not any register." },
+    { q:"SELA = 000 is applied to MUX A. What appears on bus A?", options:["The content of R7","Zero","The external input data","The output of the ALU"], answer:2, explanation:"From the register encoding, code 000 for SELA or SELB routes the external Input, not any register." },
     { q:"A CPU is designed with 15 general-purpose registers. How many bits are needed for each of SELA, SELB, and SELD if code 0000 is reserved?", options:["3 bits","4 bits","5 bits","8 bits"], answer:1, explanation:"15 registers + 1 reserved code = 16 possible values. ⌈log₂ 16⌉ = 4 bits. Three bits can only encode 8 values, which is insufficient." }
   ];
 

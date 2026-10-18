@@ -5,14 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3030765874336294" crossorigin="anonymous"></script>
   <title>Program Control — COA Unit 4 | CHANDRAS EDU</title>
-  <meta name="description" content="Program control in Mano §8-7: branch, call, return, and interrupt instructions; the four status bits C, S, Z, and V; and subroutine call RTL.">
+  <meta name="description" content="Program control instructions: branch, call, return, and interrupt; the four status bits C, S, Z, and V; and subroutine call and return RTL, with diagrams.">
   <link rel="canonical" href="https://chandrashaker.com/courses/academic/coa/unit4/program-control">
   <link rel="stylesheet" href="../../../css/style.css">
 
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="CHANDRAS EDU">
   <meta property="og:title" content="Program Control — COA Unit 4 | CHANDRAS EDU">
-  <meta property="og:description" content="Program control in Mano §8-7: branch, call, return, and interrupt instructions; the four status bits C, S, Z, and V; and subroutine call RTL.">
+  <meta property="og:description" content="Program control instructions: branch, call, return, and interrupt; the four status bits C, S, Z, and V; and subroutine call and return RTL, with diagrams.">
   <meta property="og:url" content="https://chandrashaker.com/courses/academic/coa/unit4/program-control">
   <meta property="og:image" content="https://chandrashaker.com/courses/images/og/coa-v7.png">
   <meta property="og:image:width" content="1200">
@@ -20,14 +20,14 @@
   <meta property="og:image:alt" content="Computer Organization and Architecture — CHANDRAS EDU free course">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Program Control — COA Unit 4 | CHANDRAS EDU">
-  <meta name="twitter:description" content="Program control in Mano §8-7: branch, call, return, and interrupt instructions; the four status bits C, S, Z, and V; and subroutine call RTL.">
+  <meta name="twitter:description" content="Program control instructions: branch, call, return, and interrupt; the four status bits C, S, Z, and V; and subroutine call and return RTL, with diagrams.">
   <meta name="twitter:image" content="https://chandrashaker.com/courses/images/og/coa-v7.png">
 
   <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Courses","item":"https://chandrashaker.com/courses/"},{"@type":"ListItem","position":2,"name":"COA","item":"https://chandrashaker.com/courses/academic/coa/"},{"@type":"ListItem","position":3,"name":"Unit 4","item":"https://chandrashaker.com/courses/academic/coa/unit4/"},{"@type":"ListItem","position":4,"name":"Program Control"}]}
   </script>
   <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"LearningResource","name":"Program Control","description":"Program control in Mano §8-7: branch, call, return, and interrupt instructions; the four status bits C, S, Z, and V; and subroutine call RTL.","url":"https://chandrashaker.com/courses/academic/coa/unit4/program-control","learningResourceType":"Lesson","educationalLevel":"Undergraduate","about":{"@type":"Thing","name":"Computer Organization and Architecture"},"isPartOf":{"@type":"Course","name":"Computer Organization and Architecture","provider":{"@type":"Organization","name":"CHANDRAS EDU","url":"https://chandrashaker.in"}},"publisher":{"@type":"Organization","name":"CHANDRAS EDU","url":"https://chandrashaker.in"}}
+{"@context":"https://schema.org","@type":"LearningResource","name":"Program Control","description":"Program control instructions: branch, call, return, and interrupt; the four status bits C, S, Z, and V; and subroutine call and return RTL, with diagrams.","url":"https://chandrashaker.com/courses/academic/coa/unit4/program-control","learningResourceType":"Lesson","educationalLevel":"Undergraduate","about":{"@type":"Thing","name":"Computer Organization and Architecture"},"isPartOf":{"@type":"Course","name":"Computer Organization and Architecture","provider":{"@type":"Organization","name":"CHANDRAS EDU","url":"https://chandrashaker.in"}},"publisher":{"@type":"Organization","name":"CHANDRAS EDU","url":"https://chandrashaker.in"}}
   </script>
   <link rel="icon" href="/favicon.ico">
   <style>
@@ -57,16 +57,14 @@
   </div>
 
   <div class="lesson">
-    <p>Reference: M. Morris Mano, <em>Computer System Architecture</em>, §8-7</p>
-
-    <p>Under normal sequential execution the program counter is incremented after every fetch so that instructions execute one after another in memory order. Program control instructions break this sequence by loading a new value into the program counter, causing the CPU to branch to a different part of the program. Section 8-7 covers the instructions that alter program flow — branches, calls, returns, and interrupts — and the status bits that make conditional branching possible.</p>
+    <p>Under normal sequential execution the program counter is incremented after every fetch so that instructions execute one after another in memory order. Program control instructions break this sequence by loading a new value into the program counter, causing the CPU to branch to a different part of the program. This topic covers the instructions that alter program flow — branches, calls, returns, and interrupts — and the status bits that make conditional branching possible.</p>
 
     <div class="box box-tip">
       <strong>In simple terms:</strong> the CPU normally runs instructions one after another. Program control instructions change that order — by branching, calling a subroutine or handling an interrupt — often based on status bits set by the last ALU operation.
     </div>
 
     <h2>Program Control Instructions</h2>
-    <p>Table 8-10 lists 7 typical program control instructions. Branch and jump instructions are used interchangeably in many architectures, though some use them to distinguish different addressing modes. The compare and test instructions do not change program flow directly; they update status bits, which a subsequent conditional branch then tests.</p>
+    <p>The table below lists 7 typical program control instructions. Branch and jump instructions are used interchangeably in many architectures, though some use them to distinguish different addressing modes. The compare and test instructions do not change program flow directly; they update status bits, which a subsequent conditional branch then tests.</p>
 
     <div style="overflow-x:auto">
       <table>
@@ -85,7 +83,7 @@
     <p style="font-size:.8rem;color:var(--text-2);margin-top:.4rem">Typical program control instructions. Adapted from M. Morris Mano, <em>Computer System Architecture</em>, Table 8-10.</p>
 
     <h2>Status Bit Conditions</h2>
-    <p>A status register supplements the ALU by storing condition codes from the most recent operation. Figure 8-8 shows the block diagram of an 8-bit ALU with a 4-bit status register. The four status bits are named C, S, Z, and V, set or cleared by ALU operations as follows:</p>
+    <p>A status register supplements the ALU by storing condition codes from the most recent operation. The figure below shows the block diagram of an 8-bit ALU with a 4-bit status register. The four status bits are named C, S, Z, and V, set or cleared by ALU operations as follows:</p>
 
     <div class="fig-wrap">
       <div style="overflow-x:auto">
@@ -105,7 +103,7 @@
     <p>For an 8-bit ALU, overflow (V = 1) means the result is greater than +127 or less than −128. The XOR of C₇ and C₈ detects this because overflow occurs exactly when the carry into the sign bit differs from the carry out of it.</p>
 
     <h2>Conditional Branch Instructions</h2>
-    <p>Table 8-11 lists conditional branch instructions organised in three groups. Each mnemonic begins with B (for branch) followed by an abbreviation of the condition.</p>
+    <p>The table below lists conditional branch instructions organised in three groups. Each mnemonic begins with B (for branch) followed by an abbreviation of the condition.</p>
 
     <div style="overflow-x:auto">
       <table>
@@ -160,7 +158,7 @@ SP ← SP + 1    Increment stack pointer</pre>
     <p>Using a stack for return addresses means that nested and recursive subroutine calls are handled automatically — each call pushes a new return address, and each return pops the most recent one, always returning to the correct caller.</p>
 
     <h2>Program Interrupt</h2>
-    <p>Program interrupt transfers control from a running program to a service routine in response to an event that occurs asynchronously or as an error condition. Section 8-7 identifies three major types of interrupt:</p>
+    <p>Program interrupt transfers control from a running program to a service routine in response to an event that occurs asynchronously or as an error condition. There are three major types of interrupt:</p>
 
     <ul>
       <li><strong>External interrupts</strong> — initiated by signals from input/output devices, timing circuits, or power-failure detectors outside the CPU. These are asynchronous with respect to the currently executing program.</li>
@@ -179,9 +177,9 @@ SP ← SP + 1    Increment stack pointer</pre>
 
     <h2>Key Points</h2>
     <ul>
-      <li>Table 8-10 lists <strong>7 program control instructions</strong>. Branch, jump, skip, call, return, compare, and test.</li>
+      <li>The program control table lists <strong>7 instructions</strong>: branch, jump, skip, call, return, compare, and test.</li>
       <li>The status register holds <strong>4 bits — C, S, Z, V</strong> — derived from C₈, F₇, the zero-check circuit, and XOR(C₇, C₈) respectively.</li>
-      <li>Table 8-11 groups conditional branch instructions into <strong>3 groups</strong>: flag-based, unsigned compare, and signed compare conditions.</li>
+      <li>The conditional branch table groups the instructions into <strong>3 groups</strong>: flag-based, unsigned compare, and signed compare conditions.</li>
       <li>Subroutine CALL stores the return address on the stack and transfers to the subroutine; RET pops it back into PC.</li>
       <li>The <strong>3 interrupt types</strong> are external (asynchronous hardware events), internal (traps from erroneous instructions), and software (deliberate supervisor calls).</li>
     </ul>
@@ -265,10 +263,10 @@ SP ← SP + 1    Increment stack pointer</pre>
       explanation: "CMP performs A − B to set the status bits (C, S, Z, V) but does not store the result anywhere. The original values of A and B are preserved."
     },
     {
-      q: "Table 8-10 lists how many typical program control instructions?",
+      q: "How many typical program control instructions does the program control table list?",
       options: ["5","6","7","8"],
       answer: 2,
-      explanation: "Table 8-10 lists exactly 7 program control instructions: Branch, Jump, Skip, Call, Return, Compare, and Test."
+      explanation: "The table lists exactly 7 program control instructions: Branch, Jump, Skip, Call, Return, Compare, and Test."
     }
   ];
 

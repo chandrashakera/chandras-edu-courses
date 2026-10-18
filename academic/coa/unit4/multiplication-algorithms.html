@@ -5,14 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3030765874336294" crossorigin="anonymous"></script>
   <title>Multiplication Algorithms — COA Unit 4 | CHANDRAS EDU</title>
-  <meta name="description" content="Hardware multiplication in §10-3: shift-and-add, Booth's algorithm for signed-2's complement numbers, and the array multiplier, with flowcharts.">
+  <meta name="description" content="Hardware multiplication: shift-and-add, Booth's algorithm for signed-2's complement numbers, and the array multiplier, with flowcharts and examples.">
   <link rel="canonical" href="https://chandrashaker.com/courses/academic/coa/unit4/multiplication-algorithms">
   <link rel="stylesheet" href="../../../css/style.css">
 
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="CHANDRAS EDU">
   <meta property="og:title" content="Multiplication Algorithms — COA Unit 4 | CHANDRAS EDU">
-  <meta property="og:description" content="Hardware multiplication in §10-3: shift-and-add, Booth's algorithm for signed-2's complement numbers, and the array multiplier, with flowcharts.">
+  <meta property="og:description" content="Hardware multiplication: shift-and-add, Booth's algorithm for signed-2's complement numbers, and the array multiplier, with flowcharts and examples.">
   <meta property="og:url" content="https://chandrashaker.com/courses/academic/coa/unit4/multiplication-algorithms">
   <meta property="og:image" content="https://chandrashaker.com/courses/images/og/coa-v7.png">
   <meta property="og:image:width" content="1200">
@@ -20,14 +20,14 @@
   <meta property="og:image:alt" content="Computer Organization and Architecture — CHANDRAS EDU free course">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Multiplication Algorithms — COA Unit 4 | CHANDRAS EDU">
-  <meta name="twitter:description" content="Hardware multiplication in §10-3: shift-and-add, Booth's algorithm for signed-2's complement numbers, and the array multiplier, with flowcharts.">
+  <meta name="twitter:description" content="Hardware multiplication: shift-and-add, Booth's algorithm for signed-2's complement numbers, and the array multiplier, with flowcharts and examples.">
   <meta name="twitter:image" content="https://chandrashaker.com/courses/images/og/coa-v7.png">
 
   <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Courses","item":"https://chandrashaker.com/courses/"},{"@type":"ListItem","position":2,"name":"COA","item":"https://chandrashaker.com/courses/academic/coa/"},{"@type":"ListItem","position":3,"name":"Unit 4","item":"https://chandrashaker.com/courses/academic/coa/unit4/"},{"@type":"ListItem","position":4,"name":"Multiplication Algorithms"}]}
   </script>
   <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"LearningResource","name":"Multiplication Algorithms","description":"Hardware multiplication in §10-3: shift-and-add, Booth's algorithm for signed-2's complement numbers, and the array multiplier, with flowcharts.","url":"https://chandrashaker.com/courses/academic/coa/unit4/multiplication-algorithms","learningResourceType":"Lesson","educationalLevel":"Undergraduate","about":{"@type":"Thing","name":"Computer Organization and Architecture"},"isPartOf":{"@type":"Course","name":"Computer Organization and Architecture","provider":{"@type":"Organization","name":"CHANDRAS EDU","url":"https://chandrashaker.in"}},"publisher":{"@type":"Organization","name":"CHANDRAS EDU","url":"https://chandrashaker.in"}}
+{"@context":"https://schema.org","@type":"LearningResource","name":"Multiplication Algorithms","description":"Hardware multiplication: shift-and-add, Booth's algorithm for signed-2's complement numbers, and the array multiplier, with flowcharts and examples.","url":"https://chandrashaker.com/courses/academic/coa/unit4/multiplication-algorithms","learningResourceType":"Lesson","educationalLevel":"Undergraduate","about":{"@type":"Thing","name":"Computer Organization and Architecture"},"isPartOf":{"@type":"Course","name":"Computer Organization and Architecture","provider":{"@type":"Organization","name":"CHANDRAS EDU","url":"https://chandrashaker.in"}},"publisher":{"@type":"Organization","name":"CHANDRAS EDU","url":"https://chandrashaker.in"}}
   </script>
   <link rel="icon" href="/favicon.ico">
   <style>
@@ -58,7 +58,7 @@
   </div>
 
   <div class="lesson">
-    <p>Multiplication of two n-bit binary numbers produces a 2n-bit product. Section 10-3 covers three methods: the basic hardware algorithm for signed-magnitude data, Booth's algorithm for signed-2's complement numbers, and the combinational array multiplier.</p>
+    <p>Multiplication of two n-bit binary numbers produces a 2n-bit product. This topic covers three methods: the basic hardware algorithm for signed-magnitude data, Booth's algorithm for signed-2's complement numbers, and the combinational array multiplier.</p>
 
     <div class="box box-tip">
       <strong>In simple terms:</strong> the computer multiplies the way you do on paper — add the multiplicand when the multiplier bit is 1, then shift — but it shifts the partial product right instead of shifting the multiplicand left. Booth's method does the same for signed numbers by subtracting at the start of a run of 1s and adding at its end.
@@ -68,7 +68,7 @@
     <p>The paper-and-pencil method adds shifted copies of the multiplicand whenever the corresponding multiplier bit is 1. The hardware version adapts this: instead of shifting the multiplicand left, the partial product is shifted right after each addition. This keeps all operations within fixed-width registers.</p>
 
     <h3>Hardware</h3>
-    <p>Figure 10-5 shows the hardware, which extends the add/subtract hardware of Fig. 10-1 with a Q register to hold the multiplier.</p>
+    <p>The figure below shows the hardware, which extends the add/subtract hardware from the <a href="addition-subtraction.html">Addition and Subtraction topic</a> with a Q register to hold the multiplier.</p>
 
     <div class="fig-wrap">
       <div style="overflow-x:auto">
@@ -225,7 +225,7 @@
   const LABELS    = ['A','B','C','D'];
   const QUIZ = [
     {
-      q: "In the hardware multiply algorithm of Fig. 10-6, the sequence counter SC is initialised to:",
+      q: "In the hardware multiply flowchart, the sequence counter SC is initialised to:",
       options: ["n", "n − 1", "n + 1", "2n"],
       answer: 1,
       explanation: "SC is initialised to n − 1. The first partial product is formed before the first shift, so n − 1 shift-and-test cycles complete the multiplication. The product ends up in the double-length register AQ."

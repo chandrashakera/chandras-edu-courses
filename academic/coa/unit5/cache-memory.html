@@ -5,13 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3030765874336294" crossorigin="anonymous"></script>
   <title>Cache Memory — COA Unit 5 | CHANDRAS EDU</title>
-  <meta name="description" content="COA Unit 5 §12-5: locality of reference, hit ratio, average access time, the three cache mapping methods, replacement algorithms, and write policies.">
+  <meta name="description" content="COA Unit 5: locality of reference, hit ratio, average access time, the three cache mapping methods, replacement algorithms, and write policies.">
   <link rel="canonical" href="https://chandrashaker.com/courses/academic/coa/unit5/cache-memory">
   <link rel="stylesheet" href="../../../css/style.css">
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="CHANDRAS EDU">
   <meta property="og:title" content="Cache Memory — COA Unit 5 | CHANDRAS EDU">
-  <meta property="og:description" content="COA Unit 5 §12-5: locality of reference, hit ratio, average access time, the three cache mapping methods, replacement algorithms, and write policies.">
+  <meta property="og:description" content="COA Unit 5: locality of reference, hit ratio, average access time, the three cache mapping methods, replacement algorithms, and write policies.">
   <meta property="og:url" content="https://chandrashaker.com/courses/academic/coa/unit5/cache-memory">
   <meta property="og:image" content="https://chandrashaker.com/courses/images/og/coa-v7.png">
   <meta property="og:image:width" content="1200">
@@ -19,7 +19,7 @@
   <meta property="og:image:alt" content="Computer Organization and Architecture — CHANDRAS EDU free course">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Cache Memory — COA Unit 5 | CHANDRAS EDU">
-  <meta name="twitter:description" content="COA Unit 5 §12-5: locality of reference, hit ratio, average access time, the three cache mapping methods, replacement algorithms, and write policies.">
+  <meta name="twitter:description" content="COA Unit 5: locality of reference, hit ratio, average access time, the three cache mapping methods, replacement algorithms, and write policies.">
   <meta name="twitter:image" content="https://chandrashaker.com/courses/images/og/coa-v7.png">
   <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Courses","item":"https://chandrashaker.com/courses/"},{"@type":"ListItem","position":2,"name":"COA","item":"https://chandrashaker.com/courses/academic/coa/"},{"@type":"ListItem","position":3,"name":"Unit 5","item":"https://chandrashaker.com/courses/academic/coa/unit5/"},{"@type":"ListItem","position":4,"name":"Cache Memory"}]}
@@ -50,7 +50,7 @@
     </div>
   </div>
   <div class="lesson">
-    <p>Cache memory is a small, fast memory placed between the CPU and main memory to reduce the average memory access time. Its effectiveness rests on a fundamental property of programs: <strong>locality of reference</strong> (§12-5).</p>
+    <p>Cache memory is a small, fast memory placed between the CPU and main memory to reduce the average memory access time. Its effectiveness rests on a fundamental property of programs: <strong>locality of reference</strong>.</p>
 
     <div class="box box-tip">
       <strong>In simple terms:</strong> a cache keeps copies of recently used words in a small, fast memory next to the CPU. Because programs reuse the same instructions and data again and again, most requests are found in the cache.
@@ -68,9 +68,9 @@
     <h2>Hit Ratio and Average Access Time</h2>
     <p>Cache performance is measured by the <strong>hit ratio</strong> h = hits / (hits + misses). The average memory access time is:</p>
     <div class="box box-eg">
-      <pre>T_avg = h · T_c + (1 − h) · (T_c + T_m)</pre>
+      <pre>T<sub>avg</sub> = h · T<sub>c</sub> + (1 − h) · (T<sub>c</sub> + T<sub>m</sub>)</pre>
     </div>
-    <p>where T_c is the cache access time and T_m the main memory access time; on a miss the cache is checked first, so a miss costs T_c + T_m. With T_c = 100 ns, T_m = 1000 ns and h = 0.9: T_avg = 0.9 × 100 + 0.1 × 1100 = <strong>200 ns</strong> — five times faster than main memory alone (1000 ns). Hit ratios of 0.9 and higher are common.</p>
+    <p>where T<sub>c</sub> is the cache access time and T<sub>m</sub> the main memory access time; on a miss the cache is checked first, so a miss costs T<sub>c</sub> + T<sub>m</sub>. With T<sub>c</sub> = 100 ns, T<sub>m</sub> = 1000 ns and h = 0.9: T<sub>avg</sub> = 0.9 × 100 + 0.1 × 1100 = <strong>200 ns</strong> — five times faster than main memory alone (1000 ns). Hit ratios of 0.9 and higher are common.</p>
 
     <div class="fig-wrap">
       <div style="overflow-x:auto">
@@ -109,7 +109,7 @@
       <li><strong>Advantage:</strong> fast — no searching, only a single tag comparison.</li>
       <li><strong>Disadvantage:</strong> conflict misses — two addresses with the same index but different tags cannot coexist in cache and repeatedly evict each other.</li>
     </ul>
-    <p>With a block size of 8 words (Fig 12-14), the 9-bit index is split into a 6-bit block field and a 3-bit word field. An entire block of 8 words is transferred on a miss.</p>
+    <p>With a block size of 8 words, the 9-bit index is split into a 6-bit block field and a 3-bit word field. An entire block of 8 words is transferred on a miss.</p>
 
     <h3>3. Set-Associative Mapping</h3>
     <p>A compromise: the cache is organised into sets of k locations. The index selects a <strong>set</strong>; within the set, all k tag–data pairs are searched associatively. In the book's two-way example the 9-bit index still selects one of 512 sets, and each set holds two tag–data pairs, so a cache word is 2 × (6 + 12) = 36 bits: a 512 × 36 cache that holds 1024 words of main memory.</p>
@@ -159,7 +159,7 @@
     <h2>Summary</h2>
     <ul>
       <li><strong>Locality of reference</strong> makes cache effective: programs reuse a small memory region repeatedly.</li>
-      <li><strong>Hit ratio</strong> h = hits/(hits+misses); T_avg = h·T_c + (1−h)(T_c + T_m).</li>
+      <li><strong>Hit ratio</strong> h = hits/(hits+misses); T<sub>avg</sub> = h·T<sub>c</sub> + (1−h)(T<sub>c</sub> + T<sub>m</sub>).</li>
       <li><strong>Associative mapping:</strong> full address stored; any block → any line; fastest lookup, most expensive.</li>
       <li><strong>Direct mapping:</strong> index selects line; one tag comparison; fastest but conflict misses.</li>
       <li><strong>Set-associative (k-way):</strong> index selects set; associative search within k entries; compromise.</li>
@@ -208,10 +208,10 @@
             "All variables in a program are accessed with equal frequency","Locality applies only to instruction fetches, not to data accesses"],
    answer:1,
    explanation:"Programs execute loops, call subroutines, and access local arrays — all patterns that concentrate references in a small memory region. Because the active instructions and data fit in a small cache, a large fraction of accesses find the word already in cache (a hit), making the average access time approach the cache access time."},
-  {q:"The hit ratio h is defined as hits/(hits+misses). A computer has T_c = 100 ns (cache) and T_m = 1000 ns (main memory). With h = 0.9, the average access time T_avg is:",
+  {q:"The hit ratio h is defined as hits/(hits+misses). A computer has T<sub>c</sub> = 100 ns (cache) and T<sub>m</sub> = 1000 ns (main memory). With h = 0.9, the average access time T<sub>avg</sub> is:",
    options:["100 ns","200 ns","550 ns","900 ns"],
    answer:1,
-   explanation:"T_avg = h·T_c + (1−h)(T_c + T_m) = 0.9×100 + 0.1×1100 = 90 + 110 = 200 ns. Compare this with 1000 ns without cache — a 5× improvement from a hit ratio of only 0.9."},
+   explanation:"T<sub>avg</sub> = h·T<sub>c</sub> + (1−h)(T<sub>c</sub> + T<sub>m</sub>) = 0.9×100 + 0.1×1100 = 90 + 110 = 200 ns. Compare this with 1000 ns without cache — a 5× improvement from a hit ratio of only 0.9."},
   {q:"In direct-mapped cache with a 15-bit CPU address (9-bit index, 6-bit tag), what happens when the CPU accesses addresses 00000 and 01000 (octal) alternately?",
    options:["Both accesses always hit because they are in the same cache set","Every access is a miss because both addresses have the same 9-bit index but different 6-bit tags, so each access evicts the other from that cache line",
             "The cache stores both simultaneously because they have different tags","The index field determines which disk sector to access"],

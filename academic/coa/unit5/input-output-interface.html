@@ -5,13 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3030765874336294" crossorigin="anonymous"></script>
   <title>Input-Output Interface — COA Unit 5 | CHANDRAS EDU</title>
-  <meta name="description" content="COA Unit 5 §11-2: I/O interface purpose, I/O bus, four I/O command types, isolated vs memory-mapped addressing, and interface registers, with diagrams.">
+  <meta name="description" content="COA Unit 5: I/O interface purpose, I/O bus, four I/O command types, isolated vs memory-mapped addressing, and interface registers, with diagrams.">
   <link rel="canonical" href="https://chandrashaker.com/courses/academic/coa/unit5/input-output-interface">
   <link rel="stylesheet" href="../../../css/style.css">
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="CHANDRAS EDU">
   <meta property="og:title" content="Input-Output Interface — COA Unit 5 | CHANDRAS EDU">
-  <meta property="og:description" content="COA Unit 5 §11-2: I/O interface purpose, I/O bus, four I/O command types, isolated vs memory-mapped addressing, and interface registers, with diagrams.">
+  <meta property="og:description" content="COA Unit 5: I/O interface purpose, I/O bus, four I/O command types, isolated vs memory-mapped addressing, and interface registers, with diagrams.">
   <meta property="og:url" content="https://chandrashaker.com/courses/academic/coa/unit5/input-output-interface">
   <meta property="og:image" content="https://chandrashaker.com/courses/images/og/coa-v7.png">
   <meta property="og:image:width" content="1200">
@@ -19,7 +19,7 @@
   <meta property="og:image:alt" content="Computer Organization and Architecture — CHANDRAS EDU free course">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Input-Output Interface — COA Unit 5 | CHANDRAS EDU">
-  <meta name="twitter:description" content="COA Unit 5 §11-2: I/O interface purpose, I/O bus, four I/O command types, isolated vs memory-mapped addressing, and interface registers, with diagrams.">
+  <meta name="twitter:description" content="COA Unit 5: I/O interface purpose, I/O bus, four I/O command types, isolated vs memory-mapped addressing, and interface registers, with diagrams.">
   <meta name="twitter:image" content="https://chandrashaker.com/courses/images/og/coa-v7.png">
   <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Courses","item":"https://chandrashaker.com/courses/"},{"@type":"ListItem","position":2,"name":"COA","item":"https://chandrashaker.com/courses/academic/coa/"},{"@type":"ListItem","position":3,"name":"Unit 5","item":"https://chandrashaker.com/courses/academic/coa/unit5/"},{"@type":"ListItem","position":4,"name":"Input-Output Interface"}]}
@@ -60,7 +60,7 @@
     </div>
 
     <h2>Why an Interface Is Needed</h2>
-    <p>Peripherals differ from the CPU in four important ways (§11-2):</p>
+    <p>Peripherals differ from the CPU in four important ways:</p>
     <ol>
       <li><strong>Signal type</strong> — peripherals are electromechanical or electromagnetic; the CPU is purely electronic. Signal levels may need conversion.</li>
       <li><strong>Speed</strong> — peripherals are far slower than the CPU. A synchronisation mechanism is needed so neither side loses data.</li>
@@ -98,7 +98,7 @@
     <div class="key-point"><strong>Advantage of memory-mapped I/O:</strong> all memory-reference instructions (AND, OR, shift, compare…) can operate directly on I/O data, giving the programmer a richer instruction set for controlling devices.</div>
 
     <h2>I/O Interface Example</h2>
-    <p>Figure 11-2 shows a typical interface chip. It contains two data registers (Port A and Port B), a control register, and a status register — all accessible through the bidirectional data bus. The CPU selects which register to access using the chip-select (CS) and two register-select (RS1, RS0) lines, plus I/O read (RD) or write (WR).</p>
+    <p>The figure below shows a typical interface chip. It contains two data registers (Port A and Port B), a control register, and a status register — all accessible through the bidirectional data bus. The CPU selects which register to access using the chip-select (CS) and two register-select (RS1, RS0) lines, plus I/O read (RD) or write (WR).</p>
 
     <div class="fig-wrap">
       <div style="overflow-x:auto">
@@ -109,7 +109,7 @@
 
     <div style="overflow-x:auto">
       <table>
-        <caption style="font-size:.85rem;margin-bottom:.4rem">Register selection for the interface of Fig 11-2</caption>
+        <caption style="font-size:.85rem;margin-bottom:.4rem">Register selection for the interface in the figure above</caption>
         <thead><tr><th>CS</th><th>RS1</th><th>RS0</th><th>Register selected</th></tr></thead>
         <tbody>
           <tr><td>0</td><td>×</td><td>×</td><td>None — data bus in high impedance</td></tr>
@@ -196,7 +196,7 @@
    options:["Using special IN/OUT instructions only","Using the same load/store (memory-reference) instructions as it uses for memory words","By sending a dedicated I/O command byte","By polling the status register continuously"],
    answer:1,
    explanation:"Memory-mapped I/O assigns interface registers addresses in the normal memory address space. Any instruction that can read or write a memory location can also access an interface register — no special I/O instructions are needed."},
-  {q:"An I/O interface unit in Fig 11-2 receives a Chip Select (CS=1), RS1=0, RS0=1, and an I/O read signal. Which register is accessed?",
+  {q:"An I/O interface unit with two data ports, a control register and a status register receives a Chip Select (CS=1), RS1=0, RS0=1, and an I/O read signal. Which register is accessed?",
    options:["Port A register","Port B register","Control register","Status register"],
    answer:1,
    explanation:"From the register-select table: CS=1, RS1=0, RS0=1 selects Port B. An I/O read operation then places Port B's contents on the data bus for the CPU to read."},

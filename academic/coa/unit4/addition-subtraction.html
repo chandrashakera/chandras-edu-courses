@@ -5,14 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3030765874336294" crossorigin="anonymous"></script>
   <title>Addition and Subtraction — COA Unit 4 | CHANDRAS EDU</title>
-  <meta name="description" content="Signed-magnitude and signed-2's complement addition and subtraction in Mano §10-2: the hardware, the flowchart, and overflow detection, with diagrams.">
+  <meta name="description" content="Signed-magnitude and signed-2's complement addition and subtraction explained step by step: the hardware, the flowchart, and overflow detection.">
   <link rel="canonical" href="https://chandrashaker.com/courses/academic/coa/unit4/addition-subtraction">
   <link rel="stylesheet" href="../../../css/style.css">
 
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="CHANDRAS EDU">
   <meta property="og:title" content="Addition and Subtraction — COA Unit 4 | CHANDRAS EDU">
-  <meta property="og:description" content="Signed-magnitude and signed-2's complement addition and subtraction in Mano §10-2: the hardware, the flowchart, and overflow detection, with diagrams.">
+  <meta property="og:description" content="Signed-magnitude and signed-2's complement addition and subtraction explained step by step: the hardware, the flowchart, and overflow detection.">
   <meta property="og:url" content="https://chandrashaker.com/courses/academic/coa/unit4/addition-subtraction">
   <meta property="og:image" content="https://chandrashaker.com/courses/images/og/coa-v7.png">
   <meta property="og:image:width" content="1200">
@@ -20,14 +20,14 @@
   <meta property="og:image:alt" content="Computer Organization and Architecture — CHANDRAS EDU free course">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Addition and Subtraction — COA Unit 4 | CHANDRAS EDU">
-  <meta name="twitter:description" content="Signed-magnitude and signed-2's complement addition and subtraction in Mano §10-2: the hardware, the flowchart, and overflow detection, with diagrams.">
+  <meta name="twitter:description" content="Signed-magnitude and signed-2's complement addition and subtraction explained step by step: the hardware, the flowchart, and overflow detection.">
   <meta name="twitter:image" content="https://chandrashaker.com/courses/images/og/coa-v7.png">
 
   <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Courses","item":"https://chandrashaker.com/courses/"},{"@type":"ListItem","position":2,"name":"COA","item":"https://chandrashaker.com/courses/academic/coa/"},{"@type":"ListItem","position":3,"name":"Unit 4","item":"https://chandrashaker.com/courses/academic/coa/unit4/"},{"@type":"ListItem","position":4,"name":"Addition and Subtraction"}]}
   </script>
   <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"LearningResource","name":"Addition and Subtraction","description":"Signed-magnitude and signed-2's complement addition and subtraction in Mano §10-2: the hardware, the flowchart, and overflow detection, with diagrams.","url":"https://chandrashaker.com/courses/academic/coa/unit4/addition-subtraction","learningResourceType":"Lesson","educationalLevel":"Undergraduate","about":{"@type":"Thing","name":"Computer Organization and Architecture"},"isPartOf":{"@type":"Course","name":"Computer Organization and Architecture","provider":{"@type":"Organization","name":"CHANDRAS EDU","url":"https://chandrashaker.in"}},"publisher":{"@type":"Organization","name":"CHANDRAS EDU","url":"https://chandrashaker.in"}}
+{"@context":"https://schema.org","@type":"LearningResource","name":"Addition and Subtraction","description":"Signed-magnitude and signed-2's complement addition and subtraction explained step by step: the hardware, the flowchart, and overflow detection.","url":"https://chandrashaker.com/courses/academic/coa/unit4/addition-subtraction","learningResourceType":"Lesson","educationalLevel":"Undergraduate","about":{"@type":"Thing","name":"Computer Organization and Architecture"},"isPartOf":{"@type":"Course","name":"Computer Organization and Architecture","provider":{"@type":"Organization","name":"CHANDRAS EDU","url":"https://chandrashaker.in"}},"publisher":{"@type":"Organization","name":"CHANDRAS EDU","url":"https://chandrashaker.in"}}
   </script>
   <link rel="icon" href="/favicon.ico">
   <style>
@@ -58,14 +58,14 @@
   </div>
 
   <div class="lesson">
-    <p>The arithmetic unit of a computer must handle two common representations for negative numbers: signed-magnitude and signed-2's complement. Section 10-2 develops the hardware and algorithms for both.</p>
+    <p>The arithmetic unit of a computer must handle two common representations for negative numbers: signed-magnitude and signed-2's complement. This topic develops the hardware and algorithms for both.</p>
 
     <div class="box box-tip">
       <strong>In simple terms:</strong> with signs stored separately, the hardware first looks at the operation and the two signs, then either adds the magnitudes or subtracts them. Subtraction is done by adding the 2's complement, so one adder handles both.
     </div>
 
     <h2>Signed-Magnitude Addition and Subtraction</h2>
-    <p>In signed-magnitude representation, numbers consist of a magnitude and a separate sign bit. When two numbers are added or subtracted, the actual operation to perform on the magnitudes depends on both the operation and the signs of the two operands. There are eight possible combinations of sign and operation, summarised in Table 10-1.</p>
+    <p>In signed-magnitude representation, numbers consist of a magnitude and a separate sign bit. When two numbers are added or subtracted, the actual operation to perform on the magnitudes depends on both the operation and the signs of the two operands. There are eight possible combinations of sign and operation.</p>
 
     <p>The rule reduces to two cases:</p>
     <ul>
@@ -76,7 +76,7 @@
     <p>A special case arises when the subtraction produces a zero result — the sign must be forced to positive (+0, not −0).</p>
 
     <h2>Hardware Implementation</h2>
-    <p>Figure 10-1 shows the hardware for signed-magnitude addition and subtraction. The key observation is that subtraction of magnitudes is implemented using 2's complement addition, which eliminates the need for a separate subtractor circuit.</p>
+    <p>The figure below shows the hardware for signed-magnitude addition and subtraction. The key observation is that subtraction of magnitudes is implemented using 2's complement addition, which eliminates the need for a separate subtractor circuit.</p>
 
     <div class="fig-wrap">
       <div style="overflow-x:auto">
@@ -96,7 +96,7 @@
     </ul>
 
     <h2>Hardware Algorithm</h2>
-    <p>Figure 10-2 is the flowchart for the hardware algorithm. The two columns represent the subtract and add operations separately; they share the same END node since both ultimately place the result in A and Aₛ.</p>
+    <p>The figure below is the flowchart for the hardware algorithm. The two columns represent the subtract and add operations separately; they share the same END node since both ultimately place the result in A and Aₛ.</p>
 
     <div class="fig-wrap">
       <div style="overflow-x:auto">
@@ -118,7 +118,7 @@
       <li><strong>Subtraction:</strong> take the 2's complement of the subtrahend and add it to the minuend.</li>
     </ul>
 
-    <p>The hardware (Fig. 10-3) is the same complementer-adder circuit but without separate sign flip-flops. The registers are named AC (accumulator) and BR (B register). Overflow flip-flop V is set when the XOR of the last two carries equals 1.</p>
+    <p>The hardware is the same complementer-adder circuit but without separate sign flip-flops. The registers are named AC (accumulator) and BR (B register). Overflow flip-flop V is set when the XOR of the last two carries equals 1.</p>
 
     <h2>Overflow Detection</h2>
     <div class="key-point">
@@ -127,7 +127,7 @@
 
     <h2>Summary</h2>
     <ul>
-      <li>Table 10-1 has <strong>8 rows</strong> covering all sign/operation combinations for signed-magnitude arithmetic.</li>
+      <li>There are <strong>8 combinations</strong> of sign and operation for signed-magnitude arithmetic.</li>
       <li>The complementer controlled by M implements both addition (M = 0) and subtraction (M = 1) with one adder circuit.</li>
       <li>E = 1 after subtraction means A ≥ B; E = 0 means A &lt; B — the result must be re-complemented.</li>
       <li>Signed-2's complement arithmetic is simpler: one add for both operations; overflow detected by XOR of last two carries.</li>
@@ -189,7 +189,7 @@
   const LABELS    = ['A','B','C','D'];
   const QUIZ = [
     {
-      q: "In the hardware of Fig. 10-1, what does the mode control M = 1 cause the complementer to do?",
+      q: "In the signed-magnitude add/subtract hardware, what does the mode control M = 1 cause the complementer to do?",
       options: [
         "Pass B unchanged to the adder",
         "Output the 1's complement of B and set the input carry to 1, achieving 2's complement subtraction",
@@ -222,13 +222,13 @@
       explanation: "Overflow in 2's complement addition is detected by V = XOR(C₇, C₈). If the carry into the sign bit differs from the carry out of it, the sign of the result is wrong — overflow occurred."
     },
     {
-      q: "Table 10-1 for signed-magnitude addition and subtraction has how many rows?",
+      q: "How many combinations of sign and operation are possible for signed-magnitude addition and subtraction?",
       options: ["4", "6", "8", "10"],
       answer: 2,
-      explanation: "Table 10-1 lists 8 combinations — four sign pairs (++, +−, −+, −−) for each of two operations (add and subtract), covering all cases the hardware must handle."
+      explanation: "There are 8 combinations — four sign pairs (++, +−, −+, −−) for each of two operations (add and subtract), covering all cases the hardware must handle."
     },
     {
-      q: "In the flowchart of Fig. 10-2, why must Aₛ be set to 0 when the subtract-magnitudes result A = 0?",
+      q: "In the add/subtract flowchart, why must Aₛ be set to 0 when the subtract-magnitudes result A = 0?",
       options: [
         "To signal an overflow condition to the programmer",
         "To prevent a negative zero (−0) — the result zero should always be +0",

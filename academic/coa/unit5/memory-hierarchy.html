@@ -5,13 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3030765874336294" crossorigin="anonymous"></script>
   <title>Memory Hierarchy — COA Unit 5 | CHANDRAS EDU</title>
-  <meta name="description" content="COA Unit 5 §12-1: memory hierarchy from CPU registers to auxiliary storage, cost-speed trade-offs, cache access ratios, and multiprogramming.">
+  <meta name="description" content="COA Unit 5: memory hierarchy from CPU registers to auxiliary storage, cost-speed trade-offs, cache access ratios, and multiprogramming concepts.">
   <link rel="canonical" href="https://chandrashaker.com/courses/academic/coa/unit5/memory-hierarchy">
   <link rel="stylesheet" href="../../../css/style.css">
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="CHANDRAS EDU">
   <meta property="og:title" content="Memory Hierarchy — COA Unit 5 | CHANDRAS EDU">
-  <meta property="og:description" content="COA Unit 5 §12-1: memory hierarchy from CPU registers to auxiliary storage, cost-speed trade-offs, cache access ratios, and multiprogramming.">
+  <meta property="og:description" content="COA Unit 5: memory hierarchy from CPU registers to auxiliary storage, cost-speed trade-offs, cache access ratios, and multiprogramming concepts.">
   <meta property="og:url" content="https://chandrashaker.com/courses/academic/coa/unit5/memory-hierarchy">
   <meta property="og:image" content="https://chandrashaker.com/courses/images/og/coa-v7.png">
   <meta property="og:image:width" content="1200">
@@ -19,7 +19,7 @@
   <meta property="og:image:alt" content="Computer Organization and Architecture — CHANDRAS EDU free course">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Memory Hierarchy — COA Unit 5 | CHANDRAS EDU">
-  <meta name="twitter:description" content="COA Unit 5 §12-1: memory hierarchy from CPU registers to auxiliary storage, cost-speed trade-offs, cache access ratios, and multiprogramming.">
+  <meta name="twitter:description" content="COA Unit 5: memory hierarchy from CPU registers to auxiliary storage, cost-speed trade-offs, cache access ratios, and multiprogramming concepts.">
   <meta name="twitter:image" content="https://chandrashaker.com/courses/images/og/coa-v7.png">
   <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Courses","item":"https://chandrashaker.com/courses/"},{"@type":"ListItem","position":2,"name":"COA","item":"https://chandrashaker.com/courses/academic/coa/"},{"@type":"ListItem","position":3,"name":"Unit 5","item":"https://chandrashaker.com/courses/academic/coa/unit5/"},{"@type":"ListItem","position":4,"name":"Memory Hierarchy"}]}
@@ -49,14 +49,14 @@
     </div>
   </div>
   <div class="lesson">
-    <p>No single memory technology simultaneously provides unlimited capacity, zero access time, and zero cost. Instead, computer systems use a <strong>memory hierarchy</strong> — several levels of storage, each faster and more expensive than the one below it — to achieve a good balance of all three (§12-1).</p>
+    <p>No single memory technology simultaneously provides unlimited capacity, zero access time, and zero cost. Instead, computer systems use a <strong>memory hierarchy</strong> — several levels of storage, each faster and more expensive than the one below it — to achieve a good balance of all three.</p>
 
     <div class="box box-tip">
       <strong>In simple terms:</strong> fast memory is expensive and small; cheap memory is slow and large. Computers combine several kinds — registers, cache, main memory, disk, tape — and keep the data needed right now in the fastest levels.
     </div>
 
     <h2>The Hierarchy</h2>
-    <p>Figure 12-1 shows how these levels are connected. From bottom (slowest, cheapest, largest) to top (fastest, costliest, smallest):</p>
+    <p>The figure below shows how these levels are connected. From bottom (slowest, cheapest, largest) to top (fastest, costliest, smallest):</p>
 
     <div class="fig-wrap">
       <div style="overflow-x:auto">
@@ -78,7 +78,7 @@
 
     <div style="overflow-x:auto">
       <table>
-        <caption style="font-size:.85rem;margin-bottom:.4rem">Typical characteristics at each hierarchy level (§12-1)</caption>
+        <caption style="font-size:.85rem;margin-bottom:.4rem">Typical characteristics at each hierarchy level</caption>
         <thead><tr><th>Level</th><th>Typical access time</th><th>Relative cost/bit</th><th>Capacity</th></tr></thead>
         <tbody>
           <tr><td>CPU registers</td><td>1 clock cycle (&lt;1 ns)</td><td>Highest</td><td>Bytes</td></tr>
@@ -90,11 +90,11 @@
       </table>
     </div>
 
-    <div class="key-point"><strong>Access time ratios (Mano §12-1):</strong> Cache is approximately 7× faster than main memory (100 ns vs 700 ns). Auxiliary memory (disk) is approximately 1000× slower than main memory. Block sizes differ too: auxiliary memory block = 256–2048 words; cache block = 1–16 words.</div>
+    <div class="key-point"><strong>Access time ratios:</strong> Cache is approximately 7× faster than main memory (100 ns vs 700 ns). Auxiliary memory (disk) is approximately 1000× slower than main memory. Block sizes differ too: auxiliary memory block = 256–2048 words; cache block = 1–16 words.</div>
 
     <h2>Cache Memory</h2>
     <p>Cache sits between the CPU and main memory to compensate for the speed gap. The CPU accesses cache first. If the data is there (<em>cache hit</em>) it is obtained quickly. If not (<em>cache miss</em>) the data is fetched from main memory — often bringing a whole <em>block</em> into cache at once, exploiting the principle of <strong>locality of reference</strong>: programs tend to reuse recently accessed memory locations.</p>
-    <p>The cache holds those segments of programs currently executing and data currently in use. Section 12-5 covers cache mapping techniques in detail.</p>
+    <p>The cache holds those segments of programs currently executing and data currently in use. The <a href="cache-memory.html">Cache Memory topic</a> covers cache mapping techniques in detail.</p>
 
     <h2>Auxiliary Memory and the I/O Processor</h2>
     <p>The CPU cannot access auxiliary memory directly. Transfer between auxiliary memory (disk, tape) and main memory is managed by the <strong>I/O processor (IOP)</strong> using DMA. When the CPU needs data not in main memory, it instructs the IOP to bring it in and then continues with another task (<em>multiprogramming</em>). When the transfer is done, the IOP interrupts the CPU.</p>

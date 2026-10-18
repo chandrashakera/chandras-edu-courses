@@ -5,13 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3030765874336294" crossorigin="anonymous"></script>
   <title>Modes of Transfer — COA Unit 5 | CHANDRAS EDU</title>
-  <meta name="description" content="COA Unit 5 §11-4: programmed I/O polling, interrupt-driven I/O with vectored interrupts, and Direct Memory Access — comparisons and examples.">
+  <meta name="description" content="COA Unit 5: programmed I/O polling, interrupt-driven I/O with vectored interrupts, and Direct Memory Access — comparisons and worked examples.">
   <link rel="canonical" href="https://chandrashaker.com/courses/academic/coa/unit5/modes-of-transfer">
   <link rel="stylesheet" href="../../../css/style.css">
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="CHANDRAS EDU">
   <meta property="og:title" content="Modes of Transfer — COA Unit 5 | CHANDRAS EDU">
-  <meta property="og:description" content="COA Unit 5 §11-4: programmed I/O polling, interrupt-driven I/O with vectored interrupts, and Direct Memory Access — comparisons and examples.">
+  <meta property="og:description" content="COA Unit 5: programmed I/O polling, interrupt-driven I/O with vectored interrupts, and Direct Memory Access — comparisons and worked examples.">
   <meta property="og:url" content="https://chandrashaker.com/courses/academic/coa/unit5/modes-of-transfer">
   <meta property="og:image" content="https://chandrashaker.com/courses/images/og/coa-v7.png">
   <meta property="og:image:width" content="1200">
@@ -19,7 +19,7 @@
   <meta property="og:image:alt" content="Computer Organization and Architecture — CHANDRAS EDU free course">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Modes of Transfer — COA Unit 5 | CHANDRAS EDU">
-  <meta name="twitter:description" content="COA Unit 5 §11-4: programmed I/O polling, interrupt-driven I/O with vectored interrupts, and Direct Memory Access — comparisons and examples.">
+  <meta name="twitter:description" content="COA Unit 5: programmed I/O polling, interrupt-driven I/O with vectored interrupts, and Direct Memory Access — comparisons and worked examples.">
   <meta name="twitter:image" content="https://chandrashaker.com/courses/images/og/coa-v7.png">
   <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Courses","item":"https://chandrashaker.com/courses/"},{"@type":"ListItem","position":2,"name":"COA","item":"https://chandrashaker.com/courses/academic/coa/"},{"@type":"ListItem","position":3,"name":"Unit 5","item":"https://chandrashaker.com/courses/academic/coa/unit5/"},{"@type":"ListItem","position":4,"name":"Modes of Transfer"}]}
@@ -54,7 +54,7 @@
 
   <div class="lesson">
 
-    <p>Once an interface is in place, the CPU must decide <em>how</em> to coordinate data movement between the interface register and main memory. Section 11-4 describes three fundamentally different strategies, each with a different trade-off between simplicity and CPU efficiency.</p>
+    <p>Once an interface is in place, the CPU must decide <em>how</em> to coordinate data movement between the interface register and main memory. This topic describes three fundamentally different strategies, each with a different trade-off between simplicity and CPU efficiency.</p>
 
     <div class="box box-tip">
       <strong>In simple terms:</strong> there are three ways to move I/O data — the CPU keeps checking (programmed I/O), the device taps the CPU on the shoulder when ready (interrupt), or a DMA controller moves whole blocks while the CPU does other work.
@@ -103,7 +103,7 @@
 
     <div style="overflow-x:auto">
       <table>
-        <caption style="font-size:.85rem;margin-bottom:.4rem">Comparison of the three I/O transfer modes (§11-4)</caption>
+        <caption style="font-size:.85rem;margin-bottom:.4rem">Comparison of the three I/O transfer modes</caption>
         <thead><tr><th>Property</th><th>Programmed I/O</th><th>Interrupt-driven</th><th>DMA</th></tr></thead>
         <tbody>
           <tr><td>CPU during transfer</td><td>Busy-waiting (polls)</td><td>Runs other code; ISR on interrupt</td><td>Continues; DMA owns bus</td></tr>

@@ -119,8 +119,8 @@ FULL ← 0                       Mark stack not full</pre>
 
     <h2>Common Pitfalls</h2>
     <ul>
-      <li><strong>EMTY vs EMPTY.</strong> Mano writes <em>EMTY</em> throughout §8-3. Using EMPTY in an exam answer is a notation mismatch.</li>
-      <li><strong>Growth direction.</strong> The register stack (Fig. 8-3) grows upward — SP increments on push. The memory stack (Fig. 8-4) grows downward — SP decrements on push. The order of the two microoperations reverses accordingly.</li>
+      <li><strong>EMTY vs EMPTY.</strong> The textbook writes <em>EMTY</em> throughout. Using EMPTY in an exam answer is a notation mismatch.</li>
+      <li><strong>Growth direction.</strong> The register stack grows upward — SP increments on push. The memory stack grows downward — SP decrements on push. The order of the two microoperations reverses accordingly.</li>
       <li><strong>Erroneous operations.</strong> Pushing when FULL = 1 or popping when EMTY = 1 produces an error. Always check the flag before the operation.</li>
       <li><strong>RPN operand order.</strong> For subtraction and division, order matters: the first operand popped is the right operand (divisor or subtrahend); the second pop gives the left operand.</li>
     </ul>
@@ -175,8 +175,8 @@ FULL ← 0                       Mark stack not full</pre>
   const LABELS    = ['A','B','C','D'];
   const QUIZ = [
     { q:"In the 64-word register stack, what does the EMTY flag indicate when set to 1?", options:["The stack pointer is at address 0","The stack contains no items","The data register is empty","The stack pointer has overflowed"], answer:1, explanation:"EMTY = 1 means the stack contains no items. It is set initially and after a pop that reduces SP to 0. Note the spelling: it is written EMTY, not EMPTY." },
-    { q:"For the register stack (Fig. 8-3), which sequence correctly implements a push?", options:["M[SP] ← DR, then SP ← SP + 1","SP ← SP + 1, then M[SP] ← DR","SP ← SP − 1, then M[SP] ← DR","DR ← M[SP], then SP ← SP + 1"], answer:1, explanation:"Push on the register stack increments SP first (pointing to the next higher slot), then writes DR to that location. The memory stack push does the opposite because it grows downward." },
-    { q:"In Fig. 8-4, SP is initialised to 4001 and the stack grows toward lower addresses. What address holds the first item pushed?", options:["4002","4001","4000","3999"], answer:2, explanation:"The memory-stack push decrements SP first (4001 − 1 = 4000) then writes M[SP]. So the first item lands at address 4000." },
+    { q:"For the register stack, which sequence correctly implements a push?", options:["M[SP] ← DR, then SP ← SP + 1","SP ← SP + 1, then M[SP] ← DR","SP ← SP − 1, then M[SP] ← DR","DR ← M[SP], then SP ← SP + 1"], answer:1, explanation:"Push on the register stack increments SP first (pointing to the next higher slot), then writes DR to that location. The memory stack push does the opposite because it grows downward." },
+    { q:"In the memory stack example, SP is initialised to 4001 and the stack grows toward lower addresses. What address holds the first item pushed?", options:["4002","4001","4000","3999"], answer:2, explanation:"The memory-stack push decrements SP first (4001 − 1 = 4000) then writes M[SP]. So the first item lands at address 4000." },
     { q:"Evaluate the RPN expression 5 3 − 2 * using a stack. What is the result?", options:["4","−2","6","1"], answer:0, explanation:"Push 5, push 3, subtract (5 − 3 = 2), push 2, multiply (2 × 2 = 4). Result = 4." },
     { q:"Which infix expression corresponds to the RPN expression AB*CD*+?", options:["A*B + C*D","A*(B + C)*D","(A + B)*(C + D)","A*B*(C + D)"], answer:0, explanation:"Push A, push B, multiply → A*B. Push C, push D, multiply → C*D. Add the two products → A*B + C*D." }
   ];

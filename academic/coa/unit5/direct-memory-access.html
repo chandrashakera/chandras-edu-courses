@@ -5,13 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3030765874336294" crossorigin="anonymous"></script>
   <title>Direct Memory Access — COA Unit 5 | CHANDRAS EDU</title>
-  <meta name="description" content="COA Unit 5 §11-6: DMA controller, address and word count registers, bus request and grant, burst transfer, cycle stealing, and the DMA transfer sequence.">
+  <meta name="description" content="COA Unit 5: DMA controller, address and word count registers, bus request and grant, burst transfer, cycle stealing, and the DMA transfer sequence.">
   <link rel="canonical" href="https://chandrashaker.com/courses/academic/coa/unit5/direct-memory-access">
   <link rel="stylesheet" href="../../../css/style.css">
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="CHANDRAS EDU">
   <meta property="og:title" content="Direct Memory Access — COA Unit 5 | CHANDRAS EDU">
-  <meta property="og:description" content="COA Unit 5 §11-6: DMA controller, address and word count registers, bus request and grant, burst transfer, cycle stealing, and the DMA transfer sequence.">
+  <meta property="og:description" content="COA Unit 5: DMA controller, address and word count registers, bus request and grant, burst transfer, cycle stealing, and the DMA transfer sequence.">
   <meta property="og:url" content="https://chandrashaker.com/courses/academic/coa/unit5/direct-memory-access">
   <meta property="og:image" content="https://chandrashaker.com/courses/images/og/coa-v7.png">
   <meta property="og:image:width" content="1200">
@@ -19,7 +19,7 @@
   <meta property="og:image:alt" content="Computer Organization and Architecture — CHANDRAS EDU free course">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Direct Memory Access — COA Unit 5 | CHANDRAS EDU">
-  <meta name="twitter:description" content="COA Unit 5 §11-6: DMA controller, address and word count registers, bus request and grant, burst transfer, cycle stealing, and the DMA transfer sequence.">
+  <meta name="twitter:description" content="COA Unit 5: DMA controller, address and word count registers, bus request and grant, burst transfer, cycle stealing, and the DMA transfer sequence.">
   <meta name="twitter:image" content="https://chandrashaker.com/courses/images/og/coa-v7.png">
   <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Courses","item":"https://chandrashaker.com/courses/"},{"@type":"ListItem","position":2,"name":"COA","item":"https://chandrashaker.com/courses/academic/coa/"},{"@type":"ListItem","position":3,"name":"Unit 5","item":"https://chandrashaker.com/courses/academic/coa/unit5/"},{"@type":"ListItem","position":4,"name":"Direct Memory Access"}]}
@@ -50,7 +50,7 @@
     </div>
   </div>
   <div class="lesson">
-    <p>When a high-speed device such as a magnetic disk needs to transfer a large block of data to memory, even interrupt-driven I/O is too slow — one interrupt per byte is too much overhead. <strong>Direct Memory Access (DMA)</strong> solves this by letting a dedicated controller manage the entire block transfer, bypassing the CPU for the data path (§11-6).</p>
+    <p>When a high-speed device such as a magnetic disk needs to transfer a large block of data to memory, even interrupt-driven I/O is too slow — one interrupt per byte is too much overhead. <strong>Direct Memory Access (DMA)</strong> solves this by letting a dedicated controller manage the entire block transfer, bypassing the CPU for the data path.</p>
 
     <div class="box box-tip">
       <strong>In simple terms:</strong> instead of the CPU carrying every byte between a fast device and memory, a DMA controller borrows the memory bus and moves the data itself. The CPU only sets it up at the start and gets one interrupt at the end.

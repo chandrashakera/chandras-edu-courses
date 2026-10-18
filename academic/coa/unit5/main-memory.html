@@ -5,13 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3030765874336294" crossorigin="anonymous"></script>
   <title>Main Memory — COA Unit 5 | CHANDRAS EDU</title>
-  <meta name="description" content="COA Unit 5 §12-2: static and dynamic RAM, ROM chips, the memory address map, and how RAM and ROM chips connect to the CPU, with chip diagrams.">
+  <meta name="description" content="COA Unit 5: static and dynamic RAM, ROM chips, the memory address map, and how RAM and ROM chips connect to the CPU, with chip diagrams and a table.">
   <link rel="canonical" href="https://chandrashaker.com/courses/academic/coa/unit5/main-memory">
   <link rel="stylesheet" href="../../../css/style.css">
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="CHANDRAS EDU">
   <meta property="og:title" content="Main Memory — COA Unit 5 | CHANDRAS EDU">
-  <meta property="og:description" content="COA Unit 5 §12-2: static and dynamic RAM, ROM chips, the memory address map, and how RAM and ROM chips connect to the CPU, with chip diagrams.">
+  <meta property="og:description" content="COA Unit 5: static and dynamic RAM, ROM chips, the memory address map, and how RAM and ROM chips connect to the CPU, with chip diagrams and a table.">
   <meta property="og:url" content="https://chandrashaker.com/courses/academic/coa/unit5/main-memory">
   <meta property="og:image" content="https://chandrashaker.com/courses/images/og/coa-v7.png">
   <meta property="og:image:width" content="1200">
@@ -19,7 +19,7 @@
   <meta property="og:image:alt" content="Computer Organization and Architecture — CHANDRAS EDU free course">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Main Memory — COA Unit 5 | CHANDRAS EDU">
-  <meta name="twitter:description" content="COA Unit 5 §12-2: static and dynamic RAM, ROM chips, the memory address map, and how RAM and ROM chips connect to the CPU, with chip diagrams.">
+  <meta name="twitter:description" content="COA Unit 5: static and dynamic RAM, ROM chips, the memory address map, and how RAM and ROM chips connect to the CPU, with chip diagrams and a table.">
   <meta name="twitter:image" content="https://chandrashaker.com/courses/images/og/coa-v7.png">
   <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Courses","item":"https://chandrashaker.com/courses/"},{"@type":"ListItem","position":2,"name":"COA","item":"https://chandrashaker.com/courses/academic/coa/"},{"@type":"ListItem","position":3,"name":"Unit 5","item":"https://chandrashaker.com/courses/academic/coa/unit5/"},{"@type":"ListItem","position":4,"name":"Main Memory"}]}
@@ -49,7 +49,7 @@
     </div>
   </div>
   <div class="lesson">
-    <p>The <strong>main memory</strong> is the central storage unit that communicates directly with the CPU. It is built from semiconductor integrated circuit chips — primarily RAM and ROM — and is large enough to hold the programs and data currently being executed (§12-2).</p>
+    <p>The <strong>main memory</strong> is the central storage unit that communicates directly with the CPU. It is built from semiconductor integrated circuit chips — primarily RAM and ROM — and is large enough to hold the programs and data currently being executed.</p>
 
     <div class="box box-tip">
       <strong>In simple terms:</strong> main memory is built from RAM chips (read and write, lost at power-off) and ROM chips (read-only, kept at power-off). The address decides which chip answers: low address bits pick a byte inside a chip, high bits pick the chip.
@@ -68,7 +68,7 @@
     <p>The CPU sets its program counter to the bootstrap loader address at power-on. The bootstrap loads the OS from disk into RAM, then transfers control to the OS.</p>
 
     <h2>RAM and ROM Chip Structure</h2>
-    <p>A typical RAM chip (Fig 12-2) contains an array of memory cells, a bidirectional data bus, and control inputs: Chip Select 1 (CS1), Chip Select 2 (CS2̄), Read (RD), Write (WR), and an address input. The chip is active only when CS1 = 1 and CS2̄ = 0. Three-state bus buffers allow multiple chips to share the same data bus.</p>
+    <p>A typical RAM chip contains an array of memory cells, a bidirectional data bus, and control inputs: Chip Select 1 (CS1), Chip Select 2 (CS2̄), Read (RD), Write (WR), and an address input. The chip is active only when CS1 = 1 and CS2̄ = 0. Three-state bus buffers allow multiple chips to share the same data bus.</p>
 
     <div class="fig-wrap">
       <div style="overflow-x:auto">
@@ -77,10 +77,10 @@
       <p style="font-size:.8rem;color:var(--text-2);margin-top:.4rem">Typical RAM and ROM chips. Adapted from M. Morris Mano, <em>Computer System Architecture</em>, Figs. 12-2 and 12-3.</p>
     </div>
 
-    <p>A ROM chip (Fig 12-3) is organised similarly but has no WR input — the data bus is output-only. For the same chip area, a ROM can hold more bits than a RAM because the internal cells are simpler.</p>
+    <p>A ROM chip is organised similarly but has no WR input — the data bus is output-only. For the same chip area, a ROM can hold more bits than a RAM because the internal cells are simpler.</p>
 
     <h2>Memory Address Map</h2>
-    <p>The designer assigns a unique address range to each chip using a <strong>memory address map</strong>. The example in Table 12-1 builds a 1 KB memory from four 128×8 RAM chips and one 512×8 ROM chip.</p>
+    <p>The designer assigns a unique address range to each chip using a <strong>memory address map</strong>. The example in the table below builds a 1 KB memory from four 128×8 RAM chips and one 512×8 ROM chip.</p>
 
     <div style="overflow-x:auto">
       <table>
@@ -172,15 +172,15 @@
             "ROM is used for temporary data storage during arithmetic operations","ROM replaces cache memory in small computers"],
    answer:1,
    explanation:"ROM (read-only memory) retains its contents without power, making it suitable for storing the bootstrap loader and other permanently resident firmware. RAM is volatile — it loses data when power is removed — so programs stored only in RAM must be reloaded each time the computer starts."},
-  {q:"In the memory address map example of Table 12-1, four 128×8 RAM chips and one 512×8 ROM chip give a total of:",
+  {q:"In the memory address map example, four 128×8 RAM chips and one 512×8 ROM chip give a total of:",
    options:["512 bytes of RAM and 128 bytes of ROM","128 bytes of RAM and 512 bytes of ROM","512 bytes of RAM and 512 bytes of ROM","1024 bytes of addressable memory (512 RAM + 512 ROM)"],
    answer:3,
-   explanation:"Four 128-byte RAM chips give 4 × 128 = 512 bytes of RAM. One 512-byte ROM chip gives 512 bytes of ROM. Total addressable space = 1024 bytes (0000–03FF hex in Table 12-1)."},
-  {q:"In Fig 12-4, how does the CPU distinguish between a RAM access and a ROM access?",
+   explanation:"Four 128-byte RAM chips give 4 × 128 = 512 bytes of RAM. One 512-byte ROM chip gives 512 bytes of ROM. Total addressable space = 1024 bytes (0000–03FF hex in the address map)."},
+  {q:"In the memory connection diagram, how does the CPU distinguish between a RAM access and a ROM access?",
    options:["By looking at the data on the data bus","By the state of address bus line A10 — when A10 = 0 the 2×4 decoder selects a RAM chip; when A10 = 1 the ROM chip select inputs are enabled",
             "By using separate RD and WR signals for RAM and ROM","By examining the content of the word count register"],
    answer:1,
-   explanation:"In the example of Fig 12-4, address bus line 10 (A10) distinguishes RAM from ROM. When A10 = 0 the 2×4 decoder driven by lines A8 and A9 selects one of the four RAM chips (addresses 0000–01FF). When A10 = 1 the ROM chip-select inputs are enabled (addresses 0200–03FF)."},
+   explanation:"In this example, address bus line 10 (A10) distinguishes RAM from ROM. When A10 = 0 the 2×4 decoder driven by lines A8 and A9 selects one of the four RAM chips (addresses 0000–01FF). When A10 = 1 the ROM chip-select inputs are enabled (addresses 0200–03FF)."},
   {q:"What is a memory address map?",
    options:["A diagram showing the internal structure of a single memory chip","A table that assigns a hexadecimal address range to each memory component (RAM or ROM chip) in the system and shows which address bus lines are connected to each chip",
             "A list of all programs currently stored in memory","A cache replacement policy table"],

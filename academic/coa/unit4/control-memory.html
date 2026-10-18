@@ -109,7 +109,7 @@
     <h2>Common Pitfalls</h2>
     <ul>
       <li><strong>Confusing control memory with main memory.</strong> They are physically separate. Main memory holds user programs; control memory holds the microprogram that <em>interprets</em> those programs.</li>
-      <li><strong>Assuming the CDR is always present.</strong> Fig. 7-1 shows the CDR as a pipeline register; Mano's worked example leaves it out and reads the control word straight from the ROM. Draw it only when the question asks for the general organisation or a pipelined design.</li>
+      <li><strong>Assuming the CDR is always present.</strong> The organisation figure above shows the CDR as a pipeline register; Mano's worked example leaves it out and reads the control word straight from the ROM. Draw it only when the question asks for the general organisation or a pipelined design.</li>
       <li><strong>Conflicting microoperations.</strong> Two fields may specify operations on the same register simultaneously, producing an undefined result. Always check for conflicts when writing microcode.</li>
       <li><strong>AD field width.</strong> Seven bits address 128 locations exactly. If the control memory size changes, the AD field width changes with it.</li>
     </ul>

@@ -5,13 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3030765874336294" crossorigin="anonymous"></script>
   <title>Associative Memory — COA Unit 5 | CHANDRAS EDU</title>
-  <meta name="description" content="COA Unit 5 §12-4: content-addressable memory — block diagram, key register mask, match register, and Boolean match logic M_i = ∏(x_j + K_j').">
+  <meta name="description" content="COA Unit 5: content-addressable memory — block diagram, key register mask, match register, cell array, and the Boolean match logic, with a worked example.">
   <link rel="canonical" href="https://chandrashaker.com/courses/academic/coa/unit5/associative-memory">
   <link rel="stylesheet" href="../../../css/style.css">
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="CHANDRAS EDU">
   <meta property="og:title" content="Associative Memory — COA Unit 5 | CHANDRAS EDU">
-  <meta property="og:description" content="COA Unit 5 §12-4: content-addressable memory — block diagram, key register mask, match register, and Boolean match logic M_i = ∏(x_j + K_j').">
+  <meta property="og:description" content="COA Unit 5: content-addressable memory — block diagram, key register mask, match register, cell array, and the Boolean match logic, with a worked example.">
   <meta property="og:url" content="https://chandrashaker.com/courses/academic/coa/unit5/associative-memory">
   <meta property="og:image" content="https://chandrashaker.com/courses/images/og/coa-v7.png">
   <meta property="og:image:width" content="1200">
@@ -19,7 +19,7 @@
   <meta property="og:image:alt" content="Computer Organization and Architecture — CHANDRAS EDU free course">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Associative Memory — COA Unit 5 | CHANDRAS EDU">
-  <meta name="twitter:description" content="COA Unit 5 §12-4: content-addressable memory — block diagram, key register mask, match register, and Boolean match logic M_i = ∏(x_j + K_j').">
+  <meta name="twitter:description" content="COA Unit 5: content-addressable memory — block diagram, key register mask, match register, cell array, and the Boolean match logic, with a worked example.">
   <meta name="twitter:image" content="https://chandrashaker.com/courses/images/og/coa-v7.png">
   <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Courses","item":"https://chandrashaker.com/courses/"},{"@type":"ListItem","position":2,"name":"COA","item":"https://chandrashaker.com/courses/academic/coa/"},{"@type":"ListItem","position":3,"name":"Unit 5","item":"https://chandrashaker.com/courses/academic/coa/unit5/"},{"@type":"ListItem","position":4,"name":"Associative Memory"}]}
@@ -49,7 +49,7 @@
     </div>
   </div>
   <div class="lesson">
-    <p>Many data-processing tasks require searching a table in memory for a matching item — looking up a symbol table, verifying an account number, or finding a cache block. Ordinary RAM searches sequentially, one word at a time. <strong>Associative memory</strong> (also called <em>content-addressable memory</em>, CAM) resolves this by searching all words simultaneously in hardware (§12-4).</p>
+    <p>Many data-processing tasks require searching a table in memory for a matching item — looking up a symbol table, verifying an account number, or finding a cache block. Ordinary RAM searches sequentially, one word at a time. <strong>Associative memory</strong> (also called <em>content-addressable memory</em>, CAM) resolves this by searching all words simultaneously in hardware.</p>
 
     <div class="box box-tip">
       <strong>In simple terms:</strong> a normal memory is asked 'what is at address 25?'. An associative memory is asked 'where is the word that looks like this?' — and checks every word at the same time.
@@ -71,13 +71,13 @@
     <p>The hardware consists of four parts:</p>
     <ul>
       <li><strong>Argument register A</strong> (n bits) — holds the search pattern.</li>
-      <li><strong>Key register K</strong> (n bits) — a mask: K_j = 1 means bit position j <em>is</em> compared; K_j = 0 means it is a don't-care (ignored). When K = all 1s the entire argument is compared.</li>
+      <li><strong>Key register K</strong> (n bits) — a mask: K<sub>j</sub> = 1 means bit position j <em>is</em> compared; K<sub>j</sub> = 0 means it is a don't-care (ignored). When K = all 1s the entire argument is compared.</li>
       <li><strong>Memory array</strong> (m words × n bits) — the CAM cells, each containing a storage flip-flop and comparison logic.</li>
-      <li><strong>Match register M</strong> (m bits) — one bit per word. M_i = 1 if word i matched all unmasked argument bits; M_i = 0 otherwise.</li>
+      <li><strong>Match register M</strong> (m bits) — one bit per word. M<sub>i</sub> = 1 if word i matched all unmasked argument bits; M<sub>i</sub> = 0 otherwise.</li>
     </ul>
 
     <h2>Cell Array</h2>
-    <p>Figure 12-7 shows the organisation of the m × n cell array. Cell C_ij stores bit j of word i. Each row of cells produces one bit M_i in the match register. All n cells in a row contribute to a single AND result.</p>
+    <p>The figure below shows the organisation of the m × n cell array. Cell C<sub>ij</sub> stores bit j of word i. Each row of cells produces one bit M<sub>i</sub> in the match register. All n cells in a row contribute to a single AND result.</p>
 
     <div class="fig-wrap">
       <div style="overflow-x:auto">
@@ -87,28 +87,28 @@
     </div>
 
     <h2>Cell Logic and Match Equations</h2>
-    <p>The internal logic of a typical cell C_ij (Fig 12-8) contains a flip-flop F_ij for storage, plus circuitry for read, write, and match. The match logic compares A_j with F_ij only when K_j = 1.</p>
+    <p>The internal logic of a typical cell C<sub>ij</sub> contains a flip-flop F<sub>ij</sub> for storage, plus circuitry for read, write, and match. The match logic compares A<sub>j</sub> with F<sub>ij</sub> only when K<sub>j</sub> = 1.</p>
 
     <p>The equality check for one bit position j is:</p>
     <div class="box box-eg">
-      <pre>x_j = A_j F_ij + A_j' F_ij'   (1 if A_j equals F_ij; 0 otherwise)</pre>
+      <pre>x<sub>j</sub> = A<sub>j</sub> F<sub>ij</sub> + A<sub>j</sub>' F<sub>ij</sub>'   (1 if A<sub>j</sub> equals F<sub>ij</sub>; 0 otherwise)</pre>
     </div>
 
-    <p>Including the key mask (to make K_j = 0 a don't-care):</p>
+    <p>Including the key mask (to make K<sub>j</sub> = 0 a don't-care):</p>
     <div class="box box-eg">
-      <pre>term_j = x_j + K_j'   (if K_j = 0 → K_j' = 1 → term = 1, so bit j is ignored)</pre>
+      <pre>term<sub>j</sub> = x<sub>j</sub> + K<sub>j</sub>'   (if K<sub>j</sub> = 0 → K<sub>j</sub>' = 1 → term = 1, so bit j is ignored)</pre>
     </div>
 
     <p>Word i matches if and only if all n terms equal 1:</p>
     <div class="box box-eg">
-      <pre>M_i = (x₁ + K₁')(x₂ + K₂') ⋯ (xₙ + Kₙ')</pre>
+      <pre>M<sub>i</sub> = (x₁ + K₁')(x₂ + K₂') ⋯ (xₙ + Kₙ')</pre>
     </div>
 
     <h3>Numerical Example</h3>
-    <p>Suppose A = 101 111100 and K = 111 000000. Only the three leftmost bits are compared (K_j = 1 for j = 1,2,3; K_j = 0 for the rest):</p>
+    <p>Suppose A = 101 111100 and K = 111 000000. Only the three leftmost bits are compared (K<sub>j</sub> = 1 for j = 1,2,3; K<sub>j</sub> = 0 for the rest):</p>
     <div style="overflow-x:auto">
       <table>
-        <thead><tr><th>Word</th><th>Stored bits</th><th>Three-bit match?</th><th>M_i</th></tr></thead>
+        <thead><tr><th>Word</th><th>Stored bits</th><th>Three-bit match?</th><th>M<sub>i</sub></th></tr></thead>
         <tbody>
           <tr><td>Word 1</td><td>100 111100</td><td>100 ≠ 101 → no match</td><td>0</td></tr>
           <tr><td>Word 2</td><td>101 000001</td><td>101 = 101 → match</td><td>1</td></tr>
@@ -117,16 +117,16 @@
     </div>
 
     <h2>Read and Write Operations</h2>
-    <p><strong>Read:</strong> after a search, M indicates which words matched. If only one word matched (M_i = 1 for exactly one i), its data is connected to the output automatically. If multiple words matched, they are read sequentially by applying a read signal to each matched word line.</p>
+    <p><strong>Read:</strong> after a search, M indicates which words matched. If only one word matched (M<sub>i</sub> = 1 for exactly one i), its data is connected to the output automatically. If multiple words matched, they are read sequentially by applying a read signal to each matched word line.</p>
     <p><strong>Write:</strong> new information can be written by addressing each location sequentially (making the device act as a RAM for writing) or by scanning the tag register to find an unused location (tag bit = 0) and writing there.</p>
 
     <h2>Summary</h2>
     <ul>
       <li>Associative (content-addressable) memory is accessed by data content, not address.</li>
       <li>All m words are compared with argument A in <strong>parallel</strong> — O(1) search time regardless of m.</li>
-      <li><strong>Key register K</strong> masks don't-care bit positions (K_j = 0 → bit j is excluded from comparison).</li>
-      <li><strong>Match register M</strong>: M_i = 1 if word i matched all unmasked bits.</li>
-      <li>Match logic: M_i = ∏_j (x_j + K_j') where x_j = A_j F_ij + A_j' F_ij'.</li>
+      <li><strong>Key register K</strong> masks don't-care bit positions (K<sub>j</sub> = 0 → bit j is excluded from comparison).</li>
+      <li><strong>Match register M</strong>: M<sub>i</sub> = 1 if word i matched all unmasked bits.</li>
+      <li>Match logic: M<sub>i</sub> = ∏<sub>j</sub> (x<sub>j</sub> + K<sub>j</sub>') where x<sub>j</sub> = A<sub>j</sub> F<sub>ij</sub> + A<sub>j</sub>' F<sub>ij</sub>'.</li>
       <li>More expensive per bit than RAM due to comparison gates in every cell; used where search speed is critical.</li>
     </ul>
 
@@ -177,22 +177,22 @@
    options:["K holds the address of the word to be read","K is a mask register — bits set to 1 in K indicate the positions of the argument that are to be compared; bits set to 0 are ignored (don't-cares)",
             "K counts the number of matched words","K stores the output data after a match"],
    answer:1,
-   explanation:"The key register K provides a mask. For each bit position j, if K_j = 1 the corresponding argument bit A_j is compared with the stored bits; if K_j = 0 that bit position is excluded from the comparison. This allows partial-field searches."},
+   explanation:"The key register K provides a mask. For each bit position j, if K<sub>j</sub> = 1 the corresponding argument bit A<sub>j</sub> is compared with the stored bits; if K<sub>j</sub> = 0 that bit position is excluded from the comparison. This allows partial-field searches."},
   {q:"After a search operation, what does the match register M indicate?",
-   options:["The address of the first matching word","The number of matches found","One bit per stored word — M_i = 1 if word i matched the unmasked argument; M_i = 0 if it did not match",
+   options:["The address of the first matching word","The number of matches found","One bit per stored word — M<sub>i</sub> = 1 if word i matched the unmasked argument; M<sub>i</sub> = 0 if it did not match",
             "The data content of the matched word"],
    answer:2,
-   explanation:"M has m bits, one for each of the m words in the memory. M_i is set to 1 if word i matched all unmasked bits of the argument A (those positions where K_j = 1). If no bits match, M_i = 0 for that word."},
-  {q:"The match logic for word i in an associative memory is expressed as M_i = (x₁+K₁')(x₂+K₂')⋯(xₙ+Kₙ'). What is the logic when K_j = 0 for a particular bit position j?",
-   options:["The term (x_j + K_j') becomes 0, causing no match","The term (x_j + K_j') = x_j + 1 = 1, which means this bit is always a don't-care and does not affect M_i",
-            "The term forces x_j to be compared with the complement of A_j","The term resets the flip-flop F_ij"],
+   explanation:"M has m bits, one for each of the m words in the memory. M<sub>i</sub> is set to 1 if word i matched all unmasked bits of the argument A (those positions where K<sub>j</sub> = 1). If no bits match, M<sub>i</sub> = 0 for that word."},
+  {q:"The match logic for word i in an associative memory is expressed as M<sub>i</sub> = (x₁+K₁')(x₂+K₂')⋯(xₙ+Kₙ'). What is the logic when K<sub>j</sub> = 0 for a particular bit position j?",
+   options:["The term (x<sub>j</sub> + K<sub>j</sub>') becomes 0, causing no match","The term (x<sub>j</sub> + K<sub>j</sub>') = x<sub>j</sub> + 1 = 1, which means this bit is always a don't-care and does not affect M<sub>i</sub>",
+            "The term forces x<sub>j</sub> to be compared with the complement of A<sub>j</sub>","The term resets the flip-flop F<sub>ij</sub>"],
    answer:1,
-   explanation:"When K_j = 0, then K_j' = 1, so the term (x_j + K_j') = x_j + 1 = 1 regardless of x_j. A value of 1 from this AND-chain term has no effect on the overall AND product M_i — the bit is effectively masked out (don't-care)."},
+   explanation:"When K<sub>j</sub> = 0, then K<sub>j</sub>' = 1, so the term (x<sub>j</sub> + K<sub>j</sub>') = x<sub>j</sub> + 1 = 1 regardless of x<sub>j</sub>. A value of 1 from this AND-chain term has no effect on the overall AND product M<sub>i</sub> — the bit is effectively masked out (don't-care)."},
   {q:"Why is associative memory more expensive per bit than random-access memory?",
    options:["It requires non-volatile storage for every cell","Each cell must contain not only a storage flip-flop but also match-logic circuits (AND/OR gates) to compare its content with the argument in parallel",
             "It requires a special fabrication process not compatible with standard CMOS","It needs a separate address decoder for each word"],
    answer:1,
-   explanation:"In RAM, cells store bits using one or a few transistors. In associative memory, each cell C_ij contains a flip-flop F_ij for storage plus AND and OR gates for the match comparison. This additional logic per cell makes the circuit area (and cost) per bit significantly larger than RAM."}
+   explanation:"In RAM, cells store bits using one or a few transistors. In associative memory, each cell C<sub>ij</sub> contains a flip-flop F<sub>ij</sub> for storage plus AND and OR gates for the match comparison. This additional logic per cell makes the circuit area (and cost) per bit significantly larger than RAM."}
 ];
   let selected={},submitted=false;
   function buildQuiz(){

@@ -5,14 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3030765874336294" crossorigin="anonymous"></script>
   <title>Floating-Point Arithmetic Operations — COA Unit 4 | CHANDRAS EDU</title>
-  <meta name="description" content="Floating-point arithmetic in §10-5: representation, normalisation, biased exponents, and hardware algorithms for FP addition, multiplication, and division.">
+  <meta name="description" content="Floating-point arithmetic: representation, normalisation, biased exponents, and hardware algorithms for FP addition, multiplication, and division.">
   <link rel="canonical" href="https://chandrashaker.com/courses/academic/coa/unit4/floating-point-arithmetic">
   <link rel="stylesheet" href="../../../css/style.css">
 
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="CHANDRAS EDU">
   <meta property="og:title" content="Floating-Point Arithmetic Operations — COA Unit 4 | CHANDRAS EDU">
-  <meta property="og:description" content="Floating-point arithmetic in §10-5: representation, normalisation, biased exponents, and hardware algorithms for FP addition, multiplication, and division.">
+  <meta property="og:description" content="Floating-point arithmetic: representation, normalisation, biased exponents, and hardware algorithms for FP addition, multiplication, and division.">
   <meta property="og:url" content="https://chandrashaker.com/courses/academic/coa/unit4/floating-point-arithmetic">
   <meta property="og:image" content="https://chandrashaker.com/courses/images/og/coa-v7.png">
   <meta property="og:image:width" content="1200">
@@ -20,14 +20,14 @@
   <meta property="og:image:alt" content="Computer Organization and Architecture — CHANDRAS EDU free course">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Floating-Point Arithmetic Operations — COA Unit 4 | CHANDRAS EDU">
-  <meta name="twitter:description" content="Floating-point arithmetic in §10-5: representation, normalisation, biased exponents, and hardware algorithms for FP addition, multiplication, and division.">
+  <meta name="twitter:description" content="Floating-point arithmetic: representation, normalisation, biased exponents, and hardware algorithms for FP addition, multiplication, and division.">
   <meta name="twitter:image" content="https://chandrashaker.com/courses/images/og/coa-v7.png">
 
   <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Courses","item":"https://chandrashaker.com/courses/"},{"@type":"ListItem","position":2,"name":"COA","item":"https://chandrashaker.com/courses/academic/coa/"},{"@type":"ListItem","position":3,"name":"Unit 4","item":"https://chandrashaker.com/courses/academic/coa/unit4/"},{"@type":"ListItem","position":4,"name":"Floating-Point Arithmetic Operations"}]}
   </script>
   <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"LearningResource","name":"Floating-Point Arithmetic Operations","description":"Floating-point arithmetic in §10-5: representation, normalisation, biased exponents, and hardware algorithms for addition, multiplication, and division.","url":"https://chandrashaker.com/courses/academic/coa/unit4/floating-point-arithmetic","learningResourceType":"Lesson","educationalLevel":"Undergraduate","about":{"@type":"Thing","name":"Computer Organization and Architecture"},"isPartOf":{"@type":"Course","name":"Computer Organization and Architecture","provider":{"@type":"Organization","name":"CHANDRAS EDU","url":"https://chandrashaker.in"}},"publisher":{"@type":"Organization","name":"CHANDRAS EDU","url":"https://chandrashaker.in"}}
+{"@context":"https://schema.org","@type":"LearningResource","name":"Floating-Point Arithmetic Operations","description":"Floating-point arithmetic: representation, normalisation, biased exponents, and hardware algorithms for FP addition, multiplication, and division.","url":"https://chandrashaker.com/courses/academic/coa/unit4/floating-point-arithmetic","learningResourceType":"Lesson","educationalLevel":"Undergraduate","about":{"@type":"Thing","name":"Computer Organization and Architecture"},"isPartOf":{"@type":"Course","name":"Computer Organization and Architecture","provider":{"@type":"Organization","name":"CHANDRAS EDU","url":"https://chandrashaker.in"}},"publisher":{"@type":"Organization","name":"CHANDRAS EDU","url":"https://chandrashaker.in"}}
   </script>
   <link rel="icon" href="/favicon.ico">
   <style>
@@ -59,14 +59,14 @@
 
   <div class="lesson">
 
-    <p>Floating-point numbers appear in programs wherever a <em>real</em> declaration is used instead of an <em>integer</em> declaration. Any processor that supports a high-level language must be able to perform floating-point arithmetic either in hardware or through software subroutines. Section 10-5 develops the hardware algorithms for all four floating-point operations.</p>
+    <p>Floating-point numbers appear in programs wherever a <em>real</em> declaration is used instead of an <em>integer</em> declaration. Any processor that supports a high-level language must be able to perform floating-point arithmetic either in hardware or through software subroutines. This topic develops the hardware algorithms for all four floating-point operations.</p>
 
     <div class="box box-tip">
       <strong>In simple terms:</strong> a floating-point number is a mantissa times a power of 2. To add, first make the exponents equal by shifting a mantissa; to multiply, add the exponents and multiply the mantissas; to divide, subtract the exponents and divide the mantissas — then normalise.
     </div>
 
     <h2>Floating-Point Representation — Basics</h2>
-    <p>A floating-point number in a register consists of two parts: a <strong>mantissa</strong> <em>m</em> and an <strong>exponent</strong> <em>e</em>, representing the value m × r<sup>e</sup> where r is the radix. The radix and the position of the radix point are implied, not stored. Section 10-5 assumes binary (r = 2) with the mantissa stored as a fraction.</p>
+    <p>A floating-point number in a register consists of two parts: a <strong>mantissa</strong> <em>m</em> and an <strong>exponent</strong> <em>e</em>, representing the value m × r<sup>e</sup> where r is the radix. The radix and the position of the radix point are implied, not stored. This topic assumes binary (r = 2) with the mantissa stored as a fraction.</p>
 
     <p>A floating-point number is <strong>normalised</strong> when the most significant digit of the mantissa is nonzero. Normalisation maximises the number of significant digits in the mantissa. Zero cannot be normalised; it is represented with all 0s in both mantissa and exponent fields.</p>
 
@@ -78,7 +78,7 @@
     </div>
 
     <h2>Register Configuration</h2>
-    <p>Figure 10-14 shows the three registers used for floating-point operations. Each register is divided into a mantissa part (uppercase letter: B, A, Q) and an exponent part (corresponding lowercase letter: b, a, q). The sign bit of the mantissa is separate (Bₛ, Aₛ, Qₛ).</p>
+    <p>The figure below shows the three registers used for floating-point operations. Each register is divided into a mantissa part (uppercase letter: B, A, Q) and an exponent part (corresponding lowercase letter: b, a, q). The sign bit of the mantissa is separate (Bₛ, Aₛ, Qₛ).</p>
 
     <div class="fig-wrap">
       <div style="overflow-x:auto">
@@ -104,7 +104,7 @@
     <p>The exponents a and b are compared. The mantissa with the <em>smaller</em> exponent is shifted right and its exponent incremented, one bit at a time, until both exponents are equal. Shifting right rather than left preserves the most significant digits — left shifts would lose precision.</p>
 
     <h3>Phase 3 — Add or subtract mantissas</h3>
-    <p>Once aligned, the mantissa arithmetic follows the signed-magnitude algorithm of Fig. 10-2. The signs Aₛ and Bₛ together with the operation (add/sub) determine whether the magnitudes are added or subtracted. If an overflow carry E = 1 occurs during addition, the sum is shifted right and the exponent incremented.</p>
+    <p>Once aligned, the mantissa arithmetic follows the signed-magnitude algorithm from the <a href="addition-subtraction.html">Addition and Subtraction topic</a>. The signs Aₛ and Bₛ together with the operation (add/sub) determine whether the magnitudes are added or subtracted. If an overflow carry E = 1 occurs during addition, the sum is shifted right and the exponent incremented.</p>
 
     <h3>Phase 4 — Normalise the result</h3>
     <p>After subtraction the result may have leading zeros (underflow). The mantissa is shifted left and the exponent decremented until A₁ = 1. If the mantissa is all zeros, AC is cleared to represent zero. An overflow carry from addition (E = 1) is handled by shifting right once and incrementing the exponent.</p>
@@ -121,7 +121,7 @@
     <ol>
       <li><strong>Check for zeros.</strong> If either operand is zero, set AC ← 0 and stop.</li>
       <li><strong>Add exponents.</strong> a ← q (copy QR exponent), then a ← a + b. Since both exponents are biased, their sum has double the bias. Subtract the bias: a ← a − bias.</li>
-      <li><strong>Multiply mantissas.</strong> The mantissa multiplication follows the same algorithm as Fig. 10-6 (shift-and-add). The double-precision product is in AQ; only the single-precision part in AC is kept.</li>
+      <li><strong>Multiply mantissas.</strong> The mantissa multiplication follows the same shift-and-add algorithm as in the <a href="multiplication-algorithms.html">Multiplication Algorithms topic</a>. The double-precision product is in AQ; only the single-precision part in AC is kept.</li>
       <li><strong>Normalise.</strong> Check A₁. If A₁ = 0 (underflow — at most one leading zero is possible since both inputs were normalised), shift AQ left and decrement the exponent once. If A₁ = 1, the product is already normalised.</li>
     </ol>
 
@@ -133,7 +133,7 @@
     </div>
 
     <div class="key-point">
-      <strong>Why subtract the bias in multiply?</strong> Adding two biased exponents a + b yields (true_a + bias) + (true_b + bias) = true_a + true_b + 2×bias. Subtracting one bias gives the correctly biased product exponent: true_a + true_b + bias.
+      <strong>Why subtract the bias in multiply?</strong> Adding two biased exponents a + b yields (true<sub>a</sub> + bias) + (true<sub>b</sub> + bias) = true<sub>a</sub> + true<sub>b</sub> + 2×bias. Subtracting one bias gives the correctly biased product exponent: true<sub>a</sub> + true<sub>b</sub> + bias.
     </div>
 
     <h2>Division</h2>
@@ -143,7 +143,7 @@
       <li><strong>Initialise.</strong> Qₛ ← Aₛ ⊕ Bₛ (sign of quotient), Q ← 0, SC ← n − 1.</li>
       <li><strong>Align dividend.</strong> EA ← A + B̄ + 1 (trial subtraction). If E = 1 (A ≥ B), shift A right and increment a so that A &lt; B — this is called <em>dividend alignment</em> and prevents mantissa divide overflow. If E = 0 (A &lt; B), restore A by adding B.</li>
       <li><strong>Subtract exponents.</strong> a ← a + b̄ + 1 (subtract biased exponents). Add the bias back and transfer to q.</li>
-      <li><strong>Divide mantissas.</strong> The mantissa division follows Fig. 10-13. Since dividend alignment guarantees A &lt; B, the result is already normalised — no normalisation step is needed after division.</li>
+      <li><strong>Divide mantissas.</strong> The mantissa division follows the algorithm in the <a href="division-algorithms.html">Division Algorithms topic</a>. Since dividend alignment guarantees A &lt; B, the result is already normalised — no normalisation step is needed after division.</li>
     </ol>
 
     <div class="fig-wrap">
@@ -160,12 +160,12 @@
     <h2>Comparison of All Four Operations</h2>
     <div style="overflow-x:auto">
       <table>
-        <caption style="font-size:.85rem;margin-bottom:.4rem">Summary — floating-point arithmetic operations (§10-5)</caption>
+        <caption style="font-size:.85rem;margin-bottom:.4rem">Summary — floating-point arithmetic operations</caption>
         <thead><tr><th>Operation</th><th>Exponent step</th><th>Mantissa step</th><th>Normalisation needed?</th></tr></thead>
         <tbody>
-          <tr><td>Add / Subtract</td><td>Compare; align smaller exponent</td><td>Add or subtract (signed-magnitude, Fig. 10-2)</td><td>Yes — shift left until A₁=1, or shift right if overflow</td></tr>
-          <tr><td>Multiply</td><td>Add exponents; subtract bias</td><td>Multiply (Fig. 10-6); keep high half</td><td>At most one left shift (A₁ check)</td></tr>
-          <tr><td>Divide</td><td>Subtract exponents; add bias</td><td>Divide (Fig. 10-13)</td><td>No — dividend alignment guarantees normalised result</td></tr>
+          <tr><td>Add / Subtract</td><td>Compare; align smaller exponent</td><td>Add or subtract (signed-magnitude)</td><td>Yes — shift left until A₁=1, or shift right if overflow</td></tr>
+          <tr><td>Multiply</td><td>Add exponents; subtract bias</td><td>Multiply (shift-and-add); keep high half</td><td>At most one left shift (A₁ check)</td></tr>
+          <tr><td>Divide</td><td>Subtract exponents; add bias</td><td>Divide</td><td>No — dividend alignment guarantees normalised result</td></tr>
         </tbody>
       </table>
     </div>
@@ -266,7 +266,7 @@
         "Because the multiplier hardware cannot handle biased values"
       ],
       answer: 1,
-      explanation: "If each exponent stores (true_value + bias), then a + b = (true_a + bias) + (true_b + bias) = true_a + true_b + 2×bias. Subtracting one bias gives true_a + true_b + bias, which is the correctly biased exponent of the product."
+      explanation: "If each exponent stores (true<sub>value</sub> + bias), then a + b = (true<sub>a</sub> + bias) + (true<sub>b</sub> + bias) = true<sub>a</sub> + true<sub>b</sub> + 2×bias. Subtracting one bias gives true<sub>a</sub> + true<sub>b</sub> + bias, which is the correctly biased exponent of the product."
     },
     {
       q: "What is the purpose of dividend alignment in floating-point division?",

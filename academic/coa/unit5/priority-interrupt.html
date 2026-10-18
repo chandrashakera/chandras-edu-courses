@@ -5,13 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3030765874336294" crossorigin="anonymous"></script>
   <title>Priority Interrupt — COA Unit 5 | CHANDRAS EDU</title>
-  <meta name="description" content="COA Unit 5 §11-5: priority interrupt, the daisy-chain method, and parallel priority hardware with interrupt register, mask register, and priority encoder.">
+  <meta name="description" content="COA Unit 5: priority interrupt, the daisy-chain method, and parallel priority hardware with interrupt register, mask register, and priority encoder.">
   <link rel="canonical" href="https://chandrashaker.com/courses/academic/coa/unit5/priority-interrupt">
   <link rel="stylesheet" href="../../../css/style.css">
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="CHANDRAS EDU">
   <meta property="og:title" content="Priority Interrupt — COA Unit 5 | CHANDRAS EDU">
-  <meta property="og:description" content="COA Unit 5 §11-5: priority interrupt, the daisy-chain method, and parallel priority hardware with interrupt register, mask register, and priority encoder.">
+  <meta property="og:description" content="COA Unit 5: priority interrupt, the daisy-chain method, and parallel priority hardware with interrupt register, mask register, and priority encoder.">
   <meta property="og:url" content="https://chandrashaker.com/courses/academic/coa/unit5/priority-interrupt">
   <meta property="og:image" content="https://chandrashaker.com/courses/images/og/coa-v7.png">
   <meta property="og:image:width" content="1200">
@@ -19,7 +19,7 @@
   <meta property="og:image:alt" content="Computer Organization and Architecture — CHANDRAS EDU free course">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Priority Interrupt — COA Unit 5 | CHANDRAS EDU">
-  <meta name="twitter:description" content="COA Unit 5 §11-5: priority interrupt, the daisy-chain method, and parallel priority hardware with interrupt register, mask register, and priority encoder.">
+  <meta name="twitter:description" content="COA Unit 5: priority interrupt, the daisy-chain method, and parallel priority hardware with interrupt register, mask register, and priority encoder.">
   <meta name="twitter:image" content="https://chandrashaker.com/courses/images/og/coa-v7.png">
   <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Courses","item":"https://chandrashaker.com/courses/"},{"@type":"ListItem","position":2,"name":"COA","item":"https://chandrashaker.com/courses/academic/coa/"},{"@type":"ListItem","position":3,"name":"Unit 5","item":"https://chandrashaker.com/courses/academic/coa/unit5/"},{"@type":"ListItem","position":4,"name":"Priority Interrupt"}]}
@@ -53,7 +53,7 @@
 
   <div class="lesson">
 
-    <p>When a computer has several I/O devices, any of them can raise an interrupt at any time — including simultaneously. The system must decide which device to service first. Section 11-5 develops the hardware and software mechanisms for <strong>priority interrupt</strong> systems.</p>
+    <p>When a computer has several I/O devices, any of them can raise an interrupt at any time — including simultaneously. The system must decide which device to service first. This topic develops the hardware and software mechanisms for <strong>priority interrupt</strong> systems.</p>
 
     <div class="box box-tip">
       <strong>In simple terms:</strong> when several devices interrupt at once, the computer serves the most urgent first. The order is set either by a program checking devices in turn, by their position in a chain (daisy chain), or by a priority encoder.
@@ -84,7 +84,7 @@
       <p style="font-size:.8rem;color:var(--text-2);margin-top:.4rem">Daisy-chain priority interrupt (three devices). Adapted from M. Morris Mano, <em>Computer System Architecture</em>, Fig. 11-12.</p>
     </div>
 
-    <p>Each device stage contains an RF (request flip-flop) set by the interrupt request from the device. The internal logic for one daisy-chain stage (Fig 11-13) is:</p>
+    <p>Each device stage contains an RF (request flip-flop) set by the interrupt request from the device. The internal logic for one daisy-chain stage is:</p>
     <ul>
       <li><strong>PI = 0:</strong> PO = 0 and VAD is disabled regardless of RF. INTACK is blocked.</li>
       <li><strong>PI = 1, RF = 0:</strong> PO = 1 (pass INTACK on). Device has no pending request.</li>
@@ -97,7 +97,7 @@
     <br>PI=1, RF=1 &nbsp;&nbsp;→ PO=0, VAD enabled (intercept)</div>
 
     <h2>Hardware Priority — Parallel Method</h2>
-    <p>For faster priority resolution, each device has a separate wire to a central <strong>priority interrupt controller</strong>. Figure 11-14 shows the hardware for four devices (disk, printer, reader, keyboard — priority 0 to 3).</p>
+    <p>For faster priority resolution, each device has a separate wire to a central <strong>priority interrupt controller</strong>. The figure below shows the hardware for four devices (disk, printer, reader, keyboard — priority 0 to 3).</p>
 
     <div class="fig-wrap">
       <div style="overflow-x:auto">
@@ -121,7 +121,7 @@
       <li>A priority interrupt system services the highest-priority device first when multiple devices interrupt simultaneously.</li>
       <li><strong>Software polling:</strong> test devices in priority order in a common ISR — flexible but slow.</li>
       <li><strong>Daisy-chain:</strong> INTACK propagates through devices; the first requesting device intercepts it and places its VAD on the bus. Priority = position in chain.</li>
-      <li><strong>Parallel (Fig 11-14):</strong> interrupt register + mask register + priority encoder; IST AND IEN drives the CPU interrupt line; INTACK enables the VAD of the winning device.</li>
+      <li><strong>Parallel:</strong> interrupt register + mask register + priority encoder; IST AND IEN drives the CPU interrupt line; INTACK enables the VAD of the winning device.</li>
       <li>The mask register lets software selectively enable/disable individual interrupt sources without changing hardware.</li>
     </ul>
 
@@ -192,11 +192,11 @@
    options:["It passes INTACK to the next device through its PO output","It blocks INTACK by setting PO = 0 and places its VAD on the data bus","It clears its RF flip-flop and ignores the interrupt","It sends a status byte to the CPU"],
    answer:1,
    explanation:"When PI = 1 (INTACK received) and RF = 1 (device has a pending request), the device sets PO = 0 to block the acknowledge from propagating further, and enables its vector address (VAD) onto the data bus. The CPU then uses VAD to jump to this device's service routine."},
-  {q:"What is the purpose of the mask register in the parallel priority interrupt hardware of Fig 11-14?",
+  {q:"What is the purpose of the mask register in the parallel priority interrupt hardware?",
    options:["To store the interrupt vector address for each device","To allow the program to selectively enable or disable individual interrupt sources","To count the number of interrupts that have occurred","To determine the baud rate for serial communication"],
    answer:1,
    explanation:"Each bit in the mask register corresponds to one interrupt source. By setting or clearing mask bits through program instructions, the software can enable (unmask) or disable (mask) individual interrupt lines. Only unmasked interrupts that are set in the interrupt register can produce a signal to the priority encoder."},
-  {q:"In Fig 11-14, what happens when the CPU sends an INTACK signal?",
+  {q:"In the parallel priority interrupt hardware, what happens when the CPU sends an INTACK signal?",
    options:["All devices clear their interrupt requests simultaneously","The bus buffers in the output register of the highest-priority active device are enabled, placing its VAD on the data bus","The mask register is cleared to zero","The priority encoder is reset to its initial state"],
    answer:1,
    explanation:"The INTACK from the CPU enables the bus buffers of the output register of the winning device (the highest-priority unmasked device as determined by the priority encoder). This places that device's VAD on the processor data bus, which the CPU reads to find the starting address of the service routine."}

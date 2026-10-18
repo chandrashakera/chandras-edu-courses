@@ -5,14 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3030765874336294" crossorigin="anonymous"></script>
   <title>RISC — COA Unit 4 | CHANDRAS EDU</title>
-  <meta name="description" content="RISC versus CISC in Mano §8-8: the seven RISC characteristics, overlapped register windows, and the Berkeley RISC I instruction formats, with diagrams.">
+  <meta name="description" content="RISC versus CISC: the seven RISC characteristics, overlapped register windows, and the Berkeley RISC I instruction formats, with diagrams and examples.">
   <link rel="canonical" href="https://chandrashaker.com/courses/academic/coa/unit4/risc">
   <link rel="stylesheet" href="../../../css/style.css">
 
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="CHANDRAS EDU">
   <meta property="og:title" content="RISC — COA Unit 4 | CHANDRAS EDU">
-  <meta property="og:description" content="RISC versus CISC in Mano §8-8: the seven RISC characteristics, overlapped register windows, and the Berkeley RISC I instruction formats, with diagrams.">
+  <meta property="og:description" content="RISC versus CISC: the seven RISC characteristics, overlapped register windows, and the Berkeley RISC I instruction formats, with diagrams and examples.">
   <meta property="og:url" content="https://chandrashaker.com/courses/academic/coa/unit4/risc">
   <meta property="og:image" content="https://chandrashaker.com/courses/images/og/coa-v7.png">
   <meta property="og:image:width" content="1200">
@@ -20,14 +20,14 @@
   <meta property="og:image:alt" content="Computer Organization and Architecture — CHANDRAS EDU free course">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="RISC — COA Unit 4 | CHANDRAS EDU">
-  <meta name="twitter:description" content="RISC versus CISC in Mano §8-8: the seven RISC characteristics, overlapped register windows, and the Berkeley RISC I instruction formats, with diagrams.">
+  <meta name="twitter:description" content="RISC versus CISC: the seven RISC characteristics, overlapped register windows, and the Berkeley RISC I instruction formats, with diagrams and examples.">
   <meta name="twitter:image" content="https://chandrashaker.com/courses/images/og/coa-v7.png">
 
   <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Courses","item":"https://chandrashaker.com/courses/"},{"@type":"ListItem","position":2,"name":"COA","item":"https://chandrashaker.com/courses/academic/coa/"},{"@type":"ListItem","position":3,"name":"Unit 4","item":"https://chandrashaker.com/courses/academic/coa/unit4/"},{"@type":"ListItem","position":4,"name":"RISC"}]}
   </script>
   <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"LearningResource","name":"RISC","description":"RISC versus CISC in Mano §8-8: the seven RISC characteristics, overlapped register windows, and the Berkeley RISC I instruction formats, with diagrams.","url":"https://chandrashaker.com/courses/academic/coa/unit4/risc","learningResourceType":"Lesson","educationalLevel":"Undergraduate","about":{"@type":"Thing","name":"Computer Organization and Architecture"},"isPartOf":{"@type":"Course","name":"Computer Organization and Architecture","provider":{"@type":"Organization","name":"CHANDRAS EDU","url":"https://chandrashaker.in"}},"publisher":{"@type":"Organization","name":"CHANDRAS EDU","url":"https://chandrashaker.in"}}
+{"@context":"https://schema.org","@type":"LearningResource","name":"RISC","description":"RISC versus CISC: the seven RISC characteristics, overlapped register windows, and the Berkeley RISC I instruction formats, with diagrams and examples.","url":"https://chandrashaker.com/courses/academic/coa/unit4/risc","learningResourceType":"Lesson","educationalLevel":"Undergraduate","about":{"@type":"Thing","name":"Computer Organization and Architecture"},"isPartOf":{"@type":"Course","name":"Computer Organization and Architecture","provider":{"@type":"Organization","name":"CHANDRAS EDU","url":"https://chandrashaker.in"}},"publisher":{"@type":"Organization","name":"CHANDRAS EDU","url":"https://chandrashaker.in"}}
   </script>
   <link rel="icon" href="/favicon.ico">
   <style>
@@ -58,8 +58,6 @@
   </div>
 
   <div class="lesson">
-    <p>Reference: M. Morris Mano, <em>Computer System Architecture</em>, §8-8</p>
-
     <p>As digital hardware became cheaper in the 1970s, instruction sets grew in size and complexity. Computers accumulated hundreds of instructions — complex operations intended to bridge the gap between high-level languages and machine code. By the early 1980s researchers noticed that compilers rarely used most of these complex instructions and that the hardware to decode and execute them slowed down the entire machine. The response was the <strong>Reduced Instruction Set Computer (RISC)</strong> philosophy: fewer, simpler instructions that execute faster within the CPU itself.</p>
 
     <div class="box box-tip">
@@ -90,7 +88,7 @@
     <p>Because only load and store instructions access memory, all arithmetic and logic operations work on register operands. This simplifies the control unit, allows fixed-length instructions to be decoded in a single cycle, and makes hardwired control practical. Single-cycle execution is achieved by overlapping the fetch, decode, and execute phases of successive instructions — a technique called <em>pipelining</em>.</p>
 
     <h2>Overlapped Register Windows</h2>
-    <p>RISC processors typically include a large number of registers to reduce memory accesses. One important feature is the use of <em>overlapped register windows</em> to accelerate procedure call and return. The concept is illustrated in Fig. 8-9.</p>
+    <p>RISC processors typically include a large number of registers to reduce memory accesses. One important feature is the use of <em>overlapped register windows</em> to accelerate procedure call and return. The concept is illustrated in the figure below.</p>
 
     <div class="fig-wrap">
       <div style="overflow-x:auto">
@@ -99,14 +97,14 @@
       <p style="font-size:.8rem;color:var(--text-2);margin-top:.4rem">Overlapped register windows. Adapted from M. Morris Mano, <em>Computer System Architecture</em>, Fig. 8-9.</p>
     </div>
 
-    <p>In Fig. 8-9 the system has a total of <strong>74 registers</strong>. Registers R0 through R9 are <strong>10 global registers</strong> available to all procedures. The remaining 64 registers are divided into <strong>4 windows</strong> for procedures A, B, C, and D. Each window consists of 10 local registers and two sets of 6 registers that overlap with the adjacent windows. Using the formula: window size = L + 2C + G = 10 + 12 + 10 = 32 registers visible to each active procedure; register file = (L + C) × W + G = (10 + 6) × 4 + 10 = 74 total registers.</p>
+    <p>In the figure above the system has a total of <strong>74 registers</strong>. Registers R0 through R9 are <strong>10 global registers</strong> available to all procedures. The remaining 64 registers are divided into <strong>4 windows</strong> for procedures A, B, C, and D. Each window consists of 10 local registers and two sets of 6 registers that overlap with the adjacent windows. Using the formula: window size = L + 2C + G = 10 + 12 + 10 = 32 registers visible to each active procedure; register file = (L + C) × W + G = (10 + 6) × 4 + 10 = 74 total registers.</p>
 
     <p>The overlap is the key mechanism: the <em>high registers</em> of the calling procedure are the same physical registers as the <em>low registers</em> of the called procedure. Parameters are automatically available to the called procedure without copying — the same bits are simply visible under different register names in the two windows.</p>
 
     <h2>Berkeley RISC I — Instruction Set and Formats</h2>
     <p>Berkeley RISC I, developed at the University of California, Berkeley, was one of the first projects demonstrating the RISC approach. It is a 32-bit integrated circuit CPU with a <strong>32-bit fixed-length instruction format</strong>, a total of <strong>31 instructions</strong> grouped in three categories, and <strong>3 addressing modes</strong>: register, register-immediate, and PC-relative.</p>
 
-    <p>Figure 8-10 shows the three instruction formats. The opcode field is 8 bits wide: 7 bits specify the operation and the 8th bit controls whether the status register is updated after an ALU operation.</p>
+    <p>The figure below shows the three instruction formats. The opcode field is 8 bits wide: 7 bits specify the operation and the 8th bit controls whether the status register is updated after an ALU operation.</p>
 
     <p>Bit 13 chooses the second source: 0 means S2 is a 5-bit register number (bits 12–5 unused), 1 means S2 is a 13-bit signed constant. In the PC-relative format the COND field takes the place of Rd and selects one of 16 branch conditions, and Y is a 19-bit relative address used by the jump and call instructions.</p>
 
@@ -117,7 +115,7 @@
       <p style="font-size:.8rem;color:var(--text-2);margin-top:.4rem">Berkeley RISC I instruction formats. Adapted from M. Morris Mano, <em>Computer System Architecture</em>, Fig. 8-10.</p>
     </div>
 
-    <p>Table 8-12 lists all <strong>31 instructions of Berkeley RISC I</strong> in three categories: data manipulation (arithmetic, logic, shift), data transfer (load, store, PSW transfer), and program control (jump, call, return, interrupt). Every instruction uses three operands; the second source S2 can be either a register or a 13-bit signed immediate, selected by bit 13.</p>
+    <p>Berkeley RISC I has <strong>31 instructions</strong> in three categories: data manipulation (arithmetic, logic, shift), data transfer (load, store, PSW transfer), and program control (jump, call, return, interrupt). Every instruction uses three operands; the second source S2 can be either a register or a 13-bit signed immediate, selected by bit 13.</p>
 
     <h2>Common Pitfalls</h2>
     <ul>
@@ -130,7 +128,7 @@
     <ul>
       <li>CISC has <strong>5 major characteristics</strong> including large instruction counts (100–250), many addressing modes, variable-length formats, and memory operands.</li>
       <li>RISC has <strong>7 major characteristics</strong>: few instructions, few addressing modes, memory access only via load/store, register-only operations, fixed-length format, single-cycle execution, and hardwired control.</li>
-      <li>Fig. 8-9 shows a <strong>74-register file</strong> with <strong>10 global registers</strong> (R0–R9) and <strong>4 windows</strong> of 32 registers each. Adjacent windows share 6 overlap registers that pass parameters without copying.</li>
+      <li>The overlapped register windows use a <strong>74-register file</strong> with <strong>10 global registers</strong> (R0–R9) and <strong>4 windows</strong> of 32 registers each. Adjacent windows share 6 overlap registers that pass parameters without copying.</li>
       <li>Berkeley RISC I has <strong>31 instructions</strong>, a <strong>32-bit fixed-length format</strong>, and <strong>3 addressing modes</strong>: register, register-immediate, and PC-relative.</li>
       <li>The <strong>opcode field is 8 bits</strong>: 7 bits for the operation, 1 bit to control status register update. Bit 13 selects between a 5-bit register address and a 13-bit signed immediate for the second source operand.</li>
     </ul>
@@ -190,13 +188,13 @@
   const LABELS    = ['A','B','C','D'];
   const QUIZ = [
     {
-      q: "How many major characteristics does RISC architecture have according to the textbook (§8-8)?",
+      q: "How many major characteristics does RISC architecture have according to the textbook?",
       options: ["5","6","7","8"],
       answer: 2,
       explanation: "RISC has 7 major characteristics: few instructions, few addressing modes, load/store-only memory access, register-only operations, fixed-length format, single-cycle execution, and hardwired control."
     },
     {
-      q: "In the overlapped register windows of Fig. 8-9, what is the total number of registers in the register file?",
+      q: "In the overlapped register windows example, what is the total number of registers in the register file?",
       options: ["64","70","74","80"],
       answer: 2,
       explanation: "The register file = (L + C) × W + G = (10 + 6) × 4 + 10 = 74 registers total. 10 global (R0–R9) plus 4 windows of 16 local+overlap registers each."
@@ -208,16 +206,16 @@
       explanation: "The overlap registers are the same physical registers visible under different names in adjacent windows. The caller stores parameters in its high-overlap registers; those same bits automatically appear as the callee's low-overlap registers — no copying occurs."
     },
     {
-      q: "In Berkeley RISC I's instruction format (Fig. 8-10), what does bit 13 of the instruction select?",
+      q: "In Berkeley RISC I's instruction format, what does bit 13 of the instruction select?",
       options: ["Whether to update the status register after the operation","The addressing mode: 0 = register source (S2 is 5-bit reg address), 1 = immediate source (S2 is 13-bit constant)","The condition code for a branch instruction","The width of the data operand (byte, short, or long)"],
       answer: 1,
       explanation: "Bit 13 selects the second source: 0 means S2 is a 5-bit register address (bits 4–0), with bits 12–5 unused; 1 means S2 is a 13-bit sign-extended immediate constant (bits 12–0)."
     },
     {
-      q: "How many instructions does Berkeley RISC I have in total (Table 8-12)?",
+      q: "How many instructions does Berkeley RISC I have in total?",
       options: ["16","24","31","32"],
       answer: 2,
-      explanation: "Berkeley RISC I has exactly 31 instructions, listed in Table 8-12 and grouped into data manipulation, data transfer, and program control categories."
+      explanation: "Berkeley RISC I has exactly 31 instructions, grouped into data manipulation, data transfer, and program control categories."
     }
   ];
 
