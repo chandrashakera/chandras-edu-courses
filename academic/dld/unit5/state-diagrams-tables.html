@@ -130,6 +130,7 @@ Mealy:  Present State | Next State / Output pair, for each input value
       </svg>
     </div>
     <p>S0 = "haven't seen a 1 yet," S1 = "saw a 1, waiting for a 0," S2 = "saw 1-then-0 — done." S2's self-loop is labeled "0,1" because <em>either</em> input keeps it parked in S2 — once the pattern has been seen, nothing that follows changes the output. Reading each state's row mechanically off the diagram:</p>
+    <div style="overflow-x:auto">
     <table class="truth-table">
       <thead><tr><th>Present State</th><th>Next State (x=0)</th><th>Next State (x=1)</th><th>Output z</th></tr></thead>
       <tbody>
@@ -138,10 +139,12 @@ Mealy:  Present State | Next State / Output pair, for each input value
         <tr><td>S2</td><td>S2</td><td>S2</td><td>1</td></tr>
       </tbody>
     </table>
+    </div>
     <p>The rule is entirely mechanical: for each state (row), follow the arrow leaving it for every possible input value, write down where that arrow lands (next-state column), and copy the state's own output into the output column since it's Moore.</p>
 
     <h2>Table → Diagram: A Mealy Example</h2>
     <p>Now go the other direction, starting from a table instead of a picture — this is the "detect two consecutive 1s" Mealy machine from the last topic, given here as a table first:</p>
+    <div style="overflow-x:auto">
     <table class="truth-table">
       <thead><tr><th>Present State</th><th>Next State/Output (x=0)</th><th>Next State/Output (x=1)</th></tr></thead>
       <tbody>
@@ -149,6 +152,7 @@ Mealy:  Present State | Next State / Output pair, for each input value
         <tr><td>S1</td><td>S0 / 0</td><td>S1 / 1</td></tr>
       </tbody>
     </table>
+    </div>
     <p>To redraw this as a diagram: draw one circle per row (S0, S1). For each cell, draw an arrow from that row's state to the next-state named in the cell, labeled input/output. Row S0: the x=0 cell says "S0/0," so draw a self-loop on S0 labeled 0/0; the x=1 cell says "S1/0," so draw S0→S1 labeled 1/0. Row S1: the x=0 cell says "S0/0," so draw S1→S0 labeled 0/0; the x=1 cell says "S1/1," so draw a self-loop on S1 labeled 1/1. That's exactly the two-state diagram from the previous topic, rebuilt purely from the table with no guessing involved.</p>
 
     <h2>Common Pitfalls</h2>

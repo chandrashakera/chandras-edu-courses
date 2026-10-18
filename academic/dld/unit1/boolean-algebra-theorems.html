@@ -84,6 +84,7 @@
 
     <h2>Axiomatic Definition — Huntington's Postulates</h2>
     <p>A Boolean algebra is formally defined by a set of elements, two binary operators (+ for OR, · for AND), and one unary operator (′ for NOT), satisfying a specific list of postulates (due to E.V. Huntington, 1904). The essentials:</p>
+    <div style="overflow-x:auto">
     <table>
       <thead><tr><th>Postulate</th><th>OR form</th><th>AND form</th></tr></thead>
       <tbody>
@@ -94,6 +95,7 @@
         <tr><td>Complement</td><td>x + x′ = 1</td><td>x · x′ = 0</td></tr>
       </tbody>
     </table>
+    </div>
     <p>Note the distributive law's OR form: <strong>x + (y·z) = (x+y)·(x+z)</strong> — this one has no equivalent in ordinary algebra (compare: in real-number arithmetic, a+(b×c) ≠ (a+b)×(a+c) in general). It's a genuine, defining feature of Boolean algebra specifically, not just a restatement of a familiar rule.</p>
 
     <h2>The Duality Principle</h2>
@@ -101,6 +103,7 @@
 
     <h2>Basic Theorems</h2>
     <p>Theorems are derived <em>from</em> the postulates, not assumed independently — but in practice, they're used just as heavily as the postulates themselves for simplification work.</p>
+    <div style="overflow-x:auto">
     <table>
       <thead><tr><th>Theorem</th><th>OR form</th><th>AND form</th></tr></thead>
       <tbody>
@@ -112,6 +115,7 @@
         <tr><td>DeMorgan's</td><td>(x+y)′ = x′y′</td><td>(xy)′ = x′+y′</td></tr>
       </tbody>
     </table>
+    </div>
 
     <div class="box box-tip">
       🚀 <strong>DeMorgan's laws in plain language:</strong> "NOT (A OR B)" is the same as "(NOT A) AND (NOT B)," and "NOT (A AND B)" is the same as "(NOT A) OR (NOT B)." In circuit terms, this is precisely why a NOR gate can be redrawn as an AND gate with both inputs inverted, and a NAND gate as an OR gate with both inputs inverted — a fact you'll use constantly once gate-level implementation comes up.

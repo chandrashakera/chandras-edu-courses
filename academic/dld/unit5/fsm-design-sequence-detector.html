@@ -142,6 +142,7 @@
     <p>S0 = matched "" (nothing relevant yet), S1 = matched "1", S2 = matched "11", S3 = matched "110". S3 is where the pattern completes: on input 1, S3 outputs 1 (match!) and jumps back to <strong>S1</strong>, not S0 — because the very bit that just completed "1101" is itself a "1," which is exactly the start of a possible new overlapping match. The other mismatch path from S3 — on a 0 — falls all the way back to S0, since no proper prefix of "1101" survives; S1 on a 0 does the same.</p>
 
     <h3>Full State Table</h3>
+    <div style="overflow-x:auto">
     <table class="truth-table">
       <thead><tr><th>Present State</th><th>Next (x=0)</th><th>Next (x=1)</th><th>Output (x=0)</th><th>Output (x=1)</th></tr></thead>
       <tbody>
@@ -151,11 +152,13 @@
         <tr><td>S3</td><td>S0</td><td>S1</td><td>0</td><td>1</td></tr>
       </tbody>
     </table>
+    </div>
 
     <h2>Step 2 — State Assignment</h2>
     <p>Four states need ⌈log₂4⌉ = 2 flip-flops. Using straightforward sequential assignment (Topic 3): S0=00, S1=01, S2=10, S3=11 — call the two state bits A (MSB) and B (LSB), and use JK flip-flops.</p>
 
     <h2>Step 3 — Excitation Table</h2>
+    <div style="overflow-x:auto">
     <table class="truth-table">
       <thead><tr><th>A</th><th>B</th><th>x</th><th>A<sup>+</sup></th><th>B<sup>+</sup></th><th>J<sub>A</sub></th><th>K<sub>A</sub></th><th>J<sub>B</sub></th><th>K<sub>B</sub></th><th>y</th></tr></thead>
       <tbody>
@@ -169,41 +172,50 @@
         <tr><td>1</td><td>1</td><td>1</td><td>0</td><td>1</td><td>X</td><td>1</td><td>X</td><td>0</td><td>1</td></tr>
       </tbody>
     </table>
+    </div>
     <p>A<sup>+</sup>/B<sup>+</sup> are the next-state bits read straight off the state table (e.g., row AB=11,x=1 is state S3 on input 1, which the table above sends to S1=01, so A<sup>+</sup>B<sup>+</sup>=01); J/K columns apply the JK excitation rule to each bit's own 0→0/0→1/1→0/1→1 transition independently.</p>
 
     <h2>Step 4 — K-Maps</h2>
     <p>Each of J<sub>A</sub>, K<sub>A</sub>, J<sub>B</sub>, K<sub>B</sub> is its own 3-variable function of (A, B, x):</p>
     <div class="kmap-wrap">
       <div class="kmap-block">
+        <div style="overflow-x:auto">
         <table class="kmap-table">
           <tr><th class="corner">A\Bx</th><th>00</th><th>01</th><th>11</th><th>10</th></tr>
           <tr><th>0</th><td class="zero">0</td><td class="zero">0</td><td class="one">1</td><td class="zero">0</td></tr>
           <tr><th>1</th><td class="dc">X</td><td class="dc">X</td><td class="dc">X</td><td class="dc">X</td></tr>
         </table>
+        </div>
         <div class="kmap-cap">J<sub>A</sub> = Bx</div>
       </div>
       <div class="kmap-block">
+        <div style="overflow-x:auto">
         <table class="kmap-table">
           <tr><th class="corner">A\Bx</th><th>00</th><th>01</th><th>11</th><th>10</th></tr>
           <tr><th>0</th><td class="dc">X</td><td class="dc">X</td><td class="dc">X</td><td class="dc">X</td></tr>
           <tr><th>1</th><td class="zero">0</td><td class="zero">0</td><td class="one">1</td><td class="one">1</td></tr>
         </table>
+        </div>
         <div class="kmap-cap">K<sub>A</sub> = AB</div>
       </div>
       <div class="kmap-block">
+        <div style="overflow-x:auto">
         <table class="kmap-table">
           <tr><th class="corner">A\Bx</th><th>00</th><th>01</th><th>11</th><th>10</th></tr>
           <tr><th>0</th><td class="zero">0</td><td class="one">1</td><td class="dc">X</td><td class="dc">X</td></tr>
           <tr><th>1</th><td class="one">1</td><td class="zero">0</td><td class="dc">X</td><td class="dc">X</td></tr>
         </table>
+        </div>
         <div class="kmap-cap">J<sub>B</sub> = A′x + Ax′</div>
       </div>
       <div class="kmap-block">
+        <div style="overflow-x:auto">
         <table class="kmap-table">
           <tr><th class="corner">A\Bx</th><th>00</th><th>01</th><th>11</th><th>10</th></tr>
           <tr><th>0</th><td class="dc">X</td><td class="dc">X</td><td class="one">1</td><td class="one">1</td></tr>
           <tr><th>1</th><td class="dc">X</td><td class="dc">X</td><td class="zero">0</td><td class="one">1</td></tr>
         </table>
+        </div>
         <div class="kmap-cap">K<sub>B</sub> = A′B + Ax′</div>
       </div>
     </div>

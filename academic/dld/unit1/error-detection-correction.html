@@ -111,12 +111,14 @@ Transmitted: 1011001 1</pre>
 
     <h3>Placing the Parity Bits</h3>
     <p>Number the bit positions of the codeword starting at 1. Parity bits go at every position that's a <strong>power of 2</strong> (1, 2, 4, 8, ...); data bits fill every other position. For 4 data bits, that means 3 parity bits (positions 1, 2, 4) and a 7-bit total codeword — this specific case is called <strong>Hamming(7,4)</strong>.</p>
+    <div style="overflow-x:auto">
     <table>
       <thead><tr><th>Position</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th></tr></thead>
       <tbody>
         <tr><td>Role</td><td>p1</td><td>p2</td><td>d1</td><td>p4</td><td>d2</td><td>d3</td><td>d4</td></tr>
       </tbody>
     </table>
+    </div>
     <p>Each parity bit covers the positions whose binary representation has a 1 in the corresponding bit: p1 covers every position with bit 0 set (1,3,5,7), p2 covers every position with bit 1 set (2,3,6,7), p4 covers every position with bit 2 set (4,5,6,7). Each parity bit is the even-parity XOR of the positions it covers.</p>
 
     <h3>Worked Example — Encoding Data 1011</h3>

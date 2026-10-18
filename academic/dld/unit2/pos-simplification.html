@@ -101,6 +101,7 @@
     <h2>The Flip: Group the Zeros</h2>
     <p>To find a minimal POS expression, apply exactly the same K-map procedure — Gray-code adjacency, power-of-2 group sizes, as large and as few as possible — but group the <strong>0-cells</strong> instead of the 1-cells. Each group produces one <strong>sum (OR) term</strong>, and the final expression ANDs all those terms together.</p>
     <p>The one thing that changes is the read-off convention. For SOP groups, a variable that's <strong>0</strong> across the group becomes complemented; for POS groups, it's the opposite — a variable that's <strong>1</strong> across the group becomes complemented in the sum term:</p>
+    <div style="overflow-x:auto">
     <table>
       <thead><tr><th></th><th>Variable = 0 in group</th><th>Variable = 1 in group</th></tr></thead>
       <tbody>
@@ -108,12 +109,14 @@
         <tr><td>POS (grouping 0s)</td><td>write uncomplemented (x)</td><td>write complemented (x′)</td></tr>
       </tbody>
     </table>
+    </div>
     <p>This mirrors exactly how a maxterm Mᵢ is built from minterm mᵢ in Unit 1 — POS grouping is just that same complementation rule, applied group by group instead of cell by cell.</p>
 
     <h2>Worked Example — Same Function as the K-Map Page</h2>
     <p>Take F(A,B,C) = Σm(0,1,2,3,5) — the exact function minimized as A′ + B′C on the previous K-map page. This time, group its <strong>0-cells</strong> instead: {4, 6, 7}.</p>
     <div class="kmap-wrap">
       <div class="kmap-overlay">
+        <div style="overflow-x:auto">
         <table class="kmap-table">
           <tr><th class="corner">A\BC</th><th>00</th><th>01</th><th>11</th><th>10</th></tr>
           <tr><th>0</th>
@@ -129,6 +132,7 @@
             <td class="zero"><span class="val">0</span><span class="idx">m6</span></td>
           </tr>
         </table>
+        </div>
         <svg width="264" height="155" viewBox="0 0 264 155">
           <rect x="162.3" y="109.4" width="92" height="32.7" rx="8" fill="none" stroke="var(--primary)" stroke-width="3"/>
           <rect x="58.3" y="109.4" width="40" height="32.7" rx="8" fill="none" stroke="#8e24aa" stroke-width="3"/>

@@ -89,6 +89,7 @@
 
     <h2>Multiplexer (Data Selector)</h2>
     <p>A <strong>4-to-1 MUX</strong> has four data inputs (I₀–I₃), two select lines (S₁, S₀), and one output Y — the select code picks which single data input is copied through to Y:</p>
+    <div style="overflow-x:auto">
     <table class="truth-table">
       <thead><tr><th>S₁</th><th>S₀</th><th>Y</th></tr></thead>
       <tbody>
@@ -98,6 +99,7 @@
         <tr><td>1</td><td>1</td><td>I₃</td></tr>
       </tbody>
     </table>
+    </div>
     <div class="box box-eg">
       <pre>Y = S₁′S₀′I₀ + S₁′S₀I₁ + S₁S₀′I₂ + S₁S₀I₃</pre>
     </div>

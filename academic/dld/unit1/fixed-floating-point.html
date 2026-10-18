@@ -106,6 +106,7 @@
     <p>A floating-point number is <strong>normalized</strong> when the mantissa is adjusted so exactly one nonzero digit sits before the binary point — in binary specifically, that leading digit is always 1, so it doesn't even need to be stored explicitly (this is the "implied leading 1" or "hidden bit" trick, used to squeeze one extra bit of precision out of the mantissa field for free).</p>
 
     <h3>IEEE 754 Single Precision (32-bit)</h3>
+    <div style="overflow-x:auto">
     <table>
       <thead><tr><th>Field</th><th>Width</th><th>Purpose</th></tr></thead>
       <tbody>
@@ -114,6 +115,7 @@
         <tr><td>Mantissa (fraction)</td><td>23 bits</td><td>The bits after the implied leading 1</td></tr>
       </tbody>
     </table>
+    </div>
 
     <h3>Worked Example — Encoding 5.625 in IEEE 754 Single Precision</h3>
     <div class="box box-eg">
@@ -135,6 +137,7 @@ sign  exponent(8)      mantissa(23)</pre>
     </div>
 
     <h2>Fixed-Point vs. Floating-Point</h2>
+    <div style="overflow-x:auto">
     <table>
       <thead><tr><th></th><th>Fixed-Point</th><th>Floating-Point</th></tr></thead>
       <tbody>
@@ -144,6 +147,7 @@ sign  exponent(8)      mantissa(23)</pre>
         <tr><td>Typical use</td><td>Embedded/DSP systems with known, bounded value ranges</td><td>General-purpose computing, scientific calculation</td></tr>
       </tbody>
     </table>
+    </div>
 
     <h2>Common Pitfalls</h2>
     <ul>

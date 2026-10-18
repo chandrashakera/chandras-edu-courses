@@ -98,6 +98,7 @@
     <p>In practice: group states by matching output first, then within each group compare next-state columns — if two states' next-state entries land in the same group (even if the state names differ), merge them. Repeat until no more merges are possible.</p>
 
     <h2>Worked Example — Reducing 5 States to 3</h2>
+    <div style="overflow-x:auto">
     <table class="truth-table">
       <thead><tr><th>State</th><th>Next (x=0)</th><th>Next (x=1)</th><th>Output</th></tr></thead>
       <tbody>
@@ -108,7 +109,9 @@
         <tr><td>E</td><td>D</td><td>D</td><td>0</td></tr>
       </tbody>
     </table>
+    </div>
     <p>Group by output first: {A, D, E} output 0, and {B, C} output 1. Within {B, C}: both rows read exactly (D, E) — identical — so <strong>B ≡ C</strong>. Within {A, D, E}: A's row is (B, C), but D's and E's rows both read (D, D) — identical to each other, and different from A's — so <strong>D ≡ E</strong>, while A stays on its own. Merging B with C (call the result B′) and D with E (call the result D′) gives:</p>
+    <div style="overflow-x:auto">
     <table class="truth-table">
       <thead><tr><th>State</th><th>Next (x=0)</th><th>Next (x=1)</th><th>Output</th></tr></thead>
       <tbody>
@@ -117,6 +120,7 @@
         <tr><td>D′</td><td>D′</td><td>D′</td><td>0</td></tr>
       </tbody>
     </table>
+    </div>
     <p>Five states collapsed to three — this reduced table describes <em>exactly</em> the same input/output behavior as the original five-state one, just with the redundancy gone:</p>
     <div style="text-align:center;margin:1.25rem 0">
       <svg viewBox="-15 -20 330 112" style="max-width:440px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
@@ -152,6 +156,7 @@
     <p>Which specific code goes to which state is a free choice that <strong>never changes the FSM's external behavior</strong> — any valid assignment (no two states sharing a code) produces a functionally correct machine. What it <em>does</em> change is how simple or complex the resulting excitation equations turn out to be; finding the truly optimal assignment is a hard combinatorial search in general, so real designs either use a straightforward sequential assignment (simplest to reason about, used throughout this course) or lean on CAD tool heuristics for larger machines.</p>
 
     <h3>Worked Example — Assigning the Reduced Table</h3>
+    <div style="overflow-x:auto">
     <table class="truth-table">
       <thead><tr><th>State</th><th>Code (Q₁Q₀)</th></tr></thead>
       <tbody>
@@ -160,6 +165,7 @@
         <tr><td>D′</td><td>10</td></tr>
       </tbody>
     </table>
+    </div>
     <p>Substituting these codes for the state names turns the reduced table into one written entirely in binary — exactly the form the next topic's excitation tables and K-maps need to start from:</p>
     <div class="box box-eg">
 Q₁Q₀ = 00 (A):  Next (x=0) = 01,  Next (x=1) = 01,  Output = 0

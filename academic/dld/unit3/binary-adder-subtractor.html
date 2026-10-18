@@ -89,6 +89,7 @@
 
     <h2>Half-Adder</h2>
     <p>A half-adder takes two single bits A and B and produces their <strong>sum</strong> S and <strong>carry</strong> C — but it has no way to accept a carry-in from a previous stage, which is exactly why it's only "half" of what's needed for a multi-bit adder.</p>
+    <div style="overflow-x:auto">
     <table class="truth-table">
       <thead><tr><th>A</th><th>B</th><th>S (Sum)</th><th>C (Carry)</th></tr></thead>
       <tbody>
@@ -98,6 +99,7 @@
         <tr><td>1</td><td>1</td><td>0</td><td>1</td></tr>
       </tbody>
     </table>
+    </div>
     <p>The sum column is exactly the XOR truth table, and the carry column is exactly AND: <strong>S = A ⊕ B</strong> and <strong>C = AB</strong> — no K-map needed, both are recognizable directly.</p>
     <div style="text-align:center;margin:1.25rem 0">
       <svg viewBox="-8 -8 200 168" style="max-width:340px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
@@ -124,6 +126,7 @@
 
     <h2>Full-Adder</h2>
     <p>A full-adder adds three bits — A, B, and a carry-in <strong>Cin</strong> from the previous (less significant) stage — producing a sum S and a carry-out <strong>Cout</strong>. This is what actually chains into a multi-bit adder.</p>
+    <div style="overflow-x:auto">
     <table class="truth-table">
       <thead><tr><th>A</th><th>B</th><th>Cin</th><th>S</th><th>Cout</th></tr></thead>
       <tbody>
@@ -137,6 +140,7 @@
         <tr><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td></tr>
       </tbody>
     </table>
+    </div>
     <p><strong>S = A ⊕ B ⊕ Cin</strong> (1 whenever an odd number of the three inputs are 1). <strong>Cout = AB + BCin + ACin</strong> — and that expression should look immediately familiar: it's the exact 3-input majority function K-mapped in the previous topic. That's not a coincidence — Cout is 1 exactly when 2 or more of A, B, Cin are 1, which <em>is</em> the majority condition.</p>
     <p>The cleanest way to build a full-adder is to reuse two half-adders plus one OR gate, rather than implementing the SOP expressions directly with fresh gates:</p>
     <div style="text-align:center;margin:1.25rem 0">

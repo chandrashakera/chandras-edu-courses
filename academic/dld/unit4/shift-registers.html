@@ -130,6 +130,7 @@
     <p>Whether a register counts as "serial" or "parallel" on each side is purely about how data gets in and out — the internal shifting structure above never changes.</p>
 
     <h2>Four Data Transfer Modes</h2>
+    <div style="overflow-x:auto">
     <table class="truth-table">
       <thead><tr><th>Type</th><th>Name</th><th>Data In</th><th>Data Out</th><th>Typical Use</th></tr></thead>
       <tbody>
@@ -139,6 +140,7 @@
         <tr><td><strong>PIPO</strong></td><td>Parallel-In / Parallel-Out</td><td>All bits at once</td><td>All bits at once</td><td>Fast temporary register storage</td></tr>
       </tbody>
     </table>
+    </div>
     <p>SIPO taps every stage's Q as a separate output pin instead of using only the last one; PISO adds a way to force each stage directly to an external bit value before shifting begins. Both are the exact same shift-register core above with extra access points, not a different circuit.</p>
 
     <h2>Ring Counter</h2>
@@ -249,6 +251,7 @@
     </ul>
 
     <h2>Ring vs. Johnson Counter</h2>
+    <div style="overflow-x:auto">
     <table class="truth-table">
       <thead><tr><th>Feature</th><th>Ring Counter</th><th>Johnson Counter</th></tr></thead>
       <tbody>
@@ -258,6 +261,7 @@
         <tr><td>Decoding next state</td><td>Single bit is already the decoded output</td><td>Needs a 2-input gate per state to decode</td></tr>
       </tbody>
     </table>
+    </div>
 
     <h2>Common Pitfalls</h2>
     <ul>

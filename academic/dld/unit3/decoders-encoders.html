@@ -90,6 +90,7 @@
 
     <h2>Decoders</h2>
     <p>An <strong>n-to-2ⁿ decoder</strong> has n input lines and up to 2ⁿ output lines, and for every input combination, <strong>exactly one</strong> output is active (1) while all others stay 0. Each output is literally one minterm of the inputs.</p>
+    <div style="overflow-x:auto">
     <table class="truth-table">
       <thead><tr><th>A</th><th>B</th><th>D₀</th><th>D₁</th><th>D₂</th><th>D₃</th></tr></thead>
       <tbody>
@@ -99,6 +100,7 @@
         <tr><td>1</td><td>1</td><td>0</td><td>0</td><td>0</td><td>1</td></tr>
       </tbody>
     </table>
+    </div>
     <div class="box box-eg">
       <pre>D₀ = A′B′   D₁ = A′B   D₂ = AB′   D₃ = AB</pre>
     </div>
@@ -223,6 +225,7 @@ A₂ = D₄ + D₅ + D₆ + D₇    (inputs whose index has bit 2 set)</pre>
 
     <h3>Priority Encoder</h3>
     <p>A plain encoder assumes exactly one input is ever active — which real systems can't guarantee (two devices might request service in the same cycle). A <strong>priority encoder</strong> resolves this by always encoding the <em>highest-indexed</em> active input, ignoring lower-indexed ones even if they're also active:</p>
+    <div style="overflow-x:auto">
     <table class="truth-table">
       <thead><tr><th>D₃</th><th>D₂</th><th>D₁</th><th>D₀</th><th>A₁</th><th>A₀</th><th>V</th></tr></thead>
       <tbody>
@@ -233,6 +236,7 @@ A₂ = D₄ + D₅ + D₆ + D₇    (inputs whose index has bit 2 set)</pre>
         <tr><td>1</td><td class="dc">X</td><td class="dc">X</td><td class="dc">X</td><td>1</td><td>1</td><td>1</td></tr>
       </tbody>
     </table>
+    </div>
     <p>The X's are don't-cares (Unit 2 again) — once D₃ is known to be 1, D₂/D₁/D₀ genuinely don't matter for the output, since D₃ always wins regardless. <strong>V</strong> is a valid-output flag, 0 only when no input is active at all (needed because A₁=A₀=0 is otherwise ambiguous — does it mean "D₀ is active" or "nothing is active"?).</p>
     <p>As a block, this 4-input priority encoder looks just like a plain encoder with one extra output pin for V:</p>
     <div style="text-align:center;margin:1.25rem 0">

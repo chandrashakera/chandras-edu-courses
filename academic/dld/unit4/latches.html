@@ -123,6 +123,7 @@
     <p>Top gate: <strong>Q = NOR(R, Q′)</strong>. Bottom gate: <strong>Q′ = NOR(S, Q)</strong>. Each gate's own output loops around and back into the other gate — that crossing of the two feedback paths is exactly what "cross-coupled" means, and it's the reason S ends up wired to the gate that produces Q′, not Q.</p>
 
     <h3>Functionality</h3>
+    <div style="overflow-x:auto">
     <table class="truth-table">
       <thead><tr><th>S (Set)</th><th>R (Reset)</th><th>Q<sub>next</sub></th><th>State</th><th>Behavior</th></tr></thead>
       <tbody>
@@ -132,6 +133,7 @@
         <tr class="forbidden"><td>1</td><td>1</td><td>Invalid</td><td><strong>Forbidden</strong></td><td>Both Q and Q′ driven to 0, breaking Q = Q̄′. Must be avoided.</td></tr>
       </tbody>
     </table>
+    </div>
     <p>Trace S=1, R=0 through the circuit above: the bottom gate sees S=1 on one input, so Q′=NOR(1, anything)=0 regardless of the other input; feed that Q′=0 back into the top gate along with R=0, and Q=NOR(0,0)=1. So S=1 does correctly force Q=1 — it just does it by first forcing the <em>other</em> gate's output low, then letting that feed forward.</p>
 
     <h2>The Gated D Latch</h2>

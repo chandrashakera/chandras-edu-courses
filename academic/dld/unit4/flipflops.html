@@ -91,6 +91,7 @@
     <h2>Characteristic Equations &amp; Excitation Tables</h2>
     <p>A <strong>characteristic equation</strong> gives the next state Qₙ₊₁ as a function of the flip-flop's inputs and its present state Qₙ. An <strong>excitation table</strong> flips that around — for a desired Qₙ→Qₙ₊₁ transition, what input values are required to produce it. Excitation tables are the direct link between "what sequence of states do I want" and "how do I wire the inputs," and they're exactly what synchronous counter design (next topic) is built on.</p>
 
+    <div style="overflow-x:auto">
     <table class="truth-table">
       <thead><tr><th>Type</th><th>Characteristic Equation</th><th>Qₙ→Qₙ₊₁</th><th>Required Input(s)</th></tr></thead>
       <tbody>
@@ -112,6 +113,7 @@
         <tr><td>1→1</td><td>S=X, R=0</td></tr>
       </tbody>
     </table>
+    </div>
     <p>The <strong>X</strong> (don't-care) entries are the whole point of using JK or T over D in counter design: whenever an input can be either 0 or 1 without affecting the transition, that freedom is exactly what a later K-map minimization step gets to exploit. D and SR, by contrast, have no don't-cares here — every transition pins down an exact required value (SR further requires S and R never both be 1, inheriting the forbidden state from the underlying latch).</p>
 
     <h2>The Race-Around Problem</h2>

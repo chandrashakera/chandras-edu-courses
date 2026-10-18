@@ -247,6 +247,7 @@
     </div>
     <p>Each arrow is now labeled input/output. S0 = "last bit wasn't 1" (or no history yet), S1 = "last bit was 1." The output only reads 1 on the specific transition S1→S1 driven by input 1 — the second 1 of a "11" pair — and reverts to 0 the instant the input changes, without needing a dedicated third state to "remember" that the output should currently be high.</p>
 
+    <div style="overflow-x:auto">
     <table class="truth-table">
       <thead><tr><th>Property</th><th>Moore</th><th>Mealy</th></tr></thead>
       <tbody>
@@ -256,6 +257,7 @@
         <tr><td>Output stability</td><td>Stable for the full clock period</td><td>Can glitch if input is noisy</td></tr>
       </tbody>
     </table>
+    </div>
 
     <h2>Common Pitfalls</h2>
     <ul>

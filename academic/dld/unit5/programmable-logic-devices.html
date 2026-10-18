@@ -183,6 +183,7 @@
     </div>
     <p>The tradeoff: because each output's OR gate only ever sees its own dedicated AND lines, a product term needed by two different outputs has to be generated <em>twice</em> — once in each output's bank — since a PAL's fixed OR wiring gives it no way to share.</p>
 
+    <div style="overflow-x:auto">
     <table class="truth-table">
       <thead><tr><th>Device</th><th>AND Array</th><th>OR Array</th><th>Product-Term Sharing</th></tr></thead>
       <tbody>
@@ -191,6 +192,7 @@
         <tr><td><strong>PAL</strong></td><td>Programmable</td><td>Fixed</td><td>None (each output needs its own copy)</td></tr>
       </tbody>
     </table>
+    </div>
 
     <h2>Worked Example — Efficiency Comparison</h2>
     <p>Implement F1(A,B,C) = Σm(1,3,5) and F2(A,B,C) = Σm(1,2,3) together. Minterms 1 and 3 are needed by <em>both</em> functions:</p>

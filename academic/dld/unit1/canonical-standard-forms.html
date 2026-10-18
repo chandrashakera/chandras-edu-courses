@@ -84,6 +84,7 @@
 
     <h2>Minterms and Maxterms</h2>
     <p>For <em>n</em> Boolean variables, a <strong>minterm</strong> is an AND term that includes every one of the n variables exactly once — uncomplemented if that variable is 1 in a given row, complemented if it's 0. A <strong>maxterm</strong> is the dual idea: an OR term including every variable, uncomplemented if 0 in that row, complemented if 1.</p>
+    <div style="overflow-x:auto">
     <table>
       <thead><tr><th>A</th><th>B</th><th>C</th><th>Minterm</th><th>Maxterm</th></tr></thead>
       <tbody>
@@ -97,6 +98,7 @@
         <tr><td>1</td><td>1</td><td>1</td><td>m₇ = ABC</td><td>M₇ = A′+B′+C′</td></tr>
       </tbody>
     </table>
+    </div>
     <p>Notice the pattern: <strong>mᵢ = Mᵢ′</strong> for every row — a minterm and its same-numbered maxterm are complements of each other. This isn't a coincidence; it's exactly what DeMorgan's law produces when you complement an AND-of-literals into an OR-of-complemented-literals.</p>
 
     <h2>Canonical Sum-of-Products (SOP)</h2>
