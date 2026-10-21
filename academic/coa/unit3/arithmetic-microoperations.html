@@ -121,6 +121,7 @@
         <line x1="170" y1="65" x2="210" y2="65" stroke="var(--primary)" stroke-width="2"/>
         <text x="214" y="69" font-size="13" fill="var(--text)">Cout</text>
       </svg>
+      <p style="font-size:.8rem;color:var(--text-2);margin-top:.4rem">n-bit adder-subtractor: mode input M selects addition (M=0) or subtraction (M=1) via XOR gates and carry-in. Adapted from M. Morris Mano, <em>Computer System Architecture</em>, Fig. 4-7.</p>
       <div style="font-size:.8rem;color:var(--text-2);margin-top:.4rem">M=0: S = A + B (add). M=1: S = A + B′ + 1 (subtract).</div>
     </div>
     <p>Increment and decrement reuse the very same idea at smaller scale — increment is just an add where one operand is hardwired to all-0 with a carry-in forced to 1 (equivalent to a chain of half-adders fed a constant 1), rather than needing a second full n-bit operand register at all.</p>
