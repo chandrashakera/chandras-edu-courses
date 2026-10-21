@@ -82,33 +82,17 @@
   <div class="lesson">
     <p>The last topic wrote <strong>T: R2 ← R1</strong> as a piece of notation. This topic builds the actual hardware that statement describes — and along the way, a real design hazard worth knowing before it costs you a working circuit.</p>
 
+    <div class="box box-tip">
+      <strong>In simple terms:</strong> R1's outputs are wired to R2's inputs all the time; the load signal decides whether R2 actually takes the value at the next clock edge.</div>
+
     <h2>What the Hardware Needs</h2>
     <p>Two things make a controlled transfer happen only when intended: R1's output lines wired straight into R2's input lines (always present, always available), and a <strong>load-enable</strong> input on R2 that only lets those lines actually get written on a clock edge when the control condition T is true.</p>
     <div style="text-align:center;margin:1.25rem 0">
-      <svg viewBox="-50 -25 400 170" style="max-width:520px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
-        <rect x="20" y="10" width="110" height="70" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
-        <text x="75" y="50" font-size="14" font-weight="700" text-anchor="middle" fill="var(--text)">R1</text>
-        <path d="M20,52 L20,68 L32,60 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5" stroke-linejoin="round"/>
-
-        <line x1="130" y1="45" x2="230" y2="45" stroke="var(--primary)" stroke-width="2"/>
-        <text x="140" y="39" font-size="11" fill="var(--text-2)">R1 output (n lines)</text>
-
-        <rect x="230" y="10" width="110" height="70" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
-        <text x="285" y="50" font-size="14" font-weight="700" text-anchor="middle" fill="var(--text)">R2</text>
-        <path d="M230,52 L230,68 L242,60 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5" stroke-linejoin="round"/>
-
-        <text x="248" y="8" font-size="12" fill="var(--text-2)">Load</text>
-        <line x1="285" y1="-4" x2="285" y2="10" stroke="var(--primary)" stroke-width="2"/>
-        <text x="270" y="-8" font-size="13" font-weight="700" fill="var(--text)">T</text>
-
-        <text x="-48" y="129" font-size="11" fill="var(--text-2)">CLK</text>
-        <line x1="-20" y1="125" x2="255" y2="125" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="45" y1="125" x2="45" y2="60" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="45" y1="60" x2="20" y2="60" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="255" y1="125" x2="255" y2="60" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="255" y1="60" x2="230" y2="60" stroke="var(--primary)" stroke-width="2"/>
-      </svg>
-      <p style="font-size:.8rem;color:var(--text-2);margin-top:.4rem">Register transfer from R1 to R2 when load is enabled. Adapted from M. Morris Mano, <em>Computer System Architecture</em>, Fig. 4-2(a).</p>
+      <div style="overflow-x:auto">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 320" role="img" aria-label="Transfer from R1 to R2 when P = 1: (a) block diagram — the control circuit produces P, which drives the Load input of R2; the n outputs of R1 connect to the inputs of R2; both are clocked. (b) Timing diagram — P is raised after clock edge t and is still 1 at edge t + 1, where the transfer occurs." style="width:100%;height:auto;max-width:520px;display:block;margin:0 auto;min-width:520px" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif"><title>Transfer from R1 to R2 when P = 1: (a) block diagram — the control circuit produces P, which drives the Load input of R2; the n outputs of R1 connect to the inputs of R2; both are clocked. (b) Timing diagram — P is raised after clock edge t and is still 1 at edge t + 1, where the transfer occurs.</title><defs><marker id="m42ak" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#1F2937"/></marker><marker id="m42sk" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1F2937"/></marker><marker id="m42ao" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#E07A00"/></marker><marker id="m42so" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#E07A00"/></marker></defs><rect x="20" y="30" width="90" height="46" rx="6" fill="#FFF3E0" stroke="#E07A00" stroke-width="1.6"/><text x="65.0" y="49.7" text-anchor="middle" font-size="12" fill="#1F2937">Control</text><text x="65.0" y="64.7" text-anchor="middle" font-size="12" fill="#1F2937">circuit</text><rect x="220" y="30" width="90" height="46" rx="0" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><text x="265.0" y="57.5" text-anchor="middle" font-size="13" fill="#1F2937">R2</text><rect x="220" y="120" width="90" height="40" rx="0" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><text x="265.0" y="144.6" text-anchor="middle" font-size="13" fill="#1F2937">R1</text><path d="M110,44 L220,44" fill="none" stroke="#E07A00" stroke-width="1.6" marker-end="url(#m42ao)"/><text x="120" y="38" text-anchor="start" font-size="12" font-weight="normal" fill="#E07A00">P</text><text x="214" y="38" text-anchor="end" font-size="11.5" font-weight="normal" fill="#E07A00">Load</text><path d="M380,53 L310,53" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m42ak)"/><text x="386" y="57" text-anchor="start" font-size="12" font-weight="normal" fill="#1F2937">Clock</text><path d="M265,120 L265,76" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m42ak)"/><text x="272" y="104" text-anchor="start" font-size="12" font-weight="normal" fill="#1F2937">n</text><path d="M272,96 L258,100" fill="none" stroke="#1F2937" stroke-width="1.2"/><text x="170" y="184" text-anchor="middle" font-size="11.5" font-weight="normal" fill="#6B7280">(a) Block diagram</text><text x="40" y="236" text-anchor="end" font-size="12" font-weight="normal" fill="#1F2937">Clock</text><text x="40" y="276" text-anchor="end" font-size="12" font-weight="normal" fill="#E07A00">P</text><path d="M40,242 L60,242 L60,218 L105.0,218 L105.0,242 L150,242 L150,218 L195.0,218 L195.0,242 L240,242 L240,218 L285.0,218 L285.0,242 L330,242 L330,218 L375.0,218 L375.0,242 L420,242" fill="none" stroke="#1565C0" stroke-width="1.8"/><path d="M60,282 L165,282 L165,258 L255,258 L255,282 L420,282" fill="none" stroke="#E07A00" stroke-width="1.8"/><path d="M150,206 L150,290" fill="none" stroke="#6B7280" stroke-width="1" stroke-dasharray="5 4"/><text x="150" y="202" text-anchor="middle" font-size="11.5" font-weight="normal" fill="#1F2937">t</text><path d="M240,206 L240,290" fill="none" stroke="#6B7280" stroke-width="1" stroke-dasharray="5 4"/><text x="240" y="202" text-anchor="middle" font-size="11.5" font-weight="normal" fill="#1F2937">t + 1</text><text x="240" y="306" text-anchor="middle" font-size="11.5" font-weight="normal" fill="#1F2937">Transfer occurs here</text><text x="420" y="306" text-anchor="middle" font-size="11.5" font-weight="normal" fill="#6B7280">(b) Timing diagram</text></svg>
+      </div>
+      <p style="font-size:.8rem;color:var(--text-2);margin-top:.4rem">Transfer from R1 to R2 when P = 1: (a) block diagram, (b) timing diagram. Adapted from M. Morris Mano, <em>Computer System Architecture</em>, Fig. 4-2.</p>
+      <p style="font-size:.8rem;color:var(--text-2);margin-top:.4rem">The figure follows the textbook, which names the control signal P; on this page it is written T.</p>
     </div>
     <p>Both registers share the same clock — that's what keeps every transfer in the system synchronized to the same instants. Only R2 has its load driven by T: R1 keeps its own content regardless of T, exactly matching the RTL statement's promise that the source is left unchanged.</p>
 
@@ -116,24 +100,8 @@
     <p>A tempting shortcut: skip the load-enable pin entirely, and just AND the control signal T with the clock before it reaches R2 — "if T is 0, R2 simply doesn't see a clock edge at all." This is a genuine, well-known hazard called <strong>clock gating</strong>: T is an arbitrary signal from other logic, not synchronized to the clock's own transitions, so the ANDed clock can develop a glitch — a runt pulse, or an edge at the wrong moment — any time T changes close to a real clock edge. The load-enable approach avoids this entirely: the clock signal itself stays completely untouched and glitch-free everywhere in the circuit; T only ever affects <em>whether the flip-flop's internal logic acts on</em> the clock edge, never the edge itself.</p>
 
     <h2>Timing</h2>
-    <p>T must already be stable before the triggering clock edge arrives (this is exactly the flip-flop setup time from Unit 2) — assert T, wait for the next clock edge, and the transfer happens at that single instant:</p>
-    <div style="text-align:center;margin:1.25rem 0">
-      <svg viewBox="-40 0 345 145" style="max-width:480px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
-        <text x="-36" y="24" font-size="12" fill="var(--text)">CLK</text>
-        <path d="M0,20 L60,20 L60,45 L120,45 L120,20 L180,20 L180,45 L240,45 L240,20 L300,20" fill="none" stroke="var(--primary)" stroke-width="2"/>
-
-        <text x="-36" y="79" font-size="12" fill="var(--text)">Load</text>
-        <path d="M0,95 L90,95 L90,70 L240,70 L240,95 L300,95" fill="none" stroke="var(--primary)" stroke-width="2"/>
-
-        <text x="-36" y="129" font-size="12" fill="var(--text)">R2</text>
-        <path d="M0,125 L120,125 L120,100 L300,100" fill="none" stroke="var(--primary)" stroke-width="2"/>
-
-        <line x1="120" y1="8" x2="120" y2="135" stroke="var(--accent)" stroke-width="1.5" stroke-dasharray="4,3"/>
-        <text x="124" y="12" font-size="10" fill="var(--accent)">R2 updates here</text>
-      </svg>
-      <p style="font-size:.8rem;color:var(--text-2);margin-top:.4rem">Timing diagram: CLK, Load, and R2 showing that the transfer occurs at the rising clock edge when Load is high. Adapted from M. Morris Mano, <em>Computer System Architecture</em>, Fig. 4-2(b).</p>
-    </div>
-    <p>T rises well before the clock edge and is still high when it arrives — so this edge is a valid load. Notice R2's new content is only visible <em>after</em> that edge, and stays stable through the next clock period whether or not T is still high — exactly the stable, once-per-cycle update behavior a flip-flop-based register guarantees.</p>
+    <p>T must already be stable before the triggering clock edge arrives (this is exactly the flip-flop setup time from Unit 2) — assert T, wait for the next clock edge, and the transfer happens at that single instant (see the timing diagram above).</p>
+    <p>In the timing diagram above, the control signal rises after clock edge t and is still 1 at edge t + 1, so the transfer happens at t + 1. R2 then holds the new value through the next clock period, whether or not the control signal is still 1.</p>
 
     <h2>Common Pitfalls</h2>
     <ul>
