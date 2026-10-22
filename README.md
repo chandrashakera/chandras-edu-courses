@@ -88,6 +88,8 @@ service cloud.firestore {
 
 ## Deploy
 
+Run `tools/update-sitemap-lastmod.py` before committing page changes (it sets each sitemap `<lastmod>` to the page's last commit date).
+
 ```bash
 git add .
 git commit -m "your message"
