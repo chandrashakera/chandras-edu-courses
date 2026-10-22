@@ -82,6 +82,9 @@
   <div class="lesson">
     <p>The previous page built an adder from the ground up. This page does the same for subtraction — starting with a single-bit <strong>half subtractor</strong>, then the <strong>full subtractor</strong> that can be chained, and finally a trick that lets one circuit do both addition and subtraction, reusing almost all of the same hardware.</p>
 
+    <div class="box box-tip">
+      <strong>In simple terms:</strong> subtraction is addition in disguise — invert B and add 1 — so one adder with an XOR on each B input can do both.</div>
+
     <h2 id="Half-Subtractor">Half Subtractor</h2>
     <p>A <strong>half subtractor</strong> takes two single bits — a <strong>minuend</strong> A and a <strong>subtrahend</strong> B — and computes A − B, producing a <strong>difference</strong> bit D and a <strong>borrow</strong> bit Bₒᵤₜ (a borrow of 1 means "this position couldn't subtract on its own, so it had to borrow from the next position").</p>
     <div style="overflow-x:auto">
@@ -98,32 +101,10 @@
     <p style="text-align:center;font-size:1.1rem;font-weight:700;color:var(--primary);margin:1rem 0">D = A ⊕ B &nbsp;&nbsp; Bₒᵤₜ = A′B</p>
     <p>D is exactly XOR, same as a half adder's sum. Bₒᵤₜ is 1 only when A=0 and B=1 — the only row where a borrow is actually needed:</p>
     <div style="text-align:center;margin:1.25rem 0">
-      <svg viewBox="-8 -8 240 168" style="max-width:320px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
-        <text x="0" y="29" font-size="13" fill="var(--text)">A</text>
-        <line x1="14" y1="25" x2="50" y2="25" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="20" y1="25" x2="20" y2="105" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="20" y1="105" x2="35" y2="105" stroke="var(--primary)" stroke-width="2"/>
-
-        <text x="0" y="59" font-size="13" fill="var(--text)">B</text>
-        <line x1="14" y1="55" x2="50" y2="55" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="25" y1="55" x2="25" y2="135" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="25" y1="135" x2="85" y2="135" stroke="var(--primary)" stroke-width="2"/>
-
-        <path d="M41,10 Q65,40 41,70" fill="none" stroke="var(--primary)" stroke-width="3" stroke-linejoin="round"/>
-        <path d="M50,10 Q74,40 50,70 Q104,70 131,40 Q104,10 50,10 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="3" stroke-linejoin="round"/>
-        <line x1="131" y1="40" x2="160" y2="40" stroke="var(--primary)" stroke-width="2"/>
-        <text x="164" y="44" font-size="13" fill="var(--text)">D</text>
-
-        <path d="M35,93 L35,117 L63,105 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5" stroke-linejoin="round"/>
-        <circle cx="67" cy="105" r="4" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5"/>
-        <text x="42" y="88" font-size="11" fill="var(--text-2)">A′</text>
-        <line x1="71" y1="105" x2="85" y2="105" stroke="var(--primary)" stroke-width="2"/>
-
-        <path d="M85,90 L121,90 A30,30 0 0 1 121,150 L85,150 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="3" stroke-linejoin="round"/>
-        <line x1="151" y1="120" x2="195" y2="120" stroke="var(--primary)" stroke-width="2"/>
-        <text x="199" y="124" font-size="13" fill="var(--text)">B</text>
-      </svg>
-      <div style="font-size:.78rem;color:#777;margin-top:.4rem">Half subtractor — one XOR gate makes the difference, one NOT + AND gate makes the borrow.</div>
+      <div style="overflow-x:auto">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 160" role="img" aria-label="Half subtractor: an XOR gate gives the difference D = A XOR B; A is inverted and ANDed with B to give the borrow Bout = A′B." style="width:100%;height:auto;max-width:320px;display:block;margin:0 auto;min-width:320px" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif"><title>Half subtractor: an XOR gate gives the difference D = A XOR B; A is inverted and ANDed with B to give the borrow Bout = A′B.</title><defs><marker id="m25aak" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#1F2937"/></marker><marker id="m25ask" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1F2937"/></marker><marker id="m25aao" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#E07A00"/></marker><marker id="m25aso" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#E07A00"/></marker></defs><text x="20" y="44" text-anchor="end" font-size="13" font-weight="normal" fill="#1F2937">A</text><text x="20" y="76" text-anchor="end" font-size="13" font-weight="normal" fill="#1F2937">B</text><path d="M160,30.0 Q186.4,30.0 204.0,50 Q186.4,70.0 160,70.0 Q172.0,50 160,30.0 Z" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><path d="M154,30.0 Q166.0,50 154,70.0" fill="none" stroke="#1565C0" stroke-width="1.6"/><path d="M160,98.0 L182.0,98.0 A20.0,20.0 0 0 1 182.0,138.0 L160,138.0 Z" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><circle cx="60" cy="40" r="3" fill="#1F2937"/><circle cx="130" cy="72" r="3" fill="#1F2937"/><path d="M26,40 L158.5,40" fill="none" stroke="#1F2937" stroke-width="1.4"/><path d="M26,72 L130,72" fill="none" stroke="#1F2937" stroke-width="1.4"/><path d="M130,72 L130,60 L158.5,60" fill="none" stroke="#1F2937" stroke-width="1.4"/><path d="M60,40 L60,110 L84,110" fill="none" stroke="#1F2937" stroke-width="1.4"/><path d="M84,100 L106,110 L84,120 Z" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><circle cx="109.5" cy="110" r="3.5" fill="white" stroke="#1565C0" stroke-width="1.5"/><path d="M113,110 L160,110" fill="none" stroke="#1F2937" stroke-width="1.4"/><text x="100" y="98" text-anchor="middle" font-size="11.5" font-weight="normal" fill="#1F2937">A′</text><path d="M130,72 L130,126 L160,126" fill="none" stroke="#1F2937" stroke-width="1.4"/><path d="M204.0,50 L234.0,50" fill="none" stroke="#1F2937" stroke-width="1.4"/><text x="240.0" y="54" text-anchor="start" font-size="13" font-weight="normal" fill="#1F2937">D</text><path d="M202.0,118 L234.0,118" fill="none" stroke="#1F2937" stroke-width="1.4"/><text x="240.0" y="122" text-anchor="start" font-size="13" font-weight="normal" fill="#1F2937">Bₒᵤₜ</text></svg>
+      </div>
+      <p style="font-size:.8rem;color:var(--text-2);margin-top:.4rem">Half subtractor — one XOR gate makes the difference, one NOT + AND gate makes the borrow.</p>
     </div>
     <p>Like the half adder, a half subtractor has no way to accept a <strong>borrow-in</strong> from a previous, less significant position — so it only works for the very lowest bit of a multi-bit subtraction.</p>
 
@@ -148,41 +129,10 @@
     <p>Notice that D is <em>exactly the same equation</em> as the full adder's sum from the previous page (S = A ⊕ B ⊕ Cᵢₙ) — XOR just outputs 1 when an odd number of its inputs are 1, whether you call those inputs "carry" or "borrow." The borrow equation is also similar to the adder's carry equation, just with A inverted.</p>
     <p>Just like the full adder, the easiest way to build a full subtractor is to reuse two half subtractors plus one OR gate:</p>
     <div style="text-align:center;margin:1.25rem 0">
-      <svg viewBox="-15 -25 445 190" style="max-width:560px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
-        <text x="0" y="32" font-size="13" fill="var(--text)">A</text>
-        <line x1="14" y1="28" x2="50" y2="28" stroke="var(--primary)" stroke-width="2"/>
-        <text x="0" y="66" font-size="13" fill="var(--text)">B</text>
-        <line x1="14" y1="62" x2="50" y2="62" stroke="var(--primary)" stroke-width="2"/>
-        <rect x="50" y="10" width="70" height="70" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
-        <text x="85" y="54" font-size="15" font-weight="700" text-anchor="middle" fill="var(--text)">HS₁</text>
-
-        <line x1="120" y1="28" x2="180" y2="28" stroke="var(--primary)" stroke-width="2"/>
-        <text x="138" y="22" font-size="11" fill="var(--text-2)">D₁</text>
-        <line x1="120" y1="62" x2="145" y2="62" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="145" y1="62" x2="145" y2="105" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="145" y1="105" x2="289" y2="105" stroke="var(--primary)" stroke-width="2"/>
-        <text x="152" y="118" font-size="11" fill="var(--text-2)">B₁</text>
-
-        <text x="0" y="99" font-size="13" fill="var(--text)">Bᵢₙ</text>
-        <line x1="22" y1="95" x2="160" y2="95" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="160" y1="95" x2="160" y2="62" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="160" y1="62" x2="180" y2="62" stroke="var(--primary)" stroke-width="2"/>
-
-        <rect x="180" y="10" width="70" height="70" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
-        <text x="215" y="54" font-size="15" font-weight="700" text-anchor="middle" fill="var(--text)">HS₂</text>
-
-        <line x1="250" y1="28" x2="290" y2="28" stroke="var(--primary)" stroke-width="2"/>
-        <text x="294" y="32" font-size="13" fill="var(--text)">D</text>
-        <line x1="250" y1="62" x2="265" y2="62" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="265" y1="62" x2="265" y2="135" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="265" y1="135" x2="289" y2="135" stroke="var(--primary)" stroke-width="2"/>
-        <text x="250" y="98" font-size="11" fill="var(--text-2)">B₂</text>
-
-        <path d="M280,90 Q304,120 280,150 Q334,150 361,120 Q334,90 280,90 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="3" stroke-linejoin="round"/>
-        <line x1="361" y1="120" x2="395" y2="120" stroke="var(--primary)" stroke-width="2"/>
-        <text x="399" y="124" font-size="13" fill="var(--text)">Bₒᵤₜ</text>
-      </svg>
-      <div style="font-size:.78rem;color:#777;margin-top:.4rem">A full subtractor built from two half subtractors and one OR gate — HS₁ computes A−B, HS₂ then subtracts Bᵢₙ from that result.</div>
+      <div style="overflow-x:auto">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 220" role="img" aria-label="Full subtractor built from two half subtractors and an OR gate: HS1 computes A minus B giving D1 and borrow B1; HS2 subtracts Bin from D1 giving the difference D and borrow B2; the OR gate combines B1 and B2 into Bout." style="width:100%;height:auto;max-width:520px;display:block;margin:0 auto;min-width:520px" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif"><title>Full subtractor built from two half subtractors and an OR gate: HS1 computes A minus B giving D1 and borrow B1; HS2 subtracts Bin from D1 giving the difference D and borrow B2; the OR gate combines B1 and B2 into Bout.</title><defs><marker id="m25bak" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#1F2937"/></marker><marker id="m25bsk" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1F2937"/></marker><marker id="m25bao" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#E07A00"/></marker><marker id="m25bso" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#E07A00"/></marker></defs><rect x="100" y="40" width="90" height="80" rx="6" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><text x="145.0" y="84.5" text-anchor="middle" font-size="13" fill="#1F2937">HS₁</text><rect x="280" y="40" width="90" height="80" rx="6" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><text x="325.0" y="84.5" text-anchor="middle" font-size="13" fill="#1F2937">HS₂</text><text x="30" y="64" text-anchor="end" font-size="13" font-weight="normal" fill="#1F2937">A</text><path d="M36,60 L100,60" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m25bak)"/><text x="30" y="104" text-anchor="end" font-size="13" font-weight="normal" fill="#1F2937">B</text><path d="M36,100 L100,100" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m25bak)"/><text x="30" y="164" text-anchor="end" font-size="13" font-weight="normal" fill="#1F2937">Bᵢₙ</text><path d="M36,160 L240,160 L240,100 L280,100" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m25bak)"/><path d="M190,60 L280,60" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m25bak)"/><text x="235" y="52" text-anchor="middle" font-size="12" font-weight="normal" fill="#1F2937">D₁</text><text x="196" y="82" text-anchor="start" font-size="12" font-weight="normal" fill="#1F2937">B₁</text><path d="M190,90 L212,90 L212,196 L400,196" fill="none" stroke="#1F2937" stroke-width="1.6"/><path d="M370,60 L470,60" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m25bak)"/><text x="476" y="64" text-anchor="start" font-size="13" font-weight="normal" fill="#1F2937">D</text><path d="M400,164.0 Q426.4,164.0 444.0,184 Q426.4,204.0 400,204.0 Q412.0,184 400,164.0 Z" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><text x="376" y="96" text-anchor="start" font-size="12" font-weight="normal" fill="#1F2937">B₂</text><path d="M370,100 L392,100 L392,172 L403.84,172" fill="none" stroke="#1F2937" stroke-width="1.6"/><path d="M400,196 L403.84,196" fill="none" stroke="#1F2937" stroke-width="1.6"/><path d="M444.0,184 L474.0,184" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m25bak)"/><text x="478.0" y="188" text-anchor="start" font-size="13" font-weight="normal" fill="#1F2937">Bₒᵤₜ</text></svg>
+      </div>
+      <p style="font-size:.8rem;color:var(--text-2);margin-top:.4rem">A full subtractor built from two half subtractors and one OR gate — HS₁ computes A−B, HS₂ then subtracts Bᵢₙ from that result.</p>
     </div>
     <p>HS₁ computes A − B, giving a partial difference D₁ and a borrow B₁. HS₂ then subtracts Bᵢₙ from D₁, giving the final difference D and a second borrow B₂. B₁ and B₂ can never both be 1 at the same time, so — exactly like the full adder's two carries — simply OR-ing them together gives the correct Bₒᵤₜ.</p>
 
@@ -196,107 +146,19 @@
     </ul>
     <p>Here's the XOR gate that sits in front of one bit of B, labeled generically as bit <em>i</em>:</p>
     <div style="text-align:center;margin:1.25rem 0">
-      <svg viewBox="-8 -8 282 168" style="max-width:360px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
-        <text x="0" y="29" font-size="13" fill="var(--text)">Bi</text>
-        <line x1="20" y1="25" x2="50" y2="25" stroke="var(--primary)" stroke-width="2"/>
-        <text x="0" y="59" font-size="13" fill="var(--text)">M</text>
-        <line x1="16" y1="55" x2="50" y2="55" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="25" y1="55" x2="25" y2="135" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="25" y1="135" x2="220" y2="135" stroke="var(--primary)" stroke-width="2"/>
-        <text x="224" y="139" font-size="12" fill="var(--text)">Cᵢₙ (=M)</text>
-
-        <path d="M41,10 Q65,40 41,70" fill="none" stroke="var(--primary)" stroke-width="3" stroke-linejoin="round"/>
-        <path d="M50,10 Q74,40 50,70 Q104,70 131,40 Q104,10 50,10 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="3" stroke-linejoin="round"/>
-        <line x1="131" y1="40" x2="160" y2="40" stroke="var(--primary)" stroke-width="2"/>
-        <text x="164" y="44" font-size="12" fill="var(--text)">Bi′ if M=1</text>
-      </svg>
-      <div style="font-size:.78rem;color:#777;margin-top:.4rem">One XOR gate per bit of B — the same M line that flips this gate also becomes the first stage's carry-in.</div>
+      <div style="overflow-x:auto">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 150" role="img" aria-label="One bit of the adder-subtractor: input Bi and mode line M enter an XOR gate whose output goes to the B input of full adder i; it passes Bi when M = 0 and Bi′ when M = 1. M also feeds the carry-in C0 of the first stage." style="width:100%;height:auto;max-width:440px;display:block;margin:0 auto;min-width:440px" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif"><title>One bit of the adder-subtractor: input Bi and mode line M enter an XOR gate whose output goes to the B input of full adder i; it passes Bi when M = 0 and Bi′ when M = 1. M also feeds the carry-in C0 of the first stage.</title><defs><marker id="m25cak" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#1F2937"/></marker><marker id="m25csk" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1F2937"/></marker><marker id="m25cao" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#E07A00"/></marker><marker id="m25cso" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#E07A00"/></marker></defs><text x="30" y="54" text-anchor="end" font-size="13" font-weight="normal" fill="#1F2937">Bᵢ</text><text x="30" y="84" text-anchor="end" font-size="13" font-weight="normal" fill="#E07A00">M</text><path d="M140,48.0 Q169.04,48.0 188.4,70 Q169.04,92.0 140,92.0 Q153.2,70 140,48.0 Z" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><path d="M134,48.0 Q147.2,70 134,92.0" fill="none" stroke="#1565C0" stroke-width="1.6"/><path d="M36,60 L139.23636363636365,60" fill="none" stroke="#1F2937" stroke-width="1.4"/><circle cx="80" cy="80" r="3" fill="#E07A00"/><path d="M36,80 L139.23636363636365,80" fill="none" stroke="#E07A00" stroke-width="1.4"/><path d="M188.4,70 L248.4,70" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m25cak)"/><text x="254.4" y="64" text-anchor="start" font-size="12" font-weight="normal" fill="#1F2937">to full adder i</text><text x="254.4" y="80" text-anchor="start" font-size="11" font-weight="normal" fill="#6B7280">(Bᵢ if M = 0, Bᵢ′ if M = 1)</text><path d="M80,80 L80,124 L240,124" fill="none" stroke="#E07A00" stroke-width="1.6" marker-end="url(#m25cao)"/><text x="246" y="128" text-anchor="start" font-size="11.5" font-weight="normal" fill="#E07A00">C₀ = M (first stage only)</text></svg>
+      </div>
+      <p style="font-size:.8rem;color:var(--text-2);margin-top:.4rem">One XOR gate per bit of B — the same M line that flips this gate also becomes the first stage's carry-in.</p>
     </div>
     <p>Put one of these XOR gates in front of every B input of the 4-bit ripple carry adder from the previous page, and the full circuit looks like this — same four full adders, with one XOR gate added in front of each B input:</p>
     <div style="text-align:center;margin:1.25rem 0">
-      <svg viewBox="-15 -90 520 240" style="max-width:640px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
-        <text x="24" y="-8" font-size="11" fill="var(--text-2)">A₃</text>
-        <line x1="35" y1="-2" x2="35" y2="10" stroke="var(--primary)" stroke-width="2"/>
-        <text x="61" y="-78" font-size="11" fill="var(--text-2)">B₃</text>
-        <line x1="75" y1="-72" x2="75" y2="-55" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="75" y1="-55" x2="82" y2="-55" stroke="var(--primary)" stroke-width="2"/>
-        <g transform="translate(75,-45) rotate(90)">
-          <path d="M-12,-10 Q-6,0 -12,10" fill="none" stroke="var(--primary)" stroke-width="2.5" stroke-linejoin="round"/>
-          <path d="M-8,-10 Q-2,0 -8,10 Q6,10 14,0 Q6,-10 -8,-10 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5" stroke-linejoin="round"/>
-        </g>
-        <line x1="75" y1="-31" x2="75" y2="10" stroke="var(--primary)" stroke-width="2"/>
-        <rect x="20" y="10" width="70" height="70" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
-        <text x="55" y="54" font-size="14" font-weight="700" text-anchor="middle" fill="var(--text)">FA₃</text>
-        <line x1="55" y1="80" x2="55" y2="105" stroke="var(--primary)" stroke-width="2"/>
-        <text x="48" y="118" font-size="11" fill="var(--text-2)">S₃</text>
-
-        <text x="139" y="-8" font-size="11" fill="var(--text-2)">A₂</text>
-        <line x1="150" y1="-2" x2="150" y2="10" stroke="var(--primary)" stroke-width="2"/>
-        <text x="176" y="-78" font-size="11" fill="var(--text-2)">B₂</text>
-        <line x1="190" y1="-72" x2="190" y2="-55" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="190" y1="-55" x2="197" y2="-55" stroke="var(--primary)" stroke-width="2"/>
-        <g transform="translate(190,-45) rotate(90)">
-          <path d="M-12,-10 Q-6,0 -12,10" fill="none" stroke="var(--primary)" stroke-width="2.5" stroke-linejoin="round"/>
-          <path d="M-8,-10 Q-2,0 -8,10 Q6,10 14,0 Q6,-10 -8,-10 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5" stroke-linejoin="round"/>
-        </g>
-        <line x1="190" y1="-31" x2="190" y2="10" stroke="var(--primary)" stroke-width="2"/>
-        <rect x="135" y="10" width="70" height="70" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
-        <text x="170" y="54" font-size="14" font-weight="700" text-anchor="middle" fill="var(--text)">FA₂</text>
-        <line x1="170" y1="80" x2="170" y2="105" stroke="var(--primary)" stroke-width="2"/>
-        <text x="163" y="118" font-size="11" fill="var(--text-2)">S₂</text>
-
-        <text x="254" y="-8" font-size="11" fill="var(--text-2)">A₁</text>
-        <line x1="265" y1="-2" x2="265" y2="10" stroke="var(--primary)" stroke-width="2"/>
-        <text x="291" y="-78" font-size="11" fill="var(--text-2)">B₁</text>
-        <line x1="305" y1="-72" x2="305" y2="-55" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="305" y1="-55" x2="312" y2="-55" stroke="var(--primary)" stroke-width="2"/>
-        <g transform="translate(305,-45) rotate(90)">
-          <path d="M-12,-10 Q-6,0 -12,10" fill="none" stroke="var(--primary)" stroke-width="2.5" stroke-linejoin="round"/>
-          <path d="M-8,-10 Q-2,0 -8,10 Q6,10 14,0 Q6,-10 -8,-10 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5" stroke-linejoin="round"/>
-        </g>
-        <line x1="305" y1="-31" x2="305" y2="10" stroke="var(--primary)" stroke-width="2"/>
-        <rect x="250" y="10" width="70" height="70" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
-        <text x="285" y="54" font-size="14" font-weight="700" text-anchor="middle" fill="var(--text)">FA₁</text>
-        <line x1="285" y1="80" x2="285" y2="105" stroke="var(--primary)" stroke-width="2"/>
-        <text x="278" y="118" font-size="11" fill="var(--text-2)">S₁</text>
-
-        <text x="369" y="-8" font-size="11" fill="var(--text-2)">A₀</text>
-        <line x1="380" y1="-2" x2="380" y2="10" stroke="var(--primary)" stroke-width="2"/>
-        <text x="406" y="-78" font-size="11" fill="var(--text-2)">B₀</text>
-        <line x1="420" y1="-72" x2="420" y2="-55" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="420" y1="-55" x2="427" y2="-55" stroke="var(--primary)" stroke-width="2"/>
-        <g transform="translate(420,-45) rotate(90)">
-          <path d="M-12,-10 Q-6,0 -12,10" fill="none" stroke="var(--primary)" stroke-width="2.5" stroke-linejoin="round"/>
-          <path d="M-8,-10 Q-2,0 -8,10 Q6,10 14,0 Q6,-10 -8,-10 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5" stroke-linejoin="round"/>
-        </g>
-        <line x1="420" y1="-31" x2="420" y2="10" stroke="var(--primary)" stroke-width="2"/>
-        <rect x="365" y="10" width="70" height="70" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
-        <text x="400" y="54" font-size="14" font-weight="700" text-anchor="middle" fill="var(--text)">FA₀</text>
-        <line x1="400" y1="80" x2="400" y2="105" stroke="var(--primary)" stroke-width="2"/>
-        <text x="393" y="118" font-size="11" fill="var(--text-2)">S₀</text>
-
-        <text x="-14" y="49" font-size="11" fill="var(--text-2)">C₄</text>
-        <line x1="0" y1="45" x2="20" y2="45" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="90" y1="45" x2="135" y2="45" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="205" y1="45" x2="250" y2="45" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="320" y1="45" x2="365" y2="45" stroke="var(--primary)" stroke-width="2"/>
-
-        <text x="0" y="-67" font-size="11" fill="var(--text)">M</text>
-        <line x1="14" y1="-63" x2="450" y2="-63" stroke="var(--primary)" stroke-width="2"/>
-        <circle cx="69" cy="-63" r="3" fill="var(--primary)"/>
-        <line x1="69" y1="-63" x2="69" y2="-55" stroke="var(--primary)" stroke-width="2"/>
-        <circle cx="184" cy="-63" r="3" fill="var(--primary)"/>
-        <line x1="184" y1="-63" x2="184" y2="-55" stroke="var(--primary)" stroke-width="2"/>
-        <circle cx="299" cy="-63" r="3" fill="var(--primary)"/>
-        <line x1="299" y1="-63" x2="299" y2="-55" stroke="var(--primary)" stroke-width="2"/>
-        <circle cx="414" cy="-63" r="3" fill="var(--primary)"/>
-        <line x1="414" y1="-63" x2="414" y2="-55" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="450" y1="-63" x2="450" y2="45" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="450" y1="45" x2="435" y2="45" stroke="var(--primary)" stroke-width="2"/>
-        <text x="445" y="64" font-size="11" fill="var(--text-2)">Cᵢₙ (=M)</text>
-      </svg>
-      <div style="font-size:.78rem;color:#777;margin-top:.4rem">The 4-bit adder-subtractor — one control line M switches the same full-adder chain between addition and subtraction.</div>
+      <div style="overflow-x:auto">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 330" role="img" aria-label="Four-bit adder-subtractor: each B input passes through an XOR gate with mode M before entering its full adder; M is also the carry C0 into the first full adder. Carries C1 to C3 chain the full adders, which produce sums S0 to S3; C4 is the output carry C, and V = C3 XOR C4 flags overflow." style="width:100%;height:auto;max-width:640px;display:block;margin:0 auto;min-width:640px" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif"><title>Four-bit adder-subtractor: each B input passes through an XOR gate with mode M before entering its full adder; M is also the carry C0 into the first full adder. Carries C1 to C3 chain the full adders, which produce sums S0 to S3; C4 is the output carry C, and V = C3 XOR C4 flags overflow.</title><defs><marker id="m25dak" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#1F2937"/></marker><marker id="m25dsk" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1F2937"/></marker><marker id="m25dao" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#E07A00"/></marker><marker id="m25dso" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#E07A00"/></marker></defs><path d="M20,60 L620,60" fill="none" stroke="#E07A00" stroke-width="1.3"/><text x="20" y="52" text-anchor="start" font-size="13" font-weight="normal" fill="#E07A00">M</text><rect x="470" y="170" width="80" height="50" rx="0" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><text x="510.0" y="199.6" text-anchor="middle" font-size="13" fill="#1F2937">FA</text><text x="488" y="24" text-anchor="middle" font-size="12.5" font-weight="normal" fill="#1F2937">A₀</text><path d="M488,30 L488,170" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m25dak)"/><text x="536" y="24" text-anchor="middle" font-size="12.5" font-weight="normal" fill="#1F2937">B₀</text><path d="M514,100 Q514,118 528,130 Q542,118 542,100 Q528,108 514,100 Z" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><path d="M514,95 Q528,103 542,95" fill="none" stroke="#1565C0" stroke-width="1.6"/><path d="M536,30 L536,97" fill="none" stroke="#1F2937" stroke-width="1.3"/><circle cx="520" cy="60" r="3" fill="#E07A00"/><path d="M520,60 L520,97" fill="none" stroke="#E07A00" stroke-width="1.3"/><path d="M528,130 L528,170" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m25dak)"/><path d="M510.0,220 L510.0,250" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m25dak)"/><text x="510.0" y="266" text-anchor="middle" font-size="12.5" font-weight="normal" fill="#1F2937">S₀</text><rect x="340" y="170" width="80" height="50" rx="0" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><text x="380.0" y="199.6" text-anchor="middle" font-size="13" fill="#1F2937">FA</text><text x="358" y="24" text-anchor="middle" font-size="12.5" font-weight="normal" fill="#1F2937">A₁</text><path d="M358,30 L358,170" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m25dak)"/><text x="406" y="24" text-anchor="middle" font-size="12.5" font-weight="normal" fill="#1F2937">B₁</text><path d="M384,100 Q384,118 398,130 Q412,118 412,100 Q398,108 384,100 Z" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><path d="M384,95 Q398,103 412,95" fill="none" stroke="#1565C0" stroke-width="1.6"/><path d="M406,30 L406,97" fill="none" stroke="#1F2937" stroke-width="1.3"/><circle cx="390" cy="60" r="3" fill="#E07A00"/><path d="M390,60 L390,97" fill="none" stroke="#E07A00" stroke-width="1.3"/><path d="M398,130 L398,170" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m25dak)"/><path d="M380.0,220 L380.0,250" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m25dak)"/><text x="380.0" y="266" text-anchor="middle" font-size="12.5" font-weight="normal" fill="#1F2937">S₁</text><rect x="210" y="170" width="80" height="50" rx="0" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><text x="250.0" y="199.6" text-anchor="middle" font-size="13" fill="#1F2937">FA</text><text x="228" y="24" text-anchor="middle" font-size="12.5" font-weight="normal" fill="#1F2937">A₂</text><path d="M228,30 L228,170" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m25dak)"/><text x="276" y="24" text-anchor="middle" font-size="12.5" font-weight="normal" fill="#1F2937">B₂</text><path d="M254,100 Q254,118 268,130 Q282,118 282,100 Q268,108 254,100 Z" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><path d="M254,95 Q268,103 282,95" fill="none" stroke="#1565C0" stroke-width="1.6"/><path d="M276,30 L276,97" fill="none" stroke="#1F2937" stroke-width="1.3"/><circle cx="260" cy="60" r="3" fill="#E07A00"/><path d="M260,60 L260,97" fill="none" stroke="#E07A00" stroke-width="1.3"/><path d="M268,130 L268,170" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m25dak)"/><path d="M250.0,220 L250.0,250" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m25dak)"/><text x="250.0" y="266" text-anchor="middle" font-size="12.5" font-weight="normal" fill="#1F2937">S₂</text><rect x="80" y="170" width="80" height="50" rx="0" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><text x="120.0" y="199.6" text-anchor="middle" font-size="13" fill="#1F2937">FA</text><text x="98" y="24" text-anchor="middle" font-size="12.5" font-weight="normal" fill="#1F2937">A₃</text><path d="M98,30 L98,170" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m25dak)"/><text x="146" y="24" text-anchor="middle" font-size="12.5" font-weight="normal" fill="#1F2937">B₃</text><path d="M124,100 Q124,118 138,130 Q152,118 152,100 Q138,108 124,100 Z" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><path d="M124,95 Q138,103 152,95" fill="none" stroke="#1565C0" stroke-width="1.6"/><path d="M146,30 L146,97" fill="none" stroke="#1F2937" stroke-width="1.3"/><circle cx="130" cy="60" r="3" fill="#E07A00"/><path d="M130,60 L130,97" fill="none" stroke="#E07A00" stroke-width="1.3"/><path d="M138,130 L138,170" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m25dak)"/><path d="M120.0,220 L120.0,250" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m25dak)"/><text x="120.0" y="266" text-anchor="middle" font-size="12.5" font-weight="normal" fill="#1F2937">S₃</text><path d="M620,60 L630,60 L630,195.0 L550,195.0" fill="none" stroke="#E07A00" stroke-width="1.6" marker-end="url(#m25dao)"/><text x="628" y="213.0" text-anchor="end" font-size="12" font-weight="normal" fill="#E07A00">C₀</text><path d="M470,195.0 L420,195.0" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m25dak)"/><text x="445.0" y="189.0" text-anchor="middle" font-size="12" font-weight="normal" fill="#1F2937">C₁</text><path d="M340,195.0 L290,195.0" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m25dak)"/><text x="315.0" y="189.0" text-anchor="middle" font-size="12" font-weight="normal" fill="#1F2937">C₂</text><path d="M210,195.0 L160,195.0" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m25dak)"/><text x="185.0" y="189.0" text-anchor="middle" font-size="12" font-weight="normal" fill="#1F2937">C₃</text><path d="M80,195.0 L40,195.0" fill="none" stroke="#1F2937" stroke-width="1.6"/><text x="46" y="189.0" text-anchor="start" font-size="12" font-weight="normal" fill="#1F2937">C₄</text><circle cx="40" cy="195.0" r="3" fill="#1F2937"/><path d="M40,195.0 L14,195.0 L14,150" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m25dak)"/><text x="18" y="144" text-anchor="start" font-size="13" font-weight="normal" fill="#1F2937">C</text><path d="M60,287.0 Q82.44,287.0 97.4,304 Q82.44,321.0 60,321.0 Q70.2,304 60,287.0 Z" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><path d="M54,287.0 Q64.2,304 54,321.0" fill="none" stroke="#1565C0" stroke-width="1.6"/><path d="M40,195.0 L30,195.0 L30,296 L57.970588235294116,296" fill="none" stroke="#1F2937" stroke-width="1.6"/><path d="M196,195.0 L196,312 L57.970588235294116,312" fill="none" stroke="#1F2937" stroke-width="1.6"/><circle cx="196" cy="195.0" r="3" fill="#1F2937"/><path d="M97.4,304 L121.4,304" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m25dak)"/><text x="127.4" y="308" text-anchor="start" font-size="12" font-weight="normal" fill="#1F2937">V = C₃ ⊕ C₄</text></svg>
+      </div>
+      <p style="font-size:.8rem;color:var(--text-2);margin-top:.4rem">Four-bit adder-subtractor: M = 0 adds, M = 1 subtracts; V = C₃ ⊕ C₄ flags overflow. Adapted from M. Morris Mano and Michael D. Ciletti, <em>Digital Design</em>, Fig. 4.13.</p>
     </div>
+    <p>For signed numbers, V detects overflow: it is 1 when the carry into the sign position (C₃) differs from the carry out of it (C₄). The final carry C matters only for unsigned numbers.</p>
 
     <h3>Worked Example — Same Hardware, Both Operations</h3>
     <p>Let A = 1001₂ (9), B = 0101₂ (5).</p>

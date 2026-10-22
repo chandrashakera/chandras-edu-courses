@@ -82,6 +82,9 @@
   <div class="lesson">
     <p>The previous page's binary adder reappears here almost unchanged. A <strong>BCD adder</strong> reuses it directly and just adds one correction step to keep the result a valid decimal digit. Recall from Unit 1: <strong>BCD</strong> represents each decimal digit (0–9) as a 4-bit pattern 0000–1001; the patterns 1010–1111 are invalid and never occur. An ordinary 4-bit binary adder works fine only when the result also lands in 0–9 — but 9+9=18 is 10010 in binary, which isn't valid BCD at all. The fix is a well-known correction rule.</p>
 
+    <div class="box box-tip">
+      <strong>In simple terms:</strong> add the two digits in binary; if the result is more than 9 (or a carry came out), add 6 to skip the six unused codes and pass a 1 to the next digit.</div>
+
     <h2 id="Correction-Rule">The Correction Rule</h2>
     <p>Feed both BCD digits (plus any carry-in from the previous decade) into an ordinary 4-bit binary adder, producing a raw binary sum Z (0–19) and a carry K. Laying out every possible sum from 0 to 19 shows exactly where the raw binary result stops matching valid BCD, and what adding 0110 does to fix it:</p>
     <div style="overflow-x:auto">
@@ -123,115 +126,10 @@
 
     <p id="Block-Diagram">Here's the standard textbook layout for the correction logic: a single 3-input OR gate (fed directly by the carry K and both AND-gate outputs) produces the <strong>Output carry</strong>, which is wired straight into two of the second adder's inputs — no extra gating needed there.</p>
     <div style="text-align:center;margin:1.25rem 0">
-      <svg viewBox="-95 -30 700 460" style="max-width:920px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg" font-family="inherit">
-        <!-- top adder: A and B are each 4-bit buses -->
-        <line x1="195" y1="-15" x2="195" y2="10" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="205" y1="-15" x2="205" y2="10" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="215" y1="-15" x2="215" y2="10" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="225" y1="-15" x2="225" y2="10" stroke="var(--primary)" stroke-width="2"/>
-        <text x="210" y="-19" font-size="13" text-anchor="middle" fill="var(--text)">A</text>
-        <line x1="315" y1="-15" x2="315" y2="10" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="325" y1="-15" x2="325" y2="10" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="335" y1="-15" x2="335" y2="10" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="345" y1="-15" x2="345" y2="10" stroke="var(--primary)" stroke-width="2"/>
-        <text x="330" y="-19" font-size="13" text-anchor="middle" fill="var(--text)">B</text>
-        <line x1="390" y1="80" x2="360" y2="80" stroke="var(--primary)" stroke-width="2"/>
-        <text x="394" y="84" font-size="11" fill="var(--text-2)">Cᵢₙ</text>
-        <rect x="180" y="10" width="180" height="80" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
-        <text x="270" y="46" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">4-BIT</text>
-        <text x="270" y="62" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">ADDER</text>
-
-        <!-- K exits the left edge; Z8,Z4,Z2,Z1 exit the bottom -->
-        <line x1="180" y1="30" x2="140" y2="30" stroke="var(--primary)" stroke-width="2"/>
-        <text x="136" y="26" font-size="11" text-anchor="end" fill="var(--text-2)">K</text>
-        <line x1="260" y1="90" x2="260" y2="112" stroke="var(--primary)" stroke-width="2"/>
-        <text x="257" y="124" font-size="11" text-anchor="end" fill="var(--text-2)">Z₈</text>
-        <line x1="290" y1="90" x2="290" y2="110" stroke="var(--primary)" stroke-width="2"/>
-        <text x="287" y="124" font-size="11" text-anchor="end" fill="var(--text-2)">Z₄</text>
-        <line x1="320" y1="90" x2="320" y2="110" stroke="var(--primary)" stroke-width="2"/>
-        <text x="317" y="124" font-size="11" text-anchor="end" fill="var(--text-2)">Z₂</text>
-        <line x1="350" y1="90" x2="350" y2="110" stroke="var(--primary)" stroke-width="2"/>
-        <text x="347" y="124" font-size="11" text-anchor="end" fill="var(--text-2)">Z₁</text>
-
-        <!-- Z8 taps into AND1 (top) and AND2 (top) -->
-        <circle cx="260" cy="112" r="3" fill="var(--primary)"/>
-        <line x1="260" y1="112" x2="240" y2="112" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="260" y1="112" x2="260" y2="167" stroke="var(--primary)" stroke-width="2"/>
-        <circle cx="260" cy="167" r="3" fill="var(--primary)"/>
-        <line x1="260" y1="167" x2="240" y2="167" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="260" y1="167" x2="260" y2="260" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="260" y1="260" x2="480" y2="260" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="480" y1="260" x2="480" y2="300" stroke="var(--primary)" stroke-width="2"/>
-
-        <!-- Z4 taps into AND1 (bottom) -->
-        <line x1="290" y1="110" x2="290" y2="138" stroke="var(--primary)" stroke-width="2"/>
-        <circle cx="290" cy="138" r="3" fill="var(--primary)"/>
-        <line x1="290" y1="138" x2="240" y2="138" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="290" y1="138" x2="290" y2="270" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="290" y1="270" x2="505" y2="270" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="505" y1="270" x2="505" y2="300" stroke="var(--primary)" stroke-width="2"/>
-
-        <!-- Z2 taps into AND2 (bottom) -->
-        <line x1="320" y1="110" x2="320" y2="193" stroke="var(--primary)" stroke-width="2"/>
-        <circle cx="320" cy="193" r="3" fill="var(--primary)"/>
-        <line x1="320" y1="193" x2="240" y2="193" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="320" y1="193" x2="320" y2="280" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="320" y1="280" x2="530" y2="280" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="530" y1="280" x2="530" y2="300" stroke="var(--primary)" stroke-width="2"/>
-
-        <!-- Z1 passes straight through, no gate -->
-        <line x1="350" y1="110" x2="350" y2="290" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="350" y1="290" x2="555" y2="290" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="555" y1="290" x2="555" y2="300" stroke="var(--primary)" stroke-width="2"/>
-
-        <!-- AND1 (mirrored: inputs on the right, output to the left) : Z8 . Z4 -->
-        <path d="M240,100 L215,100 A25,25 0 0 0 215,150 L240,150 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5"/>
-        <text x="137" y="118" font-size="9" text-anchor="middle" fill="var(--text-2)">Z₈Z₄</text>
-        <line x1="190" y1="125" x2="84" y2="125" stroke="var(--primary)" stroke-width="2"/>
-
-        <!-- AND2 (mirrored) : Z8 . Z2 -->
-        <path d="M240,155 L215,155 A25,25 0 0 0 215,205 L240,205 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5"/>
-        <text x="137" y="173" font-size="9" text-anchor="middle" fill="var(--text-2)">Z₈Z₂</text>
-        <line x1="190" y1="180" x2="93" y2="180" stroke="var(--primary)" stroke-width="2"/>
-
-        <!-- K drops straight down and enters the OR gate's top input from the right -->
-        <line x1="140" y1="30" x2="140" y2="95" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="140" y1="95" x2="93" y2="95" stroke="var(--primary)" stroke-width="2"/>
-
-        <!-- OR gate (mirrored, compact 3-input: K, Z8Z4, Z8Z2) -> Output carry -->
-        <path d="M105,75 Q60,138 105,200 Q72,200 45,138 Q72,75 105,75 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5"/>
-
-        <!-- Output carry: tip, dot, label, and route to the second adder's 0110 operand -->
-        <circle cx="45" cy="138" r="3" fill="var(--primary)"/>
-        <line x1="45" y1="138" x2="0" y2="138" stroke="var(--primary)" stroke-width="2"/>
-        <text x="-4" y="142" font-size="10.5" text-anchor="end" fill="var(--text-2)">Output carry</text>
-
-        <line x1="45" y1="138" x2="45" y2="330" stroke="var(--primary)" stroke-width="2"/>
-        <circle cx="45" cy="330" r="3" fill="var(--primary)"/>
-        <line x1="45" y1="330" x2="460" y2="330" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="45" y1="330" x2="45" y2="350" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="45" y1="350" x2="460" y2="350" stroke="var(--primary)" stroke-width="2"/>
-
-        <!-- "0" ties for the constant's zero bits -->
-        <text x="428" y="314" font-size="11" fill="var(--text-2)">0</text>
-        <line x1="445" y1="310" x2="460" y2="310" stroke="var(--primary)" stroke-width="2"/>
-        <text x="428" y="374" font-size="11" fill="var(--text-2)">0</text>
-        <line x1="445" y1="370" x2="460" y2="370" stroke="var(--primary)" stroke-width="2"/>
-
-        <!-- bottom adder (widened for clearer S output spacing) -->
-        <rect x="460" y="300" width="120" height="80" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
-        <text x="520" y="336" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">4-BIT</text>
-        <text x="520" y="352" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">ADDER</text>
-
-        <line x1="480" y1="380" x2="480" y2="400" stroke="var(--primary)" stroke-width="2"/>
-        <text x="480" y="422" font-size="15" font-weight="700" text-anchor="middle" fill="var(--text)">S<tspan font-size="11" dy="3">8</tspan></text>
-        <line x1="505" y1="380" x2="505" y2="400" stroke="var(--primary)" stroke-width="2"/>
-        <text x="505" y="422" font-size="15" font-weight="700" text-anchor="middle" fill="var(--text)">S<tspan font-size="11" dy="3">4</tspan></text>
-        <line x1="530" y1="380" x2="530" y2="400" stroke="var(--primary)" stroke-width="2"/>
-        <text x="530" y="422" font-size="15" font-weight="700" text-anchor="middle" fill="var(--text)">S<tspan font-size="11" dy="3">2</tspan></text>
-        <line x1="555" y1="380" x2="555" y2="400" stroke="var(--primary)" stroke-width="2"/>
-        <text x="555" y="422" font-size="15" font-weight="700" text-anchor="middle" fill="var(--text)">S<tspan font-size="11" dy="3">1</tspan></text>
-      </svg>
+      <div style="overflow-x:auto">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 490" role="img" aria-label="BCD adder: the addend, augend and carry-in enter a 4-bit binary adder, giving K and Z8 Z4 Z2 Z1. Output carry = K + Z8Z4 + Z8Z2 from two AND gates and an OR gate. A second 4-bit binary adder adds 0 (output carry) (output carry) 0 to Z8 Z4 Z2 Z1, giving the BCD sum S8 S4 S2 S1; its own carry-out is ignored." style="width:100%;height:auto;max-width:720px;display:block;margin:0 auto;min-width:720px" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif"><title>BCD adder: the addend, augend and carry-in enter a 4-bit binary adder, giving K and Z8 Z4 Z2 Z1. Output carry = K + Z8Z4 + Z8Z2 from two AND gates and an OR gate. A second 4-bit binary adder adds 0 (output carry) (output carry) 0 to Z8 Z4 Z2 Z1, giving the BCD sum S8 S4 S2 S1; its own carry-out is ignored.</title><defs><marker id="m26ak" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#1F2937"/></marker><marker id="m26sk" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1F2937"/></marker><marker id="m26ao" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#E07A00"/></marker><marker id="m26so" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#E07A00"/></marker></defs><rect x="260" y="50" width="200" height="60" rx="6" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><text x="360.0" y="84.4" text-anchor="middle" font-size="12.5" fill="#1F2937">4-bit binary adder</text><text x="310" y="20" text-anchor="middle" font-size="12" font-weight="normal" fill="#1F2937">Addend</text><path d="M310,26 L310,50" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m26ak)"/><path d="M304,38 L316,32" fill="none" stroke="#1F2937" stroke-width="1.2"/><text x="319" y="40" text-anchor="start" font-size="11" font-weight="normal" fill="#1F2937">4</text><text x="410" y="20" text-anchor="middle" font-size="12" font-weight="normal" fill="#1F2937">Augend</text><path d="M410,26 L410,50" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m26ak)"/><path d="M404,38 L416,32" fill="none" stroke="#1F2937" stroke-width="1.2"/><text x="419" y="40" text-anchor="start" font-size="11" font-weight="normal" fill="#1F2937">4</text><text x="130" y="76" text-anchor="end" font-size="12" font-weight="normal" fill="#1F2937">Carry in</text><path d="M136,80 L260,80" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m26ak)"/><path d="M290,110 L290,360" fill="none" stroke="#1F2937" stroke-width="1.3" marker-end="url(#m26ak)"/><text x="286" y="128" text-anchor="end" font-size="11.5" font-weight="normal" fill="#1F2937">Z₈</text><path d="M320,110 L320,360" fill="none" stroke="#1F2937" stroke-width="1.3" marker-end="url(#m26ak)"/><text x="316" y="128" text-anchor="end" font-size="11.5" font-weight="normal" fill="#1F2937">Z₄</text><path d="M350,110 L350,360" fill="none" stroke="#1F2937" stroke-width="1.3" marker-end="url(#m26ak)"/><text x="346" y="128" text-anchor="end" font-size="11.5" font-weight="normal" fill="#1F2937">Z₂</text><path d="M380,110 L380,360" fill="none" stroke="#1F2937" stroke-width="1.3" marker-end="url(#m26ak)"/><text x="376" y="128" text-anchor="end" font-size="11.5" font-weight="normal" fill="#1F2937">Z₁</text><text x="446" y="128" text-anchor="start" font-size="12" font-weight="normal" fill="#1F2937">K</text><path d="M440,110 L440,262" fill="none" stroke="#1F2937" stroke-width="1.3"/><path d="M500,163.0 L518.7,163.0 A17.0,17.0 0 0 1 518.7,197.0 L500,197.0 Z" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><path d="M500,213.0 L518.7,213.0 A17.0,17.0 0 0 1 518.7,247.0 L500,247.0 Z" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><circle cx="290" cy="172" r="3" fill="#1F2937"/><path d="M290,172 L500,172" fill="none" stroke="#1F2937" stroke-width="1.2"/><circle cx="320" cy="188" r="3" fill="#1F2937"/><path d="M320,188 L500,188" fill="none" stroke="#1F2937" stroke-width="1.2"/><circle cx="290" cy="222" r="3" fill="#1F2937"/><path d="M290,222 L500,222" fill="none" stroke="#1F2937" stroke-width="1.2"/><circle cx="350" cy="238" r="3" fill="#1F2937"/><path d="M350,238 L500,238" fill="none" stroke="#1F2937" stroke-width="1.2"/><text x="539.7" y="172" text-anchor="start" font-size="11" font-weight="normal" fill="#6B7280">Z₈Z₄</text><text x="539.7" y="222" text-anchor="start" font-size="11" font-weight="normal" fill="#6B7280">Z₈Z₂</text><path d="M566,238.0 Q597.68,238.0 618.8,262 Q597.68,286.0 566,286.0 Q580.4,262 566,238.0 Z" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><path d="M535.7,180 L556,180 L556,248 L570.75,248" fill="none" stroke="#1F2937" stroke-width="1.2"/><path d="M535.7,230 L548,230 L548,262 L573.2,262" fill="none" stroke="#1F2937" stroke-width="1.2"/><path d="M440,262 L440,276 L570.75,276" fill="none" stroke="#1F2937" stroke-width="1.3"/><path d="M618.8,262 L700,262" fill="none" stroke="#1F2937" stroke-width="1.4" marker-end="url(#m26ak)"/><circle cx="650" cy="262" r="3" fill="#1F2937"/><text x="706" y="252" text-anchor="end" font-size="11.5" font-weight="normal" fill="#1F2937">Output carry</text><rect x="260" y="360" width="200" height="60" rx="6" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><text x="360.0" y="394.4" text-anchor="middle" font-size="12.5" fill="#1F2937">4-bit binary adder</text><path d="M650,262 L650,396 L460,396" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m26ak)"/><circle cx="650" cy="384" r="3" fill="#1F2937"/><path d="M650,384 L460,384" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m26ak)"/><text x="490" y="376" text-anchor="middle" font-size="12" font-weight="normal" fill="#1F2937">0</text><path d="M482,372 L460,372" fill="none" stroke="#1F2937" stroke-width="1.2" marker-end="url(#m26ak)"/><text x="490" y="412" text-anchor="middle" font-size="12" font-weight="normal" fill="#1F2937">0</text><path d="M482,408 L460,408" fill="none" stroke="#1F2937" stroke-width="1.2" marker-end="url(#m26ak)"/><text x="454" y="376" text-anchor="end" font-size="11" font-weight="normal" fill="#6B7280">8</text><text x="454" y="388" text-anchor="end" font-size="11" font-weight="normal" fill="#6B7280">4</text><text x="454" y="400" text-anchor="end" font-size="11" font-weight="normal" fill="#6B7280">2</text><text x="454" y="412" text-anchor="end" font-size="11" font-weight="normal" fill="#6B7280">1</text><path d="M290,420 L290,452" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m26ak)"/><text x="290" y="470" text-anchor="middle" font-size="12.5" font-weight="normal" fill="#1F2937">S₈</text><path d="M320,420 L320,452" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m26ak)"/><text x="320" y="470" text-anchor="middle" font-size="12.5" font-weight="normal" fill="#1F2937">S₄</text><path d="M350,420 L350,452" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m26ak)"/><text x="350" y="470" text-anchor="middle" font-size="12.5" font-weight="normal" fill="#1F2937">S₂</text><path d="M380,420 L380,452" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m26ak)"/><text x="380" y="470" text-anchor="middle" font-size="12.5" font-weight="normal" fill="#1F2937">S₁</text><path d="M260,390 L200,390" fill="none" stroke="#1F2937" stroke-width="1.2"/><text x="194" y="394" text-anchor="end" font-size="11" font-weight="normal" fill="#6B7280">carry ignored</text><text x="150" y="470" text-anchor="middle" font-size="12" font-weight="normal" fill="#6B7280">BCD sum</text></svg>
+      </div>
+      <p style="font-size:.8rem;color:var(--text-2);margin-top:.4rem">Block diagram of a BCD adder. Adapted from M. Morris Mano and Michael D. Ciletti, <em>Digital Design</em>, Fig. 4.14.</p>
     </div>
     <p>The second adder adds 0110 (if Output carry=1) or 0000 (if Output carry=0) to Z. Since 0110 only has two 1-bits, no extra gate is needed to apply it — the Output carry wire itself is connected straight to the "4" and "2" bit positions, while the other two positions of the constant are simply tied low. The output S is guaranteed valid BCD, and the Output carry doubles as the carry into the next decade's adder.</p>
 
