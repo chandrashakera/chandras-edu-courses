@@ -1,6 +1,8 @@
 // js/quiz.js — gate + 5-question quiz with a real pass mark (GenAI sub-modules)
 // Usage (page script):
 //   initQuiz({ courseId:'genai', moduleId:MODULE_ID, passMark:4, questions:QUIZ });
+// Optional: messages:{ pass:string, fail:(score,total,passMark)=>string } to change the result wording
+// (js/quiz-submit.js uses this for the academic and AI Tools topic pages).
 // Questions: [{ q, options:[4 strings], answer:<index 0-3>, explanation }]
 // Question text is trusted HTML (injected as-is); write < as &lt; and & as &amp;.
 
@@ -12,8 +14,14 @@ const DEFAULT_IDS = {
   submit: 'submit-btn', result: 'quiz-result', retry: 'retry-btn'
 };
 
-export function initQuiz({ courseId, moduleId, passMark, questions, rootIds = {} }) {
+const DEFAULT_MESSAGES = {
+  pass: 'Passed — this sub-module is marked complete.',
+  fail: (score, total, passMark) => `You need ${passMark}/${total} to pass. Review the lesson and try again.`
+};
+
+export function initQuiz({ courseId, moduleId, passMark, questions, rootIds = {}, messages = {} }) {
   const ids = { ...DEFAULT_IDS, ...rootIds };
+  const msg = { ...DEFAULT_MESSAGES, ...messages };
   const $ = key => document.getElementById(ids[key]);
   let selected = {}, submitted = false, uid = null;
 
@@ -58,9 +66,7 @@ export function initQuiz({ courseId, moduleId, passMark, questions, rootIds = {}
     res.style.display = 'block';
     res.className = `quiz-result ${pass ? 'pass' : 'fail'}`;
     res.innerHTML = `<div class="quiz-score">${pass ? '🎉' : '📖'} Score: ${score}/${questions.length}</div>
-      <div class="quiz-msg">${pass
-        ? 'Passed — this sub-module is marked complete.'
-        : `You need ${passMark}/${questions.length} to pass. Review the lesson and try again.`}</div>`;
+      <div class="quiz-msg">${pass ? msg.pass : msg.fail(score, questions.length, passMark)}</div>`;
     $('retry').style.display = 'inline-block';
     await saveQuizResult(uid, courseId, moduleId, score, questions.length, passMark);
   }

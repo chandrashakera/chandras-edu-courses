@@ -63,13 +63,15 @@ export async function markModuleComplete(uid, courseId, moduleId) {
   }, { merge: true });
 }
 
-// ── Quiz result with a real pass mark (GenAI sub-modules) ─────
+// ── Quiz result with a real pass mark (GenAI, COA, DLD, AI Tools) ─
 // Completion is written only on a pass (using only the fields saveProgress already
 // writes); a failed attempt writes nothing, so an earlier completion is kept.
+// A later pass that does not beat the stored best score writes nothing either.
 export async function saveQuizResult(uid, courseId, topicId, score, total, passMark) {
   if (score < passMark) return false;
   const ref  = doc(db, "users", uid, "progress", `${courseId}__${topicId}`);
   const snap = await getDoc(ref), prev = snap.exists() ? snap.data() : {};
+  if (prev.completed && prev.score != null && score <= prev.score) return true;   // best score already stored
   const best = Math.max(prev.score ?? 0, score);
   await setDoc(ref, {
     completed:   true,
