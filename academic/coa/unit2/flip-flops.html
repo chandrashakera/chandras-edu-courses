@@ -88,6 +88,9 @@
     <h2 id="Latch-vs-FF">Latch vs. Flip-Flop</h2>
     <p>The gated D latch from the last topic is <strong>level-sensitive</strong>: for the entire time EN is high, Q tracks D. A <strong>flip-flop</strong> is <strong>edge-triggered</strong> instead — it samples its inputs and updates Q only at the instant the clock transitions (↑ rising or ↓ falling edge), and ignores its inputs the rest of the time. That single change is what makes reliable, predictable multi-stage sequential circuits — counters, registers, an entire CPU datapath — possible: every stage changes at the same defined instant instead of drifting based on how long a level happens to stay high.</p>
 
+    <div class="box box-tip">
+      <strong>In simple terms:</strong> a flip-flop is a latch that changes only at the clock edge, so every flip-flop in a system updates at the same instant.</div>
+
     <h2 id="Race-Around">The Race-Around Problem</h2>
     <p>A level-triggered JK latch has a subtle flaw: with J=K=1, the characteristic equation says "toggle" — but if the clock pulse stays high longer than the gate propagation delay, the output toggles again, and again, for as long as the pulse lasts. The final state when the clock finally drops depends on exactly how many times it toggled — unpredictable, and effectively random from the designer's point of view. This is the <strong>race-around condition</strong>.</p>
 
@@ -194,61 +197,10 @@
     <h2 id="Gate-Level">Inside a Flip-Flop: Gate-Level Clocked SR Flip-Flop</h2>
     <p>The block symbol above hides real gates. A basic <strong>clocked SR flip-flop</strong> is built from two pairs of cross-coupled NAND gates: two "steering" gates that only let S and R through while CLK is high, feeding a cross-coupled NAND latch (the same core idea as the previous topic's SR latch) that actually holds the bit:</p>
     <div style="text-align:center;margin:1.25rem 0">
-      <svg viewBox="-25 -20 500 300" style="max-width:640px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
-        <text x="-16" y="18" font-size="12" fill="var(--text)">S</text>
-        <line x1="0" y1="14" x2="90" y2="14" stroke="var(--primary)" stroke-width="2"/>
-        <text x="-16" y="250" font-size="12" fill="var(--text)">R</text>
-        <line x1="0" y1="246" x2="90" y2="246" stroke="var(--primary)" stroke-width="2"/>
-        <text x="-20" y="134" font-size="11" fill="var(--text-2)">CLK</text>
-        <line x1="0" y1="130" x2="60" y2="130" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="60" y1="56" x2="60" y2="204" stroke="var(--primary)" stroke-width="2"/>
-        <circle cx="60" cy="130" r="3" fill="var(--primary)"/>
-        <line x1="60" y1="56" x2="90" y2="56" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="60" y1="204" x2="90" y2="204" stroke="var(--primary)" stroke-width="2"/>
-
-        <path d="M90,0 L116,0 A35,35 0 0 1 116,70 L90,70 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="3" stroke-linejoin="round"/>
-        <circle cx="158" cy="35" r="7" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
-        <text x="95" y="88" font-size="10" fill="var(--text-2)">steering</text>
-
-        <path d="M90,190 L116,190 A35,35 0 0 1 116,260 L90,260 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="3" stroke-linejoin="round"/>
-        <circle cx="158" cy="225" r="7" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
-        <text x="95" y="278" font-size="10" fill="var(--text-2)">steering</text>
-
-        <line x1="165" y1="35" x2="270" y2="35" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="270" y1="35" x2="270" y2="29" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="270" y1="29" x2="290" y2="29" stroke="var(--primary)" stroke-width="2"/>
-
-        <line x1="165" y1="225" x2="270" y2="225" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="270" y1="225" x2="270" y2="231" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="270" y1="231" x2="290" y2="231" stroke="var(--primary)" stroke-width="2"/>
-
-        <path d="M290,15 L316,15 A35,35 0 0 1 316,85 L290,85 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="3" stroke-linejoin="round"/>
-        <circle cx="358" cy="50" r="7" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
-        <text x="295" y="103" font-size="10" fill="var(--text-2)">cross-coupled</text>
-
-        <path d="M290,175 L316,175 A35,35 0 0 1 316,245 L290,245 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="3" stroke-linejoin="round"/>
-        <circle cx="358" cy="210" r="7" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
-        <text x="295" y="263" font-size="10" fill="var(--text-2)">cross-coupled</text>
-
-        <line x1="365" y1="50" x2="390" y2="50" stroke="var(--primary)" stroke-width="2"/>
-        <circle cx="390" cy="50" r="3" fill="var(--primary)"/>
-        <line x1="390" y1="50" x2="440" y2="50" stroke="var(--primary)" stroke-width="2"/>
-        <text x="444" y="54" font-size="13" font-weight="700" fill="var(--text)">Q</text>
-        <line x1="390" y1="50" x2="390" y2="140" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="390" y1="140" x2="270" y2="140" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="270" y1="140" x2="270" y2="189" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="270" y1="189" x2="290" y2="189" stroke="var(--primary)" stroke-width="2"/>
-
-        <line x1="365" y1="210" x2="405" y2="210" stroke="var(--primary)" stroke-width="2"/>
-        <circle cx="405" cy="210" r="3" fill="var(--primary)"/>
-        <line x1="405" y1="210" x2="440" y2="210" stroke="var(--primary)" stroke-width="2"/>
-        <text x="444" y="214" font-size="13" font-weight="700" fill="var(--text)">Q′</text>
-        <line x1="405" y1="210" x2="405" y2="250" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="405" y1="250" x2="250" y2="250" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="250" y1="250" x2="250" y2="71" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="250" y1="71" x2="290" y2="71" stroke="var(--primary)" stroke-width="2"/>
-      </svg>
-      <div style="font-size:.78rem;color:#777;margin-top:.4rem">While CLK=0, both steering gates output 1 regardless of S/R, so the cross-coupled pair simply holds its last state. While CLK=1, S and R (inverted by the steering NANDs) can set or reset the latch — which is exactly why this simple design still race-arounds if CLK stays high too long, and why the master-slave structure above is needed in practice.</div>
+      <div style="overflow-x:auto">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 230" role="img" aria-label="Clocked SR flip-flop from NAND gates: S and CLK enter a steering NAND gate whose output drives the top cross-coupled NAND gate producing Q; R and CLK enter a second steering NAND gate driving the bottom cross-coupled NAND gate producing Q′. Q and Q′ feed back to each other's gates." style="width:100%;height:auto;max-width:500px;display:block;margin:0 auto;min-width:500px" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif"><title>Clocked SR flip-flop from NAND gates: S and CLK enter a steering NAND gate whose output drives the top cross-coupled NAND gate producing Q; R and CLK enter a second steering NAND gate driving the bottom cross-coupled NAND gate producing Q′. Q and Q′ feed back to each other's gates.</title><defs><marker id="m214ak" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#1F2937"/></marker><marker id="m214sk" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1F2937"/></marker><marker id="m214ao" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#E07A00"/></marker><marker id="m214so" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#E07A00"/></marker></defs><path d="M120,40.0 L142.0,40.0 A20.0,20.0 0 0 1 142.0,80.0 L120,80.0 Z" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><circle cx="165.5" cy="60" r="3.5" fill="white" stroke="#1565C0" stroke-width="1.5"/><path d="M120,150.0 L142.0,150.0 A20.0,20.0 0 0 1 142.0,190.0 L120,190.0 Z" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><circle cx="165.5" cy="170" r="3.5" fill="white" stroke="#1565C0" stroke-width="1.5"/><text x="30" y="54" text-anchor="end" font-size="13" font-weight="normal" fill="#1F2937">S</text><path d="M36,50 L120,50" fill="none" stroke="#1F2937" stroke-width="1.4"/><text x="30" y="184" text-anchor="end" font-size="13" font-weight="normal" fill="#1F2937">R</text><path d="M36,180 L120,180" fill="none" stroke="#1F2937" stroke-width="1.4"/><text x="30" y="119" text-anchor="end" font-size="13" font-weight="normal" fill="#E07A00">CLK</text><path d="M36,115 L90,115" fill="none" stroke="#E07A00" stroke-width="1.4"/><circle cx="90" cy="115" r="3" fill="#E07A00"/><path d="M90,115 L90,70 L120,70" fill="none" stroke="#E07A00" stroke-width="1.3"/><path d="M90,115 L90,160 L120,160" fill="none" stroke="#E07A00" stroke-width="1.3"/><text x="140" y="98" text-anchor="middle" font-size="11" font-weight="normal" fill="#6B7280">steering</text><text x="140" y="214" text-anchor="middle" font-size="11" font-weight="normal" fill="#6B7280">steering</text><path d="M260,50.0 L282.0,50.0 A20.0,20.0 0 0 1 282.0,90.0 L260,90.0 Z" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><circle cx="305.5" cy="70" r="3.5" fill="white" stroke="#1565C0" stroke-width="1.5"/><path d="M260,140.0 L282.0,140.0 A20.0,20.0 0 0 1 282.0,180.0 L260,180.0 Z" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><circle cx="305.5" cy="160" r="3.5" fill="white" stroke="#1565C0" stroke-width="1.5"/><path d="M169.0,60 L260,60" fill="none" stroke="#1F2937" stroke-width="1.4"/><path d="M169.0,170 L260,170" fill="none" stroke="#1F2937" stroke-width="1.4"/><path d="M309.0,70 L440,70" fill="none" stroke="#1F2937" stroke-width="1.4"/><text x="446" y="74" text-anchor="start" font-size="13" font-weight="normal" fill="#1F2937">Q</text><circle cx="400" cy="70" r="3" fill="#1F2937"/><path d="M309.0,160 L440,160" fill="none" stroke="#1F2937" stroke-width="1.4"/><text x="446" y="164" text-anchor="start" font-size="13" font-weight="normal" fill="#1F2937">Q′</text><circle cx="420" cy="160" r="3" fill="#1F2937"/><path d="M400,70 L400,108 L236,108 L236,150 L260,150" fill="none" stroke="#1F2937" stroke-width="1.3"/><path d="M420,160 L420,122 L246,122 L246,80 L260,80" fill="none" stroke="#1F2937" stroke-width="1.3"/><text x="320" y="40" text-anchor="middle" font-size="11" font-weight="normal" fill="#6B7280">cross-coupled</text></svg>
+      </div>
+      <p style="font-size:.8rem;color:var(--text-2);margin-top:.4rem">While CLK=0, both steering gates output 1 regardless of S/R, so the cross-coupled pair simply holds its last state. While CLK=1, S and R (inverted by the steering NANDs) can set or reset the latch — which is exactly why this simple design still race-arounds if CLK stays high too long, and why the master-slave structure above is needed in practice.</p>
     </div>
 
     <h2 id="Characteristic-Excitation">Characteristic &amp; Excitation Equations</h2>

@@ -82,6 +82,9 @@
   <div class="lesson">
     <p>Everything built so far in this course — adders, decoders, multiplexers — is <strong>combinational</strong>: its output depends only on the present inputs, with no memory of anything that happened a moment ago. A CPU cannot be built from combinational logic alone. A program counter has to remember which instruction comes next; a register has to hold a value across many clock cycles. That memory is exactly what a <strong>sequential circuit</strong> adds.</p>
 
+    <div class="box box-tip">
+      <strong>In simple terms:</strong> a sequential circuit remembers — its output depends on what happened before (its state) as well as on the inputs now.</div>
+
     <h2 id="Definition">Definition</h2>
     <p>A <strong>sequential circuit</strong> is a circuit whose output depends on both the <strong>present inputs</strong> and the circuit's current <strong>state</strong> — some stored information about what has happened before. That state comes from feeding part of the circuit's own output back into its input logic, through storage elements (latches or flip-flops, covered in the next two topics):</p>
     <p style="text-align:center;font-size:1.1rem;font-weight:700;color:var(--primary);margin:1rem 0">Next State = f(Inputs, Present State)</p>

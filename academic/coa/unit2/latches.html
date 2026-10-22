@@ -88,34 +88,16 @@
   <div class="lesson">
     <p>The previous topic described the general shape of a sequential circuit: combinational logic plus a feedback loop that remembers state. A <strong>latch</strong> is the simplest possible version of that idea — a single stored bit, built from nothing more than ordinary gates cross-wired so each gate's output feeds back as another gate's input.</p>
 
+    <div class="box box-tip">
+      <strong>In simple terms:</strong> a latch is two gates feeding each other, so it holds a 1 or a 0 by itself; Set and Reset change what it holds.</div>
+
     <h2 id="SR-Latch">The SR Latch</h2>
     <p>Cross-coupling two NOR gates — each gate's output feeding back as one of the other gate's inputs — produces a circuit with two stable states, which is exactly what's needed to remember one bit:</p>
     <div style="text-align:center;margin:1.25rem 0">
-      <svg viewBox="-25 -5 300 150" style="max-width:400px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
-        <text x="-20" y="19" font-size="13" fill="var(--text)">R</text>
-        <line x1="-8" y1="15" x2="68.4" y2="15" stroke="var(--primary)" stroke-width="2"/>
-        <path d="M60,0 Q80,25 60,50 Q105,50 127.5,25 Q105,0 60,0 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="3" stroke-linejoin="round"/>
-        <circle cx="133.5" cy="25" r="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
-        <line x1="139.5" y1="25" x2="245" y2="25" stroke="var(--primary)" stroke-width="2"/>
-        <text x="249" y="29" font-size="13" font-weight="700" fill="var(--text)">Q</text>
-
-        <text x="-20" y="109" font-size="13" fill="var(--text)">S</text>
-        <line x1="-8" y1="105" x2="68.4" y2="105" stroke="var(--primary)" stroke-width="2"/>
-        <path d="M60,90 Q80,115 60,140 Q105,140 127.5,115 Q105,90 60,90 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="3" stroke-linejoin="round"/>
-        <circle cx="133.5" cy="115" r="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
-        <line x1="139.5" y1="115" x2="245" y2="115" stroke="var(--primary)" stroke-width="2"/>
-        <text x="249" y="119" font-size="13" font-weight="700" fill="var(--text)">Q′</text>
-
-        <line x1="200" y1="25" x2="200" y2="70" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="200" y1="70" x2="15" y2="70" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="15" y1="70" x2="15" y2="125" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="15" y1="125" x2="68.4" y2="125" stroke="var(--primary)" stroke-width="2"/>
-
-        <line x1="200" y1="115" x2="200" y2="80" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="200" y1="80" x2="5" y2="80" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="5" y1="80" x2="5" y2="35" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="5" y1="35" x2="68.4" y2="35" stroke="var(--primary)" stroke-width="2"/>
-      </svg>
+      <div style="overflow-x:auto">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 190" role="img" aria-label="SR latch with two cross-coupled NOR gates: R and Q′ enter the top NOR gate, which outputs Q; S and Q enter the bottom NOR gate, which outputs Q′." style="width:100%;height:auto;max-width:400px;display:block;margin:0 auto;min-width:400px" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif"><title>SR latch with two cross-coupled NOR gates: R and Q′ enter the top NOR gate, which outputs Q; S and Q enter the bottom NOR gate, which outputs Q′.</title><defs><marker id="m213ak" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#1F2937"/></marker><marker id="m213sk" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1F2937"/></marker><marker id="m213ao" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#E07A00"/></marker><marker id="m213so" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#E07A00"/></marker></defs><path d="M150,40.0 Q176.4,40.0 194.0,60 Q176.4,80.0 150,80.0 Q162.0,60 150,40.0 Z" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><circle cx="197.5" cy="60" r="3.5" fill="white" stroke="#1565C0" stroke-width="1.5"/><path d="M150,110.0 Q176.4,110.0 194.0,130 Q176.4,150.0 150,150.0 Q162.0,130 150,110.0 Z" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><circle cx="197.5" cy="130" r="3.5" fill="white" stroke="#1565C0" stroke-width="1.5"/><text x="30" y="54" text-anchor="end" font-size="13" font-weight="normal" fill="#1F2937">R</text><path d="M36,50 L154.5,50" fill="none" stroke="#1F2937" stroke-width="1.4"/><text x="30" y="144" text-anchor="end" font-size="13" font-weight="normal" fill="#1F2937">S</text><path d="M36,140 L154.5,140" fill="none" stroke="#1F2937" stroke-width="1.4"/><path d="M201.0,60 L330,60" fill="none" stroke="#1F2937" stroke-width="1.4"/><text x="336" y="64" text-anchor="start" font-size="13" font-weight="normal" fill="#1F2937">Q</text><circle cx="280" cy="60" r="3" fill="#1F2937"/><path d="M201.0,130 L330,130" fill="none" stroke="#1F2937" stroke-width="1.4"/><text x="336" y="134" text-anchor="start" font-size="13" font-weight="normal" fill="#1F2937">Q′</text><circle cx="300" cy="130" r="3" fill="#1F2937"/><path d="M280,60 L280,92 L110,92 L110,120 L154.5,120" fill="none" stroke="#1F2937" stroke-width="1.3"/><path d="M300,130 L300,100 L126,100 L126,70 L154.5,70" fill="none" stroke="#1F2937" stroke-width="1.3"/></svg>
+      </div>
+      <p style="font-size:.8rem;color:var(--text-2);margin-top:.4rem">SR latch with two cross-coupled NOR gates.</p>
     </div>
     <p>Top gate: <strong>Q = NOR(R, Q′)</strong>. Bottom gate: <strong>Q′ = NOR(S, Q)</strong>.</p>
     <div style="overflow-x:auto">

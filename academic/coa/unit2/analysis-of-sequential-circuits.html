@@ -87,39 +87,19 @@
   <div class="lesson">
     <p>Just like combinational circuits (Unit 2's first topic group) had an analysis procedure for working backward from a diagram to a Boolean function, sequential circuits have their own analysis procedure — starting from a flip-flop circuit and working backward to a complete description of its behavior: <strong>equations</strong>, a <strong>state table</strong>, and a <strong>state diagram</strong>.</p>
 
+    <div class="box box-tip">
+      <strong>In simple terms:</strong> to analyse a sequential circuit, write what each flip-flop input will be, then list every state and input to see where the circuit goes next.</div>
+
     <h2 id="Equations">Next-State and Output Equations</h2>
     <p>Given a sequential circuit's gate-level diagram, the first step is always the same: write the Boolean expression feeding each flip-flop's input (this is the <strong>next-state equation</strong> for that flip-flop, since whatever value reaches, say, a D input is exactly what the flip-flop will hold after the next clock edge), and the Boolean expression for each external output (the <strong>output equation</strong>).</p>
 
     <h2 id="Worked-Circuit">Worked Example — Circuit</h2>
     <p>A circuit has one D flip-flop (present state Q), one input X, and one output Y. An XOR gate combines X with the flip-flop's own output Q, and feeds the result into D. The output Y is simply Q itself:</p>
     <div style="text-align:center;margin:1.25rem 0">
-      <svg viewBox="-30 -30 480 220" style="max-width:595px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
-        <text x="-24" y="21" font-size="13" fill="var(--text)">X</text>
-        <line x1="0" y1="25" x2="110" y2="25" stroke="var(--primary)" stroke-width="2"/>
-
-        <path d="M101,10 Q125,40 101,70" fill="none" stroke="var(--primary)" stroke-width="3" stroke-linejoin="round"/>
-        <path d="M110,10 Q134,40 110,70 Q164,70 191,40 Q164,10 110,10 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="3" stroke-linejoin="round"/>
-        <line x1="191" y1="40" x2="230" y2="40" stroke="var(--primary)" stroke-width="2"/>
-        <text x="196" y="30" font-size="10" fill="var(--text-2)">D</text>
-
-        <rect x="230" y="-5" width="90" height="90" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
-        <text x="275" y="35" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">D</text>
-        <text x="275" y="51" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">FLIP-FLOP</text>
-        <text x="257" y="106" font-size="11" fill="var(--text-2)">CLK</text>
-        <line x1="275" y1="102" x2="275" y2="85" stroke="var(--primary)" stroke-width="2"/>
-        <path d="M267,85 L283,85 L275,73 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5" stroke-linejoin="round"/>
-
-        <line x1="320" y1="40" x2="360" y2="40" stroke="var(--primary)" stroke-width="2"/>
-        <circle cx="335" cy="40" r="3" fill="var(--primary)"/>
-        <text x="364" y="44" font-size="13" fill="var(--text)">Q (= output Y)</text>
-
-        <line x1="335" y1="40" x2="335" y2="150" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="335" y1="150" x2="20" y2="150" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="20" y1="150" x2="20" y2="55" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="20" y1="55" x2="110" y2="55" stroke="var(--primary)" stroke-width="2"/>
-        <text x="110" y="166" font-size="11" fill="var(--text-2)">Q fed back into the XOR gate</text>
-      </svg>
-      <div style="font-size:.78rem;color:#777;margin-top:.4rem">D = X ⊕ Q, and the flip-flop's own Q feeds straight back as one of the XOR's inputs.</div>
+      <div style="overflow-x:auto">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 170" role="img" aria-label="Worked example circuit: input X and the flip-flop output Q enter an XOR gate whose output drives D of a D flip-flop; the flip-flop output Q is also the circuit output Y and feeds back to the XOR gate." style="width:100%;height:auto;max-width:480px;display:block;margin:0 auto;min-width:480px" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif"><title>Worked example circuit: input X and the flip-flop output Q enter an XOR gate whose output drives D of a D flip-flop; the flip-flop output Q is also the circuit output Y and feeds back to the XOR gate.</title><defs><marker id="m215aak" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#1F2937"/></marker><marker id="m215ask" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1F2937"/></marker><marker id="m215aao" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#E07A00"/></marker><marker id="m215aso" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#E07A00"/></marker></defs><path d="M120,38.0 Q149.04,38.0 168.4,60 Q149.04,82.0 120,82.0 Q133.2,60 120,38.0 Z" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><path d="M114,38.0 Q127.2,60 114,82.0" fill="none" stroke="#1565C0" stroke-width="1.6"/><text x="30" y="54" text-anchor="end" font-size="13" font-weight="normal" fill="#1F2937">X</text><path d="M36,50 L119.23636363636363,50" fill="none" stroke="#1F2937" stroke-width="1.4"/><rect x="250" y="30" width="90" height="80" rx="0" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><text x="295.0" y="74.2" text-anchor="middle" font-size="12" fill="#1F2937"></text><text x="295" y="22" text-anchor="middle" font-size="12" font-weight="normal" fill="#1F2937">D flip-flop</text><text x="258" y="64" text-anchor="start" font-size="11.5" font-weight="normal" fill="#1F2937">D</text><path d="M168.4,60 L250,60" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m215aak)"/><path d="M250,88 L260,94 L250,100" fill="none" stroke="#1F2937" stroke-width="1.3"/><text x="154" y="98" text-anchor="end" font-size="11" font-weight="normal" fill="#E07A00">CLK</text><path d="M160,94 L250,94" fill="none" stroke="#E07A00" stroke-width="1.2"/><text x="332" y="54" text-anchor="end" font-size="11.5" font-weight="normal" fill="#1F2937">Q</text><path d="M340,50 L430,50" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m215aak)"/><text x="436" y="54" text-anchor="start" font-size="12.5" font-weight="normal" fill="#1F2937">Y = Q</text><circle cx="380" cy="50" r="3" fill="#1F2937"/><path d="M380,50 L380,140 L90,140 L90,70 L119.23636363636363,70" fill="none" stroke="#1F2937" stroke-width="1.3"/></svg>
+      </div>
+      <p style="font-size:.8rem;color:var(--text-2);margin-top:.4rem">D = X ⊕ Q, and the flip-flop's own Q feeds straight back as one of the XOR's inputs.</p>
     </div>
     <div class="box box-eg">
       <pre>Next-state equation:  D = X ⊕ Q      (this is what Q becomes after the next clock edge)
@@ -144,32 +124,10 @@ Output equation:      Y = Q</pre>
     <h2 id="State-Diagram">Step 3 — State Diagram</h2>
     <p>A state diagram is the same information as the state table, drawn as a graph: one circle per state, and a directed arrow for every present-state/input combination, pointing at the resulting next state and labeled with the input that causes it:</p>
     <div style="text-align:center;margin:1.25rem 0">
-      <svg viewBox="-10 -10 420 220" style="max-width:480px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="90" cy="110" r="35" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
-        <text x="90" y="117" font-size="18" font-weight="700" text-anchor="middle" fill="var(--text)">0</text>
-        <text x="90" y="162" font-size="11" text-anchor="middle" fill="var(--text-2)">Y = 0</text>
-
-        <circle cx="300" cy="110" r="35" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
-        <text x="300" y="117" font-size="18" font-weight="700" text-anchor="middle" fill="var(--text)">1</text>
-        <text x="300" y="162" font-size="11" text-anchor="middle" fill="var(--text-2)">Y = 1</text>
-
-        <path d="M70,80 Q90,30 110,80" fill="none" stroke="var(--primary)" stroke-width="2"/>
-        <path d="M110,80 L98,72 L100,86 Z" fill="var(--primary)"/>
-        <text x="90" y="22" font-size="12" text-anchor="middle" fill="var(--text)">X=0</text>
-
-        <path d="M280,80 Q300,30 320,80" fill="none" stroke="var(--primary)" stroke-width="2"/>
-        <path d="M320,80 L308,72 L310,86 Z" fill="var(--primary)"/>
-        <text x="300" y="22" font-size="12" text-anchor="middle" fill="var(--text)">X=0</text>
-
-        <line x1="123" y1="95" x2="267" y2="95" stroke="var(--primary)" stroke-width="2"/>
-        <path d="M267,95 L255,89 L255,101 Z" fill="var(--primary)"/>
-        <text x="195" y="85" font-size="12" text-anchor="middle" fill="var(--text)">X=1</text>
-
-        <line x1="267" y1="125" x2="123" y2="125" stroke="var(--primary)" stroke-width="2"/>
-        <path d="M123,125 L135,119 L135,131 Z" fill="var(--primary)"/>
-        <text x="195" y="145" font-size="12" text-anchor="middle" fill="var(--text)">X=1</text>
-      </svg>
-      <div style="font-size:.78rem;color:#777;margin-top:.4rem">State diagram — X=0 keeps the circuit in its current state, X=1 always flips it. Each circle's output Y is shown attached to the state, since Y depends only on present state here.</div>
+      <div style="overflow-x:auto">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 200" role="img" aria-label="State diagram: two states, 0 and 1. A self-loop labelled X = 0 on each state keeps the present state; an arrow labelled X = 1 goes from 0 to 1 and another from 1 to 0. The output Y is 0 in state 0 and 1 in state 1." style="width:100%;height:auto;max-width:420px;display:block;margin:0 auto;min-width:420px" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif"><title>State diagram: two states, 0 and 1. A self-loop labelled X = 0 on each state keeps the present state; an arrow labelled X = 1 goes from 0 to 1 and another from 1 to 0. The output Y is 0 in state 0 and 1 in state 1.</title><defs><marker id="m215bak" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#1F2937"/></marker><marker id="m215bsk" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1F2937"/></marker><marker id="m215bao" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#E07A00"/></marker><marker id="m215bso" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#E07A00"/></marker></defs><circle cx="120" cy="110" r="30" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.8"/><text x="120" y="116" text-anchor="middle" font-size="16" font-weight="600" fill="#1F2937">0</text><text x="120" y="160" text-anchor="middle" font-size="12" font-weight="normal" fill="#6B7280">Y = 0</text><path d="M106,84 C80,30 160,30 134,84" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m215bak)"/><text x="120" y="38" text-anchor="middle" font-size="12" font-weight="normal" fill="#E07A00">X = 0</text><circle cx="300" cy="110" r="30" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.8"/><text x="300" y="116" text-anchor="middle" font-size="16" font-weight="600" fill="#1F2937">1</text><text x="300" y="160" text-anchor="middle" font-size="12" font-weight="normal" fill="#6B7280">Y = 1</text><path d="M286,84 C260,30 340,30 314,84" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m215bak)"/><text x="300" y="38" text-anchor="middle" font-size="12" font-weight="normal" fill="#E07A00">X = 0</text><path d="M148,98 L272,98" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m215bak)"/><text x="210" y="90" text-anchor="middle" font-size="12" font-weight="normal" fill="#E07A00">X = 1</text><path d="M272,122 L148,122" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m215bak)"/><text x="210" y="140" text-anchor="middle" font-size="12" font-weight="normal" fill="#E07A00">X = 1</text></svg>
+      </div>
+      <p style="font-size:.8rem;color:var(--text-2);margin-top:.4rem">State diagram — X=0 keeps the circuit in its current state, X=1 always flips it. Each circle's output Y is shown attached to the state, since Y depends only on present state here.</p>
     </div>
     <p>Reading this diagram tells the same story as the equations, but visually: from state 0, an X=0 self-loop stays at 0; an X=1 arrow leaves for state 1. State 1 behaves the mirror image. This circuit is, in fact, exactly a <strong>T flip-flop</strong> in disguise — D=X⊕Q is precisely the T flip-flop's characteristic equation with T renamed to X, so "toggle when X=1, hold when X=0" is the whole story.</p>
 
