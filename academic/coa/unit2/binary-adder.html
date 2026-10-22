@@ -82,6 +82,9 @@
   <div class="lesson">
     <p>Addition is one of the most basic operations in a computer — even subtraction, multiplication, and comparison are usually built from it. This page builds an adder in three small steps: a single-bit half adder, a single-bit full adder that can be chained, and a complete multi-bit binary adder made by connecting full adders together.</p>
 
+    <div class="box box-tip">
+      <strong>In simple terms:</strong> a half adder adds two bits; a full adder also adds the carry from the bit before; chaining full adders adds whole numbers.</div>
+
     <h2 id="Half-Adder">Half Adder</h2>
     <p>A <strong>half adder</strong> is the simplest possible adding circuit: it takes two single bits, A and B, and adds them — producing a <strong>sum</strong> bit S and a <strong>carry</strong> bit C.</p>
     <div style="overflow-x:auto">
@@ -98,27 +101,10 @@
     <p style="text-align:center;font-size:1.1rem;font-weight:700;color:var(--primary);margin:1rem 0">S = A ⊕ B &nbsp;&nbsp; C = A · B</p>
     <p>Both equations can be read straight off the truth table — the sum column is exactly XOR, and the carry column is exactly AND. Here's a half adder built from those two gates:</p>
     <div style="text-align:center;margin:1.25rem 0">
-      <svg viewBox="-8 -8 200 168" style="max-width:280px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
-        <text x="0" y="29" font-size="13" fill="var(--text)">A</text>
-        <line x1="14" y1="25" x2="50" y2="25" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="35" y1="25" x2="35" y2="105" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="35" y1="105" x2="50" y2="105" stroke="var(--primary)" stroke-width="2"/>
-
-        <text x="0" y="59" font-size="13" fill="var(--text)">B</text>
-        <line x1="14" y1="55" x2="50" y2="55" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="25" y1="55" x2="25" y2="135" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="25" y1="135" x2="50" y2="135" stroke="var(--primary)" stroke-width="2"/>
-
-        <path d="M41,10 Q65,40 41,70" fill="none" stroke="var(--primary)" stroke-width="3" stroke-linejoin="round"/>
-        <path d="M50,10 Q74,40 50,70 Q104,70 131,40 Q104,10 50,10 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="3" stroke-linejoin="round"/>
-        <line x1="131" y1="40" x2="160" y2="40" stroke="var(--primary)" stroke-width="2"/>
-        <text x="164" y="44" font-size="13" fill="var(--text)">S</text>
-
-        <path d="M50,90 L86,90 A30,30 0 0 1 86,150 L50,150 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="3" stroke-linejoin="round"/>
-        <line x1="116" y1="120" x2="160" y2="120" stroke="var(--primary)" stroke-width="2"/>
-        <text x="164" y="124" font-size="13" fill="var(--text)">C</text>
-      </svg>
-      <div style="font-size:.78rem;color:#777;margin-top:.4rem">Half adder — one XOR gate makes the sum, one AND gate makes the carry.</div>
+      <div style="overflow-x:auto">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 150" role="img" aria-label="Half adder: an XOR gate gives the sum S = A XOR B and an AND gate gives the carry C = A·B." style="width:100%;height:auto;max-width:300px;display:block;margin:0 auto;min-width:300px" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif"><title>Half adder: an XOR gate gives the sum S = A XOR B and an AND gate gives the carry C = A·B.</title><defs><marker id="m24aak" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#1F2937"/></marker><marker id="m24ask" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1F2937"/></marker><marker id="m24aao" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#E07A00"/></marker><marker id="m24aso" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#E07A00"/></marker></defs><text x="20" y="44" text-anchor="end" font-size="13" font-weight="normal" fill="#1F2937">A</text><text x="20" y="76" text-anchor="end" font-size="13" font-weight="normal" fill="#1F2937">B</text><path d="M150,30.0 Q176.4,30.0 194.0,50 Q176.4,70.0 150,70.0 Q162.0,50 150,30.0 Z" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><path d="M144,30.0 Q156.0,50 144,70.0" fill="none" stroke="#1565C0" stroke-width="1.6"/><path d="M150,88.0 L172.0,88.0 A20.0,20.0 0 0 1 172.0,128.0 L150,128.0 Z" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><circle cx="70" cy="40" r="3" fill="#1F2937"/><circle cx="90" cy="72" r="3" fill="#1F2937"/><path d="M26,40 L148.5,40" fill="none" stroke="#1F2937" stroke-width="1.4"/><path d="M26,72 L90,72" fill="none" stroke="#1F2937" stroke-width="1.4"/><path d="M90,72 L90,60 L148.5,60" fill="none" stroke="#1F2937" stroke-width="1.4"/><path d="M70,40 L70,100 L150,100" fill="none" stroke="#1F2937" stroke-width="1.4"/><path d="M90,72 L90,116 L150,116" fill="none" stroke="#1F2937" stroke-width="1.4"/><path d="M194.0,50 L224.0,50" fill="none" stroke="#1F2937" stroke-width="1.4"/><text x="230.0" y="54" text-anchor="start" font-size="13" font-weight="normal" fill="#1F2937">S</text><path d="M192.0,108 L224.0,108" fill="none" stroke="#1F2937" stroke-width="1.4"/><text x="230.0" y="112" text-anchor="start" font-size="13" font-weight="normal" fill="#1F2937">C</text></svg>
+      </div>
+      <p style="font-size:.8rem;color:var(--text-2);margin-top:.4rem">Half adder — one XOR gate makes the sum, one AND gate makes the carry.</p>
     </div>
     <p>The name is deliberate: it only does "half" the job. A half adder has no <strong>carry-in</strong> input at all, so it can only be used for the lowest bit of a multi-bit addition — the one position that never needs to carry anything in.</p>
 
@@ -143,41 +129,10 @@
     <p>The carry-out equation is worth remembering as a pattern rather than by rote: it's 1 whenever <strong>at least two of the three inputs are 1</strong> — this is called a "majority" function.</p>
     <p>The easiest way to build a full adder is to reuse two half adders plus one OR gate, instead of wiring the equations above from scratch:</p>
     <div style="text-align:center;margin:1.25rem 0">
-      <svg viewBox="-15 -25 445 190" style="max-width:560px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
-        <text x="0" y="32" font-size="13" fill="var(--text)">A</text>
-        <line x1="14" y1="28" x2="50" y2="28" stroke="var(--primary)" stroke-width="2"/>
-        <text x="0" y="66" font-size="13" fill="var(--text)">B</text>
-        <line x1="14" y1="62" x2="50" y2="62" stroke="var(--primary)" stroke-width="2"/>
-        <rect x="50" y="10" width="70" height="70" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
-        <text x="85" y="54" font-size="15" font-weight="700" text-anchor="middle" fill="var(--text)">HA₁</text>
-
-        <line x1="120" y1="28" x2="180" y2="28" stroke="var(--primary)" stroke-width="2"/>
-        <text x="138" y="22" font-size="11" fill="var(--text-2)">S₁</text>
-        <line x1="120" y1="62" x2="145" y2="62" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="145" y1="62" x2="145" y2="105" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="145" y1="105" x2="289" y2="105" stroke="var(--primary)" stroke-width="2"/>
-        <text x="152" y="118" font-size="11" fill="var(--text-2)">C₁</text>
-
-        <text x="0" y="99" font-size="13" fill="var(--text)">Cᵢₙ</text>
-        <line x1="22" y1="95" x2="160" y2="95" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="160" y1="95" x2="160" y2="62" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="160" y1="62" x2="180" y2="62" stroke="var(--primary)" stroke-width="2"/>
-
-        <rect x="180" y="10" width="70" height="70" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
-        <text x="215" y="54" font-size="15" font-weight="700" text-anchor="middle" fill="var(--text)">HA₂</text>
-
-        <line x1="250" y1="28" x2="290" y2="28" stroke="var(--primary)" stroke-width="2"/>
-        <text x="294" y="32" font-size="13" fill="var(--text)">S</text>
-        <line x1="250" y1="62" x2="265" y2="62" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="265" y1="62" x2="265" y2="135" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="265" y1="135" x2="289" y2="135" stroke="var(--primary)" stroke-width="2"/>
-        <text x="258" y="98" font-size="11" text-anchor="end" fill="var(--text-2)">C₂</text>
-
-        <path d="M280,90 Q304,120 280,150 Q334,150 361,120 Q334,90 280,90 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="3" stroke-linejoin="round"/>
-        <line x1="361" y1="120" x2="395" y2="120" stroke="var(--primary)" stroke-width="2"/>
-        <text x="399" y="124" font-size="13" fill="var(--text)">Cₒᵤₜ</text>
-      </svg>
-      <div style="font-size:.78rem;color:#777;margin-top:.4rem">A full adder built from two half adders and one OR gate.</div>
+      <div style="overflow-x:auto">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 220" role="img" aria-label="Full adder built from two half adders and an OR gate: half adder HA1 adds A and B, giving partial sum S1 and carry C1; half adder HA2 adds S1 and Cin, giving the sum S and carry C2; an OR gate combines C1 and C2 into Cout." style="width:100%;height:auto;max-width:520px;display:block;margin:0 auto;min-width:520px" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif"><title>Full adder built from two half adders and an OR gate: half adder HA1 adds A and B, giving partial sum S1 and carry C1; half adder HA2 adds S1 and Cin, giving the sum S and carry C2; an OR gate combines C1 and C2 into Cout.</title><defs><marker id="m24bak" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#1F2937"/></marker><marker id="m24bsk" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1F2937"/></marker><marker id="m24bao" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#E07A00"/></marker><marker id="m24bso" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#E07A00"/></marker></defs><rect x="100" y="40" width="90" height="80" rx="6" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><text x="145.0" y="84.5" text-anchor="middle" font-size="13" fill="#1F2937">HA₁</text><rect x="280" y="40" width="90" height="80" rx="6" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><text x="325.0" y="84.5" text-anchor="middle" font-size="13" fill="#1F2937">HA₂</text><text x="30" y="64" text-anchor="end" font-size="13" font-weight="normal" fill="#1F2937">A</text><path d="M36,60 L100,60" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m24bak)"/><text x="30" y="104" text-anchor="end" font-size="13" font-weight="normal" fill="#1F2937">B</text><path d="M36,100 L100,100" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m24bak)"/><text x="30" y="164" text-anchor="end" font-size="13" font-weight="normal" fill="#1F2937">Cᵢₙ</text><path d="M36,160 L240,160 L240,100 L280,100" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m24bak)"/><path d="M190,60 L280,60" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m24bak)"/><text x="235" y="52" text-anchor="middle" font-size="12" font-weight="normal" fill="#1F2937">S₁</text><text x="196" y="82" text-anchor="start" font-size="12" font-weight="normal" fill="#1F2937">C₁</text><path d="M190,90 L212,90 L212,196 L398,196" fill="none" stroke="#1F2937" stroke-width="1.6"/><path d="M370,60 L470,60" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m24bak)"/><text x="476" y="64" text-anchor="start" font-size="13" font-weight="normal" fill="#1F2937">S</text><path d="M400,164.0 Q426.4,164.0 444.0,184 Q426.4,204.0 400,204.0 Q412.0,184 400,164.0 Z" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><text x="376" y="96" text-anchor="start" font-size="12" font-weight="normal" fill="#1F2937">C₂</text><path d="M370,100 L392,100 L392,172 L403.84,172" fill="none" stroke="#1F2937" stroke-width="1.6"/><path d="M398,196 L403.84,196" fill="none" stroke="#1F2937" stroke-width="1.6"/><path d="M444.0,184 L474.0,184" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m24bak)"/><text x="478.0" y="188" text-anchor="start" font-size="13" font-weight="normal" fill="#1F2937">Cₒᵤₜ</text></svg>
+      </div>
+      <p style="font-size:.8rem;color:var(--text-2);margin-top:.4rem">A full adder built from two half adders and one OR gate. Adapted from M. Morris Mano and Michael D. Ciletti, <em>Digital Design</em>, Fig. 4.8.</p>
     </div>
     <p>HA₁ adds A and B, giving a partial sum S₁ and a carry C₁. HA₂ then adds S₁ and Cᵢₙ, giving the final sum S and a second carry C₂. C₁ and C₂ can never both be 1 at the same time, so simply OR-ing them together gives the correct Cₒᵤₜ, without needing any 3-input gate.</p>
 
@@ -240,7 +195,7 @@
     <table>
       <thead><tr><th>Bit position</th><th>4</th><th>3</th><th>2</th><th>1</th><th>0</th></tr></thead>
       <tbody>
-        <tr><td>Carry into this bit</td><td>—</td><td>1</td><td>1</td><td>0</td><td>0</td></tr>
+        <tr><td>Carry into this bit</td><td>—</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
         <tr><td>A</td><td>—</td><td>1</td><td>0</td><td>0</td><td>1</td></tr>
         <tr><td>B</td><td>—</td><td>0</td><td>1</td><td>1</td><td>0</td></tr>
         <tr><td><strong>Result</strong></td><td><strong>0</strong></td><td><strong>1</strong></td><td><strong>1</strong></td><td><strong>1</strong></td><td><strong>1</strong></td></tr>
@@ -248,6 +203,7 @@
     </table>
     </div>
     <p>Reading the result row left to right (bit 4 down to bit 0) gives <strong>01111₂ = 15</strong>. Bit 4 is the final carry-out C₄ — here it's 0, meaning the answer fit in 4 bits with nothing left over. Check: 9 + 6 = 15. ✓</p>
+    <p>No position here has two 1s, so no carry is generated at any stage — try 0111 + 0011 to see carries ripple.</p>
 
     <div class="box box-tip">
       🚀 <strong>Beyond the textbook:</strong> the ripple carry adder on this page is simple but has a real weakness — the worst-case delay grows with the number of bits, since each stage must wait for the previous stage's carry before it can finish. Modern CPUs use faster designs like the <strong>carry-lookahead adder</strong>, which computes all the carries in parallel using extra logic, trading more gates for much lower latency. The ripple carry adder here is still the right place to start — it's what a carry-lookahead adder is built to outperform.
