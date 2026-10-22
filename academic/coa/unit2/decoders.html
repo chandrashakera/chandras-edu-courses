@@ -82,6 +82,9 @@
   <div class="lesson">
     <p>A <strong>decoder</strong> is a combinational circuit that converts binary information from <em>n</em> input lines into a maximum of 2ⁿ unique output lines — with, at most, one output line active for each valid input combination. It's a workhorse of real digital systems, from memory addressing to instruction decoding in the CPU you'll study later in this course.</p>
 
+    <div class="box box-tip">
+      <strong>In simple terms:</strong> a decoder turns a binary number into 'one wire high' — input 101 lights up output 5 and nothing else.</div>
+
     <h2 id="2to4">2-to-4 Decoder</h2>
     <div style="overflow-x:auto">
     <table>
@@ -99,25 +102,10 @@
     <h2 id="Enable">Enable Input</h2>
     <p>Most real decoder chips add an <strong>enable</strong> input E: every output gate gets a third input tied to E, so <em>all</em> outputs stay 0 whenever E=0, regardless of the address inputs. This is what makes decoders useful as chip-select logic — only the addressed chip's enable line goes active. Here's the whole 2-to-4 decoder as a single block, with E as a third input pin:</p>
     <div style="text-align:center;margin:1.25rem 0">
-      <svg viewBox="-20 0 250 155" style="max-width:340px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
-        <text x="-18" y="37" font-size="12" fill="var(--text)">A</text>
-        <line x1="0" y1="33" x2="60" y2="33" stroke="var(--primary)" stroke-width="2"/>
-        <text x="-18" y="84" font-size="12" fill="var(--text)">B</text>
-        <line x1="0" y1="80" x2="60" y2="80" stroke="var(--primary)" stroke-width="2"/>
-        <text x="-18" y="131" font-size="12" fill="var(--text)">E</text>
-        <line x1="0" y1="127" x2="60" y2="127" stroke="var(--primary)" stroke-width="2"/>
-        <rect x="60" y="10" width="100" height="140" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
-        <text x="110" y="76" font-size="13" font-weight="700" text-anchor="middle" fill="var(--text)">2-to-4</text>
-        <text x="110" y="92" font-size="13" font-weight="700" text-anchor="middle" fill="var(--text)">DECODER</text>
-        <line x1="160" y1="28" x2="200" y2="28" stroke="var(--primary)" stroke-width="2"/>
-        <text x="204" y="32" font-size="12" fill="var(--text)">D₀</text>
-        <line x1="160" y1="63" x2="200" y2="63" stroke="var(--primary)" stroke-width="2"/>
-        <text x="204" y="67" font-size="12" fill="var(--text)">D₁</text>
-        <line x1="160" y1="98" x2="200" y2="98" stroke="var(--primary)" stroke-width="2"/>
-        <text x="204" y="102" font-size="12" fill="var(--text)">D₂</text>
-        <line x1="160" y1="133" x2="200" y2="133" stroke="var(--primary)" stroke-width="2"/>
-        <text x="204" y="137" font-size="12" fill="var(--text)">D₃</text>
-      </svg>
+      <div style="overflow-x:auto">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" role="img" aria-label="2-to-4 decoder with enable: inputs A1 and A0 and their complements feed four 3-input AND gates, each also receiving the enable E; the outputs are D0 = E·A1′A0′, D1 = E·A1′A0, D2 = E·A1A0′ and D3 = E·A1A0." style="width:100%;height:auto;max-width:400px;display:block;margin:0 auto;min-width:400px" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif"><title>2-to-4 decoder with enable: inputs A1 and A0 and their complements feed four 3-input AND gates, each also receiving the enable E; the outputs are D0 = E·A1′A0′, D1 = E·A1′A0, D2 = E·A1A0′ and D3 = E·A1A0.</title><defs><marker id="m29aak" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#1F2937"/></marker><marker id="m29ask" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1F2937"/></marker><marker id="m29aao" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#E07A00"/></marker><marker id="m29aso" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#E07A00"/></marker></defs><text x="40" y="20" text-anchor="middle" font-size="13" font-weight="normal" fill="#1F2937">A₁</text><text x="120" y="20" text-anchor="middle" font-size="13" font-weight="normal" fill="#1F2937">A₀</text><text x="200" y="20" text-anchor="middle" font-size="13" font-weight="normal" fill="#E07A00">E</text><path d="M40,26 L40,280" fill="none" stroke="#1F2937" stroke-width="1.4"/><path d="M120,26 L120,280" fill="none" stroke="#1F2937" stroke-width="1.4"/><path d="M200,26 L200,280" fill="none" stroke="#E07A00" stroke-width="1.4"/><circle cx="40" cy="44" r="3" fill="#1F2937"/><path d="M40,44 L48,44" fill="none" stroke="#1F2937" stroke-width="1.3"/><path d="M71,52 L89,52 L80,70 Z" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.5"/><circle cx="80" cy="73.5" r="3.5" fill="white" stroke="#1565C0" stroke-width="1.5"/><path d="M40,44 L80,44 L80,52" fill="none" stroke="#1F2937" stroke-width="1.3"/><path d="M80,77 L80,280" fill="none" stroke="#1F2937" stroke-width="1.4"/><circle cx="120" cy="44" r="3" fill="#1F2937"/><path d="M120,44 L128,44" fill="none" stroke="#1F2937" stroke-width="1.3"/><path d="M151,52 L169,52 L160,70 Z" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.5"/><circle cx="160" cy="73.5" r="3.5" fill="white" stroke="#1565C0" stroke-width="1.5"/><path d="M120,44 L160,44 L160,52" fill="none" stroke="#1F2937" stroke-width="1.3"/><path d="M160,77 L160,280" fill="none" stroke="#1F2937" stroke-width="1.4"/><text x="88" y="96" text-anchor="start" font-size="11.5" font-weight="normal" fill="#1F2937">A₁′</text><text x="168" y="96" text-anchor="start" font-size="11.5" font-weight="normal" fill="#1F2937">A₀′</text><path d="M300,102.0 L319.8,102.0 A18.0,18.0 0 0 1 319.8,138.0 L300,138.0 Z" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><circle cx="80" cy="110" r="3" fill="#1F2937"/><path d="M80,110 L300,110" fill="none" stroke="#1F2937" stroke-width="1.2"/><circle cx="160" cy="120" r="3" fill="#1F2937"/><path d="M160,120 L300,120" fill="none" stroke="#1F2937" stroke-width="1.2"/><circle cx="200" cy="130" r="3" fill="#E07A00"/><path d="M200,130 L300,130" fill="none" stroke="#E07A00" stroke-width="1.2"/><path d="M337.8,120 L367.8,120" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m29aak)"/><text x="373.8" y="124" text-anchor="start" font-size="13" font-weight="normal" fill="#1F2937">D₀</text><path d="M300,146.0 L319.8,146.0 A18.0,18.0 0 0 1 319.8,182.0 L300,182.0 Z" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><circle cx="80" cy="154" r="3" fill="#1F2937"/><path d="M80,154 L300,154" fill="none" stroke="#1F2937" stroke-width="1.2"/><circle cx="120" cy="164" r="3" fill="#1F2937"/><path d="M120,164 L300,164" fill="none" stroke="#1F2937" stroke-width="1.2"/><circle cx="200" cy="174" r="3" fill="#E07A00"/><path d="M200,174 L300,174" fill="none" stroke="#E07A00" stroke-width="1.2"/><path d="M337.8,164 L367.8,164" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m29aak)"/><text x="373.8" y="168" text-anchor="start" font-size="13" font-weight="normal" fill="#1F2937">D₁</text><path d="M300,190.0 L319.8,190.0 A18.0,18.0 0 0 1 319.8,226.0 L300,226.0 Z" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><circle cx="40" cy="198" r="3" fill="#1F2937"/><path d="M40,198 L300,198" fill="none" stroke="#1F2937" stroke-width="1.2"/><circle cx="160" cy="208" r="3" fill="#1F2937"/><path d="M160,208 L300,208" fill="none" stroke="#1F2937" stroke-width="1.2"/><circle cx="200" cy="218" r="3" fill="#E07A00"/><path d="M200,218 L300,218" fill="none" stroke="#E07A00" stroke-width="1.2"/><path d="M337.8,208 L367.8,208" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m29aak)"/><text x="373.8" y="212" text-anchor="start" font-size="13" font-weight="normal" fill="#1F2937">D₂</text><path d="M300,234.0 L319.8,234.0 A18.0,18.0 0 0 1 319.8,270.0 L300,270.0 Z" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><circle cx="40" cy="242" r="3" fill="#1F2937"/><path d="M40,242 L300,242" fill="none" stroke="#1F2937" stroke-width="1.2"/><circle cx="120" cy="252" r="3" fill="#1F2937"/><path d="M120,252 L300,252" fill="none" stroke="#1F2937" stroke-width="1.2"/><circle cx="200" cy="262" r="3" fill="#E07A00"/><path d="M200,262 L300,262" fill="none" stroke="#E07A00" stroke-width="1.2"/><path d="M337.8,252 L367.8,252" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m29aak)"/><text x="373.8" y="256" text-anchor="start" font-size="13" font-weight="normal" fill="#1F2937">D₃</text></svg>
+      </div>
+      <p style="font-size:.8rem;color:var(--text-2);margin-top:.4rem">2-to-4 decoder with enable: each output AND gate also receives E, so all outputs are 0 when E = 0.</p>
     </div>
 
     <h2 id="Worked-3to8">Worked Example — 3-to-8 Decoder</h2>
@@ -162,98 +150,21 @@
     <p>Since every decoder output already <em>is</em> one minterm, implementing any Boolean function of n variables is just: feed the n variables into an n-to-2ⁿ decoder, then OR together whichever decoder outputs correspond to the function's minterms. This is the canonical-SOP idea from Unit 1, built directly in hardware with zero simplification needed.</p>
     <p><strong>Small example:</strong> F(A,B) = Σm(1,2) on a 2-to-4 decoder — checking against the truth table above, D₁=A′B=m₁ and D₂=AB′=m₂, so F = D₁ + D₂: a single 2-input OR gate feeding off two of the decoder's outputs, no separate AND-gate array needed at all, since the decoder already built every minterm.</p>
     <div style="text-align:center;margin:1.25rem 0">
-      <svg viewBox="-20 0 325 155" style="max-width:440px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
-        <text x="-14" y="37" font-size="12" fill="var(--text)">A</text>
-        <line x1="0" y1="33" x2="20" y2="33" stroke="var(--primary)" stroke-width="2"/>
-        <text x="-14" y="84" font-size="12" fill="var(--text)">B</text>
-        <line x1="0" y1="80" x2="20" y2="80" stroke="var(--primary)" stroke-width="2"/>
-        <rect x="20" y="10" width="90" height="140" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
-        <text x="65" y="76" font-size="13" font-weight="700" text-anchor="middle" fill="var(--text)">2-to-4</text>
-        <text x="65" y="92" font-size="13" font-weight="700" text-anchor="middle" fill="var(--text)">DECODER</text>
-
-        <line x1="110" y1="18" x2="140" y2="18" stroke="var(--primary)" stroke-width="2"/>
-        <text x="144" y="22" font-size="12" fill="var(--text-2)">D₀ (unused)</text>
-
-        <line x1="110" y1="63" x2="140" y2="63" stroke="var(--primary)" stroke-width="2"/>
-        <text x="112" y="58" font-size="11" fill="var(--text-2)">D₁</text>
-        <line x1="140" y1="63" x2="140" y2="45" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="140" y1="45" x2="179" y2="45" stroke="var(--primary)" stroke-width="2"/>
-
-        <line x1="110" y1="98" x2="140" y2="98" stroke="var(--primary)" stroke-width="2"/>
-        <text x="112" y="112" font-size="11" fill="var(--text-2)">D₂</text>
-        <line x1="140" y1="98" x2="140" y2="75" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="140" y1="75" x2="179" y2="75" stroke="var(--primary)" stroke-width="2"/>
-
-        <line x1="110" y1="133" x2="140" y2="133" stroke="var(--primary)" stroke-width="2"/>
-        <text x="144" y="137" font-size="12" fill="var(--text-2)">D₃ (unused)</text>
-
-        <path d="M170,30 Q194,60 170,90 Q224,90 251,60 Q224,30 170,30 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="3" stroke-linejoin="round"/>
-        <line x1="251" y1="60" x2="290" y2="60" stroke="var(--primary)" stroke-width="2"/>
-        <text x="294" y="64" font-size="13" font-weight="700" fill="var(--text)">F</text>
-      </svg>
+      <div style="overflow-x:auto">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 200" role="img" aria-label="F(A,B) = Σm(1,2) with a 2-to-4 decoder: inputs A and B drive the decoder; outputs D1 and D2 feed an OR gate giving F; D0 and D3 are unused." style="width:100%;height:auto;max-width:420px;display:block;margin:0 auto;min-width:420px" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif"><title>F(A,B) = Σm(1,2) with a 2-to-4 decoder: inputs A and B drive the decoder; outputs D1 and D2 feed an OR gate giving F; D0 and D3 are unused.</title><defs><marker id="m29cak" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#1F2937"/></marker><marker id="m29csk" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1F2937"/></marker><marker id="m29cao" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#E07A00"/></marker><marker id="m29cso" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#E07A00"/></marker></defs><rect x="110" y="30" width="110" height="140" rx="6" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><text x="165.0" y="96.6" text-anchor="middle" font-size="12.5" fill="#1F2937">2-to-4</text><text x="165.0" y="112.2" text-anchor="middle" font-size="12.5" fill="#1F2937">decoder</text><text x="40" y="74" text-anchor="end" font-size="13" font-weight="normal" fill="#1F2937">A</text><path d="M46,70 L110,70" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m29cak)"/><text x="40" y="134" text-anchor="end" font-size="13" font-weight="normal" fill="#1F2937">B</text><path d="M46,130 L110,130" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m29cak)"/><text x="214" y="54" text-anchor="end" font-size="11.5" font-weight="normal" fill="#1F2937">D₀</text><text x="214" y="87" text-anchor="end" font-size="11.5" font-weight="normal" fill="#1F2937">D₁</text><text x="214" y="120" text-anchor="end" font-size="11.5" font-weight="normal" fill="#1F2937">D₂</text><text x="214" y="153" text-anchor="end" font-size="11.5" font-weight="normal" fill="#1F2937">D₃</text><path d="M300,76.0 Q331.68,76.0 352.8,100 Q331.68,124.0 300,124.0 Q314.4,100 300,76.0 Z" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><path d="M220,83 L270,83 L270,88 L305.4,88" fill="none" stroke="#1F2937" stroke-width="1.3"/><path d="M220,116 L270,116 L270,112 L305.4,112" fill="none" stroke="#1F2937" stroke-width="1.3"/><path d="M220,50 L244,50" fill="none" stroke="#1F2937" stroke-width="1.2"/><text x="250" y="54" text-anchor="start" font-size="11" font-weight="normal" fill="#6B7280">unused</text><path d="M220,149 L244,149" fill="none" stroke="#1F2937" stroke-width="1.2"/><text x="250" y="153" text-anchor="start" font-size="11" font-weight="normal" fill="#6B7280">unused</text><path d="M352.8,100 L382.8,100" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m29cak)"/><text x="388.8" y="104" text-anchor="start" font-size="13" font-weight="normal" fill="#1F2937">F</text></svg>
+      </div>
+      <p style="font-size:.8rem;color:var(--text-2);margin-top:.4rem">F(A,B) = Σm(1,2) = D₁ + D₂ from a 2-to-4 decoder and one OR gate.</p>
     </div>
 
     <h3>Worked Example — F(A,B,C) = Σm(1,3,5,6) on a 3-to-8 Decoder</h3>
     <p>The same idea scales directly to a larger decoder — the exact function used as a running example across several Unit 1 pages, implemented with a 3-to-8 decoder: connect decoder outputs D₁, D₃, D₅, and D₆ to an OR gate:</p>
     <p style="text-align:center;font-size:1.1rem;font-weight:700;color:var(--primary);margin:1rem 0">F = D₁ + D₃ + D₅ + D₆</p>
-    <p>A single gate can only cleanly draw two inputs at a time, so here the OR is built as three ordinary 2-input OR gates — Boolean-wise this is identical, since D₁+D₃+D₅+D₆ = (D₁+D₃) + (D₅+D₆):</p>
+    <p>One four-input OR gate combines the four chosen outputs:</p>
     <div style="text-align:center;margin:1.25rem 0">
-      <svg viewBox="-20 -10 560 280" style="max-width:680px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
-        <text x="-16" y="74" font-size="12" fill="var(--text)">A</text>
-        <line x1="-4" y1="70" x2="20" y2="70" stroke="var(--primary)" stroke-width="2"/>
-        <text x="-16" y="139" font-size="12" fill="var(--text)">B</text>
-        <line x1="-4" y1="135" x2="20" y2="135" stroke="var(--primary)" stroke-width="2"/>
-        <text x="-16" y="204" font-size="12" fill="var(--text)">C</text>
-        <line x1="-4" y1="200" x2="20" y2="200" stroke="var(--primary)" stroke-width="2"/>
-
-        <rect x="20" y="10" width="90" height="250" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
-        <text x="65" y="128" font-size="13" font-weight="700" text-anchor="middle" fill="var(--text)">3-to-8</text>
-        <text x="65" y="144" font-size="13" font-weight="700" text-anchor="middle" fill="var(--text)">DECODER</text>
-
-        <line x1="110" y1="25" x2="130" y2="25" stroke="var(--text-3)" stroke-width="2"/>
-        <text x="134" y="29" font-size="10" fill="var(--text-3)">D₀</text>
-        <line x1="110" y1="85" x2="130" y2="85" stroke="var(--text-3)" stroke-width="2"/>
-        <text x="134" y="89" font-size="10" fill="var(--text-3)">D₂</text>
-        <line x1="110" y1="145" x2="130" y2="145" stroke="var(--text-3)" stroke-width="2"/>
-        <text x="134" y="149" font-size="10" fill="var(--text-3)">D₄</text>
-        <line x1="110" y1="235" x2="130" y2="235" stroke="var(--text-3)" stroke-width="2"/>
-        <text x="134" y="239" font-size="10" fill="var(--text-3)">D₇</text>
-
-        <text x="112" y="50" font-size="10" fill="var(--text-2)">D₁</text>
-        <line x1="110" y1="55" x2="145" y2="55" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="145" y1="55" x2="145" y2="48" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="145" y1="48" x2="260" y2="48" stroke="var(--primary)" stroke-width="2"/>
-
-        <text x="112" y="130" font-size="10" fill="var(--text-2)">D₃</text>
-        <line x1="110" y1="115" x2="160" y2="115" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="160" y1="115" x2="160" y2="72" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="160" y1="72" x2="260" y2="72" stroke="var(--primary)" stroke-width="2"/>
-
-        <path d="M250,30 Q274,60 250,90 Q304,90 331,60 Q304,30 250,30 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="3" stroke-linejoin="round"/>
-        <line x1="331" y1="60" x2="350" y2="60" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="350" y1="60" x2="350" y2="118" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="350" y1="118" x2="410" y2="118" stroke="var(--primary)" stroke-width="2"/>
-
-        <text x="112" y="170" font-size="10" fill="var(--text-2)">D₅</text>
-        <line x1="110" y1="175" x2="145" y2="175" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="145" y1="175" x2="145" y2="188" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="145" y1="188" x2="260" y2="188" stroke="var(--primary)" stroke-width="2"/>
-
-        <text x="112" y="250" font-size="10" fill="var(--text-2)">D₆</text>
-        <line x1="110" y1="205" x2="160" y2="205" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="160" y1="205" x2="160" y2="212" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="160" y1="212" x2="260" y2="212" stroke="var(--primary)" stroke-width="2"/>
-
-        <path d="M250,170 Q274,200 250,230 Q304,230 331,200 Q304,170 250,170 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="3" stroke-linejoin="round"/>
-        <line x1="331" y1="200" x2="365" y2="200" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="365" y1="200" x2="365" y2="142" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="365" y1="142" x2="410" y2="142" stroke="var(--primary)" stroke-width="2"/>
-
-        <path d="M400,100 Q424,130 400,160 Q454,160 481,130 Q454,100 400,100 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="3" stroke-linejoin="round"/>
-        <line x1="481" y1="130" x2="515" y2="130" stroke="var(--primary)" stroke-width="2"/>
-        <text x="519" y="134" font-size="13" font-weight="700" fill="var(--text)">F</text>
-      </svg>
-      <div style="font-size:.78rem;color:#777;margin-top:.4rem">D₁, D₃, D₅, D₆ each feed a 2-input OR gate; the two partial results are OR-ed again to make F. D₀, D₂, D₄, D₇ are unused.</div>
+      <div style="overflow-x:auto">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 460 330" role="img" aria-label="F(A,B,C) = Σm(1,3,5,6) with a 3-to-8 decoder: inputs A, B, C drive the decoder; outputs D1, D3, D5 and D6 feed one 4-input OR gate giving F; D0, D2, D4 and D7 are unused." style="width:100%;height:auto;max-width:460px;display:block;margin:0 auto;min-width:460px" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif"><title>F(A,B,C) = Σm(1,3,5,6) with a 3-to-8 decoder: inputs A, B, C drive the decoder; outputs D1, D3, D5 and D6 feed one 4-input OR gate giving F; D0, D2, D4 and D7 are unused.</title><defs><marker id="m29dak" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#1F2937"/></marker><marker id="m29dsk" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1F2937"/></marker><marker id="m29dao" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#E07A00"/></marker><marker id="m29dso" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#E07A00"/></marker></defs><rect x="110" y="20" width="110" height="290" rx="6" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><text x="165.0" y="161.6" text-anchor="middle" font-size="12.5" fill="#1F2937">3-to-8</text><text x="165.0" y="177.2" text-anchor="middle" font-size="12.5" fill="#1F2937">decoder</text><text x="40" y="94" text-anchor="end" font-size="13" font-weight="normal" fill="#1F2937">A</text><path d="M46,90 L110,90" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m29dak)"/><text x="40" y="169" text-anchor="end" font-size="13" font-weight="normal" fill="#1F2937">B</text><path d="M46,165 L110,165" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m29dak)"/><text x="40" y="244" text-anchor="end" font-size="13" font-weight="normal" fill="#1F2937">C</text><path d="M46,240 L110,240" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m29dak)"/><text x="214" y="42" text-anchor="end" font-size="11.5" font-weight="normal" fill="#1F2937">D₀</text><text x="214" y="78" text-anchor="end" font-size="11.5" font-weight="normal" fill="#1F2937">D₁</text><text x="214" y="114" text-anchor="end" font-size="11.5" font-weight="normal" fill="#1F2937">D₂</text><text x="214" y="150" text-anchor="end" font-size="11.5" font-weight="normal" fill="#1F2937">D₃</text><text x="214" y="186" text-anchor="end" font-size="11.5" font-weight="normal" fill="#1F2937">D₄</text><text x="214" y="222" text-anchor="end" font-size="11.5" font-weight="normal" fill="#1F2937">D₅</text><text x="214" y="258" text-anchor="end" font-size="11.5" font-weight="normal" fill="#1F2937">D₆</text><text x="214" y="294" text-anchor="end" font-size="11.5" font-weight="normal" fill="#1F2937">D₇</text><path d="M330,124.0 Q373.2,124.0 402,164.0 Q373.2,204.0 330,204.0 Q354.0,164.0 330,124.0 Z" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><path d="M220,38 L236,38" fill="none" stroke="#1F2937" stroke-width="1.1"/><path d="M220,74 L270,74 L270,137.0 L336.5325,137.0" fill="none" stroke="#1F2937" stroke-width="1.3"/><path d="M220,110 L236,110" fill="none" stroke="#1F2937" stroke-width="1.1"/><path d="M220,146 L282,146 L282,155.0 L341.3925,155.0" fill="none" stroke="#1F2937" stroke-width="1.3"/><path d="M220,182 L236,182" fill="none" stroke="#1F2937" stroke-width="1.1"/><path d="M220,218 L270,218 L270,173.0 L341.3925,173.0" fill="none" stroke="#1F2937" stroke-width="1.3"/><path d="M220,254 L282,254 L282,191.0 L336.5325,191.0" fill="none" stroke="#1F2937" stroke-width="1.3"/><path d="M220,290 L236,290" fill="none" stroke="#1F2937" stroke-width="1.1"/><path d="M402,164.0 L426,164.0" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m29dak)"/><text x="432" y="168.0" text-anchor="start" font-size="13" font-weight="normal" fill="#1F2937">F</text><text x="250" y="54" text-anchor="start" font-size="11" font-weight="normal" fill="#6B7280">D₀, D₂, D₄, D₇ unused</text></svg>
+      </div>
+      <p style="font-size:.8rem;color:var(--text-2);margin-top:.4rem">F(A,B,C) = Σm(1,3,5,6): decoder outputs D₁, D₃, D₅ and D₆ feed one four-input OR gate.</p>
     </div>
     <p>No K-map simplification needed at all — the decoder-plus-OR-gate approach trades gate-minimization effort for a completely mechanical implementation process, at the cost of needing a full decoder (which internally uses more gates than a minimized custom circuit would).</p>
 
