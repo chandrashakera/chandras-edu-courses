@@ -55,21 +55,6 @@
 }
   </script>
   <link rel="icon" href="/favicon.ico">
-  <style>
-    .kmap-table { border-collapse:collapse; font-size:.82rem; margin:0 auto; }
-    .kmap-table th, .kmap-table td { border:1px solid var(--border); width:50px; height:42px; text-align:center; padding:0; }
-    .kmap-table th { background:var(--bg-3); font-weight:700; color:var(--text-2); font-size:.75rem; }
-    .kmap-table .corner { font-size:.65rem; color:var(--text-3); font-weight:600; }
-    .kmap-table td .val { font-weight:700; font-size:1rem; }
-    .kmap-table td .idx { display:block; font-size:.6rem; color:var(--text-3); }
-    .kmap-table td.one { background:#e8f5e9; }
-    .kmap-table td.one .val { color:var(--success); }
-    .kmap-table td.zero .val { color:var(--text-3); }
-    .kmap-overlay { position:relative; display:inline-block; }
-    .kmap-overlay svg { position:absolute; top:0; left:0; pointer-events:none; }
-    .kmap-legend { display:flex; justify-content:center; gap:1.25rem; flex-wrap:wrap; margin:-.5rem 0 1rem; font-size:.8rem; color:var(--text-2); }
-    .kmap-legend span.sw { display:inline-block; width:14px; height:14px; border-radius:4px; margin-right:.35rem; vertical-align:-2px; border:2.5px solid; }
-  </style>
 </head>
 <body>
 <div id="main-nav"></div>
@@ -110,10 +95,10 @@
     </ol>
 
     <div style="text-align:center;margin:1.25rem 0">
-      <img src="../../../images/coa/fig_design_procedure.png"
-           alt="The four-step combinational circuit design procedure: specification, truth table, Boolean functions, logic diagram"
-           style="max-width:100%;border-radius:6px;border:1px solid #e0e0e0">
-      <div style="font-size:.78rem;color:#777;margin-top:.4rem">The four-step design procedure, applied to every combinational circuit in this unit.</div>
+      <div style="overflow-x:auto">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 360" role="img" aria-label="The four-step design procedure for combinational circuits: 1, specification — determine the required inputs and outputs and assign a symbol to each; 2, truth table — derive the table that defines the relationship between inputs and outputs; 3, Boolean functions — obtain the simplified function for each output; 4, logic diagram — draw the circuit and verify it meets the specification." style="width:100%;height:auto;max-width:520px;display:block;margin:0 auto;min-width:520px" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif"><title>The four-step design procedure for combinational circuits: 1, specification — determine the required inputs and outputs and assign a symbol to each; 2, truth table — derive the table that defines the relationship between inputs and outputs; 3, Boolean functions — obtain the simplified function for each output; 4, logic diagram — draw the circuit and verify it meets the specification.</title><defs><marker id="m23pak" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#1F2937"/></marker><marker id="m23psk" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1F2937"/></marker><marker id="m23pao" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#E07A00"/></marker><marker id="m23pso" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#E07A00"/></marker></defs><rect x="40" y="14" width="440" height="62" rx="6" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><text x="260.0" y="41.6" text-anchor="middle" font-size="12.5" font-weight="600" fill="#1F2937">1. Specification</text><text x="260.0" y="57.2" text-anchor="middle" font-size="12.5" fill="#1F2937">Determine the inputs and outputs; assign a symbol to each</text><path d="M260,76 L260,100" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m23pak)"/><rect x="40" y="100" width="440" height="62" rx="6" fill="#E8F5E9" stroke="#2E7D32" stroke-width="1.6"/><text x="260.0" y="127.6" text-anchor="middle" font-size="12.5" font-weight="600" fill="#1F2937">2. Truth table</text><text x="260.0" y="143.2" text-anchor="middle" font-size="12.5" fill="#1F2937">Derive the table relating every input combination to the outputs</text><path d="M260,162 L260,186" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m23pak)"/><rect x="40" y="186" width="440" height="62" rx="6" fill="#FFF3E0" stroke="#E07A00" stroke-width="1.6"/><text x="260.0" y="213.6" text-anchor="middle" font-size="12.5" font-weight="600" fill="#1F2937">3. Boolean functions</text><text x="260.0" y="229.2" text-anchor="middle" font-size="12.5" fill="#1F2937">Obtain the simplified function for each output (K-map or algebra)</text><path d="M260,248 L260,272" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m23pak)"/><rect x="40" y="272" width="440" height="62" rx="6" fill="#FDE8E8" stroke="#C62828" stroke-width="1.6"/><text x="260.0" y="299.6" text-anchor="middle" font-size="12.5" font-weight="600" fill="#1F2937">4. Logic diagram</text><text x="260.0" y="315.2" text-anchor="middle" font-size="12.5" fill="#1F2937">Draw the circuit and verify it meets the specification</text></svg>
+      </div>
+      <p style="font-size:.8rem;color:var(--text-2);margin-top:.4rem">The four-step design procedure, applied to every combinational circuit in this unit.</p>
     </div>
 
     <h2 id="Worked-1">Worked Example 1 — Full Design Cycle</h2>

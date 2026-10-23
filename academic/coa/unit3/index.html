@@ -67,7 +67,7 @@
   <p style="color:var(--text-2);font-size:.88rem;margin-bottom:.9rem">The notation and hardware for moving data between registers, and the four families of micro-operation — arithmetic, logic, and shift — that a CPU's ALU is built from.</p>
   <div id="tg-rtl-microops"></div>
 
-  <!-- TOPIC GROUP: Basic Computer Organization and Design (coming soon) -->
+  <!-- TOPIC GROUP: Basic Computer Organization and Design -->
   <div class="section-head" id="basic-computer-org" style="margin-top:2rem">🖥️ Basic Computer Organization &amp; Design</div>
   <p style="color:var(--text-2);font-size:.88rem;margin-bottom:.9rem">Putting the register transfers and micro-operations from the first group to work: instruction codes, a complete instruction cycle, and how a simple computer executes memory-reference, I/O, and interrupt instructions.</p>
   <div id="tg-basic-computer-org"></div>
@@ -94,16 +94,6 @@
     if (!container) return;
     container.innerHTML = `<div class="topic-list">` + topics.map((t, i) => {
       const p = prog[t.id], done = p?.completed;
-      if (t.status === 'coming') {
-        return `<div class="topic-card" style="opacity:.55;cursor:default">
-          <div class="topic-num" style="background:#f0f0f0;color:#999">🔒</div>
-          <div class="topic-info">
-            <div class="topic-title" style="color:var(--text-2)">${t.title}</div>
-            <div class="topic-desc">${t.desc}</div>
-            <div class="topic-meta"><span>⏱ ${t.time}</span><span style="color:var(--accent);font-weight:600">Coming soon</span></div>
-          </div>
-        </div>`;
-      }
       return `<a href="${t.href}" class="topic-card">
         <div class="topic-num ${done ? 'done' : ''}">${done ? '✓' : i+1}</div>
         <div class="topic-info">

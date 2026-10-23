@@ -140,6 +140,7 @@
         <line x1="418" y1="165" x2="418" y2="85" stroke="var(--primary)" stroke-width="2"/>
         <line x1="418" y1="85" x2="430" y2="85" stroke="var(--primary)" stroke-width="2"/>
       </svg>
+      <p style="font-size:.8rem;color:var(--text-2);margin-top:.4rem">Serial-in, serial-out: data enters the first stage and leaves the last, one bit per clock.</p>
     </div>
     <p><strong>Typical use:</strong> time delay lines and signal buffering, since the output is simply the input delayed by N clock cycles.</p>
 
@@ -190,6 +191,7 @@
         <line x1="418" y1="165" x2="418" y2="85" stroke="var(--primary)" stroke-width="2"/>
         <line x1="418" y1="85" x2="430" y2="85" stroke="var(--primary)" stroke-width="2"/>
       </svg>
+      <p style="font-size:.8rem;color:var(--text-2);margin-top:.4rem">Serial-in, parallel-out: bits shift in one at a time and all four outputs can be read together.</p>
     </div>
     <p><strong>Typical use:</strong> serial-to-parallel conversion — a UART receiver shifts incoming bits in one at a time, then reads Q₀–Q₃ together as one completed byte.</p>
 

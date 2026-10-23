@@ -129,6 +129,7 @@
         <line x1="170" y1="170" x2="205" y2="170" stroke="var(--primary)" stroke-width="2"/>
         <line x1="205" y1="170" x2="205" y2="110" stroke="var(--primary)" stroke-width="2"/>
       </svg>
+      <p style="font-size:.8rem;color:var(--text-2);margin-top:.4rem">Master-slave flip-flop: the master follows the inputs while CLK = 1; the slave copies the master when CLK falls.</p>
     </div>
     <p>While <strong>CLK=1</strong>: the master is transparent and absorbs J, K to form its internal state Y — but the slave's clock input is the <em>inverted</em> clock, so it's 0 and the slave is latched, isolating Q from whatever the master is doing. While <strong>CLK=0</strong>: the master locks its state Y; the slave's inverted clock is now 1, so the slave becomes transparent and copies Q=Y through. The output Q only ever changes on the falling edge, and by the time it does, the master is already locked and can't be affected by its own output — no race, no matter how long either clock phase lasts.</p>
 
@@ -249,6 +250,7 @@
         <text x="112" y="80" font-size="11" fill="var(--text-2)">t<tspan font-size="7.5" dy="2.5">su</tspan></text>
         <text x="147" y="80" font-size="11" fill="var(--text-2)">t<tspan font-size="7.5" dy="2.5">h</tspan></text>
       </svg>
+      <p style="font-size:.8rem;color:var(--text-2);margin-top:.4rem">Setup and hold times: D must be stable for t<sub>su</sub> before and t<sub>h</sub> after the active clock edge.</p>
     </div>
     <ul>
       <li><strong>Setup time (t<sub>su</sub>):</strong> the minimum time D must be stable <em>before</em> the active clock edge — in the diagram, the window from x=110 to the dashed edge.</li>
