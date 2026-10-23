@@ -21,6 +21,12 @@
 /js/quiz.js
   Cache-Control: no-cache
 
+/js/quiz-submit.js
+  Cache-Control: no-cache
+
+/js/cert-card.js
+  Cache-Control: no-cache
+
 /js/firebase-config.js
   Cache-Control: no-cache
 

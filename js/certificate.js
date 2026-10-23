@@ -58,12 +58,18 @@ export async function checkEligibility(uid, courseId, progress) {
   const course = CERT_COURSES[courseId];
   if (!course) throw new Error('Unknown course: ' + courseId);
   const prog = progress || await getAllProgress(uid, courseId, course.requiredIds);
-  const missing = course.requiredIds.filter(id => !prog[id]?.completed);
+  const passPct = course.passPct ?? 0;
+  const missing = [], belowPass = [];
+  for (const id of course.requiredIds) {
+    const p = prog[id];
+    if (!p?.completed) missing.push(id);                                          // never completed
+    else if (typeof p.percent === 'number' && p.percent < passPct) belowPass.push(id);   // completed on a failing score: retake to pass
+  }                                                                               // (no stored score, e.g. the Final Project → counts)
   const total = course.requiredIds.length;
   const stamps = course.requiredIds.map(id => prog[id]?.completedAt).filter(Boolean).map(s => new Date(s)).filter(d => !isNaN(d));
   const latest = stamps.length ? new Date(Math.max(...stamps)) : null;
-  return { eligible: missing.length === 0, done: total - missing.length, total, missing,
-           completedOn: ymd(latest || new Date()) };          // fallback: today (issue date)
+  return { eligible: missing.length === 0 && belowPass.length === 0, done: total - missing.length - belowPass.length, total,
+           missing, belowPass, completedOn: ymd(latest || new Date()) };          // fallback: today (issue date)
 }
 
 function toCert(data) {

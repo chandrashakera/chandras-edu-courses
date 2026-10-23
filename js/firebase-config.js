@@ -49,9 +49,8 @@ export async function getProgress(uid, courseId, topicId) {
 }
 
 export async function getAllProgress(uid, courseId, topicIds) {
-  const out = {};
-  for (const id of topicIds) out[id] = await getProgress(uid, courseId, id);
-  return out;
+  const docs = await Promise.all(topicIds.map(id => getProgress(uid, courseId, id)));   // parallel reads
+  return Object.fromEntries(topicIds.map((id, i) => [id, docs[i]]));
 }
 
 // ── Module completion (professional courses) ──────────────────

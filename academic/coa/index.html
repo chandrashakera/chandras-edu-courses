@@ -8,6 +8,8 @@
   <meta name="description" content="Free Computer Organization and Architecture course for B.Tech students. Covers data representation, logic design, CPU, memory and I/O organization.">
   <link rel="canonical" href="https://chandrashaker.com/courses/academic/coa/">
   <link rel="stylesheet" href="../../css/style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js" integrity="sha512-ZDSPMa/JM1D+7kdg2x3BsruQ6T/JpJo3jWDWkCZsP+5yVyp1KfESqLI+7RqB5k24F7p2cV7i2YHh/890y6P6Sw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="CHANDRAS EDU">
@@ -193,13 +195,62 @@
       <a href="https://www.youtube.com/@chandrasedu" target="_blank" rel="noopener">YouTube</a>
     </p>
   </div>
+
+  <!-- FAQ -->
+  <div style="margin-top:2rem">
+    <h2 style="font-size:1.1rem;font-weight:700;margin-bottom:1rem">Frequently Asked Questions</h2>
+    <div style="display:flex;flex-direction:column;gap:.5rem">
+      <details style="background:var(--bg-2);border:1px solid var(--border);border-radius:var(--radius);padding:.9rem 1rem">
+        <summary style="font-weight:600;font-size:.92rem;cursor:pointer">How do I earn the certificate?</summary>
+        <p style="margin-top:.6rem;font-size:.88rem;color:var(--text-2)">Pass the quiz in all 69 topics across the five units, then claim your verifiable certificate on this page. You need a free account so your quiz results are saved.</p>
+      </details>
+      <details style="background:var(--bg-2);border:1px solid var(--border);border-radius:var(--radius);padding:.9rem 1rem">
+        <summary style="font-weight:600;font-size:.92rem;cursor:pointer">What is the pass mark?</summary>
+        <p style="margin-top:.6rem;font-size:.88rem;color:var(--text-2)">Each topic ends with a 5-question quiz. You need 3 out of 5 to pass. You can retake any quiz at any time, and your best score is kept.</p>
+      </details>
+      <details style="background:var(--bg-2);border:1px solid var(--border);border-radius:var(--radius);padding:.9rem 1rem">
+        <summary style="font-weight:600;font-size:.92rem;cursor:pointer">How can someone verify my certificate?</summary>
+        <p style="margin-top:.6rem;font-size:.88rem;color:var(--text-2)">Every certificate has its own ID, a QR code and a link. Opening the link, or scanning the QR code, shows the certificate on its verification page on this site.</p>
+      </details>
+    </div>
+  </div>
+
+  <!-- Your certificate -->
+  <div id="cert-card" class="cert-wrap" style="margin-top:2rem;text-align:left">
+    <h2 style="text-align:center">🏆 Your certificate</h2>
+    <div id="cert-card-body" style="margin-top:.75rem">
+      <p style="text-align:center;color:var(--text-2)">Sign in to track progress and earn your certificate.</p>
+      <p style="text-align:center;margin-top:.75rem"><a class="btn btn-primary btn-sm" href="../../login.html">Login</a></p>
+    </div>
+  </div>
 </div>
 
 <footer id="main-footer"></footer>
 
 <script type="module">
   import { initNav } from '../../js/nav.js';
+  import { onAuth, getAllProgress } from '../../js/firebase-config.js';
+  import { renderCertCardSafe } from '../../js/cert-card.js';
+  import { CERT_COURSES } from '../../js/certificates/config.js';
+  import { GROUPS as G1 } from '../../js/curriculum/coa-unit1.js';
+  import { GROUPS as G2 } from '../../js/curriculum/coa-unit2.js';
+  import { GROUPS as G3 } from '../../js/curriculum/coa-unit3.js';
+  import { GROUPS as G4 } from '../../js/curriculum/coa-unit4.js';
+  import { GROUPS as G5 } from '../../js/curriculum/coa-unit5.js';
   initNav(2);
+
+  // certificate card: every topic, numbered in course order, linked from this page
+  const COURSE_ID = 'coa';
+  const ITEMS = {};
+  [G1, G2, G3, G4, G5].forEach((g, ui) => Object.values(g).flat().forEach((t, ti, all) => {
+    const n = Object.keys(ITEMS).filter(k => ITEMS[k].unit === ui + 1).length + 1;
+    ITEMS[t.id] = { unit: ui + 1, href: `unit${ui + 1}/${t.href}`, label: `${ui + 1}.${n}`, title: t.title };
+  }));
+  onAuth(async user => {
+    if (!user) return;
+    const prog = await getAllProgress(user.uid, COURSE_ID, CERT_COURSES[COURSE_ID].requiredIds);
+    await renderCertCardSafe({ el: document.getElementById('cert-card-body'), user, courseId: COURSE_ID, prog, items: ITEMS, unit: 'topic' });
+  });
 
   const comingSoon = [];
   document.getElementById('coming-soon-units').innerHTML = comingSoon.map((t,i) => `

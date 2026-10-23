@@ -1,12 +1,12 @@
 # Chandras EDU
 
-> Free engineering and professional courses with quizzes, progress tracking, and certificates (certificates are currently issued for the Generative AI course). Part of the Chandra Shaker (chandrashaker.in) education brand.
+> Free engineering and professional courses with quizzes, progress tracking, and certificates (certificates are issued for the Generative AI and Computer Organization and Architecture courses). Part of the Chandra Shaker (chandrashaker.in) education brand.
 
-Chandras EDU offers two course tracks: Academic engineering subjects for B.Tech students, and Professional job-readiness courses for working professionals. All content is free to read; login is required to save quiz progress and earn certificates (currently issued for the Generative AI course).
+Chandras EDU offers two course tracks: Academic engineering subjects for B.Tech students, and Professional job-readiness courses for working professionals. All content is free to read; login is required to save quiz progress and earn certificates (issued for the Generative AI and Computer Organization and Architecture courses).
 
 ## Academic
 
-- [Computer Organization and Architecture](https://chandrashaker.com/courses/academic/coa/): Number systems, logic gates, combinational and sequential circuits, CPU design, memory hierarchy, and I/O organization.
+- [Computer Organization and Architecture](https://chandrashaker.com/courses/academic/coa/): Number systems, logic gates, combinational and sequential circuits, CPU design, memory hierarchy, and I/O organization. Pass the quiz in all 69 topics (3 out of 5 each) to earn a verifiable certificate.
 - [COA Unit 1 — Number Systems & Logic](https://chandrashaker.com/courses/academic/coa/unit1/): Data types, complements, fixed/floating-point representation, binary codes, binary logic, storage registers, logic gates, and K-map representation.
 - [COA Unit 2 — Combinational & Sequential Logic](https://chandrashaker.com/courses/academic/coa/unit2/): Combinational circuits, analysis and design procedure, binary/decimal adders, binary multipliers, magnitude comparators, decoders, encoders, and multiplexers, each as its own topic; plus sequential logic — SR/D/JK/T latches and flip-flops, shift registers, ring/Johnson counters, and asynchronous/synchronous counter design.
 - [COA Unit 3 — Register Transfer & Basic Computer Organization](https://chandrashaker.com/courses/academic/coa/unit3/): Register transfer language, controlled register transfer hardware, bus and memory transfers, and the arithmetic/logic/shift micro-operations (plus a combined arithmetic logic shift unit) that a CPU's ALU is built from; then a complete simple computer — instruction codes, registers, the full instruction set, timing/control, the fetch-decode-execute cycle, memory-reference instruction RTL, and I/O with interrupts.
