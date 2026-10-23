@@ -237,12 +237,11 @@
   import { GROUPS as G5 } from '../../js/curriculum/coa-unit5.js';
   initNav(2);
 
-  // certificate card: every topic, numbered in course order, linked from this page
+  // certificate card: every topic, shown as "Unit N · Title" and linked from this page
   const COURSE_ID = 'coa';
   const ITEMS = {};
-  [G1, G2, G3, G4, G5].forEach((g, ui) => Object.values(g).flat().forEach((t, ti, all) => {
-    const n = Object.keys(ITEMS).filter(k => ITEMS[k].unit === ui + 1).length + 1;
-    ITEMS[t.id] = { unit: ui + 1, href: `unit${ui + 1}/${t.href}`, label: `${ui + 1}.${n}`, title: t.title };
+  [G1, G2, G3, G4, G5].forEach((g, ui) => Object.values(g).flat().forEach(t => {
+    ITEMS[t.id] = { href: `unit${ui + 1}/${t.href}`, label: `Unit ${ui + 1} ·`, title: t.title };
   }));
   onAuth(async user => {
     if (!user) return;

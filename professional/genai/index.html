@@ -214,7 +214,8 @@
     document.getElementById('prog-fill').className = 'progress-fill' + (pct === 100 ? ' done' : '');
   }
 
-  const MOD = Object.fromEntries(UNITS.flatMap(u => u.modules.map(m => [m.id, m])));
+  // certificate card items: shown as "Module N · Title"
+  const MOD = Object.fromEntries(UNITS.flatMap(u => u.modules.map(m => [m.id, { ...m, label: `Module ${u.num} ·` }])));
   const body = () => document.getElementById('cert-card-body');
 
   onAuth(async user => {
