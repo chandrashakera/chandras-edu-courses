@@ -8,6 +8,7 @@
   <meta name="description" content="Final project for Generative AI: Zero to Job-Ready. Build your Personal AI Toolkit in seven sections, share it as a portfolio link and keep it up to date.">
   <link rel="canonical" href="https://chandrashaker.com/courses/professional/genai/modules/module-5-4-final-project">
   <link rel="stylesheet" href="../../../css/style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="CHANDRAS EDU">
@@ -79,7 +80,7 @@
     <tr><td>2. Prompt Library</td><td>Your tested prompts in the standard entry format</td><td>Practice 3.1–3.4</td></tr>
     <tr><td>3. Role Library</td><td>Five or more customised roles with all four elements</td><td>Practice 2.3</td></tr>
     <tr><td>4. Use Cases and Workflows</td><td>Your company research notes, RAG use case and agent workflow</td><td>Practice 1.3, 4.1, 4.2</td></tr>
-    <tr><td>5. Automation</td><td>Description and screenshot of the automation you built</td><td>Practice 4.4</td></tr>
+    <tr><td>5. Automation</td><td>Step-by-step description (add a link to a screenshot if you have one)</td><td>Practice 4.4</td></tr>
     <tr><td>6. Architecture Decision</td><td>Your prompt vs RAG vs fine-tuning recommendation and reasoning</td><td>Practice 4.3</td></tr>
     <tr><td>7. 90-Day Plan</td><td>Your certification plan, profile updates and first-client plan, with dates</td><td>Practice 5.1–5.3</td></tr>
   </tbody>
@@ -131,28 +132,31 @@
 
 <h2>Your final project</h2>
 
-<p>This is the course capstone. Block 2–3 hours — ideally a weekend session — and build it from start to finish.</p>
+<p>This is the course capstone. Block 2–3 hours — ideally a weekend session — and build it from start to finish. You build it in the form below, so your work is saved and you can download it.</p>
 
 <ol>
-  <li>Create a new document titled "My Personal AI Toolkit — [Your Name] — [Month Year]".</li>
-  <li>Add all seven sections from the table above and fill each one with the practice work you saved during the course.</li>
-  <li>Remove any personal or client-confidential information.</li>
-  <li>Generate a view-only sharing link.</li>
+  <li>Fill in the seven sections of the form below with the practice work you kept in your AI Learning Journal. Each section shows its minimum.</li>
+  <li>Click <strong>Save draft</strong> whenever you like — your draft is also saved automatically every 30 seconds while you type, and it is here when you come back.</li>
+  <li>When all seven sections show ✓, tick the confirmation box and click <strong>Submit Final Project</strong>. Submitting completes this sub-module and unlocks your certificate once the other 19 are passed.</li>
+  <li>Download your toolkit as a Markdown file or a PDF and keep it.</li>
+  <li>Remove any personal or client-confidential information before you share it.</li>
+  <li>Paste it into a Google Doc or Notion page titled "My Personal AI Toolkit — [Your Name] — [Month Year]" and generate a view-only sharing link.</li>
   <li>Add the link to your LinkedIn Featured section, so recruiters who view your profile can see it.</li>
   <li><strong>Optional:</strong> share your Toolkit in a LinkedIn post explaining what you learned and what you built, with the hashtags #GenAIZeroToJobReady and #ChandrasEDU. Sharing publicly helps you commit to your 90-day plan.</li>
 </ol>
 
 <p>Your Toolkit is now your main career asset for AI-related work. Update it every few months, add to your prompt library every week, and revisit your research before every interview. The course ends here — the Toolkit does not.</p>
 
-<!-- Assignment -->
-    <div style="background:#fffbeb;border:1px solid #fcd34d;border-radius:var(--radius-lg);padding:1.25rem 1.5rem;margin-top:2rem">
+<!-- Final project form -->
+    <div id="toolkit-card" style="background:#fffbeb;border:1px solid #fcd34d;border-radius:var(--radius-lg);padding:1.25rem 1.5rem;margin-top:2rem">
       <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.75rem">
         <span style="font-size:1.1rem">✏️</span>
-        <span style="font-weight:700;color:#92400e">Assignment 5.4</span>
+        <span style="font-weight:700;color:#92400e">Final project — My Personal AI Toolkit</span>
       </div>
-      <p style="color:#78350f;font-size:.9rem">Complete the practical assignment for this module to reinforce your learning. Mark this module as complete when done.</p>
-      <button class="btn btn-success btn-sm" id="mark-done-btn" style="margin-top:.75rem">✅ Mark as Complete</button>
-      <div id="done-msg" style="display:none;color:var(--success);font-size:.88rem;margin-top:.5rem;font-weight:600">✅ Module completed! Great work.</div>
+      <div id="toolkit-root">
+        <p style="color:#78350f;font-size:.9rem">Sign in to fill in, save and submit your Personal AI Toolkit.</p>
+        <p style="margin-top:.6rem"><a class="btn btn-primary btn-sm" href="../../../login.html">Login</a></p>
+      </div>
     </div>
   </div><!-- end lesson -->
 
@@ -167,30 +171,15 @@
 
 <script type="module">
   import { initNav } from '../../../js/nav.js';
-  import { onAuth, logout, markModuleComplete, getProgress } from '../../../js/firebase-config.js';
+  import { onAuth } from '../../../js/firebase-config.js';
   import { initSidebar } from '../../../js/sidebar.js';
+  import { initToolkit } from '../../../js/toolkit.js';
   initNav(3);
   initSidebar();
 
-  const COURSE_ID = 'genai';
-  const MODULE_ID = 'm-5-4';
-
+  // Content is always visible; the final-project form is for signed-in learners.
   onAuth(async user => {
-    if (user) {
-      const prog = await getProgress(user.uid, COURSE_ID, MODULE_ID);
-      if (prog?.completed) {
-        document.getElementById('mark-done-btn').style.display = 'none';
-        document.getElementById('done-msg').style.display = 'block';
-      }
-
-      document.getElementById('mark-done-btn').onclick = async () => {
-        await markModuleComplete(user.uid, COURSE_ID, MODULE_ID);
-        document.getElementById('mark-done-btn').style.display = 'none';
-        document.getElementById('done-msg').style.display = 'block';
-      };
-    }
-    // Content is always visible. Logged-out users simply won't see
-    // their completion status or be able to mark modules complete.
+    if (user) await initToolkit({ root: document.getElementById('toolkit-root'), user, courseHref: '../index.html' });
   });
 </script>
 </body>

@@ -81,3 +81,15 @@ export async function saveQuizResult(uid, courseId, topicId, score, total, passM
   }, { merge: true });
   return true;
 }
+
+// ── Learner projects (GenAI 5.4 Personal AI Toolkit) ──────────
+// users/{uid}/projects/{projectId}: owner-only free-form draft; updatedAt is set on every save.
+export async function getProject(uid, projectId) {
+  const snap = await getDoc(doc(db, "users", uid, "projects", projectId));
+  return snap.exists() ? snap.data() : null;
+}
+
+export async function saveProject(uid, projectId, data) {
+  await setDoc(doc(db, "users", uid, "projects", projectId),
+    { ...data, updatedAt: new Date().toISOString() }, { merge: true });
+}
