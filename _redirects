@@ -8,3 +8,7 @@
 # Slug renames — keep old bookmarked/shared links resolving
 /academic/coa/unit2/adders-subtractors.html    /academic/coa/unit2/binary-adder.html    301
 /academic/coa/unit2/adders-subtractors         /academic/coa/unit2/binary-adder.html    301
+
+# Removed topic (not in the syllabus): RISC
+/academic/coa/unit4/risc.html    /academic/coa/unit4/    301
+/academic/coa/unit4/risc         /academic/coa/unit4/    301
