@@ -62,6 +62,9 @@
     </div>
   </div>
 
+  <!-- Unit slides (js/slides-card.js; shown only for units listed in js/curriculum/coa-slides.js) -->
+  <div id="slides"></div>
+
   <!-- TOPIC GROUP: Register Transfer Language and Micro-operations -->
   <div class="section-head" id="rtl-microops">🔀 Register Transfer Language &amp; Micro-operations</div>
   <p style="color:var(--text-2);font-size:.88rem;margin-bottom:.9rem">The notation and hardware for moving data between registers, and the four families of micro-operation — arithmetic, logic, and shift — that a CPU's ALU is built from.</p>
@@ -83,7 +86,9 @@
   import { initNav } from '../../../js/nav.js';
   import { onAuth, getAllProgress } from '../../../js/firebase-config.js';
   import { GROUPS } from '../../../js/curriculum/coa-unit3.js';
+  import { renderSlidesCard } from '../../../js/slides-card.js';
   initNav(3);
+  renderSlidesCard(document.getElementById('slides'), 3, Object.values(GROUPS).flat().length);
 
   const COURSE_ID = 'coa';
 

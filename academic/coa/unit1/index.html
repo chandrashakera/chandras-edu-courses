@@ -76,6 +76,9 @@
     </div>
   </div>
 
+  <!-- Unit slides (js/slides-card.js; shown only for units listed in js/curriculum/coa-slides.js) -->
+  <div id="slides"></div>
+
   <!-- TOPIC GROUP 1: Data Representation -->
   <div class="section-head" id="data-rep">📊 Data Representation</div>
   <p style="color:var(--text-2);font-size:.88rem;margin-bottom:.9rem">How numbers and symbols are encoded as binary patterns inside registers.</p>
@@ -102,7 +105,9 @@
   import { initNav } from '../../../js/nav.js';
   import { onAuth, getAllProgress } from '../../../js/firebase-config.js';
   import { GROUPS } from '../../../js/curriculum/coa-unit1.js';
+  import { renderSlidesCard } from '../../../js/slides-card.js';
   initNav(3);
+  renderSlidesCard(document.getElementById('slides'), 1, Object.values(GROUPS).flat().length);
 
   const COURSE_ID = 'coa';
 

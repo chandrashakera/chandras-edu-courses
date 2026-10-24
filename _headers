@@ -30,6 +30,9 @@
 /js/toolkit.js
   Cache-Control: no-cache
 
+/js/slides-card.js
+  Cache-Control: no-cache
+
 /js/firebase-config.js
   Cache-Control: no-cache
 
@@ -38,3 +41,9 @@
 
 /js/certificates/*
   Cache-Control: no-cache
+
+# Downloadable files: save as attachments, cache for an hour, keep out of search results
+/downloads/*
+  Content-Disposition: attachment
+  Cache-Control: public, max-age=3600
+  X-Robots-Tag: noindex

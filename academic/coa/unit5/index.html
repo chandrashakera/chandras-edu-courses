@@ -52,6 +52,9 @@
     </div>
   </div>
 
+  <!-- Unit slides (js/slides-card.js; shown only for units listed in js/curriculum/coa-slides.js) -->
+  <div id="slides"></div>
+
   <!-- TOPIC GROUP: I/O Organization -->
   <div class="section-head" id="io-organization">🔌 I/O Organization</div>
   <p style="color:var(--text-2);font-size:.88rem;margin-bottom:.9rem">How the CPU communicates with peripheral devices: the I/O bus, interface registers, the three modes of data transfer, and how priority interrupts let multiple devices share the CPU.</p>
@@ -73,7 +76,9 @@
   import { initNav } from '../../../js/nav.js';
   import { onAuth, getAllProgress } from '../../../js/firebase-config.js';
   import { GROUPS } from '../../../js/curriculum/coa-unit5.js';
+  import { renderSlidesCard } from '../../../js/slides-card.js';
   initNav(3);
+  renderSlidesCard(document.getElementById('slides'), 5, Object.values(GROUPS).flat().length);
 
   const COURSE_ID = 'coa';
   const ALL_IDS = Object.values(GROUPS).flat().map(t => t.id);

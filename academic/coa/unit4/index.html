@@ -61,6 +61,9 @@
     </div>
   </div>
 
+  <!-- Unit slides (js/slides-card.js; shown only for units listed in js/curriculum/coa-slides.js) -->
+  <div id="slides"></div>
+
   <div class="section-head" id="microprogrammed-control">🔧 Microprogrammed Control</div>
   <p style="color:var(--text-2);font-size:.88rem;margin-bottom:.9rem">How the control unit stores microinstructions in ROM and sequences through them to execute every machine instruction.</p>
   <div id="tg-microprogrammed-control"></div>
@@ -84,7 +87,9 @@
   import { initNav } from '../../../js/nav.js';
   import { onAuth, getAllProgress } from '../../../js/firebase-config.js';
   import { GROUPS } from '../../../js/curriculum/coa-unit4.js';
+  import { renderSlidesCard } from '../../../js/slides-card.js';
   initNav(3);
+  renderSlidesCard(document.getElementById('slides'), 4, Object.values(GROUPS).flat().length);
 
   const COURSE_ID = 'coa';
   const ALL_IDS = Object.values(GROUPS).flat().map(t => t.id);

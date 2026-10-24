@@ -76,6 +76,9 @@
     </div>
   </div>
 
+  <!-- Unit slides (js/slides-card.js; shown only for units listed in js/curriculum/coa-slides.js) -->
+  <div id="slides"></div>
+
   <!-- TOPIC GROUP 1: Combinational Logic -->
   <div class="section-head" id="combinational">🔗 Combinational Logic</div>
   <p style="color:var(--text-2);font-size:.88rem;margin-bottom:.9rem">Analysis and design procedure, adders, subtractors, multipliers, comparators, decoders, encoders, and multiplexers.</p>
@@ -97,7 +100,9 @@
   import { initNav } from '../../../js/nav.js';
   import { onAuth, getAllProgress } from '../../../js/firebase-config.js';
   import { GROUPS } from '../../../js/curriculum/coa-unit2.js';
+  import { renderSlidesCard } from '../../../js/slides-card.js';
   initNav(3);
+  renderSlidesCard(document.getElementById('slides'), 2, Object.values(GROUPS).flat().length);
 
   const COURSE_ID = 'coa';
 
