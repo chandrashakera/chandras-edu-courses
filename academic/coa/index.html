@@ -230,23 +230,12 @@
   import { onAuth, getAllProgress } from '../../js/firebase-config.js';
   import { renderCertCardSafe } from '../../js/cert-card.js';
   import { CERT_COURSES } from '../../js/certificates/config.js';
-  import { SLIDES } from '../../js/curriculum/coa-slides.js';
   import { GROUPS as G1 } from '../../js/curriculum/coa-unit1.js';
   import { GROUPS as G2 } from '../../js/curriculum/coa-unit2.js';
   import { GROUPS as G3 } from '../../js/curriculum/coa-unit3.js';
   import { GROUPS as G4 } from '../../js/curriculum/coa-unit4.js';
   import { GROUPS as G5 } from '../../js/curriculum/coa-unit5.js';
   initNav(2);
-
-  // "Slides available" tag on each unit card that has downloadable slides
-  SLIDES.forEach(sl => {
-    const badge = [...document.querySelectorAll('.badge.badge-blue')].find(b => b.textContent.trim() === `Unit ${sl.unit}`);
-    if (!badge) return;
-    const a = document.createElement('a');
-    a.href = `unit${sl.unit}/index.html#slides`; a.textContent = '\u{1F4E5} Slides available';
-    a.style.cssText = 'margin-left:auto;font-size:.75rem;font-weight:600;color:var(--primary);background:#e8f0fe;border:1px solid #bbdefb;padding:.15rem .6rem;border-radius:20px;white-space:nowrap';
-    badge.parentElement.appendChild(a);
-  });
 
   // certificate card: every topic, shown as "Unit N · Title" and linked from this page
   const COURSE_ID = 'coa';

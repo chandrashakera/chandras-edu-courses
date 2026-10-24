@@ -188,6 +188,8 @@
     <div class="quiz-result" id="quiz-result" style="display:none"></div>
     <button class="btn btn-outline btn-sm" id="retry-btn" style="display:none;margin-top:.75rem">Try again</button>
   </div>
+  <div id="unit-end"></div>
+
   <div class="topic-nav">
     <a href="associative-memory.html">
       <div class="nav-dir">← Previous</div>
@@ -200,8 +202,10 @@
 <script type="module">
   import { initNav } from '../../../js/nav.js';
   import { initTopicQuiz } from '../../../js/quiz-submit.js';
+  import { renderUnitEnd } from '../../../js/slides-card.js';
   import { initSidebar } from '../../../js/sidebar.js';
-  initNav(3); initSidebar();
+  initNav(3);
+  renderUnitEnd(document.getElementById('unit-end'), 5); initSidebar();
   const COURSE_ID='coa',TOPIC_ID='cache-memory',LABELS=['A','B','C','D'];
   const QUIZ=[
   {q:"What is the 'locality of reference' property and why does it make cache memory effective?",
