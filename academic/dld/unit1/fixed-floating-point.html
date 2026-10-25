@@ -83,6 +83,9 @@
   <div class="lesson">
     <p>So far every number on this page has been a whole number. Real digital systems constantly need to represent fractions and very large or very small magnitudes too — everything from a sensor reading of 3.14 to a distance measured in light-years. There are exactly two strategies digital hardware uses for this, and they trade off in opposite directions.</p>
 
+    <div class="box box-tip">
+      <strong>In simple terms:</strong> fixed point keeps the binary point in one place; floating point stores the digits and, separately, where the point goes — like scientific notation.</div>
+
     <h2>Fixed-Point Representation</h2>
     <p>A <strong>fixed-point</strong> number places the binary point at a permanently agreed-upon position within a fixed-width word — some number of bits for the integer part, the rest for the fractional part, decided once at design time and never moved. Bits to the right of the point carry <strong>negative</strong> powers of 2.</p>
     <p style="text-align:center;font-size:1.05rem;font-weight:700;color:var(--primary);margin:1rem 0">...b₂b₁b₀ . b₋₁b₋₂b₋₃...</p>

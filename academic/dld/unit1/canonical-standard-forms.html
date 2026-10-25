@@ -83,6 +83,9 @@
   <div class="lesson">
     <p>Given a truth table, is there a mechanical, no-judgment-required way to write down the exact Boolean expression it describes? Yes — that's exactly what <strong>canonical forms</strong> give you. This page covers how to build one directly from a truth table, and the more compact "standard forms" used once you're ready to simplify.</p>
 
+    <div class="box box-tip">
+      <strong>In simple terms:</strong> a truth table can be written as a sum of the rows where F = 1 (minterms) or a product of the rows where F = 0 (maxterms).</div>
+
     <h2>Minterms and Maxterms</h2>
     <p>For <em>n</em> Boolean variables, a <strong>minterm</strong> is an AND term that includes every one of the n variables exactly once — uncomplemented if that variable is 1 in a given row, complemented if it's 0. A <strong>maxterm</strong> is the dual idea: an OR term including every variable, uncomplemented if 0 in that row, complemented if 1.</p>
     <div style="overflow-x:auto">

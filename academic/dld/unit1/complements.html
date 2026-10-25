@@ -83,6 +83,9 @@
   <div class="lesson">
     <p>A subtractor circuit and an adder circuit are two different pieces of hardware — but building both costs more gates than building just one. <strong>Complements</strong> are the trick that lets a single adder circuit handle subtraction too, by representing negative numbers in a form where "subtract B" becomes "add the complement of B."</p>
 
+    <div class="box box-tip">
+      <strong>In simple terms:</strong> flip every bit for the 1's complement, then add 1 for the 2's complement — the computer uses it to subtract by adding.</div>
+
     <h2>Two Kinds of Complement</h2>
     <p>For a number system with radix <em>r</em>, there are two standard complements, both defined relative to an <em>n</em>-digit number N:</p>
     <ul>
