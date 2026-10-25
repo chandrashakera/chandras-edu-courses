@@ -55,22 +55,6 @@
 }
   </script>
   <link rel="icon" href="/favicon.ico">
-  <style>
-    .kmap-wrap { display:flex; justify-content:center; margin:1.25rem 0; overflow-x:auto; }
-    .kmap-table { border-collapse:collapse; font-size:.85rem; }
-    .kmap-table th, .kmap-table td { border:1px solid var(--border); width:52px; height:44px; text-align:center; padding:0; }
-    .kmap-table th { background:var(--bg-3); font-weight:700; color:var(--text-2); font-size:.78rem; }
-    .kmap-table .corner { font-size:.68rem; color:var(--text-3); font-weight:600; }
-    .kmap-table td .val { font-weight:700; font-size:1rem; }
-    .kmap-table td .idx { display:block; font-size:.62rem; color:var(--text-3); }
-    .kmap-table td.one { background:#e8f5e9; }
-    .kmap-table td.one .val { color:var(--success); }
-    .kmap-table td.zero .val { color:var(--text-3); }
-    .kmap-overlay { position:relative; display:inline-block; }
-    .kmap-overlay svg { position:absolute; top:0; left:0; pointer-events:none; }
-    .kmap-legend { display:flex; justify-content:center; gap:1.25rem; flex-wrap:wrap; margin:-.5rem 0 1rem; font-size:.8rem; color:var(--text-2); }
-    .kmap-legend span.sw { display:inline-block; width:14px; height:14px; border-radius:4px; margin-right:.35rem; vertical-align:-2px; border:2.5px solid; }
-  </style>
 </head>
 <body>
 <div id="main-nav"></div>
@@ -99,6 +83,9 @@
   <div class="lesson">
     <p>Unit 1 showed how to write any Boolean function as a canonical sum of minterms, straight from a truth table — mechanical, but rarely minimal. Algebraic simplification (also from Unit 1) can shrink it, but requires spotting the right theorem to apply at each step, and it's easy to stop too early or make a mistake. The <strong>Karnaugh map (K-map)</strong> replaces that trial-and-error with a visual procedure: arrange the truth table into a grid where the answer becomes something you can basically just <em>see</em>.</p>
 
+    <div class="box box-tip">
+      <strong>In simple terms:</strong> a K-map lays out a truth table so that neighbouring cells differ by one variable; circling neighbouring 1s removes that variable.</div>
+
     <h2>The Key Idea: Adjacency</h2>
     <p>A K-map arranges every row of a truth table into a grid, laid out so that <strong>physically adjacent cells differ in exactly one variable</strong>. That's not a coincidence — the row and column headers are deliberately written in <strong>Gray code order</strong> (00, 01, 11, 10 — never plain binary counting order 00, 01, 10, 11), specifically so neighboring cells are always exactly one bit-flip apart. Two cells that differ in exactly one variable can always be combined algebraically, since that differing variable cancels out (x + x′ = 1) — a K-map just lets you <em>see</em> which cells qualify, instead of hunting for the right algebraic step by hand.</p>
 
@@ -106,30 +93,11 @@
     <p>A 2-variable map has 4 cells — one per row of a 2-variable truth table.</p>
 
     <h3>Worked Example — F(A,B) = Σm(0,1,3)</h3>
-    <div class="kmap-wrap">
-      <div class="kmap-overlay">
-        <div style="overflow-x:auto">
-        <table class="kmap-table">
-          <tr><th class="corner">A\B</th><th>0</th><th>1</th></tr>
-          <tr><th>0</th>
-            <td class="one"><span class="val">1</span><span class="idx">m0</span></td>
-            <td class="one"><span class="val">1</span><span class="idx">m1</span></td>
-          </tr>
-          <tr><th>1</th>
-            <td class="zero"><span class="val">0</span><span class="idx">m2</span></td>
-            <td class="one"><span class="val">1</span><span class="idx">m3</span></td>
-          </tr>
-        </table>
-        </div>
-        <svg width="160" height="155" viewBox="0 0 160 155">
-          <rect x="58.3" y="64.7" width="92" height="32.7" rx="10" fill="none" stroke="var(--primary)" stroke-width="3"/>
-          <rect x="110.3" y="64.7" width="40" height="77.4" rx="10" fill="none" stroke="#8e24aa" stroke-width="3"/>
-        </svg>
+    <div style="text-align:center;margin:1.25rem 0">
+      <div style="overflow-x:auto">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 230" role="img" aria-label="Two-variable K-map for F(A,B) = sum of minterms 0, 1, 3. The top row (m0, m1) gives A′ and the right column (m1, m3) gives B, so F = A′ + B." style="width:100%;height:auto;max-width:340px;display:block;margin:0 auto;min-width:340px" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif"><title>Two-variable K-map for F(A,B) = sum of minterms 0, 1, 3. The top row (m0, m1) gives A′ and the right column (m1, m3) gives B, so F = A′ + B.</title><defs><marker id="mk1ak" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#1F2937"/></marker><marker id="mk1sk" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1F2937"/></marker><marker id="mk1ao" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#E07A00"/></marker><marker id="mk1so" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#E07A00"/></marker></defs><text x="106" y="46" text-anchor="end" font-size="12" font-weight="600" fill="#1F2937">A</text><text x="190.0" y="26" text-anchor="middle" font-size="12" font-weight="600" fill="#1F2937">B</text><path d="M94,30 L120,60" stroke="#1F2937" stroke-width="1"/><text x="155.0" y="52" text-anchor="middle" font-size="12" font-weight="normal" fill="#1F2937">0</text><text x="225.0" y="52" text-anchor="middle" font-size="12" font-weight="normal" fill="#1F2937">1</text><text x="110" y="92.0" text-anchor="end" font-size="12" font-weight="normal" fill="#1F2937">0</text><rect x="120" y="60" width="70" height="56" rx="0" fill="#FFFFFF" stroke="#1565C0" stroke-width="1.6"/><text x="155.0" y="92.5" text-anchor="middle" font-size="13" fill="#1F2937"></text><text x="155.0" y="94.0" text-anchor="middle" font-size="15" font-weight="600" fill="#1F2937">1</text><text x="186" y="72" text-anchor="end" font-size="11" font-weight="normal" fill="#6B7280">m0</text><rect x="190" y="60" width="70" height="56" rx="0" fill="#FFFFFF" stroke="#1565C0" stroke-width="1.6"/><text x="225.0" y="92.5" text-anchor="middle" font-size="13" fill="#1F2937"></text><text x="225.0" y="94.0" text-anchor="middle" font-size="15" font-weight="600" fill="#1F2937">1</text><text x="256" y="72" text-anchor="end" font-size="11" font-weight="normal" fill="#6B7280">m1</text><text x="110" y="148.0" text-anchor="end" font-size="12" font-weight="normal" fill="#1F2937">1</text><rect x="120" y="116" width="70" height="56" rx="0" fill="#FFFFFF" stroke="#1565C0" stroke-width="1.6"/><text x="155.0" y="148.6" text-anchor="middle" font-size="13" fill="#1F2937"></text><text x="155.0" y="150.0" text-anchor="middle" font-size="15" font-weight="normal" fill="#6B7280">0</text><text x="186" y="128" text-anchor="end" font-size="11" font-weight="normal" fill="#6B7280">m2</text><rect x="190" y="116" width="70" height="56" rx="0" fill="#FFFFFF" stroke="#1565C0" stroke-width="1.6"/><text x="225.0" y="148.6" text-anchor="middle" font-size="13" fill="#1F2937"></text><text x="225.0" y="150.0" text-anchor="middle" font-size="15" font-weight="600" fill="#1F2937">1</text><text x="256" y="128" text-anchor="end" font-size="11" font-weight="normal" fill="#6B7280">m3</text><rect x="126" y="75" width="128" height="35" rx="14" fill="none" stroke="#1565C0" stroke-width="2.4"/><rect x="204" y="77" width="42" height="87" rx="14" fill="none" stroke="#2E7D32" stroke-width="2.4"/><text x="30" y="196" text-anchor="start" font-size="12" font-weight="600" fill="#1565C0">A′ (top row)</text><text x="146.4" y="196" text-anchor="start" font-size="12" font-weight="600" fill="#2E7D32">B (right column)</text><text x="170" y="222" text-anchor="middle" font-size="13.5" font-weight="600" fill="#1F2937">F = A′ + B</text></svg>
       </div>
-    </div>
-    <div class="kmap-legend">
-      <span><span class="sw" style="border-color:var(--primary)"></span>Top row → A′</span>
-      <span><span class="sw" style="border-color:#8e24aa"></span>Right column → B</span>
+      <p style="font-size:.8rem;color:var(--text-2);margin-top:.4rem">Two-variable K-map for F = Σm(0,1,3): F = A′ + B.</p>
     </div>
     <p>Two groups of adjacent 1s are visible: the top row (m0, m1 — both A=0) and the right column (m1, m3 — both B=1). Each group's size-2 means one variable drops out, leaving only the variable(s) that stay constant across the whole group:</p>
     <div class="box box-eg">
@@ -144,34 +112,11 @@ F = A′ + B</pre>
     <p>A 3-variable map has 8 cells: 2 rows (for the first variable) by 4 columns, with the column header in Gray-code order — 00, 01, 11, 10, <em>not</em> 00, 01, 10, 11. This means the <strong>leftmost and rightmost columns are also adjacent</strong> (both differ from each other in exactly one bit), wrapping the grid around like a cylinder.</p>
 
     <h3>Worked Example — F(A,B,C) = Σm(0,1,2,3,5)</h3>
-    <div class="kmap-wrap">
-      <div class="kmap-overlay">
-        <div style="overflow-x:auto">
-        <table class="kmap-table">
-          <tr><th class="corner">A\BC</th><th>00</th><th>01</th><th>11</th><th>10</th></tr>
-          <tr><th>0</th>
-            <td class="one"><span class="val">1</span><span class="idx">m0</span></td>
-            <td class="one"><span class="val">1</span><span class="idx">m1</span></td>
-            <td class="one"><span class="val">1</span><span class="idx">m3</span></td>
-            <td class="one"><span class="val">1</span><span class="idx">m2</span></td>
-          </tr>
-          <tr><th>1</th>
-            <td class="zero"><span class="val">0</span><span class="idx">m4</span></td>
-            <td class="one"><span class="val">1</span><span class="idx">m5</span></td>
-            <td class="zero"><span class="val">0</span><span class="idx">m7</span></td>
-            <td class="zero"><span class="val">0</span><span class="idx">m6</span></td>
-          </tr>
-        </table>
-        </div>
-        <svg width="264" height="155" viewBox="0 0 264 155">
-          <rect x="58.3" y="64.7" width="196" height="32.7" rx="10" fill="none" stroke="var(--primary)" stroke-width="3"/>
-          <rect x="110.3" y="64.7" width="40" height="77.4" rx="10" fill="none" stroke="#8e24aa" stroke-width="3"/>
-        </svg>
+    <div style="text-align:center;margin:1.25rem 0">
+      <div style="overflow-x:auto">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 460 250" role="img" aria-label="Three-variable K-map for F(A,B,C) = sum of minterms 0, 1, 2, 3, 5. The whole top row (A = 0) gives A′; the pair m1, m5 gives B′C. F = A′ + B′C." style="width:100%;height:auto;max-width:460px;display:block;margin:0 auto;min-width:460px" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif"><title>Three-variable K-map for F(A,B,C) = sum of minterms 0, 1, 2, 3, 5. The whole top row (A = 0) gives A′; the pair m1, m5 gives B′C. F = A′ + B′C.</title><defs><marker id="mk2ak" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#1F2937"/></marker><marker id="mk2sk" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1F2937"/></marker><marker id="mk2ao" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#E07A00"/></marker><marker id="mk2so" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#E07A00"/></marker></defs><text x="106" y="46" text-anchor="end" font-size="12" font-weight="600" fill="#1F2937">A</text><text x="248.0" y="26" text-anchor="middle" font-size="12" font-weight="600" fill="#1F2937">BC</text><path d="M94,30 L120,60" stroke="#1F2937" stroke-width="1"/><text x="152.0" y="52" text-anchor="middle" font-size="12" font-weight="normal" fill="#1F2937">00</text><text x="216.0" y="52" text-anchor="middle" font-size="12" font-weight="normal" fill="#1F2937">01</text><text x="280.0" y="52" text-anchor="middle" font-size="12" font-weight="normal" fill="#1F2937">11</text><text x="344.0" y="52" text-anchor="middle" font-size="12" font-weight="normal" fill="#1F2937">10</text><text x="110" y="90.0" text-anchor="end" font-size="12" font-weight="normal" fill="#1F2937">0</text><rect x="120" y="60" width="64" height="52" rx="0" fill="#FFFFFF" stroke="#1565C0" stroke-width="1.6"/><text x="152.0" y="90.5" text-anchor="middle" font-size="13" fill="#1F2937"></text><text x="152.0" y="92.0" text-anchor="middle" font-size="15" font-weight="600" fill="#1F2937">1</text><text x="180" y="72" text-anchor="end" font-size="11" font-weight="normal" fill="#6B7280">m0</text><rect x="184" y="60" width="64" height="52" rx="0" fill="#FFFFFF" stroke="#1565C0" stroke-width="1.6"/><text x="216.0" y="90.5" text-anchor="middle" font-size="13" fill="#1F2937"></text><text x="216.0" y="92.0" text-anchor="middle" font-size="15" font-weight="600" fill="#1F2937">1</text><text x="244" y="72" text-anchor="end" font-size="11" font-weight="normal" fill="#6B7280">m1</text><rect x="248" y="60" width="64" height="52" rx="0" fill="#FFFFFF" stroke="#1565C0" stroke-width="1.6"/><text x="280.0" y="90.5" text-anchor="middle" font-size="13" fill="#1F2937"></text><text x="280.0" y="92.0" text-anchor="middle" font-size="15" font-weight="600" fill="#1F2937">1</text><text x="308" y="72" text-anchor="end" font-size="11" font-weight="normal" fill="#6B7280">m3</text><rect x="312" y="60" width="64" height="52" rx="0" fill="#FFFFFF" stroke="#1565C0" stroke-width="1.6"/><text x="344.0" y="90.5" text-anchor="middle" font-size="13" fill="#1F2937"></text><text x="344.0" y="92.0" text-anchor="middle" font-size="15" font-weight="600" fill="#1F2937">1</text><text x="372" y="72" text-anchor="end" font-size="11" font-weight="normal" fill="#6B7280">m2</text><text x="110" y="142.0" text-anchor="end" font-size="12" font-weight="normal" fill="#1F2937">1</text><rect x="120" y="112" width="64" height="52" rx="0" fill="#FFFFFF" stroke="#1565C0" stroke-width="1.6"/><text x="152.0" y="142.6" text-anchor="middle" font-size="13" fill="#1F2937"></text><text x="152.0" y="144.0" text-anchor="middle" font-size="15" font-weight="normal" fill="#6B7280">0</text><text x="180" y="124" text-anchor="end" font-size="11" font-weight="normal" fill="#6B7280">m4</text><rect x="184" y="112" width="64" height="52" rx="0" fill="#FFFFFF" stroke="#1565C0" stroke-width="1.6"/><text x="216.0" y="142.6" text-anchor="middle" font-size="13" fill="#1F2937"></text><text x="216.0" y="144.0" text-anchor="middle" font-size="15" font-weight="600" fill="#1F2937">1</text><text x="244" y="124" text-anchor="end" font-size="11" font-weight="normal" fill="#6B7280">m5</text><rect x="248" y="112" width="64" height="52" rx="0" fill="#FFFFFF" stroke="#1565C0" stroke-width="1.6"/><text x="280.0" y="142.6" text-anchor="middle" font-size="13" fill="#1F2937"></text><text x="280.0" y="144.0" text-anchor="middle" font-size="15" font-weight="normal" fill="#6B7280">0</text><text x="308" y="124" text-anchor="end" font-size="11" font-weight="normal" fill="#6B7280">m7</text><rect x="312" y="112" width="64" height="52" rx="0" fill="#FFFFFF" stroke="#1565C0" stroke-width="1.6"/><text x="344.0" y="142.6" text-anchor="middle" font-size="13" fill="#1F2937"></text><text x="344.0" y="144.0" text-anchor="middle" font-size="15" font-weight="normal" fill="#6B7280">0</text><text x="372" y="124" text-anchor="end" font-size="11" font-weight="normal" fill="#6B7280">m6</text><rect x="126" y="75" width="244" height="31" rx="14" fill="none" stroke="#1565C0" stroke-width="2.4"/><rect x="200" y="81" width="24" height="71" rx="14" fill="none" stroke="#2E7D32" stroke-width="2.4"/><text x="30" y="206" text-anchor="start" font-size="12" font-weight="600" fill="#1565C0">A′ (top row, m0–m3)</text><text x="196.8" y="206" text-anchor="start" font-size="12" font-weight="600" fill="#2E7D32">B′C (m1, m5)</text><text x="240" y="236" text-anchor="middle" font-size="13.5" font-weight="600" fill="#1F2937">F = A′ + B′C</text></svg>
       </div>
-    </div>
-    <div class="kmap-legend">
-      <span><span class="sw" style="border-color:var(--primary)"></span>Top row → A′</span>
-      <span><span class="sw" style="border-color:#8e24aa"></span>Pair {m1,m5} → B′C</span>
+      <p style="font-size:.8rem;color:var(--text-2);margin-top:.4rem">Three-variable K-map for F = Σm(0,1,2,3,5): F = A′ + B′C.</p>
     </div>
     <p>Two groups cover every 1: the entire top row (a group of 4, since the whole A=0 row is 1s) and a pair {m1, m5} (both B=0, C=1, differing only in A). Reading each group's constant variables:</p>
     <div class="box box-eg">

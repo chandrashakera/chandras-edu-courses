@@ -83,6 +83,9 @@
   <div class="lesson">
     <p>Unit 1 showed that NAND and NOR are each individually <strong>universal</strong> — any Boolean function can be built from just one of them. This page makes that concrete: given a minimal SOP or POS expression straight from a K-map, there's a direct, mechanical way to redraw it using nothing but NAND gates (for SOP) or nothing but NOR gates (for POS) — no algebra required, just a wiring pattern.</p>
 
+    <div class="box box-tip">
+      <strong>In simple terms:</strong> any AND-OR circuit can be built from NAND gates alone, and any OR-AND circuit from NOR gates alone — just swap every gate.</div>
+
     <h2>SOP → NAND-NAND: the Two-Level Conversion</h2>
     <p>For a two-level SOP circuit (AND gates feeding a single OR gate), the conversion rule is simple: <strong>replace every gate — both the AND gates and the final OR gate — with a NAND gate, keeping all the same connections.</strong> The circuit computes the exact same function.</p>
     <p>Why this works falls straight out of DeMorgan's law. For F = XY + ZW (two AND terms feeding an OR), replacing every gate with NAND gives:</p>
@@ -91,30 +94,10 @@
 
     <h3>Worked Example — F = AB + BC</h3>
     <div style="text-align:center;margin:1.25rem 0">
-      <svg viewBox="-5 -5 370 130" style="max-width:520px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
-        <text x="2" y="19" font-size="13" fill="var(--text)">A</text>
-        <line x1="14" y1="15" x2="60" y2="15" stroke="var(--primary)" stroke-width="2"/>
-        <text x="2" y="64" font-size="13" fill="var(--text)">B</text>
-        <line x1="14" y1="60" x2="30" y2="60" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="30" y1="35" x2="30" y2="85" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="30" y1="35" x2="60" y2="35" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="30" y1="85" x2="60" y2="85" stroke="var(--primary)" stroke-width="2"/>
-        <text x="2" y="109" font-size="13" fill="var(--text)">C</text>
-        <line x1="14" y1="105" x2="60" y2="105" stroke="var(--primary)" stroke-width="2"/>
-
-        <path d="M60,0 L86,0 A25,25 0 0 1 86,50 L60,50 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="3" stroke-linejoin="round"/>
-        <circle cx="111" cy="25" r="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
-        <line x1="117" y1="25" x2="170" y2="25" stroke="var(--primary)" stroke-width="2"/>
-
-        <path d="M60,70 L86,70 A25,25 0 0 1 86,120 L60,120 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="3" stroke-linejoin="round"/>
-        <circle cx="111" cy="95" r="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
-        <line x1="117" y1="95" x2="170" y2="95" stroke="var(--primary)" stroke-width="2"/>
-
-        <path d="M170,15 L196,15 A45,45 0 0 1 196,105 L170,105 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="3" stroke-linejoin="round"/>
-        <circle cx="241" cy="60" r="7" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
-        <line x1="248" y1="60" x2="290" y2="60" stroke="var(--primary)" stroke-width="2"/>
-        <text x="293" y="64" font-size="13" fill="var(--text)">F = AB+BC</text>
-      </svg>
+      <div style="overflow-x:auto">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 170" role="img" aria-label="Two-level NAND implementation of F = AB + BC: two NAND gates form (AB)′ and (BC)′, with input B feeding both; a third NAND combines them into F = AB + BC." style="width:100%;height:auto;max-width:500px;display:block;margin:0 auto;min-width:500px" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif"><title>Two-level NAND implementation of F = AB + BC: two NAND gates form (AB)′ and (BC)′, with input B feeding both; a third NAND combines them into F = AB + BC.</title><defs><marker id="mc25aak" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#1F2937"/></marker><marker id="mc25ask" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1F2937"/></marker><marker id="mc25aao" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#E07A00"/></marker><marker id="mc25aso" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#E07A00"/></marker></defs><path d="M150,32.0 L169.8,32.0 A18.0,18.0 0 0 1 169.8,68.0 L150,68.0 Z" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><circle cx="191.3" cy="50" r="3.5" fill="white" stroke="#1565C0" stroke-width="1.5"/><path d="M150,102.0 L169.8,102.0 A18.0,18.0 0 0 1 169.8,138.0 L150,138.0 Z" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><circle cx="191.3" cy="120" r="3.5" fill="white" stroke="#1565C0" stroke-width="1.5"/><text x="30" y="46" text-anchor="end" font-size="13" font-weight="normal" fill="#1F2937">A</text><path d="M36,42 L150,42" fill="none" stroke="#1F2937" stroke-width="1.3"/><text x="30" y="90" text-anchor="end" font-size="13" font-weight="normal" fill="#1F2937">B</text><path d="M36,86 L100,86" fill="none" stroke="#1F2937" stroke-width="1.3"/><circle cx="100" cy="86" r="3" fill="#1F2937"/><path d="M100,86 L100,58 L150,58" fill="none" stroke="#1F2937" stroke-width="1.3"/><path d="M100,86 L100,112 L150,112" fill="none" stroke="#1F2937" stroke-width="1.3"/><text x="30" y="132" text-anchor="end" font-size="13" font-weight="normal" fill="#1F2937">C</text><path d="M36,128 L150,128" fill="none" stroke="#1F2937" stroke-width="1.3"/><path d="M270,65.0 L292.0,65.0 A20.0,20.0 0 0 1 292.0,105.0 L270,105.0 Z" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><circle cx="315.5" cy="85" r="3.5" fill="white" stroke="#1565C0" stroke-width="1.5"/><path d="M194.8,50 L240,50 L240,76 L270,76" fill="none" stroke="#1F2937" stroke-width="1.3"/><path d="M194.8,120 L240,120 L240,94 L270,94" fill="none" stroke="#1F2937" stroke-width="1.3"/><path d="M319.0,85 L341.0,85" fill="none" stroke="#1F2937" stroke-width="1.3"/><text x="345.0" y="89" text-anchor="start" font-size="12.5" font-weight="normal" fill="#1F2937">F = AB + BC</text></svg>
+      </div>
+      <p style="font-size:.8rem;color:var(--text-2);margin-top:.4rem">Two-level NAND implementation of F = AB + BC.</p>
     </div>
     <p>Two first-level NAND gates compute (AB)′ and (BC)′ (note B fans out to both — a shared input feeding two gates is completely normal); the final NAND combines them: ((AB)′·(BC)′)′ = AB+BC. Every gate in the circuit is a NAND — nothing else.</p>
 
@@ -127,30 +110,10 @@
 
     <h3>Worked Example — F = (A+B)(B+C)</h3>
     <div style="text-align:center;margin:1.25rem 0">
-      <svg viewBox="-5 -5 420 130" style="max-width:560px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
-        <text x="2" y="19" font-size="13" fill="var(--text)">A</text>
-        <line x1="14" y1="15" x2="60" y2="15" stroke="var(--primary)" stroke-width="2"/>
-        <text x="2" y="64" font-size="13" fill="var(--text)">B</text>
-        <line x1="14" y1="60" x2="30" y2="60" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="30" y1="35" x2="30" y2="85" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="30" y1="35" x2="60" y2="35" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="30" y1="85" x2="60" y2="85" stroke="var(--primary)" stroke-width="2"/>
-        <text x="2" y="109" font-size="13" fill="var(--text)">C</text>
-        <line x1="14" y1="105" x2="60" y2="105" stroke="var(--primary)" stroke-width="2"/>
-
-        <path d="M60,0 Q80,25 60,50 Q105,50 127.5,25 Q105,0 60,0 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="3" stroke-linejoin="round"/>
-        <circle cx="133.5" cy="25" r="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
-        <line x1="139.5" y1="25" x2="170" y2="25" stroke="var(--primary)" stroke-width="2"/>
-
-        <path d="M60,70 Q80,95 60,120 Q105,120 127.5,95 Q105,70 60,70 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="3" stroke-linejoin="round"/>
-        <circle cx="133.5" cy="95" r="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
-        <line x1="139.5" y1="95" x2="170" y2="95" stroke="var(--primary)" stroke-width="2"/>
-
-        <path d="M170,15 Q206,60 170,105 Q251,105 291.5,60 Q251,15 170,15 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="3" stroke-linejoin="round"/>
-        <circle cx="298.5" cy="60" r="7" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
-        <line x1="305.5" y1="60" x2="340" y2="60" stroke="var(--primary)" stroke-width="2"/>
-        <text x="343" y="64" font-size="13" fill="var(--text)">F = (A+B)(B+C)</text>
-      </svg>
+      <div style="overflow-x:auto">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 170" role="img" aria-label="Two-level NOR implementation of F = (A + B)(B + C): two NOR gates form (A + B)′ and (B + C)′, with input B feeding both; a third NOR combines them into F = (A + B)(B + C)." style="width:100%;height:auto;max-width:500px;display:block;margin:0 auto;min-width:500px" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif"><title>Two-level NOR implementation of F = (A + B)(B + C): two NOR gates form (A + B)′ and (B + C)′, with input B feeding both; a third NOR combines them into F = (A + B)(B + C).</title><defs><marker id="mc25bak" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#1F2937"/></marker><marker id="mc25bsk" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1F2937"/></marker><marker id="mc25bao" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#E07A00"/></marker><marker id="mc25bso" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#E07A00"/></marker></defs><path d="M150,32.0 Q173.76,32.0 189.6,50 Q173.76,68.0 150,68.0 Q160.8,50 150,32.0 Z" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><circle cx="193.1" cy="50" r="3.5" fill="white" stroke="#1565C0" stroke-width="1.5"/><path d="M150,102.0 Q173.76,102.0 189.6,120 Q173.76,138.0 150,138.0 Q160.8,120 150,102.0 Z" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><circle cx="193.1" cy="120" r="3.5" fill="white" stroke="#1565C0" stroke-width="1.5"/><text x="30" y="46" text-anchor="end" font-size="13" font-weight="normal" fill="#1F2937">A</text><path d="M36,42 L154.33333333333334,42" fill="none" stroke="#1F2937" stroke-width="1.3"/><text x="30" y="90" text-anchor="end" font-size="13" font-weight="normal" fill="#1F2937">B</text><path d="M36,86 L100,86" fill="none" stroke="#1F2937" stroke-width="1.3"/><circle cx="100" cy="86" r="3" fill="#1F2937"/><path d="M100,86 L100,58 L154.33333333333334,58" fill="none" stroke="#1F2937" stroke-width="1.3"/><path d="M100,86 L100,112 L154.33333333333334,112" fill="none" stroke="#1F2937" stroke-width="1.3"/><text x="30" y="132" text-anchor="end" font-size="13" font-weight="normal" fill="#1F2937">C</text><path d="M36,128 L154.33333333333334,128" fill="none" stroke="#1F2937" stroke-width="1.3"/><path d="M270,67.0 Q293.76,67.0 309.6,85 Q293.76,103.0 270,103.0 Q280.8,85 270,67.0 Z" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><path d="M270,65.0 Q296.4,65.0 314.0,85 Q296.4,105.0 270,105.0 Q282.0,85 270,65.0 Z" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><circle cx="317.5" cy="85" r="3.5" fill="white" stroke="#1565C0" stroke-width="1.5"/><path d="M196.6,50 L240,50 L240,76 L274.785,76" fill="none" stroke="#1F2937" stroke-width="1.3"/><path d="M196.6,120 L240,120 L240,94 L274.785,94" fill="none" stroke="#1F2937" stroke-width="1.3"/><path d="M321.0,85 L343.0,85" fill="none" stroke="#1F2937" stroke-width="1.3"/><text x="347.0" y="89" text-anchor="start" font-size="12.5" font-weight="normal" fill="#1F2937">F = (A + B)(B + C)</text></svg>
+      </div>
+      <p style="font-size:.8rem;color:var(--text-2);margin-top:.4rem">Two-level NOR implementation of F = (A + B)(B + C).</p>
     </div>
     <p>Two first-level NOR gates compute (A+B)′ and (B+C)′; the final NOR combines them: ((A+B)′+(B+C)′)′ = (A+B)(B+C), by the same DeMorgan pattern as before, dualized. Again, every gate is a NOR — nothing else.</p>
 

@@ -55,22 +55,6 @@
 }
   </script>
   <link rel="icon" href="/favicon.ico">
-  <style>
-    .kmap-wrap { display:flex; justify-content:center; margin:1.25rem 0; overflow-x:auto; }
-    .kmap-table { border-collapse:collapse; font-size:.85rem; }
-    .kmap-table th, .kmap-table td { border:1px solid var(--border); width:52px; height:44px; text-align:center; padding:0; }
-    .kmap-table th { background:var(--bg-3); font-weight:700; color:var(--text-2); font-size:.78rem; }
-    .kmap-table .corner { font-size:.68rem; color:var(--text-3); font-weight:600; }
-    .kmap-table td .val { font-weight:700; font-size:1rem; }
-    .kmap-table td .idx { display:block; font-size:.62rem; color:var(--text-3); }
-    .kmap-table td.one { background:#e8f5e9; }
-    .kmap-table td.one .val { color:var(--success); }
-    .kmap-table td.zero .val { color:var(--text-3); }
-    .kmap-overlay { position:relative; display:inline-block; }
-    .kmap-overlay svg { position:absolute; top:0; left:0; pointer-events:none; }
-    .kmap-legend { display:flex; justify-content:center; gap:1.25rem; flex-wrap:wrap; margin:-.5rem 0 1rem; font-size:.8rem; color:var(--text-2); }
-    .kmap-legend span.sw { display:inline-block; width:14px; height:14px; border-radius:4px; margin-right:.35rem; vertical-align:-2px; border:2.5px solid; }
-  </style>
 </head>
 <body>
 <div id="main-nav"></div>
@@ -99,53 +83,18 @@
   <div class="lesson">
     <p>Everything from the previous page — Gray-code headers, power-of-2 groups, wraparound adjacency — carries over directly to 4 variables. The only real difference is scale: a 4-variable map has 16 cells instead of 8, arranged as a 4×4 grid, and the wraparound now happens in <strong>two directions at once</strong>.</p>
 
+    <div class="box box-tip">
+      <strong>In simple terms:</strong> with four variables the map is a 4 × 4 grid whose edges wrap around — top meets bottom, left meets right — so even the four corners are neighbours.</div>
+
     <h2>The Grid Layout</h2>
     <p>Both the rows (AB) and the columns (CD) use Gray-code order: 00, 01, 11, 10. That means rows wrap top-to-bottom (row 00 is adjacent to row 10), <em>and</em> columns wrap left-to-right (column 00 is adjacent to column 10) — the map behaves like the surface of a torus, not a flat rectangle.</p>
 
     <h3>Worked Example — F(A,B,C,D) = Σm(0,2,5,7,8,10,13,15)</h3>
-    <div class="kmap-wrap">
-      <div class="kmap-overlay">
-        <div style="overflow-x:auto">
-        <table class="kmap-table">
-          <tr><th class="corner">AB\CD</th><th>00</th><th>01</th><th>11</th><th>10</th></tr>
-          <tr><th>00</th>
-            <td class="one"><span class="val">1</span><span class="idx">m0</span></td>
-            <td class="zero"><span class="val">0</span><span class="idx">m1</span></td>
-            <td class="zero"><span class="val">0</span><span class="idx">m3</span></td>
-            <td class="one"><span class="val">1</span><span class="idx">m2</span></td>
-          </tr>
-          <tr><th>01</th>
-            <td class="zero"><span class="val">0</span><span class="idx">m4</span></td>
-            <td class="one"><span class="val">1</span><span class="idx">m5</span></td>
-            <td class="one"><span class="val">1</span><span class="idx">m7</span></td>
-            <td class="zero"><span class="val">0</span><span class="idx">m6</span></td>
-          </tr>
-          <tr><th>11</th>
-            <td class="zero"><span class="val">0</span><span class="idx">m12</span></td>
-            <td class="one"><span class="val">1</span><span class="idx">m13</span></td>
-            <td class="one"><span class="val">1</span><span class="idx">m15</span></td>
-            <td class="zero"><span class="val">0</span><span class="idx">m14</span></td>
-          </tr>
-          <tr><th>10</th>
-            <td class="one"><span class="val">1</span><span class="idx">m8</span></td>
-            <td class="zero"><span class="val">0</span><span class="idx">m9</span></td>
-            <td class="zero"><span class="val">0</span><span class="idx">m11</span></td>
-            <td class="one"><span class="val">1</span><span class="idx">m10</span></td>
-          </tr>
-        </table>
-        </div>
-        <svg width="264" height="244" viewBox="0 0 264 244">
-          <rect x="58.3" y="64.7" width="40" height="32.7" rx="8" fill="none" stroke="var(--primary)" stroke-width="3"/>
-          <rect x="214.3" y="64.7" width="40" height="32.7" rx="8" fill="none" stroke="var(--primary)" stroke-width="3"/>
-          <rect x="58.3" y="198.9" width="40" height="32.7" rx="8" fill="none" stroke="var(--primary)" stroke-width="3"/>
-          <rect x="214.3" y="198.9" width="40" height="32.7" rx="8" fill="none" stroke="var(--primary)" stroke-width="3"/>
-          <rect x="110.3" y="109.4" width="92" height="77.4" rx="10" fill="none" stroke="#8e24aa" stroke-width="3"/>
-        </svg>
+    <div style="text-align:center;margin:1.25rem 0">
+      <div style="overflow-x:auto">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 370" role="img" aria-label="Four-variable K-map for F(A,B,C,D) = sum of minterms 0, 2, 5, 7, 8, 10, 13, 15. The four corners wrap around to give B′D′; the centre four give BD. F = B′D′ + BD." style="width:100%;height:auto;max-width:520px;display:block;margin:0 auto;min-width:520px" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif"><title>Four-variable K-map for F(A,B,C,D) = sum of minterms 0, 2, 5, 7, 8, 10, 13, 15. The four corners wrap around to give B′D′; the centre four give BD. F = B′D′ + BD.</title><defs><marker id="mk3ak" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#1F2937"/></marker><marker id="mk3sk" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1F2937"/></marker><marker id="mk3ao" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#E07A00"/></marker><marker id="mk3so" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#E07A00"/></marker></defs><text x="116" y="56" text-anchor="end" font-size="12" font-weight="600" fill="#1F2937">AB</text><text x="258.0" y="36" text-anchor="middle" font-size="12" font-weight="600" fill="#1F2937">CD</text><path d="M104,40 L130,70" stroke="#1F2937" stroke-width="1"/><text x="162.0" y="62" text-anchor="middle" font-size="12" font-weight="normal" fill="#1F2937">00</text><text x="226.0" y="62" text-anchor="middle" font-size="12" font-weight="normal" fill="#1F2937">01</text><text x="290.0" y="62" text-anchor="middle" font-size="12" font-weight="normal" fill="#1F2937">11</text><text x="354.0" y="62" text-anchor="middle" font-size="12" font-weight="normal" fill="#1F2937">10</text><text x="120" y="100.0" text-anchor="end" font-size="12" font-weight="normal" fill="#1F2937">00</text><rect x="130" y="70" width="64" height="52" rx="0" fill="#FFFFFF" stroke="#1565C0" stroke-width="1.6"/><text x="162.0" y="100.5" text-anchor="middle" font-size="13" fill="#1F2937"></text><text x="162.0" y="102.0" text-anchor="middle" font-size="15" font-weight="600" fill="#1F2937">1</text><text x="190" y="82" text-anchor="end" font-size="11" font-weight="normal" fill="#6B7280">m0</text><rect x="194" y="70" width="64" height="52" rx="0" fill="#FFFFFF" stroke="#1565C0" stroke-width="1.6"/><text x="226.0" y="100.5" text-anchor="middle" font-size="13" fill="#1F2937"></text><text x="226.0" y="102.0" text-anchor="middle" font-size="15" font-weight="normal" fill="#6B7280">0</text><text x="254" y="82" text-anchor="end" font-size="11" font-weight="normal" fill="#6B7280">m1</text><rect x="258" y="70" width="64" height="52" rx="0" fill="#FFFFFF" stroke="#1565C0" stroke-width="1.6"/><text x="290.0" y="100.5" text-anchor="middle" font-size="13" fill="#1F2937"></text><text x="290.0" y="102.0" text-anchor="middle" font-size="15" font-weight="normal" fill="#6B7280">0</text><text x="318" y="82" text-anchor="end" font-size="11" font-weight="normal" fill="#6B7280">m3</text><rect x="322" y="70" width="64" height="52" rx="0" fill="#FFFFFF" stroke="#1565C0" stroke-width="1.6"/><text x="354.0" y="100.5" text-anchor="middle" font-size="13" fill="#1F2937"></text><text x="354.0" y="102.0" text-anchor="middle" font-size="15" font-weight="600" fill="#1F2937">1</text><text x="382" y="82" text-anchor="end" font-size="11" font-weight="normal" fill="#6B7280">m2</text><text x="120" y="152.0" text-anchor="end" font-size="12" font-weight="normal" fill="#1F2937">01</text><rect x="130" y="122" width="64" height="52" rx="0" fill="#FFFFFF" stroke="#1565C0" stroke-width="1.6"/><text x="162.0" y="152.6" text-anchor="middle" font-size="13" fill="#1F2937"></text><text x="162.0" y="154.0" text-anchor="middle" font-size="15" font-weight="normal" fill="#6B7280">0</text><text x="190" y="134" text-anchor="end" font-size="11" font-weight="normal" fill="#6B7280">m4</text><rect x="194" y="122" width="64" height="52" rx="0" fill="#FFFFFF" stroke="#1565C0" stroke-width="1.6"/><text x="226.0" y="152.6" text-anchor="middle" font-size="13" fill="#1F2937"></text><text x="226.0" y="154.0" text-anchor="middle" font-size="15" font-weight="600" fill="#1F2937">1</text><text x="254" y="134" text-anchor="end" font-size="11" font-weight="normal" fill="#6B7280">m5</text><rect x="258" y="122" width="64" height="52" rx="0" fill="#FFFFFF" stroke="#1565C0" stroke-width="1.6"/><text x="290.0" y="152.6" text-anchor="middle" font-size="13" fill="#1F2937"></text><text x="290.0" y="154.0" text-anchor="middle" font-size="15" font-weight="600" fill="#1F2937">1</text><text x="318" y="134" text-anchor="end" font-size="11" font-weight="normal" fill="#6B7280">m7</text><rect x="322" y="122" width="64" height="52" rx="0" fill="#FFFFFF" stroke="#1565C0" stroke-width="1.6"/><text x="354.0" y="152.6" text-anchor="middle" font-size="13" fill="#1F2937"></text><text x="354.0" y="154.0" text-anchor="middle" font-size="15" font-weight="normal" fill="#6B7280">0</text><text x="382" y="134" text-anchor="end" font-size="11" font-weight="normal" fill="#6B7280">m6</text><text x="120" y="204.0" text-anchor="end" font-size="12" font-weight="normal" fill="#1F2937">11</text><rect x="130" y="174" width="64" height="52" rx="0" fill="#FFFFFF" stroke="#1565C0" stroke-width="1.6"/><text x="162.0" y="204.6" text-anchor="middle" font-size="13" fill="#1F2937"></text><text x="162.0" y="206.0" text-anchor="middle" font-size="15" font-weight="normal" fill="#6B7280">0</text><text x="190" y="186" text-anchor="end" font-size="11" font-weight="normal" fill="#6B7280">m12</text><rect x="194" y="174" width="64" height="52" rx="0" fill="#FFFFFF" stroke="#1565C0" stroke-width="1.6"/><text x="226.0" y="204.6" text-anchor="middle" font-size="13" fill="#1F2937"></text><text x="226.0" y="206.0" text-anchor="middle" font-size="15" font-weight="600" fill="#1F2937">1</text><text x="254" y="186" text-anchor="end" font-size="11" font-weight="normal" fill="#6B7280">m13</text><rect x="258" y="174" width="64" height="52" rx="0" fill="#FFFFFF" stroke="#1565C0" stroke-width="1.6"/><text x="290.0" y="204.6" text-anchor="middle" font-size="13" fill="#1F2937"></text><text x="290.0" y="206.0" text-anchor="middle" font-size="15" font-weight="600" fill="#1F2937">1</text><text x="318" y="186" text-anchor="end" font-size="11" font-weight="normal" fill="#6B7280">m15</text><rect x="322" y="174" width="64" height="52" rx="0" fill="#FFFFFF" stroke="#1565C0" stroke-width="1.6"/><text x="354.0" y="204.6" text-anchor="middle" font-size="13" fill="#1F2937"></text><text x="354.0" y="206.0" text-anchor="middle" font-size="15" font-weight="normal" fill="#6B7280">0</text><text x="382" y="186" text-anchor="end" font-size="11" font-weight="normal" fill="#6B7280">m14</text><text x="120" y="256.0" text-anchor="end" font-size="12" font-weight="normal" fill="#1F2937">10</text><rect x="130" y="226" width="64" height="52" rx="0" fill="#FFFFFF" stroke="#1565C0" stroke-width="1.6"/><text x="162.0" y="256.6" text-anchor="middle" font-size="13" fill="#1F2937"></text><text x="162.0" y="258.0" text-anchor="middle" font-size="15" font-weight="600" fill="#1F2937">1</text><text x="190" y="238" text-anchor="end" font-size="11" font-weight="normal" fill="#6B7280">m8</text><rect x="194" y="226" width="64" height="52" rx="0" fill="#FFFFFF" stroke="#1565C0" stroke-width="1.6"/><text x="226.0" y="256.6" text-anchor="middle" font-size="13" fill="#1F2937"></text><text x="226.0" y="258.0" text-anchor="middle" font-size="15" font-weight="normal" fill="#6B7280">0</text><text x="254" y="238" text-anchor="end" font-size="11" font-weight="normal" fill="#6B7280">m9</text><rect x="258" y="226" width="64" height="52" rx="0" fill="#FFFFFF" stroke="#1565C0" stroke-width="1.6"/><text x="290.0" y="256.6" text-anchor="middle" font-size="13" fill="#1F2937"></text><text x="290.0" y="258.0" text-anchor="middle" font-size="15" font-weight="normal" fill="#6B7280">0</text><text x="318" y="238" text-anchor="end" font-size="11" font-weight="normal" fill="#6B7280">m11</text><rect x="322" y="226" width="64" height="52" rx="0" fill="#FFFFFF" stroke="#1565C0" stroke-width="1.6"/><text x="354.0" y="256.6" text-anchor="middle" font-size="13" fill="#1F2937"></text><text x="354.0" y="258.0" text-anchor="middle" font-size="15" font-weight="600" fill="#1F2937">1</text><text x="382" y="238" text-anchor="end" font-size="11" font-weight="normal" fill="#6B7280">m10</text><rect x="138" y="87" width="48" height="27" rx="14" fill="none" stroke="#1565C0" stroke-width="2.4" stroke-dasharray="6 4"/><rect x="330" y="87" width="48" height="27" rx="14" fill="none" stroke="#1565C0" stroke-width="2.4" stroke-dasharray="6 4"/><rect x="138" y="243" width="48" height="27" rx="14" fill="none" stroke="#1565C0" stroke-width="2.4" stroke-dasharray="6 4"/><rect x="330" y="243" width="48" height="27" rx="14" fill="none" stroke="#1565C0" stroke-width="2.4" stroke-dasharray="6 4"/><rect x="200" y="137" width="116" height="83" rx="14" fill="none" stroke="#2E7D32" stroke-width="2.4"/><text x="398" y="100" text-anchor="start" font-size="11.5" font-weight="normal" fill="#1565C0">corners</text><text x="398" y="116" text-anchor="start" font-size="11.5" font-weight="normal" fill="#1565C0">wrap around</text><text x="398" y="132" text-anchor="start" font-size="12" font-weight="600" fill="#1565C0">→ B′D′</text><text x="398" y="184" text-anchor="start" font-size="11.5" font-weight="normal" fill="#2E7D32">centre four</text><text x="398" y="200" text-anchor="start" font-size="12" font-weight="600" fill="#2E7D32">→ BD</text><text x="260" y="318" text-anchor="middle" font-size="13.5" font-weight="600" fill="#1F2937">F = B′D′ + BD</text></svg>
       </div>
-    </div>
-    <div class="kmap-legend">
-      <span><span class="sw" style="border-color:var(--primary)"></span>Four corners (wraparound) → B′D′</span>
-      <span><span class="sw" style="border-color:#8e24aa"></span>Quad {m5,m7,m13,m15} → BD</span>
+      <p style="font-size:.8rem;color:var(--text-2);margin-top:.4rem">Four-variable K-map: the corners wrap around to give B′D′; the centre four give BD.</p>
     </div>
     <p>Two groups, each outlined above. m0, m2, m8, m10 are the map's <strong>four corners</strong>, drawn as four separate boxes in the same color specifically because a wraparound group can't be enclosed by one continuous loop on a flat page — all four corners are still a single logical group. In a 4-variable map, all four corners are mutually adjacent: row 00/row 10 wrap vertically, and column 00/column 10 wrap horizontally, at the same time. That makes the four corners a single valid quad:</p>
     <div class="box box-eg">

@@ -55,24 +55,6 @@
 }
   </script>
   <link rel="icon" href="/favicon.ico">
-  <style>
-    .kmap-wrap { display:flex; justify-content:center; margin:1.25rem 0; overflow-x:auto; }
-    .kmap-table { border-collapse:collapse; font-size:.82rem; }
-    .kmap-table th, .kmap-table td { border:1px solid var(--border); width:50px; height:42px; text-align:center; padding:0; }
-    .kmap-table th { background:var(--bg-3); font-weight:700; color:var(--text-2); font-size:.75rem; }
-    .kmap-table .corner { font-size:.65rem; color:var(--text-3); font-weight:600; }
-    .kmap-table td .val { font-weight:700; font-size:1rem; }
-    .kmap-table td .idx { display:block; font-size:.6rem; color:var(--text-3); }
-    .kmap-table td.one { background:#e8f5e9; }
-    .kmap-table td.one .val { color:var(--success); }
-    .kmap-table td.zero .val { color:var(--text-3); }
-    .kmap-table td.dc { background:#fff8e1; }
-    .kmap-table td.dc .val { color:#e65100; }
-    .kmap-overlay { position:relative; display:inline-block; }
-    .kmap-overlay svg { position:absolute; top:0; left:0; pointer-events:none; }
-    .kmap-legend { display:flex; justify-content:center; gap:1.25rem; flex-wrap:wrap; margin:-.5rem 0 1rem; font-size:.8rem; color:var(--text-2); }
-    .kmap-legend span.sw { display:inline-block; width:14px; height:14px; border-radius:4px; margin-right:.35rem; vertical-align:-2px; border:2.5px solid; }
-  </style>
 </head>
 <body>
 <div id="main-nav"></div>
@@ -101,6 +83,9 @@
   <div class="lesson">
     <p>Every truth table so far has specified an output for <em>every</em> possible input combination. But some real circuits are only ever fed a limited subset of the theoretically-possible inputs — and for the input combinations that genuinely can't occur, the designer is free to assign whichever output value makes the resulting circuit simplest.</p>
 
+    <div class="box box-tip">
+      <strong>In simple terms:</strong> a don't-care is an input that never happens, so you may treat it as 1 or 0 — whichever makes the groups bigger.</div>
+
     <h2>What a Don't-Care Is</h2>
     <p>A <strong>don't-care condition</strong> is an input combination whose output value is unspecified — either because that input never actually occurs in the system, or because the application genuinely doesn't care what the output is when it does. Recall Unit 1's Binary Codes coverage: BCD only ever uses the bit patterns 0000 through 1001 — patterns 1010 through 1111 are <strong>invalid BCD digits</strong> that a correctly-functioning system will never actually produce. Any circuit built to process BCD digits can treat those six patterns as don't-cares.</p>
     <p>Don't-cares are marked with an <strong>X</strong> (or sometimes <em>d</em>) in a truth table or K-map, distinct from both 0 and 1.</p>
@@ -110,53 +95,17 @@
 
     <h3>Worked Example — F(A,B,C,D) = Σm(1,3,5,7,9) + d(10,11,12,13,14,15)</h3>
     <p>This function is 1 for the odd BCD digits 1, 3, 5, 7, 9, and 0 for the even BCD digits 0, 2, 4, 6, 8. The six invalid BCD patterns (10-15) are marked as don't-cares.</p>
-    <div class="kmap-wrap">
-      <div class="kmap-overlay">
-        <div style="overflow-x:auto">
-        <table class="kmap-table">
-          <tr><th class="corner">AB\CD</th><th>00</th><th>01</th><th>11</th><th>10</th></tr>
-          <tr><th>00</th>
-            <td class="zero"><span class="val">0</span><span class="idx">m0</span></td>
-            <td class="one"><span class="val">1</span><span class="idx">m1</span></td>
-            <td class="one"><span class="val">1</span><span class="idx">m3</span></td>
-            <td class="zero"><span class="val">0</span><span class="idx">m2</span></td>
-          </tr>
-          <tr><th>01</th>
-            <td class="zero"><span class="val">0</span><span class="idx">m4</span></td>
-            <td class="one"><span class="val">1</span><span class="idx">m5</span></td>
-            <td class="one"><span class="val">1</span><span class="idx">m7</span></td>
-            <td class="zero"><span class="val">0</span><span class="idx">m6</span></td>
-          </tr>
-          <tr><th>11</th>
-            <td class="dc"><span class="val">X</span><span class="idx">m12</span></td>
-            <td class="dc"><span class="val">X</span><span class="idx">m13</span></td>
-            <td class="dc"><span class="val">X</span><span class="idx">m15</span></td>
-            <td class="dc"><span class="val">X</span><span class="idx">m14</span></td>
-          </tr>
-          <tr><th>10</th>
-            <td class="zero"><span class="val">0</span><span class="idx">m8</span></td>
-            <td class="one"><span class="val">1</span><span class="idx">m9</span></td>
-            <td class="dc"><span class="val">X</span><span class="idx">m11</span></td>
-            <td class="dc"><span class="val">X</span><span class="idx">m10</span></td>
-          </tr>
-        </table>
-        </div>
-        <svg width="256" height="240" viewBox="0 0 256 240">
-          <rect x="106.3" y="62.7" width="88" height="76.4" rx="10" fill="none" stroke="var(--primary)" stroke-width="3"/>
-          <rect x="106.3" y="151.1" width="88" height="76.4" rx="10" fill="none" stroke="#8e24aa" stroke-width="3"/>
-        </svg>
+    <div style="text-align:center;margin:1.25rem 0">
+      <div style="overflow-x:auto">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 380" role="img" aria-label="K-map with don't-cares for F = sum of minterms 1, 3, 5, 7, 9 plus don't-cares 10 to 15. The two D = 1 columns (minterms 1, 3, 5, 7, 9 and don't-cares 11, 13, 15) form one group of eight, so F = D; don't-cares 10, 12 and 14 are left out." style="width:100%;height:auto;max-width:520px;display:block;margin:0 auto;min-width:520px" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif"><title>K-map with don't-cares for F = sum of minterms 1, 3, 5, 7, 9 plus don't-cares 10 to 15. The two D = 1 columns (minterms 1, 3, 5, 7, 9 and don't-cares 11, 13, 15) form one group of eight, so F = D; don't-cares 10, 12 and 14 are left out.</title><defs><marker id="mk5ak" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#1F2937"/></marker><marker id="mk5sk" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1F2937"/></marker><marker id="mk5ao" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#E07A00"/></marker><marker id="mk5so" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#E07A00"/></marker></defs><text x="116" y="56" text-anchor="end" font-size="12" font-weight="600" fill="#1F2937">AB</text><text x="258.0" y="36" text-anchor="middle" font-size="12" font-weight="600" fill="#1F2937">CD</text><path d="M104,40 L130,70" stroke="#1F2937" stroke-width="1"/><text x="162.0" y="62" text-anchor="middle" font-size="12" font-weight="normal" fill="#1F2937">00</text><text x="226.0" y="62" text-anchor="middle" font-size="12" font-weight="normal" fill="#1F2937">01</text><text x="290.0" y="62" text-anchor="middle" font-size="12" font-weight="normal" fill="#1F2937">11</text><text x="354.0" y="62" text-anchor="middle" font-size="12" font-weight="normal" fill="#1F2937">10</text><text x="120" y="100.0" text-anchor="end" font-size="12" font-weight="normal" fill="#1F2937">00</text><rect x="130" y="70" width="64" height="52" rx="0" fill="#FFFFFF" stroke="#1565C0" stroke-width="1.6"/><text x="162.0" y="100.5" text-anchor="middle" font-size="13" fill="#1F2937"></text><text x="162.0" y="102.0" text-anchor="middle" font-size="15" font-weight="normal" fill="#6B7280">0</text><text x="190" y="82" text-anchor="end" font-size="11" font-weight="normal" fill="#6B7280">m0</text><rect x="194" y="70" width="64" height="52" rx="0" fill="#FFFFFF" stroke="#1565C0" stroke-width="1.6"/><text x="226.0" y="100.5" text-anchor="middle" font-size="13" fill="#1F2937"></text><text x="226.0" y="102.0" text-anchor="middle" font-size="15" font-weight="600" fill="#1F2937">1</text><text x="254" y="82" text-anchor="end" font-size="11" font-weight="normal" fill="#6B7280">m1</text><rect x="258" y="70" width="64" height="52" rx="0" fill="#FFFFFF" stroke="#1565C0" stroke-width="1.6"/><text x="290.0" y="100.5" text-anchor="middle" font-size="13" fill="#1F2937"></text><text x="290.0" y="102.0" text-anchor="middle" font-size="15" font-weight="600" fill="#1F2937">1</text><text x="318" y="82" text-anchor="end" font-size="11" font-weight="normal" fill="#6B7280">m3</text><rect x="322" y="70" width="64" height="52" rx="0" fill="#FFFFFF" stroke="#1565C0" stroke-width="1.6"/><text x="354.0" y="100.5" text-anchor="middle" font-size="13" fill="#1F2937"></text><text x="354.0" y="102.0" text-anchor="middle" font-size="15" font-weight="normal" fill="#6B7280">0</text><text x="382" y="82" text-anchor="end" font-size="11" font-weight="normal" fill="#6B7280">m2</text><text x="120" y="152.0" text-anchor="end" font-size="12" font-weight="normal" fill="#1F2937">01</text><rect x="130" y="122" width="64" height="52" rx="0" fill="#FFFFFF" stroke="#1565C0" stroke-width="1.6"/><text x="162.0" y="152.6" text-anchor="middle" font-size="13" fill="#1F2937"></text><text x="162.0" y="154.0" text-anchor="middle" font-size="15" font-weight="normal" fill="#6B7280">0</text><text x="190" y="134" text-anchor="end" font-size="11" font-weight="normal" fill="#6B7280">m4</text><rect x="194" y="122" width="64" height="52" rx="0" fill="#FFFFFF" stroke="#1565C0" stroke-width="1.6"/><text x="226.0" y="152.6" text-anchor="middle" font-size="13" fill="#1F2937"></text><text x="226.0" y="154.0" text-anchor="middle" font-size="15" font-weight="600" fill="#1F2937">1</text><text x="254" y="134" text-anchor="end" font-size="11" font-weight="normal" fill="#6B7280">m5</text><rect x="258" y="122" width="64" height="52" rx="0" fill="#FFFFFF" stroke="#1565C0" stroke-width="1.6"/><text x="290.0" y="152.6" text-anchor="middle" font-size="13" fill="#1F2937"></text><text x="290.0" y="154.0" text-anchor="middle" font-size="15" font-weight="600" fill="#1F2937">1</text><text x="318" y="134" text-anchor="end" font-size="11" font-weight="normal" fill="#6B7280">m7</text><rect x="322" y="122" width="64" height="52" rx="0" fill="#FFFFFF" stroke="#1565C0" stroke-width="1.6"/><text x="354.0" y="152.6" text-anchor="middle" font-size="13" fill="#1F2937"></text><text x="354.0" y="154.0" text-anchor="middle" font-size="15" font-weight="normal" fill="#6B7280">0</text><text x="382" y="134" text-anchor="end" font-size="11" font-weight="normal" fill="#6B7280">m6</text><text x="120" y="204.0" text-anchor="end" font-size="12" font-weight="normal" fill="#1F2937">11</text><rect x="130" y="174" width="64" height="52" rx="0" fill="#FFFFFF" stroke="#1565C0" stroke-width="1.6"/><text x="162.0" y="204.6" text-anchor="middle" font-size="13" fill="#1F2937"></text><text x="162.0" y="206.0" text-anchor="middle" font-size="15" font-weight="600" fill="#E07A00">X</text><text x="190" y="186" text-anchor="end" font-size="11" font-weight="normal" fill="#6B7280">m12</text><rect x="194" y="174" width="64" height="52" rx="0" fill="#FFFFFF" stroke="#1565C0" stroke-width="1.6"/><text x="226.0" y="204.6" text-anchor="middle" font-size="13" fill="#1F2937"></text><text x="226.0" y="206.0" text-anchor="middle" font-size="15" font-weight="600" fill="#E07A00">X</text><text x="254" y="186" text-anchor="end" font-size="11" font-weight="normal" fill="#6B7280">m13</text><rect x="258" y="174" width="64" height="52" rx="0" fill="#FFFFFF" stroke="#1565C0" stroke-width="1.6"/><text x="290.0" y="204.6" text-anchor="middle" font-size="13" fill="#1F2937"></text><text x="290.0" y="206.0" text-anchor="middle" font-size="15" font-weight="600" fill="#E07A00">X</text><text x="318" y="186" text-anchor="end" font-size="11" font-weight="normal" fill="#6B7280">m15</text><rect x="322" y="174" width="64" height="52" rx="0" fill="#FFFFFF" stroke="#1565C0" stroke-width="1.6"/><text x="354.0" y="204.6" text-anchor="middle" font-size="13" fill="#1F2937"></text><text x="354.0" y="206.0" text-anchor="middle" font-size="15" font-weight="600" fill="#E07A00">X</text><text x="382" y="186" text-anchor="end" font-size="11" font-weight="normal" fill="#6B7280">m14</text><text x="120" y="256.0" text-anchor="end" font-size="12" font-weight="normal" fill="#1F2937">10</text><rect x="130" y="226" width="64" height="52" rx="0" fill="#FFFFFF" stroke="#1565C0" stroke-width="1.6"/><text x="162.0" y="256.6" text-anchor="middle" font-size="13" fill="#1F2937"></text><text x="162.0" y="258.0" text-anchor="middle" font-size="15" font-weight="normal" fill="#6B7280">0</text><text x="190" y="238" text-anchor="end" font-size="11" font-weight="normal" fill="#6B7280">m8</text><rect x="194" y="226" width="64" height="52" rx="0" fill="#FFFFFF" stroke="#1565C0" stroke-width="1.6"/><text x="226.0" y="256.6" text-anchor="middle" font-size="13" fill="#1F2937"></text><text x="226.0" y="258.0" text-anchor="middle" font-size="15" font-weight="600" fill="#1F2937">1</text><text x="254" y="238" text-anchor="end" font-size="11" font-weight="normal" fill="#6B7280">m9</text><rect x="258" y="226" width="64" height="52" rx="0" fill="#FFFFFF" stroke="#1565C0" stroke-width="1.6"/><text x="290.0" y="256.6" text-anchor="middle" font-size="13" fill="#1F2937"></text><text x="290.0" y="258.0" text-anchor="middle" font-size="15" font-weight="600" fill="#E07A00">X</text><text x="318" y="238" text-anchor="end" font-size="11" font-weight="normal" fill="#6B7280">m11</text><rect x="322" y="226" width="64" height="52" rx="0" fill="#FFFFFF" stroke="#1565C0" stroke-width="1.6"/><text x="354.0" y="256.6" text-anchor="middle" font-size="13" fill="#1F2937"></text><text x="354.0" y="258.0" text-anchor="middle" font-size="15" font-weight="600" fill="#E07A00">X</text><text x="382" y="238" text-anchor="end" font-size="11" font-weight="normal" fill="#6B7280">m10</text><rect x="200" y="85" width="116" height="187" rx="14" fill="none" stroke="#2E7D32" stroke-width="2.4"/><text x="398" y="166" text-anchor="start" font-size="11.5" font-weight="normal" fill="#2E7D32">group of 8</text><text x="398" y="182" text-anchor="start" font-size="11.5" font-weight="normal" fill="#2E7D32">(D = 1 columns)</text><text x="398" y="200" text-anchor="start" font-size="12" font-weight="600" fill="#2E7D32">→ D</text><text x="260" y="318" text-anchor="middle" font-size="13" font-weight="600" fill="#1F2937">F = D   (don’t-cares 11, 13, 15 used; 10, 12, 14 not)</text></svg>
       </div>
+      <p style="font-size:.8rem;color:var(--text-2);margin-top:.4rem">With don't-cares 11, 13, 15 taken as 1s, the two D = 1 columns form one group of eight: F = D.</p>
     </div>
-    <div class="kmap-legend">
-      <span><span class="sw" style="border-color:var(--primary)"></span>Quad {m1,m3,m5,m7} → A′D</span>
-      <span><span class="sw" style="border-color:#8e24aa"></span>Quad {m9,d11,d13,d15} → AD</span>
-    </div>
-    <p><strong>Without</strong> using any don't-cares, m9 is nearly isolated — its only same-value neighbor among the defined 1s and 0s is nothing, forcing a large 4-literal term just for m9 alone. <strong>With</strong> the don't-cares, a much better grouping appears: treat m11, m13, and m15 as 1s (they're free to be anything), and the four cells {m9, m11, m13, m15} — all with A=1, D=1 — form a full quad.</p>
+    <p><strong>Without</strong> don't-cares, m9 can only pair with m1 (the top and bottom rows are adjacent), giving F = A′D + B′C′D. <strong>With</strong> them, treat m11, m13 and m15 as 1s: the two D = 1 columns — m1, m3, m5, m7, m9 and d11, d13, d15 — form a single group of eight.</p>
     <div class="box box-eg">
-      <pre>Quad {m1, m3, m5, m7} (A=0, D=1; B and C both vary):     term = A′D
-Quad {m9, m11, m13, m15} (A=1, D=1; B,C vary):                      term = AD
+      <pre>Group of 8 {m1, m3, m5, m7, m9, d11, d13, d15} (D = 1; A, B, C all vary): term = D
 
-F = A′D + AD = D(A′ + A) = D</pre>
+F = D      (d10, d12, d14 are not needed and are left as 0)</pre>
     </div>
     <p>The entire function collapses to a <strong>single variable</strong>, F = D — a dramatically simpler circuit than what plain minterms alone would have produced, made possible entirely by choosing don't-care values strategically.</p>
 
@@ -241,7 +190,7 @@ F = A′D + AD = D(A′ + A) = D</pre>
     { q:"What is a don't-care condition in a K-map?", options:["An input combination that never occurs in practice, or whose output value doesn't matter, marked with an X", "An input combination where the output is always 0", "An input combination where the circuit malfunctions", "A cell that must always be treated as 1 during grouping"], answer:0, explanation:"A don't-care marks an input combination that either can't occur in the real system, or whose output truly doesn't matter — it's a deliberate design freedom, marked X rather than 0 or 1." },
     { q:"When forming K-map groups, how should a don't-care (X) cell be treated?", options:["As either 0 or 1, whichever produces a larger and more useful group — decided independently for each group", "Always as a 1, without exception", "Always as a 0, without exception", "Don't-cares must be excluded from every group entirely"], answer:0, explanation:"Each X is free to be treated as whatever value (0 or 1) helps form the largest, most useful group — and different groups can even treat the same X differently." },
     { q:"Why are BCD codes 1010 through 1111 commonly treated as don't-cares in BCD-processing circuits?", options:["Because those bit patterns are invalid BCD digits that a correctly functioning system never actually produces", "Because those patterns always represent the number zero", "Because BCD circuits are incapable of processing 4-bit inputs", "Because those patterns are reserved for parity checking only"], answer:0, explanation:"BCD only uses patterns 0000-1001 for digits 0-9; patterns 1010-1111 never occur in valid BCD data, so a BCD circuit's designer is free to assign them whatever output value simplifies the circuit." },
-    { q:"In the worked example F(A,B,C,D)=Σm(1,3,5,7,9)+d(10,11,12,13,14,15), what does the function simplify to when the don't-cares are used strategically?", options:["F = D", "F = A′D", "F = AD", "F cannot be simplified further even with don't-cares"], answer:0, explanation:"Treating m11, m13, m15 as 1s forms the quad AD (with m9), which combines with quad A′D (from m1,3,5,7) to give A′D+AD = D — the whole function collapses to the single variable D." },
+    { q:"In the worked example F(A,B,C,D)=Σm(1,3,5,7,9)+d(10,11,12,13,14,15), what does the function simplify to when the don't-cares are used strategically?", options:["F = D", "F = A′D", "F = AD", "F cannot be simplified further even with don't-cares"], answer:0, explanation:"Treating m11, m13 and m15 as 1s lets the two D = 1 columns form one group of eight, so F = D." },
     { q:"Is it required that every don't-care cell in a K-map be included in some group?", options:["No — a don't-care is only used where it helps form a larger group; it's entirely optional", "Yes — every X must be circled in at least one group, or the simplification is considered incomplete", "Yes, but only in 4-variable maps", "No — don't-cares must never be included in any group"], answer:0, explanation:"Don't-cares are optional by definition. An X should only be included in a group if doing so produces a larger or more useful grouping — including an unhelpful X can even make the result worse." }
   ];
 
