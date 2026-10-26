@@ -6,9 +6,11 @@ export const GROUPS = {
       { id:'state-reduction-assignment',   title:'State Reduction &amp; State Assignment', desc:'Merging equivalent states to minimize a design, then choosing binary codes for the states that remain.',      time:'18 min', href:'state-reduction-assignment.html', status:'active' },
       { id:'fsm-design-sequence-detector', title:'FSM Design Procedure — Sequence Detector', desc:'A complete worked design: state diagram → table → excitation → K-maps → circuit, for a serial pattern detector.', time:'24 min', href:'fsm-design-sequence-detector.html', status:'active' },
       { id:'programmable-logic-devices',   title:'Programmable Logic Devices',             desc:'ROM, PLA, and PAL — three ways to implement combinational logic as a programmable AND/OR array.',              time:'18 min', href:'programmable-logic-devices.html', status:'active' },
+      { id:'memory-ram-rom',                 title:'Memory: RAM and ROM',                    desc:'Words and addresses, read and write operations, RAM cells and a 4 × 4 RAM, coincident decoding, SRAM vs DRAM, and the ROM family.', time:'20 min', href:'memory-ram-rom.html', status:'active' },
+      { id:'fsm-case-studies',               title:'FSM Case Studies: Traffic Light and Vending Machine', desc:'Two complete designs — a traffic-light controller and a vending machine — from state diagram to flip-flop and output equations.', time:'24 min', href:'fsm-case-studies.html', status:'active' },
     ],
   };
 
 export const GROUP_LABELS = {
-  'tg-statemachines': '🧭 State Machines & PLDs',
+  'tg-statemachines': '🧭 State Machines, Memory & PLDs',
 };

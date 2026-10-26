@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3030765874336294" crossorigin="anonymous"></script>
+  <title>Memory: RAM and ROM — DLD Unit 5 | CHANDRAS EDU</title>
+  <meta name="description" content="Memory units for DLD: words and addresses, read and write operations, RAM cells and a 4 × 4 RAM, coincident decoding, SRAM vs DRAM, and ROM types.">
+  <link rel="canonical" href="https://chandrashaker.com/courses/academic/dld/unit5/memory-ram-rom">
+  <link rel="stylesheet" href="../../../css/style.css">
+
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="CHANDRAS EDU">
+  <meta property="og:title" content="Memory: RAM and ROM — DLD Unit 5 | CHANDRAS EDU">
+  <meta property="og:description" content="Memory units for DLD: words and addresses, read and write operations, RAM cells and a 4 × 4 RAM, coincident decoding, SRAM vs DRAM, and ROM types.">
+  <meta property="og:url" content="https://chandrashaker.com/courses/academic/dld/unit5/memory-ram-rom">
+  <meta property="og:image" content="https://chandrashaker.com/courses/images/og/dld-v7.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Digital Logic Design — CHANDRAS EDU free course">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Memory: RAM and ROM — DLD Unit 5 | CHANDRAS EDU">
+  <meta name="twitter:description" content="Memory units for DLD: words and addresses, read and write operations, RAM cells and a 4 × 4 RAM, coincident decoding, SRAM vs DRAM, and ROM types.">
+  <meta name="twitter:image" content="https://chandrashaker.com/courses/images/og/dld-v7.png">
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Courses", "item": "https://chandrashaker.com/courses/" },
+    { "@type": "ListItem", "position": 2, "name": "DLD", "item": "https://chandrashaker.com/courses/academic/dld/" },
+    { "@type": "ListItem", "position": 3, "name": "Unit 5", "item": "https://chandrashaker.com/courses/academic/dld/unit5/" },
+    { "@type": "ListItem", "position": 4, "name": "Memory: RAM and ROM" }
+  ]
+}
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LearningResource",
+  "name": "Memory: RAM and ROM",
+  "description": "Memory units for DLD: words and addresses, read and write operations, RAM cells and a 4 × 4 RAM, coincident decoding, SRAM vs DRAM, and ROM types.",
+  "url": "https://chandrashaker.com/courses/academic/dld/unit5/memory-ram-rom",
+  "image": "https://chandrashaker.com/courses/images/og/dld-v7.png",
+  "learningResourceType": "Lesson",
+  "educationalLevel": "Undergraduate",
+  "about": { "@type": "Thing", "name": "Digital Logic Design" },
+  "isPartOf": {
+    "@type": "Course",
+    "name": "Digital Logic Design",
+    "provider": { "@type": "Organization", "name": "CHANDRAS EDU", "url": "https://chandrashaker.in" }
+  },
+  "publisher": { "@type": "Organization", "name": "CHANDRAS EDU", "url": "https://chandrashaker.in" }
+}
+  </script>
+  <link rel="icon" href="/favicon.ico">
+  <style>
+    .truth-table { border-collapse:collapse; margin:1rem auto; font-size:.86rem; }
+    .truth-table th, .truth-table td { border:1px solid var(--border); padding:.4rem .65rem; text-align:center; }
+    .truth-table th { background:var(--bg-3); color:var(--text); font-weight:700; }
+  </style>
+</head>
+<body>
+<div id="main-nav"></div>
+
+
+<div class="page-narrow" role="main">
+
+  <nav class="breadcrumb">
+    <a href="../../../index.html">Courses</a><span class="sep">/</span>
+    <a href="../../dld/index.html">DLD</a><span class="sep">/</span>
+    <a href="index.html">Unit 5</a><span class="sep">/</span>
+    <span>State Machines, Memory &amp; PLDs</span><span class="sep">/</span>
+    <span class="cur">Memory: RAM and ROM</span>
+  </nav>
+
+  <div style="background:var(--primary);border-radius:var(--radius-lg);padding:1.1rem 1.4rem;margin-bottom:1.5rem;color:#fff">
+    <div style="font-size:.75rem;opacity:.75;margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.05em">DLD › Unit 5: State Machines, Memory &amp; PLDs › Topic 6</div>
+    <h1 style="font-size:1.4rem;font-weight:700;color:#fff;margin-bottom:.5rem">Memory: RAM and ROM</h1>
+    <div style="display:flex;gap:.75rem;flex-wrap:wrap">
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">⏱ 20 min read</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📝 Quiz inside</span>
+    </div>
+  </div>
+
+  <!-- FULL LESSON — visible to everyone -->
+  <div class="lesson">
+    <div class="box box-tip">
+      <strong>In simple terms:</strong> a memory is a large set of numbered boxes, each holding one word. Give it an address and it either stores the word you supply (write) or hands back the word already there (read).</div>
+
+    <h2>What a Memory Unit Is</h2>
+    <p>A memory unit is a collection of binary storage cells together with the circuits that move information in and out of them. It stores information in groups of bits called <strong>words</strong>; each word has an <strong>address</strong> from 0 to 2<sup>k</sup> − 1, where k is the number of address lines. A memory of 2<sup>k</sup> words of n bits has k address lines, n data input lines, n data output lines, and control inputs that say whether to read or write.</p>
+    <div style="text-align:center;margin:1.25rem 0">
+      <div style="overflow-x:auto">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 460 230" role="img" aria-label="Block diagram of a memory unit: k address lines select one of 2 to the k words of n bits; Read and Write control inputs choose the operation; n data input lines carry a word in and n data output lines carry a word out." style="width:100%;height:auto;max-width:460px;display:block;margin:0 auto;min-width:460px" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif"><title>Block diagram of a memory unit: k address lines select one of 2 to the k words of n bits; Read and Write control inputs choose the operation; n data input lines carry a word in and n data output lines carry a word out.</title><defs><marker id="mr1ak" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#1F2937"/></marker><marker id="mr1sk" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1F2937"/></marker><marker id="mr1ao" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#E07A00"/></marker><marker id="mr1so" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#E07A00"/></marker></defs><rect x="170" y="60" width="140" height="110" rx="6" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><text x="240.0" y="103.8" text-anchor="middle" font-size="12.5" font-weight="600" fill="#1F2937">Memory unit</text><text x="240.0" y="119.4" text-anchor="middle" font-size="12.5" fill="#1F2937">2ᵏ words,</text><text x="240.0" y="135.0" text-anchor="middle" font-size="12.5" fill="#1F2937">n bits per word</text><text x="120" y="84" text-anchor="end" font-size="12" font-weight="normal" fill="#1F2937">k address lines</text><path d="M126,80 L170,80" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#mr1ak)"/><text x="120" y="119" text-anchor="end" font-size="12" font-weight="normal" fill="#1F2937">Read</text><path d="M126,115 L170,115" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#mr1ak)"/><text x="120" y="154" text-anchor="end" font-size="12" font-weight="normal" fill="#1F2937">Write</text><path d="M126,150 L170,150" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#mr1ak)"/><path d="M240,20 L240,60" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#mr1ak)"/><text x="250" y="30" text-anchor="start" font-size="12" font-weight="normal" fill="#1F2937">n data input lines</text><path d="M240,170 L240,210" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#mr1ak)"/><text x="250" y="206" text-anchor="start" font-size="12" font-weight="normal" fill="#1F2937">n data output lines</text><path d="M234,45 L246,35" fill="none" stroke="#1F2937" stroke-width="1.2"/><path d="M234,195 L246,185" fill="none" stroke="#1F2937" stroke-width="1.2"/><path d="M140,75 L152,85" fill="none" stroke="#1F2937" stroke-width="1.2"/></svg>
+      </div>
+      <p style="font-size:.8rem;color:var(--text-2);margin-top:.4rem">Block diagram of a memory unit. Adapted from M. Morris Mano and Michael D. Ciletti, <em>Digital Design</em>, Fig. 7.2.</p>
+    </div>
+
+    <p>Memories are named by size: 1K = 2<sup>10</sup> = 1,024 words, 1M = 2<sup>20</sup>, 1G = 2<sup>30</sup>. A “1K × 16” memory has 1,024 words of 16 bits: it needs 10 address lines (2<sup>10</sup> = 1,024) and 16 data lines in each direction.</p>
+
+    <h3>Worked Example — Counting Lines</h3>
+    <div class="box box-eg">
+      <pre>Memory        Words      Address lines (k)   Data lines (n)   Capacity
+1K × 16       1,024      10                  16               2,048 bytes
+4K × 8        4,096      12                   8               4,096 bytes
+64K × 16      65,536     16                  16               131,072 bytes
+Rule: 2^k = number of words   →   k = log2(words)</pre>
+    </div>
+
+    <h2>Write and Read Operations</h2>
+    <p><strong>Write:</strong> (1) put the binary address on the address lines; (2) put the data bits on the data input lines; (3) activate the write control. The word is stored at that address, replacing what was there.</p>
+    <p><strong>Read:</strong> (1) put the address on the address lines; (2) activate the read control. The stored word appears on the data output lines; reading does not change it.</p>
+    <p>Memory chips usually have a <strong>memory enable</strong> (chip select) input and one <strong>Read/Write</strong> line:</p>
+    <div style="overflow-x:auto">
+    <table class="truth-table">
+      <thead><tr><th>Memory enable</th><th>Read/Write</th><th>Operation</th></tr></thead>
+      <tbody>
+        <tr><td>0</td><td>X</td><td>None (chip not selected)</td></tr>
+        <tr><td>1</td><td>0</td><td>Write to the selected word</td></tr>
+        <tr><td>1</td><td>1</td><td>Read from the selected word</td></tr>
+      </tbody>
+    </table>
+    </div>
+
+    <h2>Inside a RAM</h2>
+    <p>Each bit is held in a <strong>binary cell (BC)</strong> — in effect a latch with gating. When its select line is 1, Read/Write = 0 stores the input bit and Read/Write = 1 places the stored bit on the output.</p>
+    <div style="text-align:center;margin:1.25rem 0">
+      <div style="overflow-x:auto">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 380 190" role="img" aria-label="Binary storage cell (BC) as a block: inputs Select, Input and Read/Write, and one Output. When Select = 1, Read/Write = 0 stores the Input bit, Read/Write = 1 places the stored bit on Output; when Select = 0 nothing changes." style="width:100%;height:auto;max-width:380px;display:block;margin:0 auto;min-width:380px" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif"><title>Binary storage cell (BC) as a block: inputs Select, Input and Read/Write, and one Output. When Select = 1, Read/Write = 0 stores the Input bit, Read/Write = 1 places the stored bit on Output; when Select = 0 nothing changes.</title><defs><marker id="mr2ak" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#1F2937"/></marker><marker id="mr2sk" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1F2937"/></marker><marker id="mr2ao" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#E07A00"/></marker><marker id="mr2so" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#E07A00"/></marker></defs><rect x="150" y="40" width="90" height="100" rx="6" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><text x="195.0" y="95.2" text-anchor="middle" font-size="15" fill="#1F2937">BC</text><text x="110" y="64" text-anchor="end" font-size="12" font-weight="normal" fill="#1F2937">Select</text><path d="M116,60 L150,60" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#mr2ak)"/><text x="110" y="94" text-anchor="end" font-size="12" font-weight="normal" fill="#1F2937">Input</text><path d="M116,90 L150,90" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#mr2ak)"/><text x="110" y="124" text-anchor="end" font-size="12" font-weight="normal" fill="#1F2937">Read/Write</text><path d="M116,120 L150,120" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#mr2ak)"/><path d="M240,90 L290,90" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#mr2ak)"/><text x="296" y="94" text-anchor="start" font-size="12" font-weight="normal" fill="#1F2937">Output</text><text x="195" y="170" text-anchor="middle" font-size="11.5" font-weight="normal" fill="#6B7280">one bit of storage (a latch plus gating)</text></svg>
+      </div>
+      <p style="font-size:.8rem;color:var(--text-2);margin-top:.4rem">A binary storage cell as a block.</p>
+    </div>
+    <p>A RAM of m words × n bits is an m × n array of cells. A k-to-2<sup>k</sup> decoder turns the address into one word-select line; every cell in that row is selected; the data inputs go to every column, and an OR gate per column collects the selected row’s bits for output.</p>
+    <div style="text-align:center;margin:1.25rem 0">
+      <div style="overflow-x:auto">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 420" role="img" aria-label="Four-word by four-bit RAM: a 2-to-4 decoder driven by address bits A1 A0 and the memory enable selects one word (row) of four binary cells; the four data input lines feed every column; Read/Write goes to every cell; an OR gate per column collects the selected word's bits onto the four data output lines." style="width:100%;height:auto;max-width:640px;display:block;margin:0 auto;min-width:640px" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif"><title>Four-word by four-bit RAM: a 2-to-4 decoder driven by address bits A1 A0 and the memory enable selects one word (row) of four binary cells; the four data input lines feed every column; Read/Write goes to every cell; an OR gate per column collects the selected word's bits onto the four data output lines.</title><defs><marker id="mr3ak" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#1F2937"/></marker><marker id="mr3sk" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1F2937"/></marker><marker id="mr3ao" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#E07A00"/></marker><marker id="mr3so" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#E07A00"/></marker></defs><rect x="40" y="120" width="90" height="140" rx="6" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><text x="85.0" y="186.6" text-anchor="middle" font-size="12.5" font-weight="600" fill="#1F2937">2 × 4</text><text x="85.0" y="202.2" text-anchor="middle" font-size="12.5" fill="#1F2937">decoder</text><text x="70" y="90" text-anchor="middle" font-size="12" font-weight="normal" fill="#1F2937">A₁</text><path d="M70,96 L70,120" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#mr3ak)"/><text x="100" y="90" text-anchor="middle" font-size="12" font-weight="normal" fill="#1F2937">A₀</text><path d="M100,96 L100,120" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#mr3ak)"/><text x="85" y="290" text-anchor="middle" font-size="11.5" font-weight="normal" fill="#E07A00">Memory</text><text x="85" y="304" text-anchor="middle" font-size="11.5" font-weight="normal" fill="#E07A00">enable</text><path d="M85,280 L85,260" fill="none" stroke="#E07A00" stroke-width="1.6" marker-end="url(#mr3ao)"/><text x="248" y="40" text-anchor="middle" font-size="11.5" font-weight="normal" fill="#1F2937">Input 3</text><path d="M248,48 L248,330" fill="none" stroke="#6B7280" stroke-width="1.1"/><text x="348" y="40" text-anchor="middle" font-size="11.5" font-weight="normal" fill="#1F2937">Input 2</text><path d="M348,48 L348,330" fill="none" stroke="#6B7280" stroke-width="1.1"/><text x="448" y="40" text-anchor="middle" font-size="11.5" font-weight="normal" fill="#1F2937">Input 1</text><path d="M448,48 L448,330" fill="none" stroke="#6B7280" stroke-width="1.1"/><text x="548" y="40" text-anchor="middle" font-size="11.5" font-weight="normal" fill="#1F2937">Input 0</text><path d="M548,48 L548,330" fill="none" stroke="#6B7280" stroke-width="1.1"/><text x="126" y="114" text-anchor="end" font-size="11" font-weight="normal" fill="#6B7280">0</text><path d="M130,110 L580,110" fill="none" stroke="#1F2937" stroke-width="1.2"/><rect x="220" y="92" width="56" height="36" rx="0" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><text x="248.0" y="114.0" text-anchor="middle" font-size="11.5" fill="#1F2937">BC</text><circle cx="248" cy="92" r="3" fill="#6B7280"/><rect x="320" y="92" width="56" height="36" rx="0" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><text x="348.0" y="114.0" text-anchor="middle" font-size="11.5" fill="#1F2937">BC</text><circle cx="348" cy="92" r="3" fill="#6B7280"/><rect x="420" y="92" width="56" height="36" rx="0" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><text x="448.0" y="114.0" text-anchor="middle" font-size="11.5" fill="#1F2937">BC</text><circle cx="448" cy="92" r="3" fill="#6B7280"/><rect x="520" y="92" width="56" height="36" rx="0" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><text x="548.0" y="114.0" text-anchor="middle" font-size="11.5" fill="#1F2937">BC</text><circle cx="548" cy="92" r="3" fill="#6B7280"/><text x="126" y="174" text-anchor="end" font-size="11" font-weight="normal" fill="#6B7280">1</text><path d="M130,170 L580,170" fill="none" stroke="#1F2937" stroke-width="1.2"/><rect x="220" y="152" width="56" height="36" rx="0" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><text x="248.0" y="174.0" text-anchor="middle" font-size="11.5" fill="#1F2937">BC</text><circle cx="248" cy="152" r="3" fill="#6B7280"/><rect x="320" y="152" width="56" height="36" rx="0" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><text x="348.0" y="174.0" text-anchor="middle" font-size="11.5" fill="#1F2937">BC</text><circle cx="348" cy="152" r="3" fill="#6B7280"/><rect x="420" y="152" width="56" height="36" rx="0" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><text x="448.0" y="174.0" text-anchor="middle" font-size="11.5" fill="#1F2937">BC</text><circle cx="448" cy="152" r="3" fill="#6B7280"/><rect x="520" y="152" width="56" height="36" rx="0" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><text x="548.0" y="174.0" text-anchor="middle" font-size="11.5" fill="#1F2937">BC</text><circle cx="548" cy="152" r="3" fill="#6B7280"/><text x="126" y="234" text-anchor="end" font-size="11" font-weight="normal" fill="#6B7280">2</text><path d="M130,230 L580,230" fill="none" stroke="#1F2937" stroke-width="1.2"/><rect x="220" y="212" width="56" height="36" rx="0" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><text x="248.0" y="234.0" text-anchor="middle" font-size="11.5" fill="#1F2937">BC</text><circle cx="248" cy="212" r="3" fill="#6B7280"/><rect x="320" y="212" width="56" height="36" rx="0" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><text x="348.0" y="234.0" text-anchor="middle" font-size="11.5" fill="#1F2937">BC</text><circle cx="348" cy="212" r="3" fill="#6B7280"/><rect x="420" y="212" width="56" height="36" rx="0" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><text x="448.0" y="234.0" text-anchor="middle" font-size="11.5" fill="#1F2937">BC</text><circle cx="448" cy="212" r="3" fill="#6B7280"/><rect x="520" y="212" width="56" height="36" rx="0" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><text x="548.0" y="234.0" text-anchor="middle" font-size="11.5" fill="#1F2937">BC</text><circle cx="548" cy="212" r="3" fill="#6B7280"/><text x="126" y="294" text-anchor="end" font-size="11" font-weight="normal" fill="#6B7280">3</text><path d="M130,290 L580,290" fill="none" stroke="#1F2937" stroke-width="1.2"/><rect x="220" y="272" width="56" height="36" rx="0" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><text x="248.0" y="294.0" text-anchor="middle" font-size="11.5" fill="#1F2937">BC</text><circle cx="248" cy="272" r="3" fill="#6B7280"/><rect x="320" y="272" width="56" height="36" rx="0" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><text x="348.0" y="294.0" text-anchor="middle" font-size="11.5" fill="#1F2937">BC</text><circle cx="348" cy="272" r="3" fill="#6B7280"/><rect x="420" y="272" width="56" height="36" rx="0" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><text x="448.0" y="294.0" text-anchor="middle" font-size="11.5" fill="#1F2937">BC</text><circle cx="448" cy="272" r="3" fill="#6B7280"/><rect x="520" y="272" width="56" height="36" rx="0" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><text x="548.0" y="294.0" text-anchor="middle" font-size="11.5" fill="#1F2937">BC</text><circle cx="548" cy="272" r="3" fill="#6B7280"/><text x="150" y="24" text-anchor="middle" font-size="11" font-weight="normal" fill="#1F2937"></text><path d="M232,340 Q248,346 264,340 Q264,356 248,368 Q232,356 232,340 Z" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.5"/><path d="M248,368 L248,388" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#mr3ak)"/><text x="248" y="404" text-anchor="middle" font-size="11.5" font-weight="normal" fill="#1F2937">Output 3</text><path d="M332,340 Q348,346 364,340 Q364,356 348,368 Q332,356 332,340 Z" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.5"/><path d="M348,368 L348,388" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#mr3ak)"/><text x="348" y="404" text-anchor="middle" font-size="11.5" font-weight="normal" fill="#1F2937">Output 2</text><path d="M432,340 Q448,346 464,340 Q464,356 448,368 Q432,356 432,340 Z" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.5"/><path d="M448,368 L448,388" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#mr3ak)"/><text x="448" y="404" text-anchor="middle" font-size="11.5" font-weight="normal" fill="#1F2937">Output 1</text><path d="M532,340 Q548,346 564,340 Q564,356 548,368 Q532,356 532,340 Z" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.5"/><path d="M548,368 L548,388" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#mr3ak)"/><text x="548" y="404" text-anchor="middle" font-size="11.5" font-weight="normal" fill="#1F2937">Output 0</text><text x="612" y="352" text-anchor="end" font-size="11" font-weight="normal" fill="#6B7280">OR</text><text x="590" y="24" text-anchor="end" font-size="11" font-weight="normal" fill="#E07A00">Read/Write → every cell</text></svg>
+      </div>
+      <p style="font-size:.8rem;color:var(--text-2);margin-top:.4rem">A 4 × 4 RAM: the 2 × 4 decoder selects one word of four cells. Adapted from M. Morris Mano and Michael D. Ciletti, <em>Digital Design</em>, Fig. 7.6.</p>
+    </div>
+
+    <h2>Coincident (Two-Dimensional) Decoding</h2>
+    <p>A single decoder for a 1K memory needs 1,024 outputs (1,024 AND gates). Arranging the words as a 32 × 32 grid instead lets two 5 × 32 decoders do the job: one picks the row (X), the other the column (Y), and the word where they cross is selected — only 64 decoder outputs.</p>
+    <div style="text-align:center;margin:1.25rem 0">
+      <div style="overflow-x:auto">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 360" role="img" aria-label="Two-dimensional (coincident) decoding of a 1K-word memory: the 10-bit address is split into two 5-bit halves; a 5 × 32 X decoder selects one of 32 rows and a 5 × 32 Y decoder one of 32 columns, and the word at their intersection is selected — 64 decoder outputs instead of 1024. Example: address 404 = 01100 10100 selects row X = 12 and column Y = 20." style="width:100%;height:auto;max-width:520px;display:block;margin:0 auto;min-width:520px" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif"><title>Two-dimensional (coincident) decoding of a 1K-word memory: the 10-bit address is split into two 5-bit halves; a 5 × 32 X decoder selects one of 32 rows and a 5 × 32 Y decoder one of 32 columns, and the word at their intersection is selected — 64 decoder outputs instead of 1024. Example: address 404 = 01100 10100 selects row X = 12 and column Y = 20.</title><defs><marker id="mr4ak" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#1F2937"/></marker><marker id="mr4sk" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1F2937"/></marker><marker id="mr4ao" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#E07A00"/></marker><marker id="mr4so" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#E07A00"/></marker></defs><rect x="170" y="90" width="280" height="196.0" fill="#FFFFFF" stroke="#1565C0" stroke-width="1.6"/><path d="M170,114.5 L450,114.5 M205.0,90 L205.0,286.0" stroke="#CFD8DC" stroke-width="1"/><path d="M170,139.0 L450,139.0 M240.0,90 L240.0,286.0" stroke="#CFD8DC" stroke-width="1"/><path d="M170,163.5 L450,163.5 M275.0,90 L275.0,286.0" stroke="#CFD8DC" stroke-width="1"/><path d="M170,188.0 L450,188.0 M310.0,90 L310.0,286.0" stroke="#CFD8DC" stroke-width="1"/><path d="M170,212.5 L450,212.5 M345.0,90 L345.0,286.0" stroke="#CFD8DC" stroke-width="1"/><path d="M170,237.0 L450,237.0 M380.0,90 L380.0,286.0" stroke="#CFD8DC" stroke-width="1"/><path d="M170,261.5 L450,261.5 M415.0,90 L415.0,286.0" stroke="#CFD8DC" stroke-width="1"/><path d="M170,175.5 L450,175.5" stroke="#E07A00" stroke-width="2.2"/><path d="M362.0,90 L362.0,286.0" stroke="#2E7D32" stroke-width="2.2"/><circle cx="362.0" cy="175.5" r="7" fill="#E07A00"/><rect x="40" y="90" width="90" height="196.0" rx="6" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><text x="85.0" y="184.7" text-anchor="middle" font-size="12" font-weight="600" fill="#1F2937">5 × 32</text><text x="85.0" y="199.7" text-anchor="middle" font-size="12" fill="#1F2937">X decoder</text><path d="M130,175.5 L170,175.5" fill="none" stroke="#E07A00" stroke-width="1.6"/><rect x="170" y="20" width="280" height="40" rx="6" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><text x="310.0" y="44.2" text-anchor="middle" font-size="12" font-weight="600" fill="#1F2937">5 × 32  Y decoder</text><path d="M362.0,60 L362.0,90" fill="none" stroke="#2E7D32" stroke-width="1.6"/><text x="85" y="316.0" text-anchor="middle" font-size="12" font-weight="normal" fill="#E07A00">X = 01100 (row 12)</text><text x="310.0" y="316.0" text-anchor="middle" font-size="12" font-weight="normal" fill="#2E7D32">Y = 10100 (column 20)</text><text x="310.0" y="340.0" text-anchor="middle" font-size="11.5" font-weight="normal" fill="#6B7280">32 × 32 array of words — one selected where row and column meet</text></svg>
+      </div>
+      <p style="font-size:.8rem;color:var(--text-2);margin-top:.4rem">Two-dimensional decoding of a 1K memory: address 404 = 01100 10100 selects row 12 and column 20. Adapted from M. Morris Mano and Michael D. Ciletti, <em>Digital Design</em>, Fig. 7.7.</p>
+    </div>
+    <div class="box box-eg">
+      <pre>1-D decoding: one 10 × 1024 decoder  → 1,024 outputs
+2-D decoding: two 5 × 32 decoders     →    64 outputs (32 + 32)</pre>
+    </div>
+
+    <h2>Types of Memory</h2>
+    <div style="overflow-x:auto">
+    <table class="truth-table">
+      <thead><tr><th>Type</th><th>Keeps data without power?</th><th>How it stores a bit</th><th>Typical use</th></tr></thead>
+      <tbody>
+        <tr><td><strong>SRAM</strong> (static RAM)</td><td>No (volatile)</td><td>Latch — holds while powered</td><td>Cache memory; faster</td></tr>
+        <tr><td><strong>DRAM</strong> (dynamic RAM)</td><td>No (volatile)</td><td>Charge on a capacitor — must be refreshed every few milliseconds</td><td>Main memory; denser, cheaper per bit</td></tr>
+        <tr><td><strong>ROM</strong> (mask-programmed)</td><td>Yes (non-volatile)</td><td>Fixed at manufacture</td><td>Fixed programs and tables</td></tr>
+        <tr><td><strong>PROM</strong></td><td>Yes</td><td>Programmed once by the user (fuses)</td><td>Small fixed tables</td></tr>
+        <tr><td><strong>EPROM</strong></td><td>Yes</td><td>Erased with ultraviolet light, reprogrammed</td><td>Development work</td></tr>
+        <tr><td><strong>EEPROM / Flash</strong></td><td>Yes</td><td>Erased and rewritten electrically</td><td>Firmware, USB drives, SSDs</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p><strong>Access time</strong> is the time to select a word and read it; <strong>cycle time</strong> is the time to complete one read or write before the next can start.</p>
+
+    <h2>Common Pitfalls</h2>
+    <ul>
+      <li><strong>Mixing up words and bits.</strong> “4K × 8” means 4,096 <em>words</em> of 8 bits — 12 address lines (from the 4K) and 8 data lines (from the 8), not 32 lines.</li>
+      <li><strong>Thinking reading erases the data.</strong> A read is non-destructive in RAM and ROM; only a write changes a word.</li>
+      <li><strong>Calling ROM “random-access only for reading” and RAM “not random-access”.</strong> Both are random-access — any word takes the same time to reach. The real difference is that RAM is written in normal operation and is volatile; ROM is not.</li>
+    </ul>
+
+    <h2>Applications</h2>
+    <ul>
+      <li><strong>Cache and registers</strong> use SRAM for speed; <strong>main memory</strong> uses DRAM for capacity.</li>
+      <li><strong>Firmware and boot code</strong> live in flash/EEPROM so they survive power-off.</li>
+      <li><strong>Look-up tables</strong> (e.g. code converters, seven-segment patterns) are stored in ROM — the ROM-as-logic idea of the previous topic.</li>
+    </ul>
+  </div>
+
+  <!-- QUIZ GATE -->
+  <div id="gate-section">
+    <div class="gate">
+      <div class="gate-blur">
+        <div class="quiz">
+          <div class="quiz-title">📝 Quick Quiz — 5 Questions</div>
+        </div>
+      </div>
+      <div class="gate-overlay">
+        <div class="gate-box">
+          <div class="lock">🔒</div>
+          <h3>Login to take the quiz</h3>
+          <p>Create a free account to take the quiz and track your progress across all topics.</p>
+          <div class="gate-btns">
+            <a href="../../../login.html" class="btn btn-primary btn-sm">Login</a>
+            <a href="../../../login.html" class="btn btn-outline btn-sm">Register Free</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="quiz" id="quiz-section" style="display:none">
+    <div class="quiz-title">📝 Quick Quiz — 5 Questions · Pass mark 3/5</div>
+    <div id="quiz-body"></div>
+    <button class="btn btn-primary" id="submit-btn" disabled>Submit Quiz</button>
+    <div class="quiz-result" id="quiz-result" style="display:none"></div>
+    <button class="btn btn-outline btn-sm" id="retry-btn" style="display:none;margin-top:.75rem">Try again</button>
+  </div>
+
+  <div class="topic-nav">
+    <a href="programmable-logic-devices.html">
+      <div class="nav-dir">← Previous</div>
+      <div class="nav-title">Programmable Logic Devices</div>
+    </a>
+    <a href="fsm-case-studies.html" class="next">
+      <div class="nav-dir">Next →</div>
+      <div class="nav-title">FSM Case Studies: Traffic Light and Vending Machine</div>
+    </a>
+  </div>
+
+</div>
+
+<footer id="main-footer"></footer>
+
+<script type="module">
+  import { initNav } from '../../../js/nav.js';
+  import { initTopicQuiz } from '../../../js/quiz-submit.js';
+  import { initSidebar } from '../../../js/sidebar.js';
+  initNav(3);
+  initSidebar();
+
+  const COURSE_ID = 'dld';
+  const TOPIC_ID  = 'memory-ram-rom';
+  const LABELS    = ['A','B','C','D'];
+  const QUIZ = [
+    { q:"A memory has 4,096 words of 8 bits. How many address lines does it need?", options:["8", "12", "16", "4096"], answer:1, explanation:"2<sup>12</sup> = 4,096, so 12 address lines; the 8 is the data width." },
+    { q:"With memory enable = 1 and Read/Write = 0, the memory…", options:["reads the selected word", "writes the input data into the selected word", "does nothing", "erases the chip"], answer:1, explanation:"Read/Write = 0 selects write when the chip is enabled." },
+    { q:"Which memory must be refreshed periodically?", options:["SRAM", "DRAM", "Mask ROM", "EPROM"], answer:1, explanation:"DRAM stores charge on capacitors, which leaks away." },
+    { q:"With two-dimensional decoding, a 1K memory needs how many decoder outputs?", options:["1,024", "32", "64", "10"], answer:2, explanation:"Two 5 × 32 decoders, 32 + 32 = 64." },
+    { q:"Which memory is non-volatile and can be erased and rewritten electrically?", options:["SRAM", "DRAM", "Mask ROM", "EEPROM"], answer:3, explanation:"EEPROM (and flash) keep data without power and are erased electrically." },
+  ];
+
+  initTopicQuiz({ courseId: COURSE_ID, topicId: TOPIC_ID, questions: QUIZ, passPct: 60, noun: 'topic' });
+</script>
+</body>
+</html>

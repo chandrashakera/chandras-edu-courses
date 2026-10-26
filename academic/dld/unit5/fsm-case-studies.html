@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3030765874336294" crossorigin="anonymous"></script>
+  <title>FSM Case Studies: Traffic Light and Vending Machine — DLD Unit 5 | CHANDRAS EDU</title>
+  <meta name="description" content="Two complete FSM designs for DLD: a traffic-light controller and a vending machine, each from state diagram to state table, D flip-flop equations and outputs.">
+  <link rel="canonical" href="https://chandrashaker.com/courses/academic/dld/unit5/fsm-case-studies">
+  <link rel="stylesheet" href="../../../css/style.css">
+
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="CHANDRAS EDU">
+  <meta property="og:title" content="FSM Case Studies: Traffic Light and Vending Machine — DLD Unit 5 | CHANDRAS EDU">
+  <meta property="og:description" content="Two complete FSM designs for DLD: a traffic-light controller and a vending machine, each from state diagram to state table, D flip-flop equations and outputs.">
+  <meta property="og:url" content="https://chandrashaker.com/courses/academic/dld/unit5/fsm-case-studies">
+  <meta property="og:image" content="https://chandrashaker.com/courses/images/og/dld-v7.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Digital Logic Design — CHANDRAS EDU free course">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="FSM Case Studies: Traffic Light and Vending Machine — DLD Unit 5 | CHANDRAS EDU">
+  <meta name="twitter:description" content="Two complete FSM designs for DLD: a traffic-light controller and a vending machine, each from state diagram to state table, D flip-flop equations and outputs.">
+  <meta name="twitter:image" content="https://chandrashaker.com/courses/images/og/dld-v7.png">
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Courses", "item": "https://chandrashaker.com/courses/" },
+    { "@type": "ListItem", "position": 2, "name": "DLD", "item": "https://chandrashaker.com/courses/academic/dld/" },
+    { "@type": "ListItem", "position": 3, "name": "Unit 5", "item": "https://chandrashaker.com/courses/academic/dld/unit5/" },
+    { "@type": "ListItem", "position": 4, "name": "FSM Case Studies: Traffic Light and Vending Machine" }
+  ]
+}
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LearningResource",
+  "name": "FSM Case Studies: Traffic Light and Vending Machine",
+  "description": "Two complete FSM designs for DLD: a traffic-light controller and a vending machine, each from state diagram to state table, D flip-flop equations and outputs.",
+  "url": "https://chandrashaker.com/courses/academic/dld/unit5/fsm-case-studies",
+  "image": "https://chandrashaker.com/courses/images/og/dld-v7.png",
+  "learningResourceType": "Lesson",
+  "educationalLevel": "Undergraduate",
+  "about": { "@type": "Thing", "name": "Digital Logic Design" },
+  "isPartOf": {
+    "@type": "Course",
+    "name": "Digital Logic Design",
+    "provider": { "@type": "Organization", "name": "CHANDRAS EDU", "url": "https://chandrashaker.in" }
+  },
+  "publisher": { "@type": "Organization", "name": "CHANDRAS EDU", "url": "https://chandrashaker.in" }
+}
+  </script>
+  <link rel="icon" href="/favicon.ico">
+  <style>
+    .truth-table { border-collapse:collapse; margin:1rem auto; font-size:.86rem; }
+    .truth-table th, .truth-table td { border:1px solid var(--border); padding:.4rem .65rem; text-align:center; }
+    .truth-table th { background:var(--bg-3); color:var(--text); font-weight:700; }
+  </style>
+</head>
+<body>
+<div id="main-nav"></div>
+
+
+<div class="page-narrow" role="main">
+
+  <nav class="breadcrumb">
+    <a href="../../../index.html">Courses</a><span class="sep">/</span>
+    <a href="../../dld/index.html">DLD</a><span class="sep">/</span>
+    <a href="index.html">Unit 5</a><span class="sep">/</span>
+    <span>State Machines, Memory &amp; PLDs</span><span class="sep">/</span>
+    <span class="cur">FSM Case Studies: Traffic Light and Vending Machine</span>
+  </nav>
+
+  <div style="background:var(--primary);border-radius:var(--radius-lg);padding:1.1rem 1.4rem;margin-bottom:1.5rem;color:#fff">
+    <div style="font-size:.75rem;opacity:.75;margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.05em">DLD › Unit 5: State Machines, Memory &amp; PLDs › Topic 7</div>
+    <h1 style="font-size:1.4rem;font-weight:700;color:#fff;margin-bottom:.5rem">FSM Case Studies: Traffic Light and Vending Machine</h1>
+    <div style="display:flex;gap:.75rem;flex-wrap:wrap">
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">⏱ 24 min read</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📝 Quiz inside</span>
+    </div>
+  </div>
+
+  <!-- FULL LESSON — visible to everyone -->
+  <div class="lesson">
+    <p>Both designs follow the procedure of the sequence detector: state diagram → state table → state assignment → flip-flop input equations → output equations. Both are <strong>Moore</strong> machines (outputs belong to states) and use <strong>D flip-flops</strong>, so each D input simply equals the next-state bit.</p>
+
+    <div class="box box-tip">
+      <strong>In simple terms:</strong> a traffic light and a vending machine are both just a few states and a rule for moving between them — the same design steps as the sequence detector turn each into flip-flops and gates.</div>
+
+    <h2>Case Study 1 — Traffic-Light Controller</h2>
+    <p>A junction of a north–south (NS) and an east–west (EW) road. A timer input <strong>T</strong> becomes 1 when the current light has been on long enough. The lights go NS green → NS yellow → EW green → EW yellow → back to NS green; the other road is red throughout.</p>
+    <div style="text-align:center;margin:1.25rem 0">
+      <div style="overflow-x:auto">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 330" role="img" aria-label="Traffic-light controller (Moore): four states in a cycle. S0 = 00: north-south green, east-west red. S1 = 01: north-south yellow, east-west red. S2 = 11: north-south red, east-west green. S3 = 10: north-south red, east-west yellow. Each state stays put while the timer input T = 0 and moves to the next state when T = 1." style="width:100%;height:auto;max-width:560px;display:block;margin:0 auto;min-width:560px" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif"><title>Traffic-light controller (Moore): four states in a cycle. S0 = 00: north-south green, east-west red. S1 = 01: north-south yellow, east-west red. S2 = 11: north-south red, east-west green. S3 = 10: north-south red, east-west yellow. Each state stays put while the timer input T = 0 and moves to the next state when T = 1.</title><defs><marker id="mtlak" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#1F2937"/></marker><marker id="mtlsk" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1F2937"/></marker><marker id="mtlao" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#E07A00"/></marker><marker id="mtlso" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#E07A00"/></marker></defs><circle cx="110" cy="90" r="26" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.8"/><text x="110" y="90" text-anchor="middle" font-size="14" font-weight="600" fill="#1F2937">S0</text><text x="110" y="106" text-anchor="middle" font-size="11" font-weight="normal" fill="#6B7280">00</text><text x="72" y="56" text-anchor="end" font-size="11.5" font-weight="normal" fill="#6B7280">NS G · EW R</text><circle cx="450" cy="90" r="26" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.8"/><text x="450" y="90" text-anchor="middle" font-size="14" font-weight="600" fill="#1F2937">S1</text><text x="450" y="106" text-anchor="middle" font-size="11" font-weight="normal" fill="#6B7280">01</text><text x="488" y="56" text-anchor="start" font-size="11.5" font-weight="normal" fill="#6B7280">NS Y · EW R</text><circle cx="450" cy="240" r="26" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.8"/><text x="450" y="240" text-anchor="middle" font-size="14" font-weight="600" fill="#1F2937">S2</text><text x="450" y="256" text-anchor="middle" font-size="11" font-weight="normal" fill="#6B7280">11</text><text x="488" y="288" text-anchor="start" font-size="11.5" font-weight="normal" fill="#6B7280">NS R · EW G</text><circle cx="110" cy="240" r="26" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.8"/><text x="110" y="240" text-anchor="middle" font-size="14" font-weight="600" fill="#1F2937">S3</text><text x="110" y="256" text-anchor="middle" font-size="11" font-weight="normal" fill="#6B7280">10</text><text x="72" y="288" text-anchor="end" font-size="11.5" font-weight="normal" fill="#6B7280">NS R · EW Y</text><path d="M98,68 C76,24 144,24 122,68" fill="none" stroke="#1F2937" stroke-width="1.5" marker-end="url(#mtlak)"/><text x="110" y="20" text-anchor="middle" font-size="12" font-weight="normal" fill="#E07A00">T′</text><path d="M438,68 C416,24 484,24 462,68" fill="none" stroke="#1F2937" stroke-width="1.5" marker-end="url(#mtlak)"/><text x="450" y="20" text-anchor="middle" font-size="12" font-weight="normal" fill="#E07A00">T′</text><path d="M438,262 C416,306 484,306 462,262" fill="none" stroke="#1F2937" stroke-width="1.5" marker-end="url(#mtlak)"/><text x="450" y="320" text-anchor="middle" font-size="12" font-weight="normal" fill="#E07A00">T′</text><path d="M98,262 C76,306 144,306 122,262" fill="none" stroke="#1F2937" stroke-width="1.5" marker-end="url(#mtlak)"/><text x="110" y="320" text-anchor="middle" font-size="12" font-weight="normal" fill="#E07A00">T′</text><path d="M136.0,90.0 L424.0,90.0" fill="none" stroke="#1F2937" stroke-width="1.5" marker-end="url(#mtlak)"/><text x="280.0" y="82.0" text-anchor="middle" font-size="12" font-weight="normal" fill="#E07A00">T</text><path d="M450.0,116.0 L450.0,214.0" fill="none" stroke="#1F2937" stroke-width="1.5" marker-end="url(#mtlak)"/><text x="462.0" y="169.0" text-anchor="middle" font-size="12" font-weight="normal" fill="#E07A00">T</text><path d="M424.0,240.0 L136.0,240.0" fill="none" stroke="#1F2937" stroke-width="1.5" marker-end="url(#mtlak)"/><text x="280.0" y="232.0" text-anchor="middle" font-size="12" font-weight="normal" fill="#E07A00">T</text><path d="M110.0,214.0 L110.0,116.0" fill="none" stroke="#1F2937" stroke-width="1.5" marker-end="url(#mtlak)"/><text x="98.0" y="169.0" text-anchor="middle" font-size="12" font-weight="normal" fill="#E07A00">T</text></svg>
+      </div>
+      <p style="font-size:.8rem;color:var(--text-2);margin-top:.4rem">Traffic-light controller: four states, each held while T = 0 and left when T = 1.</p>
+    </div>
+
+    <p><strong>State assignment (Gray code, so only one flip-flop changes per step):</strong> S0 = 00, S1 = 01, S2 = 11, S3 = 10 (Q<sub>1</sub>Q<sub>0</sub>).</p>
+    <div style="overflow-x:auto">
+    <table class="truth-table">
+      <thead><tr><th>Present Q<sub>1</sub>Q<sub>0</sub></th><th>Next, T = 0</th><th>Next, T = 1</th><th>NS light</th><th>EW light</th></tr></thead>
+      <tbody>
+        <tr><td>00 (S0)</td><td>00</td><td>01</td><td>Green</td><td>Red</td></tr>
+        <tr><td>01 (S1)</td><td>01</td><td>11</td><td>Yellow</td><td>Red</td></tr>
+        <tr><td>11 (S2)</td><td>11</td><td>10</td><td>Red</td><td>Green</td></tr>
+        <tr><td>10 (S3)</td><td>10</td><td>00</td><td>Red</td><td>Yellow</td></tr>
+      </tbody>
+    </table>
+    </div>
+
+    <p><strong>Flip-flop input equations</strong> — with T = 0 each bit holds; with T = 1 the next code is read from the table (Q<sub>1</sub> takes the old Q<sub>0</sub>, Q<sub>0</sub> takes the old Q<sub>1</sub>′):</p>
+    <div class="box box-eg">
+      <pre>D1 = T′Q1 + TQ0
+D0 = T′Q0 + TQ1′</pre>
+    </div>
+    <p><strong>Output equations</strong> (one per lamp):</p>
+    <div class="box box-eg">
+      <pre>NS green = Q1′Q0′    NS yellow = Q1′Q0    NS red = Q1
+EW green = Q1Q0      EW yellow = Q1Q0′    EW red = Q1′</pre>
+    </div>
+    <p><em>Check:</em> in S2 (11), NS red = Q<sub>1</sub> = 1 and EW green = Q<sub>1</sub>Q<sub>0</sub> = 1; every other lamp is 0. ✓</p>
+
+    <h2>Case Study 2 — Vending Machine</h2>
+    <p>An item costs ₹15. The machine accepts ₹5 coins (input <strong>N</strong>) and ₹10 coins (input <strong>D</strong>), one coin per clock at most (N and D are never both 1). When ₹15 or more has been paid it opens (output <strong>Open</strong> = 1) for one clock and returns to the start. (This simple version gives no change; adding a change output is a common extension.)</p>
+    <div style="text-align:center;margin:1.25rem 0">
+      <div style="overflow-x:auto">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 360" role="img" aria-label="Vending machine (Moore) for a ₹15 item accepting ₹5 (N) and ₹10 (D) coins: states S0 (₹0), S5 (₹5), S10 (₹10) and S15 (₹15 or more, Open = 1). With no coin a state stays put. S0: N to S5, D to S10. S5: N to S10, D to S15. S10: N or D to S15. S15 dispenses and returns to S0 on the next clock." style="width:100%;height:auto;max-width:620px;display:block;margin:0 auto;min-width:620px" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif"><title>Vending machine (Moore) for a ₹15 item accepting ₹5 (N) and ₹10 (D) coins: states S0 (₹0), S5 (₹5), S10 (₹10) and S15 (₹15 or more, Open = 1). With no coin a state stays put. S0: N to S5, D to S10. S5: N to S10, D to S15. S10: N or D to S15. S15 dispenses and returns to S0 on the next clock.</title><defs><marker id="mvmak" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#1F2937"/></marker><marker id="mvmsk" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1F2937"/></marker><marker id="mvmao" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#E07A00"/></marker><marker id="mvmso" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#E07A00"/></marker></defs><circle cx="90" cy="180" r="26" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.8"/><text x="90" y="180" text-anchor="middle" font-size="14" font-weight="600" fill="#1F2937">S0</text><text x="90" y="196" text-anchor="middle" font-size="11" font-weight="normal" fill="#6B7280">Open 0</text><circle cx="250" cy="180" r="26" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.8"/><text x="250" y="180" text-anchor="middle" font-size="14" font-weight="600" fill="#1F2937">S5</text><text x="250" y="196" text-anchor="middle" font-size="11" font-weight="normal" fill="#6B7280">Open 0</text><circle cx="410" cy="180" r="26" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.8"/><text x="410" y="180" text-anchor="middle" font-size="14" font-weight="600" fill="#1F2937">S10</text><text x="410" y="196" text-anchor="middle" font-size="11" font-weight="normal" fill="#6B7280">Open 0</text><circle cx="560" cy="180" r="26" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.8"/><text x="560" y="180" text-anchor="middle" font-size="14" font-weight="600" fill="#1F2937">S15</text><text x="560" y="196" text-anchor="middle" font-size="11" font-weight="normal" fill="#6B7280">Open 1</text><path d="M78,158 C56,114 124,114 102,158" fill="none" stroke="#1F2937" stroke-width="1.5" marker-end="url(#mvmak)"/><text x="90" y="110" text-anchor="middle" font-size="12" font-weight="normal" fill="#E07A00">no coin</text><path d="M238,158 C216,114 284,114 262,158" fill="none" stroke="#1F2937" stroke-width="1.5" marker-end="url(#mvmak)"/><text x="250" y="110" text-anchor="middle" font-size="12" font-weight="normal" fill="#E07A00">no coin</text><path d="M398,158 C376,114 444,114 422,158" fill="none" stroke="#1F2937" stroke-width="1.5" marker-end="url(#mvmak)"/><text x="410" y="110" text-anchor="middle" font-size="12" font-weight="normal" fill="#E07A00">no coin</text><path d="M116.0,180.0 L224.0,180.0" fill="none" stroke="#1F2937" stroke-width="1.5" marker-end="url(#mvmak)"/><text x="170.0" y="172.0" text-anchor="middle" font-size="12" font-weight="normal" fill="#E07A00">N</text><path d="M276.0,180.0 L384.0,180.0" fill="none" stroke="#1F2937" stroke-width="1.5" marker-end="url(#mvmak)"/><text x="330.0" y="172.0" text-anchor="middle" font-size="12" font-weight="normal" fill="#E07A00">N</text><path d="M436.0,180.0 L534.0,180.0" fill="none" stroke="#1F2937" stroke-width="1.5" marker-end="url(#mvmak)"/><text x="485.0" y="172.0" text-anchor="middle" font-size="12" font-weight="normal" fill="#E07A00">N, D</text><path d="M100.0,204.0 L100.0,236 L400.0,236 L400.0,204.0" fill="none" stroke="#1F2937" stroke-width="1.5" marker-end="url(#mvmak)"/><text x="250.0" y="252" text-anchor="middle" font-size="12" font-weight="normal" fill="#E07A00">D</text><path d="M275,170 Q410,0 546,159" fill="none" stroke="#1F2937" stroke-width="1.5" marker-end="url(#mvmak)"/><text x="405" y="64" text-anchor="middle" font-size="12" font-weight="normal" fill="#E07A00">D</text><path d="M560.0,206.0 L560.0,278 L76.0,278 L76.0,201.9" fill="none" stroke="#1F2937" stroke-width="1.5" marker-end="url(#mvmak)"/><text x="325.0" y="294" text-anchor="middle" font-size="12" font-weight="normal" fill="#E07A00">always (dispense)</text></svg>
+      </div>
+      <p style="font-size:.8rem;color:var(--text-2);margin-top:.4rem">Vending machine: the state is the amount paid so far; S15 dispenses and returns to S0.</p>
+    </div>
+
+    <p><strong>State assignment:</strong> S0 = 00, S5 = 01, S10 = 10, S15 = 11 (Q<sub>1</sub>Q<sub>0</sub>).</p>
+    <div style="overflow-x:auto">
+    <table class="truth-table">
+      <thead><tr><th>Present</th><th>No coin</th><th>N (₹5)</th><th>D (₹10)</th><th>Open</th></tr></thead>
+      <tbody>
+        <tr><td>S0 (00)</td><td>S0</td><td>S5</td><td>S10</td><td>0</td></tr>
+        <tr><td>S5 (01)</td><td>S5</td><td>S10</td><td>S15</td><td>0</td></tr>
+        <tr><td>S10 (10)</td><td>S10</td><td>S15</td><td>S15</td><td>0</td></tr>
+        <tr><td>S15 (11)</td><td>S0</td><td>S0</td><td>S0</td><td>1</td></tr>
+      </tbody>
+    </table>
+    </div>
+
+    <p><strong>Flip-flop input equations</strong> — from K-maps of Q<sub>1</sub>, Q<sub>0</sub>, N, D, with ND = 11 as don’t-cares:</p>
+    <div class="box box-eg">
+      <pre>D1 = Q1′D + Q1Q0′ + Q1′Q0N
+D0 = Q0′N + Q1Q0′D + Q1′Q0N′
+Open = Q1Q0</pre>
+    </div>
+    <p><em>Check S5 + ₹10 (01, D = 1):</em> D<sub>1</sub> = Q<sub>1</sub>′D = 1, D<sub>0</sub> = Q<sub>1</sub>′Q<sub>0</sub>N′ = 1 → 11 = S15 ✓. <em>Check S15 (11):</em> every term of D<sub>1</sub> and D<sub>0</sub> has Q<sub>1</sub>′ or Q<sub>0</sub>′, so both are 0 → S0 ✓.</p>
+
+    <h2>Common Pitfalls</h2>
+    <ul>
+      <li><strong>Forgetting the “hold” arrows.</strong> Without the T′ self-loops (traffic light) or “no coin” self-loops (vending machine), the machine would race through states on every clock.</li>
+      <li><strong>Binary instead of Gray assignment for the traffic light.</strong> Counting 00 → 01 → 10 → 11 changes two flip-flops between S1 and S2, which can briefly light the wrong lamp; the Gray order 00 → 01 → 11 → 10 changes one bit per step.</li>
+      <li><strong>Leaving ND = 11 as 0 in the vending K-maps.</strong> That combination cannot occur, so using it as a don’t-care gives the smaller equations above.</li>
+    </ul>
+
+    <h2>Applications</h2>
+    <ul>
+      <li><strong>Real traffic controllers</strong> add pedestrian buttons, vehicle sensors and a night “flashing” mode — each is just more states and inputs in the same diagram.</li>
+      <li><strong>Vending, ticket and parking machines</strong> extend the same amount-paid states with change-giving outputs and more coin values.</li>
+      <li><strong>Any controller described as “wait for an event, then move on”</strong> — washing machines, lifts, elevators — is designed this way.</li>
+    </ul>
+
+    <p style="margin-top:1rem">This closes out <strong>Unit 5: State Machines, Memory &amp; PLDs</strong>, and with it, the full Digital Logic Design course — from number systems and Boolean algebra, through K-map minimization, combinational building blocks and sequential circuits, to the finite-state-machine design procedure, the memory and programmable hardware used to implement it, and complete worked case studies.</p>
+  </div>
+
+  <!-- QUIZ GATE -->
+  <div id="gate-section">
+    <div class="gate">
+      <div class="gate-blur">
+        <div class="quiz">
+          <div class="quiz-title">📝 Quick Quiz — 5 Questions</div>
+        </div>
+      </div>
+      <div class="gate-overlay">
+        <div class="gate-box">
+          <div class="lock">🔒</div>
+          <h3>Login to take the quiz</h3>
+          <p>Create a free account to take the quiz and track your progress across all topics.</p>
+          <div class="gate-btns">
+            <a href="../../../login.html" class="btn btn-primary btn-sm">Login</a>
+            <a href="../../../login.html" class="btn btn-outline btn-sm">Register Free</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="quiz" id="quiz-section" style="display:none">
+    <div class="quiz-title">📝 Quick Quiz — 5 Questions · Pass mark 3/5</div>
+    <div id="quiz-body"></div>
+    <button class="btn btn-primary" id="submit-btn" disabled>Submit Quiz</button>
+    <div class="quiz-result" id="quiz-result" style="display:none"></div>
+    <button class="btn btn-outline btn-sm" id="retry-btn" style="display:none;margin-top:.75rem">Try again</button>
+  </div>
+
+  <div class="topic-nav">
+    <a href="memory-ram-rom.html">
+      <div class="nav-dir">← Previous</div>
+      <div class="nav-title">Memory: RAM and ROM</div>
+    </a>
+    <a href="index.html" class="next">
+      <div class="nav-dir">🎉</div>
+      <div class="nav-title">Unit 5 Complete — Back to Overview</div>
+    </a>
+  </div>
+
+</div>
+
+<footer id="main-footer"></footer>
+
+<script type="module">
+  import { initNav } from '../../../js/nav.js';
+  import { initTopicQuiz } from '../../../js/quiz-submit.js';
+  import { initSidebar } from '../../../js/sidebar.js';
+  initNav(3);
+  initSidebar();
+
+  const COURSE_ID = 'dld';
+  const TOPIC_ID  = 'fsm-case-studies';
+  const LABELS    = ['A','B','C','D'];
+  const QUIZ = [
+    { q:"In the traffic-light controller, what keeps the lights from changing on every clock?", options:["The Gray state codes", "The T′ self-loops: each state holds until the timer input T = 1", "The output equations", "The D flip-flops"], answer:1, explanation:"With T = 0 every state returns to itself." },
+    { q:"Why is the traffic-light state assignment 00, 01, 11, 10 rather than 00, 01, 10, 11?", options:["It needs fewer flip-flops", "Only one flip-flop changes per step, avoiding brief wrong lamp combinations", "It makes the outputs Mealy", "It removes the timer"], answer:1, explanation:"Gray order changes one bit at a time." },
+    { q:"In state 11 of the traffic-light controller, which lamps are on?", options:["NS green and EW red", "NS yellow and EW red", "NS red and EW green", "NS red and EW yellow"], answer:2, explanation:"NS red = Q<sub>1</sub> = 1 and EW green = Q<sub>1</sub>Q<sub>0</sub> = 1." },
+    { q:"The vending machine is in S5 and a ₹10 coin arrives. Its next state is", options:["S10", "S15", "S0", "S5"], answer:1, explanation:"₹5 + ₹10 = ₹15, so it goes to S15 and opens." },
+    { q:"Why is ND = 11 a don’t-care in the vending-machine K-maps?", options:["Both coins are worth the same", "The machine accepts at most one coin per clock, so that input never occurs", "The output is 0 then", "It saves a flip-flop"], answer:1, explanation:"An input combination that cannot happen may be treated as 0 or 1." },
+  ];
+
+  initTopicQuiz({ courseId: COURSE_ID, topicId: TOPIC_ID, questions: QUIZ, passPct: 60, noun: 'topic' });
+</script>
+</body>
+</html>
