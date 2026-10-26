@@ -89,6 +89,9 @@
   <div class="lesson">
     <p>Decoders and encoders are inverses of each other: a decoder turns a compact n-bit code into one active line out of 2ⁿ; an encoder turns one active line out of 2ⁿ back into a compact n-bit code.</p>
 
+    <div class="box box-tip">
+      <strong>In simple terms:</strong> a decoder turns a binary number into one active output line; an encoder does the reverse; a priority encoder picks the highest active input.</div>
+
     <h2>Decoders</h2>
     <p>An <strong>n-to-2ⁿ decoder</strong> has n input lines and up to 2ⁿ output lines, and for every input combination, <strong>exactly one</strong> output is active (1) while all others stay 0. Each output is literally one minterm of the inputs.</p>
     <div style="overflow-x:auto">
@@ -107,81 +110,28 @@
     </div>
     <p>Most real decoder chips add an <strong>enable</strong> input E: every output AND gate gets a third input tied to E, so <em>all</em> outputs stay 0 whenever E=0, regardless of A and B. This is what makes decoders useful as chip-select logic — only the addressed chip's enable line goes active. Here's D₂ = AB′E built out explicitly (the other three outputs are built identically, just with different true/complemented combinations of A and B):</p>
     <div style="text-align:center;margin:1.25rem 0">
-      <svg viewBox="-8 -8 350 116" style="max-width:480px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
-        <text x="0" y="29" font-size="13" fill="var(--text)">A</text>
-        <line x1="14" y1="25" x2="100" y2="25" stroke="var(--primary)" stroke-width="2"/>
-
-        <text x="0" y="54" font-size="13" fill="var(--text)">B</text>
-        <line x1="14" y1="50" x2="30" y2="50" stroke="var(--primary)" stroke-width="2"/>
-        <path d="M30,35 L30,65 L64,50 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="3" stroke-linejoin="round"/>
-        <circle cx="70" cy="50" r="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="76" y1="50" x2="100" y2="50" stroke="var(--primary)" stroke-width="2"/>
-
-        <text x="0" y="79" font-size="13" fill="var(--text)">E</text>
-        <line x1="14" y1="75" x2="100" y2="75" stroke="var(--primary)" stroke-width="2"/>
-
-        <path d="M100,10 L136,10 A40,40 0 0 1 136,90 L100,90 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="3" stroke-linejoin="round"/>
-        <line x1="176" y1="50" x2="210" y2="50" stroke="var(--primary)" stroke-width="2"/>
-        <text x="214" y="54" font-size="13" fill="var(--text)">D₂ = AB′E</text>
-      </svg>
+      <div style="overflow-x:auto">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 380 110" role="img" aria-label="Decoder output D2 = A·B′·E: input B is inverted, and a three-input AND gate combines A, B′ and the enable E." style="width:100%;height:auto;max-width:380px;display:block;margin:0 auto;min-width:380px" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif"><title>Decoder output D2 = A·B′·E: input B is inverted, and a three-input AND gate combines A, B′ and the enable E.</title><defs><marker id="md35aak" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#1F2937"/></marker><marker id="md35ask" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1F2937"/></marker><marker id="md35aao" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#E07A00"/></marker><marker id="md35aso" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#E07A00"/></marker></defs><text x="30" y="34" text-anchor="end" font-size="13" font-weight="normal" fill="#1F2937">A</text><path d="M36,30 L190,30" fill="none" stroke="#1F2937" stroke-width="1.3"/><text x="30" y="59" text-anchor="end" font-size="13" font-weight="normal" fill="#1F2937">B</text><path d="M36,55 L110,55" fill="none" stroke="#1F2937" stroke-width="1.3"/><path d="M110,45 L130,55 L110,65 Z" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><circle cx="133.5" cy="55" r="3.5" fill="white" stroke="#1565C0" stroke-width="1.5"/><path d="M137,55 L190,55" fill="none" stroke="#1F2937" stroke-width="1.3"/><text x="150" y="48" text-anchor="middle" font-size="11.5" font-weight="normal" fill="#6B7280">B′</text><text x="30" y="84" text-anchor="end" font-size="13" font-weight="normal" fill="#E07A00">E</text><path d="M36,80 L190,80" fill="none" stroke="#E07A00" stroke-width="1.3"/><path d="M190,25.0 L223.0,25.0 A30.0,30.0 0 0 1 223.0,85.0 L190,85.0 Z" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><path d="M253.0,55 L277.0,55" fill="none" stroke="#1F2937" stroke-width="1.3"/><text x="283.0" y="59" text-anchor="start" font-size="13" font-weight="normal" fill="#1F2937">D₂ = AB′E</text></svg>
+      </div>
+      <p style="font-size:.8rem;color:var(--text-2);margin-top:.4rem">One decoder output with enable: D₂ = AB′E.</p>
     </div>
 
     <p>Zooming back out, here's the whole 2-to-4 decoder as a single block — the gate detail above is what's actually inside it:</p>
     <div style="text-align:center;margin:1.25rem 0">
-      <svg viewBox="-20 0 250 155" style="max-width:340px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
-        <text x="-18" y="37" font-size="12" fill="var(--text)">A</text>
-        <line x1="0" y1="33" x2="60" y2="33" stroke="var(--primary)" stroke-width="2"/>
-        <text x="-18" y="84" font-size="12" fill="var(--text)">B</text>
-        <line x1="0" y1="80" x2="60" y2="80" stroke="var(--primary)" stroke-width="2"/>
-        <text x="-18" y="131" font-size="12" fill="var(--text)">E</text>
-        <line x1="0" y1="127" x2="60" y2="127" stroke="var(--primary)" stroke-width="2"/>
-        <rect x="60" y="10" width="100" height="140" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
-        <text x="110" y="76" font-size="13" font-weight="700" text-anchor="middle" fill="var(--text)">2-to-4</text>
-        <text x="110" y="92" font-size="13" font-weight="700" text-anchor="middle" fill="var(--text)">DECODER</text>
-        <line x1="160" y1="28" x2="200" y2="28" stroke="var(--primary)" stroke-width="2"/>
-        <text x="204" y="32" font-size="12" fill="var(--text)">D₀</text>
-        <line x1="160" y1="63" x2="200" y2="63" stroke="var(--primary)" stroke-width="2"/>
-        <text x="204" y="67" font-size="12" fill="var(--text)">D₁</text>
-        <line x1="160" y1="98" x2="200" y2="98" stroke="var(--primary)" stroke-width="2"/>
-        <text x="204" y="102" font-size="12" fill="var(--text)">D₂</text>
-        <line x1="160" y1="133" x2="200" y2="133" stroke="var(--primary)" stroke-width="2"/>
-        <text x="204" y="137" font-size="12" fill="var(--text)">D₃</text>
-      </svg>
+      <div style="overflow-x:auto">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 170" role="img" aria-label="2-to-4 line decoder block: inputs A, B and enable E; outputs D0 to D3, one of which is 1 when E = 1." style="width:100%;height:auto;max-width:340px;display:block;margin:0 auto;min-width:340px" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif"><title>2-to-4 line decoder block: inputs A, B and enable E; outputs D0 to D3, one of which is 1 when E = 1.</title><defs><marker id="md35bak" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#1F2937"/></marker><marker id="md35bsk" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1F2937"/></marker><marker id="md35bao" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#E07A00"/></marker><marker id="md35bso" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#E07A00"/></marker></defs><rect x="110" y="15" width="120" height="140" rx="6" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><text x="170.0" y="81.6" text-anchor="middle" font-size="12.5" font-weight="600" fill="#1F2937">2-to-4</text><text x="170.0" y="97.2" text-anchor="middle" font-size="12.5" fill="#1F2937">decoder</text><text x="54" y="54.0" text-anchor="end" font-size="12.5" font-weight="normal" fill="#1F2937">A</text><path d="M60,50.0 L110,50.0" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#md35bak)"/><text x="54" y="89.0" text-anchor="end" font-size="12.5" font-weight="normal" fill="#1F2937">B</text><path d="M60,85.0 L110,85.0" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#md35bak)"/><text x="54" y="124.0" text-anchor="end" font-size="12.5" font-weight="normal" fill="#1F2937">E</text><path d="M60,120.0 L110,120.0" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#md35bak)"/><path d="M230,43.0 L270,43.0" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#md35bak)"/><text x="276" y="47.0" text-anchor="start" font-size="12.5" font-weight="normal" fill="#1F2937">D₀</text><path d="M230,71.0 L270,71.0" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#md35bak)"/><text x="276" y="75.0" text-anchor="start" font-size="12.5" font-weight="normal" fill="#1F2937">D₁</text><path d="M230,99.0 L270,99.0" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#md35bak)"/><text x="276" y="103.0" text-anchor="start" font-size="12.5" font-weight="normal" fill="#1F2937">D₂</text><path d="M230,127.0 L270,127.0" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#md35bak)"/><text x="276" y="131.0" text-anchor="start" font-size="12.5" font-weight="normal" fill="#1F2937">D₃</text></svg>
+      </div>
+      <p style="font-size:.8rem;color:var(--text-2);margin-top:.4rem">2-to-4 decoder with enable, as a block.</p>
     </div>
 
     <h3>Decoders Implement Any Boolean Function</h3>
     <p>Since every decoder output already <em>is</em> one minterm, implementing any Boolean function of n variables is just: feed the n variables into an n-to-2ⁿ decoder, then OR together whichever decoder outputs correspond to the function's minterms. This is the canonical-SOP idea from Unit 1, built directly in hardware with zero simplification needed.</p>
     <p><strong>Example:</strong> F(A,B) = Σm(1,2) — checking against the truth table above, m₁=A′B=D₁ and m₂=AB′=D₂, so F = D₁ + D₂: a single 2-input OR gate feeding off two of the decoder's outputs, no separate AND-gate array needed at all, since the decoder already built every minterm.</p>
     <div style="text-align:center;margin:1.25rem 0">
-      <svg viewBox="-20 0 325 155" style="max-width:440px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
-        <text x="-14" y="37" font-size="12" fill="var(--text)">A</text>
-        <line x1="0" y1="33" x2="20" y2="33" stroke="var(--primary)" stroke-width="2"/>
-        <text x="-14" y="84" font-size="12" fill="var(--text)">B</text>
-        <line x1="0" y1="80" x2="20" y2="80" stroke="var(--primary)" stroke-width="2"/>
-        <rect x="20" y="10" width="90" height="140" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
-        <text x="65" y="76" font-size="13" font-weight="700" text-anchor="middle" fill="var(--text)">2-to-4</text>
-        <text x="65" y="92" font-size="13" font-weight="700" text-anchor="middle" fill="var(--text)">DECODER</text>
-
-        <line x1="110" y1="18" x2="140" y2="18" stroke="var(--primary)" stroke-width="2"/>
-        <text x="144" y="22" font-size="12" fill="var(--text-2)">D₀ (unused)</text>
-
-        <line x1="110" y1="63" x2="140" y2="63" stroke="var(--primary)" stroke-width="2"/>
-        <text x="112" y="58" font-size="11" fill="var(--text-2)">D₁</text>
-        <line x1="140" y1="63" x2="140" y2="45" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="140" y1="45" x2="179" y2="45" stroke="var(--primary)" stroke-width="2"/>
-
-        <line x1="110" y1="98" x2="140" y2="98" stroke="var(--primary)" stroke-width="2"/>
-        <text x="112" y="112" font-size="11" fill="var(--text-2)">D₂</text>
-        <line x1="140" y1="98" x2="140" y2="75" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="140" y1="75" x2="179" y2="75" stroke="var(--primary)" stroke-width="2"/>
-
-        <line x1="110" y1="133" x2="140" y2="133" stroke="var(--primary)" stroke-width="2"/>
-        <text x="144" y="137" font-size="12" fill="var(--text-2)">D₃ (unused)</text>
-
-        <path d="M170,30 Q194,60 170,90 Q224,90 251,60 Q224,30 170,30 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="3" stroke-linejoin="round"/>
-        <line x1="251" y1="60" x2="290" y2="60" stroke="var(--primary)" stroke-width="2"/>
-        <text x="294" y="64" font-size="13" font-weight="700" fill="var(--text)">F</text>
-      </svg>
+      <div style="overflow-x:auto">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 200" role="img" aria-label="F(A,B) = Σm(1,2) with a 2-to-4 decoder: inputs A and B drive the decoder; outputs D1 and D2 feed an OR gate giving F; D0 and D3 are unused." style="width:100%;height:auto;max-width:420px;display:block;margin:0 auto;min-width:420px" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif"><title>F(A,B) = Σm(1,2) with a 2-to-4 decoder: inputs A and B drive the decoder; outputs D1 and D2 feed an OR gate giving F; D0 and D3 are unused.</title><defs><marker id="m29cak" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#1F2937"/></marker><marker id="m29csk" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1F2937"/></marker><marker id="m29cao" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#E07A00"/></marker><marker id="m29cso" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#E07A00"/></marker></defs><rect x="110" y="30" width="110" height="140" rx="6" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><text x="165.0" y="96.6" text-anchor="middle" font-size="12.5" fill="#1F2937">2-to-4</text><text x="165.0" y="112.2" text-anchor="middle" font-size="12.5" fill="#1F2937">decoder</text><text x="40" y="74" text-anchor="end" font-size="13" font-weight="normal" fill="#1F2937">A</text><path d="M46,70 L110,70" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m29cak)"/><text x="40" y="134" text-anchor="end" font-size="13" font-weight="normal" fill="#1F2937">B</text><path d="M46,130 L110,130" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m29cak)"/><text x="214" y="54" text-anchor="end" font-size="11.5" font-weight="normal" fill="#1F2937">D₀</text><text x="214" y="87" text-anchor="end" font-size="11.5" font-weight="normal" fill="#1F2937">D₁</text><text x="214" y="120" text-anchor="end" font-size="11.5" font-weight="normal" fill="#1F2937">D₂</text><text x="214" y="153" text-anchor="end" font-size="11.5" font-weight="normal" fill="#1F2937">D₃</text><path d="M300,76.0 Q331.68,76.0 352.8,100 Q331.68,124.0 300,124.0 Q314.4,100 300,76.0 Z" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><path d="M220,83 L270,83 L270,88 L305.4,88" fill="none" stroke="#1F2937" stroke-width="1.3"/><path d="M220,116 L270,116 L270,112 L305.4,112" fill="none" stroke="#1F2937" stroke-width="1.3"/><path d="M220,50 L244,50" fill="none" stroke="#1F2937" stroke-width="1.2"/><text x="250" y="54" text-anchor="start" font-size="11" font-weight="normal" fill="#6B7280">unused</text><path d="M220,149 L244,149" fill="none" stroke="#1F2937" stroke-width="1.2"/><text x="250" y="153" text-anchor="start" font-size="11" font-weight="normal" fill="#6B7280">unused</text><path d="M352.8,100 L382.8,100" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m29cak)"/><text x="388.8" y="104" text-anchor="start" font-size="13" font-weight="normal" fill="#1F2937">F</text></svg>
+      </div>
+      <p style="font-size:.8rem;color:var(--text-2);margin-top:.4rem">F = Σm(1,2) = D₁ + D₂ from a 2-to-4 decoder and one OR gate.</p>
     </div>
 
     <h2>Encoders</h2>
@@ -193,35 +143,10 @@ A₂ = D₄ + D₅ + D₆ + D₇    (inputs whose index has bit 2 set)</pre>
     </div>
     <p>Each output is simply an OR of the four input lines whose index has that bit position set — a plain encoder needs no AND gates or K-maps at all, just three 4-input OR gates. Here's the whole octal-to-binary encoder as a single block, every input and output drawn out individually:</p>
     <div style="text-align:center;margin:1.25rem 0">
-      <svg viewBox="-5 -5 300 195" style="max-width:400px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
-        <text x="70" y="24" font-size="12" fill="var(--text)">D₇</text>
-        <line x1="84" y1="20" x2="100" y2="20" stroke="var(--primary)" stroke-width="2"/>
-        <text x="70" y="45" font-size="12" fill="var(--text)">D₆</text>
-        <line x1="84" y1="41" x2="100" y2="41" stroke="var(--primary)" stroke-width="2"/>
-        <text x="70" y="66" font-size="12" fill="var(--text)">D₅</text>
-        <line x1="84" y1="62" x2="100" y2="62" stroke="var(--primary)" stroke-width="2"/>
-        <text x="70" y="87" font-size="12" fill="var(--text)">D₄</text>
-        <line x1="84" y1="83" x2="100" y2="83" stroke="var(--primary)" stroke-width="2"/>
-        <text x="70" y="108" font-size="12" fill="var(--text)">D₃</text>
-        <line x1="84" y1="104" x2="100" y2="104" stroke="var(--primary)" stroke-width="2"/>
-        <text x="70" y="129" font-size="12" fill="var(--text)">D₂</text>
-        <line x1="84" y1="125" x2="100" y2="125" stroke="var(--primary)" stroke-width="2"/>
-        <text x="70" y="150" font-size="12" fill="var(--text)">D₁</text>
-        <line x1="84" y1="146" x2="100" y2="146" stroke="var(--primary)" stroke-width="2"/>
-        <text x="70" y="171" font-size="12" fill="var(--text)">D₀</text>
-        <line x1="84" y1="167" x2="100" y2="167" stroke="var(--primary)" stroke-width="2"/>
-
-        <rect x="100" y="10" width="110" height="170" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
-        <text x="155" y="88" font-size="13" font-weight="700" text-anchor="middle" fill="var(--text)">8-to-3</text>
-        <text x="155" y="104" font-size="13" font-weight="700" text-anchor="middle" fill="var(--text)">ENCODER</text>
-
-        <line x1="210" y1="53" x2="250" y2="53" stroke="var(--primary)" stroke-width="2"/>
-        <text x="254" y="57" font-size="12" fill="var(--text)">A₂</text>
-        <line x1="210" y1="95" x2="250" y2="95" stroke="var(--primary)" stroke-width="2"/>
-        <text x="254" y="99" font-size="12" fill="var(--text)">A₁</text>
-        <line x1="210" y1="138" x2="250" y2="138" stroke="var(--primary)" stroke-width="2"/>
-        <text x="254" y="142" font-size="12" fill="var(--text)">A₀</text>
-      </svg>
+      <div style="overflow-x:auto">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 290" role="img" aria-label="8-to-3 encoder block: inputs D0 to D7, of which one is active; outputs A2, A1, A0 give its number." style="width:100%;height:auto;max-width:340px;display:block;margin:0 auto;min-width:340px" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif"><title>8-to-3 encoder block: inputs D0 to D7, of which one is active; outputs A2, A1, A0 give its number.</title><defs><marker id="md35dak" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#1F2937"/></marker><marker id="md35dsk" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1F2937"/></marker><marker id="md35dao" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#E07A00"/></marker><marker id="md35dso" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#E07A00"/></marker></defs><rect x="110" y="15" width="120" height="260" rx="6" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><text x="170.0" y="141.6" text-anchor="middle" font-size="12.5" font-weight="600" fill="#1F2937">8-to-3</text><text x="170.0" y="157.2" text-anchor="middle" font-size="12.5" fill="#1F2937">encoder</text><text x="54" y="47.888888888888886" text-anchor="end" font-size="12.5" font-weight="normal" fill="#1F2937">D₀</text><path d="M60,43.888888888888886 L110,43.888888888888886" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#md35dak)"/><text x="54" y="76.77777777777777" text-anchor="end" font-size="12.5" font-weight="normal" fill="#1F2937">D₁</text><path d="M60,72.77777777777777 L110,72.77777777777777" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#md35dak)"/><text x="54" y="105.66666666666667" text-anchor="end" font-size="12.5" font-weight="normal" fill="#1F2937">D₂</text><path d="M60,101.66666666666667 L110,101.66666666666667" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#md35dak)"/><text x="54" y="134.55555555555554" text-anchor="end" font-size="12.5" font-weight="normal" fill="#1F2937">D₃</text><path d="M60,130.55555555555554 L110,130.55555555555554" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#md35dak)"/><text x="54" y="163.44444444444446" text-anchor="end" font-size="12.5" font-weight="normal" fill="#1F2937">D₄</text><path d="M60,159.44444444444446 L110,159.44444444444446" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#md35dak)"/><text x="54" y="192.33333333333334" text-anchor="end" font-size="12.5" font-weight="normal" fill="#1F2937">D₅</text><path d="M60,188.33333333333334 L110,188.33333333333334" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#md35dak)"/><text x="54" y="221.22222222222223" text-anchor="end" font-size="12.5" font-weight="normal" fill="#1F2937">D₆</text><path d="M60,217.22222222222223 L110,217.22222222222223" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#md35dak)"/><text x="54" y="250.11111111111111" text-anchor="end" font-size="12.5" font-weight="normal" fill="#1F2937">D₇</text><path d="M60,246.11111111111111 L110,246.11111111111111" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#md35dak)"/><path d="M230,80.0 L270,80.0" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#md35dak)"/><text x="276" y="84.0" text-anchor="start" font-size="12.5" font-weight="normal" fill="#1F2937">A₂</text><path d="M230,145.0 L270,145.0" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#md35dak)"/><text x="276" y="149.0" text-anchor="start" font-size="12.5" font-weight="normal" fill="#1F2937">A₁</text><path d="M230,210.0 L270,210.0" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#md35dak)"/><text x="276" y="214.0" text-anchor="start" font-size="12.5" font-weight="normal" fill="#1F2937">A₀</text></svg>
+      </div>
+      <p style="font-size:.8rem;color:var(--text-2);margin-top:.4rem">8-to-3 encoder: A₂A₁A₀ give the number of the active input.</p>
     </div>
 
     <h3>Priority Encoder</h3>
@@ -241,27 +166,10 @@ A₂ = D₄ + D₅ + D₆ + D₇    (inputs whose index has bit 2 set)</pre>
     <p>The X's are don't-cares (Unit 2 again) — once D₃ is known to be 1, D₂/D₁/D₀ genuinely don't matter for the output, since D₃ always wins regardless. <strong>V</strong> is a valid-output flag, 0 only when no input is active at all (needed because A₁=A₀=0 is otherwise ambiguous — does it mean "D₀ is active" or "nothing is active"?).</p>
     <p>As a block, this 4-input priority encoder looks just like a plain encoder with one extra output pin for V:</p>
     <div style="text-align:center;margin:1.25rem 0">
-      <svg viewBox="-5 -5 300 135" style="max-width:400px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
-        <text x="70" y="28" font-size="12" fill="var(--text)">D₃</text>
-        <line x1="84" y1="24" x2="100" y2="24" stroke="var(--primary)" stroke-width="2"/>
-        <text x="70" y="55" font-size="12" fill="var(--text)">D₂</text>
-        <line x1="84" y1="51" x2="100" y2="51" stroke="var(--primary)" stroke-width="2"/>
-        <text x="70" y="83" font-size="12" fill="var(--text)">D₁</text>
-        <line x1="84" y1="79" x2="100" y2="79" stroke="var(--primary)" stroke-width="2"/>
-        <text x="70" y="110" font-size="12" fill="var(--text)">D₀</text>
-        <line x1="84" y1="106" x2="100" y2="106" stroke="var(--primary)" stroke-width="2"/>
-
-        <rect x="100" y="10" width="110" height="110" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
-        <text x="155" y="58" font-size="13" font-weight="700" text-anchor="middle" fill="var(--text)">PRIORITY</text>
-        <text x="155" y="74" font-size="13" font-weight="700" text-anchor="middle" fill="var(--text)">ENCODER</text>
-
-        <line x1="210" y1="28" x2="250" y2="28" stroke="var(--primary)" stroke-width="2"/>
-        <text x="254" y="32" font-size="12" fill="var(--text)">A₁</text>
-        <line x1="210" y1="65" x2="250" y2="65" stroke="var(--primary)" stroke-width="2"/>
-        <text x="254" y="69" font-size="12" fill="var(--text)">A₀</text>
-        <line x1="210" y1="102" x2="250" y2="102" stroke="var(--primary)" stroke-width="2"/>
-        <text x="254" y="106" font-size="12" fill="var(--text)">V</text>
-      </svg>
+      <div style="overflow-x:auto">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 170" role="img" aria-label="Four-input priority encoder block: inputs D0 to D3; outputs A1, A0 name the highest-numbered active input, and V = 1 when any input is active." style="width:100%;height:auto;max-width:340px;display:block;margin:0 auto;min-width:340px" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif"><title>Four-input priority encoder block: inputs D0 to D3; outputs A1, A0 name the highest-numbered active input, and V = 1 when any input is active.</title><defs><marker id="md35eak" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#1F2937"/></marker><marker id="md35esk" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1F2937"/></marker><marker id="md35eao" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#E07A00"/></marker><marker id="md35eso" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#E07A00"/></marker></defs><rect x="110" y="15" width="120" height="140" rx="6" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><text x="170.0" y="81.6" text-anchor="middle" font-size="12.5" font-weight="600" fill="#1F2937">Priority</text><text x="170.0" y="97.2" text-anchor="middle" font-size="12.5" fill="#1F2937">encoder</text><text x="54" y="47.0" text-anchor="end" font-size="12.5" font-weight="normal" fill="#1F2937">D₀</text><path d="M60,43.0 L110,43.0" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#md35eak)"/><text x="54" y="75.0" text-anchor="end" font-size="12.5" font-weight="normal" fill="#1F2937">D₁</text><path d="M60,71.0 L110,71.0" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#md35eak)"/><text x="54" y="103.0" text-anchor="end" font-size="12.5" font-weight="normal" fill="#1F2937">D₂</text><path d="M60,99.0 L110,99.0" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#md35eak)"/><text x="54" y="131.0" text-anchor="end" font-size="12.5" font-weight="normal" fill="#1F2937">D₃</text><path d="M60,127.0 L110,127.0" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#md35eak)"/><path d="M230,50.0 L270,50.0" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#md35eak)"/><text x="276" y="54.0" text-anchor="start" font-size="12.5" font-weight="normal" fill="#1F2937">A₁</text><path d="M230,85.0 L270,85.0" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#md35eak)"/><text x="276" y="89.0" text-anchor="start" font-size="12.5" font-weight="normal" fill="#1F2937">A₀</text><path d="M230,120.0 L270,120.0" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#md35eak)"/><text x="276" y="124.0" text-anchor="start" font-size="12.5" font-weight="normal" fill="#1F2937">V</text></svg>
+      </div>
+      <p style="font-size:.8rem;color:var(--text-2);margin-top:.4rem">Four-input priority encoder: A₁A₀ name the highest-numbered active input; V = 1 when any input is active.</p>
     </div>
 
     <h2>Common Pitfalls</h2>

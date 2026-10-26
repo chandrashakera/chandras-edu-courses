@@ -88,6 +88,9 @@
   <div class="lesson">
     <p>Addition is the single most common operation in any digital system — even subtraction, multiplication, and comparison typically get built from adder circuits underneath. This topic builds the adder up in three stages: a single-bit half-adder, a single-bit full-adder (which the design procedure from the previous topic will feel very familiar for), and then an n-bit adder made by chaining full-adders together.</p>
 
+    <div class="box box-tip">
+      <strong>In simple terms:</strong> a half adder adds two bits; a full adder also adds the incoming carry; chain full adders to add whole numbers, and an XOR per bit lets the same circuit subtract.</div>
+
     <h2>Half-Adder</h2>
     <p>A half-adder takes two single bits A and B and produces their <strong>sum</strong> S and <strong>carry</strong> C — but it has no way to accept a carry-in from a previous stage, which is exactly why it's only "half" of what's needed for a multi-bit adder.</p>
     <div style="overflow-x:auto">
@@ -103,33 +106,17 @@
     </div>
     <p>The sum column is exactly the XOR truth table, and the carry column is exactly AND: <strong>S = A ⊕ B</strong> and <strong>C = AB</strong> — no K-map needed, both are recognizable directly.</p>
     <div style="text-align:center;margin:1.25rem 0">
-      <svg viewBox="-8 -8 200 168" style="max-width:340px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
-        <text x="0" y="29" font-size="13" fill="var(--text)">A</text>
-        <line x1="14" y1="25" x2="50" y2="25" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="35" y1="25" x2="35" y2="105" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="35" y1="105" x2="50" y2="105" stroke="var(--primary)" stroke-width="2"/>
-
-        <text x="0" y="59" font-size="13" fill="var(--text)">B</text>
-        <line x1="14" y1="55" x2="50" y2="55" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="25" y1="55" x2="25" y2="135" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="25" y1="135" x2="50" y2="135" stroke="var(--primary)" stroke-width="2"/>
-
-        <path d="M41,10 Q65,40 41,70" fill="none" stroke="var(--primary)" stroke-width="3" stroke-linejoin="round"/>
-        <path d="M50,10 Q74,40 50,70 Q104,70 131,40 Q104,10 50,10 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="3" stroke-linejoin="round"/>
-        <line x1="131" y1="40" x2="160" y2="40" stroke="var(--primary)" stroke-width="2"/>
-        <text x="164" y="44" font-size="13" fill="var(--text)">S</text>
-
-        <path d="M50,90 L86,90 A30,30 0 0 1 86,150 L50,150 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="3" stroke-linejoin="round"/>
-        <line x1="116" y1="120" x2="160" y2="120" stroke="var(--primary)" stroke-width="2"/>
-        <text x="164" y="124" font-size="13" fill="var(--text)">C</text>
-      </svg>
+      <div style="overflow-x:auto">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 150" role="img" aria-label="Half adder: an XOR gate gives the sum S = A XOR B and an AND gate gives the carry C = A·B." style="width:100%;height:auto;max-width:300px;display:block;margin:0 auto;min-width:300px" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif"><title>Half adder: an XOR gate gives the sum S = A XOR B and an AND gate gives the carry C = A·B.</title><defs><marker id="m24aak" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#1F2937"/></marker><marker id="m24ask" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1F2937"/></marker><marker id="m24aao" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#E07A00"/></marker><marker id="m24aso" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#E07A00"/></marker></defs><text x="20" y="44" text-anchor="end" font-size="13" font-weight="normal" fill="#1F2937">A</text><text x="20" y="76" text-anchor="end" font-size="13" font-weight="normal" fill="#1F2937">B</text><path d="M150,30.0 Q176.4,30.0 194.0,50 Q176.4,70.0 150,70.0 Q162.0,50 150,30.0 Z" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><path d="M144,30.0 Q156.0,50 144,70.0" fill="none" stroke="#1565C0" stroke-width="1.6"/><path d="M150,88.0 L172.0,88.0 A20.0,20.0 0 0 1 172.0,128.0 L150,128.0 Z" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><circle cx="70" cy="40" r="3" fill="#1F2937"/><circle cx="90" cy="72" r="3" fill="#1F2937"/><path d="M26,40 L148.5,40" fill="none" stroke="#1F2937" stroke-width="1.4"/><path d="M26,72 L90,72" fill="none" stroke="#1F2937" stroke-width="1.4"/><path d="M90,72 L90,60 L148.5,60" fill="none" stroke="#1F2937" stroke-width="1.4"/><path d="M70,40 L70,100 L150,100" fill="none" stroke="#1F2937" stroke-width="1.4"/><path d="M90,72 L90,116 L150,116" fill="none" stroke="#1F2937" stroke-width="1.4"/><path d="M194.0,50 L224.0,50" fill="none" stroke="#1F2937" stroke-width="1.4"/><text x="230.0" y="54" text-anchor="start" font-size="13" font-weight="normal" fill="#1F2937">S</text><path d="M192.0,108 L224.0,108" fill="none" stroke="#1F2937" stroke-width="1.4"/><text x="230.0" y="112" text-anchor="start" font-size="13" font-weight="normal" fill="#1F2937">C</text></svg>
+      </div>
+      <p style="font-size:.8rem;color:var(--text-2);margin-top:.4rem">Half adder: S = A ⊕ B, C = AB.</p>
     </div>
 
     <h2>Full-Adder</h2>
-    <p>A full-adder adds three bits — A, B, and a carry-in <strong>Cin</strong> from the previous (less significant) stage — producing a sum S and a carry-out <strong>Cout</strong>. This is what actually chains into a multi-bit adder.</p>
+    <p>A full-adder adds three bits — A, B, and a carry-in <strong>C<sub>in</sub></strong> from the previous (less significant) stage — producing a sum S and a carry-out <strong>C<sub>out</sub></strong>. This is what actually chains into a multi-bit adder.</p>
     <div style="overflow-x:auto">
     <table class="truth-table">
-      <thead><tr><th>A</th><th>B</th><th>Cin</th><th>S</th><th>Cout</th></tr></thead>
+      <thead><tr><th>A</th><th>B</th><th>C<sub>in</sub></th><th>S</th><th>C<sub>out</sub></th></tr></thead>
       <tbody>
         <tr><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
         <tr><td>0</td><td>0</td><td>1</td><td>1</td><td>0</td></tr>
@@ -142,106 +129,35 @@
       </tbody>
     </table>
     </div>
-    <p><strong>S = A ⊕ B ⊕ Cin</strong> (1 whenever an odd number of the three inputs are 1). <strong>Cout = AB + BCin + ACin</strong> — and that expression should look immediately familiar: it's the exact 3-input majority function K-mapped in the previous topic. That's not a coincidence — Cout is 1 exactly when 2 or more of A, B, Cin are 1, which <em>is</em> the majority condition.</p>
+    <p><strong>S = A ⊕ B ⊕ C<sub>in</sub></strong> (1 whenever an odd number of the three inputs are 1). <strong>C<sub>out</sub> = AB + BC<sub>in</sub> + AC<sub>in</sub></strong> — and that expression should look immediately familiar: it's the exact 3-input majority function K-mapped in the previous topic. That's not a coincidence — C<sub>out</sub> is 1 exactly when 2 or more of A, B, C<sub>in</sub> are 1, which <em>is</em> the majority condition.</p>
     <p>The cleanest way to build a full-adder is to reuse two half-adders plus one OR gate, rather than implementing the SOP expressions directly with fresh gates:</p>
     <div style="text-align:center;margin:1.25rem 0">
-      <svg viewBox="-15 -25 445 190" style="max-width:560px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
-        <text x="0" y="32" font-size="13" fill="var(--text)">A</text>
-        <line x1="14" y1="28" x2="50" y2="28" stroke="var(--primary)" stroke-width="2"/>
-        <text x="0" y="66" font-size="13" fill="var(--text)">B</text>
-        <line x1="14" y1="62" x2="50" y2="62" stroke="var(--primary)" stroke-width="2"/>
-        <rect x="50" y="10" width="70" height="70" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
-        <text x="85" y="54" font-size="15" font-weight="700" text-anchor="middle" fill="var(--text)">HA₁</text>
-
-        <line x1="120" y1="28" x2="180" y2="28" stroke="var(--primary)" stroke-width="2"/>
-        <text x="138" y="22" font-size="11" fill="var(--text-2)">S₁</text>
-        <line x1="120" y1="62" x2="145" y2="62" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="145" y1="62" x2="145" y2="105" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="145" y1="105" x2="289" y2="105" stroke="var(--primary)" stroke-width="2"/>
-        <text x="152" y="118" font-size="11" fill="var(--text-2)">C₁</text>
-
-        <text x="0" y="99" font-size="13" fill="var(--text)">Cin</text>
-        <line x1="22" y1="95" x2="160" y2="95" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="160" y1="95" x2="160" y2="62" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="160" y1="62" x2="180" y2="62" stroke="var(--primary)" stroke-width="2"/>
-
-        <rect x="180" y="10" width="70" height="70" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
-        <text x="215" y="54" font-size="15" font-weight="700" text-anchor="middle" fill="var(--text)">HA₂</text>
-
-        <line x1="250" y1="28" x2="290" y2="28" stroke="var(--primary)" stroke-width="2"/>
-        <text x="294" y="32" font-size="13" fill="var(--text)">S</text>
-        <line x1="250" y1="62" x2="265" y2="62" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="265" y1="62" x2="265" y2="135" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="265" y1="135" x2="289" y2="135" stroke="var(--primary)" stroke-width="2"/>
-        <text x="258" y="98" font-size="11" fill="var(--text-2)">C₂</text>
-
-        <path d="M280,90 Q304,120 280,150 Q334,150 361,120 Q334,90 280,90 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="3" stroke-linejoin="round"/>
-        <line x1="361" y1="120" x2="395" y2="120" stroke="var(--primary)" stroke-width="2"/>
-        <text x="399" y="124" font-size="13" fill="var(--text)">Cout</text>
-      </svg>
+      <div style="overflow-x:auto">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 220" role="img" aria-label="Full adder built from two half adders and an OR gate: half adder HA1 adds A and B, giving partial sum S1 and carry C1; half adder HA2 adds S1 and Cin, giving the sum S and carry C2; an OR gate combines C1 and C2 into Cout." style="width:100%;height:auto;max-width:520px;display:block;margin:0 auto;min-width:520px" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif"><title>Full adder built from two half adders and an OR gate: half adder HA1 adds A and B, giving partial sum S1 and carry C1; half adder HA2 adds S1 and Cin, giving the sum S and carry C2; an OR gate combines C1 and C2 into Cout.</title><defs><marker id="m24bak" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#1F2937"/></marker><marker id="m24bsk" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1F2937"/></marker><marker id="m24bao" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#E07A00"/></marker><marker id="m24bso" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#E07A00"/></marker></defs><rect x="100" y="40" width="90" height="80" rx="6" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><text x="145.0" y="84.5" text-anchor="middle" font-size="13" fill="#1F2937">HA₁</text><rect x="280" y="40" width="90" height="80" rx="6" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><text x="325.0" y="84.5" text-anchor="middle" font-size="13" fill="#1F2937">HA₂</text><text x="30" y="64" text-anchor="end" font-size="13" font-weight="normal" fill="#1F2937">A</text><path d="M36,60 L100,60" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m24bak)"/><text x="30" y="104" text-anchor="end" font-size="13" font-weight="normal" fill="#1F2937">B</text><path d="M36,100 L100,100" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m24bak)"/><text x="30" y="164" text-anchor="end" font-size="13" font-weight="normal" fill="#1F2937">Cᵢₙ</text><path d="M36,160 L240,160 L240,100 L280,100" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m24bak)"/><path d="M190,60 L280,60" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m24bak)"/><text x="235" y="52" text-anchor="middle" font-size="12" font-weight="normal" fill="#1F2937">S₁</text><text x="196" y="82" text-anchor="start" font-size="12" font-weight="normal" fill="#1F2937">C₁</text><path d="M190,90 L212,90 L212,196 L398,196" fill="none" stroke="#1F2937" stroke-width="1.6"/><path d="M370,60 L470,60" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m24bak)"/><text x="476" y="64" text-anchor="start" font-size="13" font-weight="normal" fill="#1F2937">S</text><path d="M400,164.0 Q426.4,164.0 444.0,184 Q426.4,204.0 400,204.0 Q412.0,184 400,164.0 Z" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><text x="376" y="96" text-anchor="start" font-size="12" font-weight="normal" fill="#1F2937">C₂</text><path d="M370,100 L392,100 L392,172 L403.84,172" fill="none" stroke="#1F2937" stroke-width="1.6"/><path d="M398,196 L403.84,196" fill="none" stroke="#1F2937" stroke-width="1.6"/><path d="M444.0,184 L474.0,184" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m24bak)"/><text x="478.0" y="188" text-anchor="start" font-size="13" font-weight="normal" fill="#1F2937">Cₒᵤₜ</text></svg>
+      </div>
+      <p style="font-size:.8rem;color:var(--text-2);margin-top:.4rem">Full adder from two half adders and an OR gate. Adapted from M. Morris Mano and Michael D. Ciletti, <em>Digital Design</em>, Fig. 4.8.</p>
     </div>
-    <p>HA₁ adds A and B, giving a partial sum S₁ and carry C₁. HA₂ then adds S₁ and Cin, giving the final sum S and a second carry C₂. Since at most one of C₁, C₂ can ever be 1 at a time (verify: getting a carry from <em>both</em> stages would require A+B≥2 <em>and</em> S₁+Cin≥2, which is impossible since S₁ is a single bit), OR-ing them together correctly produces Cout without ever needing a 3-input gate.</p>
+    <p>HA₁ adds A and B, giving a partial sum S₁ and carry C₁. HA₂ then adds S₁ and C<sub>in</sub>, giving the final sum S and a second carry C₂. Since at most one of C₁, C₂ can ever be 1 at a time (verify: getting a carry from <em>both</em> stages would require A+B≥2 <em>and</em> S₁+C<sub>in</sub>≥2, which is impossible since S₁ is a single bit), OR-ing them together correctly produces C<sub>out</sub> without ever needing a 3-input gate.</p>
 
     <h2>Ripple-Carry Binary Adder</h2>
-    <p>Chain n full-adders together — each stage's Cout feeding directly into the next stage's Cin — and the result adds two n-bit binary numbers. The carry "ripples" from the least-significant bit up to the most-significant, one full-adder delay at a time (the one real drawback: the final, most-significant sum bit isn't valid until the carry has propagated all the way through every stage).</p>
+    <p>Chain n full-adders together — each stage's C<sub>out</sub> feeding directly into the next stage's C<sub>in</sub> — and the result adds two n-bit binary numbers. The carry "ripples" from the least-significant bit up to the most-significant, one full-adder delay at a time (the one real drawback: the final, most-significant sum bit isn't valid until the carry has propagated all the way through every stage).</p>
     <div style="text-align:center;margin:1.25rem 0">
-      <svg viewBox="-15 -25 500 165" style="max-width:640px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
-        <text x="24" y="-8" font-size="11" fill="var(--text-2)">A3</text>
-        <line x1="35" y1="-2" x2="35" y2="10" stroke="var(--primary)" stroke-width="2"/>
-        <text x="64" y="-8" font-size="11" fill="var(--text-2)">B3</text>
-        <line x1="75" y1="-2" x2="75" y2="10" stroke="var(--primary)" stroke-width="2"/>
-        <rect x="20" y="10" width="70" height="70" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
-        <text x="55" y="54" font-size="14" font-weight="700" text-anchor="middle" fill="var(--text)">FA₃</text>
-        <line x1="55" y1="80" x2="55" y2="105" stroke="var(--primary)" stroke-width="2"/>
-        <text x="48" y="118" font-size="11" fill="var(--text-2)">S3</text>
-
-        <text x="139" y="-8" font-size="11" fill="var(--text-2)">A2</text>
-        <line x1="150" y1="-2" x2="150" y2="10" stroke="var(--primary)" stroke-width="2"/>
-        <text x="179" y="-8" font-size="11" fill="var(--text-2)">B2</text>
-        <line x1="190" y1="-2" x2="190" y2="10" stroke="var(--primary)" stroke-width="2"/>
-        <rect x="135" y="10" width="70" height="70" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
-        <text x="170" y="54" font-size="14" font-weight="700" text-anchor="middle" fill="var(--text)">FA₂</text>
-        <line x1="170" y1="80" x2="170" y2="105" stroke="var(--primary)" stroke-width="2"/>
-        <text x="163" y="118" font-size="11" fill="var(--text-2)">S2</text>
-
-        <text x="254" y="-8" font-size="11" fill="var(--text-2)">A1</text>
-        <line x1="265" y1="-2" x2="265" y2="10" stroke="var(--primary)" stroke-width="2"/>
-        <text x="294" y="-8" font-size="11" fill="var(--text-2)">B1</text>
-        <line x1="305" y1="-2" x2="305" y2="10" stroke="var(--primary)" stroke-width="2"/>
-        <rect x="250" y="10" width="70" height="70" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
-        <text x="285" y="54" font-size="14" font-weight="700" text-anchor="middle" fill="var(--text)">FA₁</text>
-        <line x1="285" y1="80" x2="285" y2="105" stroke="var(--primary)" stroke-width="2"/>
-        <text x="278" y="118" font-size="11" fill="var(--text-2)">S1</text>
-
-        <text x="369" y="-8" font-size="11" fill="var(--text-2)">A0</text>
-        <line x1="380" y1="-2" x2="380" y2="10" stroke="var(--primary)" stroke-width="2"/>
-        <text x="409" y="-8" font-size="11" fill="var(--text-2)">B0</text>
-        <line x1="420" y1="-2" x2="420" y2="10" stroke="var(--primary)" stroke-width="2"/>
-        <rect x="365" y="10" width="70" height="70" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
-        <text x="400" y="54" font-size="14" font-weight="700" text-anchor="middle" fill="var(--text)">FA₀</text>
-        <line x1="400" y1="80" x2="400" y2="105" stroke="var(--primary)" stroke-width="2"/>
-        <text x="393" y="118" font-size="11" fill="var(--text-2)">S0</text>
-
-        <text x="-14" y="49" font-size="11" fill="var(--text-2)">C4</text>
-        <line x1="0" y1="45" x2="20" y2="45" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="90" y1="45" x2="135" y2="45" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="205" y1="45" x2="250" y2="45" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="320" y1="45" x2="365" y2="45" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="435" y1="45" x2="460" y2="45" stroke="var(--primary)" stroke-width="2"/>
-        <text x="464" y="49" font-size="11" fill="var(--text-2)">C0</text>
-      </svg>
+      <div style="overflow-x:auto">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 190" role="img" aria-label="Four-bit ripple-carry adder: four full adders FA0 to FA3; each adds Ai, Bi and the carry from the stage to its right, producing sum Si and carry Ci+1; C0 enters FA0 and C4 is the final carry out." style="width:100%;height:auto;max-width:620px;display:block;margin:0 auto;min-width:620px" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif"><title>Four-bit ripple-carry adder: four full adders FA0 to FA3; each adds Ai, Bi and the carry from the stage to its right, producing sum Si and carry Ci+1; C0 enters FA0 and C4 is the final carry out.</title><defs><marker id="m32cak" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#1F2937"/></marker><marker id="m32csk" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1F2937"/></marker><marker id="m32cao" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#E07A00"/></marker><marker id="m32cso" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#E07A00"/></marker></defs><rect x="460" y="60" width="80" height="60" rx="0" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><text x="500.0" y="94.5" text-anchor="middle" font-size="13" fill="#1F2937">FA₀</text><text x="482" y="22" text-anchor="middle" font-size="12.5" font-weight="normal" fill="#1F2937">A₀</text><path d="M482,28 L482,60" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m32cak)"/><text x="518" y="22" text-anchor="middle" font-size="12.5" font-weight="normal" fill="#1F2937">B₀</text><path d="M518,28 L518,60" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m32cak)"/><path d="M500,120 L500,150" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m32cak)"/><text x="500" y="168" text-anchor="middle" font-size="12.5" font-weight="normal" fill="#1F2937">S₀</text><rect x="330" y="60" width="80" height="60" rx="0" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><text x="370.0" y="94.5" text-anchor="middle" font-size="13" fill="#1F2937">FA₁</text><text x="352" y="22" text-anchor="middle" font-size="12.5" font-weight="normal" fill="#1F2937">A₁</text><path d="M352,28 L352,60" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m32cak)"/><text x="388" y="22" text-anchor="middle" font-size="12.5" font-weight="normal" fill="#1F2937">B₁</text><path d="M388,28 L388,60" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m32cak)"/><path d="M370,120 L370,150" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m32cak)"/><text x="370" y="168" text-anchor="middle" font-size="12.5" font-weight="normal" fill="#1F2937">S₁</text><rect x="200" y="60" width="80" height="60" rx="0" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><text x="240.0" y="94.5" text-anchor="middle" font-size="13" fill="#1F2937">FA₂</text><text x="222" y="22" text-anchor="middle" font-size="12.5" font-weight="normal" fill="#1F2937">A₂</text><path d="M222,28 L222,60" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m32cak)"/><text x="258" y="22" text-anchor="middle" font-size="12.5" font-weight="normal" fill="#1F2937">B₂</text><path d="M258,28 L258,60" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m32cak)"/><path d="M240,120 L240,150" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m32cak)"/><text x="240" y="168" text-anchor="middle" font-size="12.5" font-weight="normal" fill="#1F2937">S₂</text><rect x="70" y="60" width="80" height="60" rx="0" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><text x="110.0" y="94.5" text-anchor="middle" font-size="13" fill="#1F2937">FA₃</text><text x="92" y="22" text-anchor="middle" font-size="12.5" font-weight="normal" fill="#1F2937">A₃</text><path d="M92,28 L92,60" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m32cak)"/><text x="128" y="22" text-anchor="middle" font-size="12.5" font-weight="normal" fill="#1F2937">B₃</text><path d="M128,28 L128,60" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m32cak)"/><path d="M110,120 L110,150" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m32cak)"/><text x="110" y="168" text-anchor="middle" font-size="12.5" font-weight="normal" fill="#1F2937">S₃</text><path d="M600,90 L540,90" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m32cak)"/><text x="598" y="82" text-anchor="end" font-size="12.5" font-weight="normal" fill="#1F2937">C₀</text><path d="M460,90 L410,90" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m32cak)"/><text x="435.0" y="82" text-anchor="middle" font-size="12" font-weight="normal" fill="#1F2937">C₁</text><path d="M330,90 L280,90" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m32cak)"/><text x="305.0" y="82" text-anchor="middle" font-size="12" font-weight="normal" fill="#1F2937">C₂</text><path d="M200,90 L150,90" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m32cak)"/><text x="175.0" y="82" text-anchor="middle" font-size="12" font-weight="normal" fill="#1F2937">C₃</text><path d="M70,90 L20,90" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m32cak)"/><text x="24" y="82" text-anchor="start" font-size="12.5" font-weight="normal" fill="#1F2937">C₄</text></svg>
+      </div>
+      <p style="font-size:.8rem;color:var(--text-2);margin-top:.4rem">Four-bit ripple-carry adder. Adapted from M. Morris Mano and Michael D. Ciletti, <em>Digital Design</em>, Fig. 4.9.</p>
     </div>
 
     <h2>Worked Example — 4-Bit Addition</h2>
-    <p>Add 0110 (6) and 0011 (3) using the ripple-carry chain, tracing the carry from C0 through C4:</p>
+    <p>Add 0110 (6) and 0011 (3) using the ripple-carry chain, tracing the carry from C<sub>0</sub> through C<sub>4</sub>:</p>
     <div class="box box-eg">
       <pre>Bit position:    3   2   1   0
 A            :   0   1   1   0
 B            :   0   0   1   1
-carry-in     :   0   1   1   0    (C3 C2 C1 C0)
+carry-in     :   1   1   0   0    (C3 C2 C1 C0)
 ------------------------------
 Sum          :   1   0   0   1
-carry-out    :   0   0   1   1    (C4 C3 C2 C1)
+carry-out    :   0   1   1   0    (C4 C3 C2 C1)
 
 Result: S = 1001 (9), C4 = 0 — no overflow. 6 + 3 = 9. ✓</pre>
     </div>
@@ -249,98 +165,27 @@ Result: S = 1001 (9), C4 = 0 — no overflow. 6 + 3 = 9. ✓</pre>
     <h2>Binary Subtractor</h2>
     <p>Recall from Unit 1: subtraction A − B can be done entirely with addition, by adding A to the <strong>2's complement</strong> of B (invert every bit of B, then add 1). A single adder-subtractor circuit implements this by adding one control line, <strong>M</strong> (mode: 0 = add, 1 = subtract), and one XOR gate per bit of B:</p>
     <ul>
-      <li>When <strong>M = 0</strong>: each XOR gate passes Bi through unchanged (X ⊕ 0 = X), and Cin = M = 0. The circuit computes A + B — ordinary addition.</li>
-      <li>When <strong>M = 1</strong>: each XOR gate inverts Bi (X ⊕ 1 = X′), giving B′ on the adder's B input, and Cin = M = 1 supplies the "+1" that completes the 2's complement. The circuit computes A + B′ + 1 = A + (2's complement of B) = A − B.</li>
+      <li>When <strong>M = 0</strong>: each XOR gate passes B<sub>i</sub> through unchanged (X ⊕ 0 = X), and C<sub>in</sub> = M = 0. The circuit computes A + B — ordinary addition.</li>
+      <li>When <strong>M = 1</strong>: each XOR gate inverts B<sub>i</sub> (X ⊕ 1 = X′), giving B′ on the adder's B input, and C<sub>in</sub> = M = 1 supplies the "+1" that completes the 2's complement. The circuit computes A + B′ + 1 = A + (2's complement of B) = A − B.</li>
     </ul>
     <div style="text-align:center;margin:1.25rem 0">
-      <svg viewBox="-8 -8 282 168" style="max-width:400px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
-        <text x="0" y="29" font-size="13" fill="var(--text)">Bi</text>
-        <line x1="20" y1="25" x2="50" y2="25" stroke="var(--primary)" stroke-width="2"/>
-        <text x="0" y="59" font-size="13" fill="var(--text)">M</text>
-        <line x1="16" y1="55" x2="50" y2="55" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="25" y1="55" x2="25" y2="135" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="25" y1="135" x2="220" y2="135" stroke="var(--primary)" stroke-width="2"/>
-        <text x="224" y="139" font-size="12" fill="var(--text)">Cin (=M)</text>
-
-        <path d="M41,10 Q65,40 41,70" fill="none" stroke="var(--primary)" stroke-width="3" stroke-linejoin="round"/>
-        <path d="M50,10 Q74,40 50,70 Q104,70 131,40 Q104,10 50,10 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="3" stroke-linejoin="round"/>
-        <line x1="131" y1="40" x2="160" y2="40" stroke="var(--primary)" stroke-width="2"/>
-        <text x="164" y="44" font-size="12" fill="var(--text)">Bi′ if M=1</text>
-      </svg>
+      <div style="overflow-x:auto">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 150" role="img" aria-label="One bit of the adder-subtractor: input Bi and mode line M enter an XOR gate whose output goes to the B input of full adder i; it passes Bi when M = 0 and Bi′ when M = 1. M also feeds the carry-in C0 of the first stage." style="width:100%;height:auto;max-width:440px;display:block;margin:0 auto;min-width:440px" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif"><title>One bit of the adder-subtractor: input Bi and mode line M enter an XOR gate whose output goes to the B input of full adder i; it passes Bi when M = 0 and Bi′ when M = 1. M also feeds the carry-in C0 of the first stage.</title><defs><marker id="m25cak" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#1F2937"/></marker><marker id="m25csk" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1F2937"/></marker><marker id="m25cao" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#E07A00"/></marker><marker id="m25cso" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#E07A00"/></marker></defs><text x="30" y="54" text-anchor="end" font-size="13" font-weight="normal" fill="#1F2937">Bᵢ</text><text x="30" y="84" text-anchor="end" font-size="13" font-weight="normal" fill="#E07A00">M</text><path d="M140,48.0 Q169.04,48.0 188.4,70 Q169.04,92.0 140,92.0 Q153.2,70 140,48.0 Z" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><path d="M134,48.0 Q147.2,70 134,92.0" fill="none" stroke="#1565C0" stroke-width="1.6"/><path d="M36,60 L139.23636363636365,60" fill="none" stroke="#1F2937" stroke-width="1.4"/><circle cx="80" cy="80" r="3" fill="#E07A00"/><path d="M36,80 L139.23636363636365,80" fill="none" stroke="#E07A00" stroke-width="1.4"/><path d="M188.4,70 L248.4,70" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m25cak)"/><text x="254.4" y="64" text-anchor="start" font-size="12" font-weight="normal" fill="#1F2937">to full adder i</text><text x="254.4" y="80" text-anchor="start" font-size="11" font-weight="normal" fill="#6B7280">(Bᵢ if M = 0, Bᵢ′ if M = 1)</text><path d="M80,80 L80,124 L240,124" fill="none" stroke="#E07A00" stroke-width="1.6" marker-end="url(#m25cao)"/><text x="246" y="128" text-anchor="start" font-size="11.5" font-weight="normal" fill="#E07A00">C₀ = M (first stage only)</text></svg>
+      </div>
+      <p style="font-size:.8rem;color:var(--text-2);margin-top:.4rem">One XOR gate per bit of B: M = 0 passes Bᵢ, M = 1 inverts it; M is also C₀.</p>
     </div>
-    <p>One such XOR gate sits in front of every bit of B (B0 through B3 for a 4-bit adder), all sharing the same M line, feeding into an ordinary ripple-carry adder whose Cin is also tied to M. Assembled into the full 4-bit circuit — same FA chain as the ripple-carry adder above, with one XOR gate (⊕) added in front of each B input:</p>
+    <p>One such XOR gate sits in front of every bit of B (B<sub>0</sub> through B<sub>3</sub> for a 4-bit adder), all sharing the same M line, feeding into an ordinary ripple-carry adder whose C<sub>in</sub> is also tied to M. Assembled into the full 4-bit circuit — same FA chain as the ripple-carry adder above, with one XOR gate (⊕) added in front of each B input:</p>
     <div style="text-align:center;margin:1.25rem 0">
-      <svg viewBox="-15 -90 520 240" style="max-width:640px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
-        <text x="24" y="-8" font-size="11" fill="var(--text-2)">A3</text>
-        <line x1="35" y1="-2" x2="35" y2="10" stroke="var(--primary)" stroke-width="2"/>
-        <text x="61" y="-78" font-size="11" fill="var(--text-2)">B3</text>
-        <line x1="75" y1="-72" x2="75" y2="-59" stroke="var(--primary)" stroke-width="2"/>
-        <circle cx="75" cy="-45" r="14" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5"/>
-        <text x="75" y="-40" font-size="14" text-anchor="middle" fill="var(--primary)">⊕</text>
-        <line x1="75" y1="-31" x2="75" y2="10" stroke="var(--primary)" stroke-width="2"/>
-        <rect x="20" y="10" width="70" height="70" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
-        <text x="55" y="54" font-size="14" font-weight="700" text-anchor="middle" fill="var(--text)">FA₃</text>
-        <line x1="55" y1="80" x2="55" y2="105" stroke="var(--primary)" stroke-width="2"/>
-        <text x="48" y="118" font-size="11" fill="var(--text-2)">S3</text>
-
-        <text x="139" y="-8" font-size="11" fill="var(--text-2)">A2</text>
-        <line x1="150" y1="-2" x2="150" y2="10" stroke="var(--primary)" stroke-width="2"/>
-        <text x="176" y="-78" font-size="11" fill="var(--text-2)">B2</text>
-        <line x1="190" y1="-72" x2="190" y2="-59" stroke="var(--primary)" stroke-width="2"/>
-        <circle cx="190" cy="-45" r="14" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5"/>
-        <text x="190" y="-40" font-size="14" text-anchor="middle" fill="var(--primary)">⊕</text>
-        <line x1="190" y1="-31" x2="190" y2="10" stroke="var(--primary)" stroke-width="2"/>
-        <rect x="135" y="10" width="70" height="70" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
-        <text x="170" y="54" font-size="14" font-weight="700" text-anchor="middle" fill="var(--text)">FA₂</text>
-        <line x1="170" y1="80" x2="170" y2="105" stroke="var(--primary)" stroke-width="2"/>
-        <text x="163" y="118" font-size="11" fill="var(--text-2)">S2</text>
-
-        <text x="254" y="-8" font-size="11" fill="var(--text-2)">A1</text>
-        <line x1="265" y1="-2" x2="265" y2="10" stroke="var(--primary)" stroke-width="2"/>
-        <text x="291" y="-78" font-size="11" fill="var(--text-2)">B1</text>
-        <line x1="305" y1="-72" x2="305" y2="-59" stroke="var(--primary)" stroke-width="2"/>
-        <circle cx="305" cy="-45" r="14" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5"/>
-        <text x="305" y="-40" font-size="14" text-anchor="middle" fill="var(--primary)">⊕</text>
-        <line x1="305" y1="-31" x2="305" y2="10" stroke="var(--primary)" stroke-width="2"/>
-        <rect x="250" y="10" width="70" height="70" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
-        <text x="285" y="54" font-size="14" font-weight="700" text-anchor="middle" fill="var(--text)">FA₁</text>
-        <line x1="285" y1="80" x2="285" y2="105" stroke="var(--primary)" stroke-width="2"/>
-        <text x="278" y="118" font-size="11" fill="var(--text-2)">S1</text>
-
-        <text x="369" y="-8" font-size="11" fill="var(--text-2)">A0</text>
-        <line x1="380" y1="-2" x2="380" y2="10" stroke="var(--primary)" stroke-width="2"/>
-        <text x="406" y="-78" font-size="11" fill="var(--text-2)">B0</text>
-        <line x1="420" y1="-72" x2="420" y2="-59" stroke="var(--primary)" stroke-width="2"/>
-        <circle cx="420" cy="-45" r="14" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5"/>
-        <text x="420" y="-40" font-size="14" text-anchor="middle" fill="var(--primary)">⊕</text>
-        <line x1="420" y1="-31" x2="420" y2="10" stroke="var(--primary)" stroke-width="2"/>
-        <rect x="365" y="10" width="70" height="70" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
-        <text x="400" y="54" font-size="14" font-weight="700" text-anchor="middle" fill="var(--text)">FA₀</text>
-        <line x1="400" y1="80" x2="400" y2="105" stroke="var(--primary)" stroke-width="2"/>
-        <text x="393" y="118" font-size="11" fill="var(--text-2)">S0</text>
-
-        <text x="-14" y="49" font-size="11" fill="var(--text-2)">C4</text>
-        <line x1="0" y1="45" x2="20" y2="45" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="90" y1="45" x2="135" y2="45" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="205" y1="45" x2="250" y2="45" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="320" y1="45" x2="365" y2="45" stroke="var(--primary)" stroke-width="2"/>
-
-        <text x="0" y="-49" font-size="11" fill="var(--text)">M</text>
-        <line x1="14" y1="-45" x2="61" y2="-45" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="89" y1="-45" x2="176" y2="-45" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="204" y1="-45" x2="291" y2="-45" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="319" y1="-45" x2="406" y2="-45" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="434" y1="-45" x2="450" y2="-45" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="450" y1="-45" x2="450" y2="45" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="450" y1="45" x2="435" y2="45" stroke="var(--primary)" stroke-width="2"/>
-        <text x="445" y="64" font-size="11" fill="var(--text-2)">Cin (=M)</text>
-      </svg>
+      <div style="overflow-x:auto">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 370" role="img" aria-label="Four-bit adder-subtractor: each B input passes through an XOR gate with mode M before entering its full adder; M is also the carry C0 into the first full adder. Carries C1 to C3 chain the full adders, which produce sums S0 to S3; C4 is the output carry C, and V = C3 XOR C4 flags overflow." style="width:100%;height:auto;max-width:640px;display:block;margin:0 auto;min-width:640px" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif"><title>Four-bit adder-subtractor: each B input passes through an XOR gate with mode M before entering its full adder; M is also the carry C0 into the first full adder. Carries C1 to C3 chain the full adders, which produce sums S0 to S3; C4 is the output carry C, and V = C3 XOR C4 flags overflow.</title><defs><marker id="m25dak" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#1F2937"/></marker><marker id="m25dsk" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1F2937"/></marker><marker id="m25dao" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#E07A00"/></marker><marker id="m25dso" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#E07A00"/></marker></defs><path d="M20,60 L620,60" fill="none" stroke="#E07A00" stroke-width="1.3"/><text x="20" y="52" text-anchor="start" font-size="13" font-weight="normal" fill="#E07A00">M</text><rect x="470" y="170" width="80" height="50" rx="0" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><text x="510.0" y="199.6" text-anchor="middle" font-size="13" fill="#1F2937">FA</text><text x="488" y="24" text-anchor="middle" font-size="12.5" font-weight="normal" fill="#1F2937">A₀</text><path d="M488,30 L488,170" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m25dak)"/><text x="536" y="24" text-anchor="middle" font-size="12.5" font-weight="normal" fill="#1F2937">B₀</text><path d="M514,100 Q514,118 528,130 Q542,118 542,100 Q528,108 514,100 Z" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><path d="M514,95 Q528,103 542,95" fill="none" stroke="#1565C0" stroke-width="1.6"/><path d="M536,30 L536,97" fill="none" stroke="#1F2937" stroke-width="1.3"/><circle cx="520" cy="60" r="3" fill="#E07A00"/><path d="M520,60 L520,97" fill="none" stroke="#E07A00" stroke-width="1.3"/><path d="M528,130 L528,170" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m25dak)"/><path d="M510.0,220 L510.0,250" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m25dak)"/><text x="510.0" y="266" text-anchor="middle" font-size="12.5" font-weight="normal" fill="#1F2937">S₀</text><rect x="340" y="170" width="80" height="50" rx="0" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><text x="380.0" y="199.6" text-anchor="middle" font-size="13" fill="#1F2937">FA</text><text x="358" y="24" text-anchor="middle" font-size="12.5" font-weight="normal" fill="#1F2937">A₁</text><path d="M358,30 L358,170" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m25dak)"/><text x="406" y="24" text-anchor="middle" font-size="12.5" font-weight="normal" fill="#1F2937">B₁</text><path d="M384,100 Q384,118 398,130 Q412,118 412,100 Q398,108 384,100 Z" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><path d="M384,95 Q398,103 412,95" fill="none" stroke="#1565C0" stroke-width="1.6"/><path d="M406,30 L406,97" fill="none" stroke="#1F2937" stroke-width="1.3"/><circle cx="390" cy="60" r="3" fill="#E07A00"/><path d="M390,60 L390,97" fill="none" stroke="#E07A00" stroke-width="1.3"/><path d="M398,130 L398,170" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m25dak)"/><path d="M380.0,220 L380.0,250" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m25dak)"/><text x="380.0" y="266" text-anchor="middle" font-size="12.5" font-weight="normal" fill="#1F2937">S₁</text><rect x="210" y="170" width="80" height="50" rx="0" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><text x="250.0" y="199.6" text-anchor="middle" font-size="13" fill="#1F2937">FA</text><text x="228" y="24" text-anchor="middle" font-size="12.5" font-weight="normal" fill="#1F2937">A₂</text><path d="M228,30 L228,170" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m25dak)"/><text x="276" y="24" text-anchor="middle" font-size="12.5" font-weight="normal" fill="#1F2937">B₂</text><path d="M254,100 Q254,118 268,130 Q282,118 282,100 Q268,108 254,100 Z" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><path d="M254,95 Q268,103 282,95" fill="none" stroke="#1565C0" stroke-width="1.6"/><path d="M276,30 L276,97" fill="none" stroke="#1F2937" stroke-width="1.3"/><circle cx="260" cy="60" r="3" fill="#E07A00"/><path d="M260,60 L260,97" fill="none" stroke="#E07A00" stroke-width="1.3"/><path d="M268,130 L268,170" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m25dak)"/><path d="M250.0,220 L250.0,250" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m25dak)"/><text x="250.0" y="266" text-anchor="middle" font-size="12.5" font-weight="normal" fill="#1F2937">S₂</text><rect x="80" y="170" width="80" height="50" rx="0" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><text x="120.0" y="199.6" text-anchor="middle" font-size="13" fill="#1F2937">FA</text><text x="98" y="24" text-anchor="middle" font-size="12.5" font-weight="normal" fill="#1F2937">A₃</text><path d="M98,30 L98,170" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m25dak)"/><text x="146" y="24" text-anchor="middle" font-size="12.5" font-weight="normal" fill="#1F2937">B₃</text><path d="M124,100 Q124,118 138,130 Q152,118 152,100 Q138,108 124,100 Z" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><path d="M124,95 Q138,103 152,95" fill="none" stroke="#1565C0" stroke-width="1.6"/><path d="M146,30 L146,97" fill="none" stroke="#1F2937" stroke-width="1.3"/><circle cx="130" cy="60" r="3" fill="#E07A00"/><path d="M130,60 L130,97" fill="none" stroke="#E07A00" stroke-width="1.3"/><path d="M138,130 L138,170" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m25dak)"/><path d="M120.0,220 L120.0,250" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m25dak)"/><text x="120.0" y="266" text-anchor="middle" font-size="12.5" font-weight="normal" fill="#1F2937">S₃</text><path d="M620,60 L630,60 L630,195.0 L550,195.0" fill="none" stroke="#E07A00" stroke-width="1.6" marker-end="url(#m25dao)"/><text x="628" y="213.0" text-anchor="end" font-size="12" font-weight="normal" fill="#E07A00">C₀</text><path d="M470,195.0 L420,195.0" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m25dak)"/><text x="445.0" y="189.0" text-anchor="middle" font-size="12" font-weight="normal" fill="#1F2937">C₁</text><path d="M340,195.0 L290,195.0" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m25dak)"/><text x="315.0" y="189.0" text-anchor="middle" font-size="12" font-weight="normal" fill="#1F2937">C₂</text><path d="M210,195.0 L160,195.0" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m25dak)"/><text x="185.0" y="189.0" text-anchor="middle" font-size="12" font-weight="normal" fill="#1F2937">C₃</text><path d="M80,195.0 L30,195.0" fill="none" stroke="#1F2937" stroke-width="1.6"/><text x="46" y="189.0" text-anchor="start" font-size="12" font-weight="normal" fill="#1F2937">C₄</text><circle cx="30" cy="195.0" r="3" fill="#1F2937"/><path d="M30,195.0 L14,195.0 L14,150" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m25dak)"/><text x="18" y="144" text-anchor="start" font-size="13" font-weight="normal" fill="#1F2937">C</text><path d="M60,287.0 Q82.44,287.0 97.4,304 Q82.44,321.0 60,321.0 Q70.2,304 60,287.0 Z" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><path d="M54,287.0 Q64.2,304 54,321.0" fill="none" stroke="#1565C0" stroke-width="1.6"/><path d="M30,195.0 L30,296 L57.970588235294116,296" fill="none" stroke="#1F2937" stroke-width="1.6"/><path d="M196,195.0 L196,332 L16,332 L16,312 L57.970588235294116,312" fill="none" stroke="#1F2937" stroke-width="1.6"/><circle cx="196" cy="195.0" r="3" fill="#1F2937"/><path d="M97.4,304 L121.4,304" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m25dak)"/><text x="127.4" y="308" text-anchor="start" font-size="13" font-weight="normal" fill="#1F2937">V</text><text x="16" y="354" text-anchor="start" font-size="12" font-weight="normal" fill="#1F2937">Overflow: V = C₃ ⊕ C₄</text></svg>
+      </div>
+      <p style="font-size:.8rem;color:var(--text-2);margin-top:.4rem">Four-bit adder-subtractor: M = 0 adds, M = 1 subtracts; V = C₃ ⊕ C₄ flags overflow. Adapted from M. Morris Mano and Michael D. Ciletti, <em>Digital Design</em>, Fig. 4.13.</p>
     </div>
 
     <h2>Common Pitfalls</h2>
     <ul>
       <li><strong>Confusing "carry" with "borrow."</strong> Addition produces a carry-out; the 2's-complement subtractor circuit never needs a separate borrow signal at all — subtraction is handled entirely as addition of a complemented number.</li>
-      <li><strong>Forgetting to tie Cin to M in the adder-subtractor.</strong> Inverting B alone only gives the 1's complement; without also injecting the "+1" via Cin=M, the circuit would compute A + B′ instead of A − B, which is off by exactly 1.</li>
+      <li><strong>Forgetting to tie C<sub>in</sub> to M in the adder-subtractor.</strong> Inverting B alone only gives the 1's complement; without also injecting the "+1" via C<sub>in</sub>=M, the circuit would compute A + B′ instead of A − B, which is off by exactly 1.</li>
       <li><strong>Ignoring a discarded final carry during subtraction.</strong> When A ≥ B, the ripple-carry subtractor produces a final carry-out of 1, which represents the sign and should be discarded (not treated as an overflow) — this mirrors the 2's-complement overflow rules from Unit 1.</li>
     </ul>
 
@@ -409,10 +254,10 @@ Result: S = 1001 (9), C4 = 0 — no overflow. 6 + 3 = 9. ✓</pre>
   const LABELS    = ['A','B','C','D'];
   const QUIZ = [
     { q:"Why can't a half-adder be used directly to build a multi-bit adder?", options:["It has no carry-in input, so it can't accept a carry from a previous stage", "It cannot compute XOR", "It only works for the least significant bit of any number", "It requires a clock signal"], answer:0, explanation:"A half-adder only has two inputs (A, B) and no carry-in — every stage of a multi-bit adder except the very first needs to accept an incoming carry, which only a full-adder provides." },
-    { q:"What is the Boolean expression for a full-adder's carry-out (Cout), in terms of A, B, and Cin?", options:["Cout = AB + BCin + ACin", "Cout = A ⊕ B ⊕ Cin", "Cout = ABCin", "Cout = A + B + Cin"], answer:0, explanation:"Cout = AB + BCin + ACin — this is 1 whenever at least two of the three inputs are 1, which is exactly the 3-input majority function." },
-    { q:"In the full-adder built from two half-adders and an OR gate, why is it safe to simply OR the two carry outputs (C1 and C2) together instead of needing a 3-input gate?", options:["C1 and C2 can never both be 1 at the same time, so OR-ing them is equivalent to the correct Cout", "OR gates are always safe to use regardless of the inputs", "C1 is always 0 in a correctly built half-adder", "The two carries always have opposite values"], answer:0, explanation:"Since S1 (the first half-adder's sum) is a single bit, C1 and C2 can't both be 1 simultaneously — getting a carry from both stages would require more than 1 bit's worth of overflow in the second stage, which is impossible." },
+    { q:"What is the Boolean expression for a full-adder's carry-out (C<sub>out</sub>), in terms of A, B, and C<sub>in</sub>?", options:["C<sub>out</sub> = AB + BC<sub>in</sub> + AC<sub>in</sub>", "C<sub>out</sub> = A ⊕ B ⊕ C<sub>in</sub>", "C<sub>out</sub> = ABC<sub>in</sub>", "C<sub>out</sub> = A + B + C<sub>in</sub>"], answer:0, explanation:"C<sub>out</sub> = AB + BC<sub>in</sub> + AC<sub>in</sub> — this is 1 whenever at least two of the three inputs are 1, which is exactly the 3-input majority function." },
+    { q:"In the full-adder built from two half-adders and an OR gate, why is it safe to simply OR the two carry outputs (C<sub>1</sub> and C<sub>2</sub>) together instead of needing a 3-input gate?", options:["C<sub>1</sub> and C<sub>2</sub> can never both be 1 at the same time, so OR-ing them is equivalent to the correct C<sub>out</sub>", "OR gates are always safe to use regardless of the inputs", "C<sub>1</sub> is always 0 in a correctly built half-adder", "The two carries always have opposite values"], answer:0, explanation:"Since S<sub>1</sub> (the first half-adder's sum) is a single bit, C<sub>1</sub> and C<sub>2</sub> can't both be 1 simultaneously — getting a carry from both stages would require more than 1 bit's worth of overflow in the second stage, which is impossible." },
     { q:"In a ripple-carry adder, what is the main performance drawback?", options:["The most significant sum bit isn't valid until the carry has propagated through every earlier stage", "It cannot add numbers longer than 4 bits", "It requires a separate clock for every bit", "It cannot handle a carry-in of 0"], answer:0, explanation:"The carry has to \"ripple\" sequentially from the least significant bit to the most significant, so the final sum bits aren't valid until that propagation finishes — this delay is why faster designs use carry-lookahead instead." },
-    { q:"In a combined adder-subtractor circuit with mode control M, what does setting M=1 actually do?", options:["XORs M with each bit of B (inverting B) and sets Cin=M, computing A + B′ + 1 = A − B", "Simply swaps the A and B inputs", "Disables the adder entirely", "Only inverts the final sum, leaving the adder logic unchanged"], answer:0, explanation:"M=1 inverts every bit of B via the XOR gates (giving B′) and also feeds into Cin, supplying the \"+1\" needed to complete the 2's complement — together this computes A + (2's complement of B), i.e., A − B." }
+    { q:"In a combined adder-subtractor circuit with mode control M, what does setting M=1 actually do?", options:["XORs M with each bit of B (inverting B) and sets C<sub>in</sub>=M, computing A + B′ + 1 = A − B", "Simply swaps the A and B inputs", "Disables the adder entirely", "Only inverts the final sum, leaving the adder logic unchanged"], answer:0, explanation:"M=1 inverts every bit of B via the XOR gates (giving B′) and also feeds into C<sub>in</sub>, supplying the \"+1\" needed to complete the 2's complement — together this computes A + (2's complement of B), i.e., A − B." }
   ];
 
   initTopicQuiz({ courseId: COURSE_ID, topicId: TOPIC_ID, questions: QUIZ, passPct: 60, noun: 'topic' });
