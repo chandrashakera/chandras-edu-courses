@@ -35,7 +35,7 @@ export function initQuiz({ courseId, moduleId, passMark, questions, rootIds = {}
       <div class="question">
         <div class="question-text">Q${qi + 1}. ${q.q}</div>
         <div class="options">${q.options.map((o, oi) =>
-          `<div class="option" data-qi="${qi}" data-oi="${oi}"><span class="option-lbl">${LABELS[oi]}</span>${o}</div>`).join('')}</div>
+          `<div class="option" data-qi="${qi}" data-oi="${oi}"><span class="option-lbl">${LABELS[oi]}</span><span class="option-text">${o}</span></div>`).join('')}</div>
         <div class="explanation" id="exp${qi}" style="display:none">💡 ${q.explanation}</div>
       </div>`).join('');
     $('body').querySelectorAll('.option').forEach(el => {
