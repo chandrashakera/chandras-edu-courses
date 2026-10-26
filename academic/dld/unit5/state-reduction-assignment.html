@@ -90,6 +90,9 @@
     <h2>Why Reduce States First?</h2>
     <p>A state table built directly from a word problem or spec often has more states than the behavior strictly requires — sometimes two states are, from the outside, completely indistinguishable. Since every state ultimately costs flip-flops (and every extra flip-flop costs excitation logic), merging redundant states before designing the circuit directly shrinks the final hardware, with zero change in observable behavior.</p>
 
+    <div class="box box-tip">
+      <strong>In simple terms:</strong> if two states always behave the same way, merge them; then give each remaining state a binary code for the flip-flops.</div>
+
     <h2>Equivalent States</h2>
     <p>Two states are <strong>equivalent</strong> if, starting from either one, <em>every</em> possible input sequence produces exactly the same output sequence. That reduces to a testable rule: states P and Q are equivalent if</p>
     <div class="box box-eg">
@@ -124,32 +127,10 @@
     </div>
     <p>Five states collapsed to three — this reduced table describes <em>exactly</em> the same input/output behavior as the original five-state one, just with the redundancy gone:</p>
     <div style="text-align:center;margin:1.25rem 0">
-      <svg viewBox="-15 -20 330 112" style="max-width:440px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <marker id="arrowR1" markerWidth="10" markerHeight="10" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
-            <path d="M0,0 L8,4 L0,8 Z" fill="var(--primary)"/>
-          </marker>
-        </defs>
-        <path d="M235,38 Q250,-10 265,38" fill="none" stroke="var(--primary)" stroke-width="2" marker-end="url(#arrowR1)"/>
-        <text x="250" y="-6" font-size="11" text-anchor="middle" fill="var(--text-2)">0,1</text>
-
-        <line x1="58" y1="60" x2="159" y2="60" stroke="var(--primary)" stroke-width="2" marker-end="url(#arrowR1)"/>
-        <text x="108" y="52" font-size="11" text-anchor="middle" fill="var(--text-2)">0,1</text>
-        <line x1="188" y1="60" x2="219" y2="60" stroke="var(--primary)" stroke-width="2" marker-end="url(#arrowR1)"/>
-        <text x="204" y="52" font-size="11" text-anchor="middle" fill="var(--text-2)">0,1</text>
-
-        <circle cx="30" cy="60" r="28" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5"/>
-        <text x="30" y="58" font-size="13" font-weight="700" text-anchor="middle" fill="var(--text)">A</text>
-        <text x="30" y="72" font-size="9" text-anchor="middle" fill="var(--text-2)">z=0</text>
-
-        <circle cx="188" cy="60" r="28" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5"/>
-        <text x="188" y="58" font-size="13" font-weight="700" text-anchor="middle" fill="var(--text)">B′</text>
-        <text x="188" y="72" font-size="9" text-anchor="middle" fill="var(--text-2)">z=1</text>
-
-        <circle cx="250" cy="60" r="28" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5"/>
-        <text x="250" y="58" font-size="13" font-weight="700" text-anchor="middle" fill="var(--text)">D′</text>
-        <text x="250" y="72" font-size="9" text-anchor="middle" fill="var(--text-2)">z=0</text>
-      </svg>
+      <div style="overflow-x:auto">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 200" role="img" aria-label="Reduced state diagram: A (output 0) goes to B′ on 0 or 1; B′ (output 1) goes to D′ on 0 or 1; D′ (output 0) stays in D′ on 0 or 1." style="width:100%;height:auto;max-width:480px;display:block;margin:0 auto;min-width:480px" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif"><title>Reduced state diagram: A (output 0) goes to B′ on 0 or 1; B′ (output 1) goes to D′ on 0 or 1; D′ (output 0) stays in D′ on 0 or 1.</title><defs><marker id="m53aak" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#1F2937"/></marker><marker id="m53ask" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1F2937"/></marker><marker id="m53aao" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#E07A00"/></marker><marker id="m53aso" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#E07A00"/></marker></defs><circle cx="80" cy="120" r="26" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.8"/><text x="80" y="120" text-anchor="middle" font-size="14" font-weight="600" fill="#1F2937">A</text><text x="80" y="136" text-anchor="middle" font-size="11" font-weight="normal" fill="#6B7280">z = 0</text><circle cx="240" cy="120" r="26" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.8"/><text x="240" y="120" text-anchor="middle" font-size="14" font-weight="600" fill="#1F2937">B′</text><text x="240" y="136" text-anchor="middle" font-size="11" font-weight="normal" fill="#6B7280">z = 1</text><circle cx="400" cy="120" r="26" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.8"/><text x="400" y="120" text-anchor="middle" font-size="14" font-weight="600" fill="#1F2937">D′</text><text x="400" y="136" text-anchor="middle" font-size="11" font-weight="normal" fill="#6B7280">z = 0</text><path d="M388,98 C366,54 434,54 412,98" fill="none" stroke="#1F2937" stroke-width="1.5" marker-end="url(#m53aak)"/><text x="400" y="50" text-anchor="middle" font-size="12" font-weight="normal" fill="#E07A00">0, 1</text><path d="M106.0,120.0 L214.0,120.0" fill="none" stroke="#1F2937" stroke-width="1.5" marker-end="url(#m53aak)"/><text x="160.0" y="112.0" text-anchor="middle" font-size="12" font-weight="normal" fill="#E07A00">0, 1</text><path d="M266.0,120.0 L374.0,120.0" fill="none" stroke="#1F2937" stroke-width="1.5" marker-end="url(#m53aak)"/><text x="320.0" y="112.0" text-anchor="middle" font-size="12" font-weight="normal" fill="#E07A00">0, 1</text></svg>
+      </div>
+      <p style="font-size:.8rem;color:var(--text-2);margin-top:.4rem">The reduced three-state machine.</p>
     </div>
 
     <h2>State Assignment</h2>

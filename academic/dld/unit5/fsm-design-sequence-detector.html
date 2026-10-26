@@ -99,46 +99,16 @@
   <div class="lesson">
     <p>Unit 4's synchronous counter design procedure — state table → excitation table → K-map → circuit — generalizes directly to <em>any</em> FSM, not just counters. This topic runs the complete procedure on a real problem: a serial circuit that flags every occurrence of the bit pattern <strong>1101</strong> in an incoming input stream, including <em>overlapping</em> occurrences (e.g., in <code>1101101</code>, both the first four bits and the last four bits are valid "1101" matches, sharing one bit).</p>
 
+    <div class="box box-tip">
+      <strong>In simple terms:</strong> to build any state machine, go diagram → table → state codes → flip-flop input table → K-maps → gates.</div>
+
     <h2>Step 1 — State Diagram</h2>
     <p>Use a Mealy machine: each state tracks how much of "1101" has been matched so far by the tail of the input. On a mismatch, don't necessarily fall all the way back to "nothing matched" — check whether the tail still matches a <em>shorter</em> prefix of the pattern, which is exactly what makes overlapping matches work correctly.</p>
     <div style="text-align:center;margin:1.25rem 0">
-      <svg viewBox="-20 -20 510 220" style="max-width:660px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <marker id="arrowD1" markerWidth="10" markerHeight="10" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
-            <path d="M0,0 L8,4 L0,8 Z" fill="var(--primary)"/>
-          </marker>
-        </defs>
-        <path d="M40,38 Q55,-8 70,38" fill="none" stroke="var(--primary)" stroke-width="2" marker-end="url(#arrowD1)"/>
-        <text x="55" y="-6" font-size="10" text-anchor="middle" fill="var(--text-2)">0/0</text>
-        <path d="M300,38 Q315,-8 330,38" fill="none" stroke="var(--primary)" stroke-width="2" marker-end="url(#arrowD1)"/>
-        <text x="315" y="-6" font-size="10" text-anchor="middle" fill="var(--text-2)">1/0</text>
-
-        <line x1="81" y1="60" x2="158" y2="60" stroke="var(--primary)" stroke-width="2" marker-end="url(#arrowD1)"/>
-        <text x="120" y="52" font-size="10" text-anchor="middle" fill="var(--text-2)">1/0</text>
-        <line x1="211" y1="60" x2="288" y2="60" stroke="var(--primary)" stroke-width="2" marker-end="url(#arrowD1)"/>
-        <text x="250" y="52" font-size="10" text-anchor="middle" fill="var(--text-2)">1/0</text>
-        <line x1="341" y1="60" x2="418" y2="60" stroke="var(--primary)" stroke-width="2" marker-end="url(#arrowD1)"/>
-        <text x="380" y="52" font-size="10" text-anchor="middle" fill="var(--text-2)">0/0</text>
-
-        <path d="M165,84 Q120,120 71,84" fill="none" stroke="var(--primary)" stroke-width="2" marker-end="url(#arrowD1)"/>
-        <text x="120" y="115" font-size="10" text-anchor="middle" fill="var(--text-2)">0/0</text>
-        <path d="M430,90 Q315,150 205,90" fill="none" stroke="var(--primary)" stroke-width="2" marker-end="url(#arrowD1)"/>
-        <text x="315" y="143" font-size="10" text-anchor="middle" fill="var(--text-2)">1/1</text>
-        <path d="M440,94 Q250,192 65,94" fill="none" stroke="var(--primary)" stroke-width="2" marker-end="url(#arrowD1)"/>
-        <text x="250" y="180" font-size="10" text-anchor="middle" fill="var(--text-2)">0/0</text>
-
-        <circle cx="55" cy="60" r="26" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5"/>
-        <text x="55" y="65" font-size="13" font-weight="700" text-anchor="middle" fill="var(--text)">S0</text>
-
-        <circle cx="185" cy="60" r="26" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5"/>
-        <text x="185" y="65" font-size="13" font-weight="700" text-anchor="middle" fill="var(--text)">S1</text>
-
-        <circle cx="315" cy="60" r="26" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5"/>
-        <text x="315" y="65" font-size="13" font-weight="700" text-anchor="middle" fill="var(--text)">S2</text>
-
-        <circle cx="445" cy="60" r="26" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5"/>
-        <text x="445" y="65" font-size="13" font-weight="700" text-anchor="middle" fill="var(--text)">S3</text>
-      </svg>
+      <div style="overflow-x:auto">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 270" role="img" aria-label="Mealy state diagram for the overlapping 1101 detector: S0 (nothing matched), S1 (1), S2 (11), S3 (110). S0: 0/0 stays, 1/0 to S1. S1: 0/0 to S0, 1/0 to S2. S2: 1/0 stays, 0/0 to S3. S3: 1/1 to S1 (match), 0/0 to S0." style="width:100%;height:auto;max-width:620px;display:block;margin:0 auto;min-width:620px" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif"><title>Mealy state diagram for the overlapping 1101 detector: S0 (nothing matched), S1 (1), S2 (11), S3 (110). S0: 0/0 stays, 1/0 to S1. S1: 0/0 to S0, 1/0 to S2. S2: 1/0 stays, 0/0 to S3. S3: 1/1 to S1 (match), 0/0 to S0.</title><defs><marker id="m54aak" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#1F2937"/></marker><marker id="m54ask" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1F2937"/></marker><marker id="m54aao" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#E07A00"/></marker><marker id="m54aso" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#E07A00"/></marker></defs><circle cx="80" cy="130" r="26" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.8"/><text x="80" y="135" text-anchor="middle" font-size="14" font-weight="600" fill="#1F2937">S0</text><circle cx="230" cy="130" r="26" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.8"/><text x="230" y="135" text-anchor="middle" font-size="14" font-weight="600" fill="#1F2937">S1</text><circle cx="380" cy="130" r="26" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.8"/><text x="380" y="135" text-anchor="middle" font-size="14" font-weight="600" fill="#1F2937">S2</text><circle cx="530" cy="130" r="26" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.8"/><text x="530" y="135" text-anchor="middle" font-size="14" font-weight="600" fill="#1F2937">S3</text><path d="M68,108 C46,64 114,64 92,108" fill="none" stroke="#1F2937" stroke-width="1.5" marker-end="url(#m54aak)"/><text x="80" y="60" text-anchor="middle" font-size="12" font-weight="normal" fill="#E07A00">0/0</text><path d="M368,108 C346,64 414,64 392,108" fill="none" stroke="#1F2937" stroke-width="1.5" marker-end="url(#m54aak)"/><text x="380" y="60" text-anchor="middle" font-size="12" font-weight="normal" fill="#E07A00">1/0</text><path d="M106.0,130.0 L204.0,130.0" fill="none" stroke="#1F2937" stroke-width="1.5" marker-end="url(#m54aak)"/><text x="155.0" y="122.0" text-anchor="middle" font-size="12" font-weight="normal" fill="#E07A00">1/0</text><path d="M256.0,130.0 L354.0,130.0" fill="none" stroke="#1F2937" stroke-width="1.5" marker-end="url(#m54aak)"/><text x="305.0" y="122.0" text-anchor="middle" font-size="12" font-weight="normal" fill="#E07A00">1/0</text><path d="M406.0,130.0 L504.0,130.0" fill="none" stroke="#1F2937" stroke-width="1.5" marker-end="url(#m54aak)"/><text x="455.0" y="122.0" text-anchor="middle" font-size="12" font-weight="normal" fill="#E07A00">0/0</text><path d="M218.0,153.1 L218.0,182 L92.0,182 L92.0,153.1" fill="none" stroke="#1F2937" stroke-width="1.5" marker-end="url(#m54aak)"/><text x="155.0" y="198" text-anchor="middle" font-size="12" font-weight="normal" fill="#E07A00">0/0</text><path d="M522.0,154.7 L522.0,182 L238.0,182 L238.0,154.7" fill="none" stroke="#1F2937" stroke-width="1.5" marker-end="url(#m54aak)"/><text x="380.0" y="198" text-anchor="middle" font-size="12" font-weight="normal" fill="#E07A00">1/1 (match)</text><path d="M538.0,154.7 L538.0,220 L68.0,220 L68.0,153.1" fill="none" stroke="#1F2937" stroke-width="1.5" marker-end="url(#m54aak)"/><text x="305.0" y="236" text-anchor="middle" font-size="12" font-weight="normal" fill="#E07A00">0/0</text></svg>
+      </div>
+      <p style="font-size:.8rem;color:var(--text-2);margin-top:.4rem">Mealy state diagram of the overlapping 1101 detector.</p>
     </div>
     <p>S0 = matched "" (nothing relevant yet), S1 = matched "1", S2 = matched "11", S3 = matched "110". S3 is where the pattern completes: on input 1, S3 outputs 1 (match!) and jumps back to <strong>S1</strong>, not S0 — because the very bit that just completed "1101" is itself a "1," which is exactly the start of a possible new overlapping match. The other mismatch path from S3 — on a 0 — falls all the way back to S0, since no proper prefix of "1101" survives; S1 on a 0 does the same.</p>
 
@@ -197,7 +167,7 @@
           <tr><th>1</th><td class="zero">0</td><td class="zero">0</td><td class="one">1</td><td class="one">1</td></tr>
         </table>
         </div>
-        <div class="kmap-cap">K<sub>A</sub> = AB</div>
+        <div class="kmap-cap">K<sub>A</sub> = B</div>
       </div>
       <div class="kmap-block">
         <div style="overflow-x:auto">
@@ -217,65 +187,27 @@
           <tr><th>1</th><td class="dc">X</td><td class="dc">X</td><td class="zero">0</td><td class="one">1</td></tr>
         </table>
         </div>
-        <div class="kmap-cap">K<sub>B</sub> = A′B + Ax′</div>
+        <div class="kmap-cap">K<sub>B</sub> = A′ + x′</div>
       </div>
     </div>
-    <p>Reading J<sub>A</sub>: the single required 1 (at A=0,B=1,x=1) pairs with the don't-care directly below it (A=1, same B,x) — both cells have B=1,x=1 — giving the term Bx. K<sub>A</sub>'s two required 1s sit in the A=1 row at Bx=11 and Bx=10 — both have A=1,B=1 — giving AB. J<sub>B</sub> and K<sub>B</sub> both need two separate pairings (worked the same way — match required 1s with adjacent don't-cares or with each other) to reach the two-term expressions shown.</p>
+    <p>Reading J<sub>A</sub>: the single required 1 (at A=0,B=1,x=1) pairs with the don't-care directly below it (A=1, same B,x) — both cells have B=1,x=1 — giving the term Bx. K<sub>A</sub>'s two required 1s (A=1, Bx = 11 and 10) group with the two don't-cares above them into the whole B = 1 half of the map, giving just B. J<sub>B</sub> needs two pairs, A′x and Ax′. K<sub>B</sub> uses the all-don't-care A = 0 row as a group of four (A′) plus the x = 0 cells in both rows (x′), giving A′ + x′ — which is simply (Ax)′, a single NAND gate.</p>
     <p>The output y needs no map at all — it's a single required 1, at exactly A=1,B=1,x=1, with no don't-cares anywhere to exploit: <strong>y = ABx</strong>.</p>
 
     <div class="box box-eg">
-J<sub>A</sub> = Bx  K<sub>A</sub> = AB
-J<sub>B</sub> = A′x + Ax′  K<sub>B</sub> = A′B + Ax′
+J<sub>A</sub> = Bx  K<sub>A</sub> = B
+J<sub>B</sub> = A′x + Ax′  K<sub>B</sub> = A′ + x′
 y = ABx
     </div>
 
     <h2>Step 5 — Circuit</h2>
     <p>Two JK flip-flops (A, B) hold the state; a small block of combinational logic — built straight from the five equations above — drives their J/K inputs and the output:</p>
     <div style="text-align:center;margin:1.25rem 0">
-      <svg viewBox="-46 -10 626 195" style="max-width:820px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
-        <text x="-38" y="34" font-size="12" fill="var(--text)">x</text>
-        <line x1="-4" y1="30" x2="60" y2="30" stroke="var(--primary)" stroke-width="2"/>
-
-        <rect x="60" y="10" width="100" height="80" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
-        <text x="110" y="46" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">J, K</text>
-        <text x="110" y="62" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">LOGIC</text>
-
-        <line x1="160" y1="30" x2="220" y2="30" stroke="var(--primary)" stroke-width="2"/>
-        <text x="168" y="24" font-size="10" fill="var(--text-2)">J,K</text>
-
-        <rect x="220" y="10" width="100" height="80" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
-        <text x="270" y="46" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">STATE</text>
-        <text x="270" y="62" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">REGISTER</text>
-        <path d="M220,62 L220,78 L232,70 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5" stroke-linejoin="round"/>
-
-        <text x="180" y="138" font-size="11" fill="var(--text-2)">CLK</text>
-        <line x1="205" y1="125" x2="205" y2="70" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="205" y1="70" x2="220" y2="70" stroke="var(--primary)" stroke-width="2"/>
-
-        <line x1="320" y1="30" x2="380" y2="30" stroke="var(--primary)" stroke-width="2"/>
-        <text x="322" y="22" font-size="10" fill="var(--text-2)">A, B (state)</text>
-        <circle cx="350" cy="30" r="3" fill="var(--primary)"/>
-
-        <line x1="350" y1="30" x2="350" y2="150" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="350" y1="150" x2="90" y2="150" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="90" y1="150" x2="90" y2="70" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="90" y1="70" x2="60" y2="70" stroke="var(--primary)" stroke-width="2"/>
-
-        <line x1="20" y1="30" x2="20" y2="170" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="20" y1="170" x2="360" y2="170" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="360" y1="170" x2="360" y2="70" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="360" y1="70" x2="380" y2="70" stroke="var(--primary)" stroke-width="2"/>
-        <circle cx="20" cy="30" r="3" fill="var(--primary)"/>
-
-        <rect x="380" y="10" width="100" height="80" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
-        <text x="430" y="46" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">OUTPUT</text>
-        <text x="430" y="62" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">LOGIC</text>
-
-        <line x1="480" y1="30" x2="520" y2="30" stroke="var(--primary)" stroke-width="2"/>
-        <text x="524" y="34" font-size="12" fill="var(--text)">y</text>
-      </svg>
+      <div style="overflow-x:auto">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 330" role="img" aria-label="Circuit of the 1101 sequence detector: flip-flop A has J = B·x (AND gate) and K = B; flip-flop B has J = A ⊕ x (XOR gate) and K = (A·x)′ (NAND gate); both flip-flops share CLK; the output y = A·B·x comes from a three-input AND gate. Signals with the same name are connected." style="width:100%;height:auto;max-width:620px;display:block;margin:0 auto;min-width:620px" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif"><title>Circuit of the 1101 sequence detector: flip-flop A has J = B·x (AND gate) and K = B; flip-flop B has J = A ⊕ x (XOR gate) and K = (A·x)′ (NAND gate); both flip-flops share CLK; the output y = A·B·x comes from a three-input AND gate. Signals with the same name are connected.</title><defs><marker id="mc54ak" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#1F2937"/></marker><marker id="mc54sk" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1F2937"/></marker><marker id="mc54ao" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#E07A00"/></marker><marker id="mc54so" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#E07A00"/></marker></defs><rect x="330" y="30" width="70" height="84" rx="0" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><text x="365.0" y="76.5" text-anchor="middle" font-size="13" fill="#1F2937"></text><text x="365.0" y="76.0" text-anchor="middle" font-size="12" font-weight="600" fill="#1F2937">A</text><text x="336" y="50" text-anchor="start" font-size="11.5" font-weight="normal" fill="#1F2937">J</text><text x="336" y="104" text-anchor="start" font-size="11.5" font-weight="normal" fill="#1F2937">K</text><path d="M330,66.0 L339,72.0 L330,78.0" fill="none" stroke="#1F2937" stroke-width="1.2"/><text x="394" y="50" text-anchor="end" font-size="11.5" font-weight="normal" fill="#1F2937">Q</text><rect x="330" y="150" width="70" height="84" rx="0" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><text x="365.0" y="196.6" text-anchor="middle" font-size="13" fill="#1F2937"></text><text x="365.0" y="196.0" text-anchor="middle" font-size="12" font-weight="600" fill="#1F2937">B</text><text x="336" y="170" text-anchor="start" font-size="11.5" font-weight="normal" fill="#1F2937">J</text><text x="336" y="224" text-anchor="start" font-size="11.5" font-weight="normal" fill="#1F2937">K</text><path d="M330,186.0 L339,192.0 L330,198.0" fill="none" stroke="#1F2937" stroke-width="1.2"/><text x="394" y="170" text-anchor="end" font-size="11.5" font-weight="normal" fill="#1F2937">Q</text><path d="M190,31.0 L206.5,31.0 A15.0,15.0 0 0 1 206.5,61.0 L190,61.0 Z" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><text x="144" y="44" text-anchor="end" font-size="12" font-weight="normal" fill="#1F2937">B</text><path d="M150,40 L150.1,40" fill="none" stroke="#1F2937" stroke-width="1.6"/><path d="M150,40 L190,40" fill="none" stroke="#1F2937" stroke-width="1.2"/><text x="144" y="56" text-anchor="end" font-size="12" font-weight="normal" fill="#1F2937">x</text><path d="M150,52 L150.1,52" fill="none" stroke="#1F2937" stroke-width="1.6"/><path d="M150,52 L190,52" fill="none" stroke="#1F2937" stroke-width="1.2"/><path d="M221.5,46 L330,46" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#mc54ak)"/><text x="144" y="104" text-anchor="end" font-size="12" font-weight="normal" fill="#1F2937">B</text><path d="M150,100 L330,100" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#mc54ak)"/><path d="M190,151.0 Q209.8,151.0 223.0,166 Q209.8,181.0 190,181.0 Q199.0,166 190,151.0 Z" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><path d="M184,151.0 Q193.0,166 184,181.0" fill="none" stroke="#1565C0" stroke-width="1.6"/><text x="144" y="164" text-anchor="end" font-size="12" font-weight="normal" fill="#1F2937">A</text><path d="M150,160 L187.78,160" fill="none" stroke="#1F2937" stroke-width="1.2"/><text x="144" y="176" text-anchor="end" font-size="12" font-weight="normal" fill="#1F2937">x</text><path d="M150,172 L187.78,172" fill="none" stroke="#1F2937" stroke-width="1.2"/><path d="M223.0,166 L330,166" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#mc54ak)"/><path d="M190,205.0 L206.5,205.0 A15.0,15.0 0 0 1 206.5,235.0 L190,235.0 Z" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><circle cx="225.0" cy="220" r="3.5" fill="white" stroke="#1565C0" stroke-width="1.5"/><text x="144" y="218" text-anchor="end" font-size="12" font-weight="normal" fill="#1F2937">A</text><path d="M150,214 L190,214" fill="none" stroke="#1F2937" stroke-width="1.2"/><text x="144" y="230" text-anchor="end" font-size="12" font-weight="normal" fill="#1F2937">x</text><path d="M150,226 L190,226" fill="none" stroke="#1F2937" stroke-width="1.2"/><path d="M228.5,220 L330,220" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#mc54ak)"/><text x="144" y="274" text-anchor="end" font-size="12" font-weight="normal" fill="#E07A00">CLK</text><path d="M150,270 L300,270" fill="none" stroke="#E07A00" stroke-width="1.6"/><circle cx="300" cy="270" r="3" fill="#E07A00"/><path d="M300,270 L300,192.0 L330,192.0" fill="none" stroke="#E07A00" stroke-width="1.6" marker-end="url(#mc54ao)"/><path d="M300,192.0 L300,72.0 L330,72.0" fill="none" stroke="#E07A00" stroke-width="1.6" marker-end="url(#mc54ao)"/><path d="M400,46 L430,46" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#mc54ak)"/><text x="436" y="50" text-anchor="start" font-size="13" font-weight="normal" fill="#1F2937">A</text><path d="M400,166 L430,166" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#mc54ak)"/><text x="436" y="170" text-anchor="start" font-size="13" font-weight="normal" fill="#1F2937">B</text><path d="M470,256.0 L496.4,256.0 A24.0,24.0 0 0 1 496.4,304.0 L470,304.0 Z" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><text x="440" y="270" text-anchor="end" font-size="12" font-weight="normal" fill="#1F2937">A</text><path d="M446,266 L470,266" fill="none" stroke="#1F2937" stroke-width="1.2"/><text x="440" y="284" text-anchor="end" font-size="12" font-weight="normal" fill="#1F2937">B</text><path d="M446,280 L470,280" fill="none" stroke="#1F2937" stroke-width="1.2"/><text x="440" y="298" text-anchor="end" font-size="12" font-weight="normal" fill="#1F2937">x</text><path d="M446,294 L470,294" fill="none" stroke="#1F2937" stroke-width="1.2"/><path d="M520.4,280 L550.4,280" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#mc54ak)"/><text x="554.4" y="284" text-anchor="start" font-size="13" font-weight="normal" fill="#1F2937">y</text><text x="150" y="316" text-anchor="start" font-size="11" font-weight="normal" fill="#6B7280">Signals with the same name are connected</text></svg>
+      </div>
+      <p style="font-size:.8rem;color:var(--text-2);margin-top:.4rem">Circuit of the 1101 detector: J<sub>A</sub> = Bx, K<sub>A</sub> = B, J<sub>B</sub> = A ⊕ x, K<sub>B</sub> = (Ax)′, y = ABx.</p>
     </div>
-    <p>This is exactly the general Mealy structure from Topic 1, filled in with this design's specifics: the "J, K Logic" block is the four equations J<sub>A</sub>=Bx, K<sub>A</sub>=AB, J<sub>B</sub>=A′x+Ax′, K<sub>B</sub>=A′B+Ax′; the state register is the two JK flip-flops holding A and B; and "Output Logic" is the single gate y=ABx, reading the state <em>and</em> x directly — which is exactly why this is a Mealy machine and not a Moore one.</p>
+    <p>This is exactly the general Mealy structure from Topic 1, filled in with this design's specifics: the "J, K Logic" block is the four equations J<sub>A</sub>=Bx, K<sub>A</sub>=B, J<sub>B</sub>=A′x+Ax′, K<sub>B</sub>=A′+x′; the state register is the two JK flip-flops holding A and B; and "Output Logic" is the single gate y=ABx, reading the state <em>and</em> x directly — which is exactly why this is a Mealy machine and not a Moore one.</p>
 
     <h2>Common Pitfalls</h2>
     <ul>

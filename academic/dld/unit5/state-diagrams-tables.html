@@ -88,6 +88,9 @@
   <div class="lesson">
     <p>A state diagram and a state table describe exactly the same FSM — nothing is lost converting between them in either direction. The diagram is easier to read at a glance; the table is what you'll actually build excitation tables and K-maps from (next two topics), so being fluent in both directions matters.</p>
 
+    <div class="box box-tip">
+      <strong>In simple terms:</strong> a state diagram draws the machine as circles and arrows; a state table lists the same information row by row — one is easy to read, the other easy to design from.</div>
+
     <h2>State Table Format</h2>
     <p>Every state table has one row per state. What goes in the columns depends on the model:</p>
     <div class="box box-eg">
@@ -99,36 +102,10 @@ Mealy:  Present State | Next State / Output pair, for each input value
     <h2>Diagram → Table: A Moore Example</h2>
     <p>Build a detector whose output goes to 1 once the input has shown a 1 <em>followed later</em> by a 0 — and stays 1 forever after, regardless of what comes next:</p>
     <div style="text-align:center;margin:1.25rem 0">
-      <svg viewBox="-15 -20 438 145" style="max-width:560px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <marker id="arrowS1" markerWidth="10" markerHeight="10" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
-            <path d="M0,0 L8,4 L0,8 Z" fill="var(--primary)"/>
-          </marker>
-        </defs>
-        <path d="M55,38 Q70,-10 85,38" fill="none" stroke="var(--primary)" stroke-width="2" marker-end="url(#arrowS1)"/>
-        <text x="70" y="-6" font-size="11" text-anchor="middle" fill="var(--text-2)">0</text>
-        <path d="M215,38 Q230,-10 245,38" fill="none" stroke="var(--primary)" stroke-width="2" marker-end="url(#arrowS1)"/>
-        <text x="230" y="-6" font-size="11" text-anchor="middle" fill="var(--text-2)">1</text>
-        <path d="M375,38 Q390,-10 405,38" fill="none" stroke="var(--primary)" stroke-width="2" marker-end="url(#arrowS1)"/>
-        <text x="390" y="-6" font-size="11" text-anchor="middle" fill="var(--text-2)">0,1</text>
-
-        <line x1="98" y1="60" x2="199" y2="60" stroke="var(--primary)" stroke-width="2" marker-end="url(#arrowS1)"/>
-        <text x="148" y="52" font-size="11" text-anchor="middle" fill="var(--text-2)">1</text>
-        <line x1="258" y1="60" x2="359" y2="60" stroke="var(--primary)" stroke-width="2" marker-end="url(#arrowS1)"/>
-        <text x="308" y="52" font-size="11" text-anchor="middle" fill="var(--text-2)">0</text>
-
-        <circle cx="70" cy="60" r="28" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5"/>
-        <text x="70" y="58" font-size="13" font-weight="700" text-anchor="middle" fill="var(--text)">S0</text>
-        <text x="70" y="72" font-size="9" text-anchor="middle" fill="var(--text-2)">z=0</text>
-
-        <circle cx="230" cy="60" r="28" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5"/>
-        <text x="230" y="58" font-size="13" font-weight="700" text-anchor="middle" fill="var(--text)">S1</text>
-        <text x="230" y="72" font-size="9" text-anchor="middle" fill="var(--text-2)">z=0</text>
-
-        <circle cx="390" cy="60" r="28" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5"/>
-        <text x="390" y="58" font-size="13" font-weight="700" text-anchor="middle" fill="var(--text)">S2</text>
-        <text x="390" y="72" font-size="9" text-anchor="middle" fill="var(--text-2)">z=1</text>
-      </svg>
+      <div style="overflow-x:auto">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 200" role="img" aria-label="Moore state diagram for a detector that outputs 1 once a 1 has been followed later by a 0: S0 (z = 0) stays on 0 and goes to S1 on 1; S1 (z = 0) stays on 1 and goes to S2 on 0; S2 (z = 1) stays on 0 or 1." style="width:100%;height:auto;max-width:480px;display:block;margin:0 auto;min-width:480px" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif"><title>Moore state diagram for a detector that outputs 1 once a 1 has been followed later by a 0: S0 (z = 0) stays on 0 and goes to S1 on 1; S1 (z = 0) stays on 1 and goes to S2 on 0; S2 (z = 1) stays on 0 or 1.</title><defs><marker id="m52aak" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#1F2937"/></marker><marker id="m52ask" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1F2937"/></marker><marker id="m52aao" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#E07A00"/></marker><marker id="m52aso" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#E07A00"/></marker></defs><circle cx="80" cy="120" r="26" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.8"/><text x="80" y="120" text-anchor="middle" font-size="14" font-weight="600" fill="#1F2937">S0</text><text x="80" y="136" text-anchor="middle" font-size="11" font-weight="normal" fill="#6B7280">z = 0</text><circle cx="240" cy="120" r="26" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.8"/><text x="240" y="120" text-anchor="middle" font-size="14" font-weight="600" fill="#1F2937">S1</text><text x="240" y="136" text-anchor="middle" font-size="11" font-weight="normal" fill="#6B7280">z = 0</text><circle cx="400" cy="120" r="26" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.8"/><text x="400" y="120" text-anchor="middle" font-size="14" font-weight="600" fill="#1F2937">S2</text><text x="400" y="136" text-anchor="middle" font-size="11" font-weight="normal" fill="#6B7280">z = 1</text><path d="M68,98 C46,54 114,54 92,98" fill="none" stroke="#1F2937" stroke-width="1.5" marker-end="url(#m52aak)"/><text x="80" y="50" text-anchor="middle" font-size="12" font-weight="normal" fill="#E07A00">0</text><path d="M228,98 C206,54 274,54 252,98" fill="none" stroke="#1F2937" stroke-width="1.5" marker-end="url(#m52aak)"/><text x="240" y="50" text-anchor="middle" font-size="12" font-weight="normal" fill="#E07A00">1</text><path d="M388,98 C366,54 434,54 412,98" fill="none" stroke="#1F2937" stroke-width="1.5" marker-end="url(#m52aak)"/><text x="400" y="50" text-anchor="middle" font-size="12" font-weight="normal" fill="#E07A00">0, 1</text><path d="M106.0,120.0 L214.0,120.0" fill="none" stroke="#1F2937" stroke-width="1.5" marker-end="url(#m52aak)"/><text x="160.0" y="112.0" text-anchor="middle" font-size="12" font-weight="normal" fill="#E07A00">1</text><path d="M266.0,120.0 L374.0,120.0" fill="none" stroke="#1F2937" stroke-width="1.5" marker-end="url(#m52aak)"/><text x="320.0" y="112.0" text-anchor="middle" font-size="12" font-weight="normal" fill="#E07A00">0</text></svg>
+      </div>
+      <p style="font-size:.8rem;color:var(--text-2);margin-top:.4rem">Moore detector for a 1 followed later by a 0.</p>
     </div>
     <p>S0 = "haven't seen a 1 yet," S1 = "saw a 1, waiting for a 0," S2 = "saw 1-then-0 — done." S2's self-loop is labeled "0,1" because <em>either</em> input keeps it parked in S2 — once the pattern has been seen, nothing that follows changes the output. Reading each state's row mechanically off the diagram:</p>
     <div style="overflow-x:auto">
