@@ -59,19 +59,6 @@
     .truth-table { border-collapse:collapse; margin:1rem auto; font-size:.85rem; }
     .truth-table th, .truth-table td { border:1px solid var(--border); padding:.35rem .55rem; text-align:center; }
     .truth-table th { background:var(--bg-3); color:var(--text); font-weight:700; }
-    .kmap-wrap { display:flex; justify-content:center; gap:2.5rem; margin:1.25rem 0; flex-wrap:wrap; overflow-x:auto; }
-    .kmap-table { border-collapse:collapse; font-size:.85rem; }
-    .kmap-table th, .kmap-table td { border:1px solid var(--border); width:52px; height:44px; text-align:center; padding:0; }
-    .kmap-table th { background:var(--bg-3); font-weight:700; color:var(--text-2); font-size:.78rem; }
-    .kmap-table .corner { font-size:.64rem; color:var(--text-3); font-weight:600; }
-    .kmap-table td .val { font-weight:700; font-size:1rem; }
-    .kmap-table td .idx { display:block; font-size:.6rem; color:var(--text-3); }
-    .kmap-table td.one .val { color:var(--success); }
-    .kmap-table td.zero .val { color:var(--text-3); }
-    .kmap-table td.dc .val { color:var(--accent); }
-    .kmap-overlay { position:relative; display:inline-block; text-align:center; }
-    .kmap-overlay svg { position:absolute; top:0; left:0; pointer-events:none; }
-    .kmap-cap { font-size:.8rem; color:var(--text-2); margin-top:.4rem; }
   </style>
 </head>
 <body>
@@ -101,6 +88,9 @@
   <div class="lesson">
     <h2>What is a Synchronous Counter?</h2>
     <p>In a <strong>synchronous counter</strong>, every flip-flop connects to the <em>same</em> common clock signal — every stage samples and updates at the exact same instant, instead of rippling through one stage at a time. That eliminates the accumulated propagation delay a ripple counter suffers from, at the cost of needing extra combinational logic to work out, for each stage, exactly what its inputs must be so that all stages land on the correct next state <em>together</em>.</p>
+
+    <div class="box box-tip">
+      <strong>In simple terms:</strong> in a synchronous counter every flip-flop hears the same clock tick; gates decide which ones toggle, so all bits change together.</div>
 
     <h2>The Design Procedure</h2>
     <div class="box box-eg">
@@ -132,53 +122,17 @@
 
     <h3>Step 3 — K-Maps for J<sub>A</sub> and K<sub>A</sub></h3>
     <p>Reading the J<sub>A</sub> and K<sub>A</sub> columns above onto 3-variable K-maps (rows=A, columns=BC in Gray-code order) shows every A=1 row entry is a don't-care in both maps — which leaves a single 1 in each, at ABC=011 for J<sub>A</sub> and ABC=111 for K<sub>A</sub>, each free to pair up with the don't-care directly below it:</p>
-    <div class="kmap-wrap">
-      <div class="kmap-overlay" id="kmapA-wrap">
-        <div style="overflow-x:auto">
-        <table class="kmap-table" id="kmapJA">
-          <tr><th class="corner">A\BC</th><th>00</th><th>01</th><th>11</th><th>10</th></tr>
-          <tr><th>0</th>
-            <td class="zero"><span class="val">0</span><span class="idx">m0</span></td>
-            <td class="zero"><span class="val">0</span><span class="idx">m1</span></td>
-            <td class="one" id="ja-m3"><span class="val">1</span><span class="idx">m3</span></td>
-            <td class="zero"><span class="val">0</span><span class="idx">m2</span></td>
-          </tr>
-          <tr><th>1</th>
-            <td class="dc"><span class="val">X</span><span class="idx">m4</span></td>
-            <td class="dc"><span class="val">X</span><span class="idx">m5</span></td>
-            <td class="dc" id="ja-m7"><span class="val">X</span><span class="idx">m7</span></td>
-            <td class="dc"><span class="val">X</span><span class="idx">m6</span></td>
-          </tr>
-        </table>
-        </div>
-        <svg id="kmapA-svg" width="261" height="192" viewBox="0 0 261 192">
-          <rect x="156.3" y="58.7" width="52" height="88.4" rx="10" fill="none" stroke="#8e24aa" stroke-width="3"/>
-        </svg>
-        <div class="kmap-cap">J<sub>A</sub> = BC</div>
+    <div style="text-align:center;margin:1.25rem 0">
+      <div style="overflow-x:auto">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 200" role="img" aria-label="K-map for JA: rows A = 0 and 1, columns BC = 00, 01, 11, 10; the 1 and the don't-cares in column BC = 11 group to give JA = BC." style="width:100%;height:auto;max-width:360px;display:block;margin:0 auto;min-width:360px" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif"><title>K-map for JA: rows A = 0 and 1, columns BC = 00, 01, 11, 10; the 1 and the don't-cares in column BC = 11 group to give JA = BC.</title><defs><marker id="m219aak" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#1F2937"/></marker><marker id="m219ask" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1F2937"/></marker><marker id="m219aao" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#E07A00"/></marker><marker id="m219aso" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#E07A00"/></marker></defs><text x="96" y="36" text-anchor="end" font-size="12" font-weight="normal" fill="#1F2937">A</text><text x="222" y="22" text-anchor="middle" font-size="12" font-weight="normal" fill="#1F2937">BC</text><path d="M86,20 L110,50" stroke="#1F2937" stroke-width="1"/><text x="138.0" y="42" text-anchor="middle" font-size="12" font-weight="normal" fill="#1F2937">00</text><text x="194.0" y="42" text-anchor="middle" font-size="12" font-weight="normal" fill="#1F2937">01</text><text x="250.0" y="42" text-anchor="middle" font-size="12" font-weight="normal" fill="#1F2937">11</text><text x="306.0" y="42" text-anchor="middle" font-size="12" font-weight="normal" fill="#1F2937">10</text><text x="100" y="77.0" text-anchor="end" font-size="12" font-weight="normal" fill="#1F2937">0</text><rect x="110" y="50" width="56" height="46" rx="0" fill="#FFFFFF" stroke="#1565C0" stroke-width="1.6"/><text x="138.0" y="77.5" text-anchor="middle" font-size="13" fill="#1F2937"></text><text x="138.0" y="79.0" text-anchor="middle" font-size="14" font-weight="normal" fill="#6B7280">0</text><rect x="166" y="50" width="56" height="46" rx="0" fill="#FFFFFF" stroke="#1565C0" stroke-width="1.6"/><text x="194.0" y="77.5" text-anchor="middle" font-size="13" fill="#1F2937"></text><text x="194.0" y="79.0" text-anchor="middle" font-size="14" font-weight="normal" fill="#6B7280">0</text><rect x="222" y="50" width="56" height="46" rx="0" fill="#FFFFFF" stroke="#1565C0" stroke-width="1.6"/><text x="250.0" y="77.5" text-anchor="middle" font-size="13" fill="#1F2937"></text><text x="250.0" y="79.0" text-anchor="middle" font-size="14" font-weight="600" fill="#1F2937">1</text><rect x="278" y="50" width="56" height="46" rx="0" fill="#FFFFFF" stroke="#1565C0" stroke-width="1.6"/><text x="306.0" y="77.5" text-anchor="middle" font-size="13" fill="#1F2937"></text><text x="306.0" y="79.0" text-anchor="middle" font-size="14" font-weight="normal" fill="#6B7280">0</text><text x="100" y="123.0" text-anchor="end" font-size="12" font-weight="normal" fill="#1F2937">1</text><rect x="110" y="96" width="56" height="46" rx="0" fill="#FFFFFF" stroke="#1565C0" stroke-width="1.6"/><text x="138.0" y="123.5" text-anchor="middle" font-size="13" fill="#1F2937"></text><text x="138.0" y="125.0" text-anchor="middle" font-size="14" font-weight="normal" fill="#6B7280">X</text><rect x="166" y="96" width="56" height="46" rx="0" fill="#FFFFFF" stroke="#1565C0" stroke-width="1.6"/><text x="194.0" y="123.5" text-anchor="middle" font-size="13" fill="#1F2937"></text><text x="194.0" y="125.0" text-anchor="middle" font-size="14" font-weight="normal" fill="#6B7280">X</text><rect x="222" y="96" width="56" height="46" rx="0" fill="#FFFFFF" stroke="#1565C0" stroke-width="1.6"/><text x="250.0" y="123.5" text-anchor="middle" font-size="13" fill="#1F2937"></text><text x="250.0" y="125.0" text-anchor="middle" font-size="14" font-weight="normal" fill="#6B7280">X</text><rect x="278" y="96" width="56" height="46" rx="0" fill="#FFFFFF" stroke="#1565C0" stroke-width="1.6"/><text x="306.0" y="123.5" text-anchor="middle" font-size="13" fill="#1F2937"></text><text x="306.0" y="125.0" text-anchor="middle" font-size="14" font-weight="normal" fill="#6B7280">X</text><rect x="228" y="56" width="44" height="80" rx="14" fill="none" stroke="#2E7D32" stroke-width="2.4"/><text x="192" y="176" text-anchor="start" font-size="13" font-weight="600" fill="#2E7D32">J</text><text x="200" y="180" text-anchor="start" font-size="11" font-weight="600" fill="#2E7D32">A</text><text x="215" y="176" text-anchor="start" font-size="13" font-weight="600" fill="#2E7D32">= BC</text></svg>
       </div>
-      <div class="kmap-overlay" id="kmapK-wrap">
-        <div style="overflow-x:auto">
-        <table class="kmap-table" id="kmapKA">
-          <tr><th class="corner">A\BC</th><th>00</th><th>01</th><th>11</th><th>10</th></tr>
-          <tr><th>0</th>
-            <td class="dc"><span class="val">X</span><span class="idx">m0</span></td>
-            <td class="dc"><span class="val">X</span><span class="idx">m1</span></td>
-            <td class="dc" id="ka-m3"><span class="val">X</span><span class="idx">m3</span></td>
-            <td class="dc"><span class="val">X</span><span class="idx">m2</span></td>
-          </tr>
-          <tr><th>1</th>
-            <td class="zero"><span class="val">0</span><span class="idx">m4</span></td>
-            <td class="zero"><span class="val">0</span><span class="idx">m5</span></td>
-            <td class="one" id="ka-m7"><span class="val">1</span><span class="idx">m7</span></td>
-            <td class="zero"><span class="val">0</span><span class="idx">m6</span></td>
-          </tr>
-        </table>
-        </div>
-        <svg id="kmapK-svg" width="261" height="192" viewBox="0 0 261 192">
-          <rect x="156.3" y="58.7" width="52" height="88.4" rx="10" fill="none" stroke="#8e24aa" stroke-width="3"/>
-        </svg>
-        <div class="kmap-cap">K<sub>A</sub> = BC</div>
+      <p style="font-size:.8rem;color:var(--text-2);margin-top:.4rem">K-map for J<sub>A</sub>: J<sub>A</sub> = BC.</p>
+    </div>
+    <div style="text-align:center;margin:1.25rem 0">
+      <div style="overflow-x:auto">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 200" role="img" aria-label="K-map for KA: rows A = 0 and 1, columns BC = 00, 01, 11, 10; the 1 and the don't-cares in column BC = 11 group to give KA = BC." style="width:100%;height:auto;max-width:360px;display:block;margin:0 auto;min-width:360px" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif"><title>K-map for KA: rows A = 0 and 1, columns BC = 00, 01, 11, 10; the 1 and the don't-cares in column BC = 11 group to give KA = BC.</title><defs><marker id="m219bak" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#1F2937"/></marker><marker id="m219bsk" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1F2937"/></marker><marker id="m219bao" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#E07A00"/></marker><marker id="m219bso" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#E07A00"/></marker></defs><text x="96" y="36" text-anchor="end" font-size="12" font-weight="normal" fill="#1F2937">A</text><text x="222" y="22" text-anchor="middle" font-size="12" font-weight="normal" fill="#1F2937">BC</text><path d="M86,20 L110,50" stroke="#1F2937" stroke-width="1"/><text x="138.0" y="42" text-anchor="middle" font-size="12" font-weight="normal" fill="#1F2937">00</text><text x="194.0" y="42" text-anchor="middle" font-size="12" font-weight="normal" fill="#1F2937">01</text><text x="250.0" y="42" text-anchor="middle" font-size="12" font-weight="normal" fill="#1F2937">11</text><text x="306.0" y="42" text-anchor="middle" font-size="12" font-weight="normal" fill="#1F2937">10</text><text x="100" y="77.0" text-anchor="end" font-size="12" font-weight="normal" fill="#1F2937">0</text><rect x="110" y="50" width="56" height="46" rx="0" fill="#FFFFFF" stroke="#1565C0" stroke-width="1.6"/><text x="138.0" y="77.5" text-anchor="middle" font-size="13" fill="#1F2937"></text><text x="138.0" y="79.0" text-anchor="middle" font-size="14" font-weight="normal" fill="#6B7280">X</text><rect x="166" y="50" width="56" height="46" rx="0" fill="#FFFFFF" stroke="#1565C0" stroke-width="1.6"/><text x="194.0" y="77.5" text-anchor="middle" font-size="13" fill="#1F2937"></text><text x="194.0" y="79.0" text-anchor="middle" font-size="14" font-weight="normal" fill="#6B7280">X</text><rect x="222" y="50" width="56" height="46" rx="0" fill="#FFFFFF" stroke="#1565C0" stroke-width="1.6"/><text x="250.0" y="77.5" text-anchor="middle" font-size="13" fill="#1F2937"></text><text x="250.0" y="79.0" text-anchor="middle" font-size="14" font-weight="normal" fill="#6B7280">X</text><rect x="278" y="50" width="56" height="46" rx="0" fill="#FFFFFF" stroke="#1565C0" stroke-width="1.6"/><text x="306.0" y="77.5" text-anchor="middle" font-size="13" fill="#1F2937"></text><text x="306.0" y="79.0" text-anchor="middle" font-size="14" font-weight="normal" fill="#6B7280">X</text><text x="100" y="123.0" text-anchor="end" font-size="12" font-weight="normal" fill="#1F2937">1</text><rect x="110" y="96" width="56" height="46" rx="0" fill="#FFFFFF" stroke="#1565C0" stroke-width="1.6"/><text x="138.0" y="123.5" text-anchor="middle" font-size="13" fill="#1F2937"></text><text x="138.0" y="125.0" text-anchor="middle" font-size="14" font-weight="normal" fill="#6B7280">0</text><rect x="166" y="96" width="56" height="46" rx="0" fill="#FFFFFF" stroke="#1565C0" stroke-width="1.6"/><text x="194.0" y="123.5" text-anchor="middle" font-size="13" fill="#1F2937"></text><text x="194.0" y="125.0" text-anchor="middle" font-size="14" font-weight="normal" fill="#6B7280">0</text><rect x="222" y="96" width="56" height="46" rx="0" fill="#FFFFFF" stroke="#1565C0" stroke-width="1.6"/><text x="250.0" y="123.5" text-anchor="middle" font-size="13" fill="#1F2937"></text><text x="250.0" y="125.0" text-anchor="middle" font-size="14" font-weight="600" fill="#1F2937">1</text><rect x="278" y="96" width="56" height="46" rx="0" fill="#FFFFFF" stroke="#1565C0" stroke-width="1.6"/><text x="306.0" y="123.5" text-anchor="middle" font-size="13" fill="#1F2937"></text><text x="306.0" y="125.0" text-anchor="middle" font-size="14" font-weight="normal" fill="#6B7280">0</text><rect x="228" y="56" width="44" height="80" rx="14" fill="none" stroke="#2E7D32" stroke-width="2.4"/><text x="192" y="176" text-anchor="start" font-size="13" font-weight="600" fill="#2E7D32">K</text><text x="200" y="180" text-anchor="start" font-size="11" font-weight="600" fill="#2E7D32">A</text><text x="215" y="176" text-anchor="start" font-size="13" font-weight="600" fill="#2E7D32">= BC</text></svg>
       </div>
+      <p style="font-size:.8rem;color:var(--text-2);margin-top:.4rem">K-map for K<sub>A</sub>: K<sub>A</sub> = BC.</p>
     </div>
     <p>Both maps group the same pair of cells (BC=11, both A rows), because both maps have 1s and don't-cares in exactly complementary places — the only surviving constant variables across that pair are B=1 and C=1, giving J<sub>A</sub>=K<sub>A</sub>=BC.</p>
 
@@ -191,61 +145,10 @@ J<sub>B</sub> = C,  K<sub>B</sub> = C    (B's J/K columns are exactly 0 when C=0
 
     <h3>Step 4 — Circuit</h3>
     <div style="text-align:center;margin:1.25rem 0">
-      <svg viewBox="-40 -10 655 195" style="max-width:760px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
-        <text x="4" y="41" font-size="12" fill="var(--text-2)">1</text>
-        <line x1="18" y1="45" x2="40" y2="45" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="40" y1="45" x2="40" y2="30" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="40" y1="30" x2="60" y2="30" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="40" y1="45" x2="40" y2="60" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="40" y1="60" x2="60" y2="60" stroke="var(--primary)" stroke-width="2"/>
-        <rect x="60" y="10" width="80" height="90" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
-        <text x="100" y="82" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">FF (C)</text>
-        <path d="M60,77 L60,93 L72,85 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5" stroke-linejoin="round"/>
-        <line x1="140" y1="45" x2="205" y2="45" stroke="var(--primary)" stroke-width="2"/>
-        <text x="150" y="39" font-size="12" fill="var(--text)">C</text>
-        <circle cx="175" cy="45" r="3" fill="var(--primary)"/>
-
-        <line x1="205" y1="45" x2="205" y2="30" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="205" y1="30" x2="225" y2="30" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="205" y1="45" x2="205" y2="60" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="205" y1="60" x2="225" y2="60" stroke="var(--primary)" stroke-width="2"/>
-        <rect x="225" y="10" width="80" height="90" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
-        <text x="265" y="82" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">FF (B)</text>
-        <path d="M225,77 L225,93 L237,85 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5" stroke-linejoin="round"/>
-        <line x1="305" y1="45" x2="360" y2="45" stroke="var(--primary)" stroke-width="2"/>
-        <text x="315" y="39" font-size="12" fill="var(--text)">B</text>
-        <line x1="360" y1="45" x2="360" y2="35" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="360" y1="35" x2="390" y2="35" stroke="var(--primary)" stroke-width="2"/>
-
-        <line x1="175" y1="45" x2="175" y2="140" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="175" y1="140" x2="360" y2="140" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="360" y1="140" x2="360" y2="55" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="360" y1="55" x2="390" y2="55" stroke="var(--primary)" stroke-width="2"/>
-
-        <path d="M390,25 L416,25 A20,20 0 0 1 416,65 L390,65 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="3" stroke-linejoin="round"/>
-        <line x1="436" y1="45" x2="460" y2="45" stroke="var(--primary)" stroke-width="2"/>
-        <text x="392" y="80" font-size="11" fill="var(--text-2)">BC</text>
-        <circle cx="460" cy="45" r="3" fill="var(--primary)"/>
-
-        <line x1="460" y1="45" x2="460" y2="30" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="460" y1="30" x2="480" y2="30" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="460" y1="45" x2="460" y2="60" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="460" y1="60" x2="480" y2="60" stroke="var(--primary)" stroke-width="2"/>
-        <rect x="480" y="10" width="80" height="90" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
-        <text x="520" y="82" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">FF (A)</text>
-        <path d="M480,77 L480,93 L492,85 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5" stroke-linejoin="round"/>
-        <line x1="560" y1="45" x2="590" y2="45" stroke="var(--primary)" stroke-width="2"/>
-        <text x="594" y="49" font-size="13" fill="var(--text)">A</text>
-
-        <text x="-38" y="169" font-size="11" fill="var(--text-2)">CLK</text>
-        <line x1="0" y1="165" x2="468" y2="165" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="48" y1="165" x2="48" y2="85" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="48" y1="85" x2="60" y2="85" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="213" y1="165" x2="213" y2="85" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="213" y1="85" x2="225" y2="85" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="468" y1="165" x2="468" y2="85" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="468" y1="85" x2="480" y2="85" stroke="var(--primary)" stroke-width="2"/>
-      </svg>
+      <div style="overflow-x:auto">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 740 262" role="img" aria-label="Three-bit synchronous up-counter with JK flip-flops: all clock inputs share CLK. FF(C) has J = K = 1; FF(B) has J = K = C; an AND gate forms BC for J and K of FF(A)." style="width:100%;height:auto;max-width:740px;display:block;margin:0 auto;min-width:740px" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif"><title>Three-bit synchronous up-counter with JK flip-flops: all clock inputs share CLK. FF(C) has J = K = 1; FF(B) has J = K = C; an AND gate forms BC for J and K of FF(A).</title><defs><marker id="m219cak" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#1F2937"/></marker><marker id="m219csk" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1F2937"/></marker><marker id="m219cao" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#E07A00"/></marker><marker id="m219cso" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#E07A00"/></marker></defs><rect x="80" y="50" width="70" height="84" rx="0" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><text x="115.0" y="96.5" text-anchor="middle" font-size="13" fill="#1F2937"></text><text x="115.0" y="96.0" text-anchor="middle" font-size="12" font-weight="600" fill="#1F2937">FF(C)</text><text x="86" y="70" text-anchor="start" font-size="11.5" font-weight="normal" fill="#1F2937">J</text><text x="86" y="124" text-anchor="start" font-size="11.5" font-weight="normal" fill="#1F2937">K</text><path d="M80,86.0 L89,92.0 L80,98.0" fill="none" stroke="#1F2937" stroke-width="1.2"/><text x="144" y="70" text-anchor="end" font-size="11.5" font-weight="normal" fill="#1F2937">Q</text><rect x="290" y="50" width="70" height="84" rx="0" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><text x="325.0" y="96.5" text-anchor="middle" font-size="13" fill="#1F2937"></text><text x="325.0" y="96.0" text-anchor="middle" font-size="12" font-weight="600" fill="#1F2937">FF(B)</text><text x="296" y="70" text-anchor="start" font-size="11.5" font-weight="normal" fill="#1F2937">J</text><text x="296" y="124" text-anchor="start" font-size="11.5" font-weight="normal" fill="#1F2937">K</text><path d="M290,86.0 L299,92.0 L290,98.0" fill="none" stroke="#1F2937" stroke-width="1.2"/><text x="354" y="70" text-anchor="end" font-size="11.5" font-weight="normal" fill="#1F2937">Q</text><rect x="580" y="50" width="70" height="84" rx="0" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><text x="615.0" y="96.5" text-anchor="middle" font-size="13" fill="#1F2937"></text><text x="615.0" y="96.0" text-anchor="middle" font-size="12" font-weight="600" fill="#1F2937">FF(A)</text><text x="586" y="70" text-anchor="start" font-size="11.5" font-weight="normal" fill="#1F2937">J</text><text x="586" y="124" text-anchor="start" font-size="11.5" font-weight="normal" fill="#1F2937">K</text><path d="M580,86.0 L589,92.0 L580,98.0" fill="none" stroke="#1F2937" stroke-width="1.2"/><text x="644" y="70" text-anchor="end" font-size="11.5" font-weight="normal" fill="#1F2937">Q</text><path d="M56,66 L80,66" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m219cak)"/><path d="M56,120 L80,120" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m219cak)"/><path d="M56,26 L56,120" fill="none" stroke="#1F2937" stroke-width="1.6"/><text x="56" y="20" text-anchor="middle" font-size="12" font-weight="normal" fill="#1F2937">1</text><path d="M266,66 L290,66" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m219cak)"/><path d="M266,120 L290,120" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m219cak)"/><path d="M266,26 L266,120" fill="none" stroke="#1F2937" stroke-width="1.6"/><path d="M556,66 L580,66" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m219cak)"/><path d="M556,120 L580,120" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m219cak)"/><path d="M556,26 L556,120" fill="none" stroke="#1F2937" stroke-width="1.6"/><text x="158" y="60" text-anchor="start" font-size="12" font-weight="normal" fill="#1F2937">C</text><text x="368" y="60" text-anchor="start" font-size="12" font-weight="normal" fill="#1F2937">B</text><path d="M440,87.0 L458.7,87.0 A17.0,17.0 0 0 1 458.7,121.0 L440,121.0 Z" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><path d="M150,66 L200,66 L200,26 L266,26" fill="none" stroke="#1F2937" stroke-width="1.6"/><path d="M200,66 L200,180 L420,180 L420,112 L440,112" fill="none" stroke="#1F2937" stroke-width="1.6"/><circle cx="200" cy="66" r="3" fill="#1F2937"/><path d="M360,66 L410,66 L410,96 L440,96" fill="none" stroke="#1F2937" stroke-width="1.6"/><text x="484" y="92" text-anchor="start" font-size="11.5" font-weight="normal" fill="#6B7280">BC</text><path d="M475.7,104 L500,104 L500,26 L556,26" fill="none" stroke="#1F2937" stroke-width="1.6"/><path d="M650,66 L680,66" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m219cak)"/><text x="686" y="70" text-anchor="start" font-size="12.5" font-weight="normal" fill="#1F2937">A</text><text x="14" y="245" text-anchor="start" font-size="12" font-weight="normal" fill="#E07A00">CLK</text><path d="M14,225 L536,225" fill="none" stroke="#E07A00" stroke-width="1.4"/><circle cx="36" cy="225" r="3" fill="#E07A00"/><path d="M36,225 L36,92.0 L80,92.0" fill="none" stroke="#E07A00" stroke-width="1.2" marker-end="url(#m219cao)"/><circle cx="246" cy="225" r="3" fill="#E07A00"/><path d="M246,225 L246,92.0 L290,92.0" fill="none" stroke="#E07A00" stroke-width="1.2" marker-end="url(#m219cao)"/><circle cx="536" cy="225" r="3" fill="#E07A00"/><path d="M536,225 L536,92.0 L580,92.0" fill="none" stroke="#E07A00" stroke-width="1.2" marker-end="url(#m219cao)"/></svg>
+      </div>
+      <p style="font-size:.8rem;color:var(--text-2);margin-top:.4rem">Three-bit synchronous up-counter: J and K of each flip-flop are tied together; all clocks share CLK.</p>
     </div>
     <p>Every clock triangle taps the same horizontal CLK line — that single shared bus is the entire structural difference from the ripple counter's staggered chain. FF(C) always toggles; FF(B)'s J and K both come straight from C; FF(A)'s J and K both come from a single AND gate combining B and C. Because a JK flip-flop's characteristic equation makes J and K always drive the toggle decision together, feeding the same signal to both pins of a stage is exactly what "toggle when this condition is true" means in hardware.</p>
 

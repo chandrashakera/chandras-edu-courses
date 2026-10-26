@@ -88,45 +88,14 @@
   <div class="lesson">
     <h2>What is a Shift Register?</h2>
     <p>A <strong>shift register</strong> is a cascade of flip-flops sharing one common clock, where each stage's D input is simply the <em>previous</em> stage's Q — so on every clock pulse, every stored bit moves one position down the chain:</p>
+
+    <div class="box box-tip">
+      <strong>In simple terms:</strong> a shift register passes its bits one place along on every clock — a bucket brigade for bits; feed the end back to the start and it becomes a counter.</div>
     <div style="text-align:center;margin:1.25rem 0">
-      <svg viewBox="-10 -10 630 190" style="max-width:720px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
-        <text x="-8" y="49" font-size="11" fill="var(--text-2)">D<tspan font-size="8" dy="2">in</tspan></text>
-        <line x1="14" y1="45" x2="40" y2="45" stroke="var(--primary)" stroke-width="2"/>
-        <rect x="40" y="10" width="70" height="90" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
-        <text x="75" y="82" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">FF0</text>
-        <path d="M40,77 L40,93 L52,85 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5" stroke-linejoin="round"/>
-        <line x1="110" y1="45" x2="170" y2="45" stroke="var(--primary)" stroke-width="2"/>
-        <text x="114" y="39" font-size="12" fill="var(--text)">Q₀</text>
-
-        <rect x="170" y="10" width="70" height="90" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
-        <text x="205" y="82" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">FF1</text>
-        <path d="M170,77 L170,93 L182,85 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5" stroke-linejoin="round"/>
-        <line x1="240" y1="45" x2="300" y2="45" stroke="var(--primary)" stroke-width="2"/>
-        <text x="244" y="39" font-size="12" fill="var(--text)">Q₁</text>
-
-        <rect x="300" y="10" width="70" height="90" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
-        <text x="335" y="82" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">FF2</text>
-        <path d="M300,77 L300,93 L312,85 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5" stroke-linejoin="round"/>
-        <line x1="370" y1="45" x2="430" y2="45" stroke="var(--primary)" stroke-width="2"/>
-        <text x="374" y="39" font-size="12" fill="var(--text)">Q₂</text>
-
-        <rect x="430" y="10" width="70" height="90" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
-        <text x="465" y="82" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">FF3</text>
-        <path d="M430,77 L430,93 L442,85 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5" stroke-linejoin="round"/>
-        <line x1="500" y1="45" x2="560" y2="45" stroke="var(--primary)" stroke-width="2"/>
-        <text x="504" y="39" font-size="12" fill="var(--text)">Q₃ (serial out)</text>
-
-        <text x="-8" y="169" font-size="11" fill="var(--text-2)">CLK</text>
-        <line x1="18" y1="165" x2="418" y2="165" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="28" y1="165" x2="28" y2="85" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="28" y1="85" x2="40" y2="85" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="158" y1="165" x2="158" y2="85" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="158" y1="85" x2="170" y2="85" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="288" y1="165" x2="288" y2="85" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="288" y1="85" x2="300" y2="85" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="418" y1="165" x2="418" y2="85" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="418" y1="85" x2="430" y2="85" stroke="var(--primary)" stroke-width="2"/>
-      </svg>
+      <div style="overflow-x:auto">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 180" role="img" aria-label="Four-bit shift register: four D flip-flops in cascade, each Q output feeding the next D input; the serial input SI enters the first flip-flop, the serial output SO comes from the last, and all share the clock CLK." style="width:100%;height:auto;max-width:720px;display:block;margin:0 auto;min-width:720px" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif"><title>Four-bit shift register: four D flip-flops in cascade, each Q output feeding the next D input; the serial input SI enters the first flip-flop, the serial output SO comes from the last, and all share the clock CLK.</title><defs><marker id="m217aak" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#1F2937"/></marker><marker id="m217ask" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1F2937"/></marker><marker id="m217aao" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#E07A00"/></marker><marker id="m217aso" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#E07A00"/></marker></defs><rect x="110" y="50" width="70" height="72" rx="0" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><text x="145.0" y="90.5" text-anchor="middle" font-size="13" fill="#1F2937"></text><text x="116" y="72" text-anchor="start" font-size="11.5" font-weight="normal" fill="#1F2937">D</text><path d="M110,98 L119,104 L110,110" fill="none" stroke="#1F2937" stroke-width="1.2"/><text x="174" y="72" text-anchor="end" font-size="11.5" font-weight="normal" fill="#1F2937">Q</text><rect x="230" y="50" width="70" height="72" rx="0" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><text x="265.0" y="90.5" text-anchor="middle" font-size="13" fill="#1F2937"></text><text x="236" y="72" text-anchor="start" font-size="11.5" font-weight="normal" fill="#1F2937">D</text><path d="M230,98 L239,104 L230,110" fill="none" stroke="#1F2937" stroke-width="1.2"/><text x="294" y="72" text-anchor="end" font-size="11.5" font-weight="normal" fill="#1F2937">Q</text><rect x="350" y="50" width="70" height="72" rx="0" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><text x="385.0" y="90.5" text-anchor="middle" font-size="13" fill="#1F2937"></text><text x="356" y="72" text-anchor="start" font-size="11.5" font-weight="normal" fill="#1F2937">D</text><path d="M350,98 L359,104 L350,110" fill="none" stroke="#1F2937" stroke-width="1.2"/><text x="414" y="72" text-anchor="end" font-size="11.5" font-weight="normal" fill="#1F2937">Q</text><rect x="470" y="50" width="70" height="72" rx="0" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><text x="505.0" y="90.5" text-anchor="middle" font-size="13" fill="#1F2937"></text><text x="476" y="72" text-anchor="start" font-size="11.5" font-weight="normal" fill="#1F2937">D</text><path d="M470,98 L479,104 L470,110" fill="none" stroke="#1F2937" stroke-width="1.2"/><text x="534" y="72" text-anchor="end" font-size="11.5" font-weight="normal" fill="#1F2937">Q</text><text x="102" y="60" text-anchor="end" font-size="11.5" font-weight="normal" fill="#1F2937">Serial input SI</text><path d="M14,68 L110,68" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m217aak)"/><path d="M180,68 L230,68" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m217aak)"/><path d="M300,68 L350,68" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m217aak)"/><path d="M420,68 L470,68" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m217aak)"/><path d="M540,68 L580,68" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m217aak)"/><text x="586" y="72" text-anchor="start" font-size="11.5" font-weight="normal" fill="#1F2937">Serial output SO</text><text x="30" y="164" text-anchor="end" font-size="12" font-weight="normal" fill="#E07A00">CLK</text><path d="M36,160 L450,160" fill="none" stroke="#E07A00" stroke-width="1.4"/><circle cx="90" cy="160" r="3" fill="#E07A00"/><path d="M90,160 L90,104 L110,104" fill="none" stroke="#E07A00" stroke-width="1.2" marker-end="url(#m217aao)"/><circle cx="210" cy="160" r="3" fill="#E07A00"/><path d="M210,160 L210,104 L230,104" fill="none" stroke="#E07A00" stroke-width="1.2" marker-end="url(#m217aao)"/><circle cx="330" cy="160" r="3" fill="#E07A00"/><path d="M330,160 L330,104 L350,104" fill="none" stroke="#E07A00" stroke-width="1.2" marker-end="url(#m217aao)"/><circle cx="450" cy="160" r="3" fill="#E07A00"/><path d="M450,160 L450,104 L470,104" fill="none" stroke="#E07A00" stroke-width="1.2" marker-end="url(#m217aao)"/></svg>
+      </div>
+      <p style="font-size:.8rem;color:var(--text-2);margin-top:.4rem">Four-bit shift register: each Q feeds the next D on every clock edge. Adapted from M. Morris Mano and Michael D. Ciletti, <em>Digital Design</em>, Fig. 6.3.</p>
     </div>
     <p>Whether a register counts as "serial" or "parallel" on each side is purely about how data gets in and out — the internal shifting structure above never changes.</p>
 
@@ -147,48 +116,10 @@
     <h2>Ring Counter</h2>
     <p>Feed the <em>last</em> stage's output straight back into the first stage's input, with no external serial data at all, and the register becomes a self-contained counter — a <strong>ring counter</strong>:</p>
     <div style="text-align:center;margin:1.25rem 0">
-      <svg viewBox="-10 -35 630 215" style="max-width:720px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
-        <line x1="522" y1="45" x2="522" y2="-20" stroke="var(--primary)" stroke-width="2"/>
-        <circle cx="522" cy="45" r="3" fill="var(--primary)"/>
-        <line x1="522" y1="-20" x2="25" y2="-20" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="25" y1="-20" x2="25" y2="45" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="25" y1="45" x2="40" y2="45" stroke="var(--primary)" stroke-width="2"/>
-
-        <rect x="40" y="10" width="70" height="90" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
-        <text x="75" y="82" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">FF0</text>
-        <path d="M40,77 L40,93 L52,85 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5" stroke-linejoin="round"/>
-        <line x1="110" y1="45" x2="170" y2="45" stroke="var(--primary)" stroke-width="2"/>
-        <text x="114" y="39" font-size="12" fill="var(--text)">Q₀</text>
-
-        <rect x="170" y="10" width="70" height="90" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
-        <text x="205" y="82" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">FF1</text>
-        <path d="M170,77 L170,93 L182,85 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5" stroke-linejoin="round"/>
-        <line x1="240" y1="45" x2="300" y2="45" stroke="var(--primary)" stroke-width="2"/>
-        <text x="244" y="39" font-size="12" fill="var(--text)">Q₁</text>
-
-        <rect x="300" y="10" width="70" height="90" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
-        <text x="335" y="82" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">FF2</text>
-        <path d="M300,77 L300,93 L312,85 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5" stroke-linejoin="round"/>
-        <line x1="370" y1="45" x2="430" y2="45" stroke="var(--primary)" stroke-width="2"/>
-        <text x="374" y="39" font-size="12" fill="var(--text)">Q₂</text>
-
-        <rect x="430" y="10" width="70" height="90" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
-        <text x="465" y="82" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">FF3</text>
-        <path d="M430,77 L430,93 L442,85 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5" stroke-linejoin="round"/>
-        <line x1="500" y1="45" x2="530" y2="45" stroke="var(--primary)" stroke-width="2"/>
-        <text x="504" y="39" font-size="12" fill="var(--text)">Q₃</text>
-
-        <text x="-8" y="169" font-size="11" fill="var(--text-2)">CLK</text>
-        <line x1="18" y1="165" x2="418" y2="165" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="28" y1="165" x2="28" y2="85" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="28" y1="85" x2="40" y2="85" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="158" y1="165" x2="158" y2="85" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="158" y1="85" x2="170" y2="85" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="288" y1="165" x2="288" y2="85" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="288" y1="85" x2="300" y2="85" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="418" y1="165" x2="418" y2="85" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="418" y1="85" x2="430" y2="85" stroke="var(--primary)" stroke-width="2"/>
-      </svg>
+      <div style="overflow-x:auto">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 220" role="img" aria-label="Four-bit ring counter: four D flip-flops in a shift chain sharing CLK; the output Q3 of the last stage feeds back to D of the first, so a single 1 circulates." style="width:100%;height:auto;max-width:640px;display:block;margin:0 auto;min-width:640px" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif"><title>Four-bit ring counter: four D flip-flops in a shift chain sharing CLK; the output Q3 of the last stage feeds back to D of the first, so a single 1 circulates.</title><defs><marker id="m220aak" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#1F2937"/></marker><marker id="m220ask" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1F2937"/></marker><marker id="m220aao" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#E07A00"/></marker><marker id="m220aso" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#E07A00"/></marker></defs><rect x="80" y="60" width="70" height="76" rx="0" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><text x="115.0" y="102.5" text-anchor="middle" font-size="13" fill="#1F2937"></text><text x="115.0" y="102.0" text-anchor="middle" font-size="12" font-weight="600" fill="#1F2937">FF₀</text><text x="86" y="82" text-anchor="start" font-size="11.5" font-weight="normal" fill="#1F2937">D</text><path d="M80,112 L89,118 L80,124" fill="none" stroke="#1F2937" stroke-width="1.2"/><text x="144" y="82" text-anchor="end" font-size="11.5" font-weight="normal" fill="#1F2937">Q</text><rect x="220" y="60" width="70" height="76" rx="0" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><text x="255.0" y="102.5" text-anchor="middle" font-size="13" fill="#1F2937"></text><text x="255.0" y="102.0" text-anchor="middle" font-size="12" font-weight="600" fill="#1F2937">FF₁</text><text x="226" y="82" text-anchor="start" font-size="11.5" font-weight="normal" fill="#1F2937">D</text><path d="M220,112 L229,118 L220,124" fill="none" stroke="#1F2937" stroke-width="1.2"/><text x="284" y="82" text-anchor="end" font-size="11.5" font-weight="normal" fill="#1F2937">Q</text><rect x="360" y="60" width="70" height="76" rx="0" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><text x="395.0" y="102.5" text-anchor="middle" font-size="13" fill="#1F2937"></text><text x="395.0" y="102.0" text-anchor="middle" font-size="12" font-weight="600" fill="#1F2937">FF₂</text><text x="366" y="82" text-anchor="start" font-size="11.5" font-weight="normal" fill="#1F2937">D</text><path d="M360,112 L369,118 L360,124" fill="none" stroke="#1F2937" stroke-width="1.2"/><text x="424" y="82" text-anchor="end" font-size="11.5" font-weight="normal" fill="#1F2937">Q</text><rect x="500" y="60" width="70" height="76" rx="0" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><text x="535.0" y="102.5" text-anchor="middle" font-size="13" fill="#1F2937"></text><text x="535.0" y="102.0" text-anchor="middle" font-size="12" font-weight="600" fill="#1F2937">FF₃</text><text x="506" y="82" text-anchor="start" font-size="11.5" font-weight="normal" fill="#1F2937">D</text><path d="M500,112 L509,118 L500,124" fill="none" stroke="#1F2937" stroke-width="1.2"/><text x="564" y="82" text-anchor="end" font-size="11.5" font-weight="normal" fill="#1F2937">Q</text><text x="158" y="72" text-anchor="start" font-size="12" font-weight="normal" fill="#1F2937">Q₀</text><path d="M150,78 L220,78" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m220aak)"/><text x="298" y="72" text-anchor="start" font-size="12" font-weight="normal" fill="#1F2937">Q₁</text><path d="M290,78 L360,78" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m220aak)"/><text x="438" y="72" text-anchor="start" font-size="12" font-weight="normal" fill="#1F2937">Q₂</text><path d="M430,78 L500,78" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m220aak)"/><text x="578" y="72" text-anchor="start" font-size="12" font-weight="normal" fill="#1F2937">Q₃</text><path d="M570,78 L594,78 L594,30 L40,30 L40,78 L80,78" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m220aak)"/><text x="330" y="22" text-anchor="middle" font-size="11.5" font-weight="normal" fill="#6B7280">feedback: Q₃ → D₀</text><text x="14" y="200" text-anchor="start" font-size="12" font-weight="normal" fill="#E07A00">CLK</text><path d="M14,180 L476,180" fill="none" stroke="#E07A00" stroke-width="1.4"/><circle cx="56" cy="180" r="3" fill="#E07A00"/><path d="M56,180 L56,118 L80,118" fill="none" stroke="#E07A00" stroke-width="1.2" marker-end="url(#m220aao)"/><circle cx="196" cy="180" r="3" fill="#E07A00"/><path d="M196,180 L196,118 L220,118" fill="none" stroke="#E07A00" stroke-width="1.2" marker-end="url(#m220aao)"/><circle cx="336" cy="180" r="3" fill="#E07A00"/><path d="M336,180 L336,118 L360,118" fill="none" stroke="#E07A00" stroke-width="1.2" marker-end="url(#m220aao)"/><circle cx="476" cy="180" r="3" fill="#E07A00"/><path d="M476,180 L476,118 L500,118" fill="none" stroke="#E07A00" stroke-width="1.2" marker-end="url(#m220aao)"/></svg>
+      </div>
+      <p style="font-size:.8rem;color:var(--text-2);margin-top:.4rem">Four-bit ring counter: Q₃ feeds back to D₀.</p>
     </div>
     <ul>
       <li><strong>Number of states:</strong> N states for N flip-flops — the single 1 (or single 0) just circulates.</li>
@@ -199,51 +130,10 @@
     <h2>Johnson Counter (Twisted-Ring Counter)</h2>
     <p>Feed back the <em>inverted</em> last output instead of the plain one, and the single circulating bit becomes a spreading/retreating band of 1s and 0s:</p>
     <div style="text-align:center;margin:1.25rem 0">
-      <svg viewBox="-10 -35 630 215" style="max-width:720px;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
-        <line x1="522" y1="45" x2="522" y2="-20" stroke="var(--primary)" stroke-width="2"/>
-        <circle cx="522" cy="45" r="3" fill="var(--primary)"/>
-        <line x1="522" y1="-20" x2="200" y2="-20" stroke="var(--primary)" stroke-width="2"/>
-        <path d="M200,-28 L200,-12 L170,-20 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5" stroke-linejoin="round"/>
-        <circle cx="165" cy="-20" r="5" fill="var(--bg)" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="160" y1="-20" x2="25" y2="-20" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="25" y1="-20" x2="25" y2="45" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="25" y1="45" x2="40" y2="45" stroke="var(--primary)" stroke-width="2"/>
-
-        <rect x="40" y="10" width="70" height="90" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
-        <text x="75" y="82" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">FF0</text>
-        <path d="M40,77 L40,93 L52,85 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5" stroke-linejoin="round"/>
-        <line x1="110" y1="45" x2="170" y2="45" stroke="var(--primary)" stroke-width="2"/>
-        <text x="114" y="39" font-size="12" fill="var(--text)">Q₀</text>
-
-        <rect x="170" y="10" width="70" height="90" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
-        <text x="205" y="82" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">FF1</text>
-        <path d="M170,77 L170,93 L182,85 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5" stroke-linejoin="round"/>
-        <line x1="240" y1="45" x2="300" y2="45" stroke="var(--primary)" stroke-width="2"/>
-        <text x="244" y="39" font-size="12" fill="var(--text)">Q₁</text>
-
-        <rect x="300" y="10" width="70" height="90" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
-        <text x="335" y="82" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">FF2</text>
-        <path d="M300,77 L300,93 L312,85 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5" stroke-linejoin="round"/>
-        <line x1="370" y1="45" x2="430" y2="45" stroke="var(--primary)" stroke-width="2"/>
-        <text x="374" y="39" font-size="12" fill="var(--text)">Q₂</text>
-
-        <rect x="430" y="10" width="70" height="90" rx="6" fill="var(--bg)" stroke="var(--primary)" stroke-width="3"/>
-        <text x="465" y="82" font-size="12" font-weight="700" text-anchor="middle" fill="var(--text)">FF3</text>
-        <path d="M430,77 L430,93 L442,85 Z" fill="var(--bg)" stroke="var(--primary)" stroke-width="2.5" stroke-linejoin="round"/>
-        <line x1="500" y1="45" x2="530" y2="45" stroke="var(--primary)" stroke-width="2"/>
-        <text x="504" y="39" font-size="12" fill="var(--text)">Q₃</text>
-
-        <text x="-8" y="169" font-size="11" fill="var(--text-2)">CLK</text>
-        <line x1="18" y1="165" x2="418" y2="165" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="28" y1="165" x2="28" y2="85" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="28" y1="85" x2="40" y2="85" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="158" y1="165" x2="158" y2="85" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="158" y1="85" x2="170" y2="85" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="288" y1="165" x2="288" y2="85" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="288" y1="85" x2="300" y2="85" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="418" y1="165" x2="418" y2="85" stroke="var(--primary)" stroke-width="2"/>
-        <line x1="418" y1="85" x2="430" y2="85" stroke="var(--primary)" stroke-width="2"/>
-      </svg>
+      <div style="overflow-x:auto">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 220" role="img" aria-label="Four-bit Johnson counter: four D flip-flops in a shift chain sharing CLK; the complement output Q3′ of the last stage feeds back to D of the first." style="width:100%;height:auto;max-width:640px;display:block;margin:0 auto;min-width:640px" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif"><title>Four-bit Johnson counter: four D flip-flops in a shift chain sharing CLK; the complement output Q3′ of the last stage feeds back to D of the first.</title><defs><marker id="m220bak" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#1F2937"/></marker><marker id="m220bsk" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1F2937"/></marker><marker id="m220bao" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#E07A00"/></marker><marker id="m220bso" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#E07A00"/></marker></defs><rect x="80" y="60" width="70" height="76" rx="0" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><text x="115.0" y="102.5" text-anchor="middle" font-size="13" fill="#1F2937"></text><text x="115.0" y="102.0" text-anchor="middle" font-size="12" font-weight="600" fill="#1F2937">FF₀</text><text x="86" y="82" text-anchor="start" font-size="11.5" font-weight="normal" fill="#1F2937">D</text><path d="M80,112 L89,118 L80,124" fill="none" stroke="#1F2937" stroke-width="1.2"/><text x="144" y="82" text-anchor="end" font-size="11.5" font-weight="normal" fill="#1F2937">Q</text><rect x="220" y="60" width="70" height="76" rx="0" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><text x="255.0" y="102.5" text-anchor="middle" font-size="13" fill="#1F2937"></text><text x="255.0" y="102.0" text-anchor="middle" font-size="12" font-weight="600" fill="#1F2937">FF₁</text><text x="226" y="82" text-anchor="start" font-size="11.5" font-weight="normal" fill="#1F2937">D</text><path d="M220,112 L229,118 L220,124" fill="none" stroke="#1F2937" stroke-width="1.2"/><text x="284" y="82" text-anchor="end" font-size="11.5" font-weight="normal" fill="#1F2937">Q</text><rect x="360" y="60" width="70" height="76" rx="0" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><text x="395.0" y="102.5" text-anchor="middle" font-size="13" fill="#1F2937"></text><text x="395.0" y="102.0" text-anchor="middle" font-size="12" font-weight="600" fill="#1F2937">FF₂</text><text x="366" y="82" text-anchor="start" font-size="11.5" font-weight="normal" fill="#1F2937">D</text><path d="M360,112 L369,118 L360,124" fill="none" stroke="#1F2937" stroke-width="1.2"/><text x="424" y="82" text-anchor="end" font-size="11.5" font-weight="normal" fill="#1F2937">Q</text><rect x="500" y="60" width="70" height="76" rx="0" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><text x="535.0" y="102.5" text-anchor="middle" font-size="13" fill="#1F2937"></text><text x="535.0" y="102.0" text-anchor="middle" font-size="12" font-weight="600" fill="#1F2937">FF₃</text><text x="506" y="82" text-anchor="start" font-size="11.5" font-weight="normal" fill="#1F2937">D</text><path d="M500,112 L509,118 L500,124" fill="none" stroke="#1F2937" stroke-width="1.2"/><text x="564" y="82" text-anchor="end" font-size="11.5" font-weight="normal" fill="#1F2937">Q</text><text x="564" y="122" text-anchor="end" font-size="11.5" font-weight="normal" fill="#1F2937">Q′</text><text x="158" y="72" text-anchor="start" font-size="12" font-weight="normal" fill="#1F2937">Q₀</text><path d="M150,78 L220,78" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m220bak)"/><text x="298" y="72" text-anchor="start" font-size="12" font-weight="normal" fill="#1F2937">Q₁</text><path d="M290,78 L360,78" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m220bak)"/><text x="438" y="72" text-anchor="start" font-size="12" font-weight="normal" fill="#1F2937">Q₂</text><path d="M430,78 L500,78" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m220bak)"/><text x="578" y="72" text-anchor="start" font-size="12" font-weight="normal" fill="#1F2937">Q₃</text><path d="M570,118 L594,118 L594,30 L40,30 L40,78 L80,78" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#m220bak)"/><text x="600" y="122" text-anchor="start" font-size="12" font-weight="normal" fill="#1F2937">Q₃′</text><text x="330" y="22" text-anchor="middle" font-size="11.5" font-weight="normal" fill="#6B7280">feedback: Q₃′ → D₀</text><text x="14" y="200" text-anchor="start" font-size="12" font-weight="normal" fill="#E07A00">CLK</text><path d="M14,180 L476,180" fill="none" stroke="#E07A00" stroke-width="1.4"/><circle cx="56" cy="180" r="3" fill="#E07A00"/><path d="M56,180 L56,118 L80,118" fill="none" stroke="#E07A00" stroke-width="1.2" marker-end="url(#m220bao)"/><circle cx="196" cy="180" r="3" fill="#E07A00"/><path d="M196,180 L196,118 L220,118" fill="none" stroke="#E07A00" stroke-width="1.2" marker-end="url(#m220bao)"/><circle cx="336" cy="180" r="3" fill="#E07A00"/><path d="M336,180 L336,118 L360,118" fill="none" stroke="#E07A00" stroke-width="1.2" marker-end="url(#m220bao)"/><circle cx="476" cy="180" r="3" fill="#E07A00"/><path d="M476,180 L476,118 L500,118" fill="none" stroke="#E07A00" stroke-width="1.2" marker-end="url(#m220bao)"/></svg>
+      </div>
+      <p style="font-size:.8rem;color:var(--text-2);margin-top:.4rem">Four-bit Johnson counter: Q₃′ feeds back to D₀.</p>
     </div>
     <ul>
       <li><strong>Number of states:</strong> 2N states for N flip-flops — twice the ring counter, since the inverted feedback takes twice as long to return to the starting pattern.</li>
@@ -339,8 +229,8 @@
   const QUIZ = [
     { q:"What defines a shift register's internal structure?", options:["Each stage's D input is wired directly to the previous stage's Q output, so stored bits move one position per clock", "Every stage receives an independent, unrelated data input", "It uses no clock at all", "Each stage's output feeds back into its own input"], answer:0, explanation:"A shift register is simply a chain where each flip-flop's D comes from the previous one's Q — on each clock, every bit shifts one position down the chain." },
     { q:"What is the key difference between SIPO and PISO shift register modes?", options:["SIPO takes data in one bit at a time and outputs all bits at once; PISO takes all bits in at once and outputs one bit at a time", "SIPO and PISO are two names for the exact same mode", "SIPO has no clock input; PISO does", "PISO can only be used with 8-bit registers"], answer:0, explanation:"The first letter describes how data enters (Serial or Parallel) and the second how it exits — SIPO is serial-in/parallel-out, PISO is the reverse." },
-    { q:"Why must a ring counter be pre-loaded (e.g., to 1000) rather than just reset to 0000?", options:["All-0000 is a stuck state — with D0=Q3 and Q3=0, D0 stays 0 forever, so it never starts circulating on its own", "Ring counters cannot be reset at all", "0000 is not a valid binary state", "Pre-loading is only a convention with no functional reason"], answer:0, explanation:"Since the ring counter's feedback is D0=Q3 with no inversion, an all-0 state feeds back 0 forever — it needs at least one stage forced to 1 before clocking begins." },
-    { q:"Why does a Johnson counter have 2N states for N flip-flops, twice as many as a ring counter's N states?", options:["The inverted feedback means the pattern takes twice as many clock cycles to return to its starting configuration", "Johnson counters use twice as many flip-flops as ring counters for the same state count", "It's an arbitrary design choice unrelated to the feedback structure", "2N is simply the maximum any 4-bit register can reach"], answer:0, explanation:"Because feedback is inverted (D0=Q3′), the circulating pattern of 1s and 0s has to make two full passes through the register before repeating, doubling the cycle length to 2N." },
+    { q:"Why must a ring counter be pre-loaded (e.g., to 1000) rather than just reset to 0000?", options:["All-0000 is a stuck state — with D<sub>0</sub>=Q<sub>3</sub> and Q<sub>3</sub>=0, D<sub>0</sub> stays 0 forever, so it never starts circulating on its own", "Ring counters cannot be reset at all", "0000 is not a valid binary state", "Pre-loading is only a convention with no functional reason"], answer:0, explanation:"Since the ring counter's feedback is D<sub>0</sub>=Q<sub>3</sub> with no inversion, an all-0 state feeds back 0 forever — it needs at least one stage forced to 1 before clocking begins." },
+    { q:"Why does a Johnson counter have 2N states for N flip-flops, twice as many as a ring counter's N states?", options:["The inverted feedback means the pattern takes twice as many clock cycles to return to its starting configuration", "Johnson counters use twice as many flip-flops as ring counters for the same state count", "It's an arbitrary design choice unrelated to the feedback structure", "2N is simply the maximum any 4-bit register can reach"], answer:0, explanation:"Because feedback is inverted (D<sub>0</sub>=Q<sub>3</sub>′), the circulating pattern of 1s and 0s has to make two full passes through the register before repeating, doubling the cycle length to 2N." },
     { q:"What must be added to a Johnson counter that a ring counter doesn't need, in order to identify which state the counter is in?", options:["A small 2-input decoding gate per state, since Johnson counter states aren't one-hot the way ring counter states are", "An additional clock signal", "More flip-flops", "Nothing — both require identical decoding"], answer:0, explanation:"A ring counter's single active bit directly identifies the state; a Johnson counter's states differ by a shifting boundary between 1s and 0s, so identifying a specific state requires comparing two adjacent bits with a small gate." }
   ];
 
