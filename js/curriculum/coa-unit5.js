@@ -72,7 +72,7 @@ export const GROUPS = {
     {
       id: 'cache-memory',
       title: 'Cache Memory',
-      desc: 'Hit ratio and the three mapping methods: associative, direct and set-associative.',
+      desc: 'Hit ratio, the three mapping methods with worked address splits, and FIFO, LRU and optimal replacement with solved problems.',
       href: 'cache-memory.html',
       time: '22 min',
       status: 'active'

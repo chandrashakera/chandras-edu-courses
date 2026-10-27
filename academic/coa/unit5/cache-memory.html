@@ -5,13 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3030765874336294" crossorigin="anonymous"></script>
   <title>Cache Memory — COA Unit 5 | CHANDRAS EDU</title>
-  <meta name="description" content="COA Unit 5: locality of reference, hit ratio, average access time, the three cache mapping methods, replacement algorithms, and write policies.">
+  <meta name="description" content="Cache memory for COA: hit ratio, associative, direct and set-associative mapping with address splits, and FIFO, LRU and optimal replacement solved problems.">
   <link rel="canonical" href="https://chandrashaker.com/courses/academic/coa/unit5/cache-memory">
   <link rel="stylesheet" href="../../../css/style.css">
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="CHANDRAS EDU">
   <meta property="og:title" content="Cache Memory — COA Unit 5 | CHANDRAS EDU">
-  <meta property="og:description" content="COA Unit 5: locality of reference, hit ratio, average access time, the three cache mapping methods, replacement algorithms, and write policies.">
+  <meta property="og:description" content="Cache memory for COA: hit ratio, associative, direct and set-associative mapping with address splits, and FIFO, LRU and optimal replacement solved problems.">
   <meta property="og:url" content="https://chandrashaker.com/courses/academic/coa/unit5/cache-memory">
   <meta property="og:image" content="https://chandrashaker.com/courses/images/og/coa-v7.png">
   <meta property="og:image:width" content="1200">
@@ -19,7 +19,7 @@
   <meta property="og:image:alt" content="Computer Organization and Architecture — CHANDRAS EDU free course">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Cache Memory — COA Unit 5 | CHANDRAS EDU">
-  <meta name="twitter:description" content="COA Unit 5: locality of reference, hit ratio, average access time, the three cache mapping methods, replacement algorithms, and write policies.">
+  <meta name="twitter:description" content="Cache memory for COA: hit ratio, associative, direct and set-associative mapping with address splits, and FIFO, LRU and optimal replacement solved problems.">
   <meta name="twitter:image" content="https://chandrashaker.com/courses/images/og/coa-v7.png">
   <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Courses","item":"https://chandrashaker.com/courses/"},{"@type":"ListItem","position":2,"name":"COA","item":"https://chandrashaker.com/courses/academic/coa/"},{"@type":"ListItem","position":3,"name":"Unit 5","item":"https://chandrashaker.com/courses/academic/coa/unit5/"},{"@type":"ListItem","position":4,"name":"Cache Memory"}]}
@@ -138,13 +138,164 @@
       </table>
     </div>
 
-    <h2>Replacement Algorithms</h2>
-    <p>When a miss occurs and the target cache line or set is full, an existing block must be evicted. Three common algorithms:</p>
-    <ul>
-      <li><strong>Random replacement</strong> — choose any block at random. Simple hardware; acceptable performance.</li>
-      <li><strong>FIFO (first-in, first-out)</strong> — evict the block that has been in the set the longest. Implemented with a few extra bits per line.</li>
-      <li><strong>LRU (least recently used)</strong> — evict the block that was accessed least recently. Best hit ratio in practice; requires tracking usage order per set.</li>
-    </ul>
+    <h2 id="address-split">Worked Example — Splitting an Address</h2>
+    <p>Every mapping question starts the same way: split the CPU address into fields.</p>
+    <p><strong>Field widths in general</strong> — main memory 2<sup>m</sup> words, cache 2<sup>c</sup> words, blocks of 2<sup>w</sup> words:</p>
+    <div style="overflow-x:auto">
+      <table>
+        <thead><tr><th>Mapping</th><th>Fields of the m-bit address</th></tr></thead>
+        <tbody>
+          <tr><td>Associative</td><td>Tag (m − w) · Word (w)</td></tr>
+          <tr><td>Direct</td><td>Tag (m − c) · Block/Index (c − w) · Word (w)</td></tr>
+          <tr><td>k-way set-associative</td><td>Tag (m − c + log<sub>2</sub>k) · Set (c − w − log<sub>2</sub>k) · Word (w)</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Here c is the <em>total</em> cache size: the page’s two-way example holds 1024 words (512 sets of two), so it uses c = 10, giving a 6-bit tag and a 9-bit set field.</p>
+    <p><strong>Example 1 — the page’s running example (one word per block).</strong> Main memory 32K × 12 → 15-bit address; cache 512 × 12 → 9-bit index.</p>
+    <div class="box box-eg">
+      <pre>Direct mapping:  address 15 bits = Tag 6 | Index 9
+Address 02777 (octal) = 000 010 111 111 111
+                        Tag = 000010 = 02   Index = 111111111 = 777
+Addresses 00777 and 02777 have the SAME index 777 but different tags (00, 02),
+so they compete for the same cache word — the second access replaces the first.</pre>
+    </div>
+    <p><strong>Example 2 — blocks of 8 words, same memories.</strong> The 9-bit index splits into Block 6 | Word 3.</p>
+    <div class="box box-eg">
+      <pre>Address 02777 = Tag 000010 (02) | Block 111111 (77) | Word 111 (7)</pre>
+    </div>
+    <p><strong>Example 3 — a fresh problem.</strong> Main memory 64K words, cache 2K words, blocks of 16 words.</p>
+    <div class="box box-eg">
+      <pre>Address bits m = 16 (2<sup>16</sup> = 64K)   word field w = 4 (16 words)   cache c = 11 (2K)
+Direct:          Tag 5  | Block 7 | Word 4      (2K/16 = 128 blocks → 7 bits)
+4-way set-assoc: Tag 7  | Set 5   | Word 4      (128 blocks / 4 = 32 sets → 5 bits)
+Associative:     Tag 12 | Word 4</pre>
+    </div>
+
+    <h2 id="replacement">Replacement Algorithms</h2>
+    <p>When a miss occurs and the cache is full, one block must be removed to make room. <strong>Direct mapping has no choice</strong> — the index decides the only possible place. Associative and set-associative caches choose a victim with a <strong>replacement algorithm</strong>:</p>
+    <div style="overflow-x:auto">
+      <table>
+        <thead><tr><th>Algorithm</th><th>Replaces</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td><strong>FIFO</strong> (first-in, first-out)</td><td>The block that has been in the cache longest</td><td>Simple: a queue of arrival order; ignores how often a block is used</td></tr>
+          <tr><td><strong>LRU</strong> (least recently used)</td><td>The block not referenced for the longest time</td><td>Uses the recent past to predict the near future (locality); needs usage tracking</td></tr>
+          <tr><td><strong>Optimal (OPT)</strong></td><td>The block whose next use is farthest in the future, or never</td><td>Best possible hit ratio, but needs knowledge of future references — used only as a benchmark to judge other policies</td></tr>
+          <tr><td><strong>Random</strong></td><td>Any block, chosen at random</td><td>No bookkeeping; surprisingly close to LRU for large caches</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p><strong>How to solve a replacement problem:</strong> draw one column per reference and one row per cache block; fill the blocks in order while empty; on each hit write H; on each miss with a full cache apply the policy, write the victim in the Replaced row, and update the column. Count hits; <strong>hit ratio = hits ÷ total references</strong>.</p>
+
+    <h3>Solved Problem 1 — Comparing FIFO, LRU and OPT (3 blocks)</h3>
+    <p><strong>Reference string:</strong> 7, 0, 1, 2, 0, 3, 0, 4, 2, 3, 0, 3, 2</p>
+    <div style="overflow-x:auto">
+      <table style="font-size:.85rem">
+        <caption style="font-size:.85rem;margin-bottom:.4rem">FIFO</caption>
+        <thead><tr><th>Ref</th><th>7</th><th>0</th><th>1</th><th>2</th><th>0</th><th>3</th><th>0</th><th>4</th><th>2</th><th>3</th><th>0</th><th>3</th><th>2</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Block 0</strong></td><td>7</td><td>7</td><td>7</td><td>2</td><td>2</td><td>2</td><td>2</td><td>4</td><td>4</td><td>4</td><td>0</td><td>0</td><td>0</td></tr>
+          <tr><td><strong>Block 1</strong></td><td></td><td>0</td><td>0</td><td>0</td><td>0</td><td>3</td><td>3</td><td>3</td><td>2</td><td>2</td><td>2</td><td>2</td><td>2</td></tr>
+          <tr><td><strong>Block 2</strong></td><td></td><td></td><td>1</td><td>1</td><td>1</td><td>1</td><td>0</td><td>0</td><td>0</td><td>3</td><td>3</td><td>3</td><td>3</td></tr>
+          <tr><td><strong>Hit / Miss</strong></td><td><strong>M</strong></td><td><strong>M</strong></td><td><strong>M</strong></td><td><strong>M</strong></td><td><strong>H</strong></td><td><strong>M</strong></td><td><strong>M</strong></td><td><strong>M</strong></td><td><strong>M</strong></td><td><strong>M</strong></td><td><strong>M</strong></td><td><strong>H</strong></td><td><strong>H</strong></td></tr>
+          <tr><td><strong>Replaced</strong></td><td>—</td><td>—</td><td>—</td><td>7</td><td>—</td><td>0</td><td>1</td><td>2</td><td>3</td><td>0</td><td>4</td><td>—</td><td>—</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p><strong>FIFO: 3 hits / 13 = 0.23</strong></p>
+    <div style="overflow-x:auto">
+      <table style="font-size:.85rem">
+        <caption style="font-size:.85rem;margin-bottom:.4rem">LRU</caption>
+        <thead><tr><th>Ref</th><th>7</th><th>0</th><th>1</th><th>2</th><th>0</th><th>3</th><th>0</th><th>4</th><th>2</th><th>3</th><th>0</th><th>3</th><th>2</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Block 0</strong></td><td>7</td><td>7</td><td>7</td><td>2</td><td>2</td><td>2</td><td>2</td><td>4</td><td>4</td><td>4</td><td>0</td><td>0</td><td>0</td></tr>
+          <tr><td><strong>Block 1</strong></td><td></td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>3</td><td>3</td><td>3</td><td>3</td></tr>
+          <tr><td><strong>Block 2</strong></td><td></td><td></td><td>1</td><td>1</td><td>1</td><td>3</td><td>3</td><td>3</td><td>2</td><td>2</td><td>2</td><td>2</td><td>2</td></tr>
+          <tr><td><strong>Hit / Miss</strong></td><td><strong>M</strong></td><td><strong>M</strong></td><td><strong>M</strong></td><td><strong>M</strong></td><td><strong>H</strong></td><td><strong>M</strong></td><td><strong>H</strong></td><td><strong>M</strong></td><td><strong>M</strong></td><td><strong>M</strong></td><td><strong>M</strong></td><td><strong>H</strong></td><td><strong>H</strong></td></tr>
+          <tr><td><strong>Replaced</strong></td><td>—</td><td>—</td><td>—</td><td>7</td><td>—</td><td>1</td><td>—</td><td>2</td><td>3</td><td>0</td><td>4</td><td>—</td><td>—</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p><strong>LRU: 4 hits / 13 = 0.31</strong></p>
+    <div style="overflow-x:auto">
+      <table style="font-size:.85rem">
+        <caption style="font-size:.85rem;margin-bottom:.4rem">OPT (optimal)</caption>
+        <thead><tr><th>Ref</th><th>7</th><th>0</th><th>1</th><th>2</th><th>0</th><th>3</th><th>0</th><th>4</th><th>2</th><th>3</th><th>0</th><th>3</th><th>2</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Block 0</strong></td><td>7</td><td>7</td><td>7</td><td>2</td><td>2</td><td>2</td><td>2</td><td>2</td><td>2</td><td>2</td><td>2</td><td>2</td><td>2</td></tr>
+          <tr><td><strong>Block 1</strong></td><td></td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>4</td><td>4</td><td>4</td><td>0</td><td>0</td><td>0</td></tr>
+          <tr><td><strong>Block 2</strong></td><td></td><td></td><td>1</td><td>1</td><td>1</td><td>3</td><td>3</td><td>3</td><td>3</td><td>3</td><td>3</td><td>3</td><td>3</td></tr>
+          <tr><td><strong>Hit / Miss</strong></td><td><strong>M</strong></td><td><strong>M</strong></td><td><strong>M</strong></td><td><strong>M</strong></td><td><strong>H</strong></td><td><strong>M</strong></td><td><strong>H</strong></td><td><strong>M</strong></td><td><strong>H</strong></td><td><strong>H</strong></td><td><strong>M</strong></td><td><strong>H</strong></td><td><strong>H</strong></td></tr>
+          <tr><td><strong>Replaced</strong></td><td>—</td><td>—</td><td>—</td><td>7</td><td>—</td><td>1</td><td>—</td><td>0</td><td>—</td><td>—</td><td>4</td><td>—</td><td>—</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p><strong>OPT: 6 hits / 13 = 0.46</strong> — the best any policy can do on this string.</p>
+
+    <h3>Solved Problem 2 — Optimal Policy, Fully Associative, 4 Blocks</h3>
+    <p><strong>Reference string:</strong> 2, 3, 4, 7, 6, 3, 4, 7, 5, 4, 7, 8</p>
+    <div style="overflow-x:auto">
+      <table style="font-size:.85rem">
+        <caption style="font-size:.85rem;margin-bottom:.4rem">Optimal replacement, 4 blocks</caption>
+        <thead><tr><th>Ref</th><th>2</th><th>3</th><th>4</th><th>7</th><th>6</th><th>3</th><th>4</th><th>7</th><th>5</th><th>4</th><th>7</th><th>8</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Block 0</strong></td><td>2</td><td>2</td><td>2</td><td>2</td><td>6</td><td>6</td><td>6</td><td>6</td><td>5</td><td>5</td><td>5</td><td>8</td></tr>
+          <tr><td><strong>Block 1</strong></td><td></td><td>3</td><td>3</td><td>3</td><td>3</td><td>3</td><td>3</td><td>3</td><td>3</td><td>3</td><td>3</td><td>3</td></tr>
+          <tr><td><strong>Block 2</strong></td><td></td><td></td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td></tr>
+          <tr><td><strong>Block 3</strong></td><td></td><td></td><td></td><td>7</td><td>7</td><td>7</td><td>7</td><td>7</td><td>7</td><td>7</td><td>7</td><td>7</td></tr>
+          <tr><td><strong>Hit / Miss</strong></td><td><strong>M</strong></td><td><strong>M</strong></td><td><strong>M</strong></td><td><strong>M</strong></td><td><strong>M</strong></td><td><strong>H</strong></td><td><strong>H</strong></td><td><strong>H</strong></td><td><strong>M</strong></td><td><strong>H</strong></td><td><strong>H</strong></td><td><strong>M</strong></td></tr>
+          <tr><td><strong>Replaced</strong></td><td>—</td><td>—</td><td>—</td><td>—</td><td>2</td><td>—</td><td>—</td><td>—</td><td>6</td><td>—</td><td>—</td><td>5</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p><strong>Hits 5, misses 7, hit ratio 5/12 ≈ 0.42.</strong></p>
+    <p>Why these victims: at 6, block 2 is never referenced again; at 5, neither 6 nor 3 is used again, so either may be replaced (state your choice); at 8 there are no future references, so any block may go.</p>
+
+    <h3>Solved Problem 3 — LRU, Fully Associative, 8 Blocks</h3>
+    <p><strong>Reference string:</strong> 4, 3, 25, 8, 19, 6, 25, 8, 16, 35, 45, 22, 8, 3, 16, 25, 7</p>
+    <div style="overflow-x:auto">
+      <table>
+        <thead><tr><th>#</th><th>Ref</th><th>Result</th><th>Replaced (least recently used)</th><th>Cache after (blocks 0–7)</th></tr></thead>
+        <tbody>
+          <tr><td>1–6</td><td>4, 3, 25, 8, 19, 6</td><td>6 misses</td><td>— (empty blocks)</td><td>4, 3, 25, 8, 19, 6, –, –</td></tr>
+          <tr><td>7</td><td>25</td><td>Hit</td><td>—</td><td>unchanged</td></tr>
+          <tr><td>8</td><td>8</td><td>Hit</td><td>—</td><td>unchanged</td></tr>
+          <tr><td>9</td><td>16</td><td>Miss</td><td>—</td><td>4, 3, 25, 8, 19, 6, 16, –</td></tr>
+          <tr><td>10</td><td>35</td><td>Miss</td><td>—</td><td>4, 3, 25, 8, 19, 6, 16, 35 (full)</td></tr>
+          <tr><td>11</td><td>45</td><td>Miss</td><td>4</td><td>45, 3, 25, 8, 19, 6, 16, 35</td></tr>
+          <tr><td>12</td><td>22</td><td>Miss</td><td>3</td><td>45, 22, 25, 8, 19, 6, 16, 35</td></tr>
+          <tr><td>13</td><td>8</td><td>Hit</td><td>—</td><td>unchanged</td></tr>
+          <tr><td>14</td><td>3</td><td>Miss</td><td>19</td><td>45, 22, 25, 8, 3, 6, 16, 35</td></tr>
+          <tr><td>15</td><td>16</td><td>Hit</td><td>—</td><td>unchanged</td></tr>
+          <tr><td>16</td><td>25</td><td>Hit</td><td>—</td><td>unchanged</td></tr>
+          <tr><td>17</td><td>7</td><td>Miss</td><td>6</td><td>45, 22, 25, 8, 3, 7, 16, 35</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p><strong>Hits 5, misses 12, hit ratio 5/17 ≈ 0.29.</strong></p>
+
+    <h3>From a Trace to the Average Access Time</h3>
+    <p>With T<sub>c</sub> = 100 ns and T<sub>m</sub> = 1000 ns, the hit ratio of Problem 3 gives</p>
+    <div class="box box-eg">
+      <pre>T<sub>avg</sub> = h·T<sub>c</sub> + (1 − h)(T<sub>c</sub> + T<sub>m</sub>) = (5/17)(100) + (12/17)(1100) ≈ 805.9 ns</pre>
+    </div>
+    <p>— far worse than the 200 ns of the h = 0.9 example above, because this short string has little reuse.</p>
+
+    <h3>Practice Problems</h3>
+    <ol>
+      <li>Using FIFO with 4 blocks on 2, 3, 4, 7, 6, 3, 4, 7, 5, 4, 7, 8, how many hits?
+        <details style="margin:.35rem 0 .6rem"><summary style="cursor:pointer;font-weight:600">Show answer</summary><p style="margin:.4rem 0 0">5 hits (replaced 2, then 3, then 4); hit ratio 5/12.</p></details>
+      </li>
+      <li>Using LRU with 4 blocks on the same string, which blocks are replaced?
+        <details style="margin:.35rem 0 .6rem"><summary style="cursor:pointer;font-weight:600">Show answer</summary><p style="margin:.4rem 0 0">2 (at 6), 6 (at 5), 3 (at 8); 5 hits.</p></details>
+      </li>
+      <li>A 128K-word memory has a 4K-word cache with 8-word blocks. Give the field widths for direct and 2-way set-associative mapping.
+        <details style="margin:.35rem 0 .6rem"><summary style="cursor:pointer;font-weight:600">Show answer</summary><p style="margin:.4rem 0 0">17-bit address; direct Tag 5 | Block 9 | Word 3; 2-way Tag 6 | Set 8 | Word 3.</p></details>
+      </li>
+      <li>With h = 0.8, T<sub>c</sub> = 50 ns, T<sub>m</sub> = 500 ns, find T<sub>avg</sub>.
+        <details style="margin:.35rem 0 .6rem"><summary style="cursor:pointer;font-weight:600">Show answer</summary><p style="margin:.4rem 0 0">0.8 × 50 + 0.2 × 550 = 150 ns.</p></details>
+      </li>
+    </ol>
 
     <h2>Writing into Cache — Write Policies</h2>
     <p>When the CPU writes a word, there are two strategies:</p>
@@ -163,7 +314,7 @@
       <li><strong>Associative mapping:</strong> full address stored; any block → any line; fastest lookup, most expensive.</li>
       <li><strong>Direct mapping:</strong> index selects line; one tag comparison; fastest but conflict misses.</li>
       <li><strong>Set-associative (k-way):</strong> index selects set; associative search within k entries; compromise.</li>
-      <li><strong>Replacement:</strong> random, FIFO, or LRU (best hit ratio).</li>
+      <li><strong>Replacement:</strong> FIFO, LRU, Optimal (OPT, a benchmark that needs future knowledge) or random; direct mapping has no choice. Hit ratio = hits ÷ total references.</li>
       <li><strong>Write-through:</strong> always consistent with main memory. <strong>Write-back:</strong> fewer writes, dirty bit needed.</li>
       <li><strong>Valid bit:</strong> cleared on power-up; set when a block is loaded.</li>
     </ul>
@@ -227,10 +378,10 @@
             "Write-through is used only for ROM; write-back is used only for RAM","Write-through requires a dirty bit; write-back does not"],
    answer:1,
    explanation:"Write-through keeps main memory always consistent with cache — every write hits both. This is safe for DMA transfers but generates more bus traffic. Write-back (also called copy-back) updates only the cache; the modified block is written to main memory only when it is replaced. A dirty bit marks modified blocks. Write-back reduces bus traffic but risks stale data in main memory."},
-  {q:"In the two-way set-associative example (32K × 12 main memory, 9-bit index), how many main memory words map to a single set?",
-   options:["1","2","512","As many as fit in main memory divided by 512"],
-   answer:3,
-   explanation:"The 9-bit index selects one of 512 sets, so 32768 / 512 = 64 main memory words map to each set; the set holds only two of them at a time."}
+  {q:"Using LRU with 3 cache blocks on the reference string 7, 0, 1, 2, 0, 3, 0, 4, 2, 3, 0, 3, 2, how many hits occur?",
+   options:["3","4","6","5"],
+   answer:1,
+   explanation:"Hits at the 5th (0), 7th (0), 12th (3) and 13th (2) references; FIFO gives 3 and OPT 6 on the same string."}
 ];
 
   initTopicQuiz({ courseId: COURSE_ID, topicId: TOPIC_ID, questions: QUIZ, passPct: 60, noun: 'topic' });
