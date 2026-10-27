@@ -117,8 +117,8 @@
 
     <h2>Recognizing the Instruction Category</h2>
     <div class="box box-eg">
-Opcode (IR bits 14–12) ≠ 111  →  Memory-reference instruction (bits 11–0 = address)
-Opcode = 111, I = 0            →  Register-reference instruction (bits 11–0 individually decoded)
+Opcode (IR bits 14–12) ≠ 111  →  Memory-reference instruction (bits 11–0 = address)<br>
+Opcode = 111, I = 0            →  Register-reference instruction (bits 11–0 individually decoded)<br>
 Opcode = 111, I = 1            →  Input-Output instruction (bits 11–0 individually decoded)
     </div>
     <p>Notice indirect addressing (I=1) only means something for a memory-reference instruction — for opcode 111, that same bit is instead reused as the switch between register-reference and I/O instructions. One bit, two completely different jobs, disambiguated entirely by which opcode it appears alongside.</p>

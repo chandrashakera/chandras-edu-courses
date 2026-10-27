@@ -94,7 +94,7 @@
     <h2>State Table Format</h2>
     <p>Every state table has one row per state. What goes in the columns depends on the model:</p>
     <div class="box box-eg">
-Moore:  Present State | Next State for each input value | Output (one per state)
+Moore:  Present State | Next State for each input value | Output (one per state)<br>
 Mealy:  Present State | Next State / Output pair, for each input value
     </div>
     <p>That's the one structural difference to remember: a <strong>Moore</strong> table has output as its own separate column (one value per row, since output depends only on state); a <strong>Mealy</strong> table folds output into each next-state cell (one value per input <em>per row</em>, since output depends on the transition).</p>

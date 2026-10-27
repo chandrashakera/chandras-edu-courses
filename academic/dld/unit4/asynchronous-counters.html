@@ -128,9 +128,9 @@
     <h2>Designing a Modulo-10 (BCD) Counter</h2>
     <p>A plain 4-bit ripple counter naturally counts mod-16 (0000 through 1111). To make it a <strong>mod-10 (BCD)</strong> counter — counting only 0 through 9 — the count needs to reset back to 0000 the instant it would otherwise reach 10 (1010₂):</p>
     <div class="box box-eg">
-Required FFs:  2ⁿ ≥ 10  ⟹  n = 4 flip-flops (Q₃Q₂Q₁Q₀)
+      <pre>Required FFs:  2ⁿ ≥ 10  ⟹  n = 4 flip-flops (Q₃Q₂Q₁Q₀)
 Reset state:   Q₃Q₂Q₁Q₀ = 1010  (Q₃=1 and Q₁=1 — the only bits that are 1 at count 10)
-Clear logic:   CLR′ = (Q₃ · Q₁)′
+Clear logic:   CLR′ = (Q₃ · Q₁)′</pre>
     </div>
     <p>As soon as the counter momentarily reaches 1010, Q₃ and Q₁ are both 1, so the NAND gate's output CLR′ drops to 0 and asynchronously clears every flip-flop back to 0000 — the count never actually settles at 1010 for a full clock cycle, it just flashes through it as a brief reset trigger:</p>
     <div style="text-align:center;margin:1.25rem 0">

@@ -96,7 +96,7 @@
     <h2>Equivalent States</h2>
     <p>Two states are <strong>equivalent</strong> if, starting from either one, <em>every</em> possible input sequence produces exactly the same output sequence. That reduces to a testable rule: states P and Q are equivalent if</p>
     <div class="box box-eg">
-1. Their outputs match for every input (immediately, for Mealy; or their own state output matches, for Moore), <strong>and</strong>
+1. Their outputs match for every input (immediately, for Mealy; or their own state output matches, for Moore), <strong>and</strong><br>
 2. For every input value, the next states they go to are <em>themselves</em> equivalent (possibly recursively).
     </div>
     <p>In practice: group states by matching output first, then within each group compare next-state columns — if two states' next-state entries land in the same group (even if the state names differ), merge them. Repeat until no more merges are possible.</p>
@@ -150,11 +150,11 @@
     </div>
     <p>Substituting these codes for the state names turns the reduced table into one written entirely in binary — exactly the form the next topic's excitation tables and K-maps need to start from:</p>
     <div class="box box-eg">
-Q₁Q₀ = 00 (A):  Next (x=0) = 01,  Next (x=1) = 01,  Output = 0
+      <pre>Q₁Q₀ = 00 (A):  Next (x=0) = 01,  Next (x=1) = 01,  Output = 0
 Q₁Q₀ = 01 (B′): Next (x=0) = 10,  Next (x=1) = 10,  Output = 1
-Q₁Q₀ = 10 (D′): Next (x=0) = 10,  Next (x=1) = 10,  Output = 0
-(code 11 is unused — a "don't-care" input combination for the excitation K-maps)
+Q₁Q₀ = 10 (D′): Next (x=0) = 10,  Next (x=1) = 10,  Output = 0</pre>
     </div>
+    <p>(code 11 is unused — a "don't-care" input combination for the excitation K-maps)</p>
 
     <h2>Common Pitfalls</h2>
     <ul>
