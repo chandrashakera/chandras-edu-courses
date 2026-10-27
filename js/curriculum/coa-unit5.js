@@ -77,10 +77,24 @@ export const GROUPS = {
       time: '22 min',
       status: 'active'
     }
+  ],
+  // Supplementary topics: extra pages beyond the syllabus (no quiz, not required for the certificate) — see js/curriculum/supplementary.js
+  'tg-supplementary': [
+    {
+      id: 'virtual-memory',
+      title: 'Virtual Memory',
+      desc: 'Paging, page tables, address translation, the TLB, page faults and page replacement — with worked examples.',
+      href: 'virtual-memory.html',
+      time: '22 min',
+      status: 'active',
+      supplementary: true,
+      related: 'memory-hierarchy'
+    }
   ]
 };
 
 export const GROUP_LABELS = {
   'tg-io-organization':    '🔌 I/O Organization',
-  'tg-memory-organization': '💾 Memory Organization'
+  'tg-memory-organization': '💾 Memory Organization',
+  'tg-supplementary':       'Supplementary Topics — Beyond the Syllabus'
 };

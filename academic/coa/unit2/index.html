@@ -101,12 +101,13 @@
   import { onAuth, getAllProgress } from '../../../js/firebase-config.js';
   import { GROUPS } from '../../../js/curriculum/coa-unit2.js';
   import { renderSlidesCard } from '../../../js/slides-card.js';
+  import { syllabusTopics, renderSupplementary } from '../../../js/curriculum/supplementary.js';
   initNav(3);
-  renderSlidesCard(document.getElementById('slides'), 2, Object.values(GROUPS).flat().length);
+  renderSlidesCard(document.getElementById('slides'), 2, syllabusTopics(GROUPS).length);
 
   const COURSE_ID = 'coa';
 
-  const ALL_IDS = Object.values(GROUPS).flat().map(t => t.id);
+  const ALL_IDS = syllabusTopics(GROUPS).map(t => t.id);
 
   function renderGroup(containerId, topics, prog = {}) {
     const container = document.getElementById(containerId);
@@ -129,7 +130,7 @@
   }
 
   function updateProgress(prog) {
-    const active = Object.values(GROUPS).flat().filter(t => t.status === 'active');
+    const active = syllabusTopics(GROUPS).filter(t => t.status === 'active');
     const done   = active.filter(t => prog[t.id]?.completed).length;
     const pct    = active.length ? Math.round((done / active.length) * 100) : 0;
     document.getElementById('unit-progress').style.display = 'block';
@@ -143,9 +144,11 @@
     if (user) {
       const prog = await getAllProgress(user.uid, COURSE_ID, ALL_IDS);
       Object.entries(GROUPS).forEach(([id, topics]) => renderGroup(id, topics, prog));
+      renderSupplementary(GROUPS);
       updateProgress(prog);
     } else {
       Object.entries(GROUPS).forEach(([id, topics]) => renderGroup(id, topics));
+      renderSupplementary(GROUPS);
       document.getElementById('login-nudge').style.display = 'block';
     }
     // Scroll to anchor after JS renders content

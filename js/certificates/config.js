@@ -31,8 +31,8 @@ export const CERT_COURSES = {
     title:       'Computer Organization and Architecture',
     track:       'Academic',
     prefix:      'COA',
-    // every topic id across the five unit curriculum files (68), in course order
-    requiredIds: [COA1, COA2, COA3, COA4, COA5].flatMap(g => Object.values(g).flat().map(t => t.id)),
+    // every syllabus topic id across the five unit curriculum files (68), in course order; supplementary topics (supplementary: true) are excluded
+    requiredIds: [COA1, COA2, COA3, COA4, COA5].flatMap(g => Object.values(g).flat().filter(t => !t.supplementary).map(t => t.id)),
     rule:        'all-completed',
     passPct:     60,
     landing:     'academic/coa/'

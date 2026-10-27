@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3030765874336294" crossorigin="anonymous"></script>
+  <title>Virtual Memory — COA Unit 5 | CHANDRAS EDU</title>
+  <meta name="description" content="Virtual memory explained: paging, page tables, address translation with worked examples, the TLB, page faults, and FIFO, LRU and optimal page replacement.">
+  <link rel="canonical" href="https://chandrashaker.com/courses/academic/coa/unit5/virtual-memory">
+  <link rel="stylesheet" href="../../../css/style.css">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="CHANDRAS EDU">
+  <meta property="og:title" content="Virtual Memory — COA Unit 5 | CHANDRAS EDU">
+  <meta property="og:description" content="Virtual memory explained: paging, page tables, address translation with worked examples, the TLB, page faults, and FIFO, LRU and optimal page replacement.">
+  <meta property="og:url" content="https://chandrashaker.com/courses/academic/coa/unit5/virtual-memory">
+  <meta property="og:image" content="https://chandrashaker.com/courses/images/og/coa-v7.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Computer Organization and Architecture — CHANDRAS EDU free course">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Virtual Memory — COA Unit 5 | CHANDRAS EDU">
+  <meta name="twitter:description" content="Virtual memory explained: paging, page tables, address translation with worked examples, the TLB, page faults, and FIFO, LRU and optimal page replacement.">
+  <meta name="twitter:image" content="https://chandrashaker.com/courses/images/og/coa-v7.png">
+  <script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Courses","item":"https://chandrashaker.com/courses/"},{"@type":"ListItem","position":2,"name":"COA","item":"https://chandrashaker.com/courses/academic/coa/"},{"@type":"ListItem","position":3,"name":"Unit 5","item":"https://chandrashaker.com/courses/academic/coa/unit5/"},{"@type":"ListItem","position":4,"name":"Virtual Memory"}]}
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LearningResource",
+  "name": "Virtual Memory",
+  "description": "Virtual memory explained: paging, page tables, address translation with worked examples, the TLB, page faults, and FIFO, LRU and optimal page replacement.",
+  "url": "https://chandrashaker.com/courses/academic/coa/unit5/virtual-memory",
+  "image": "https://chandrashaker.com/courses/images/og/coa-v7.png",
+  "learningResourceType": "Lesson",
+  "educationalLevel": "Undergraduate",
+  "about": { "@type": "Thing", "name": "Computer Organization and Architecture" },
+  "isPartOf": { "@type": "Course", "name": "Computer Organization and Architecture", "provider": { "@type": "Organization", "name": "CHANDRAS EDU", "url": "https://chandrashaker.in" } },
+  "publisher": { "@type": "Organization", "name": "CHANDRAS EDU", "url": "https://chandrashaker.in" }
+}
+  </script>
+  <link rel="icon" href="/favicon.ico">
+  <style>
+    .fig-wrap{text-align:center;margin:1.5rem 0}
+    .fig-wrap img{max-width:100%;height:auto;border-radius:var(--radius)}
+    .fig-caption{font-size:.82rem;color:var(--text-3);margin-top:.4rem}
+    .key-point{background:var(--bg-2);border-left:4px solid var(--accent,#f59e0b);border-radius:var(--radius);padding:.7rem 1rem;margin:1rem 0;font-size:.92rem}
+  </style>
+</head>
+<body>
+<div id="main-nav"></div>
+<div class="page-narrow" role="main">
+  <nav class="breadcrumb">
+    <a href="../../../index.html">Courses</a><span class="sep">/</span>
+    <a href="../index.html">Computer Organization and Architecture</a><span class="sep">/</span>
+    <a href="index.html">Unit 5</a><span class="sep">/</span>
+    <span>Supplementary Topics</span><span class="sep">/</span>
+    <span class="cur">Virtual Memory</span>
+  </nav>
+  <div style="background:var(--primary);border-radius:var(--radius-lg);padding:1.1rem 1.4rem;margin-bottom:1.5rem;color:#fff">
+    <div style="font-size:.75rem;opacity:.75;margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.05em">Supplementary — beyond the syllabus</div>
+    <h1 style="font-size:1.4rem;font-weight:700;color:#fff;margin-bottom:.5rem">Virtual Memory</h1>
+    <div style="display:flex;gap:.75rem;flex-wrap:wrap">
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">⏱ 22 min read</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📌 Supplementary — beyond the syllabus</span>
+    </div>
+  </div>
+  <div class="lesson">
+    <div class="box box-tip">
+      <strong>In simple terms:</strong> virtual memory lets a program use more memory than the computer physically has. The program’s addresses are split into pages; only the pages in use sit in main memory, and the rest wait on disk until needed.</div>
+
+    <h2>Why Virtual Memory</h2>
+    <p>A program is written as if it had one large, continuous memory — its <strong>virtual (logical) address space</strong>. Main memory (the <strong>physical address space</strong>) is smaller and shared by many programs. Virtual memory keeps the active parts of each program in main memory and the rest on auxiliary memory (disk), and translates every virtual address to a physical one as the program runs. The programmer never sees the difference.</p>
+
+    <h2>Paging and Address Translation</h2>
+    <p>Virtual memory is divided into fixed-size <strong>pages</strong>; main memory into <strong>frames</strong> of the same size. A <strong>page table</strong> holds, for each page, the frame where it currently sits plus a <strong>valid (presence) bit</strong>. A virtual address splits into a <strong>page number p</strong> and an <strong>offset d</strong>; the page table turns p into a frame number f; the offset is copied unchanged.</p>
+    <div style="text-align:center;margin:1.25rem 0">
+      <div style="overflow-x:auto">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 660 330" role="img" aria-label="Paging address translation: the virtual address is split into a page number and an offset; the page number indexes the page table, which gives the frame number; the frame number joined with the unchanged offset forms the physical address." style="width:100%;height:auto;max-width:660px;display:block;margin:0 auto;min-width:660px" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif"><title>Paging address translation: the virtual address is split into a page number and an offset; the page number indexes the page table, which gives the frame number; the frame number joined with the unchanged offset forms the physical address.</title><defs><marker id="mvpak" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#1F2937"/></marker><marker id="mvpsk" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1F2937"/></marker><marker id="mvpao" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#E07A00"/></marker><marker id="mvpso" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#E07A00"/></marker></defs><text x="150" y="24" text-anchor="middle" font-size="12.5" font-weight="600" fill="#1F2937">Virtual address</text><rect x="60" y="64" width="110" height="40" rx="0" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><text x="115.0" y="88.4" text-anchor="middle" font-size="12.5" fill="#1F2937">Page no.  p</text><rect x="170" y="64" width="90" height="40" rx="0" fill="#E8F5E9" stroke="#2E7D32" stroke-width="1.6"/><text x="215.0" y="88.4" text-anchor="middle" font-size="12.5" fill="#1F2937">Offset  d</text><rect x="80" y="160" width="150" height="150" rx="0" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><text x="155.0" y="239.6" text-anchor="middle" font-size="13" fill="#1F2937"></text><text x="155" y="154" text-anchor="middle" font-size="12.5" font-weight="600" fill="#1F2937">Page table</text><path d="M80,160 L230,160" stroke="#CFD8DC" stroke-width="1"/><path d="M80,190 L230,190" stroke="#CFD8DC" stroke-width="1"/><path d="M80,220 L230,220" stroke="#CFD8DC" stroke-width="1"/><path d="M80,250 L230,250" stroke="#CFD8DC" stroke-width="1"/><path d="M80,280 L230,280" stroke="#CFD8DC" stroke-width="1"/><rect x="80" y="220" width="150" height="30" rx="0" fill="#FFF3E0" stroke="#E07A00" stroke-width="1.6"/><text x="155.0" y="239.2" text-anchor="middle" font-size="12" fill="#1F2937">frame f</text><path d="M115,104 L115,130 L60,130 L60,235 L80,235" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#mvpak)"/><text x="52" y="190" text-anchor="end" font-size="11" font-weight="normal" fill="#6B7280">index</text><text x="470" y="24" text-anchor="middle" font-size="12.5" font-weight="600" fill="#1F2937">Physical address</text><rect x="380" y="64" width="110" height="40" rx="0" fill="#FFF3E0" stroke="#E07A00" stroke-width="1.6"/><text x="435.0" y="88.4" text-anchor="middle" font-size="12.5" fill="#1F2937">Frame no.  f</text><rect x="490" y="64" width="90" height="40" rx="0" fill="#E8F5E9" stroke="#2E7D32" stroke-width="1.6"/><text x="535.0" y="88.4" text-anchor="middle" font-size="12.5" fill="#1F2937">Offset  d</text><path d="M230,235 L330,235 L330,130 L435,130 L435,104" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#mvpak)"/><path d="M215,64 L215,46 L535,46 L535,64" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#mvpak)"/><text x="375" y="40" text-anchor="middle" font-size="11" font-weight="normal" fill="#6B7280">offset copied unchanged</text><text x="470" y="260" text-anchor="middle" font-size="12" font-weight="normal" fill="#6B7280">Physical address = f × page size + d</text></svg>
+      </div>
+      <p style="font-size:.8rem;color:var(--text-2);margin-top:.4rem">Paging: the page number selects a page-table entry that supplies the frame number; the offset passes through unchanged.</p>
+    </div>
+
+    <h3>Worked Example 1 — Translating an Address</h3>
+    <div class="box box-eg">
+      <pre>Virtual address space 64K words (16-bit address), page size 1K words (10-bit offset)
+→ page number = 16 − 10 = 6 bits (64 pages)
+Physical memory 4K words (12-bit address) → 4 frames (2-bit frame number)
+
+Virtual address 1A3F (hex) = 000110 1000111111
+   page p = 000110 = 6      offset d = 1000111111 = 23F (hex) = 575
+Page table: page 6 → frame 3 (binary 11)
+Physical address = 11 1000111111 = E3F (hex)
+Check: 3 × 1024 + 575 = 3647 = E3F (hex) ✓</pre>
+    </div>
+
+    <h3>Worked Example 2 — Page-Table Size</h3>
+    <div class="box box-eg">
+      <pre>32-bit virtual address, 4 KB pages (12-bit offset)
+→ 2<sup>(32−12)</sup> = 2<sup>20</sup> = 1,048,576 pages → one page-table entry each
+4 bytes per entry → page table = 4 MB per program</pre>
+    </div>
+    <p>This is why real systems use multi-level page tables and a TLB.</p>
+
+    <h2>Page Faults</h2>
+    <p>If the valid bit of the required page is 0, the page is not in main memory — a <strong>page fault</strong>. The operating system finds the page on disk, loads it into a free frame (or replaces a page if none is free), updates the page table, and restarts the instruction. A page fault costs milliseconds, so keeping the fault rate low matters.</p>
+
+    <h2>The TLB (Translation Lookaside Buffer)</h2>
+    <p>Reading the page table on every access would double memory traffic. A <strong>TLB</strong> is a small, fast associative memory that keeps the most recently used page-table entries.</p>
+    <div style="text-align:center;margin:1.25rem 0">
+      <div style="overflow-x:auto">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 260" role="img" aria-label="Address translation with a TLB: the page number is first looked up in the TLB; on a TLB hit the frame number comes from the TLB; on a TLB miss the page table in memory is read and the TLB is updated; the frame number and offset then form the physical address." style="width:100%;height:auto;max-width:620px;display:block;margin:0 auto;min-width:620px" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif"><title>Address translation with a TLB: the page number is first looked up in the TLB; on a TLB hit the frame number comes from the TLB; on a TLB miss the page table in memory is read and the TLB is updated; the frame number and offset then form the physical address.</title><defs><marker id="mvtak" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#1F2937"/></marker><marker id="mvtsk" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1F2937"/></marker><marker id="mvtao" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#E07A00"/></marker><marker id="mvtso" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#E07A00"/></marker></defs><rect x="25.0" y="20.0" width="150" height="40" rx="3" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><text x="100.0" y="44.2" text-anchor="middle" font-size="12" fill="#1F2937">Page number p</text><path d="M35.0,130 L100,100.0 L165.0,130 L100,160.0 Z" fill="#FFF3E0" stroke="#E07A00" stroke-width="1.6"/><text x="100" y="134" text-anchor="middle" font-size="12" font-weight="normal" fill="#1F2937">In TLB?</text><path d="M100,60 L100,100" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#mvtak)"/><text x="175" y="122" text-anchor="middle" font-size="11.5" font-weight="normal" fill="#E07A00">hit</text><path d="M165,130 L330,130" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#mvtak)"/><rect x="330.0" y="108.0" width="160" height="44" rx="3" fill="#E8F5E9" stroke="#2E7D32" stroke-width="1.6"/><text x="410.0" y="126.7" text-anchor="middle" font-size="12" fill="#1F2937">Frame f from TLB</text><text x="410.0" y="141.7" text-anchor="middle" font-size="12" fill="#1F2937">(fast)</text><text x="92" y="180" text-anchor="end" font-size="11.5" font-weight="normal" fill="#E07A00">miss</text><path d="M100,160 L100,196" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#mvtak)"/><rect x="10.0" y="198.0" width="180" height="44" rx="3" fill="#FFF3E0" stroke="#E07A00" stroke-width="1.6"/><text x="100.0" y="216.7" text-anchor="middle" font-size="12" fill="#1F2937">Read page table in memory;</text><text x="100.0" y="231.7" text-anchor="middle" font-size="12" fill="#1F2937">update the TLB</text><path d="M190,220 L410,220 L410,152" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#mvtak)"/><text x="530" y="60" text-anchor="middle" font-size="12" font-weight="600" fill="#1F2937">Physical address = (f, d)</text><path d="M490,130 L560,130 L560,75" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#mvtak)"/></svg>
+      </div>
+      <p style="font-size:.8rem;color:var(--text-2);margin-top:.4rem">Address translation with a TLB: a TLB hit skips the page-table read.</p>
+    </div>
+
+    <h3>Worked Example 3 — Effective Access Time with a TLB</h3>
+    <div class="box box-eg">
+      <pre>TLB lookup 20 ns, memory access 100 ns, TLB hit ratio 0.8
+TLB hit : 20 + 100           = 120 ns
+TLB miss: 20 + 100 + 100     = 220 ns   (page table read + data read)
+EAT = 0.8 × 120 + 0.2 × 220  = 140 ns</pre>
+    </div>
+
+    <h2>Page Replacement</h2>
+    <p>When a page fault occurs and every frame is full, one page must leave. The same policies as cache replacement apply — counted here as <strong>page faults</strong>:</p>
+    <div style="overflow-x:auto">
+      <table>
+        <thead><tr><th>Policy</th><th>Replaces</th></tr></thead>
+        <tbody>
+          <tr><td>FIFO</td><td>The page loaded earliest</td></tr>
+          <tr><td>LRU</td><td>The page not used for the longest time</td></tr>
+          <tr><td>Optimal (OPT)</td><td>The page whose next use is farthest away (benchmark only — needs the future)</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Worked Example 4 — 3 Frames, Reference String 7, 0, 1, 2, 0, 3, 0, 4, 2, 3, 0, 3, 2</h3>
+    <div style="overflow-x:auto">
+      <table>
+        <thead><tr><th>Policy</th><th>Page faults</th><th>Hits</th></tr></thead>
+        <tbody>
+          <tr><td>FIFO</td><td>10</td><td>3</td></tr>
+          <tr><td>LRU</td><td>9</td><td>4</td></tr>
+          <tr><td>OPT</td><td>7</td><td>6</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>(The full step-by-step traces for this string are on the <a href="cache-memory.html#replacement">Cache Memory page</a> — the method is identical; a cache “miss” is a “page fault” here.)</p>
+    <p><strong>Belady’s anomaly (FIFO only):</strong> with reference string 1, 2, 3, 4, 1, 2, 5, 1, 2, 3, 4, 5, FIFO gives <strong>9 faults with 3 frames but 10 faults with 4 frames</strong> — more memory, more faults. LRU and OPT never behave this way.</p>
+
+    <h2>Paging vs Segmentation (Brief)</h2>
+    <div style="overflow-x:auto">
+      <table>
+        <thead><tr><th></th><th>Paging</th><th>Segmentation</th></tr></thead>
+        <tbody>
+          <tr><td>Unit</td><td>Fixed-size pages</td><td>Variable-size segments (code, data, stack)</td></tr>
+          <tr><td>Visible to the programmer?</td><td>No</td><td>Yes (logical divisions)</td></tr>
+          <tr><td>Fragmentation</td><td>Internal (last page part-empty)</td><td>External (gaps between segments)</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2>Common Pitfalls</h2>
+    <ul>
+      <li><strong>Changing the offset during translation.</strong> Only the page number is translated; the offset bits are copied as they are.</li>
+      <li><strong>Mixing up page and frame.</strong> Pages belong to the virtual address space, frames to physical memory; they are the same size.</li>
+      <li><strong>Assuming more frames always means fewer faults.</strong> True for LRU and OPT, but FIFO can show Belady’s anomaly.</li>
+    </ul>
+
+    <h2>Applications</h2>
+    <ul>
+      <li>Every modern OS (Windows, Linux, Android) uses paged virtual memory, so each program gets its own protected address space.</li>
+      <li>“Swap” space or a page file on disk is the backing store for pages not in RAM.</li>
+      <li>The TLB is part of every modern CPU’s memory-management unit (MMU).</li>
+    </ul>
+
+    <p style="margin-top:1rem">Related syllabus topic: <a href="memory-hierarchy.html">Memory Hierarchy</a> · <a href="cache-memory.html">Cache Memory</a>.</p>
+  </div>
+  <div class="topic-nav">
+    <a href="cache-memory.html">
+      <div class="nav-dir">← Previous</div>
+      <div class="nav-title">Cache Memory</div>
+    </a>
+    <a href="index.html" class="next">
+      <div class="nav-dir">Next →</div>
+      <div class="nav-title">Back to Unit 5 Overview</div>
+    </a>
+  </div>
+</div>
+<footer id="main-footer"></footer>
+<script type="module">
+  import { initNav } from '../../../js/nav.js';
+  import { initSidebar } from '../../../js/sidebar.js';
+  initNav(3);
+  initSidebar();
+</script>
+</body>
+</html>
