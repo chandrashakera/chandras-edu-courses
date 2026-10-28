@@ -13,6 +13,11 @@ import { GROUPS as COA2 } from '../curriculum/coa-unit2.js';
 import { GROUPS as COA3 } from '../curriculum/coa-unit3.js';
 import { GROUPS as COA4 } from '../curriculum/coa-unit4.js';
 import { GROUPS as COA5 } from '../curriculum/coa-unit5.js';
+import { GROUPS as DLD1 } from '../curriculum/dld-unit1.js';
+import { GROUPS as DLD2 } from '../curriculum/dld-unit2.js';
+import { GROUPS as DLD3 } from '../curriculum/dld-unit3.js';
+import { GROUPS as DLD4 } from '../curriculum/dld-unit4.js';
+import { GROUPS as DLD5 } from '../curriculum/dld-unit5.js';
 
 export const CERT_COURSES = {
   genai: {
@@ -41,8 +46,17 @@ export const CERT_COURSES = {
   // Added later, once each course's prerequisites exist:
   // 'ai-tools': { courseId:'ai-tools', title:'AI Tools for Everyday Work', track:'Professional', prefix:'AITOOLS',
   //               requiredIds: /* the learner's path + the My AI Work Kit final project */, rule:'all-completed', landing:'professional/ai-tools/' },
-  // 'dld':      { courseId:'dld', title:'Digital Logic Design', track:'Academic', prefix:'DLD',
-  //               requiredIds: /* every topic id across js/curriculum/dld-unit1..5.js */, rule:'all-completed', landing:'academic/dld/' },
+  dld: {
+    courseId:    'dld',
+    title:       'Digital Logic Design',
+    track:       'Academic',
+    prefix:      'DLD',
+    // every syllabus topic id across the five DLD unit curriculum files (30), in course order; supplementary topics are excluded
+    requiredIds: [DLD1, DLD2, DLD3, DLD4, DLD5].flatMap(g => Object.values(g).flat().filter(t => !t.supplementary).map(t => t.id)),
+    rule:        'all-completed',
+    passPct:     60,
+    landing:     'academic/dld/'
+  },
 };
 
 export const SITE_ORIGIN = 'https://chandrashaker.com/courses';
