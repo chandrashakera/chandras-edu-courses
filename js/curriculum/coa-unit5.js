@@ -16,7 +16,7 @@ export const GROUPS = {
       title: 'Modes of Transfer',
       desc: 'Programmed I/O, interrupt-initiated I/O and direct memory access compared.',
       href: 'modes-of-transfer.html',
-      time: '15 min',
+      time: '18 min',
       status: 'active'
     },
     {
@@ -32,7 +32,7 @@ export const GROUPS = {
       title: 'Direct Memory Access',
       desc: 'How a DMA controller moves data blocks while the CPU waits for the bus.',
       href: 'direct-memory-access.html',
-      time: '15 min',
+      time: '18 min',
       status: 'active'
     }
   ],
@@ -50,7 +50,7 @@ export const GROUPS = {
       title: 'Main Memory',
       desc: 'RAM and ROM chips and how they are mapped into the address space.',
       href: 'main-memory.html',
-      time: '15 min',
+      time: '18 min',
       status: 'active'
     },
     {

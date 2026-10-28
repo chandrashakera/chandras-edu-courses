@@ -5,14 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3030765874336294" crossorigin="anonymous"></script>
   <title>Floating-Point Representation | COA Unit 1 | CHANDRAS EDU</title>
-  <meta name="description" content="Floating-point representation explained simply: mantissa and exponent, normalisation, representing zero, and the IEEE 754 bias trick, with examples.">
+  <meta name="description" content="Floating point explained: mantissa, exponent, normalisation and zero, why 0.1 + 0.2 is not 0.3, worked examples and IEEE 754 single/double precision.">
   <link rel="canonical" href="https://chandrashaker.com/courses/academic/coa/unit1/floating-point-representation">
   <link rel="stylesheet" href="../../../css/style.css">
 
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="CHANDRAS EDU">
   <meta property="og:title" content="Floating-Point Representation | COA Unit 1 | CHANDRAS EDU">
-  <meta property="og:description" content="Floating-point representation explained simply: mantissa and exponent, normalisation, representing zero, and the IEEE 754 bias trick, with examples.">
+  <meta property="og:description" content="Floating point explained: mantissa, exponent, normalisation and zero, why 0.1 + 0.2 is not 0.3, worked examples and IEEE 754 single/double precision.">
   <meta property="og:url" content="https://chandrashaker.com/courses/academic/coa/unit1/floating-point-representation">
   <meta property="og:image" content="https://chandrashaker.com/courses/images/og/coa-v7.png">
   <meta property="og:image:width" content="1200">
@@ -20,7 +20,7 @@
   <meta property="og:image:alt" content="Computer Organization and Architecture — CHANDRAS EDU free course">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Floating-Point Representation | COA Unit 1 | CHANDRAS EDU">
-  <meta name="twitter:description" content="Floating-point representation explained simply: mantissa and exponent, normalisation, representing zero, and the IEEE 754 bias trick, with examples.">
+  <meta name="twitter:description" content="Floating point explained: mantissa, exponent, normalisation and zero, why 0.1 + 0.2 is not 0.3, worked examples and IEEE 754 single/double precision.">
   <meta name="twitter:image" content="https://chandrashaker.com/courses/images/og/coa-v7.png">
 
   <script type="application/ld+json">
@@ -59,7 +59,7 @@
   "@context": "https://schema.org",
   "@type": "LearningResource",
   "name": "Floating-Point Representation",
-  "description": "Floating-point representation explained simply: mantissa and exponent, normalisation, representing zero, and the IEEE 754 bias trick, with examples.",
+  "description": "Floating point explained: mantissa, exponent, normalisation and zero, why 0.1 + 0.2 is not 0.3, worked examples and IEEE 754 single/double precision.",
   "url": "https://chandrashaker.com/courses/academic/coa/unit1/floating-point-representation",
   "image": "https://chandrashaker.com/courses/images/og/coa-v7.png",
   "learningResourceType": "Lesson",
@@ -104,7 +104,7 @@
     <div style="font-size:.75rem;opacity:.75;margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.05em">COA › Unit 1: Data Representation › Topic 4</div>
     <h1 style="font-size:1.4rem;font-weight:700;color:#fff;margin-bottom:.5rem">Floating-Point Representation</h1>
     <div style="display:flex;gap:.75rem;flex-wrap:wrap">
-      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">⏱ 20 min read</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">⏱ 25 min read</span>
       <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📝 Quiz inside</span>
     </div>
   </div>
@@ -186,6 +186,31 @@ Example B: 00000101 — 5 leading zeros
 Stored exponent 137  →  real = 137−127 = +10</pre>
     </div>
     <p>Because of this trick, a stored value of 127 means "exponent zero," anything below means negative, anything above means positive — all without a separate sign bit for the exponent.</p>
+    <p>The two formats in common use:</p>
+    <div style="overflow-x:auto">
+      <table>
+        <thead><tr><th>Format</th><th>Bits</th><th>S</th><th>E</th><th>M</th><th>Bias</th><th>Value</th></tr></thead>
+        <tbody>
+          <tr><td>Single precision</td><td>32</td><td>1</td><td>8</td><td>23</td><td>127</td><td>(−1)<sup>S</sup> × 1.M × 2<sup>E − 127</sup></td></tr>
+          <tr><td>Double precision</td><td>64</td><td>1</td><td>11</td><td>52</td><td>1023</td><td>(−1)<sup>S</sup> × 1.M × 2<sup>E − 1023</sup></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>The leading 1 of the normalised mantissa is not stored (it is implied), which is why the value is 1.M. <strong>Special patterns:</strong> E = 0 and M = 0 → zero (±0); E all 1s and M = 0 → ±infinity; E all 1s and M ≠ 0 → NaN (not a number).</p>
+    <div class="box box-eg">
+      <strong>Decimal to IEEE 754 single precision: −12.375</strong>
+      <pre>Sign: negative → S = 1
+12.375 = 1100.011₂ = 1.100011 × 2³
+E = 3 + 127 = 130 = 1000 0010
+M = 100011 followed by 0s (23 bits)
+1 10000010 10001100000000000000000  = C1460000 (hex)</pre>
+    </div>
+    <div class="box box-eg">
+      <strong>IEEE 754 single precision to decimal: 41200000 (hex)</strong>
+      <pre>0 10000010 01000000000000000000000
+S = 0 (positive)   E = 130 → exponent 130 − 127 = 3   M = .01 → mantissa 1.01₂ = 1.25
+Value = +1.25 × 2³ = +10.0</pre>
+    </div>
 
     <div class="box box-warn">
       🧩 This bias-and-rounding system is also the real reason <code>0.1 + 0.2 ≠ 0.3</code> in Python, Java, or almost any language. Neither 0.1 nor 0.2 can be written exactly in binary (the same way ⅓ can't be written exactly in decimal), so both get rounded to the closest representable value. Add those two tiny rounding errors together, and the sum lands one small step away from 0.3 — not a bug, just floating-point doing exactly what it always does.

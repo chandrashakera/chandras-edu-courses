@@ -73,7 +73,7 @@
     <div style="font-size:.75rem;opacity:.75;margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.05em">COA › Unit 4: Microprogrammed Control › Topic 2</div>
     <h1 style="font-size:1.4rem;font-weight:700;color:#fff;margin-bottom:.5rem">Address Sequencing</h1>
     <div style="display:flex;gap:.75rem;flex-wrap:wrap">
-      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">⏱ 16 min read</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">⏱ 20 min read</span>
       <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📝 Quiz inside</span>
     </div>
   </div>
@@ -118,7 +118,25 @@
     <p style="font-size:.8rem;color:var(--text-2);margin-top:.4rem">Adapted from M. Morris Mano, <em>Computer System Architecture</em>, Table 7-1</p>
     <p>CD selects the condition: 00 = U (always 1), 01 = I (DR(15), indirect bit), 10 = S (AC(15), sign), 11 = Z (AC = 0). With CD = 00, JMP and CALL always take the branch. The mapping logic is implemented with a PLD or a small ROM that transforms opcode bits into a control memory address. Nested subroutine calls require a hardware stack in the SBR, since one register can only save one return address.</p>
 
-    <h2>Common Pitfalls</h2>
+        <h2>Worked Examples</h2>
+    <h3>Example 1 — Mapping an opcode to its routine address</h3>
+    <div class="box box-eg">
+      <pre>Mapping rule: 0 xxxx 00  (a 0, the 4-bit opcode, then 00) → each routine gets 4 microinstructions
+ADD      opcode 0000 → 0 0000 00 = 0
+BRANCH   opcode 0001 → 0 0001 00 = 4
+STORE    opcode 0010 → 0 0010 00 = 8
+EXCHANGE opcode 0011 → 0 0011 00 = 12</pre>
+    </div>
+    <h3>Example 2 — Width of the address field</h3>
+    <div class="box box-eg">A control memory of 2<sup>k</sup> words needs k address bits: 128 words → 7 bits; 512 words → 9 bits.</div>
+    <h3>Example 3 — Subroutine call and return</h3>
+    <div class="box box-eg">
+      <pre>CAR = 45 holds "CALL 80":  SBR ← CAR + 1 = 46,  CAR ← 80
+Subroutine runs at 80, 81, … 85;  85 holds "RET":  CAR ← SBR = 46
+Execution resumes at 46 — the microinstruction after the call.</pre>
+    </div>
+
+<h2>Common Pitfalls</h2>
     <ul>
       <li><strong>Forgetting the mapping step.</strong> The correct sequence is fetch → map → execute. The sequencer cannot jump from the fetch routine to the correct execute routine without the mapping hardware.</li>
       <li><strong>Confusing BR and CD.</strong> BR selects what kind of address transition to make; CD selects which status bit to test. Both fields act together for conditional branching.</li>

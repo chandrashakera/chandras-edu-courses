@@ -45,7 +45,7 @@
     <div style="font-size:.75rem;opacity:.75;margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.05em">COA › Unit 5: I/O Organization › Topic 4</div>
     <h1 style="font-size:1.4rem;font-weight:700;color:#fff;margin-bottom:.5rem">Direct Memory Access</h1>
     <div style="display:flex;gap:.75rem;flex-wrap:wrap">
-      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">⏱ 15 min read</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">⏱ 18 min read</span>
       <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📝 Quiz inside</span>
     </div>
   </div>
@@ -152,7 +152,17 @@
       </table>
     </div>
 
-    <h2>Summary</h2>
+        <h2>Worked Examples</h2>
+    <h3>Example — Burst transfer time and CPU impact</h3>
+    <div class="box box-eg">
+      <pre>Block of 4,096 bytes, one byte per memory cycle of 0.5 µs
+Burst mode:      4,096 × 0.5 µs = 2,048 µs  — the CPU cannot use memory for this whole time
+Cycle stealing:  the same 4,096 cycles are spread out one at a time, so the CPU is delayed
+                 by one memory cycle per byte instead of being blocked for 2,048 µs
+CPU involvement: only to load the DMA registers at the start and to service one interrupt at the end</pre>
+    </div>
+
+<h2>Summary</h2>
     <ul>
       <li>DMA removes the CPU from the data path for block transfers between high-speed devices and memory.</li>
       <li>Three DMA registers: <strong>AR</strong> (address, incremented each word), <strong>WC</strong> (count, decremented each word), <strong>Control/Status</strong>.</li>

@@ -4,7 +4,7 @@ export const GROUPS = {
       { id:'data-types-number-systems',     title:'Data Types & Number Systems',    desc:'Radix systems, positional notation, decimal↔binary↔octal↔hex conversion, bit grouping.',    time:'40 min', href:'data-types-number-systems.html',     status:'active' },
       { id:'complements',                   title:'Complements',                    desc:"(r−1)'s and r's complement; subtraction via complement addition; end-carry rule.",             time:'45 min', href:'complements.html',                   status:'active' },
       { id:'fixed-point-representation',    title:'Fixed-Point Representation',     desc:"Sign-magnitude, 1's complement, 2's complement; addition rules; overflow detection.",         time:'20 min', href:'fixed-point-representation.html',     status:'active' },
-      { id:'floating-point-representation', title:'Floating-Point Representation',  desc:'Mantissa and exponent fields; normalization; zero representation; IEEE 754 bias.',        time:'20 min', href:'floating-point-representation.html',   status:'active' },
+      { id:'floating-point-representation', title:'Floating-Point Representation',  desc:'Mantissa and exponent, normalisation and zero, worked examples, and IEEE 754 single and double precision.',        time:'25 min', href:'floating-point-representation.html',   status:'active' },
     ],
     'tg-boolean': [
       { id:'binary-codes',           title:'Binary Codes',                desc:'BCD, self-complementing Excess-3 code, Gray code, ASCII, and parity.',          time:'18 min', href:'binary-codes.html', status:'active' },

@@ -44,7 +44,7 @@
     <div style="font-size:.75rem;opacity:.75;margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.05em">COA › Unit 5: Memory Organization › Topic 2</div>
     <h1 style="font-size:1.4rem;font-weight:700;color:#fff;margin-bottom:.5rem">Main Memory</h1>
     <div style="display:flex;gap:.75rem;flex-wrap:wrap">
-      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">⏱ 15 min read</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">⏱ 18 min read</span>
       <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📝 Quiz inside</span>
     </div>
   </div>
@@ -110,7 +110,19 @@
 
     <div class="key-point"><strong>Design rule:</strong> in any valid address, exactly one chip must be selected (CS enabled) and all others must be in high-impedance state. The memory address map guarantees this by partitioning the address space so no two ranges overlap.</div>
 
-    <h2>Summary</h2>
+        <h2>Worked Examples</h2>
+    <p>(Address lines are numbered from A1, as in the address map above.)</p>
+    <h3>Example 1 — How many chips?</h3>
+    <div class="box box-eg">
+      <pre>Build a 4K × 16 memory from 1K × 8 chips:
+Chips = (4K ÷ 1K) × (16 ÷ 8) = 4 × 2 = 8 chips (4 rows of 2 chips side by side)
+Address lines: 4K = 2¹² → 12 lines; a 1K chip uses 10 (A1–A10); the top 2 (A11–A12)
+drive a 2-to-4 decoder that selects one row.</pre>
+    </div>
+    <h3>Example 2 — 64K × 8 from 16K × 4 chips</h3>
+    <div class="box box-eg">(64K ÷ 16K) × (8 ÷ 4) = 4 × 2 = <strong>8 chips</strong>; 16 address lines (A1–A16), 14 to each chip (A1–A14), and 2 (A15–A16) to a 2-to-4 decoder.</div>
+
+<h2>Summary</h2>
     <ul>
       <li><strong>SRAM</strong>: flip-flop storage, no refresh needed, faster, more area per bit.</li>
       <li><strong>DRAM</strong>: capacitor storage, must refresh every few ms, higher density, lower power.</li>

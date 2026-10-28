@@ -1,8 +1,8 @@
 // js/curriculum/coa-unit4.js — COA Unit 4 topic list (Batch 5: 12 live topics; all Unit 4 topics live)
 export const GROUPS = {
     'tg-microprogrammed-control': [
-      { id:'control-memory',      title:'Control Memory',      desc:'How control words stored in memory replace hard-wired control.',      time:'16 min', href:'control-memory.html',      status:'active' },
-      { id:'address-sequencing',  title:'Address Sequencing',  desc:'How the next microinstruction address is chosen: increment, branch, mapping, subroutine.',          time:'16 min', href:'address-sequencing.html',  status:'active' },
+      { id:'control-memory',      title:'Control Memory',      desc:'How control words stored in memory replace hard-wired control.',      time:'20 min', href:'control-memory.html',      status:'active' },
+      { id:'address-sequencing',  title:'Address Sequencing',  desc:'How the next microinstruction address is chosen: increment, branch, mapping, subroutine.',          time:'20 min', href:'address-sequencing.html',  status:'active' },
     ],
     'tg-cpu': [
       { id:'general-register-organization', title:'General Register Organization', desc:'A CPU built around a register set, a shared ALU and control words.', time:'18 min', href:'general-register-organization.html', status:'active' },

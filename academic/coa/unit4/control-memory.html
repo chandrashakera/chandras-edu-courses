@@ -73,7 +73,7 @@
     <div style="font-size:.75rem;opacity:.75;margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.05em">COA › Unit 4: Microprogrammed Control › Topic 1</div>
     <h1 style="font-size:1.4rem;font-weight:700;color:#fff;margin-bottom:.5rem">Control Memory</h1>
     <div style="display:flex;gap:.75rem;flex-wrap:wrap">
-      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">⏱ 16 min read</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">⏱ 20 min read</span>
       <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📝 Quiz inside</span>
     </div>
   </div>
@@ -107,7 +107,18 @@
     </div>
     <p>The nine bits F1–F2–F3 select up to three simultaneous microoperations (code 000 = no operation in that field). The AD field is seven bits wide because 2⁷ = 128 matches the control memory size. CD selects which status bit to test; BR specifies the type of address transition.</p>
 
-    <h2>Common Pitfalls</h2>
+        <h2>Worked Examples</h2>
+    <h3>Example 1 — Size of the control memory</h3>
+    <div class="box box-eg">
+      <pre>Microinstruction = F1 (3) + F2 (3) + F3 (3) + CD (2) + BR (2) + AD (7) = 20 bits
+Control memory = 128 words × 20 bits = 2,560 bits</pre>
+    </div>
+    <h3>Example 2 — Decoding a microinstruction</h3>
+    <div class="box box-eg">For example, in the textbook’s function table, F1 = 010 means AC ← 0, F2 = 000 means no operation, and F3 = 101 means PC ← PC + 1. So two microoperations execute in the same clock: AC ← 0 and PC ← PC + 1.</div>
+    <h3>Example 3 — Why three fields</h3>
+    <div class="box box-eg">Each 3-bit field selects one of up to 7 operations (000 = none), so up to three microoperations from different fields can run at once — up to 7 per field, 21 in all — with only 9 bits.</div>
+
+<h2>Common Pitfalls</h2>
     <ul>
       <li><strong>Confusing control memory with main memory.</strong> They are physically separate. Main memory holds user programs; control memory holds the microprogram that <em>interprets</em> those programs.</li>
       <li><strong>Assuming the CDR is always present.</strong> The organisation figure above shows the CDR as a pipeline register; Mano's worked example leaves it out and reads the control word straight from the ROM. Draw it only when the question asks for the general organisation or a pipelined design.</li>
