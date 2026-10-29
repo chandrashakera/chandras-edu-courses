@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3030765874336294" crossorigin="anonymous"></script>
+  <title>Pipelining — COA Unit 4 | CHANDRAS EDU</title>
+  <meta name="description" content="Pipelining explained: pipeline segments, space-time diagram, speedup and throughput with solved problems, instruction pipelines, and data and branch hazards.">
+  <link rel="canonical" href="https://chandrashaker.com/courses/academic/coa/unit4/pipelining">
+  <link rel="stylesheet" href="../../../css/style.css">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="CHANDRAS EDU">
+  <meta property="og:title" content="Pipelining — COA Unit 4 | CHANDRAS EDU">
+  <meta property="og:description" content="Pipelining explained: pipeline segments, space-time diagram, speedup and throughput with solved problems, instruction pipelines, and data and branch hazards.">
+  <meta property="og:url" content="https://chandrashaker.com/courses/academic/coa/unit4/pipelining">
+  <meta property="og:image" content="https://chandrashaker.com/courses/images/og/coa-v7.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Computer Organization and Architecture — CHANDRAS EDU free course">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Pipelining — COA Unit 4 | CHANDRAS EDU">
+  <meta name="twitter:description" content="Pipelining explained: pipeline segments, space-time diagram, speedup and throughput with solved problems, instruction pipelines, and data and branch hazards.">
+  <meta name="twitter:image" content="https://chandrashaker.com/courses/images/og/coa-v7.png">
+  <script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Courses","item":"https://chandrashaker.com/courses/"},{"@type":"ListItem","position":2,"name":"COA","item":"https://chandrashaker.com/courses/academic/coa/"},{"@type":"ListItem","position":3,"name":"Unit 4","item":"https://chandrashaker.com/courses/academic/coa/unit4/"},{"@type":"ListItem","position":4,"name":"Pipelining"}]}
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LearningResource",
+  "name": "Pipelining",
+  "description": "Pipelining explained: pipeline segments, space-time diagram, speedup and throughput with solved problems, instruction pipelines, and data and branch hazards.",
+  "url": "https://chandrashaker.com/courses/academic/coa/unit4/pipelining",
+  "image": "https://chandrashaker.com/courses/images/og/coa-v7.png",
+  "learningResourceType": "Lesson",
+  "educationalLevel": "Undergraduate",
+  "about": { "@type": "Thing", "name": "Computer Organization and Architecture" },
+  "isPartOf": { "@type": "Course", "name": "Computer Organization and Architecture", "provider": { "@type": "Organization", "name": "CHANDRAS EDU", "url": "https://chandrashaker.in" } },
+  "publisher": { "@type": "Organization", "name": "CHANDRAS EDU", "url": "https://chandrashaker.in" }
+}
+  </script>
+  <link rel="icon" href="/favicon.ico">
+  <style>
+    .fig-wrap{text-align:center;margin:1.5rem 0}
+    .fig-wrap img{max-width:100%;height:auto;border-radius:var(--radius)}
+    .fig-caption{font-size:.82rem;color:var(--text-3);margin-top:.4rem}
+    .key-point{background:var(--bg-2);border-left:4px solid var(--accent,#f59e0b);border-radius:var(--radius);padding:.7rem 1rem;margin:1rem 0;font-size:.92rem}
+  </style>
+</head>
+<body>
+<div id="main-nav"></div>
+<div class="page-narrow" role="main">
+  <nav class="breadcrumb">
+    <a href="../../../index.html">Courses</a><span class="sep">/</span>
+    <a href="../index.html">Computer Organization and Architecture</a><span class="sep">/</span>
+    <a href="index.html">Unit 4</a><span class="sep">/</span>
+    <span>Supplementary Topics</span><span class="sep">/</span>
+    <span class="cur">Pipelining</span>
+  </nav>
+  <div style="background:var(--primary);border-radius:var(--radius-lg);padding:1.1rem 1.4rem;margin-bottom:1.5rem;color:#fff">
+    <div style="font-size:.75rem;opacity:.75;margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.05em">Supplementary — beyond the syllabus</div>
+    <h1 style="font-size:1.4rem;font-weight:700;color:#fff;margin-bottom:.5rem">Pipelining</h1>
+    <div style="display:flex;gap:.75rem;flex-wrap:wrap">
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">⏱ 25 min read</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📌 Supplementary — beyond the syllabus</span>
+    </div>
+  </div>
+  <div class="lesson">
+    <div class="box box-tip">
+      <strong>In simple terms:</strong> pipelining is an assembly line inside the processor. A task is split into steps, each step has its own hardware, and while one task is in step 3 the next is in step 2 and the one after in step 1 — so a new result comes out every clock.</div>
+
+    <h2>Parallel Processing and the Pipeline Idea</h2>
+    <p>Parallel processing makes a computer do several things at once. <strong>Pipelining</strong> is one form of it: a process is divided into <strong>k sub-operations (segments)</strong>, each executed by its own circuit, and the segments run at the same time on different data. Each segment is a combinational circuit followed by a register that holds its result for the next segment; one common clock moves every result one segment forward.</p>
+    <div style="text-align:center;margin:1.25rem 0">
+      <div style="overflow-x:auto">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 670 170" role="img" aria-label="Structure of a pipeline: input enters segment 1; each segment is a combinational circuit Si followed by a register Ri that holds its result; all registers are loaded by a common clock, so every segment works on a different task in the same clock period." style="width:100%;height:auto;max-width:670px;display:block;margin:0 auto;min-width:670px" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif"><title>Structure of a pipeline: input enters segment 1; each segment is a combinational circuit Si followed by a register Ri that holds its result; all registers are loaded by a common clock, so every segment works on a different task in the same clock period.</title><defs><marker id="mpp1ak" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#1F2937"/></marker><marker id="mpp1sk" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1F2937"/></marker><marker id="mpp1ao" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#E07A00"/></marker><marker id="mpp1so" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#E07A00"/></marker></defs><text x="14" y="52" text-anchor="start" font-size="12" font-weight="normal" fill="#1F2937">Input</text><rect x="60" y="40" width="60" height="50" rx="6" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><text x="90.0" y="69.5" text-anchor="middle" font-size="13" fill="#1F2937">S₁</text><rect x="130" y="40" width="24" height="50" rx="0" fill="#FFF3E0" stroke="#E07A00" stroke-width="1.6"/><text x="142.0" y="69.5" text-anchor="middle" font-size="13" fill="#1F2937"></text><text x="142" y="32" text-anchor="middle" font-size="11.5" font-weight="normal" fill="#E07A00">R₁</text><path d="M120,65 L130,65" fill="none" stroke="#1F2937" stroke-width="1.6"/><path d="M154,65 L210,65" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#mpp1ak)"/><rect x="210" y="40" width="60" height="50" rx="6" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><text x="240.0" y="69.5" text-anchor="middle" font-size="13" fill="#1F2937">S₂</text><rect x="280" y="40" width="24" height="50" rx="0" fill="#FFF3E0" stroke="#E07A00" stroke-width="1.6"/><text x="292.0" y="69.5" text-anchor="middle" font-size="13" fill="#1F2937"></text><text x="292" y="32" text-anchor="middle" font-size="11.5" font-weight="normal" fill="#E07A00">R₂</text><path d="M270,65 L280,65" fill="none" stroke="#1F2937" stroke-width="1.6"/><path d="M304,65 L360,65" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#mpp1ak)"/><rect x="360" y="40" width="60" height="50" rx="6" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><text x="390.0" y="69.5" text-anchor="middle" font-size="13" fill="#1F2937">S₃</text><rect x="430" y="40" width="24" height="50" rx="0" fill="#FFF3E0" stroke="#E07A00" stroke-width="1.6"/><text x="442.0" y="69.5" text-anchor="middle" font-size="13" fill="#1F2937"></text><text x="442" y="32" text-anchor="middle" font-size="11.5" font-weight="normal" fill="#E07A00">R₃</text><path d="M420,65 L430,65" fill="none" stroke="#1F2937" stroke-width="1.6"/><path d="M454,65 L510,65" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#mpp1ak)"/><rect x="510" y="40" width="60" height="50" rx="6" fill="#E3F0FB" stroke="#1565C0" stroke-width="1.6"/><text x="540.0" y="69.5" text-anchor="middle" font-size="13" fill="#1F2937">S₄</text><rect x="580" y="40" width="24" height="50" rx="0" fill="#FFF3E0" stroke="#E07A00" stroke-width="1.6"/><text x="592.0" y="69.5" text-anchor="middle" font-size="13" fill="#1F2937"></text><text x="592" y="32" text-anchor="middle" font-size="11.5" font-weight="normal" fill="#E07A00">R₄</text><path d="M570,65 L580,65" fill="none" stroke="#1F2937" stroke-width="1.6"/><path d="M20,65 L60,65" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#mpp1ak)"/><path d="M604,65 L650,65" fill="none" stroke="#1F2937" stroke-width="1.6" marker-end="url(#mpp1ak)"/><text x="654" y="52" text-anchor="end" font-size="12" font-weight="normal" fill="#1F2937">Output</text><text x="14" y="150" text-anchor="start" font-size="12" font-weight="normal" fill="#E07A00">Clock</text><path d="M60,146 L592,146" fill="none" stroke="#E07A00" stroke-width="1.4"/><circle cx="142" cy="146" r="3" fill="#E07A00"/><path d="M142,146 L142,90" fill="none" stroke="#E07A00" stroke-width="1.2" marker-end="url(#mpp1ao)"/><circle cx="292" cy="146" r="3" fill="#E07A00"/><path d="M292,146 L292,90" fill="none" stroke="#E07A00" stroke-width="1.2" marker-end="url(#mpp1ao)"/><circle cx="442" cy="146" r="3" fill="#E07A00"/><path d="M442,146 L442,90" fill="none" stroke="#E07A00" stroke-width="1.2" marker-end="url(#mpp1ao)"/><circle cx="592" cy="146" r="3" fill="#E07A00"/><path d="M592,146 L592,90" fill="none" stroke="#E07A00" stroke-width="1.2" marker-end="url(#mpp1ao)"/></svg>
+      </div>
+      <p style="font-size:.8rem;color:var(--text-2);margin-top:.4rem">A k-segment pipeline: each segment S<sub>i</sub> is followed by a register R<sub>i</sub>, all clocked together.</p>
+    </div>
+    <p><strong>Textbook illustration:</strong> computing A<sub>i</sub> × B<sub>i</sub> + C<sub>i</sub> for i = 1 … 7 in three segments — segment 1 loads A<sub>i</sub> and B<sub>i</sub>, segment 2 multiplies and loads C<sub>i</sub>, segment 3 adds. Once the pipeline is full, one result leaves every clock.</p>
+
+    <h2>The Space-Time Diagram</h2>
+    <div style="text-align:center;margin:1.25rem 0">
+      <div style="overflow-x:auto">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 220" role="img" aria-label="Space-time diagram of a four-segment pipeline processing six tasks T1 to T6: task T1 occupies segment 1 in clock 1, segment 2 in clock 2 and so on; a new task enters every clock, so all six tasks finish after 4 + 6 − 1 = 9 clock cycles instead of 24." style="width:100%;height:auto;max-width:620px;display:block;margin:0 auto;min-width:620px" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif"><title>Space-time diagram of a four-segment pipeline processing six tasks T1 to T6: task T1 occupies segment 1 in clock 1, segment 2 in clock 2 and so on; a new task enters every clock, so all six tasks finish after 4 + 6 − 1 = 9 clock cycles instead of 24.</title><defs><marker id="mpp2ak" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#1F2937"/></marker><marker id="mpp2sk" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1F2937"/></marker><marker id="mpp2ao" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#E07A00"/></marker><marker id="mpp2so" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#E07A00"/></marker></defs><text x="136.0" y="30" text-anchor="middle" font-size="12" font-weight="normal" fill="#6B7280">1</text><text x="188.0" y="30" text-anchor="middle" font-size="12" font-weight="normal" fill="#6B7280">2</text><text x="240.0" y="30" text-anchor="middle" font-size="12" font-weight="normal" fill="#6B7280">3</text><text x="292.0" y="30" text-anchor="middle" font-size="12" font-weight="normal" fill="#6B7280">4</text><text x="344.0" y="30" text-anchor="middle" font-size="12" font-weight="normal" fill="#6B7280">5</text><text x="396.0" y="30" text-anchor="middle" font-size="12" font-weight="normal" fill="#6B7280">6</text><text x="448.0" y="30" text-anchor="middle" font-size="12" font-weight="normal" fill="#6B7280">7</text><text x="500.0" y="30" text-anchor="middle" font-size="12" font-weight="normal" fill="#6B7280">8</text><text x="552.0" y="30" text-anchor="middle" font-size="12" font-weight="normal" fill="#6B7280">9</text><text x="100" y="30" text-anchor="end" font-size="11.5" font-weight="normal" fill="#6B7280">Clock →</text><text x="100" y="62.0" text-anchor="end" font-size="12" font-weight="normal" fill="#1F2937">Segment 1</text><rect x="110" y="40" width="52" height="36" rx="0" fill="#E3F0FB" stroke="#B0BEC5" stroke-width="1.6"/><text x="136.0" y="62.2" text-anchor="middle" font-size="12" fill="#1F2937">T1</text><rect x="162" y="40" width="52" height="36" rx="0" fill="#E3F0FB" stroke="#B0BEC5" stroke-width="1.6"/><text x="188.0" y="62.2" text-anchor="middle" font-size="12" fill="#1F2937">T2</text><rect x="214" y="40" width="52" height="36" rx="0" fill="#E3F0FB" stroke="#B0BEC5" stroke-width="1.6"/><text x="240.0" y="62.2" text-anchor="middle" font-size="12" fill="#1F2937">T3</text><rect x="266" y="40" width="52" height="36" rx="0" fill="#E3F0FB" stroke="#B0BEC5" stroke-width="1.6"/><text x="292.0" y="62.2" text-anchor="middle" font-size="12" fill="#1F2937">T4</text><rect x="318" y="40" width="52" height="36" rx="0" fill="#E3F0FB" stroke="#B0BEC5" stroke-width="1.6"/><text x="344.0" y="62.2" text-anchor="middle" font-size="12" fill="#1F2937">T5</text><rect x="370" y="40" width="52" height="36" rx="0" fill="#E3F0FB" stroke="#B0BEC5" stroke-width="1.6"/><text x="396.0" y="62.2" text-anchor="middle" font-size="12" fill="#1F2937">T6</text><rect x="422" y="40" width="52" height="36" rx="0" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.6"/><text x="448.0" y="62.2" text-anchor="middle" font-size="12" fill="#1F2937"></text><rect x="474" y="40" width="52" height="36" rx="0" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.6"/><text x="500.0" y="62.2" text-anchor="middle" font-size="12" fill="#1F2937"></text><rect x="526" y="40" width="52" height="36" rx="0" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.6"/><text x="552.0" y="62.2" text-anchor="middle" font-size="12" fill="#1F2937"></text><text x="100" y="98.0" text-anchor="end" font-size="12" font-weight="normal" fill="#1F2937">Segment 2</text><rect x="110" y="76" width="52" height="36" rx="0" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.6"/><text x="136.0" y="98.2" text-anchor="middle" font-size="12" fill="#1F2937"></text><rect x="162" y="76" width="52" height="36" rx="0" fill="#E3F0FB" stroke="#B0BEC5" stroke-width="1.6"/><text x="188.0" y="98.2" text-anchor="middle" font-size="12" fill="#1F2937">T1</text><rect x="214" y="76" width="52" height="36" rx="0" fill="#E3F0FB" stroke="#B0BEC5" stroke-width="1.6"/><text x="240.0" y="98.2" text-anchor="middle" font-size="12" fill="#1F2937">T2</text><rect x="266" y="76" width="52" height="36" rx="0" fill="#E3F0FB" stroke="#B0BEC5" stroke-width="1.6"/><text x="292.0" y="98.2" text-anchor="middle" font-size="12" fill="#1F2937">T3</text><rect x="318" y="76" width="52" height="36" rx="0" fill="#E3F0FB" stroke="#B0BEC5" stroke-width="1.6"/><text x="344.0" y="98.2" text-anchor="middle" font-size="12" fill="#1F2937">T4</text><rect x="370" y="76" width="52" height="36" rx="0" fill="#E3F0FB" stroke="#B0BEC5" stroke-width="1.6"/><text x="396.0" y="98.2" text-anchor="middle" font-size="12" fill="#1F2937">T5</text><rect x="422" y="76" width="52" height="36" rx="0" fill="#E3F0FB" stroke="#B0BEC5" stroke-width="1.6"/><text x="448.0" y="98.2" text-anchor="middle" font-size="12" fill="#1F2937">T6</text><rect x="474" y="76" width="52" height="36" rx="0" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.6"/><text x="500.0" y="98.2" text-anchor="middle" font-size="12" fill="#1F2937"></text><rect x="526" y="76" width="52" height="36" rx="0" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.6"/><text x="552.0" y="98.2" text-anchor="middle" font-size="12" fill="#1F2937"></text><text x="100" y="134.0" text-anchor="end" font-size="12" font-weight="normal" fill="#1F2937">Segment 3</text><rect x="110" y="112" width="52" height="36" rx="0" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.6"/><text x="136.0" y="134.2" text-anchor="middle" font-size="12" fill="#1F2937"></text><rect x="162" y="112" width="52" height="36" rx="0" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.6"/><text x="188.0" y="134.2" text-anchor="middle" font-size="12" fill="#1F2937"></text><rect x="214" y="112" width="52" height="36" rx="0" fill="#E3F0FB" stroke="#B0BEC5" stroke-width="1.6"/><text x="240.0" y="134.2" text-anchor="middle" font-size="12" fill="#1F2937">T1</text><rect x="266" y="112" width="52" height="36" rx="0" fill="#E3F0FB" stroke="#B0BEC5" stroke-width="1.6"/><text x="292.0" y="134.2" text-anchor="middle" font-size="12" fill="#1F2937">T2</text><rect x="318" y="112" width="52" height="36" rx="0" fill="#E3F0FB" stroke="#B0BEC5" stroke-width="1.6"/><text x="344.0" y="134.2" text-anchor="middle" font-size="12" fill="#1F2937">T3</text><rect x="370" y="112" width="52" height="36" rx="0" fill="#E3F0FB" stroke="#B0BEC5" stroke-width="1.6"/><text x="396.0" y="134.2" text-anchor="middle" font-size="12" fill="#1F2937">T4</text><rect x="422" y="112" width="52" height="36" rx="0" fill="#E3F0FB" stroke="#B0BEC5" stroke-width="1.6"/><text x="448.0" y="134.2" text-anchor="middle" font-size="12" fill="#1F2937">T5</text><rect x="474" y="112" width="52" height="36" rx="0" fill="#E3F0FB" stroke="#B0BEC5" stroke-width="1.6"/><text x="500.0" y="134.2" text-anchor="middle" font-size="12" fill="#1F2937">T6</text><rect x="526" y="112" width="52" height="36" rx="0" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.6"/><text x="552.0" y="134.2" text-anchor="middle" font-size="12" fill="#1F2937"></text><text x="100" y="170.0" text-anchor="end" font-size="12" font-weight="normal" fill="#1F2937">Segment 4</text><rect x="110" y="148" width="52" height="36" rx="0" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.6"/><text x="136.0" y="170.2" text-anchor="middle" font-size="12" fill="#1F2937"></text><rect x="162" y="148" width="52" height="36" rx="0" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.6"/><text x="188.0" y="170.2" text-anchor="middle" font-size="12" fill="#1F2937"></text><rect x="214" y="148" width="52" height="36" rx="0" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.6"/><text x="240.0" y="170.2" text-anchor="middle" font-size="12" fill="#1F2937"></text><rect x="266" y="148" width="52" height="36" rx="0" fill="#E3F0FB" stroke="#B0BEC5" stroke-width="1.6"/><text x="292.0" y="170.2" text-anchor="middle" font-size="12" fill="#1F2937">T1</text><rect x="318" y="148" width="52" height="36" rx="0" fill="#E3F0FB" stroke="#B0BEC5" stroke-width="1.6"/><text x="344.0" y="170.2" text-anchor="middle" font-size="12" fill="#1F2937">T2</text><rect x="370" y="148" width="52" height="36" rx="0" fill="#E3F0FB" stroke="#B0BEC5" stroke-width="1.6"/><text x="396.0" y="170.2" text-anchor="middle" font-size="12" fill="#1F2937">T3</text><rect x="422" y="148" width="52" height="36" rx="0" fill="#E3F0FB" stroke="#B0BEC5" stroke-width="1.6"/><text x="448.0" y="170.2" text-anchor="middle" font-size="12" fill="#1F2937">T4</text><rect x="474" y="148" width="52" height="36" rx="0" fill="#E3F0FB" stroke="#B0BEC5" stroke-width="1.6"/><text x="500.0" y="170.2" text-anchor="middle" font-size="12" fill="#1F2937">T5</text><rect x="526" y="148" width="52" height="36" rx="0" fill="#E3F0FB" stroke="#B0BEC5" stroke-width="1.6"/><text x="552.0" y="170.2" text-anchor="middle" font-size="12" fill="#1F2937">T6</text><text x="344.0" y="214" text-anchor="middle" font-size="12" font-weight="600" fill="#1F2937">k + n − 1 = 4 + 6 − 1 = 9 cycles (non-pipelined: k × n = 24)</text></svg>
+      </div>
+      <p style="font-size:.8rem;color:var(--text-2);margin-top:.4rem">Space-time diagram: four segments, six tasks, nine clock cycles. Adapted from M. Morris Mano, <em>Computer System Architecture</em>, Fig. 9-4.</p>
+    </div>
+    <p>The first task needs k clocks to pass through all segments; after that one task finishes every clock. So n tasks take <strong>k + n − 1</strong> clock cycles.</p>
+
+    <h2>Speedup, Efficiency and Throughput</h2>
+    <p>With clock period t<sub>p</sub> and a non-pipelined unit that takes t<sub>n</sub> per task:</p>
+    <div class="box box-eg">
+      <pre>Pipelined time      = (k + n − 1) · t<sub>p</sub>
+Non-pipelined time  = n · t<sub>n</sub>
+Speedup  S = n·t<sub>n</sub> / ((k + n − 1)·t<sub>p</sub>)
+If t<sub>n</sub> = k·t<sub>p</sub> and n is very large:  S → k   (the maximum speedup equals the number of segments)
+Efficiency  = S / k            Throughput = n / ((k + n − 1)·t<sub>p</sub>)   tasks per unit time</pre>
+    </div>
+    <p>In practice the maximum is never reached: segments take different times, the clock must suit the slowest one, and registers add delay.</p>
+
+    <h2>Instruction Pipeline</h2>
+    <p>An instruction cycle can be pipelined too. A four-segment example:</p>
+    <div style="overflow-x:auto">
+      <table>
+        <thead><tr><th>Segment</th><th>Action</th></tr></thead>
+        <tbody>
+          <tr><td>FI</td><td>Fetch the instruction</td></tr>
+          <tr><td>DA</td><td>Decode it and calculate the effective address</td></tr>
+          <tr><td>FO</td><td>Fetch the operand</td></tr>
+          <tr><td>EX</td><td>Execute</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Ideally a new instruction starts every clock. Three kinds of <strong>hazard</strong> spoil this:</p>
+    <div style="overflow-x:auto">
+      <table>
+        <thead><tr><th>Hazard</th><th>Cause</th><th>Remedies</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Resource (structural)</strong></td><td>Two segments need the same hardware at once (e.g. one memory for instruction fetch and operand fetch)</td><td>Separate instruction and data memories (or caches)</td></tr>
+          <tr><td><strong>Data</strong></td><td>An instruction needs a result the previous one hasn’t produced yet</td><td>Hardware interlock (stall), <strong>operand forwarding</strong> (bypass the result directly to the next instruction), delayed load (compiler reorders or inserts no-ops)</td></tr>
+          <tr><td><strong>Branch (control)</strong></td><td>A branch changes the PC, so the instructions already fetched are wrong</td><td>Prefetch the branch target, branch target buffer, loop buffer, <strong>branch prediction</strong>, <strong>delayed branch</strong> (compiler fills the slot after the branch with a useful instruction)</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p><strong>Example — a data hazard:</strong></p>
+    <div class="box box-eg">
+      <pre>ADD R1, R2, R3     ; R1 ← R2 + R3
+SUB R4, R1, R5     ; needs the new R1</pre>
+    </div>
+    <p>Without forwarding, SUB must wait until ADD writes R1 — the pipeline stalls; with forwarding, ADD’s result goes straight from the execute stage to SUB’s input.</p>
+
+    <h2>Solved Problems</h2>
+    <h3>Problem 1 — Speedup of a four-segment pipeline</h3>
+    <div class="box box-eg">
+      <pre>k = 4 segments, t<sub>p</sub> = 20 ns, n = 100 tasks, non-pipelined t<sub>n</sub> = k·t<sub>p</sub> = 80 ns
+Pipelined:      (k + n − 1)·t<sub>p</sub> = (4 + 100 − 1) × 20 = 2,060 ns
+Non-pipelined:  n·t<sub>n</sub> = 100 × 80 = 8,000 ns
+Speedup S = 8,000 / 2,060 = 3.88      (close to the maximum, k = 4)
+Efficiency = 3.88 / 4 = 0.97          Throughput = 100 / 2,060 ns ≈ 48.5 million tasks/s</pre>
+    </div>
+    <h3>Problem 2 — Unequal stages and latch delay</h3>
+    <div class="box box-eg">
+      <pre>Stage delays 60, 50, 70, 80 ns; register (latch) delay 10 ns; 1,000 instructions
+Clock period = slowest stage + latch = 80 + 10 = 90 ns
+Pipelined:      (4 + 1000 − 1) × 90 = 90,270 ns
+Non-pipelined:  1000 × (60 + 50 + 70 + 80) = 260,000 ns
+Speedup = 260,000 / 90,270 ≈ 2.88     (well below 4, because of the slow stage and the latch)</pre>
+    </div>
+    <h3>Problem 3 — Branch penalty</h3>
+    <p>CPI = clock cycles per instruction.</p>
+    <div class="box box-eg">
+      <pre>Ideal CPI = 1; 20 % of instructions are branches; each costs 3 stall cycles
+Effective CPI = 1 + 0.2 × 3 = 1.6     → the pipeline delivers 1/1.6 = 62.5 % of its ideal rate</pre>
+    </div>
+    <h3>Problem 4 — Cycles for n tasks</h3>
+    <p>A 4-segment pipeline needs 4 + 6 − 1 = 9 cycles for 6 tasks (space-time diagram above), against 4 × 6 = 24 without pipelining.</p>
+
+    <h3>Practice Problems</h3>
+    <ol>
+      <li>A 5-segment pipeline has a 10 ns clock. How long do 50 tasks take, and what is the speedup over a non-pipelined unit taking 50 ns per task?
+        <details style="margin:.35rem 0 .6rem"><summary style="cursor:pointer;font-weight:600">Show answer</summary><p style="margin:.4rem 0 0">(5 + 50 − 1) × 10 = 540 ns; 2,500 / 540 ≈ 4.63.</p></details>
+      </li>
+      <li>What is the maximum speedup of a 6-segment pipeline?
+        <details style="margin:.35rem 0 .6rem"><summary style="cursor:pointer;font-weight:600">Show answer</summary><p style="margin:.4rem 0 0">6 (as n → ∞, with t<sub>n</sub> = k·t<sub>p</sub>).</p></details>
+      </li>
+      <li>Stage delays 40, 30, 50 ns, latch 5 ns. What is the clock period?
+        <details style="margin:.35rem 0 .6rem"><summary style="cursor:pointer;font-weight:600">Show answer</summary><p style="margin:.4rem 0 0">55 ns.</p></details>
+      </li>
+      <li>30 % branches, 2-cycle penalty each: effective CPI?
+        <details style="margin:.35rem 0 .6rem"><summary style="cursor:pointer;font-weight:600">Show answer</summary><p style="margin:.4rem 0 0">1 + 0.3 × 2 = 1.6.</p></details>
+      </li>
+    </ol>
+
+    <h2>Common Pitfalls</h2>
+    <ul>
+      <li><strong>Using k × n for pipelined time.</strong> The pipelined time is (k + n − 1) clocks; k × n is the non-pipelined count.</li>
+      <li><strong>Clocking at the average stage delay.</strong> The clock must suit the slowest stage plus the register delay.</li>
+      <li><strong>Expecting speedup = k for a few tasks.</strong> k is the limit only for very many tasks; for small n the fill time dominates.</li>
+    </ul>
+
+    <h2>Applications</h2>
+    <ul>
+      <li>Every modern processor pipelines instruction execution (typically 5 to 20 stages).</li>
+      <li>Floating-point units, graphics processors and DSPs pipeline arithmetic.</li>
+      <li>The compiler’s job of reordering instructions (delayed load, delayed branch) exists because of pipeline hazards.</li>
+    </ul>
+
+    <p style="margin-top:1rem">Related syllabus topics: <a href="general-register-organization.html">General Register Organization</a> · <a href="program-control.html">Program Control</a>.</p>
+  </div>
+  <div class="topic-nav">
+    <a href="floating-point-arithmetic.html">
+      <div class="nav-dir">← Previous</div>
+      <div class="nav-title">Floating-Point Arithmetic Operations</div>
+    </a>
+    <a href="index.html" class="next">
+      <div class="nav-dir">Next →</div>
+      <div class="nav-title">Back to Unit 4 Overview</div>
+    </a>
+  </div>
+</div>
+<footer id="main-footer"></footer>
+<script type="module">
+  import { initNav } from '../../../js/nav.js';
+  import { initSidebar } from '../../../js/sidebar.js';
+  initNav(3);
+  initSidebar();
+</script>
+</body>
+</html>

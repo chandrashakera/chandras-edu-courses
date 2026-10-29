@@ -18,10 +18,15 @@ export const GROUPS = {
       { id:'division-algorithms', title:'Division Algorithms', desc:'Restoring division and divide-overflow detection.', time:'15 min', href:'division-algorithms.html', status:'active' },
       { id:'floating-point-arithmetic', title:'Floating-Point Arithmetic Operations', desc:'Adding, subtracting, multiplying and dividing floating-point numbers.', time:'18 min', href:'floating-point-arithmetic.html', status:'active' },
     ],
+    // Supplementary topics: extra pages beyond the syllabus (no quiz, not required for the certificate) — see js/curriculum/supplementary.js
+    'tg-supplementary': [
+      { id:'pipelining', title:'Pipelining', desc:'Pipeline segments, space-time diagram, speedup and throughput with solved problems, instruction pipelines and hazards.', time:'25 min', href:'pipelining.html', status:'active', supplementary:true, related:'general-register-organization' },
+    ],
 };
 
 export const GROUP_LABELS = {
   'tg-microprogrammed-control': '🔧 Microprogrammed Control',
   'tg-cpu': '🖥️ Central Processing Unit',
   'tg-computer-arithmetic': '🔢 Computer Arithmetic',
+  'tg-supplementary': 'Supplementary Topics — Beyond the Syllabus',
 };

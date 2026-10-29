@@ -458,7 +458,7 @@
   </url>
   <url>
     <loc>https://chandrashaker.com/courses/academic/coa/unit4/</loc>
-    <lastmod>2026-10-28</lastmod>
+    <lastmod>2026-10-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
@@ -476,7 +476,7 @@
   </url>
   <url>
     <loc>https://chandrashaker.com/courses/academic/coa/unit4/general-register-organization</loc>
-    <lastmod>2026-10-23</lastmod>
+    <lastmod>2026-10-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -506,7 +506,7 @@
   </url>
   <url>
     <loc>https://chandrashaker.com/courses/academic/coa/unit4/program-control</loc>
-    <lastmod>2026-10-23</lastmod>
+    <lastmod>2026-10-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -531,6 +531,12 @@
   <url>
     <loc>https://chandrashaker.com/courses/academic/coa/unit4/floating-point-arithmetic</loc>
     <lastmod>2026-10-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://chandrashaker.com/courses/academic/coa/unit4/pipelining</loc>
+    <lastmod>2026-10-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -620,7 +626,7 @@
   </url>
   <url>
     <loc>https://chandrashaker.com/courses/academic/coa/unit1/floating-point-representation</loc>
-    <lastmod>2026-10-23</lastmod>
+    <lastmod>2026-10-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>

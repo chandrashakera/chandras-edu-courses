@@ -106,6 +106,8 @@
       <li><strong>OPR ignoring bus B.</strong> For single-operand operations (TSFA, INCA, COMA, shifts), the ALU uses only bus A. SELB must still hold a valid code — the MUX always drives bus B — but the OPR circuitry disregards it.</li>
       <li><strong>Read-before-write on the same register.</strong> If SELA = SELD = 001, the operation reads R1 at the start of the clock cycle and writes the result at the clock edge. This is correct: R1 ← R1 + R2 behaves as expected.</li>
     </ul>
+
+    <p style="margin-top:1rem">Go further: <a href="pipelining.html">Pipelining</a> (supplementary)</p>
   </div>
 
   <div id="gate-section">
