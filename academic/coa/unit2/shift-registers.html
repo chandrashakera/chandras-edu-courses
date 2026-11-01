@@ -79,7 +79,7 @@
     <div style="font-size:.75rem;opacity:.75;margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.05em">COA › Unit 2: Sequential Logic › Topic 6</div>
     <h1 style="font-size:1.4rem;font-weight:700;color:#fff;margin-bottom:.5rem">Shift Registers</h1>
     <div style="display:flex;gap:.75rem;flex-wrap:wrap">
-      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">⏱ 22 min read</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">⏱ 24 min read</span>
       <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📝 Quiz inside</span>
     </div>
   </div>
@@ -259,6 +259,20 @@
     </table>
     </div>
     <p>SISO and SIPO don't need this line at all — with no parallel-load path built in, they only ever shift, so the MUX (and its control line) simply isn't there.</p>
+
+    <h2>Universal Shift Register</h2>
+    <p>A <strong>universal shift register</strong> can hold, shift right, shift left or load in parallel, selected by two mode lines S<sub>1</sub>S<sub>0</sub> — a 4-to-1 MUX in front of each flip-flop picks its D input. (Right = toward the last stage.)</p>
+    <div style="overflow-x:auto">
+    <table class="truth-table">
+      <thead><tr><th>S<sub>1</sub>S<sub>0</sub></th><th>Operation</th></tr></thead>
+      <tbody>
+        <tr><td>00</td><td>Hold</td></tr>
+        <tr><td>01</td><td>Shift right</td></tr>
+        <tr><td>10</td><td>Shift left</td></tr>
+        <tr><td>11</td><td>Parallel load</td></tr>
+      </tbody>
+    </table>
+    </div>
 
     <h2>Common Pitfalls</h2>
     <ul>

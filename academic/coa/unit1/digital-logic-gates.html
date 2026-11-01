@@ -147,6 +147,14 @@
   Match! (True for all 4 input combinations, which is what makes it a theorem.)</pre>
     </div>
 
+    <p>A related identity, the <strong>consensus theorem</strong>, tells you when a term is redundant: AB + A′C + BC = AB + A′C — the BC term is already covered by the other two.</p>
+    <div class="box box-eg">
+      <pre>Example: AB + AC′ + BC
+The consensus of AC′ and BC is AB, so the term AB is redundant:
+  AB + AC′ + BC = AC′ + BC
+Check (A=1, B=1, C=0): AB + AC′ + BC = 1 + 1 + 0 = 1   and   AC′ + BC = 1 + 0 = 1 ✓</pre>
+    </div>
+
     <h2>NAND and NOR: Universal Gates</h2>
     <p>NAND and NOR are called <strong>universal gates</strong> because either one, by itself, can build every other gate — NOT, AND, and OR included. This is a major reason real chips are built almost entirely from NAND (or NOR) gates: manufacturing one gate type repeatedly is far cheaper than manufacturing several different types.</p>
 

@@ -196,6 +196,8 @@
       <div style="font-size:.78rem;color:#777;margin-top:.4rem">SR (Set/Reset), D (single data line), JK (no forbidden state), and T (Toggle) — the CLK triangle at bottom-left is present on all four.</div>
     </div>
 
+    <p>On a symbol, a triangle at the clock input marks edge triggering; a bubble before the triangle means <strong>negative-edge</strong> (falling-edge) triggering — the master-slave JK, for example, changes Q only on the falling edge.</p>
+
     <h2 id="Gate-Level">Inside a Flip-Flop: Gate-Level Clocked SR Flip-Flop</h2>
     <p>The block symbol above hides real gates. A basic <strong>clocked SR flip-flop</strong> is built from two pairs of cross-coupled NAND gates: two "steering" gates that only let S and R through while CLK is high, feeding a cross-coupled NAND latch (the same core idea as the previous topic's SR latch) that actually holds the bit:</p>
     <div style="text-align:center;margin:1.25rem 0">

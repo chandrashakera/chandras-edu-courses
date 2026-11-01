@@ -5,14 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3030765874336294" crossorigin="anonymous"></script>
   <title>Control Memory — COA Unit 4 | CHANDRAS EDU</title>
-  <meta name="description" content="Control memory stores microinstructions as binary control words. Learn how a microprogrammed control unit reads ROM to sequence microoperations.">
+  <meta name="description" content="Control memory stores microinstructions as binary control words. Microprogrammed vs hardwired control, and how ROM sequences microoperations.">
   <link rel="canonical" href="https://chandrashaker.com/courses/academic/coa/unit4/control-memory">
   <link rel="stylesheet" href="../../../css/style.css">
 
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="CHANDRAS EDU">
   <meta property="og:title" content="Control Memory — COA Unit 4 | CHANDRAS EDU">
-  <meta property="og:description" content="Control memory stores microinstructions as binary control words. Learn how a microprogrammed control unit reads ROM to sequence microoperations.">
+  <meta property="og:description" content="Control memory stores microinstructions as binary control words. Microprogrammed vs hardwired control, and how ROM sequences microoperations.">
   <meta property="og:url" content="https://chandrashaker.com/courses/academic/coa/unit4/control-memory">
   <meta property="og:image" content="https://chandrashaker.com/courses/images/og/coa-v7.png">
   <meta property="og:image:width" content="1200">
@@ -20,7 +20,7 @@
   <meta property="og:image:alt" content="Computer Organization and Architecture — CHANDRAS EDU free course">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Control Memory — COA Unit 4 | CHANDRAS EDU">
-  <meta name="twitter:description" content="Control memory stores microinstructions as binary control words. Learn how a microprogrammed control unit reads ROM to sequence microoperations.">
+  <meta name="twitter:description" content="Control memory stores microinstructions as binary control words. Microprogrammed vs hardwired control, and how ROM sequences microoperations.">
   <meta name="twitter:image" content="https://chandrashaker.com/courses/images/og/coa-v7.png">
 
   <script type="application/ld+json">
@@ -40,7 +40,7 @@
   "@context": "https://schema.org",
   "@type": "LearningResource",
   "name": "Control Memory",
-  "description": "Control memory stores microinstructions as binary control words. Learn how a microprogrammed control unit reads ROM to sequence microoperations.",
+  "description": "Control memory stores microinstructions as binary control words. Microprogrammed vs hardwired control, and how ROM sequences microoperations.",
   "url": "https://chandrashaker.com/courses/academic/coa/unit4/control-memory",
   "image": "https://chandrashaker.com/courses/images/og/coa-v7.png",
   "learningResourceType": "Lesson",
@@ -73,7 +73,7 @@
     <div style="font-size:.75rem;opacity:.75;margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.05em">COA › Unit 4: Microprogrammed Control › Topic 1</div>
     <h1 style="font-size:1.4rem;font-weight:700;color:#fff;margin-bottom:.5rem">Control Memory</h1>
     <div style="display:flex;gap:.75rem;flex-wrap:wrap">
-      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">⏱ 20 min read</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">⏱ 22 min read</span>
       <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📝 Quiz inside</span>
     </div>
   </div>
@@ -83,6 +83,20 @@
 
     <div class="box box-tip">
       <strong>In simple terms:</strong> a microprogrammed control unit is a tiny computer inside the CPU. Its program (the microprogram) lives in a ROM called control memory. Each word it reads out (a microinstruction) switches on the control signals for one clock cycle.
+    </div>
+
+    <div style="overflow-x:auto">
+      <table>
+        <caption style="font-size:.85rem;margin-bottom:.4rem">Hardwired vs microprogrammed control</caption>
+        <thead><tr><th></th><th>Hardwired</th><th>Microprogrammed</th></tr></thead>
+        <tbody>
+          <tr><td>Implementation</td><td>Logic gates, decoders and flip-flops</td><td>Control words stored in a control memory</td></tr>
+          <tr><td>Speed</td><td>Faster</td><td>Slower — one memory read per step</td></tr>
+          <tr><td>Flexibility</td><td>Redesign the wiring</td><td>Rewrite the microprogram</td></tr>
+          <tr><td>Complexity for large instruction sets</td><td>Difficult</td><td>Systematic</td></tr>
+          <tr><td>Typical use</td><td>RISC (small, simple instruction sets) and simple CPUs</td><td>CISC (large, complex instruction sets)</td></tr>
+        </tbody>
+      </table>
     </div>
 
     <h2>The Control Memory and the Microinstruction</h2>

@@ -107,7 +107,7 @@
     <p>Once aligned, the mantissa arithmetic follows the signed-magnitude algorithm from the <a href="addition-subtraction.html">Addition and Subtraction topic</a>. The signs Aₛ and Bₛ together with the operation (add/sub) determine whether the magnitudes are added or subtracted. If an overflow carry E = 1 occurs during addition, the sum is shifted right and the exponent incremented.</p>
 
     <h3>Phase 4 — Normalise the result</h3>
-    <p>After subtraction the result may have leading zeros (underflow). The mantissa is shifted left and the exponent decremented until A₁ = 1. If the mantissa is all zeros, AC is cleared to represent zero. An overflow carry from addition (E = 1) is handled by shifting right once and incrementing the exponent.</p>
+    <p>After subtraction the result may be unnormalised (leading zeros). The mantissa is shifted left and the exponent decremented until A₁ = 1. If the mantissa is all zeros, AC is cleared to represent zero. An overflow carry from addition (E = 1) is handled by shifting right once and incrementing the exponent.</p>
 
     <div class="fig-wrap">
       <div style="overflow-x:auto">
@@ -115,6 +115,14 @@
       </div>
       <p style="font-size:.8rem;color:var(--text-2);margin-top:.4rem">Addition and subtraction of floating-point numbers (four phases). Adapted from M. Morris Mano, <em>Computer System Architecture</em>, Fig. 10-15.</p>
     </div>
+
+    <div class="box box-eg">
+      <strong>Worked example: (0.1101 × 2⁶) + (0.1011 × 2⁴)</strong>
+      <pre>Align:  0.1011 × 2⁴ = 0.001011 × 2⁶      (shift right 2, exponent + 2)
+Add:    0.1101 + 0.001011 = 0.111111 × 2⁶   (already normalised: A₁ = 1)
+Check:  52 + 11 = 63 = 0.111111₂ × 64 ✓</pre>
+    </div>
+    <p>If the mantissa sum overflows, shift it right and add 1 to the exponent; if the exponent itself exceeds its range the result is an exponent overflow (too large) or underflow (too small). Extra bits shifted out are kept as guard bits, and the result is rounded or truncated. The example above is shown at full precision; with a 4-bit mantissa the extra bits are lost — truncation keeps 0.1111 × 2⁶, rounding gives 0.1000 × 2⁷.</p>
 
     <h2>Multiplication</h2>
     <p>Floating-point multiplication does <em>not</em> require mantissa alignment. The algorithm has four steps:</p>

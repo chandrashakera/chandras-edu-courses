@@ -104,7 +104,7 @@
     <div style="font-size:.75rem;opacity:.75;margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.05em">COA › Unit 1: Boolean Algebra &amp; Logic Gates › Topic 5</div>
     <h1 style="font-size:1.4rem;font-weight:700;color:#fff;margin-bottom:.5rem">K-Map Representation</h1>
     <div style="display:flex;gap:.75rem;flex-wrap:wrap">
-      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">⏱ 22 min read</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">⏱ 25 min read</span>
       <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📝 Quiz inside</span>
     </div>
   </div>
@@ -149,6 +149,21 @@
       <p style="font-size:.8rem;color:var(--text-2);margin-top:.4rem">Four-variable K-map: the four corners wrap around to give B′D′, the centre four give BD; the don't-cares m3 and m12 are not needed.</p>
     </div>
     <p>The four corner cells (m0, m2, m8, m10) are all mutually adjacent through wraparound — the map's left edge connects to its right edge, and its top edge connects to its bottom edge. Grouped together, all four simplify to the single term <strong>B′D′</strong>. Don't-care cells are folded into a group only where doing so lets it grow larger; forcing every don't-care to count as a 1 can produce an incorrect, over-general function. Here the centre four 1s (m5, m7, m13, m15) form a second group, BD; neither don't-care enlarges any group, so both are left out: F = B′D′ + BD.</p>
+
+    <h2>Minterms, Maxterms and POS</h2>
+    <p>A <strong>minterm</strong> is a product term that is 1 for exactly one input row (m<sub>i</sub>); a <strong>maxterm</strong> is a sum term that is 0 for exactly one row (M<sub>i</sub>). A function is the sum of its 1-rows or the product of its 0-rows: F = Σm(1s) = ΠM(0s).</p>
+    <div class="box box-eg">
+      <pre>F = A + B′C
+A = 1 gives rows 4, 5, 6, 7;  B′C gives rows 1 and 5
+F = Σm(1, 4, 5, 6, 7) = ΠM(0, 2, 3)</pre>
+    </div>
+    <div class="box box-eg">
+      <pre>F = ΠM(0, 2, 5, 7)
+Group the 0s:  m0, m2 (A=0, C=0) → (A + C)
+               m5, m7 (A=1, C=1) → (A′ + C′)
+F = (A + C)(A′ + C′) = A ⊕ C</pre>
+    </div>
+    <p><strong>For POS, group the 0s and write each group as a sum term:</strong> a variable that is 0 in the group appears as it is, and one that is 1 appears complemented.</p>
 
     <h2>Common Pitfalls</h2>
     <ul>

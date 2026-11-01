@@ -296,7 +296,7 @@
   </url>
   <url>
     <loc>https://chandrashaker.com/courses/academic/coa/unit2/decoders</loc>
-    <lastmod>2026-10-23</lastmod>
+    <lastmod>2026-11-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -308,7 +308,7 @@
   </url>
   <url>
     <loc>https://chandrashaker.com/courses/academic/coa/unit2/multiplexers</loc>
-    <lastmod>2026-10-23</lastmod>
+    <lastmod>2026-11-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -326,7 +326,7 @@
   </url>
   <url>
     <loc>https://chandrashaker.com/courses/academic/coa/unit2/flip-flops</loc>
-    <lastmod>2026-10-23</lastmod>
+    <lastmod>2026-11-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -344,7 +344,7 @@
   </url>
   <url>
     <loc>https://chandrashaker.com/courses/academic/coa/unit2/shift-registers</loc>
-    <lastmod>2026-10-23</lastmod>
+    <lastmod>2026-11-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -440,7 +440,7 @@
   </url>
   <url>
     <loc>https://chandrashaker.com/courses/academic/coa/unit3/instruction-cycle</loc>
-    <lastmod>2026-10-23</lastmod>
+    <lastmod>2026-10-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -464,7 +464,7 @@
   </url>
   <url>
     <loc>https://chandrashaker.com/courses/academic/coa/unit4/control-memory</loc>
-    <lastmod>2026-10-28</lastmod>
+    <lastmod>2026-11-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -524,13 +524,13 @@
   </url>
   <url>
     <loc>https://chandrashaker.com/courses/academic/coa/unit4/division-algorithms</loc>
-    <lastmod>2026-10-23</lastmod>
+    <lastmod>2026-11-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://chandrashaker.com/courses/academic/coa/unit4/floating-point-arithmetic</loc>
-    <lastmod>2026-10-24</lastmod>
+    <lastmod>2026-11-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -650,13 +650,13 @@
   </url>
   <url>
     <loc>https://chandrashaker.com/courses/academic/coa/unit1/digital-logic-gates</loc>
-    <lastmod>2026-10-23</lastmod>
+    <lastmod>2026-11-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://chandrashaker.com/courses/academic/coa/unit1/k-map-representation</loc>
-    <lastmod>2026-10-23</lastmod>
+    <lastmod>2026-11-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>

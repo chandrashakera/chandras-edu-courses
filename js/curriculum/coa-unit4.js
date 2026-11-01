@@ -1,7 +1,7 @@
 // js/curriculum/coa-unit4.js — COA Unit 4 topic list (Batch 5: 12 live topics; all Unit 4 topics live)
 export const GROUPS = {
     'tg-microprogrammed-control': [
-      { id:'control-memory',      title:'Control Memory',      desc:'How control words stored in memory replace hard-wired control.',      time:'20 min', href:'control-memory.html',      status:'active' },
+      { id:'control-memory',      title:'Control Memory',      desc:'How control words stored in memory replace hard-wired control — and how the two approaches compare.',      time:'22 min', href:'control-memory.html',      status:'active' },
       { id:'address-sequencing',  title:'Address Sequencing',  desc:'How the next microinstruction address is chosen: increment, branch, mapping, subroutine.',          time:'20 min', href:'address-sequencing.html',  status:'active' },
     ],
     'tg-cpu': [
@@ -15,8 +15,8 @@ export const GROUPS = {
     'tg-computer-arithmetic': [
       { id:'addition-subtraction', title:'Addition and Subtraction', desc:'Signed-magnitude addition and subtraction, with the hardware and algorithm.', time:'15 min', href:'addition-subtraction.html', status:'active' },
       { id:'multiplication-algorithms', title:'Multiplication Algorithms', desc:'Shift-and-add multiplication and Booth\'s algorithm.', time:'18 min', href:'multiplication-algorithms.html', status:'active' },
-      { id:'division-algorithms', title:'Division Algorithms', desc:'Restoring division and divide-overflow detection.', time:'15 min', href:'division-algorithms.html', status:'active' },
-      { id:'floating-point-arithmetic', title:'Floating-Point Arithmetic Operations', desc:'Adding, subtracting, multiplying and dividing floating-point numbers.', time:'18 min', href:'floating-point-arithmetic.html', status:'active' },
+      { id:'division-algorithms', title:'Division Algorithms', desc:'Restoring and non-restoring division and divide-overflow detection.', time:'15 min', href:'division-algorithms.html', status:'active' },
+      { id:'floating-point-arithmetic', title:'Floating-Point Arithmetic Operations', desc:'Adding, subtracting, multiplying and dividing floating-point numbers, with a worked addition example.', time:'18 min', href:'floating-point-arithmetic.html', status:'active' },
     ],
     // Supplementary topics: extra pages beyond the syllabus (no quiz, not required for the certificate) — see js/curriculum/supplementary.js
     'tg-supplementary': [

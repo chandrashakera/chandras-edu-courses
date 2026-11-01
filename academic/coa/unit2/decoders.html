@@ -169,6 +169,14 @@
     </div>
     <p>No K-map simplification needed at all — the decoder-plus-OR-gate approach trades gate-minimization effort for a completely mechanical implementation process, at the cost of needing a full decoder (which internally uses more gates than a minimized custom circuit would).</p>
 
+    <div class="box box-eg">
+      <strong>Two outputs from one decoder (full adder)</strong>
+      <pre>Inputs x, y, z (z = carry-in) on a 3-to-8 decoder:
+S = Σm(1, 2, 4, 7) = D₁ + D₂ + D₄ + D₇
+C = Σm(3, 5, 6, 7) = D₃ + D₅ + D₆ + D₇
+One decoder, one OR gate per output.</pre>
+    </div>
+
     <h2>Common Pitfalls</h2>
     <ul>
       <li><strong>A decoder's outputs are mutually exclusive by design</strong> — at most one output is active for any valid input combination; if a decoder circuit shows two outputs active simultaneously, there's a wiring or logic error.</li>
