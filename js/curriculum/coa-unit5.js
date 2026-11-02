@@ -89,6 +89,16 @@ export const GROUPS = {
       status: 'active',
       supplementary: true,
       related: 'memory-hierarchy'
+    },
+    {
+      id: 'memory-io-solved-problems',
+      title: 'Memory and I/O — Solved Problems',
+      desc: 'Solved chip-count, memory-map, disk timing, interrupt priority and DMA transfer-time problems.',
+      href: 'memory-io-solved-problems.html',
+      time: '30 min',
+      status: 'active',
+      supplementary: true,
+      related: 'main-memory'
     }
   ]
 };

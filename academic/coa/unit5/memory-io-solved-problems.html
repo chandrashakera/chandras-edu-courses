@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3030765874336294" crossorigin="anonymous"></script>
+  <title>Memory and I/O — Solved Problems — COA Unit 5 | CHANDRAS EDU</title>
+  <meta name="description" content="Memory and I/O solved problems: chip counts, address lines, memory maps, disk access time, daisy-chain and parallel priority interrupts and DMA transfer time.">
+  <link rel="canonical" href="https://chandrashaker.com/courses/academic/coa/unit5/memory-io-solved-problems.html">
+  <link rel="stylesheet" href="../../../css/style.css">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="CHANDRAS EDU">
+  <meta property="og:title" content="Memory and I/O — Solved Problems — COA Unit 5 | CHANDRAS EDU">
+  <meta property="og:description" content="Memory and I/O solved problems: chip counts, address lines, memory maps, disk access time, daisy-chain and parallel priority interrupts and DMA transfer time.">
+  <meta property="og:url" content="https://chandrashaker.com/courses/academic/coa/unit5/memory-io-solved-problems.html">
+  <meta property="og:image" content="https://chandrashaker.com/courses/images/og/coa-v7.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Computer Organization and Architecture — CHANDRAS EDU free course">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Memory and I/O — Solved Problems — COA Unit 5 | CHANDRAS EDU">
+  <meta name="twitter:description" content="Memory and I/O solved problems: chip counts, address lines, memory maps, disk access time, daisy-chain and parallel priority interrupts and DMA transfer time.">
+  <meta name="twitter:image" content="https://chandrashaker.com/courses/images/og/coa-v7.png">
+  <script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Courses","item":"https://chandrashaker.com/courses/"},{"@type":"ListItem","position":2,"name":"COA","item":"https://chandrashaker.com/courses/academic/coa/"},{"@type":"ListItem","position":3,"name":"Unit 5","item":"https://chandrashaker.com/courses/academic/coa/unit5/"},{"@type":"ListItem","position":4,"name":"Memory and I/O — Solved Problems"}]}
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LearningResource",
+  "name": "Memory and I/O — Solved Problems",
+  "description": "Memory and I/O solved problems: chip counts, address lines, memory maps, disk access time, daisy-chain and parallel priority interrupts and DMA transfer time.",
+  "url": "https://chandrashaker.com/courses/academic/coa/unit5/memory-io-solved-problems.html",
+  "image": "https://chandrashaker.com/courses/images/og/coa-v7.png",
+  "learningResourceType": "Lesson",
+  "educationalLevel": "Undergraduate",
+  "about": { "@type": "Thing", "name": "Computer Organization and Architecture" },
+  "isPartOf": { "@type": "Course", "name": "Computer Organization and Architecture", "provider": { "@type": "Organization", "name": "CHANDRAS EDU", "url": "https://chandrashaker.in" } },
+  "publisher": { "@type": "Organization", "name": "CHANDRAS EDU", "url": "https://chandrashaker.in" }
+}
+  </script>
+  <link rel="icon" href="/favicon.ico">
+</head>
+<body>
+<div id="main-nav"></div>
+<div class="page-narrow" role="main">
+  <nav class="breadcrumb">
+    <a href="../../../index.html">Courses</a><span class="sep">/</span>
+    <a href="../index.html">Computer Organization and Architecture</a><span class="sep">/</span>
+    <a href="index.html">Unit 5</a><span class="sep">/</span>
+    <span>Supplementary Topics</span><span class="sep">/</span>
+    <span class="cur">Memory and I/O — Solved Problems</span>
+  </nav>
+  <div style="background:var(--primary);border-radius:var(--radius-lg);padding:1.1rem 1.4rem;margin-bottom:1.5rem;color:#fff">
+    <div style="font-size:.75rem;opacity:.75;margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.05em">Supplementary — beyond the syllabus</div>
+    <h1 style="font-size:1.4rem;font-weight:700;color:#fff;margin-bottom:.5rem">Memory and I/O — Solved Problems</h1>
+    <div style="display:flex;gap:.75rem;flex-wrap:wrap">
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">⏱ 30 min read</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📌 Supplementary — beyond the syllabus</span>
+    </div>
+  </div>
+  <div class="lesson">
+    <div class="box box-tip">
+      <strong>In simple terms:</strong> most memory and I/O numericals reduce to powers of two (how many locations, how many lines, how many chips) or to time × count (how long a transfer takes and how much of it the CPU loses).</div>
+
+    <p>These problems go one step beyond the worked examples on the <a href="main-memory.html">Main Memory</a>, <a href="priority-interrupt.html">Priority Interrupt</a> and <a href="direct-memory-access.html">Direct Memory Access</a> pages, in the form they usually appear in exams: chip counts and memory maps, disk timing, interrupt priority and DMA transfer time.</p>
+    <h3>Key Formulas</h3>
+    <div class="box box-eg">
+      <pre>Locations = 2ⁿ for n address lines        n = log₂(locations)
+Chips     = (total words ÷ chip words) × (total width ÷ chip width)
+Size of an address range = last − first + 1
+Disk access time = seek + average rotational latency (½ revolution) + transfer
+CPU or memory time lost per second = events per second × time per event</pre>
+    </div>
+    <p>Address lines are numbered from A1, as on the <a href="main-memory.html">Main Memory</a> page. Many exam papers number them from A0; the wiring is the same, only the labels shift by one.</p>
+
+    <h2>1. Memory Chips and Address Space</h2>
+    <h3>Problem 1 — Address and Data Lines</h3>
+    <div style="overflow-x:auto">
+      <table>
+        <thead><tr><th>Memory</th><th>Address lines</th><th>Data lines</th></tr></thead>
+        <tbody>
+          <tr><td>2K × 8</td><td>11</td><td>8</td></tr>
+          <tr><td>64K × 16</td><td>16</td><td>16</td></tr>
+          <tr><td>256K × 32</td><td>18</td><td>32</td></tr>
+          <tr><td>1M × 8</td><td>20</td><td>8</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="box box-eg">
+      <pre>Reverse: 24 address lines and 32 data lines → 2²⁴ = 16M words × 4 bytes = 64 MB
+Byte- vs word-addressable: a 4 GB memory needs 32 lines if every byte has an address,
+but only 30 lines if each address is a 32-bit (4-byte) word (4G ÷ 4 = 1G = 2³⁰ words).</pre>
+    </div>
+    <h3>Problem 2 — Chip Count and Decoder: 32K × 16 from 2K × 8 Chips</h3>
+    <div class="box box-eg">
+      <pre>Chips = (32K ÷ 2K) × (16 ÷ 8) = 16 × 2 = 32 chips → 16 rows of 2 chips side by side
+Address lines: 32K = 2¹⁵ → 15 lines
+Each chip: 2K = 2¹¹ → the low 11 lines (A1–A11) go to every chip
+Row select: the top 4 lines (A12–A15) drive a 4-to-16 decoder, one output per row
+Data: each row's two chips supply bits 15–8 and 7–0</pre>
+    </div>
+    <h3>Problem 3 — Memory Address Map: 2 KB RAM + 2 KB ROM on a 12-bit Address Bus</h3>
+    <p>The RAM is built from 512 × 8 chips; the ROM is one 2K × 8 chip. Place RAM at the bottom of the 4K address space and ROM at the top.</p>
+    <div style="overflow-x:auto">
+      <table>
+        <thead><tr><th>Component</th><th>Address range (hex)</th><th>A12</th><th>A11 A10</th><th>A9 … A1</th></tr></thead>
+        <tbody>
+          <tr><td>RAM 1</td><td>000H – 1FFH</td><td>0</td><td>0 0</td><td>x x x x x x x x x</td></tr>
+          <tr><td>RAM 2</td><td>200H – 3FFH</td><td>0</td><td>0 1</td><td>x x x x x x x x x</td></tr>
+          <tr><td>RAM 3</td><td>400H – 5FFH</td><td>0</td><td>1 0</td><td>x x x x x x x x x</td></tr>
+          <tr><td>RAM 4</td><td>600H – 7FFH</td><td>0</td><td>1 1</td><td>x x x x x x x x x</td></tr>
+          <tr><td>ROM</td><td>800H – FFFH</td><td>1</td><td>x x</td><td>x x x x x x x x x</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="box box-eg">
+      <pre>RAM: 2K ÷ 512 = 4 chips; each uses A1–A9 (512 = 2⁹)
+     A10, A11 → 2-to-4 decoder that selects one RAM chip; decoder enabled only when A12 = 0
+ROM: 2K = 2¹¹ → uses A1–A11; selected when A12 = 1
+Check: address 5A3H = 0101 1010 0011 → A12 = 0, A11 A10 = 10 → RAM 3 ✓</pre>
+    </div>
+    <h3>Problem 4 — Size from an Address Range</h3>
+    <div class="box box-eg">
+      <pre>A chip occupies 4000H – 5FFFH.
+Size = 5FFFH − 4000H + 1 = 2000H = 8192 = 8K locations → 13 address lines
+Chip select: 4000H = 010 0 0000 0000 0000, 5FFFH = 010 1 1111 1111 1111
+            → the top three lines A16 A15 A14 = 010 select it
+A 4K chip starting at C000H ends at C000H + FFFH = CFFFH.</pre>
+    </div>
+    <h3>Problem 5 — Disk Access Time</h3>
+    <p>A disk rotates at 6000 rpm, has 64 sectors of 512 bytes per track and an average seek time of 6 ms. Find the time to read one sector and the transfer rate.</p>
+    <div class="box box-eg">
+      <pre>One revolution        = 60 s ÷ 6000 = 10 ms
+Avg rotational latency = ½ × 10 ms = 5 ms
+One sector passes the head in 10 ms ÷ 64 = 0.15625 ms
+Access time for one sector = 6 + 5 + 0.156 ≈ 11.16 ms
+Transfer rate = bytes per track ÷ time per revolution = (64 × 512) ÷ 10 ms
+              = 32,768 bytes ÷ 0.01 s = 3,276,800 bytes/s ≈ 3.28 MB/s</pre>
+    </div>
+    <p>Seek and latency dominate: reading the sector itself takes under 2 % of the access time.</p>
+
+    <h2>2. Interrupt Priority</h2>
+    <h3>Problem 6 — Daisy-Chain Priority</h3>
+    <p>Four devices are daisy-chained, D1 nearest the CPU (highest priority). D2 and D4 request an interrupt at the same time. Trace the acknowledge (PI = priority in, PO = priority out).</p>
+    <div style="overflow-x:auto">
+      <table>
+        <thead><tr><th>Device</th><th>Requesting?</th><th>PI</th><th>PO</th><th>Action</th></tr></thead>
+        <tbody>
+          <tr><td>D1</td><td>No</td><td>1 (INTACK)</td><td>1</td><td>Passes the acknowledge on</td></tr>
+          <tr><td>D2</td><td>Yes</td><td>1</td><td>0</td><td>Places its vector address (VAD) on the bus — serviced</td></tr>
+          <tr><td>D3</td><td>No</td><td>0</td><td>0</td><td>Blocked</td></tr>
+          <tr><td>D4</td><td>Yes</td><td>0</td><td>0</td><td>Waits; its request stays pending</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>After D2’s routine finishes and D2 drops its request, the interrupt line is still active because of D4, so the next acknowledge passes through D1–D3 and D4 is serviced.</p>
+    <h3>Problem 7 — Parallel Priority with Mask Register</h3>
+    <p>Interrupt register I0 I1 I2 I3 = 0 1 1 1 (I0 highest priority); mask register = 1 0 1 1; IEN = 1.</p>
+    <div class="box box-eg">
+      <pre>Effective requests = interrupt AND mask = 0111 AND 1011 = 0011 → I2 and I3
+Priority encoder (I0 highest):  x = I0′I1′,  y = I0′I1 + I0′I2′
+   x = 1·1 = 1,  y = 0 + 1·0 = 0  → xy = 10 → I2 is serviced
+IST = 1 (at least one unmasked request) and IEN = 1 → the CPU is interrupted
+I1 is pending but masked; I3 is serviced after I2 is cleared.</pre>
+    </div>
+    <h3>Problem 8 — CPU Cost of Interrupt-Driven I/O vs DMA</h3>
+    <p>A device delivers 20,000 bytes/s.</p>
+    <div class="box box-eg">
+      <pre>Interrupt I/O: one interrupt per byte, 10 µs per service routine
+   CPU time lost = 20,000 × 10 µs = 0.2 s per second → 20 % of the CPU
+DMA: blocks of 1,000 bytes; the CPU spends 20 µs per block (set-up + end interrupt)
+   Blocks per second = 20,000 ÷ 1,000 = 20
+   CPU time lost = 20 × 20 µs = 400 µs per second → 0.04 % of the CPU</pre>
+    </div>
+    <p>DMA still uses 20,000 memory cycles per second, but the CPU no longer runs code for each byte.</p>
+
+    <h2>3. DMA Transfer Time</h2>
+    <h3>Problem 9 — Burst Transfer of a Block</h3>
+    <p>A DMA controller moves an 8 KB block into a 16-bit-wide memory (one word per memory cycle of 0.2 µs) in burst mode. The CPU spends 10 µs setting up the controller and 15 µs servicing the end-of-transfer interrupt.</p>
+    <div class="box box-eg">
+      <pre>Words = 8 KB ÷ 2 bytes = 8192 ÷ 2 = 4096 words
+Burst time = 4096 × 0.2 µs = 819.2 µs  — the CPU cannot use the bus for this whole time
+Start to finish = 10 + 819.2 + 15 = 844.2 µs
+CPU work = 10 + 15 = 25 µs (instead of running a 4096-iteration transfer loop)</pre>
+    </div>
+    <h3>Problem 10 — Cycle Stealing: Fraction of Memory Cycles Taken</h3>
+    <p>A device supplies 1 MB/s (one byte every 1 µs); the DMA steals one 100 ns memory cycle per byte.</p>
+    <div class="box box-eg">
+      <pre>Fraction of memory cycles stolen = 100 ns ÷ 1 µs = 0.1 → 10 %
+An 8 KB block takes 8192 × 1 µs = 8.192 ms — set by the device, not the memory
+The CPU runs between steals and is delayed only when it needs memory in a stolen cycle.</pre>
+    </div>
+    <h3>Problem 11 — DMA Register Widths</h3>
+    <div class="box box-eg">
+      <pre>Memory of 64K words → address register = 16 bits (2¹⁶ = 64K)
+Largest block 4,000 words → word count register = 12 bits (2¹² = 4096 ≥ 4000)</pre>
+    </div>
+
+    <h3>Practice Problems</h3>
+    <ol>
+      <li>How many 256 × 4 chips build a 4K × 8 memory, and what decoder selects the rows?
+        <details style="margin:.35rem 0 .6rem"><summary style="cursor:pointer;font-weight:600">Show answer</summary><p style="margin:.4rem 0 0">(4K ÷ 256) × (8 ÷ 4) = 16 × 2 = 32 chips in 16 rows; 12 address lines, 8 to every chip, 4 to a 4-to-16 decoder.</p></details>
+      </li>
+      <li>A 16K × 8 memory starts at 8000H. What is its last address?
+        <details style="margin:.35rem 0 .6rem"><summary style="cursor:pointer;font-weight:600">Show answer</summary><p style="margin:.4rem 0 0">8000H + 3FFFH = BFFFH.</p></details>
+      </li>
+      <li>Find the average rotational latency of a 7200 rpm disk.
+        <details style="margin:.35rem 0 .6rem"><summary style="cursor:pointer;font-weight:600">Show answer</summary><p style="margin:.4rem 0 0">60 s ÷ 7200 = 8.33 ms per revolution → 4.17 ms.</p></details>
+      </li>
+      <li>Five devices are daisy-chained (D1 highest); D3 and D5 request together. Which is serviced, and what are D3’s PI and PO?
+        <details style="margin:.35rem 0 .6rem"><summary style="cursor:pointer;font-weight:600">Show answer</summary><p style="margin:.4rem 0 0">D3; PI = 1, PO = 0. D4 and D5 receive PI = 0.</p></details>
+      </li>
+      <li>Interrupt register I0–I3 = 1100, mask = 0111. Which request is serviced, and what is xy?
+        <details style="margin:.35rem 0 .6rem"><summary style="cursor:pointer;font-weight:600">Show answer</summary><p style="margin:.4rem 0 0">Effective 0100 → I1; xy = 01.</p></details>
+      </li>
+      <li>A 2 KB block is transferred by cycle stealing from a 500 KB/s device; each steal takes one 50 ns memory cycle. Find the transfer time and the fraction of memory cycles stolen.
+        <details style="margin:.35rem 0 .6rem"><summary style="cursor:pointer;font-weight:600">Show answer</summary><p style="margin:.4rem 0 0">2048 ÷ 500,000 s = 4.096 ms; one byte every 2 µs → 50 ns ÷ 2 µs = 2.5 %.</p></details>
+      </li>
+      <li>Memory has 1M words; the largest DMA block is 2,000 words. Give the address and word count register widths.
+        <details style="margin:.35rem 0 .6rem"><summary style="cursor:pointer;font-weight:600">Show answer</summary><p style="margin:.4rem 0 0">20 bits and 11 bits (2¹¹ = 2048).</p></details>
+      </li>
+    </ol>
+
+    <h2>Common Pitfalls</h2>
+    <ul>
+      <li><strong>Counting chips by capacity only</strong> — 32K × 16 from 2K × 8 is 32 chips, not 16; width and depth both multiply.</li>
+      <li><strong>Off by one in address ranges</strong> — size = last − first + 1; a 4K chip at C000H ends at CFFFH, not D000H.</li>
+      <li><strong>Using a full revolution as the latency</strong> — average rotational latency is half a revolution.</li>
+      <li><strong>Reading the daisy chain backwards</strong> — priority falls with distance from the CPU; a requesting device sets PO = 0 and blocks everything after it.</li>
+      <li><strong>Forgetting the mask</strong> — AND the interrupt register with the mask before applying priority.</li>
+      <li><strong>Mixing bytes and words in DMA</strong> — convert the block to the memory’s word size before multiplying by the cycle time.</li>
+    </ul>
+
+    <p>Related syllabus topics: <a href="main-memory.html">Main Memory</a> · <a href="auxiliary-memory.html">Auxiliary Memory</a> · <a href="priority-interrupt.html">Priority Interrupt</a> · <a href="direct-memory-access.html">Direct Memory Access</a>.</p>
+  </div>
+  <div class="topic-nav">
+    <a href="virtual-memory.html">
+      <div class="nav-dir">← Previous</div>
+      <div class="nav-title">Virtual Memory</div>
+    </a>
+    <a href="index.html" class="next">
+      <div class="nav-dir">Next →</div>
+      <div class="nav-title">Back to Unit 5 Overview</div>
+    </a>
+  </div>
+</div>
+<footer id="main-footer"></footer>
+<script type="module">
+  import { initNav } from '../../../js/nav.js';
+  import { initSidebar } from '../../../js/sidebar.js';
+  initNav(3);
+  initSidebar();
+</script>
+</body>
+</html>

@@ -566,7 +566,7 @@
   </url>
   <url>
     <loc>https://chandrashaker.com/courses/academic/coa/unit5/</loc>
-    <lastmod>2026-10-28</lastmod>
+    <lastmod>2026-11-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
@@ -584,7 +584,7 @@
   </url>
   <url>
     <loc>https://chandrashaker.com/courses/academic/coa/unit5/priority-interrupt</loc>
-    <lastmod>2026-10-23</lastmod>
+    <lastmod>2026-11-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -602,7 +602,7 @@
   </url>
   <url>
     <loc>https://chandrashaker.com/courses/academic/coa/unit5/main-memory</loc>
-    <lastmod>2026-10-28</lastmod>
+    <lastmod>2026-11-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -626,7 +626,13 @@
   </url>
   <url>
     <loc>https://chandrashaker.com/courses/academic/coa/unit5/virtual-memory</loc>
-    <lastmod>2026-10-28</lastmod>
+    <lastmod>2026-11-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://chandrashaker.com/courses/academic/coa/unit5/memory-io-solved-problems</loc>
+    <lastmod>2026-11-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -656,7 +662,7 @@
   </url>
   <url>
     <loc>https://chandrashaker.com/courses/academic/coa/unit1/binary-codes</loc>
-    <lastmod>2026-10-23</lastmod>
+    <lastmod>2026-11-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
