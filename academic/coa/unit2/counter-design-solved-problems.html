@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3030765874336294" crossorigin="anonymous"></script>
+  <title>Counter Design — Solved Problems — COA Unit 2 | CHANDRAS EDU</title>
+  <meta name="description" content="Solved counter design problems: mod-6 synchronous JK counter, counters for any sequence with JK and T flip-flops, ripple mod-N counters and maximum clock speed.">
+  <link rel="canonical" href="https://chandrashaker.com/courses/academic/coa/unit2/counter-design-solved-problems.html">
+  <link rel="stylesheet" href="../../../css/style.css">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="CHANDRAS EDU">
+  <meta property="og:title" content="Counter Design — Solved Problems — COA Unit 2 | CHANDRAS EDU">
+  <meta property="og:description" content="Solved counter design problems: mod-6 synchronous JK counter, counters for any sequence with JK and T flip-flops, ripple mod-N counters and maximum clock speed.">
+  <meta property="og:url" content="https://chandrashaker.com/courses/academic/coa/unit2/counter-design-solved-problems.html">
+  <meta property="og:image" content="https://chandrashaker.com/courses/images/og/coa-v7.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Computer Organization and Architecture — CHANDRAS EDU free course">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Counter Design — Solved Problems — COA Unit 2 | CHANDRAS EDU">
+  <meta name="twitter:description" content="Solved counter design problems: mod-6 synchronous JK counter, counters for any sequence with JK and T flip-flops, ripple mod-N counters and maximum clock speed.">
+  <meta name="twitter:image" content="https://chandrashaker.com/courses/images/og/coa-v7.png">
+  <script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Courses","item":"https://chandrashaker.com/courses/"},{"@type":"ListItem","position":2,"name":"COA","item":"https://chandrashaker.com/courses/academic/coa/"},{"@type":"ListItem","position":3,"name":"Unit 2","item":"https://chandrashaker.com/courses/academic/coa/unit2/"},{"@type":"ListItem","position":4,"name":"Counter Design — Solved Problems"}]}
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LearningResource",
+  "name": "Counter Design — Solved Problems",
+  "description": "Solved counter design problems: mod-6 synchronous JK counter, counters for any sequence with JK and T flip-flops, ripple mod-N counters and maximum clock speed.",
+  "url": "https://chandrashaker.com/courses/academic/coa/unit2/counter-design-solved-problems.html",
+  "image": "https://chandrashaker.com/courses/images/og/coa-v7.png",
+  "learningResourceType": "Lesson",
+  "educationalLevel": "Undergraduate",
+  "about": { "@type": "Thing", "name": "Computer Organization and Architecture" },
+  "isPartOf": { "@type": "Course", "name": "Computer Organization and Architecture", "provider": { "@type": "Organization", "name": "CHANDRAS EDU", "url": "https://chandrashaker.in" } },
+  "publisher": { "@type": "Organization", "name": "CHANDRAS EDU", "url": "https://chandrashaker.in" }
+}
+  </script>
+  <link rel="icon" href="/favicon.ico">
+</head>
+<body>
+<div id="main-nav"></div>
+<div class="page-narrow" role="main">
+  <nav class="breadcrumb">
+    <a href="../../../index.html">Courses</a><span class="sep">/</span>
+    <a href="../index.html">Computer Organization and Architecture</a><span class="sep">/</span>
+    <a href="index.html">Unit 2</a><span class="sep">/</span>
+    <span>Supplementary Topics</span><span class="sep">/</span>
+    <span class="cur">Counter Design — Solved Problems</span>
+  </nav>
+  <div style="background:var(--primary);border-radius:var(--radius-lg);padding:1.1rem 1.4rem;margin-bottom:1.5rem;color:#fff">
+    <div style="font-size:.75rem;opacity:.75;margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.05em">Supplementary — beyond the syllabus</div>
+    <h1 style="font-size:1.4rem;font-weight:700;color:#fff;margin-bottom:.5rem">Counter Design — Solved Problems</h1>
+    <div style="display:flex;gap:.75rem;flex-wrap:wrap">
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">⏱ 30 min read</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📌 Supplementary — beyond the syllabus</span>
+    </div>
+  </div>
+  <div class="lesson">
+    <div class="box box-tip">
+      <strong>In simple terms:</strong> to design a synchronous counter, list each state and the next state, ask "what must each flip-flop input be to make that change?" using the excitation table, then simplify each input with a K-map.</div>
+
+    <p>These problems use the <a href="ripple-counters.html">Ripple Counters</a> and <a href="synchronous-counters.html">Synchronous Counters</a> topics. Synchronous design follows six steps: (1) state sequence, (2) number of flip-flops, (3) state table with next states, (4) flip-flop inputs from the excitation table, (5) K-map per input, using unused states as don’t-cares, (6) check what the unused states do.</p>
+    <h3>Excitation Tables</h3>
+    <div style="overflow-x:auto">
+      <table>
+        <thead><tr><th>Q → Q(next)</th><th>J K</th><th>T</th><th>D</th></tr></thead>
+        <tbody>
+          <tr><td>0 → 0</td><td>0 X</td><td>0</td><td>0</td></tr>
+          <tr><td>0 → 1</td><td>1 X</td><td>1</td><td>1</td></tr>
+          <tr><td>1 → 0</td><td>X 1</td><td>1</td><td>0</td></tr>
+          <tr><td>1 → 1</td><td>X 0</td><td>0</td><td>1</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2>1. Synchronous Counter Design</h2>
+    <h3>Problem 1 — mod-6 Synchronous Up Counter with JK Flip-Flops (000 → 101 → 000)</h3>
+    <div style="overflow-x:auto">
+      <table>
+        <thead><tr><th>Present ABC</th><th>Next ABC</th><th>J<sub>A</sub> K<sub>A</sub></th><th>J<sub>B</sub> K<sub>B</sub></th><th>J<sub>C</sub> K<sub>C</sub></th></tr></thead>
+        <tbody>
+          <tr><td>000</td><td>001</td><td>0 X</td><td>0 X</td><td>1 X</td></tr>
+          <tr><td>001</td><td>010</td><td>0 X</td><td>1 X</td><td>X 1</td></tr>
+          <tr><td>010</td><td>011</td><td>0 X</td><td>X 0</td><td>1 X</td></tr>
+          <tr><td>011</td><td>100</td><td>1 X</td><td>X 1</td><td>X 1</td></tr>
+          <tr><td>100</td><td>101</td><td>X 0</td><td>0 X</td><td>1 X</td></tr>
+          <tr><td>101</td><td>000</td><td>X 1</td><td>0 X</td><td>X 1</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Unused states 110 and 111 are don’t-cares.</p>
+    <div class="box box-eg">
+      <pre>JA = BC      KA = C
+JB = A′C     KB = C
+JC = 1       KC = 1        (C toggles every clock)
+Unused states: 110 → 111 → 000   — the counter returns to the main sequence by itself (self-correcting).</pre>
+    </div>
+    <h3>Problem 2 — Counter for the Sequence 0, 1, 2, 4, 5, 6 (Repeat) with JK Flip-Flops</h3>
+    <div style="overflow-x:auto">
+      <table>
+        <thead><tr><th>Present ABC</th><th>Next ABC</th><th>J<sub>A</sub> K<sub>A</sub></th><th>J<sub>B</sub> K<sub>B</sub></th><th>J<sub>C</sub> K<sub>C</sub></th></tr></thead>
+        <tbody>
+          <tr><td>000</td><td>001</td><td>0 X</td><td>0 X</td><td>1 X</td></tr>
+          <tr><td>001</td><td>010</td><td>0 X</td><td>1 X</td><td>X 1</td></tr>
+          <tr><td>010</td><td>100</td><td>1 X</td><td>X 1</td><td>0 X</td></tr>
+          <tr><td>100</td><td>101</td><td>X 0</td><td>0 X</td><td>1 X</td></tr>
+          <tr><td>101</td><td>110</td><td>X 0</td><td>1 X</td><td>X 1</td></tr>
+          <tr><td>110</td><td>000</td><td>X 1</td><td>X 1</td><td>0 X</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="box box-eg">
+      <pre>JA = B    KA = B
+JB = C    KB = 1
+JC = B′   KC = 1
+Unused states: 011 → 100,  111 → 000   — self-correcting.</pre>
+    </div>
+    <p>Notice how many inputs become 1 or a single variable — unused states as don’t-cares make arbitrary-sequence counters cheap.</p>
+    <h3>Problem 3 — 3-Bit Gray-Code Counter with T Flip-Flops (000, 001, 011, 010, 110, 111, 101, 100)</h3>
+    <div style="overflow-x:auto">
+      <table>
+        <thead><tr><th>Present ABC</th><th>Next ABC</th><th>T<sub>A</sub></th><th>T<sub>B</sub></th><th>T<sub>C</sub></th></tr></thead>
+        <tbody>
+          <tr><td>000</td><td>001</td><td>0</td><td>0</td><td>1</td></tr>
+          <tr><td>001</td><td>011</td><td>0</td><td>1</td><td>0</td></tr>
+          <tr><td>011</td><td>010</td><td>0</td><td>0</td><td>1</td></tr>
+          <tr><td>010</td><td>110</td><td>1</td><td>0</td><td>0</td></tr>
+          <tr><td>110</td><td>111</td><td>0</td><td>0</td><td>1</td></tr>
+          <tr><td>111</td><td>101</td><td>0</td><td>1</td><td>0</td></tr>
+          <tr><td>101</td><td>100</td><td>0</td><td>0</td><td>1</td></tr>
+          <tr><td>100</td><td>000</td><td>1</td><td>0</td><td>0</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="box box-eg">
+      <pre>TA = A′BC′ + AB′C′ = C′(A ⊕ B)
+TB = A′B′C + ABC   = C(A ⊕ B)′
+TC = (A ⊕ B ⊕ C)′          (TC = 1 when the state has an even number of 1s)
+All 8 states are used — no don’t-cares and no lock-out check needed.</pre>
+    </div>
+    <p>For a T flip-flop, T = 1 exactly where that bit changes — just compare each present and next bit.</p>
+
+    <h2>2. Ripple (Asynchronous) Counters</h2>
+    <h3>Problem 4 — mod-6 Ripple Counter</h3>
+    <div class="box box-eg">
+      <pre>Use a 3-bit ripple counter (negative-edge JK flip-flops with J = K = 1; each Q drives the next clock).
+It must count 000 … 101 and reset at 6 = 110.
+Reset logic: CLR′ = (Q₂ · Q₁)′ — a 2-input NAND to the active-low clear of all three flip-flops.
+(Q₀ is not needed: 110 is the first state in which Q₂ = Q₁ = 1.)
+The counter enters 110 for a few nanoseconds, then clears to 000 — a short glitch state.</pre>
+    </div>
+    <p>Mod-10 (decade) ripple counter: same idea with four flip-flops — NAND of Q₃ and Q₁ (1010) clears the counter.</p>
+    <h3>Problem 5 — Maximum Clock Frequency: Ripple vs Synchronous (4-bit)</h3>
+    <p>Each flip-flop has t<sub>pd</sub> = 10 ns; each AND gate 5 ns (ignore setup time).</p>
+    <div class="box box-eg">
+      <pre>Ripple:       the last flip-flop settles after 4 × 10 = 40 ns
+              f(max) = 1 / 40 ns = 25 MHz
+Synchronous:  all flip-flops clock together; the longest path is one flip-flop + one AND gate
+              (with parallel carry gates) = 10 + 5 = 15 ns
+              f(max) = 1 / 15 ns ≈ 66.7 MHz</pre>
+    </div>
+    <h3>Ripple vs Synchronous — Summary</h3>
+    <div style="overflow-x:auto">
+      <table>
+        <thead><tr><th>Feature</th><th>Ripple (asynchronous)</th><th>Synchronous</th></tr></thead>
+        <tbody>
+          <tr><td>Clock</td><td>Only the first flip-flop; each output clocks the next</td><td>Common clock to all flip-flops</td></tr>
+          <tr><td>Delay</td><td>Adds up: n × t<sub>pd</sub></td><td>One t<sub>pd</sub> + gate delay, any n</td></tr>
+          <tr><td>Speed</td><td>Slower</td><td>Faster</td></tr>
+          <tr><td>Glitches</td><td>Brief false states while bits ripple</td><td>None in normal counting</td></tr>
+          <tr><td>Extra logic</td><td>None (just reset gating for mod-N)</td><td>AND gates or K-map logic per input</td></tr>
+          <tr><td>Typical use</td><td>Low-speed, low-power dividers</td><td>Counters inside CPUs and fast systems</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Practice Problems</h3>
+    <ol>
+      <li>Design a mod-5 synchronous counter (000 → 100) with JK flip-flops; check the unused states.
+        <details style="margin:.35rem 0 .6rem"><summary style="cursor:pointer;font-weight:600">Show answer</summary><p style="margin:.4rem 0 0">J<sub>A</sub> = BC, K<sub>A</sub> = 1; J<sub>B</sub> = C, K<sub>B</sub> = C; J<sub>C</sub> = A′, K<sub>C</sub> = 1. Unused: 101 → 010, 110 → 010, 111 → 000 — self-correcting.</p></details>
+      </li>
+      <li>Design the sequence 0, 1, 3, 7, 6, 4 (repeat) with D flip-flops.
+        <details style="margin:.35rem 0 .6rem"><summary style="cursor:pointer;font-weight:600">Show answer</summary><p style="margin:.4rem 0 0">D<sub>A</sub> = B, D<sub>B</sub> = C, D<sub>C</sub> = A′ — it is a 3-bit Johnson counter. Unused 010 and 101 form their own loop (010 → 101 → 010), so it is <strong>not</strong> self-correcting.</p></details>
+      </li>
+      <li>Which NAND inputs reset a ripple counter to make it mod-12?
+        <details style="margin:.35rem 0 .6rem"><summary style="cursor:pointer;font-weight:600">Show answer</summary><p style="margin:.4rem 0 0">Q₃ and Q₂ (1100).</p></details>
+      </li>
+      <li>A 5-bit ripple counter uses flip-flops with t<sub>pd</sub> = 12 ns. Find f<sub>max</sub>.
+        <details style="margin:.35rem 0 .6rem"><summary style="cursor:pointer;font-weight:600">Show answer</summary><p style="margin:.4rem 0 0">1 / (5 × 12 ns) ≈ 16.7 MHz.</p></details>
+      </li>
+    </ol>
+
+    <h2>Common Pitfalls</h2>
+    <ul>
+      <li><strong>Skipping the unused-state check</strong> — a counter can lock into an unused loop (practice problem 2); always trace every unused state.</li>
+      <li><strong>Using the characteristic table instead of the excitation table</strong> — design needs "which input causes Q → Q(next)".</li>
+      <li><strong>Resetting at the last valid state</strong> — a mod-6 ripple counter resets at 6 (110), not at 5 (101).</li>
+      <li><strong>Adding all delays in a synchronous counter</strong> — only the longest single path between clock edges counts.</li>
+    </ul>
+
+    <p>Related syllabus topics: <a href="ripple-counters.html">Ripple Counters</a> · <a href="synchronous-counters.html">Synchronous Counters</a>.</p>
+  </div>
+  <div class="topic-nav">
+    <a href="mux-decoder-solved-problems.html">
+      <div class="nav-dir">← Previous</div>
+      <div class="nav-title">MUX and Decoder Implementation — Solved Problems</div>
+    </a>
+    <a href="index.html" class="next">
+      <div class="nav-dir">Next →</div>
+      <div class="nav-title">Back to Unit 2 Overview</div>
+    </a>
+  </div>
+</div>
+<footer id="main-footer"></footer>
+<script type="module">
+  import { initNav } from '../../../js/nav.js';
+  import { initSidebar } from '../../../js/sidebar.js';
+  initNav(3);
+  initSidebar();
+</script>
+</body>
+</html>

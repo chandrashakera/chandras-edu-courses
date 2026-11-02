@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3030765874336294" crossorigin="anonymous"></script>
+  <title>MUX and Decoder Implementation — Solved Problems — COA Unit 2 | CHANDRAS EDU</title>
+  <meta name="description" content="Solved problems: Boolean functions on 4-to-1 and 8-to-1 multiplexers, multiple outputs on a decoder, a full subtractor and building larger MUXes and decoders.">
+  <link rel="canonical" href="https://chandrashaker.com/courses/academic/coa/unit2/mux-decoder-solved-problems.html">
+  <link rel="stylesheet" href="../../../css/style.css">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="CHANDRAS EDU">
+  <meta property="og:title" content="MUX and Decoder Implementation — Solved Problems — COA Unit 2 | CHANDRAS EDU">
+  <meta property="og:description" content="Solved problems: Boolean functions on 4-to-1 and 8-to-1 multiplexers, multiple outputs on a decoder, a full subtractor and building larger MUXes and decoders.">
+  <meta property="og:url" content="https://chandrashaker.com/courses/academic/coa/unit2/mux-decoder-solved-problems.html">
+  <meta property="og:image" content="https://chandrashaker.com/courses/images/og/coa-v7.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Computer Organization and Architecture — CHANDRAS EDU free course">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="MUX and Decoder Implementation — Solved Problems — COA Unit 2 | CHANDRAS EDU">
+  <meta name="twitter:description" content="Solved problems: Boolean functions on 4-to-1 and 8-to-1 multiplexers, multiple outputs on a decoder, a full subtractor and building larger MUXes and decoders.">
+  <meta name="twitter:image" content="https://chandrashaker.com/courses/images/og/coa-v7.png">
+  <script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Courses","item":"https://chandrashaker.com/courses/"},{"@type":"ListItem","position":2,"name":"COA","item":"https://chandrashaker.com/courses/academic/coa/"},{"@type":"ListItem","position":3,"name":"Unit 2","item":"https://chandrashaker.com/courses/academic/coa/unit2/"},{"@type":"ListItem","position":4,"name":"MUX and Decoder Implementation — Solved Problems"}]}
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LearningResource",
+  "name": "MUX and Decoder Implementation — Solved Problems",
+  "description": "Solved problems: Boolean functions on 4-to-1 and 8-to-1 multiplexers, multiple outputs on a decoder, a full subtractor and building larger MUXes and decoders.",
+  "url": "https://chandrashaker.com/courses/academic/coa/unit2/mux-decoder-solved-problems.html",
+  "image": "https://chandrashaker.com/courses/images/og/coa-v7.png",
+  "learningResourceType": "Lesson",
+  "educationalLevel": "Undergraduate",
+  "about": { "@type": "Thing", "name": "Computer Organization and Architecture" },
+  "isPartOf": { "@type": "Course", "name": "Computer Organization and Architecture", "provider": { "@type": "Organization", "name": "CHANDRAS EDU", "url": "https://chandrashaker.in" } },
+  "publisher": { "@type": "Organization", "name": "CHANDRAS EDU", "url": "https://chandrashaker.in" }
+}
+  </script>
+  <link rel="icon" href="/favicon.ico">
+</head>
+<body>
+<div id="main-nav"></div>
+<div class="page-narrow" role="main">
+  <nav class="breadcrumb">
+    <a href="../../../index.html">Courses</a><span class="sep">/</span>
+    <a href="../index.html">Computer Organization and Architecture</a><span class="sep">/</span>
+    <a href="index.html">Unit 2</a><span class="sep">/</span>
+    <span>Supplementary Topics</span><span class="sep">/</span>
+    <span class="cur">MUX and Decoder Implementation — Solved Problems</span>
+  </nav>
+  <div style="background:var(--primary);border-radius:var(--radius-lg);padding:1.1rem 1.4rem;margin-bottom:1.5rem;color:#fff">
+    <div style="font-size:.75rem;opacity:.75;margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.05em">Supplementary — beyond the syllabus</div>
+    <h1 style="font-size:1.4rem;font-weight:700;color:#fff;margin-bottom:.5rem">MUX and Decoder Implementation — Solved Problems</h1>
+    <div style="display:flex;gap:.75rem;flex-wrap:wrap">
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">⏱ 25 min read</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📌 Supplementary — beyond the syllabus</span>
+    </div>
+  </div>
+  <div class="lesson">
+    <div class="box box-tip">
+      <strong>In simple terms:</strong> a decoder gives you every minterm, so an OR gate picks the ones you need; a multiplexer lets the select lines pick a row of the truth table and the data input supplies the answer for that row.</div>
+
+    <p>These problems use <a href="decoders.html">Decoders</a> and <a href="multiplexers.html">Multiplexers</a>. For a MUX, the select-line variables pick a group of truth-table rows; the data input for that group is 0, 1, a variable or its complement — or, for a smaller MUX, a small function of the remaining variables.</p>
+
+    <h2>1. Multiplexer Problems</h2>
+    <h3>Problem 1 — F(A,B,C,D) = Σm(0, 4, 5, 10, 11, 12, 15) on a 4-to-1 MUX (A, B on the Selects)</h3>
+    <p>With only two select lines, each data input must be a function of the remaining two variables C and D.</p>
+    <div style="overflow-x:auto">
+      <table>
+        <thead><tr><th>Select AB</th><th>Rows (minterms)</th><th>F = 1 at CD =</th><th>Data input</th></tr></thead>
+        <tbody>
+          <tr><td>00 → I₀</td><td>0, 1, 2, 3</td><td>00</td><td>I₀ = C′D′ = (C + D)′ — NOR</td></tr>
+          <tr><td>01 → I₁</td><td>4, 5, 6, 7</td><td>00, 01</td><td>I₁ = C′</td></tr>
+          <tr><td>10 → I₂</td><td>8, 9, 10, 11</td><td>10, 11</td><td>I₂ = C</td></tr>
+          <tr><td>11 → I₃</td><td>12, 13, 14, 15</td><td>00, 11</td><td>I₃ = CD + C′D′ = (C ⊕ D)′ — XNOR</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="box box-eg">
+      <pre>Result: S₁ = A, S₀ = B;  I₀ = (C + D)′,  I₁ = C′,  I₂ = C,  I₃ = (C ⊕ D)′
+Extra gates: one NOR, one XNOR, one inverter.
+Check: minterm 10 = 1010 → AB = 10 selects I₂ = C = 1 ✓;  minterm 13 = 1101 → I₃ = (0 ⊕ 1)′ = 0 ✓ (13 is not in F)</pre>
+    </div>
+    <p>For comparison, the minimal SOP is A′C′D′ + A′BC′ + BC′D′ + AB′C + ACD — five AND gates and a five-input OR.</p>
+    <h3>Problem 2 — the Same F on an 8-to-1 MUX (A, B, C on the Selects, D as the Data Variable)</h3>
+    <div style="overflow-x:auto">
+      <table>
+        <thead><tr><th>Select ABC</th><th>Minterms</th><th>F</th><th>Data input</th></tr></thead>
+        <tbody>
+          <tr><td>000 → I₀</td><td>0, 1</td><td>1, 0</td><td>D′</td></tr>
+          <tr><td>001 → I₁</td><td>2, 3</td><td>0, 0</td><td>0</td></tr>
+          <tr><td>010 → I₂</td><td>4, 5</td><td>1, 1</td><td>1</td></tr>
+          <tr><td>011 → I₃</td><td>6, 7</td><td>0, 0</td><td>0</td></tr>
+          <tr><td>100 → I₄</td><td>8, 9</td><td>0, 0</td><td>0</td></tr>
+          <tr><td>101 → I₅</td><td>10, 11</td><td>1, 1</td><td>1</td></tr>
+          <tr><td>110 → I₆</td><td>12, 13</td><td>1, 0</td><td>D′</td></tr>
+          <tr><td>111 → I₇</td><td>14, 15</td><td>0, 1</td><td>D</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Rule for each pair: 00 → 0, 11 → 1, 01 → D, 10 → D′. Only one inverter is needed.</p>
+    <h3>Problem 3 — F(A,B,C,D) = Σm(1, 3, 4, 11, 12, 13, 14, 15) on an 8-to-1 MUX</h3>
+    <div class="box box-eg">
+      <pre>Pairs (m₂ₖ, m₂ₖ₊₁) for ABC = 000 … 111:
+(0,1)→01→D  (2,3)→01→D  (4,5)→10→D′  (6,7)→00→0
+(8,9)→00→0  (10,11)→01→D  (12,13)→11→1  (14,15)→11→1
+I₀ = D, I₁ = D, I₂ = D′, I₃ = 0, I₄ = 0, I₅ = D, I₆ = 1, I₇ = 1</pre>
+    </div>
+    <h3>Problem 4 — Build a 16-to-1 MUX from 4-to-1 MUXes</h3>
+    <div class="box box-eg">
+      <pre>Level 1: four 4-to-1 MUXes, each on I₀–I₃, I₄–I₇, I₈–I₁₁, I₁₂–I₁₅, all with selects S₁S₀
+Level 2: one 4-to-1 MUX picks one of the four level-1 outputs with selects S₃S₂
+Total: 5 MUXes.  Example: S₃S₂S₁S₀ = 1001 → level 1 picks the 2nd input of each group,
+level 2 picks group 3 (I₈–I₁₁) → output = I₉ ✓</pre>
+    </div>
+
+    <h2>2. Decoder Problems</h2>
+    <h3>Problem 5 — F₁ = Σm(2, 4, 7, 9) and F₂ = Σm(0, 1, 2, 4, 5, 7, 8, 10, 11, 13, 14, 15) with One 4-to-16 Decoder</h3>
+    <div class="box box-eg">
+      <pre>F₁: 4 minterms → one 4-input OR of D₂, D₄, D₇, D₉
+F₂: 12 minterms → use the complement instead: F₂′ = Σm(3, 6, 9, 12)
+    F₂ = (D₃ + D₆ + D₉ + D₁₂)′ → one 4-input NOR
+Total: one decoder, one OR, one NOR.</pre>
+    </div>
+    <div class="box box-eg">
+      Rule: if a function has more than half of the minterms, OR the <em>missing</em> minterms and invert (a NOR gate) — fewer gate inputs.
+    </div>
+    <h3>Problem 6 — Full Subtractor with a 3-to-8 Decoder (Inputs x, y, B<sub>in</sub>; x − y − B<sub>in</sub>)</h3>
+    <div style="overflow-x:auto">
+      <table>
+        <thead><tr><th>x y B<sub>in</sub></th><th>000</th><th>001</th><th>010</th><th>011</th><th>100</th><th>101</th><th>110</th><th>111</th></tr></thead>
+        <tbody>
+          <tr><td>D (difference)</td><td>0</td><td>1</td><td>1</td><td>0</td><td>1</td><td>0</td><td>0</td><td>1</td></tr>
+          <tr><td>B<sub>out</sub></td><td>0</td><td>1</td><td>1</td><td>1</td><td>0</td><td>0</td><td>0</td><td>1</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="box box-eg">
+      <pre>D    = Σm(1, 2, 4, 7) → OR of D₁, D₂, D₄, D₇      (= x ⊕ y ⊕ Bᵢₙ)
+Bout = Σm(1, 2, 3, 7) → OR of D₁, D₂, D₃, D₇      (= x′y + x′Bᵢₙ + y·Bᵢₙ)</pre>
+    </div>
+    <h3>Problem 7 — a 4-to-16 Decoder from Two 3-to-8 Decoders with Enable</h3>
+    <div class="box box-eg">
+      <pre>Inputs A B C D (A = MSB).  B, C, D go to both decoders.
+Decoder 1: enable = A′  → outputs D₀–D₇
+Decoder 2: enable = A   → outputs D₈–D₁₅
+Example: ABCD = 1011 → decoder 2 enabled, its input BCD = 011 → its output 3 = D₁₁ ✓</pre>
+    </div>
+
+    <h3>Practice Problems</h3>
+    <ol>
+      <li>F(A,B,C) = Σm(1, 2, 6, 7) on a 4-to-1 MUX with A, B on the selects.
+        <details style="margin:.35rem 0 .6rem"><summary style="cursor:pointer;font-weight:600">Show answer</summary><p style="margin:.4rem 0 0">I₀ = C, I₁ = C′, I₂ = 0, I₃ = 1.</p></details>
+      </li>
+      <li>F(A,B,C,D) = Σm(0, 4, 5, 10, 11, 12, 15) again, on an 8-to-1 MUX — but with B, C, D on the selects and A as the data variable.
+        <details style="margin:.35rem 0 .6rem"><summary style="cursor:pointer;font-weight:600">Show answer</summary><p style="margin:.4rem 0 0">Pair minterms m and m + 8 for each BCD: (0,8)→10→A′; (1,9)→00→0; (2,10)→01→A; (3,11)→01→A; (4,12)→11→1; (5,13)→10→A′; (6,14)→00→0; (7,15)→01→A. Answer: I₀ = A′, I₁ = 0, I₂ = A, I₃ = A, I₄ = 1, I₅ = A′, I₆ = 0, I₇ = A.</p></details>
+      </li>
+      <li>How many 3-to-8 decoders (with enable) and extra gates make a 5-to-32 decoder?
+        <details style="margin:.35rem 0 .6rem"><summary style="cursor:pointer;font-weight:600">Show answer</summary><p style="margin:.4rem 0 0">Four 3-to-8 decoders plus one 2-to-4 decoder driving their enables.</p></details>
+      </li>
+      <li>Implement a half subtractor with a 2-to-4 decoder.
+        <details style="margin:.35rem 0 .6rem"><summary style="cursor:pointer;font-weight:600">Show answer</summary><p style="margin:.4rem 0 0">D = D₁ + D₂; B<sub>out</sub> = D₁ (x′y).</p></details>
+      </li>
+    </ol>
+
+    <h2>Common Pitfalls</h2>
+    <ul>
+      <li><strong>Swapping the select order</strong> — S₁ is the MSB; the data-input number is the select value read as binary.</li>
+      <li><strong>Using the wrong variable as the data input</strong> — with A, B on the selects, the inputs are functions of C and D; pair minterms within each group of four.</li>
+      <li><strong>Leaving long OR gates</strong> — when a function has more than half the minterms, use a NOR of the missing ones.</li>
+      <li><strong>Forgetting enables when expanding decoders</strong> — the extra input must enable exactly one decoder at a time.</li>
+    </ul>
+
+    <p>Related syllabus topics: <a href="decoders.html">Decoders</a> · <a href="multiplexers.html">Multiplexers</a>.</p>
+  </div>
+  <div class="topic-nav">
+    <a href="code-converters.html">
+      <div class="nav-dir">← Previous</div>
+      <div class="nav-title">Code Converters</div>
+    </a>
+    <a href="counter-design-solved-problems.html" class="next">
+      <div class="nav-dir">Next →</div>
+      <div class="nav-title">Counter Design — Solved Problems</div>
+    </a>
+  </div>
+</div>
+<footer id="main-footer"></footer>
+<script type="module">
+  import { initNav } from '../../../js/nav.js';
+  import { initSidebar } from '../../../js/sidebar.js';
+  initNav(3);
+  initSidebar();
+</script>
+</body>
+</html>

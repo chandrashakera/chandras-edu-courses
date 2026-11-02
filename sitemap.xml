@@ -242,7 +242,7 @@
   </url>
   <url>
     <loc>https://chandrashaker.com/courses/academic/coa/unit2/</loc>
-    <lastmod>2026-10-28</lastmod>
+    <lastmod>2026-11-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
@@ -260,7 +260,7 @@
   </url>
   <url>
     <loc>https://chandrashaker.com/courses/academic/coa/unit2/design-procedure</loc>
-    <lastmod>2026-10-23</lastmod>
+    <lastmod>2026-11-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -296,7 +296,7 @@
   </url>
   <url>
     <loc>https://chandrashaker.com/courses/academic/coa/unit2/decoders</loc>
-    <lastmod>2026-11-01</lastmod>
+    <lastmod>2026-11-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -308,7 +308,7 @@
   </url>
   <url>
     <loc>https://chandrashaker.com/courses/academic/coa/unit2/multiplexers</loc>
-    <lastmod>2026-11-01</lastmod>
+    <lastmod>2026-11-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -350,19 +350,37 @@
   </url>
   <url>
     <loc>https://chandrashaker.com/courses/academic/coa/unit2/ripple-counters</loc>
-    <lastmod>2026-10-23</lastmod>
+    <lastmod>2026-11-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://chandrashaker.com/courses/academic/coa/unit2/synchronous-counters</loc>
-    <lastmod>2026-10-27</lastmod>
+    <lastmod>2026-11-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://chandrashaker.com/courses/academic/coa/unit2/other-counters</loc>
     <lastmod>2026-10-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://chandrashaker.com/courses/academic/coa/unit2/code-converters</loc>
+    <lastmod>2026-11-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://chandrashaker.com/courses/academic/coa/unit2/mux-decoder-solved-problems</loc>
+    <lastmod>2026-11-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://chandrashaker.com/courses/academic/coa/unit2/counter-design-solved-problems</loc>
+    <lastmod>2026-11-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -650,7 +668,7 @@
   </url>
   <url>
     <loc>https://chandrashaker.com/courses/academic/coa/unit1/binary-logic</loc>
-    <lastmod>2026-10-23</lastmod>
+    <lastmod>2026-11-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>

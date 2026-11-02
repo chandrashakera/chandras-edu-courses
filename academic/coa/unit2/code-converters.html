@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3030765874336294" crossorigin="anonymous"></script>
+  <title>Code Converters — COA Unit 2 | CHANDRAS EDU</title>
+  <meta name="description" content="Code converter design: BCD to Excess-3 and binary to Gray and Gray to binary, with truth tables, K-map simplification and final gate equations.">
+  <link rel="canonical" href="https://chandrashaker.com/courses/academic/coa/unit2/code-converters.html">
+  <link rel="stylesheet" href="../../../css/style.css">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="CHANDRAS EDU">
+  <meta property="og:title" content="Code Converters — COA Unit 2 | CHANDRAS EDU">
+  <meta property="og:description" content="Code converter design: BCD to Excess-3 and binary to Gray and Gray to binary, with truth tables, K-map simplification and final gate equations.">
+  <meta property="og:url" content="https://chandrashaker.com/courses/academic/coa/unit2/code-converters.html">
+  <meta property="og:image" content="https://chandrashaker.com/courses/images/og/coa-v7.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Computer Organization and Architecture — CHANDRAS EDU free course">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Code Converters — COA Unit 2 | CHANDRAS EDU">
+  <meta name="twitter:description" content="Code converter design: BCD to Excess-3 and binary to Gray and Gray to binary, with truth tables, K-map simplification and final gate equations.">
+  <meta name="twitter:image" content="https://chandrashaker.com/courses/images/og/coa-v7.png">
+  <script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Courses","item":"https://chandrashaker.com/courses/"},{"@type":"ListItem","position":2,"name":"COA","item":"https://chandrashaker.com/courses/academic/coa/"},{"@type":"ListItem","position":3,"name":"Unit 2","item":"https://chandrashaker.com/courses/academic/coa/unit2/"},{"@type":"ListItem","position":4,"name":"Code Converters"}]}
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LearningResource",
+  "name": "Code Converters",
+  "description": "Code converter design: BCD to Excess-3 and binary to Gray and Gray to binary, with truth tables, K-map simplification and final gate equations.",
+  "url": "https://chandrashaker.com/courses/academic/coa/unit2/code-converters.html",
+  "image": "https://chandrashaker.com/courses/images/og/coa-v7.png",
+  "learningResourceType": "Lesson",
+  "educationalLevel": "Undergraduate",
+  "about": { "@type": "Thing", "name": "Computer Organization and Architecture" },
+  "isPartOf": { "@type": "Course", "name": "Computer Organization and Architecture", "provider": { "@type": "Organization", "name": "CHANDRAS EDU", "url": "https://chandrashaker.in" } },
+  "publisher": { "@type": "Organization", "name": "CHANDRAS EDU", "url": "https://chandrashaker.in" }
+}
+  </script>
+  <link rel="icon" href="/favicon.ico">
+</head>
+<body>
+<div id="main-nav"></div>
+<div class="page-narrow" role="main">
+  <nav class="breadcrumb">
+    <a href="../../../index.html">Courses</a><span class="sep">/</span>
+    <a href="../index.html">Computer Organization and Architecture</a><span class="sep">/</span>
+    <a href="index.html">Unit 2</a><span class="sep">/</span>
+    <span>Supplementary Topics</span><span class="sep">/</span>
+    <span class="cur">Code Converters</span>
+  </nav>
+  <div style="background:var(--primary);border-radius:var(--radius-lg);padding:1.1rem 1.4rem;margin-bottom:1.5rem;color:#fff">
+    <div style="font-size:.75rem;opacity:.75;margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.05em">Supplementary — beyond the syllabus</div>
+    <h1 style="font-size:1.4rem;font-weight:700;color:#fff;margin-bottom:.5rem">Code Converters</h1>
+    <div style="display:flex;gap:.75rem;flex-wrap:wrap">
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">⏱ 20 min read</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📌 Supplementary — beyond the syllabus</span>
+    </div>
+  </div>
+  <div class="lesson">
+    <div class="box box-tip">
+      <strong>In simple terms:</strong> a code converter is just a combinational circuit whose inputs are one code and whose outputs are another — write the truth table, simplify each output with a K-map, then draw the gates.</div>
+
+    <p>A code converter translates the same information from one binary code to another — for example, BCD from a calculator keypad into Excess-3 for an older arithmetic unit, or binary from a counter into Gray code for a rotary encoder. Each design follows the combinational design procedure: truth table → K-map per output → gate equations.</p>
+
+    <h2>1. BCD to Excess-3</h2>
+    <p>Excess-3 = BCD + 3. Inputs ABCD (BCD 0–9); outputs wxyz. Inputs 1010–1111 never occur, so they are don’t-cares (X).</p>
+    <div style="overflow-x:auto">
+      <table>
+        <thead><tr><th>Decimal</th><th>A B C D (BCD)</th><th>w x y z (Excess-3)</th></tr></thead>
+        <tbody>
+          <tr><td>0</td><td>0000</td><td>0011</td></tr>
+          <tr><td>1</td><td>0001</td><td>0100</td></tr>
+          <tr><td>2</td><td>0010</td><td>0101</td></tr>
+          <tr><td>3</td><td>0011</td><td>0110</td></tr>
+          <tr><td>4</td><td>0100</td><td>0111</td></tr>
+          <tr><td>5</td><td>0101</td><td>1000</td></tr>
+          <tr><td>6</td><td>0110</td><td>1001</td></tr>
+          <tr><td>7</td><td>0111</td><td>1010</td></tr>
+          <tr><td>8</td><td>1000</td><td>1011</td></tr>
+          <tr><td>9</td><td>1001</td><td>1100</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h3>K-Maps (rows AB, columns CD in Gray order)</h3>
+    <p>w = Σm(5,6,7,8,9) + d(10–15)</p>
+    <div style="overflow-x:auto">
+      <table>
+        <thead><tr><th>AB \ CD</th><th>00</th><th>01</th><th>11</th><th>10</th></tr></thead>
+        <tbody>
+          <tr><td><strong>00</strong></td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+          <tr><td><strong>01</strong></td><td>0</td><td>1</td><td>1</td><td>1</td></tr>
+          <tr><td><strong>11</strong></td><td>X</td><td>X</td><td>X</td><td>X</td></tr>
+          <tr><td><strong>10</strong></td><td>1</td><td>1</td><td>X</td><td>X</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>x = Σm(1,2,3,4,9) + d(10–15)</p>
+    <div style="overflow-x:auto">
+      <table>
+        <thead><tr><th>AB \ CD</th><th>00</th><th>01</th><th>11</th><th>10</th></tr></thead>
+        <tbody>
+          <tr><td><strong>00</strong></td><td>0</td><td>1</td><td>1</td><td>1</td></tr>
+          <tr><td><strong>01</strong></td><td>1</td><td>0</td><td>0</td><td>0</td></tr>
+          <tr><td><strong>11</strong></td><td>X</td><td>X</td><td>X</td><td>X</td></tr>
+          <tr><td><strong>10</strong></td><td>0</td><td>1</td><td>X</td><td>X</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>y = Σm(0,3,4,7,8) + d(10–15)</p>
+    <div style="overflow-x:auto">
+      <table>
+        <thead><tr><th>AB \ CD</th><th>00</th><th>01</th><th>11</th><th>10</th></tr></thead>
+        <tbody>
+          <tr><td><strong>00</strong></td><td>1</td><td>0</td><td>1</td><td>0</td></tr>
+          <tr><td><strong>01</strong></td><td>1</td><td>0</td><td>1</td><td>0</td></tr>
+          <tr><td><strong>11</strong></td><td>X</td><td>X</td><td>X</td><td>X</td></tr>
+          <tr><td><strong>10</strong></td><td>1</td><td>0</td><td>X</td><td>X</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>z = Σm(0,2,4,6,8) + d(10–15)</p>
+    <div style="overflow-x:auto">
+      <table>
+        <thead><tr><th>AB \ CD</th><th>00</th><th>01</th><th>11</th><th>10</th></tr></thead>
+        <tbody>
+          <tr><td><strong>00</strong></td><td>1</td><td>0</td><td>0</td><td>1</td></tr>
+          <tr><td><strong>01</strong></td><td>1</td><td>0</td><td>0</td><td>1</td></tr>
+          <tr><td><strong>11</strong></td><td>X</td><td>X</td><td>X</td><td>X</td></tr>
+          <tr><td><strong>10</strong></td><td>1</td><td>0</td><td>X</td><td>X</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h3>Result</h3>
+    <div class="box box-eg">
+      <pre>z = D′
+y = CD + C′D′            = (C ⊕ D)′
+x = B′C + B′D + BC′D′    = B′(C + D) + B(C + D)′  = B ⊕ (C + D)
+w = A + BC + BD          = A + B(C + D)</pre>
+    </div>
+    <p>The factored forms share the term C + D between x and w, so the whole converter needs one OR gate for C + D, one XOR, one XNOR, one AND, one OR and one inverter.</p>
+    <p>Check: input 0111 (7) → w = 0 + 1·1 = 1, x = 1 ⊕ 1 = 0, y = (1 ⊕ 1)′ = 1, z = 0 → 1010 = 10 = 7 + 3 ✓</p>
+
+    <h2>2. Binary to Gray Code</h2>
+    <p>In Gray code, consecutive values differ in exactly one bit. Each Gray bit is the XOR of the binary bit and the next higher binary bit.</p>
+    <h3>Truth Table (4-bit)</h3>
+    <div style="overflow-x:auto">
+      <table>
+        <thead><tr><th>Decimal</th><th>B₃B₂B₁B₀</th><th>G₃G₂G₁G₀</th></tr></thead>
+        <tbody>
+          <tr><td>0</td><td>0000</td><td>0000</td></tr>
+          <tr><td>1</td><td>0001</td><td>0001</td></tr>
+          <tr><td>2</td><td>0010</td><td>0011</td></tr>
+          <tr><td>3</td><td>0011</td><td>0010</td></tr>
+          <tr><td>4</td><td>0100</td><td>0110</td></tr>
+          <tr><td>5</td><td>0101</td><td>0111</td></tr>
+          <tr><td>6</td><td>0110</td><td>0101</td></tr>
+          <tr><td>7</td><td>0111</td><td>0100</td></tr>
+          <tr><td>8</td><td>1000</td><td>1100</td></tr>
+          <tr><td>9</td><td>1001</td><td>1101</td></tr>
+          <tr><td>10</td><td>1010</td><td>1111</td></tr>
+          <tr><td>11</td><td>1011</td><td>1110</td></tr>
+          <tr><td>12</td><td>1100</td><td>1010</td></tr>
+          <tr><td>13</td><td>1101</td><td>1011</td></tr>
+          <tr><td>14</td><td>1110</td><td>1001</td></tr>
+          <tr><td>15</td><td>1111</td><td>1000</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h3>Equations</h3>
+    <div class="box box-eg">
+      <pre>G₃ = B₃
+G₂ = B₃ ⊕ B₂
+G₁ = B₂ ⊕ B₁
+G₀ = B₁ ⊕ B₀          → three XOR gates
+Example: 1011 → G₃ = 1, G₂ = 1⊕0 = 1, G₁ = 0⊕1 = 1, G₀ = 1⊕1 = 0 → 1110</pre>
+    </div>
+    <p>The K-map of each Gray output is a checkerboard pattern across two columns or rows, which is why it reduces to a single XOR rather than an SOP.</p>
+
+    <h2>3. Gray Code to Binary</h2>
+    <p>Going back, each binary bit is the XOR of the Gray bit and the binary bit just found above it — so the outputs are computed from the top down.</p>
+    <div class="box box-eg">
+      <pre>B₃ = G₃
+B₂ = B₃ ⊕ G₂ = G₃ ⊕ G₂
+B₁ = B₂ ⊕ G₁ = G₃ ⊕ G₂ ⊕ G₁
+B₀ = B₁ ⊕ G₀ = G₃ ⊕ G₂ ⊕ G₁ ⊕ G₀
+Example: 1101 → B₃ = 1, B₂ = 1⊕1 = 0, B₁ = 0⊕0 = 0, B₀ = 0⊕1 = 1 → 1001 ✓ (1001 → Gray 1101)</pre>
+    </div>
+    <div class="box box-eg">
+      Binary → Gray uses only the <em>input</em> bits (parallel XORs); Gray → binary chains through the <em>outputs</em>, so its delay grows with the number of bits.
+    </div>
+
+    <h3>Practice Problems</h3>
+    <ol>
+      <li>Convert binary 0110 1101 to Gray code.
+        <details style="margin:.35rem 0 .6rem"><summary style="cursor:pointer;font-weight:600">Show answer</summary><p style="margin:.4rem 0 0">0101 1011.</p></details>
+      </li>
+      <li>Convert Gray code 1011 to binary.
+        <details style="margin:.35rem 0 .6rem"><summary style="cursor:pointer;font-weight:600">Show answer</summary><p style="margin:.4rem 0 0">1101.</p></details>
+      </li>
+      <li>Design an Excess-3 to BCD converter (inputs wxyz, outputs ABCD; Excess-3 codes 0000, 0001, 0010, 1101, 1110, 1111 are don't-cares).
+        <details style="margin:.35rem 0 .6rem"><summary style="cursor:pointer;font-weight:600">Show answer</summary><p style="margin:.4rem 0 0">A = wx + wyz; B = x′y′ + x′z′ + xyz; C = y ⊕ z; D = z′.</p></details>
+      </li>
+      <li>Why is the BCD to Excess-3 converter simpler than a 4-bit adder adding 0011?
+        <details style="margin:.35rem 0 .6rem"><summary style="cursor:pointer;font-weight:600">Show answer</summary><p style="margin:.4rem 0 0">The six unused BCD inputs are don't-cares, so K-maps give larger groups; an adder must work for all 16 inputs.</p></details>
+      </li>
+    </ol>
+
+    <h2>Common Pitfalls</h2>
+    <ul>
+      <li><strong>Forgetting the don't-cares</strong> — inputs 1010–1111 never appear in BCD; leaving them as 0 gives much larger circuits.</li>
+      <li><strong>Writing outputs in the wrong bit order</strong> — w is the MSB of Excess-3 and A the MSB of BCD; keep the same order in the table and the K-maps.</li>
+      <li><strong>Gray → binary with Gray bits only in parallel</strong> — B₁ = G₂ ⊕ G₁ is wrong; it must include G₃ (B₁ = G₃ ⊕ G₂ ⊕ G₁).</li>
+      <li><strong>Starting the Gray conversion from the LSB</strong> — the MSB is copied unchanged; the XORs work downward from it.</li>
+    </ul>
+
+    <p>Related syllabus topics: <a href="../unit1/binary-codes.html">Binary Codes</a> · <a href="design-procedure.html">Combinational Circuit Design Procedure</a>.</p>
+  </div>
+  <div class="topic-nav">
+    <a href="other-counters.html">
+      <div class="nav-dir">← Previous</div>
+      <div class="nav-title">Other Counters</div>
+    </a>
+    <a href="mux-decoder-solved-problems.html" class="next">
+      <div class="nav-dir">Next →</div>
+      <div class="nav-title">MUX and Decoder Implementation — Solved Problems</div>
+    </a>
+  </div>
+</div>
+<footer id="main-footer"></footer>
+<script type="module">
+  import { initNav } from '../../../js/nav.js';
+  import { initSidebar } from '../../../js/sidebar.js';
+  initNav(3);
+  initSidebar();
+</script>
+</body>
+</html>

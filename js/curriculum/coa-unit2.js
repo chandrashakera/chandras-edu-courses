@@ -24,9 +24,16 @@ export const GROUPS = {
       { id:'synchronous-counters',             title:'Synchronous Counters',                     desc:'The 4-step synchronous design procedure worked through a 3-bit JK up-counter and down-counter with K-maps.', time:'24 min', href:'synchronous-counters.html', status:'active' },
       { id:'other-counters',                   title:'Other Counters',                           desc:'Ring and Johnson (twisted-ring) counters built from a shift register, plus the decade counter as a building block.', time:'18 min', href:'other-counters.html', status:'active' },
     ],
+    // Supplementary topics: extra pages beyond the syllabus (no quiz, not required for the certificate) — see js/curriculum/supplementary.js
+    'tg-supplementary': [
+      { id:'code-converters', title:'Code Converters', desc:'BCD to Excess-3 and binary↔Gray code converter design, with truth tables, K-maps and gate equations.', time:'20 min', href:'code-converters.html', status:'active', supplementary:true, related:'binary-codes' },
+      { id:'mux-decoder-solved-problems', title:'MUX and Decoder Implementation — Solved Problems', desc:'Solved Boolean-function implementations on 4-to-1 and 8-to-1 MUXes, multi-output decoders and larger MUX/decoder builds.', time:'25 min', href:'mux-decoder-solved-problems.html', status:'active', supplementary:true, related:'multiplexers' },
+      { id:'counter-design-solved-problems', title:'Counter Design — Solved Problems', desc:'Solved synchronous and ripple counter designs, including arbitrary sequences and maximum clock frequency.', time:'30 min', href:'counter-design-solved-problems.html', status:'active', supplementary:true, related:'synchronous-counters' },
+    ],
   };
 
 export const GROUP_LABELS = {
   'tg-combinational': '🔗 Combinational Logic',
   'tg-sequential': '⏱️ Sequential Logic',
+  'tg-supplementary': 'Supplementary Topics — Beyond the Syllabus',
 };
