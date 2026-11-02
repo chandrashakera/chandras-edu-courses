@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3030765874336294" crossorigin="anonymous"></script>
+  <title>Number Conversions — Solved Problems — COA Unit 1 | CHANDRAS EDU</title>
+  <meta name="description" content="Solved number system problems: decimal, binary, octal, hex and base-r conversions with fractions, plus r's and (r−1)'s complement subtraction.">
+  <link rel="canonical" href="https://chandrashaker.com/courses/academic/coa/unit1/number-conversions-solved-problems.html">
+  <link rel="stylesheet" href="../../../css/style.css">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="CHANDRAS EDU">
+  <meta property="og:title" content="Number Conversions — Solved Problems — COA Unit 1 | CHANDRAS EDU">
+  <meta property="og:description" content="Solved number system problems: decimal, binary, octal, hex and base-r conversions with fractions, plus r's and (r−1)'s complement subtraction.">
+  <meta property="og:url" content="https://chandrashaker.com/courses/academic/coa/unit1/number-conversions-solved-problems.html">
+  <meta property="og:image" content="https://chandrashaker.com/courses/images/og/coa-v7.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Computer Organization and Architecture — CHANDRAS EDU free course">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Number Conversions — Solved Problems — COA Unit 1 | CHANDRAS EDU">
+  <meta name="twitter:description" content="Solved number system problems: decimal, binary, octal, hex and base-r conversions with fractions, plus r's and (r−1)'s complement subtraction.">
+  <meta name="twitter:image" content="https://chandrashaker.com/courses/images/og/coa-v7.png">
+  <script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Courses","item":"https://chandrashaker.com/courses/"},{"@type":"ListItem","position":2,"name":"COA","item":"https://chandrashaker.com/courses/academic/coa/"},{"@type":"ListItem","position":3,"name":"Unit 1","item":"https://chandrashaker.com/courses/academic/coa/unit1/"},{"@type":"ListItem","position":4,"name":"Number Conversions — Solved Problems"}]}
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LearningResource",
+  "name": "Number Conversions — Solved Problems",
+  "description": "Solved number system problems: decimal, binary, octal, hex and base-r conversions with fractions, plus r's and (r−1)'s complement subtraction.",
+  "url": "https://chandrashaker.com/courses/academic/coa/unit1/number-conversions-solved-problems.html",
+  "image": "https://chandrashaker.com/courses/images/og/coa-v7.png",
+  "learningResourceType": "Lesson",
+  "educationalLevel": "Undergraduate",
+  "about": { "@type": "Thing", "name": "Computer Organization and Architecture" },
+  "isPartOf": { "@type": "Course", "name": "Computer Organization and Architecture", "provider": { "@type": "Organization", "name": "CHANDRAS EDU", "url": "https://chandrashaker.in" } },
+  "publisher": { "@type": "Organization", "name": "CHANDRAS EDU", "url": "https://chandrashaker.in" }
+}
+  </script>
+  <link rel="icon" href="/favicon.ico">
+</head>
+<body>
+<div id="main-nav"></div>
+<div class="page-narrow" role="main">
+  <nav class="breadcrumb">
+    <a href="../../../index.html">Courses</a><span class="sep">/</span>
+    <a href="../index.html">Computer Organization and Architecture</a><span class="sep">/</span>
+    <a href="index.html">Unit 1</a><span class="sep">/</span>
+    <span>Supplementary Topics</span><span class="sep">/</span>
+    <span class="cur">Number Conversions — Solved Problems</span>
+  </nav>
+  <div style="background:var(--primary);border-radius:var(--radius-lg);padding:1.1rem 1.4rem;margin-bottom:1.5rem;color:#fff">
+    <div style="font-size:.75rem;opacity:.75;margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.05em">Supplementary — beyond the syllabus</div>
+    <h1 style="font-size:1.4rem;font-weight:700;color:#fff;margin-bottom:.5rem">Number Conversions — Solved Problems</h1>
+    <div style="display:flex;gap:.75rem;flex-wrap:wrap">
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">⏱ 20 min read</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📌 Supplementary — beyond the syllabus</span>
+    </div>
+  </div>
+  <div class="lesson">
+    <div class="box box-tip">
+      <strong>In simple terms:</strong> to change bases, go through decimal (divide for the integer part, multiply for the fraction) — or, between binary, base 4, octal and hex, just regroup the bits.</div>
+
+    <p>These problems use the methods from <a href="data-types-number-systems.html">Data Types and Number Systems</a> and <a href="complements.html">Complements</a>. Each answer ends with a check.</p>
+
+    <h2>1. Base Conversions</h2>
+    <h3>Problem 1 — (258.75)₁₀ to Binary, Octal and Hexadecimal</h3>
+    <div class="box box-eg">
+      <pre>Integer 258:  258 → 129 r0 → 64 r1 → 32 r0 → 16 r0 → 8 r0 → 4 r0 → 2 r0 → 1 r0 → 0 r1
+              read upward: 100000010
+Fraction .75: .75×2 = 1.5 → 1;  .5×2 = 1.0 → 1   → .11
+(258.75)₁₀ = (100000010.11)₂
+Octal (3-bit groups from the point):  100 000 010 . 110  → (402.6)₈
+Hex   (4-bit groups from the point):  0001 0000 0010 . 1100 → (102.C)₁₆
+Check: 256 + 2 + 0.5 + 0.25 = 258.75 ✓</pre>
+    </div>
+    <h3>Problem 2 — (9BCD)₁₆ to Octal (via Binary)</h3>
+    <div class="box box-eg">
+      <pre>9 B C D → 1001 1011 1100 1101
+Regroup in 3s from the right: 001 001 101 111 001 101 → 1 1 5 7 1 5
+(9BCD)₁₆ = (115715)₈        Check: both equal (39885)₁₀ ✓</pre>
+    </div>
+    <h3>Problem 3 — (7654)₈ to Decimal and Hexadecimal</h3>
+    <div class="box box-eg">
+      <pre>Decimal: 7×512 + 6×64 + 5×8 + 4 = 3584 + 384 + 40 + 4 = (4012)₁₀
+Hex: 111 110 101 100 → 1111 1010 1100 → (FAC)₁₆
+Check: 15×256 + 10×16 + 12 = 4012 ✓</pre>
+    </div>
+    <h3>Problem 4 — (343)₅ to Base 6 (Base r → Base s Through Decimal)</h3>
+    <div class="box box-eg">
+      <pre>(343)₅ = 3×25 + 4×5 + 3 = (98)₁₀
+98 ÷ 6 = 16 r 2;  16 ÷ 6 = 2 r 4;  2 ÷ 6 = 0 r 2   → read upward: 242
+(343)₅ = (242)₆            Check: 2×36 + 4×6 + 2 = 98 ✓</pre>
+    </div>
+    <h3>Problem 5 — (11001101.0101)₂ to Base 4, Octal and Hexadecimal</h3>
+    <div class="box box-eg">
+      <pre>Base 4 (2-bit groups):  11 00 11 01 . 01 01         → (3031.11)₄
+Octal  (3-bit groups):  011 001 101 . 010 100       → (315.24)₈
+Hex    (4-bit groups):  1100 1101 . 0101            → (CD.5)₁₆
+All equal (205.3125)₁₀ ✓   Pad with 0s on the outside: left of the integer part, right of the fraction.</pre>
+    </div>
+    <h3>Problem 6 — (3A.C)₁₆ to Decimal</h3>
+    <div class="box box-eg">
+      <pre>3×16 + 10×1 + 12×(1/16) = 48 + 10 + 0.75 = (58.75)₁₀</pre>
+    </div>
+    <h3>Problem 7 — (0.1)₁₀ to Binary (a Fraction that Never Ends)</h3>
+    <div class="box box-eg">
+      <pre>0.1→0.2 (0)  0.2→0.4 (0)  0.4→0.8 (0)  0.8→1.6 (1)  0.6→1.2 (1)
+0.2→0.4 (0)  0.4→0.8 (0)  0.8→1.6 (1)  0.6→1.2 (1)  …  the pattern 0011 repeats
+(0.1)₁₀ = (0.000110011…)₂  — stop at the required number of bits, e.g. 10 bits: 0.0001100110</pre>
+    </div>
+    <div class="box box-eg">
+      This is why 0.1 cannot be stored exactly in binary floating point.
+    </div>
+
+    <h2>2. Complements</h2>
+    <h3>Problem 8 — 9’s and 10’s Complements</h3>
+    <div style="overflow-x:auto">
+      <table>
+        <thead><tr><th>Number</th><th>9's complement</th><th>10's complement</th></tr></thead>
+        <tbody>
+          <tr><td>546700</td><td>453299</td><td>453300</td></tr>
+          <tr><td>012398</td><td>987601</td><td>987602</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h3>Problem 9 — 1’s and 2’s Complements</h3>
+    <div style="overflow-x:auto">
+      <table>
+        <thead><tr><th>Number</th><th>1's complement</th><th>2's complement</th></tr></thead>
+        <tbody>
+          <tr><td>1011000</td><td>0100111</td><td>0101000</td></tr>
+          <tr><td>0110111</td><td>1001000</td><td>1001001</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p><strong>Shortcut for 2’s complement:</strong> keep bits from the right up to and including the first 1, then invert the rest.</p>
+
+    <h2>3. Subtraction with Complements</h2>
+    <h3>Problem 10 — 8456 − 3272 and 3272 − 8456 (10’s Complement, 4 Digits)</h3>
+    <div class="box box-eg">
+      <pre>8456 − 3272:  8456 + 6728 (10's comp of 3272) = 1 5184
+              end carry → discard → answer +5184
+3272 − 8456:  3272 + 1544 (10's comp of 8456) =   4816
+              no end carry → negative: −(10's comp of 4816) = −5184</pre>
+    </div>
+    <h3>Problem 11 — X − Y and Y − X with X = 1101010, Y = 0110111 (2’s Complement)</h3>
+    <div class="box box-eg">
+      <pre>X − Y:  1101010 + 1001001 = 1 0110011  → discard carry → +0110011 (= 51)
+Y − X:  0110111 + 0010110 =   1001101  → no carry → −(2's comp) = −0110011 (= −51)
+Check: 106 − 55 = 51 ✓</pre>
+    </div>
+    <h3>Problem 12 — the Same X − Y and Y − X with 1’s Complement</h3>
+    <div class="box box-eg">
+      <pre>X − Y:  1101010 + 1001000 = 1 0110010  → end-around carry: 0110010 + 1 = +0110011
+Y − X:  0110111 + 0010101 =   1001100  → no carry → −(1's comp) = −0110011</pre>
+    </div>
+    <h3>Problem 13 — 8-Bit Signed (2’s Complement) Addition and Overflow</h3>
+    <div style="overflow-x:auto">
+      <table>
+        <thead><tr><th>Sum</th><th>Working</th><th>Result</th><th>Overflow?</th></tr></thead>
+        <tbody>
+          <tr><td>(−37) + (+58)</td><td>11011011 + 00111010 = 1 00010101</td><td>+21 (carry discarded)</td><td>No</td></tr>
+          <tr><td>(+75) + (+68)</td><td>01001011 + 01000100 = 10001111</td><td>reads −113, true answer 143</td><td><strong>Yes</strong> — two positives gave a negative</td></tr>
+          <tr><td>(−90) + (−50)</td><td>10100110 + 11001110 = 1 01110100</td><td>reads +116, true answer −140</td><td><strong>Yes</strong> — two negatives gave a positive</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Overflow occurs when the carry into the sign bit differs from the carry out of it; the range for 8 bits is −128 to +127.</p>
+
+    <h3>Practice Problems</h3>
+    <ol>
+      <li>(125.625)₁₀ to binary and hex.
+        <details style="margin:.35rem 0 .6rem"><summary style="cursor:pointer;font-weight:600">Show answer</summary><p style="margin:.4rem 0 0">(1111101.101)₂ = (7D.A)₁₆.</p></details>
+      </li>
+      <li>(2F7)₁₆ to octal.
+        <details style="margin:.35rem 0 .6rem"><summary style="cursor:pointer;font-weight:600">Show answer</summary><p style="margin:.4rem 0 0">(1367)₈.</p></details>
+      </li>
+      <li>(1212)₃ to base 7.
+        <details style="margin:.35rem 0 .6rem"><summary style="cursor:pointer;font-weight:600">Show answer</summary><p style="margin:.4rem 0 0">(50)₁₀ = (101)₇.</p></details>
+      </li>
+      <li>2's complement: 0101101 − 1100011 (7 bits).
+        <details style="margin:.35rem 0 .6rem"><summary style="cursor:pointer;font-weight:600">Show answer</summary><p style="margin:.4rem 0 0">0101101 + 0011101 = 1001010, no carry → −0110110 (45 − 99 = −54).</p></details>
+      </li>
+    </ol>
+
+    <h2>Common Pitfalls</h2>
+    <ul>
+      <li><strong>Reading remainders the wrong way</strong> — integer digits read bottom-up; fraction digits read top-down.</li>
+      <li><strong>Grouping from the wrong end</strong> — group outward from the binary point, padding with 0s on the outside.</li>
+      <li><strong>Keeping the end carry in r's-complement subtraction</strong> — discard it; in (r−1)'s complement add it back (end-around carry).</li>
+      <li><strong>Missing overflow</strong> — a wrong-sign result from two same-sign operands is overflow, not a valid answer.</li>
+    </ul>
+
+    <p>Related syllabus topics: <a href="data-types-number-systems.html">Data Types and Number Systems</a> · <a href="complements.html">Complements</a>.</p>
+  </div>
+  <div class="topic-nav">
+    <a href="computer-design.html">
+      <div class="nav-dir">← Previous</div>
+      <div class="nav-title">Computer Design</div>
+    </a>
+    <a href="boolean-kmap-solved-problems.html" class="next">
+      <div class="nav-dir">Next →</div>
+      <div class="nav-title">Boolean Simplification and K-Maps — Solved Problems</div>
+    </a>
+  </div>
+</div>
+<footer id="main-footer"></footer>
+<script type="module">
+  import { initNav } from '../../../js/nav.js';
+  import { initSidebar } from '../../../js/sidebar.js';
+  initNav(3);
+  initSidebar();
+</script>
+</body>
+</html>

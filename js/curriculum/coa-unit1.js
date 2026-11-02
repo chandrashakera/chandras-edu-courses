@@ -19,10 +19,16 @@ export const GROUPS = {
       { id:'computer-organization-vs-architecture', title:'Computer Organization vs Architecture', desc:'The distinction between how a computer is built vs. what it can do.',     time:'14 min', href:'computer-organization-vs-architecture.html', status:'active' },
       { id:'computer-design',                      title:'Computer Design',                        desc:'Design levels — gates, registers, processors, and systems.',              time:'13 min', href:'computer-design.html', status:'active' },
     ],
+    // Supplementary topics: extra pages beyond the syllabus (no quiz, not required for the certificate) — see js/curriculum/supplementary.js
+    'tg-supplementary': [
+      { id:'number-conversions-solved-problems', title:'Number Conversions — Solved Problems', desc:"Solved base conversions with fractions, and r's and (r−1)'s complement subtraction.", time:'20 min', href:'number-conversions-solved-problems.html', status:'active', supplementary:true, related:'data-types-number-systems' },
+      { id:'boolean-kmap-solved-problems', title:'Boolean Simplification and K-Maps — Solved Problems', desc:"Solved algebraic simplification, canonical SOP/POS, and 4-variable K-maps with don't-cares.", time:'25 min', href:'boolean-kmap-solved-problems.html', status:'active', supplementary:true, related:'k-map-representation' },
+    ],
   };
 
 export const GROUP_LABELS = {
   'tg-data-rep': '📊 Data Representation',
   'tg-boolean': '⚡ Boolean Algebra & Logic Gates',
   'tg-digital': '🖥️ Digital Computers',
+  'tg-supplementary': 'Supplementary Topics — Beyond the Syllabus',
 };

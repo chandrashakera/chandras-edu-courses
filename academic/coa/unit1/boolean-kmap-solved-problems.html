@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3030765874336294" crossorigin="anonymous"></script>
+  <title>Boolean Simplification and K-Maps — Solved Problems — COA Unit 1 | CHANDRAS EDU</title>
+  <meta name="description" content="Solved Boolean algebra and K-map problems: algebraic simplification, canonical SOP and POS forms, and 4-variable K-maps with don't-cares.">
+  <link rel="canonical" href="https://chandrashaker.com/courses/academic/coa/unit1/boolean-kmap-solved-problems.html">
+  <link rel="stylesheet" href="../../../css/style.css">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="CHANDRAS EDU">
+  <meta property="og:title" content="Boolean Simplification and K-Maps — Solved Problems — COA Unit 1 | CHANDRAS EDU">
+  <meta property="og:description" content="Solved Boolean algebra and K-map problems: algebraic simplification, canonical SOP and POS forms, and 4-variable K-maps with don't-cares.">
+  <meta property="og:url" content="https://chandrashaker.com/courses/academic/coa/unit1/boolean-kmap-solved-problems.html">
+  <meta property="og:image" content="https://chandrashaker.com/courses/images/og/coa-v7.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Computer Organization and Architecture — CHANDRAS EDU free course">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Boolean Simplification and K-Maps — Solved Problems — COA Unit 1 | CHANDRAS EDU">
+  <meta name="twitter:description" content="Solved Boolean algebra and K-map problems: algebraic simplification, canonical SOP and POS forms, and 4-variable K-maps with don't-cares.">
+  <meta name="twitter:image" content="https://chandrashaker.com/courses/images/og/coa-v7.png">
+  <script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Courses","item":"https://chandrashaker.com/courses/"},{"@type":"ListItem","position":2,"name":"COA","item":"https://chandrashaker.com/courses/academic/coa/"},{"@type":"ListItem","position":3,"name":"Unit 1","item":"https://chandrashaker.com/courses/academic/coa/unit1/"},{"@type":"ListItem","position":4,"name":"Boolean Simplification and K-Maps — Solved Problems"}]}
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LearningResource",
+  "name": "Boolean Simplification and K-Maps — Solved Problems",
+  "description": "Solved Boolean algebra and K-map problems: algebraic simplification, canonical SOP and POS forms, and 4-variable K-maps with don't-cares.",
+  "url": "https://chandrashaker.com/courses/academic/coa/unit1/boolean-kmap-solved-problems.html",
+  "image": "https://chandrashaker.com/courses/images/og/coa-v7.png",
+  "learningResourceType": "Lesson",
+  "educationalLevel": "Undergraduate",
+  "about": { "@type": "Thing", "name": "Computer Organization and Architecture" },
+  "isPartOf": { "@type": "Course", "name": "Computer Organization and Architecture", "provider": { "@type": "Organization", "name": "CHANDRAS EDU", "url": "https://chandrashaker.in" } },
+  "publisher": { "@type": "Organization", "name": "CHANDRAS EDU", "url": "https://chandrashaker.in" }
+}
+  </script>
+  <link rel="icon" href="/favicon.ico">
+</head>
+<body>
+<div id="main-nav"></div>
+<div class="page-narrow" role="main">
+  <nav class="breadcrumb">
+    <a href="../../../index.html">Courses</a><span class="sep">/</span>
+    <a href="../index.html">Computer Organization and Architecture</a><span class="sep">/</span>
+    <a href="index.html">Unit 1</a><span class="sep">/</span>
+    <span>Supplementary Topics</span><span class="sep">/</span>
+    <span class="cur">Boolean Simplification and K-Maps — Solved Problems</span>
+  </nav>
+  <div style="background:var(--primary);border-radius:var(--radius-lg);padding:1.1rem 1.4rem;margin-bottom:1.5rem;color:#fff">
+    <div style="font-size:.75rem;opacity:.75;margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.05em">Supplementary — beyond the syllabus</div>
+    <h1 style="font-size:1.4rem;font-weight:700;color:#fff;margin-bottom:.5rem">Boolean Simplification and K-Maps — Solved Problems</h1>
+    <div style="display:flex;gap:.75rem;flex-wrap:wrap">
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">⏱ 25 min read</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📌 Supplementary — beyond the syllabus</span>
+    </div>
+  </div>
+  <div class="lesson">
+    <div class="box box-tip">
+      <strong>In simple terms:</strong> algebra and K-maps reach the same answer — the K-map just makes the adjacent terms you can combine visible at a glance.</div>
+
+    <p>These problems use <a href="binary-logic.html">Binary Logic</a> and <a href="k-map-representation.html">K-Map Representation</a>. On every K-map below, rows are AB and columns are CD in Gray-code order (00, 01, 11, 10); X marks a don’t-care. (The consensus theorem example is on Binary Logic.)</p>
+
+    <h2>1. Algebraic Simplification</h2>
+    <h3>Problem 1 — x′y′z + x′yz + xy′z</h3>
+    <div class="box box-eg">
+      <pre>= x′z(y′ + y) + xy′z        = x′z + xy′z
+= z(x′ + xy′)               = z(x′ + y′)        (x′ + xy′ = x′ + y′)
+= x′z + y′z</pre>
+    </div>
+    <h3>Problem 2 — (x + y)(x + y′)</h3>
+    <div class="box box-eg">
+      <pre>= x + yy′ = x + 0 = x       (distributive law: (x + y)(x + z) = x + yz)</pre>
+    </div>
+    <h3>Problem 3 — xy + xy′z + x′z</h3>
+    <div class="box box-eg">
+      <pre>xy + xy′z = x(y + y′z) = x(y + z) = xy + xz
+xz + x′z  = z
+Result: xy + z</pre>
+    </div>
+    <h3>Problem 4 — Complement of F = x′yz′ + x′y′z (De Morgan)</h3>
+    <div class="box box-eg">
+      <pre>F′ = (x′yz′)′ · (x′y′z)′ = (x + y′ + z)(x + y + z′)</pre>
+    </div>
+
+    <h2>2. Canonical Forms</h2>
+    <h3>Problem 5 — Express F = a′b + ab′d + c′d as a Sum of Minterms</h3>
+    <div class="box box-eg">
+      <pre>a′b   → a′b(c + c′)(d + d′) → 0100, 0101, 0110, 0111 → m4, m5, m6, m7
+ab′d  → ab′(c + c′)d        → 1001, 1011           → m9, m11
+c′d   → (a + a′)(b + b′)c′d → 0001, 0101, 1001, 1101 → m1, m5, m9, m13
+F = Σm(1, 4, 5, 6, 7, 9, 11, 13)      (m5 and m9 are counted once)</pre>
+    </div>
+    <h3>Problem 6 — Express F = (a + c)(b + c′) in Canonical POS</h3>
+    <div class="box box-eg">
+      <pre>(a + c)  → (a + c + bb′) = (a + b + c)(a + b′ + c)       → M0, M2
+(b + c′) → (b + c′ + aa′) = (a + b + c′)(a′ + b + c′)    → M1, M5
+F = ΠM(0, 1, 2, 5) = (a + b + c)(a + b + c′)(a + b′ + c)(a′ + b + c′)
+Equivalently F = Σm(3, 4, 6, 7)</pre>
+    </div>
+
+    <h2>3. Four-Variable K-Maps</h2>
+    <h3>Problem 7 — F = Σm(1, 2, 3, 4, 5, 6, 8, 13): Minimal SOP and POS</h3>
+    <div style="overflow-x:auto">
+      <table>
+        <thead><tr><th>AB \ CD</th><th>00</th><th>01</th><th>11</th><th>10</th></tr></thead>
+        <tbody>
+          <tr><td><strong>00</strong></td><td>0</td><td>1</td><td>1</td><td>1</td></tr>
+          <tr><td><strong>01</strong></td><td>1</td><td>1</td><td>0</td><td>1</td></tr>
+          <tr><td><strong>11</strong></td><td>0</td><td>1</td><td>0</td><td>0</td></tr>
+          <tr><td><strong>10</strong></td><td>1</td><td>0</td><td>0</td><td>0</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <ul>
+      <li>Essential groups: m5, m13 → <strong>BC′D</strong>; m8 has no adjacent 1 → <strong>AB′C′D′</strong> (stays alone).</li>
+      <li>Remaining m1, m2, m3, m4, m6: pairs <strong>A′B′D</strong> (m1, m3), <strong>A′CD′</strong> (m2, m6), <strong>A′BC′</strong> (m4, m5).</li>
+    </ul>
+    <div class="box box-eg">
+      <strong>SOP: F = BC′D + AB′C′D′ + A′B′D + A′CD′ + A′BC′</strong>
+    </div>
+    <p>This map has <strong>four</strong> equally minimal SOP answers (e.g. A′BD′ in place of A′BC′ with A′B′D, A′CD′ kept, or A′C′D + A′B′C + A′BD′). Any one is correct — examiners accept all.</p>
+    <div class="box box-eg">
+      <strong>POS: F = (A′ + C′)(A + B + C + D)(A′ + B + D′)(A′ + B′ + D)(B′ + C′ + D′)</strong>
+    </div>
+    <h3>Problem 8 — F = ΠM(0, 1, 2, 3, 4, 10, 11): Minimal POS and SOP</h3>
+    <div style="overflow-x:auto">
+      <table>
+        <thead><tr><th>AB \ CD</th><th>00</th><th>01</th><th>11</th><th>10</th></tr></thead>
+        <tbody>
+          <tr><td><strong>00</strong></td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+          <tr><td><strong>01</strong></td><td>0</td><td>1</td><td>1</td><td>1</td></tr>
+          <tr><td><strong>11</strong></td><td>1</td><td>1</td><td>1</td><td>1</td></tr>
+          <tr><td><strong>10</strong></td><td>1</td><td>1</td><td>0</td><td>0</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <ul>
+      <li>0-groups: row AB = 00 → (A + B); m2, m3, m10, m11 → (B + C′); m0, m4 → (A + C + D).</li>
+    </ul>
+    <div class="box box-eg">
+      <strong>POS: F = (A + B)(B + C′)(A + C + D)</strong>
+    </div>
+    <ul>
+      <li>1-groups: BD (m5, m7, m13, m15), BC (m6, m7, m14, m15), AC′ (m8, m9, m12, m13).</li>
+    </ul>
+    <div class="box box-eg">
+      <strong>SOP: F = BD + BC + AC′</strong>
+    </div>
+    <h3>Problem 9 — F = ΠM(1, 3, 5, 7, 13, 15)</h3>
+    <div style="overflow-x:auto">
+      <table>
+        <thead><tr><th>AB \ CD</th><th>00</th><th>01</th><th>11</th><th>10</th></tr></thead>
+        <tbody>
+          <tr><td><strong>00</strong></td><td>1</td><td>0</td><td>0</td><td>1</td></tr>
+          <tr><td><strong>01</strong></td><td>1</td><td>0</td><td>0</td><td>1</td></tr>
+          <tr><td><strong>11</strong></td><td>1</td><td>0</td><td>0</td><td>1</td></tr>
+          <tr><td><strong>10</strong></td><td>1</td><td>1</td><td>1</td><td>1</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <ul>
+      <li>0-groups: m1, m3, m5, m7 → (A + D′); m5, m7, m13, m15 → (B′ + D′).</li>
+    </ul>
+    <div class="box box-eg">
+      <strong>POS: F = (A + D′)(B′ + D′)</strong> · <strong>SOP: F = D′ + AB′</strong> (columns 00 and 10 → D′; row 10 → AB′).
+    </div>
+    <h3>Problem 10 — F = Σm(0, 1, 4, 5, 10, 11, 14, 15)</h3>
+    <div style="overflow-x:auto">
+      <table>
+        <thead><tr><th>AB \ CD</th><th>00</th><th>01</th><th>11</th><th>10</th></tr></thead>
+        <tbody>
+          <tr><td><strong>00</strong></td><td>1</td><td>1</td><td>0</td><td>0</td></tr>
+          <tr><td><strong>01</strong></td><td>1</td><td>1</td><td>0</td><td>0</td></tr>
+          <tr><td><strong>11</strong></td><td>0</td><td>0</td><td>1</td><td>1</td></tr>
+          <tr><td><strong>10</strong></td><td>0</td><td>0</td><td>1</td><td>1</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <ul>
+      <li>Two quads: A′C′ (top-left), AC (bottom-right).</li>
+    </ul>
+    <div class="box box-eg">
+      <strong>SOP: F = A′C′ + AC</strong> (= A ⊙ C, XNOR) · <strong>POS: F = (A + C′)(A′ + C)</strong>
+    </div>
+    <h3>Problem 11 — with Don’t-Cares: F = Σm(0, 2, 6, 8, 10, 13, 15) + d(5, 7)</h3>
+    <div style="overflow-x:auto">
+      <table>
+        <thead><tr><th>AB \ CD</th><th>00</th><th>01</th><th>11</th><th>10</th></tr></thead>
+        <tbody>
+          <tr><td><strong>00</strong></td><td>1</td><td>0</td><td>0</td><td>1</td></tr>
+          <tr><td><strong>01</strong></td><td>0</td><td>X</td><td>X</td><td>1</td></tr>
+          <tr><td><strong>11</strong></td><td>0</td><td>1</td><td>1</td><td>0</td></tr>
+          <tr><td><strong>10</strong></td><td>1</td><td>0</td><td>0</td><td>1</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <ul>
+      <li>Four corners → <strong>B′D′</strong>; m13, m15 with X5, X7 → <strong>BD</strong>; m6 remains → <strong>A′BC</strong> (with X7) or A′CD′ (with m2).</li>
+    </ul>
+    <div class="box box-eg">
+      <strong>SOP: F = B′D′ + BD + A′BC</strong> (A′CD′ is an equally valid third term).
+    </div>
+    <div class="box box-eg">
+      <strong>POS: F = (B + D′)(A′ + B′ + D)(B′ + C + D)</strong> — here X5 and X7 are taken as 0s only where useful; a don't-care can be 1 for SOP and 0 for POS.
+    </div>
+
+    <h3>Practice Problems</h3>
+    <ol>
+      <li>Minimal SOP of F = Σm(0, 1, 2, 5, 8, 9, 10).
+        <details style="margin:.35rem 0 .6rem"><summary style="cursor:pointer;font-weight:600">Show answer</summary><p style="margin:.4rem 0 0">B′C′ + B′D′ + A′C′D.</p></details>
+      </li>
+      <li>Minimal POS of F = ΠM(0, 2, 8, 10, 13, 15).
+        <details style="margin:.35rem 0 .6rem"><summary style="cursor:pointer;font-weight:600">Show answer</summary><p style="margin:.4rem 0 0">(B + D)(A′ + B′ + D′).</p></details>
+      </li>
+      <li>F = Σm(1, 3, 7, 11, 15) + d(0, 2, 5): minimal SOP and POS.
+        <details style="margin:.35rem 0 .6rem"><summary style="cursor:pointer;font-weight:600">Show answer</summary><p style="margin:.4rem 0 0">SOP CD + A′B′ (or CD + A′D); POS D(A′ + C) — the POS is shorter.</p></details>
+      </li>
+      <li>Simplify (A + B)(A′ + C)(B + C) algebraically.
+        <details style="margin:.35rem 0 .6rem"><summary style="cursor:pointer;font-weight:600">Show answer</summary><p style="margin:.4rem 0 0">(A + B)(A′ + C) — B + C is the consensus term.</p></details>
+      </li>
+    </ol>
+
+    <h2>Common Pitfalls</h2>
+    <ul>
+      <li><strong>Natural instead of Gray order</strong> — K-map columns run 00, 01, 11, 10, never 00, 01, 10, 11.</li>
+      <li><strong>Missing wrap-around groups</strong> — the left and right edges, top and bottom edges, and the four corners are adjacent.</li>
+      <li><strong>Writing POS literals like SOP</strong> — in a 0-group, a variable that is 0 appears uncomplemented and a 1 appears complemented.</li>
+      <li><strong>Forcing every don't-care in</strong> — use an X only if it makes a group larger.</li>
+    </ul>
+
+    <p>Related syllabus topics: <a href="binary-logic.html">Binary Logic</a> · <a href="k-map-representation.html">K-Map Representation</a>.</p>
+  </div>
+  <div class="topic-nav">
+    <a href="number-conversions-solved-problems.html">
+      <div class="nav-dir">← Previous</div>
+      <div class="nav-title">Number Conversions — Solved Problems</div>
+    </a>
+    <a href="index.html" class="next">
+      <div class="nav-dir">Next →</div>
+      <div class="nav-title">Back to Unit 1 Overview</div>
+    </a>
+  </div>
+</div>
+<footer id="main-footer"></footer>
+<script type="module">
+  import { initNav } from '../../../js/nav.js';
+  import { initSidebar } from '../../../js/sidebar.js';
+  initNav(3);
+  initSidebar();
+</script>
+</body>
+</html>
