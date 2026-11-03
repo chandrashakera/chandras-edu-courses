@@ -67,6 +67,9 @@
   <p style="color:var(--text-2);font-size:.88rem;margin-bottom:.9rem">Adding memory to digital circuits: latches and flip-flops as the basic 1-bit storage elements, then building counters and shift registers out of them — the building blocks every state machine in Unit 5 is assembled from.</p>
   <div id="tg-sequential"></div>
 
+  <!-- Unit slides, after the last topic group (js/slides-card.js; shown only for units listed in js/curriculum/dld-slides.js) -->
+  <div id="slides" data-course="dld"></div>
+
   <div id="login-nudge" style="display:none;margin-top:1.5rem;background:#e8f0fe;border:1px solid #bbdefb;border-left:3px solid var(--primary);border-radius:var(--radius-lg);padding:1rem;text-align:center;font-size:.9rem;color:var(--primary)">
     <a href="../../../login.html" style="font-weight:700">Login</a> to track your progress and save quiz scores across all topics.
   </div>
@@ -78,7 +81,9 @@
   import { initNav } from '../../../js/nav.js';
   import { onAuth, getAllProgress } from '../../../js/firebase-config.js';
   import { GROUPS } from '../../../js/curriculum/dld-unit4.js';
+  import { renderSlidesCard } from '../../../js/slides-card.js';
   initNav(3);
+  renderSlidesCard(document.getElementById('slides'), 4, Object.values(GROUPS).flat().filter(t => !t.supplementary).length);
 
   const COURSE_ID = 'dld';
 

@@ -1,20 +1,36 @@
-// js/slides-card.js — the "Revise with the slides" download card at the end of each COA unit page,
+// js/slides-card.js — the "Revise with the slides" download card at the end of each unit page,
 // and the end-of-unit prompt on the last topic page of each unit.
-// Data-driven: both show only for units listed in js/curriculum/coa-slides.js.
-// To add a unit: drop COA_Unit<N>_Slides.pdf/.pptx into downloads/coa/ and add one line to that config.
+// Course-parameterised: reads the course key from the container element's data-course attribute
+// (defaults to 'coa' when absent), then dynamically loads js/curriculum/<course>-slides.js and
+// points downloads at downloads/<course>/. Data-driven: both show only for units listed in that
+// config. To add a unit: drop <COURSE>_Unit<N>_Slides.pdf/.pptx into downloads/<course>/ and add
+// one line to that course's config.
 // Real content with plain download links — no timers, gating or sign-in. The wrapper #slides-card is
 // the element to add as an AdSense Excluded Area; it carries generous margins so no ad sits against the buttons.
 
-import { SLIDES } from './curriculum/coa-slides.js';
-
-const BASE = new URL('../downloads/coa/', import.meta.url).href;
 const fmtDate = d => new Date(d + 'T00:00:00').toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
 
-export function slidesFor(unit) { return SLIDES.find(s => s.unit === unit) || null; }
+async function loadSlides(course) {
+  try {
+    const mod = await import(`./curriculum/${course}-slides.js`);
+    return mod.SLIDES || [];
+  } catch (e) {
+    console.warn(`slides-card: could not load config for course "${course}"`, e);
+    return [];
+  }
+}
 
-export function renderSlidesCard(el, unit, topicCount) {
-  const s = slidesFor(unit);
-  if (!el || !s) return;
+async function slidesFor(course, unit) {
+  const list = await loadSlides(course);
+  return list.find(s => s.unit === unit) || null;
+}
+
+export async function renderSlidesCard(el, unit, topicCount) {
+  if (!el) return;
+  const course = el.dataset.course || 'coa';
+  const s = await slidesFor(course, unit);
+  if (!s) return;
+  const BASE = new URL(`../downloads/${course}/`, import.meta.url).href;
   el.innerHTML = `
     <div id="slides-card" style="margin:1.75rem 0;padding:1.25rem 1.4rem;background:var(--bg-2);border:1px solid var(--border);border-radius:var(--radius-lg)">
       <h2 style="font-size:1.05rem;font-weight:700;margin-bottom:.3rem">\u{1F4E5} Revise with the slides</h2>
@@ -29,7 +45,10 @@ export function renderSlidesCard(el, unit, topicCount) {
 }
 
 // End-of-unit prompt (last topic page of a unit): a box-tip pointing to the slides card; only for units with slides.
-export function renderUnitEnd(el, unit) {
-  if (!el || !slidesFor(unit)) return;
+export async function renderUnitEnd(el, unit) {
+  if (!el) return;
+  const course = el.dataset.course || 'coa';
+  const s = await slidesFor(course, unit);
+  if (!s) return;
   el.innerHTML = `<div class="box box-tip" style="margin:1.5rem 0">\u{1F389} You've reached the end of Unit ${unit}. <a href="index.html#slides">Revise the whole unit with the lecture slides →</a></div>`;
 }
