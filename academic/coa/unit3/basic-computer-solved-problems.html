@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3030765874336294" crossorigin="anonymous"></script>
+  <title>Basic Computer — Solved Problems — COA Unit 3 | CHANDRAS EDU</title>
+  <meta name="description" content="Solved problems on the basic computer: decode instructions, find AC, PC, AR, DR and E after each instruction, timing-step RTL traces and program traces.">
+  <link rel="canonical" href="https://chandrashaker.com/courses/academic/coa/unit3/basic-computer-solved-problems.html">
+  <link rel="stylesheet" href="../../../css/style.css">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="CHANDRAS EDU">
+  <meta property="og:title" content="Basic Computer — Solved Problems — COA Unit 3 | CHANDRAS EDU">
+  <meta property="og:description" content="Solved problems on the basic computer: decode instructions, find AC, PC, AR, DR and E after each instruction, timing-step RTL traces and program traces.">
+  <meta property="og:url" content="https://chandrashaker.com/courses/academic/coa/unit3/basic-computer-solved-problems.html">
+  <meta property="og:image" content="https://chandrashaker.com/courses/images/og/coa-v7.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Computer Organization and Architecture — CHANDRAS EDU free course">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Basic Computer — Solved Problems — COA Unit 3 | CHANDRAS EDU">
+  <meta name="twitter:description" content="Solved problems on the basic computer: decode instructions, find AC, PC, AR, DR and E after each instruction, timing-step RTL traces and program traces.">
+  <meta name="twitter:image" content="https://chandrashaker.com/courses/images/og/coa-v7.png">
+  <script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Courses","item":"https://chandrashaker.com/courses/"},{"@type":"ListItem","position":2,"name":"COA","item":"https://chandrashaker.com/courses/academic/coa/"},{"@type":"ListItem","position":3,"name":"Unit 3","item":"https://chandrashaker.com/courses/academic/coa/unit3/"},{"@type":"ListItem","position":4,"name":"Basic Computer — Solved Problems"}]}
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LearningResource",
+  "name": "Basic Computer — Solved Problems",
+  "description": "Solved problems on the basic computer: decode instructions, find AC, PC, AR, DR and E after each instruction, timing-step RTL traces and program traces.",
+  "url": "https://chandrashaker.com/courses/academic/coa/unit3/basic-computer-solved-problems.html",
+  "image": "https://chandrashaker.com/courses/images/og/coa-v7.png",
+  "learningResourceType": "Lesson",
+  "educationalLevel": "Undergraduate",
+  "about": { "@type": "Thing", "name": "Computer Organization and Architecture" },
+  "isPartOf": { "@type": "Course", "name": "Computer Organization and Architecture", "provider": { "@type": "Organization", "name": "CHANDRAS EDU", "url": "https://chandrashaker.in" } },
+  "publisher": { "@type": "Organization", "name": "CHANDRAS EDU", "url": "https://chandrashaker.in" }
+}
+  </script>
+  <link rel="icon" href="/favicon.ico">
+  <style>
+    .fig-wrap{text-align:center;margin:1.5rem 0}
+    .fig-wrap img{max-width:100%;height:auto;border-radius:var(--radius)}
+    .fig-caption{font-size:.82rem;color:var(--text-3);margin-top:.4rem}
+    .key-point{background:var(--bg-2);border-left:4px solid var(--accent,#f59e0b);border-radius:var(--radius);padding:.7rem 1rem;margin:1rem 0;font-size:.92rem}
+  </style>
+</head>
+<body>
+<div id="main-nav"></div>
+<div class="page-narrow" role="main">
+  <nav class="breadcrumb">
+    <a href="../../../index.html">Courses</a><span class="sep">/</span>
+    <a href="../index.html">Computer Organization and Architecture</a><span class="sep">/</span>
+    <a href="index.html">Unit 3</a><span class="sep">/</span>
+    <span>Supplementary Topics</span><span class="sep">/</span>
+    <span class="cur">Basic Computer — Solved Problems</span>
+  </nav>
+  <div style="background:var(--primary);border-radius:var(--radius-lg);padding:1.1rem 1.4rem;margin-bottom:1.5rem;color:#fff">
+    <div style="font-size:.75rem;opacity:.75;margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.05em">Supplementary — beyond the syllabus</div>
+    <h1 style="font-size:1.4rem;font-weight:700;color:#fff;margin-bottom:.5rem">Basic Computer Instructions — Solved Problems</h1>
+    <div style="display:flex;gap:.75rem;flex-wrap:wrap">
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">⏱ 35 min read</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📌 Supplementary — beyond the syllabus</span>
+    </div>
+  </div>
+  <div class="lesson">
+    <p>The most common Unit 3 exam question gives you register and memory contents, then asks what they become after an instruction, a few instructions, or each timing signal. This page solves every pattern for the basic computer: decoding instruction words, the register-reference and memory-reference instructions from a given starting state, a T<sub>0</sub>&ndash;T<sub>5</sub> trace of an indirect instruction, a loop, a subroutine call and return, and the interrupt cycle. All answers were checked with a register-level simulation of the basic computer.</p>
+
+    <div class="box box-tip">
+    <p><strong>In simple terms</strong></p>
+    <p>Every instruction starts the same way: T<sub>0</sub> copies PC into AR, T<sub>1</sub> reads the instruction into IR and adds 1 to PC, T<sub>2</sub> decodes it and puts the address part into AR. Only after that does the instruction do its own work. So when you trace, first write the fetch steps, then the execute steps — and remember that PC already points to the next instruction before execution begins.</p>
+    </div>
+
+    <h2>Quick Reference</h2>
+
+    <p>The basic computer has 4096 words of 16 bits. AR and PC are 12 bits; DR, AC, IR and TR are 16 bits; E is the carry flip-flop. All values below are hexadecimal: addresses have 3 digits, words have 4.</p>
+
+    <div style="overflow-x:auto">
+    <table>
+    <thead>
+    <tr><th>Step</th><th>Control function</th><th>Microoperations</th></tr>
+    </thead>
+    <tbody>
+    <tr><td>Fetch</td><td>R&prime;T<sub>0</sub></td><td>AR &larr; PC</td></tr>
+    <tr><td>Fetch</td><td>R&prime;T<sub>1</sub></td><td>IR &larr; M[AR], PC &larr; PC + 1</td></tr>
+    <tr><td>Decode</td><td>R&prime;T<sub>2</sub></td><td>D<sub>0</sub>&hellip;D<sub>7</sub> &larr; decode IR(12&ndash;14), AR &larr; IR(0&ndash;11), I &larr; IR(15)</td></tr>
+    <tr><td>Indirect</td><td>D<sub>7</sub>&prime;IT<sub>3</sub></td><td>AR &larr; M[AR]</td></tr>
+    <tr><td>AND</td><td>D<sub>0</sub>T<sub>4</sub>, D<sub>0</sub>T<sub>5</sub></td><td>DR &larr; M[AR]; AC &larr; AC &and; DR, SC &larr; 0</td></tr>
+    <tr><td>ADD</td><td>D<sub>1</sub>T<sub>4</sub>, D<sub>1</sub>T<sub>5</sub></td><td>DR &larr; M[AR]; AC &larr; AC + DR, E &larr; C<sub>out</sub>, SC &larr; 0</td></tr>
+    <tr><td>LDA</td><td>D<sub>2</sub>T<sub>4</sub>, D<sub>2</sub>T<sub>5</sub></td><td>DR &larr; M[AR]; AC &larr; DR, SC &larr; 0</td></tr>
+    <tr><td>STA</td><td>D<sub>3</sub>T<sub>4</sub></td><td>M[AR] &larr; AC, SC &larr; 0</td></tr>
+    <tr><td>BUN</td><td>D<sub>4</sub>T<sub>4</sub></td><td>PC &larr; AR, SC &larr; 0</td></tr>
+    <tr><td>BSA</td><td>D<sub>5</sub>T<sub>4</sub>, D<sub>5</sub>T<sub>5</sub></td><td>M[AR] &larr; PC, AR &larr; AR + 1; PC &larr; AR, SC &larr; 0</td></tr>
+    <tr><td>ISZ</td><td>D<sub>6</sub>T<sub>4</sub>, D<sub>6</sub>T<sub>5</sub>, D<sub>6</sub>T<sub>6</sub></td><td>DR &larr; M[AR]; DR &larr; DR + 1; M[AR] &larr; DR, if (DR = 0) then PC &larr; PC + 1, SC &larr; 0</td></tr>
+    <tr><td>Register reference</td><td>D<sub>7</sub>I&prime;T<sub>3</sub></td><td>Operation selected by one bit of IR(0&ndash;11)</td></tr>
+    <tr><td>Interrupt</td><td>RT<sub>0</sub>, RT<sub>1</sub>, RT<sub>2</sub></td><td>AR &larr; 0, TR &larr; PC; M[AR] &larr; TR, PC &larr; 0; PC &larr; PC + 1, IEN &larr; 0, R &larr; 0, SC &larr; 0</td></tr>
+    </tbody>
+    </table>
+    </div>
+
+    <div style="overflow-x:auto">
+    <table>
+    <thead>
+    <tr><th>Memory reference (I = 0 / I = 1)</th><th>Register reference</th><th>Input-output</th></tr>
+    </thead>
+    <tbody>
+    <tr><td>AND 0xxx / 8xxx</td><td>CLA 7800, CLE 7400, CMA 7200, CME 7100</td><td>INP F800, OUT F400</td></tr>
+    <tr><td>ADD 1xxx / 9xxx</td><td>CIR 7080, CIL 7040, INC 7020</td><td>SKI F200, SKO F100</td></tr>
+    <tr><td>LDA 2xxx / Axxx</td><td>SPA 7010, SNA 7008, SZA 7004, SZE 7002</td><td>ION F080, IOF F040</td></tr>
+    <tr><td>STA 3xxx / Bxxx, BUN 4xxx / Cxxx</td><td>HLT 7001</td><td>&mdash;</td></tr>
+    <tr><td>BSA 5xxx / Dxxx, ISZ 6xxx / Exxx</td><td>&mdash;</td><td>&mdash;</td></tr>
+    </tbody>
+    </table>
+    </div>
+
+    <p><strong>Notation:</strong> hexadecimal is written without a prefix, as in the textbook. Question papers may write 2A5FH or 0x2A5F for the same word.</p>
+
+    <h2>Solved Problems — Decoding and Single Instructions</h2>
+
+    <h3>Problem 1: Decode instruction words</h3>
+    <p>Identify the type, the I bit, the operation and the address part of each word: 2A5F, B1C4, E123, 7040, 7008, F080.</p>
+    <div class="box box-eg">
+    <pre>Bits:  15 | 14 13 12 | 11 ... 0
+            I |  opcode  | address (or operation bits)
+
+    2A5F = 0010 1010 0101 1111
+           I = 0, opcode 010 → LDA, address A5F       LDA A5F   (direct)
+    B1C4 = 1011 0001 1100 0100
+           I = 1, opcode 011 → STA, address 1C4       STA 1C4 I (indirect)
+    E123 = 1110 0001 0010 0011
+           I = 1, opcode 110 → ISZ, address 123       ISZ 123 I (indirect)
+    7040 = 0111 0000 0100 0000
+           opcode 111, I = 0 → register reference, bit 6 → CIL
+    7008 = 0111 0000 0000 1000
+           opcode 111, I = 0 → register reference, bit 3 → SNA
+    F080 = 1111 0000 1000 0000
+           opcode 111, I = 1 → input-output, bit 7 → ION</pre>
+    </div>
+    <p><strong>Answer:</strong> LDA A5F, STA 1C4 I, ISZ 123 I, CIL, SNA, ION. Opcode 111 never names a memory-reference instruction: the I bit then separates register-reference (I = 0) from input-output (I = 1).</p>
+
+    <h3>Problem 2: Each register-reference instruction from one starting state</h3>
+    <p>AC = C5A3, E = 0 and PC = 035. The instruction at address 035 is each register-reference instruction in turn, always starting from this same state. Find AC, E, PC, AR and IR after execution.</p>
+    <div style="overflow-x:auto">
+    <table>
+    <thead>
+    <tr><th>Instruction</th><th>IR</th><th>AC</th><th>E</th><th>PC</th><th>AR</th></tr>
+    </thead>
+    <tbody>
+    <tr><td>CLA</td><td>7800</td><td>0000</td><td>0</td><td>036</td><td>800</td></tr>
+    <tr><td>CLE</td><td>7400</td><td>C5A3</td><td>0</td><td>036</td><td>400</td></tr>
+    <tr><td>CMA</td><td>7200</td><td>3A5C</td><td>0</td><td>036</td><td>200</td></tr>
+    <tr><td>CME</td><td>7100</td><td>C5A3</td><td>1</td><td>036</td><td>100</td></tr>
+    <tr><td>CIR</td><td>7080</td><td>62D1</td><td>1</td><td>036</td><td>080</td></tr>
+    <tr><td>CIL</td><td>7040</td><td>8B46</td><td>1</td><td>036</td><td>040</td></tr>
+    <tr><td>INC</td><td>7020</td><td>C5A4</td><td>0</td><td>036</td><td>020</td></tr>
+    <tr><td>SPA</td><td>7010</td><td>C5A3</td><td>0</td><td>036</td><td>010</td></tr>
+    <tr><td>SNA</td><td>7008</td><td>C5A3</td><td>0</td><td>037</td><td>008</td></tr>
+    <tr><td>SZA</td><td>7004</td><td>C5A3</td><td>0</td><td>036</td><td>004</td></tr>
+    <tr><td>SZE</td><td>7002</td><td>C5A3</td><td>0</td><td>037</td><td>002</td></tr>
+    <tr><td>HLT</td><td>7001</td><td>C5A3</td><td>0</td><td>036</td><td>001</td></tr>
+    </tbody>
+    </table>
+    </div>
+    <div class="box box-eg">
+    <pre>AC = C5A3 = 1100 0101 1010 0011, E = 0
+
+    CIR: E → AC₁₅, AC₀ → E
+         0110 0010 1101 0001 = 62D1,  E = 1
+    CIL: E → AC₀, AC₁₅ → E
+         1000 1011 0100 0110 = 8B46,  E = 1
+    CMA: 0011 1010 0101 1100 = 3A5C
+
+    Skips (PC is already 036 after T₁):
+    SPA: AC₁₅ = 1, AC is negative → no skip, PC = 036
+    SNA: AC₁₅ = 1               → skip,    PC = 037
+    SZA: AC ≠ 0                 → no skip, PC = 036
+    SZE: E = 0                  → skip,    PC = 037
+
+    AR = IR(0–11), loaded at T₂ (e.g. CLA 7800 → AR = 800)</pre>
+    </div>
+    <p><strong>Answer:</strong> as in the table. HLT also clears the start-stop flip-flop S, so the computer stops with PC = 036.</p>
+
+    <h3>Problem 3: Each memory-reference instruction from one starting state</h3>
+    <p>The instruction at address 05A has I = 0 and address part 1C7. M[1C7] = 9E3B, AC = 6D4A, E = 0, DR = 0000. The opcode is each memory-reference instruction in turn, always from this same state. Find PC, AR, DR, AC, E and M[1C7] after execution.</p>
+    <div style="overflow-x:auto">
+    <table>
+    <thead>
+    <tr><th>Instruction</th><th>IR</th><th>PC</th><th>AR</th><th>DR</th><th>AC</th><th>E</th><th>M[1C7]</th></tr>
+    </thead>
+    <tbody>
+    <tr><td>AND</td><td>01C7</td><td>05B</td><td>1C7</td><td>9E3B</td><td>0C0A</td><td>0</td><td>9E3B</td></tr>
+    <tr><td>ADD</td><td>11C7</td><td>05B</td><td>1C7</td><td>9E3B</td><td>0B85</td><td>1</td><td>9E3B</td></tr>
+    <tr><td>LDA</td><td>21C7</td><td>05B</td><td>1C7</td><td>9E3B</td><td>9E3B</td><td>0</td><td>9E3B</td></tr>
+    <tr><td>STA</td><td>31C7</td><td>05B</td><td>1C7</td><td>0000</td><td>6D4A</td><td>0</td><td>6D4A</td></tr>
+    <tr><td>BUN</td><td>41C7</td><td>1C7</td><td>1C7</td><td>0000</td><td>6D4A</td><td>0</td><td>9E3B</td></tr>
+    <tr><td>BSA</td><td>51C7</td><td>1C8</td><td>1C8</td><td>0000</td><td>6D4A</td><td>0</td><td>005B</td></tr>
+    <tr><td>ISZ</td><td>61C7</td><td>05B</td><td>1C7</td><td>9E3C</td><td>6D4A</td><td>0</td><td>9E3C</td></tr>
+    </tbody>
+    </table>
+    </div>
+    <div class="box box-eg">
+    <pre>AND:  6D4A = 0110 1101 0100 1010
+          9E3B = 1001 1110 0011 1011
+          ∧    = 0000 1100 0000 1010 = 0C0A
+
+    ADD:  6D4A + 9E3B = 1 0B85  →  AC = 0B85, E = 1
+
+    BSA:  T₄  M[1C7] ← PC = 05B (stored as 005B),  AR ← 1C8
+          T₅  PC ← AR = 1C8
+
+    ISZ:  T₄  DR ← 9E3B,  T₅  DR ← 9E3C
+          T₆  M[1C7] ← 9E3C; DR ≠ 0 → no skip, PC = 05B</pre>
+    </div>
+    <p><strong>Answer:</strong> as in the table. Only ADD changes E. BSA stores the return address 05B — the address of the next instruction — and starts the subroutine at 1C8, one word after the stored address.</p>
+
+    <h2>Solved Problems — Timing-Step and Program Traces</h2>
+
+    <h3>Problem 4: T<sub>0</sub>&ndash;T<sub>5</sub> trace of an indirect ADD</h3>
+    <p>PC = 0C4, AC = 8E15, E = 0. Memory: M[0C4] = 92B0, M[2B0] = 0731, M[731] = 4F2C. Show the microoperations and the contents of AR, PC, DR, IR, AC and E at the end of each timing signal.</p>
+    <div class="box box-eg">
+    <pre>Step  Microoperation        AR   PC   DR    IR    AC    E
+    T₀    AR ← PC               0C4  0C4  0000  —     8E15  0
+    T₁    IR ← M[AR], PC ← PC+1 0C4  0C5  0000  92B0  8E15  0
+    T₂    decode: D₁, I = 1     2B0  0C5  0000  92B0  8E15  0
+          AR ← IR(0–11)
+    T₃    D₇′IT₃: AR ← M[AR]    731  0C5  0000  92B0  8E15  0
+    T₄    D₁T₄: DR ← M[AR]      731  0C5  4F2C  92B0  8E15  0
+    T₅    D₁T₅: AC ← AC + DR    731  0C5  4F2C  92B0  DD41  0
+          E ← Cout, SC ← 0
+
+    Check: 8E15 + 4F2C = DD41, no carry out → E = 0</pre>
+    </div>
+    <p><strong>Answer:</strong> the instruction is ADD 2B0 I. The address part 2B0 holds the effective address 731; the operand 4F2C is added, giving AC = DD41, E = 0, PC = 0C5. It takes six timing signals (T<sub>0</sub>&ndash;T<sub>5</sub>).</p>
+
+    <h3>Problem 5: A loop with a pointer and a counter</h3>
+    <p>The program below adds three numbers using an indirect ADD through a pointer and ISZ as both a pointer increment and a loop counter. Initially AC = 1234, E = 0, PC = 100. Find AC, E and the memory words PTR, CTR and SUM after each instruction; the final state; and the number of clock cycles (timing signals) used.</p>
+    <div style="overflow-x:auto">
+    <table>
+    <thead>
+    <tr><th>Address</th><th>Word</th><th>Symbolic</th></tr>
+    </thead>
+    <tbody>
+    <tr><td>100</td><td>7800</td><td>CLA</td></tr>
+    <tr><td>101</td><td>910B</td><td>ADD PTR I</td></tr>
+    <tr><td>102</td><td>610B</td><td>ISZ PTR</td></tr>
+    <tr><td>103</td><td>610C</td><td>ISZ CTR</td></tr>
+    <tr><td>104</td><td>4101</td><td>BUN 101</td></tr>
+    <tr><td>105</td><td>310D</td><td>STA SUM</td></tr>
+    <tr><td>106</td><td>7001</td><td>HLT</td></tr>
+    <tr><td>10B</td><td>0110</td><td>PTR (address of the first number)</td></tr>
+    <tr><td>10C</td><td>FFFD</td><td>CTR = &minus;3</td></tr>
+    <tr><td>10D</td><td>0000</td><td>SUM</td></tr>
+    <tr><td>110, 111, 112</td><td>0014, 0F3A, FFF6</td><td>numbers: 20, 3898, &minus;10</td></tr>
+    </tbody>
+    </table>
+    </div>
+    <div class="box box-eg">
+    <pre>Addr Instr      AC    E  PTR   CTR   SUM   next PC  cycles
+    100  CLA        0000  0  0110  FFFD  0000  101       4
+    101  ADD PTR I  0014  0  0110  FFFD  0000  102       6
+    102  ISZ PTR    0014  0  0111  FFFD  0000  103       7
+    103  ISZ CTR    0014  0  0111  FFFE  0000  104       7
+    104  BUN 101    0014  0  0111  FFFE  0000  101       5
+    101  ADD PTR I  0F4E  0  0111  FFFE  0000  102       6
+    102  ISZ PTR    0F4E  0  0112  FFFE  0000  103       7
+    103  ISZ CTR    0F4E  0  0112  FFFF  0000  104       7
+    104  BUN 101    0F4E  0  0112  FFFF  0000  101       5
+    101  ADD PTR I  0F44  1  0112  FFFF  0000  102       6
+    102  ISZ PTR    0F44  1  0113  FFFF  0000  103       7
+    103  ISZ CTR    0F44  1  0113  0000  0000  105 (skip) 7
+    105  STA SUM    0F44  1  0113  0000  0F44  106       5
+    106  HLT        0F44  1  0113  0000  0F44  107       4
+
+    Instructions executed: 14      Clock cycles: 83
+
+    Check: 20 + 3898 − 10 = 3908 = 0F44  ✓
+    Last ADD: 0F4E + FFF6 = 1 0F44 → E = 1 (the carry from adding −10)</pre>
+    </div>
+    <p><strong>Answer:</strong> SUM = M[10D] = 0F44, AC = 0F44, E = 1, PTR = 0113, CTR = 0000, and the computer halts with PC = 107. 14 instructions take 83 clock cycles: register-reference 4, BUN and STA 5, ADD indirect 6, ISZ direct 7. The ISZ on CTR skips over BUN only when CTR reaches 0000.</p>
+
+    <h3>Problem 6: Subroutine call with BSA and return with BUN I</h3>
+    <p>AC = 00B7, PC = 300. The subroutine at 3A0 forms the 2's complement of AC.</p>
+    <div style="overflow-x:auto">
+    <table>
+    <thead>
+    <tr><th>Address</th><th>Word</th><th>Symbolic</th></tr>
+    </thead>
+    <tbody>
+    <tr><td>300</td><td>53A0</td><td>BSA 3A0</td></tr>
+    <tr><td>301</td><td>330F</td><td>STA 30F</td></tr>
+    <tr><td>302</td><td>7001</td><td>HLT</td></tr>
+    <tr><td>3A0</td><td>0000</td><td>(return address is stored here)</td></tr>
+    <tr><td>3A1</td><td>7200</td><td>CMA</td></tr>
+    <tr><td>3A2</td><td>7020</td><td>INC</td></tr>
+    <tr><td>3A3</td><td>C3A0</td><td>BUN 3A0 I</td></tr>
+    </tbody>
+    </table>
+    </div>
+    <div class="box box-eg">
+    <pre>Addr Instr      AC    PC   AR   M[3A0] M[30F]
+    300  BSA 3A0    00B7  3A1  3A1  0301   0000
+    3A1  CMA        FF48  3A2  200  0301   0000
+    3A2  INC        FF49  3A3  020  0301   0000
+    3A3  BUN 3A0 I  FF49  301  301  0301   0000
+    301  STA 30F    FF49  302  30F  0301   FF49
+    302  HLT        FF49  303  001  0301   FF49
+
+    BSA:    T₄  M[3A0] ← PC (= 301), AR ← 3A1;  T₅  PC ← 3A1
+    BUN I:  T₂  AR ← 3A0;  T₃  AR ← M[3A0] = 301;  T₄  PC ← 301
+    Check:  00B7 + FF49 = 1 0000 → FF49 is −00B7  ✓</pre>
+    </div>
+    <p><strong>Answer:</strong> M[30F] = FF49 (the 2's complement of 00B7), M[3A0] = 0301, and the computer halts with PC = 303. The return works because BSA saved 301 in the subroutine's first word, and BUN 3A0 I jumps to the address held there.</p>
+
+    <h3>Problem 7: The interrupt cycle</h3>
+    <p>IEN = 1. The instruction INC at address 2C7 is executing when an input character arrives and FGI becomes 1. Memory word 001 holds BUN 0A0 (40A0). Find what happens after INC completes: the steps of the interrupt cycle, M[0], PC, IEN, and the next instruction fetched.</p>
+    <div class="box box-eg">
+    <pre>During INC (T₃): T₀′T₁′T₂′(IEN)(FGI + FGO) = 1  →  R ← 1
+    INC completes: PC = 2C8 (next instruction), SC ← 0
+
+    R = 1, so the interrupt cycle runs instead of a fetch:
+    Step  Microoperations                   AR   TR    PC
+    RT₀   AR ← 0, TR ← PC                   000  02C8  2C8
+    RT₁   M[AR] ← TR, PC ← 0                000  02C8  000
+    RT₂   PC ← PC + 1, IEN ← 0, R ← 0,      000  02C8  001
+          SC ← 0
+
+    M[0] = 02C8 (return address), IEN = 0
+    Next fetch from 001: BUN 0A0  →  PC = 0A0 (service routine)
+
+    Return, at the end of the service routine:
+    ION         IEN ← 1
+    BUN 0 I     PC ← M[0] = 2C8   (the interrupted program resumes)</pre>
+    </div>
+    <p><strong>Answer:</strong> the interrupt cycle stores 02C8 in M[0], sets PC = 001, and clears IEN and R. The instruction at 001 branches to the service routine at 0A0. The routine ends with ION and BUN 0 I, which returns to 2C8. IEN = 0 during the routine prevents a second interrupt until ION.</p>
+
+    <h2>Practice Problems</h2>
+
+    <p><strong>Q1.</strong> AC = 8001, E = 0. Find AC and E after each instruction of the sequence CIL, CIL, CME, CIR.</p>
+    <details><summary>Show answer</summary>
+    <p>CIL: AC = 0002, E = 1. CIL: AC = 0005, E = 0. CME: AC = 0005, E = 1. CIR: AC = <strong>8002</strong>, E = <strong>1</strong>.</p>
+    </details>
+
+    <p><strong>Q2.</strong> The instruction at address 040 is ISZ 0F2 (60F2), and M[0F2] = FFFF. Find M[0F2] and PC after execution.</p>
+    <details><summary>Show answer</summary>
+    <p>DR = FFFF + 1 = 0000, so M[0F2] = <strong>0000</strong> and the next instruction is skipped: PC = 041 + 1 = <strong>042</strong>.</p>
+    </details>
+
+    <p><strong>Q3.</strong> PC = 07E, AC = 3C3C, M[07E] = B1A0, M[1A0] = 0425. Give AR and PC at the end of T<sub>0</sub> to T<sub>4</sub>, and the memory word that changes.</p>
+    <details><summary>Show answer</summary>
+    <p>STA 1A0 I. T<sub>0</sub>: AR = 07E, PC = 07E. T<sub>1</sub>: AR = 07E, PC = 07F. T<sub>2</sub>: AR = 1A0. T<sub>3</sub>: AR = 425. T<sub>4</sub>: M[425] &larr; AC, so <strong>M[425] = 3C3C</strong>; PC stays 07F. Five timing signals.</p>
+    </details>
+
+    <p><strong>Q4.</strong> M[0A0] = 0035, M[0A1] = 0050, E = 0. Starting at 020, the program is LDA 0A0, CMA, INC, ADD 0A1, STA 0A2, HLT. Find M[0A2], E and the clock cycles used.</p>
+    <details><summary>Show answer</summary>
+    <p>CMA and INC form &minus;0035 = FFCB; FFCB + 0050 = 1 001B. <strong>M[0A2] = 001B</strong> (= 0050 &minus; 0035), <strong>E = 1</strong> (no borrow). Cycles: 6 + 4 + 4 + 6 + 5 + 4 = <strong>29</strong>.</p>
+    </details>
+
+    <h2>Common Pitfalls</h2>
+    <ul>
+    <li><strong>Forgetting that PC was incremented at T<sub>1</sub>.</strong> BSA stores the address of the next instruction, and a skip adds one more to an already-incremented PC.</li>
+    <li><strong>Leaving AR at the old address after a register-reference instruction.</strong> T<sub>2</sub> always loads AR &larr; IR(0&ndash;11), so CLA leaves AR = 800.</li>
+    <li><strong>Fetching the operand from the address part of an indirect instruction.</strong> With I = 1, T<sub>3</sub> replaces AR with the effective address first; the operand is read at T<sub>4</sub>.</li>
+    <li><strong>Loading AC at T<sub>4</sub> in LDA.</strong> T<sub>4</sub> reads memory into DR; AC &larr; DR happens at T<sub>5</sub>.</li>
+    <li><strong>Changing E in the wrong instructions.</strong> Only ADD, CLE, CME, CIR and CIL change E; CLA, AND and LDA leave it alone.</li>
+    <li><strong>Using the stored return address as the subroutine's start.</strong> BSA starts execution one word after the address it stores into.</li>
+    <li><strong>Returning from an interrupt without ION.</strong> RT<sub>2</sub> clears IEN; the service routine must set it again before BUN 0 I.</li>
+    </ul>
+
+    <h2>Related Topics</h2>
+    <p><strong>Related syllabus topics:</strong> <a href="instruction-codes.html">Instruction Codes</a> &middot; <a href="computer-instructions.html">Computer Instructions</a> &middot; <a href="timing-and-control.html">Timing and Control</a> &middot; <a href="instruction-cycle.html">Instruction Cycle</a> &middot; <a href="memory-reference-instructions.html">Memory-Reference Instructions</a> &middot; <a href="io-and-interrupt.html">Input-Output and Interrupt</a>.</p>
+    <p><strong>Previous supplementary page:</strong> <a href="microoperations-solved-problems.html">Microoperations — Solved Problems</a>.</p>
+
+  </div>
+  <div class="topic-nav">
+    <a href="microoperations-solved-problems.html">
+      <div class="nav-dir">← Previous</div>
+      <div class="nav-title">Microoperations — Solved Problems</div>
+    </a>
+    <a href="index.html" class="next">
+      <div class="nav-dir">Next →</div>
+      <div class="nav-title">Back to Unit 3 Overview</div>
+    </a>
+  </div>
+</div>
+<footer id="main-footer"></footer>
+<script type="module">
+  import { initNav } from '../../../js/nav.js';
+  import { initSidebar } from '../../../js/sidebar.js';
+  initNav(3);
+  initSidebar();
+</script>
+</body>
+</html>

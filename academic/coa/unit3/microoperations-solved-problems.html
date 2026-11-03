@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3030765874336294" crossorigin="anonymous"></script>
+  <title>Microoperations — Solved Problems — COA Unit 3 | CHANDRAS EDU</title>
+  <meta name="description" content="Solved problems on register transfer and microoperations: bus transfers, arithmetic circuit outputs, logic masks and inserts, shifts and ALU traces.">
+  <link rel="canonical" href="https://chandrashaker.com/courses/academic/coa/unit3/microoperations-solved-problems.html">
+  <link rel="stylesheet" href="../../../css/style.css">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="CHANDRAS EDU">
+  <meta property="og:title" content="Microoperations — Solved Problems — COA Unit 3 | CHANDRAS EDU">
+  <meta property="og:description" content="Solved problems on register transfer and microoperations: bus transfers, arithmetic circuit outputs, logic masks and inserts, shifts and ALU traces.">
+  <meta property="og:url" content="https://chandrashaker.com/courses/academic/coa/unit3/microoperations-solved-problems.html">
+  <meta property="og:image" content="https://chandrashaker.com/courses/images/og/coa-v7.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Computer Organization and Architecture — CHANDRAS EDU free course">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Microoperations — Solved Problems — COA Unit 3 | CHANDRAS EDU">
+  <meta name="twitter:description" content="Solved problems on register transfer and microoperations: bus transfers, arithmetic circuit outputs, logic masks and inserts, shifts and ALU traces.">
+  <meta name="twitter:image" content="https://chandrashaker.com/courses/images/og/coa-v7.png">
+  <script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Courses","item":"https://chandrashaker.com/courses/"},{"@type":"ListItem","position":2,"name":"COA","item":"https://chandrashaker.com/courses/academic/coa/"},{"@type":"ListItem","position":3,"name":"Unit 3","item":"https://chandrashaker.com/courses/academic/coa/unit3/"},{"@type":"ListItem","position":4,"name":"Microoperations — Solved Problems"}]}
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LearningResource",
+  "name": "Microoperations — Solved Problems",
+  "description": "Solved problems on register transfer and microoperations: bus transfers, arithmetic circuit outputs, logic masks and inserts, shifts and ALU traces.",
+  "url": "https://chandrashaker.com/courses/academic/coa/unit3/microoperations-solved-problems.html",
+  "image": "https://chandrashaker.com/courses/images/og/coa-v7.png",
+  "learningResourceType": "Lesson",
+  "educationalLevel": "Undergraduate",
+  "about": { "@type": "Thing", "name": "Computer Organization and Architecture" },
+  "isPartOf": { "@type": "Course", "name": "Computer Organization and Architecture", "provider": { "@type": "Organization", "name": "CHANDRAS EDU", "url": "https://chandrashaker.in" } },
+  "publisher": { "@type": "Organization", "name": "CHANDRAS EDU", "url": "https://chandrashaker.in" }
+}
+  </script>
+  <link rel="icon" href="/favicon.ico">
+  <style>
+    .fig-wrap{text-align:center;margin:1.5rem 0}
+    .fig-wrap img{max-width:100%;height:auto;border-radius:var(--radius)}
+    .fig-caption{font-size:.82rem;color:var(--text-3);margin-top:.4rem}
+    .key-point{background:var(--bg-2);border-left:4px solid var(--accent,#f59e0b);border-radius:var(--radius);padding:.7rem 1rem;margin:1rem 0;font-size:.92rem}
+  </style>
+</head>
+<body>
+<div id="main-nav"></div>
+<div class="page-narrow" role="main">
+  <nav class="breadcrumb">
+    <a href="../../../index.html">Courses</a><span class="sep">/</span>
+    <a href="../index.html">Computer Organization and Architecture</a><span class="sep">/</span>
+    <a href="index.html">Unit 3</a><span class="sep">/</span>
+    <span>Supplementary Topics</span><span class="sep">/</span>
+    <span class="cur">Microoperations — Solved Problems</span>
+  </nav>
+  <div style="background:var(--primary);border-radius:var(--radius-lg);padding:1.1rem 1.4rem;margin-bottom:1.5rem;color:#fff">
+    <div style="font-size:.75rem;opacity:.75;margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.05em">Supplementary — beyond the syllabus</div>
+    <h1 style="font-size:1.4rem;font-weight:700;color:#fff;margin-bottom:.5rem">Register Transfer and Microoperations — Solved Problems</h1>
+    <div style="display:flex;gap:.75rem;flex-wrap:wrap">
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">⏱ 30 min read</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📌 Supplementary — beyond the syllabus</span>
+    </div>
+  </div>
+  <div class="lesson">
+    <p>Register transfer questions in exams ask one thing in many forms: <em>what is in each register after this clock pulse?</em> This page works through the common types — transfers over a common bus, the arithmetic circuit's eight functions, logic microoperations used as masks and inserts, the shift microoperations with overflow, and a multi-step trace through the arithmetic logic shift unit. Every answer is shown in binary and checked step by step, followed by practice problems with answers.</p>
+
+    <div class="box box-tip">
+    <p><strong>In simple terms</strong></p>
+    <p>A microoperation is one small action done in one clock pulse: copy, add, AND, shift. To solve a trace, take the registers as they are <em>before</em> the clock edge, apply every transfer enabled in that pulse at the same time, and write the new values. Then move to the next pulse.</p>
+    </div>
+
+    <h2>Quick Reference</h2>
+
+    <div style="overflow-x:auto">
+    <table>
+    <thead>
+    <tr><th>Microoperation</th><th>RTL</th><th>Effect (n-bit register R)</th></tr>
+    </thead>
+    <tbody>
+    <tr><td>Logical shift left / right</td><td>R &larr; shl R, R &larr; shr R</td><td>Bits move one place; a 0 enters the vacated end</td></tr>
+    <tr><td>Circular shift left / right</td><td>R &larr; cil R, R &larr; cir R</td><td>The bit leaving one end enters the other end</td></tr>
+    <tr><td>Arithmetic shift left</td><td>R &larr; ashl R</td><td>Multiply by 2; 0 enters R<sub>0</sub>; overflow V<sub>s</sub> = R<sub>n&minus;1</sub> &oplus; R<sub>n&minus;2</sub> (before the shift)</td></tr>
+    <tr><td>Arithmetic shift right</td><td>R &larr; ashr R</td><td>Divide by 2; sign bit R<sub>n&minus;1</sub> is kept</td></tr>
+    <tr><td>Selective set / complement / clear</td><td>A &larr; A &or; B, A &larr; A &oplus; B, A &larr; A &and; B&prime;</td><td>Bits of A where B = 1 are set / flipped / cleared</td></tr>
+    <tr><td>Mask</td><td>A &larr; A &and; B</td><td>Bits of A where B = 0 are cleared</td></tr>
+    <tr><td>Insert</td><td>A &larr; A &and; mask, then A &larr; A &or; B</td><td>Clear a field, then OR in the new value</td></tr>
+    </tbody>
+    </table>
+    </div>
+
+    <p><strong>Notation:</strong> registers are 8 bits unless stated (bit 7 on the left). Hexadecimal values are written without a prefix, as in the textbook; question papers often add a suffix H (96H) or prefix 0x (0x96) for the same number.</p>
+
+    <h2>Solved Problems — Register Transfer</h2>
+
+    <h3>Problem 1: Transfers over a common bus</h3>
+    <p>Four 8-bit registers A, B, C and D share a common bus built from multiplexers. The select lines choose the source: S<sub>1</sub>S<sub>0</sub> = 00 &rarr; A, 01 &rarr; B, 10 &rarr; C, 11 &rarr; D. A register loads the bus value on the clock edge when its load input is 1. Initially A = 3C, B = A5, C = 0F, D = 71.</p>
+    <p>(a) Find all four registers after each pulse of this sequence. (b) Swap A and B using C as a temporary register.</p>
+    <div style="overflow-x:auto">
+    <table>
+    <thead>
+    <tr><th>Pulse</th><th>S<sub>1</sub>S<sub>0</sub></th><th>Loads enabled</th></tr>
+    </thead>
+    <tbody>
+    <tr><td>1</td><td>10</td><td>D</td></tr>
+    <tr><td>2</td><td>01</td><td>A, C</td></tr>
+    <tr><td>3</td><td>11</td><td>B</td></tr>
+    </tbody>
+    </table>
+    </div>
+    <div class="box box-eg">
+    <pre>(a)        RTL              A    B    C    D
+    Initial                     3C   A5   0F   71
+    Pulse 1    D ← C            3C   A5   0F   0F
+    Pulse 2    A ← B, C ← B     A5   A5   A5   0F
+    Pulse 3    B ← D            A5   0F   A5   0F
+
+    (b) Initially A = 3C, B = A5
+    Pulse   S₁S₀   Load   RTL      A    B    C
+    1       00     C      C ← A    3C   A5   3C
+    2       01     A      A ← B    A5   A5   3C
+    3       10     B      B ← C    A5   3C   3C</pre>
+    </div>
+    <p><strong>Answer:</strong> (a) A = A5, B = 0F, C = A5, D = 0F; the original D = 71 is lost at pulse 1. (b) Three pulses: C &larr; A, A &larr; B, B &larr; C. One bus carries only one source per pulse, so the swap cannot be done in fewer. With separate direct paths between A and B, the statement A &larr; B, B &larr; A works in one pulse, because both registers load the values present before the clock edge.</p>
+
+    <h3>Problem 2: All eight functions of the arithmetic circuit</h3>
+    <p>The 4-bit arithmetic circuit adds A, an input Y chosen by S<sub>1</sub>S<sub>0</sub> (00 &rarr; all 0s, 01 &rarr; B, 10 &rarr; B&prime;, 11 &rarr; all 1s) and the input carry C<sub>in</sub>: D = A + Y + C<sub>in</sub>. For A = 1011 and B = 0110, find D and the output carry C<sub>out</sub> for every combination.</p>
+    <div style="overflow-x:auto">
+    <table>
+    <thead>
+    <tr><th>S<sub>1</sub></th><th>S<sub>0</sub></th><th>C<sub>in</sub></th><th>Y</th><th>Microoperation</th><th>D</th><th>C<sub>out</sub></th></tr>
+    </thead>
+    <tbody>
+    <tr><td>0</td><td>0</td><td>0</td><td>0000</td><td>Transfer A</td><td>1011</td><td>0</td></tr>
+    <tr><td>0</td><td>0</td><td>1</td><td>0000</td><td>Increment A</td><td>1100</td><td>0</td></tr>
+    <tr><td>0</td><td>1</td><td>0</td><td>0110</td><td>Add, A + B</td><td>0001</td><td>1</td></tr>
+    <tr><td>0</td><td>1</td><td>1</td><td>0110</td><td>A + B + 1</td><td>0010</td><td>1</td></tr>
+    <tr><td>1</td><td>0</td><td>0</td><td>1001</td><td>A + B&prime;</td><td>0100</td><td>1</td></tr>
+    <tr><td>1</td><td>0</td><td>1</td><td>1001</td><td>Subtract, A + B&prime; + 1</td><td>0101</td><td>1</td></tr>
+    <tr><td>1</td><td>1</td><td>0</td><td>1111</td><td>Decrement A</td><td>1010</td><td>1</td></tr>
+    <tr><td>1</td><td>1</td><td>1</td><td>1111</td><td>Transfer A</td><td>1011</td><td>1</td></tr>
+    </tbody>
+    </table>
+    </div>
+    <div class="box box-eg">
+    <pre>Check the subtract row:  A − B = 11 − 6 = 5
+        1011        A
+      + 1001        B′
+      +    1        Cin
+      ------
+      1 0101        Cout = 1, D = 0101 = 5  ✓
+
+    Check the decrement row:  A + 1111 = A − 1
+        1011 + 1111 = 1 1010   →  D = 1010 = 10  ✓</pre>
+    </div>
+    <p><strong>Answer:</strong> as in the table. For unsigned subtraction, C<sub>out</sub> = 1 means A &ge; B (no borrow). Decrement and the last transfer row also give C<sub>out</sub> = 1; that carry is ignored.</p>
+
+    <h2>Solved Problems — Logic and Shift Microoperations</h2>
+
+    <h3>Problem 3: Selective set, complement, clear, mask and insert</h3>
+    <p>(a) A = 1101 0110 and B = 0011 1100. Find A after selective set, selective complement, selective clear and mask (each starting from the same A). (b) A = 0110 1010. Insert the value 1001 into the upper four bits of A without changing the lower four.</p>
+    <div class="box box-eg">
+    <pre>(a) A        = 1101 0110
+        B        = 0011 1100
+
+    Selective set        A ∨ B   = 1111 1110
+    Selective complement A ⊕ B   = 1110 1010
+    Selective clear      A ∧ B′  = 1100 0010    (B′ = 1100 0011)
+    Mask                 A ∧ B   = 0001 0100
+
+    (b) Step 1 — mask the upper field:
+        A ← A ∧ 0000 1111   = 0000 1010
+        Step 2 — OR in the new value:
+        A ← A ∨ 1001 0000   = 1001 1010</pre>
+    </div>
+    <p><strong>Answer:</strong> (a) 1111 1110, 1110 1010, 1100 0010, 0001 0100. (b) A = 1001 1010. Read each result against B: only the bit positions where B = 1 are set, flipped or cleared; the mask keeps only those positions.</p>
+
+    <h3>Problem 4: Shift microoperations and arithmetic-shift overflow</h3>
+    <p>R = 1100 1011. Find R after each of shl, shr, cil, cir, ashl and ashr (each from the same R). Then apply ashl a second time to the ashl result and check for overflow.</p>
+    <div class="box box-eg">
+    <pre>R      = 1100 1011     (signed: −53)
+
+    shl R  = 1001 0110     0 enters on the right
+    shr R  = 0110 0101     0 enters on the left
+    cil R  = 1001 0111     R₇ = 1 wraps to R₀
+    cir R  = 1110 0101     R₀ = 1 wraps to R₇
+    ashl R = 1001 0110     Vs = R₇ ⊕ R₆ = 1 ⊕ 1 = 0 → no overflow
+                           (−53 × 2 = −106 ✓)
+    ashr R = 1110 0101     sign bit 1 kept (−53 / 2 → −27)
+
+    Second ashl, on 1001 0110:
+    Vs = R₇ ⊕ R₆ = 1 ⊕ 0 = 1 → overflow
+    Result 0010 1100 = +44, but −106 × 2 = −212 does not fit in 8 bits</pre>
+    </div>
+    <p><strong>Answer:</strong> shl 1001 0110, shr 0110 0101, cil 1001 0111, cir 1110 0101, ashl 1001 0110 (no overflow), ashr 1110 0101. The second ashl overflows: the sign bit changes. Here cir and ashr give the same pattern only because R<sub>0</sub> and R<sub>7</sub> are both 1.</p>
+
+    <h3>Problem 5: A trace through the arithmetic logic shift unit</h3>
+    <p>The arithmetic logic shift unit is selected by S<sub>3</sub>S<sub>2</sub>S<sub>1</sub>S<sub>0</sub> and C<sub>in</sub>: S<sub>3</sub>S<sub>2</sub> = 00 gives the arithmetic circuit (S<sub>1</sub>S<sub>0</sub>C<sub>in</sub> as in Problem 2), 01 gives logic (S<sub>1</sub>S<sub>0</sub> = 00 AND, 01 OR, 10 XOR, 11 complement A), 10 gives shr A, 11 gives shl A. With 8-bit registers, A = 96 and B = 3B, the output F is loaded back into A after each pulse (B does not change). Find A after each pulse.</p>
+    <div style="overflow-x:auto">
+    <table>
+    <thead>
+    <tr><th>Pulse</th><th>S<sub>3</sub>S<sub>2</sub>S<sub>1</sub>S<sub>0</sub> C<sub>in</sub></th></tr>
+    </thead>
+    <tbody>
+    <tr><td>1</td><td>0010 1</td></tr>
+    <tr><td>2</td><td>0110 0</td></tr>
+    <tr><td>3</td><td>1100 0</td></tr>
+    <tr><td>4</td><td>0011 0</td></tr>
+    <tr><td>5</td><td>0111 0</td></tr>
+    <tr><td>6</td><td>0001 1</td></tr>
+    </tbody>
+    </table>
+    </div>
+    <div class="box box-eg">
+    <pre>B = 3B = 0011 1011 throughout
+
+    Pulse  Code     RTL               A (binary)   A (hex)
+    start                             1001 0110    96
+    1      0010 1   A ← A + B′ + 1    0101 1011    5B   (Cout = 1)
+    2      0110 0   A ← A ⊕ B         0110 0000    60
+    3      1100 0   A ← shl A         1100 0000    C0
+    4      0011 0   A ← A − 1         1011 1111    BF
+    5      0111 0   A ← A′            0100 0000    40
+    6      0001 1   A ← A + B + 1     0111 1100    7C
+
+    Check pulse 1: 96 − 3B = 150 − 59 = 91 = 5B  ✓
+    Check pulse 6: 40 + 3B + 1 = 64 + 59 + 1 = 124 = 7C  ✓</pre>
+    </div>
+    <p><strong>Answer:</strong> A = 5B, 60, C0, BF, 40, 7C after pulses 1 to 6. For logic and shift codes the C<sub>in</sub> bit has no effect.</p>
+
+    <h2>Practice Problems</h2>
+
+    <p><strong>Q1.</strong> R = 1110 0101. Apply ashl repeatedly. On which shift does overflow first occur?</p>
+    <details><summary>Show answer</summary>
+    <p>1st: V<sub>s</sub> = 1 &oplus; 1 = 0, R = 1100 1010. 2nd: V<sub>s</sub> = 1 &oplus; 1 = 0, R = 1001 0100. 3rd: V<sub>s</sub> = 1 &oplus; 0 = 1 &rarr; <strong>overflow on the third shift</strong> (R becomes 0010 1000).</p>
+    </details>
+
+    <p><strong>Q2.</strong> For the arithmetic logic shift unit with A = 5C and B = E3 (8 bits), find F for the codes 0010 1, 0101 0, 1000 0 and 0001 0.</p>
+    <details><summary>Show answer</summary>
+    <p>0010 1: A &minus; B = <strong>79</strong> with C<sub>out</sub> = 0 (A &lt; B, so a borrow). 0101 0: A &or; B = <strong>FF</strong>. 1000 0: shr A = <strong>2E</strong>. 0001 0: A + B = <strong>3F</strong> with C<sub>out</sub> = 1.</p>
+    </details>
+
+    <p><strong>Q3.</strong> A = A7. Which logic microoperation and which B flip only the lower four bits of A? What is the result?</p>
+    <details><summary>Show answer</summary>
+    <p>Selective complement, A &larr; A &oplus; B with B = 0F. Result: 1010 0111 &oplus; 0000 1111 = 1010 1000 = <strong>A8</strong>.</p>
+    </details>
+
+    <p><strong>Q4.</strong> On the four-register bus of Problem 1, give S<sub>1</sub>S<sub>0</sub> and the load inputs for B &larr; A, D &larr; A in one pulse. Can C &larr; D and A &larr; B be done in the same pulse?</p>
+    <details><summary>Show answer</summary>
+    <p>S<sub>1</sub>S<sub>0</sub> = 00 with the loads of B and D set to 1. <strong>No</strong> — the two transfers need different sources (D and B), and the bus carries only one source per pulse; they need two pulses.</p>
+    </details>
+
+    <h2>Common Pitfalls</h2>
+    <ul>
+    <li><strong>Using a value written in the same pulse.</strong> All transfers in one pulse read the registers as they were before the clock edge.</li>
+    <li><strong>Testing ashl overflow after the shift.</strong> V<sub>s</sub> = R<sub>n&minus;1</sub> &oplus; R<sub>n&minus;2</sub> uses the two leftmost bits before shifting.</li>
+    <li><strong>Treating ashr as shr.</strong> ashr copies the sign bit into the vacated position; shr always inserts 0.</li>
+    <li><strong>Forgetting C<sub>in</sub> in subtraction.</strong> A + B&prime; alone is A &minus; B &minus; 1; subtraction needs C<sub>in</sub> = 1.</li>
+    <li><strong>Selective clear with B instead of B&prime;.</strong> Selective clear is A &and; B&prime;; A &and; B is the mask.</li>
+    <li><strong>Inserting without masking first.</strong> OR alone cannot change a 1 back to 0; clear the field, then OR in the new bits.</li>
+    </ul>
+
+    <h2>Related Topics</h2>
+    <p><strong>Related syllabus topics:</strong> <a href="bus-memory-transfers.html">Bus and Memory Transfers</a> &middot; <a href="arithmetic-microoperations.html">Arithmetic Microoperations</a> &middot; <a href="logic-microoperations.html">Logic Microoperations</a> &middot; <a href="shift-microoperations.html">Shift Microoperations</a> &middot; <a href="arithmetic-logic-shift-unit.html">Arithmetic Logic Shift Unit</a>.</p>
+    <p><strong>Next supplementary page:</strong> <a href="basic-computer-solved-problems.html">Basic Computer — Solved Problems</a> — the same register-by-register tracing applied to complete instructions.</p>
+
+  </div>
+  <div class="topic-nav">
+    <a href="io-and-interrupt.html">
+      <div class="nav-dir">← Previous</div>
+      <div class="nav-title">Input-Output and Interrupt</div>
+    </a>
+    <a href="basic-computer-solved-problems.html" class="next">
+      <div class="nav-dir">Next →</div>
+      <div class="nav-title">Basic Computer — Solved Problems</div>
+    </a>
+  </div>
+</div>
+<footer id="main-footer"></footer>
+<script type="module">
+  import { initNav } from '../../../js/nav.js';
+  import { initSidebar } from '../../../js/sidebar.js';
+  initNav(3);
+  initSidebar();
+</script>
+</body>
+</html>

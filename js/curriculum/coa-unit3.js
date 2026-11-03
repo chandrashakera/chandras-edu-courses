@@ -18,9 +18,15 @@ export const GROUPS = {
       { id:'memory-reference-instructions', title:'Memory Reference Instructions', desc:'The seven basic memory-reference instructions and their register transfer statements.', time:'22 min', href:'memory-reference-instructions.html', status:'active' },
       { id:'io-and-interrupt',            title:'Input-Output and Interrupt',     desc:'Program-controlled I/O and the interrupt cycle that lets hardware request the CPU\'s attention.', time:'22 min', href:'io-and-interrupt.html', status:'active' },
     ],
+    // Supplementary topics: extra pages beyond the syllabus (no quiz, not required for the certificate) — see js/curriculum/supplementary.js
+    'tg-supplementary': [
+      { id:'microoperations-solved-problems', title:'Microoperations — Solved Problems', desc:'Solved problems on bus transfers, the arithmetic circuit, logic masks/inserts, shifts and an ALU trace.', time:'30 min', href:'microoperations-solved-problems.html', status:'active', supplementary:true, related:'arithmetic-microoperations' },
+      { id:'basic-computer-solved-problems', title:'Basic Computer — Solved Problems', desc:'Solved problems decoding instructions, tracing registers after each instruction, and timing-step and program traces.', time:'35 min', href:'basic-computer-solved-problems.html', status:'active', supplementary:true, related:'instruction-codes' },
+    ],
   };
 
 export const GROUP_LABELS = {
   'tg-rtl-microops': '🔀 Register Transfer Language & Micro-operations',
   'tg-basic-computer-org': '🖥️ Basic Computer Organization & Design',
+  'tg-supplementary': 'Supplementary Topics — Beyond the Syllabus',
 };
