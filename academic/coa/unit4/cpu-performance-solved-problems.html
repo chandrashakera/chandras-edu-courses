@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3030765874336294" crossorigin="anonymous"></script>
+  <title>CPU Performance — Solved Problems — COA Unit 4 | CHANDRAS EDU</title>
+  <meta name="description" content="Solved problems on CPU performance: CPU time, average CPI from an instruction mix, MIPS rating, why MIPS can mislead, and Amdahl's law speedup limits.">
+  <link rel="canonical" href="https://chandrashaker.com/courses/academic/coa/unit4/cpu-performance-solved-problems">
+  <link rel="stylesheet" href="../../../css/style.css">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="CHANDRAS EDU">
+  <meta property="og:title" content="CPU Performance — Solved Problems — COA Unit 4 | CHANDRAS EDU">
+  <meta property="og:description" content="Solved problems on CPU performance: CPU time, average CPI from an instruction mix, MIPS rating, why MIPS can mislead, and Amdahl's law speedup limits.">
+  <meta property="og:url" content="https://chandrashaker.com/courses/academic/coa/unit4/cpu-performance-solved-problems">
+  <meta property="og:image" content="https://chandrashaker.com/courses/images/og/coa-v7.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Computer Organization and Architecture — CHANDRAS EDU free course">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="CPU Performance — Solved Problems — COA Unit 4 | CHANDRAS EDU">
+  <meta name="twitter:description" content="Solved problems on CPU performance: CPU time, average CPI from an instruction mix, MIPS rating, why MIPS can mislead, and Amdahl's law speedup limits.">
+  <meta name="twitter:image" content="https://chandrashaker.com/courses/images/og/coa-v7.png">
+  <script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Courses","item":"https://chandrashaker.com/courses/"},{"@type":"ListItem","position":2,"name":"COA","item":"https://chandrashaker.com/courses/academic/coa/"},{"@type":"ListItem","position":3,"name":"Unit 4","item":"https://chandrashaker.com/courses/academic/coa/unit4/"},{"@type":"ListItem","position":4,"name":"CPU Performance — Solved Problems"}]}
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LearningResource",
+  "name": "CPU Performance — Solved Problems",
+  "description": "Solved problems on CPU performance: CPU time, average CPI from an instruction mix, MIPS rating, why MIPS can mislead, and Amdahl's law speedup limits.",
+  "url": "https://chandrashaker.com/courses/academic/coa/unit4/cpu-performance-solved-problems",
+  "image": "https://chandrashaker.com/courses/images/og/coa-v7.png",
+  "learningResourceType": "Lesson",
+  "educationalLevel": "Undergraduate",
+  "about": { "@type": "Thing", "name": "Computer Organization and Architecture" },
+  "isPartOf": { "@type": "Course", "name": "Computer Organization and Architecture", "provider": { "@type": "Organization", "name": "CHANDRAS EDU", "url": "https://chandrashaker.in" } },
+  "publisher": { "@type": "Organization", "name": "CHANDRAS EDU", "url": "https://chandrashaker.in" }
+}
+  </script>
+  <link rel="icon" href="/favicon.ico">
+  <style>
+    .fig-wrap{text-align:center;margin:1.5rem 0}
+    .fig-wrap img{max-width:100%;height:auto;border-radius:var(--radius)}
+    .fig-caption{font-size:.82rem;color:var(--text-3);margin-top:.4rem}
+    .key-point{background:var(--bg-2);border-left:4px solid var(--accent,#f59e0b);border-radius:var(--radius);padding:.7rem 1rem;margin:1rem 0;font-size:.92rem}
+  </style>
+</head>
+<body>
+<div id="main-nav"></div>
+<div class="page-narrow" role="main">
+  <nav class="breadcrumb">
+    <a href="../../../index.html">Courses</a><span class="sep">/</span>
+    <a href="../index.html">Computer Organization and Architecture</a><span class="sep">/</span>
+    <a href="index.html">Unit 4</a><span class="sep">/</span>
+    <span>Supplementary Topics</span><span class="sep">/</span>
+    <span class="cur">CPU Performance — Solved Problems</span>
+  </nav>
+  <div style="background:var(--primary);border-radius:var(--radius-lg);padding:1.1rem 1.4rem;margin-bottom:1.5rem;color:#fff">
+    <div style="font-size:.75rem;opacity:.75;margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.05em">Supplementary — beyond the syllabus</div>
+    <h1 style="font-size:1.4rem;font-weight:700;color:#fff;margin-bottom:.5rem">CPU Performance: CPI, MIPS and Amdahl's Law — Solved Problems</h1>
+    <div style="display:flex;gap:.75rem;flex-wrap:wrap">
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">⏱ 30 min read</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📌 Supplementary — beyond the syllabus</span>
+    </div>
+  </div>
+  <div class="lesson">
+    <p>How do you say one processor is "faster" than another? Clock speed alone does not answer it, and neither does the MIPS figure on a datasheet. This page builds the one equation that does — <strong>CPU time = Instruction count &times; CPI &times; Clock cycle time</strong> — and then uses <strong>Amdahl's law</strong> to show how much an improvement to one part of a system can really help. Nine solved problems cover the question types seen in university exams, followed by practice problems with answers.</p>
+
+    <div class="box box-tip">
+    <strong>In simple terms:</strong> A program's running time depends on three things: how many instructions it executes, how many clock cycles each instruction takes on average (CPI), and how long one clock cycle is. Improve any one and the program runs faster — unless the change makes another one worse. Amdahl's law adds a reality check: speeding up one part only helps in proportion to how much of the time that part was taking.</div>
+
+    <h2>Key Terms and Formulas</h2>
+
+    <div style="overflow-x:auto">
+    <table>
+    <thead>
+    <tr><th>Quantity</th><th>Formula</th><th>Unit / note</th></tr>
+    </thead>
+    <tbody>
+    <tr><td>Clock cycle time</td><td>T = 1 / f</td><td>f = clock rate in Hz; 1 GHz &rarr; 1 ns</td></tr>
+    <tr><td>CPU time (execution time)</td><td>CPU time = IC &times; CPI &times; T = (IC &times; CPI) / f</td><td>IC = instruction count (instructions executed, not lines of code)</td></tr>
+    <tr><td>Clock cycles for a program</td><td>Cycles = IC &times; CPI = &Sigma; (IC<sub>i</sub> &times; CPI<sub>i</sub>)</td><td>i = instruction class</td></tr>
+    <tr><td>Average CPI</td><td>CPI = &Sigma; (F<sub>i</sub> &times; CPI<sub>i</sub>)</td><td>F<sub>i</sub> = fraction of executed instructions in class i</td></tr>
+    <tr><td>MIPS rating</td><td>MIPS = IC / (CPU time &times; 10<sup>6</sup>) = f / (CPI &times; 10<sup>6</sup>)</td><td>Millions of instructions per second</td></tr>
+    <tr><td>Performance</td><td>Performance = 1 / CPU time</td><td>"A is n times faster than B" means Time<sub>B</sub> / Time<sub>A</sub> = n</td></tr>
+    <tr><td>Speedup</td><td>S = Time<sub>old</sub> / Time<sub>new</sub></td><td>S &gt; 1 means the change helped</td></tr>
+    <tr><td>Amdahl's law</td><td>S = 1 / [ (1 &minus; F<sub>e</sub>) + F<sub>e</sub> / S<sub>e</sub> ]</td><td>F<sub>e</sub> = fraction of the <em>original time</em> that can be enhanced; S<sub>e</sub> = speedup of that part</td></tr>
+    <tr><td>Upper limit (S<sub>e</sub> &rarr; &infin;)</td><td>S<sub>max</sub> = 1 / (1 &minus; F<sub>e</sub>)</td><td>The unenhanced part sets the ceiling</td></tr>
+    </tbody>
+    </table>
+    </div>
+
+    <p><strong>Notation bridge:</strong> question papers also write Amdahl's law as Speedup = 1 / [(1 &minus; Fraction<sub>enhanced</sub>) + Fraction<sub>enhanced</sub> / Speedup<sub>enhanced</sub>], or with p and s in place of F<sub>e</sub> and S<sub>e</sub>. It is the same equation. Here f always means clock rate, so the fraction is written F<sub>e</sub>.</p>
+
+    <h2>The Three Factors at a Glance</h2>
+
+    <div style="overflow-x:auto">
+    <table>
+    <thead>
+    <tr><th>Factor</th><th>Mainly decided by</th><th>Example of a change</th></tr>
+    </thead>
+    <tbody>
+    <tr><td>Instruction count (IC)</td><td>Algorithm, compiler, instruction set</td><td>A better compiler removes redundant loads</td></tr>
+    <tr><td>CPI</td><td>Processor organisation, memory system, instruction mix</td><td>A larger cache cuts the cycles spent waiting on loads</td></tr>
+    <tr><td>Clock cycle time (T)</td><td>Circuit technology, pipeline depth</td><td>A faster process raises the clock rate</td></tr>
+    </tbody>
+    </table>
+    </div>
+
+    <p>No single factor is a fair measure of speed on its own. Only the product IC &times; CPI &times; T gives the time the user actually waits.</p>
+
+    <h2>Solved Problems — CPU Time, CPI and MIPS</h2>
+
+    <h3>Problem 1: CPU time and MIPS from IC, CPI and clock rate</h3>
+    <p>A program executes 2 &times; 10<sup>6</sup> instructions on a 500 MHz processor with an average CPI of 2.5. Find the CPU time and the MIPS rating.</p>
+    <div class="box box-eg">
+    <pre>Clock cycle time  T = 1 / (500 × 10⁶) = 2 ns
+
+    CPU time = IC × CPI × T
+             = 2 × 10⁶ × 2.5 × 2 ns
+             = 10 × 10⁶ ns
+             = 10 ms
+
+    MIPS = f / (CPI × 10⁶) = (500 × 10⁶) / (2.5 × 10⁶) = 200
+
+    Check: IC / (time × 10⁶) = 2 × 10⁶ / (0.01 × 10⁶) = 200  ✓</pre>
+    </div>
+    <p><strong>Answer:</strong> CPU time = 10 ms; MIPS = 200.</p>
+
+    <h3>Problem 2: Average CPI from an instruction mix</h3>
+    <p>A 900 MHz processor runs a program of 10<sup>9</sup> instructions with this mix:</p>
+    <div style="overflow-x:auto">
+    <table>
+    <thead>
+    <tr><th>Class</th><th>Fraction of instructions</th><th>CPI</th></tr>
+    </thead>
+    <tbody>
+    <tr><td>ALU</td><td>50 %</td><td>1</td></tr>
+    <tr><td>Load/Store</td><td>30 %</td><td>3</td></tr>
+    <tr><td>Branch</td><td>20 %</td><td>2</td></tr>
+    </tbody>
+    </table>
+    </div>
+    <p>Find the average CPI, the MIPS rating and the CPU time.</p>
+    <div class="box box-eg">
+    <pre>Average CPI = Σ (Fᵢ × CPIᵢ)
+                = 0.5 × 1 + 0.3 × 3 + 0.2 × 2
+                = 0.5 + 0.9 + 0.4
+                = 1.8
+
+    MIPS = (900 × 10⁶) / (1.8 × 10⁶) = 500
+
+    CPU time = (IC × CPI) / f
+             = (10⁹ × 1.8) / (900 × 10⁶)
+             = 2 s</pre>
+    </div>
+    <p><strong>Answer:</strong> CPI = 1.8; MIPS = 500; CPU time = 2 s.</p>
+    <p>Note the cycle shares: load/store instructions are 30 % of the instructions but use 0.9 of the 1.8 cycles per instruction — <strong>50 % of the time</strong>. Problem 6 uses this.</p>
+
+    <h3>Problem 3: Higher clock rate, higher CPI — which design is faster?</h3>
+    <p>Design A runs at 2 GHz with CPI 1.6. Design B raises the clock to 2.5 GHz, but its deeper pipeline raises the CPI to 2.1. Both run the same program (same IC). Which is faster, and by how much? What CPI would B need just to match A?</p>
+    <div class="box box-eg">
+    <pre>IC is the same, so compare time per instruction = CPI / f
+
+    A: 1.6 / (2 × 10⁹)   = 0.80 ns
+    B: 2.1 / (2.5 × 10⁹) = 0.84 ns
+
+    Time_B / Time_A = 0.84 / 0.80 = 1.05
+
+    Break-even CPI for B:
+    CPI_B / 2.5 GHz = 0.80 ns  →  CPI_B = 0.80 × 2.5 = 2.0</pre>
+    </div>
+    <p><strong>Answer:</strong> Design A is 1.05 times faster despite the lower clock rate. B needs CPI below 2.0 to beat A.</p>
+
+    <h3>Problem 4: Why MIPS can mislead</h3>
+    <p>A 2 GHz processor has three instruction classes with CPI 1 (class A), 2 (class B) and 4 (class C). Two compilers produce code for the same program with these instruction counts (in billions):</p>
+    <div style="overflow-x:auto">
+    <table>
+    <thead>
+    <tr><th>Compiler</th><th>Class A</th><th>Class B</th><th>Class C</th></tr>
+    </thead>
+    <tbody>
+    <tr><td>X</td><td>4</td><td>2</td><td>1</td></tr>
+    <tr><td>Y</td><td>8</td><td>1</td><td>1</td></tr>
+    </tbody>
+    </table>
+    </div>
+    <p>Which code has the higher MIPS rating? Which runs faster?</p>
+    <div class="box box-eg">
+    <pre>Compiler X
+      Cycles = (4×1 + 2×2 + 1×4) × 10⁹ = 12 × 10⁹
+      Time   = 12 × 10⁹ / 2 × 10⁹       = 6 s
+      IC     = 7 × 10⁹
+      MIPS   = 7 × 10⁹ / (6 × 10⁶)      ≈ 1166.7
+      CPI    = 12 / 7                   ≈ 1.71
+
+    Compiler Y
+      Cycles = (8×1 + 1×2 + 1×4) × 10⁹ = 14 × 10⁹
+      Time   = 14 × 10⁹ / 2 × 10⁹       = 7 s
+      IC     = 10 × 10⁹
+      MIPS   = 10 × 10⁹ / (7 × 10⁶)     ≈ 1428.6
+      CPI    = 14 / 10                  = 1.4</pre>
+    </div>
+    <p><strong>Answer:</strong> Y has the higher MIPS rating (&asymp; 1428.6 vs &asymp; 1166.7), but X finishes first (6 s vs 7 s). Y executes many more simple instructions, which inflates MIPS without doing the work sooner. Compare machines or compilers by <strong>execution time</strong>, not MIPS.</p>
+
+    <h2>Solved Problems — Amdahl's Law</h2>
+
+    <h3>Problem 5: Basic speedup and its upper limit</h3>
+    <p>Floating-point operations take 40 % of a program's execution time. A new FP unit makes them 8 times faster. Find the overall speedup and the best speedup possible from improving FP alone.</p>
+    <div class="box box-eg">
+    <pre>Fₑ = 0.4,  Sₑ = 8
+
+    S = 1 / [(1 − 0.4) + 0.4 / 8]
+      = 1 / [0.6 + 0.05]
+      = 1 / 0.65
+      ≈ 1.54
+
+    Upper limit (Sₑ → ∞):
+    S_max = 1 / (1 − 0.4) = 1 / 0.6 ≈ 1.67</pre>
+    </div>
+    <p><strong>Answer:</strong> Overall speedup &asymp; 1.54; even an infinitely fast FP unit cannot exceed &asymp; 1.67, because 60 % of the time is untouched.</p>
+
+    <h3>Problem 6: Amdahl's law needs the fraction of time, not of instructions</h3>
+    <p>For the processor in Problem 2, a better cache reduces the load/store CPI from 3 to 2. Find the speedup (a) from the new CPI and (b) using Amdahl's law.</p>
+    <div class="box box-eg">
+    <pre>(a) New CPI = 0.5×1 + 0.3×2 + 0.2×2 = 0.5 + 0.6 + 0.4 = 1.5
+        IC and f unchanged, so
+        S = CPI_old / CPI_new = 1.8 / 1.5 = 1.2
+
+    (b) Fraction of TIME in load/store (from Problem 2):
+        Fₑ = 0.9 / 1.8 = 0.5
+        Sₑ = 3 / 2 = 1.5
+        S  = 1 / [(1 − 0.5) + 0.5 / 1.5]
+           = 1 / [0.5 + 0.3333]
+           = 1 / 0.8333
+           = 1.2  ✓
+
+    Wrong way: using the instruction fraction 0.3 as Fₑ
+        1 / [0.7 + 0.3 / 1.5] = 1 / 0.9 ≈ 1.11  ✗</pre>
+    </div>
+    <p><strong>Answer:</strong> S = 1.2 both ways. F<sub>e</sub> must be the fraction of execution time (cycles), which here is 0.5, not the 30 % instruction share.</p>
+
+    <h3>Problem 7: How much must one part improve? (and when it is impossible)</h3>
+    <p>A program runs in 80 s, of which 60 s is spent on multiply operations. By what factor must multiplication be sped up to make the whole program (a) 3 times faster, (b) 4 times faster?</p>
+    <div class="box box-eg">
+    <pre>Time_new = 20 s (rest, unchanged) + 60 / k s
+
+    (a) Target = 80 / 3 ≈ 26.67 s
+        20 + 60 / k = 26.67
+        60 / k = 6.67   →   k = 9
+
+    (b) Target = 80 / 4 = 20 s
+        20 + 60 / k = 20
+        60 / k = 0     →   no finite k works</pre>
+    </div>
+    <p><strong>Answer:</strong> (a) Multiplication must become 9 times faster. (b) Impossible — the 20 s of non-multiply work alone already equals the target. In Amdahl's terms, F<sub>e</sub> = 60/80 = 0.75, so S<sub>max</sub> = 1 / 0.25 = 4, and that limit is reached only as k &rarr; &infin;.</p>
+
+    <h3>Problem 8: Choosing between two enhancements</h3>
+    <p>Enhancement P makes floating-point work (30 % of execution time) 3 times faster. Enhancement Q makes memory accesses (50 % of execution time) 1.5 times faster. The two parts do not overlap. Which single enhancement gives more speedup? What if both are applied?</p>
+    <div class="box box-eg">
+    <pre>P: S = 1 / [0.7 + 0.3 / 3]   = 1 / 0.80   = 1.25
+    Q: S = 1 / [0.5 + 0.5 / 1.5] = 1 / 0.8333 = 1.20
+
+    Both (unenhanced part = 1 − 0.3 − 0.5 = 0.2):
+    S = 1 / [0.2 + 0.3 / 3 + 0.5 / 1.5]
+      = 1 / [0.2 + 0.1 + 0.3333]
+      = 1 / 0.6333
+      ≈ 1.58</pre>
+    </div>
+    <p><strong>Answer:</strong> P is better alone (1.25 vs 1.20). Together they give &asymp; 1.58. Note that 1.25 &times; 1.20 = 1.5 is <em>not</em> the combined answer — speedups do not multiply when both are measured against the same original time.</p>
+
+    <h3>Problem 9: Amdahl's law for multiprocessors</h3>
+    <p>90 % of a program's execution time can be split evenly across processors; the rest is serial. Find (a) the speedup on 10 processors, (b) the limit as processors increase, (c) the number of processors needed for a speedup of 8.</p>
+    <div class="box box-eg">
+    <pre>Fₑ = 0.9,  Sₑ = n (number of processors)
+
+    (a) n = 10:
+        S = 1 / [0.1 + 0.9 / 10] = 1 / 0.19 ≈ 5.26
+
+    (b) n → ∞:
+        S_max = 1 / 0.1 = 10
+
+    (c) 1 / [0.1 + 0.9 / n] = 8
+        0.1 + 0.9 / n = 0.125
+        0.9 / n = 0.025   →   n = 36</pre>
+    </div>
+    <p><strong>Answer:</strong> (a) &asymp; 5.26 on 10 processors; (b) never above 10; (c) 36 processors. Going from 10 to 36 processors (3.6 times the hardware) raises the speedup only from 5.26 to 8.</p>
+
+    <h2>Practice Problems</h2>
+
+    <p><strong>Q1.</strong> A 1.2 GHz processor runs a program of 3 &times; 10<sup>9</sup> instructions in 4 s. Find the average CPI and the MIPS rating.</p>
+    <details><summary>Show answer</summary>
+    <p>Cycles = 4 &times; 1.2 &times; 10<sup>9</sup> = 4.8 &times; 10<sup>9</sup>; CPI = 4.8 / 3 = <strong>1.6</strong>. MIPS = 3 &times; 10<sup>9</sup> / (4 &times; 10<sup>6</sup>) = <strong>750</strong>.</p>
+    </details>
+
+    <p><strong>Q2.</strong> A 2 GHz processor executes ALU instructions 40 % (CPI 1), loads 25 % (CPI 4), stores 15 % (CPI 3) and branches 20 % (CPI 2). Find the average CPI and the MIPS rating.</p>
+    <details><summary>Show answer</summary>
+    <p>CPI = 0.4 + 1.0 + 0.45 + 0.4 = <strong>2.25</strong>. MIPS = 2000 / 2.25 &asymp; <strong>888.9</strong>.</p>
+    </details>
+
+    <p><strong>Q3.</strong> 25 % of a program's execution time cannot be parallelised. Find the maximum possible speedup and the speedup on 6 processors.</p>
+    <details><summary>Show answer</summary>
+    <p>S<sub>max</sub> = 1 / 0.25 = <strong>4</strong>. On 6 processors: 1 / (0.25 + 0.75 / 6) = 1 / 0.375 &asymp; <strong>2.67</strong>.</p>
+    </details>
+
+    <p><strong>Q4.</strong> An enhancement runs 10 times faster than the original mode. What fraction of the original execution time must use it to give an overall speedup of 2.5?</p>
+    <details><summary>Show answer</summary>
+    <p>1 / [(1 &minus; F<sub>e</sub>) + F<sub>e</sub> / 10] = 2.5 &rarr; 1 &minus; 0.9 F<sub>e</sub> = 0.4 &rarr; F<sub>e</sub> = <strong>2/3 &asymp; 0.667</strong> (66.7 % of the time).</p>
+    </details>
+
+    <p><strong>Q5.</strong> Machine A runs at 3 GHz with CPI 2.4. Machine B runs at 2 GHz. For the same program and instruction count, what CPI must B have to match A?</p>
+    <details><summary>Show answer</summary>
+    <p>Time per instruction on A = 2.4 / 3 GHz = 0.8 ns. B: CPI / 2 GHz = 0.8 ns &rarr; CPI = <strong>1.6</strong>.</p>
+    </details>
+
+    <h2>Common Pitfalls</h2>
+    <ul>
+    <li><strong>Judging speed by clock rate alone.</strong> A higher clock with a higher CPI can be slower (Problem 3).</li>
+    <li><strong>Judging speed by MIPS.</strong> MIPS ignores how much work each instruction does; compare execution time instead (Problem 4).</li>
+    <li><strong>Using the instruction fraction as F<sub>e</sub>.</strong> Amdahl's law needs the fraction of execution time (Problem 6).</li>
+    <li><strong>Multiplying separate speedups.</strong> For enhancements to different parts of the same program, add the enhanced and unenhanced time terms in one Amdahl expression (Problem 8).</li>
+    <li><strong>Unit slips.</strong> 1 GHz &harr; 1 ns, 500 MHz &harr; 2 ns; MIPS divides by 10<sup>6</sup>, not 10<sup>9</sup>.</li>
+    <li><strong>Counting lines of code as IC.</strong> IC is the number of instructions <em>executed</em>; a loop body counts once per iteration.</li>
+    </ul>
+
+    <h2>Related Topics</h2>
+    <p><strong>Related syllabus topics:</strong> <a href="instruction-formats.html">Instruction Formats</a> (fewer, larger instructions vs more, simpler ones — the IC side of the equation) &middot; <a href="addressing-modes.html">Addressing Modes</a> (memory references add cycles — the CPI side).</p>
+    <p><strong>Next supplementary page:</strong> <a href="pipelining.html">Pipelining</a> — pipeline speedup is another application of the same time-based reasoning.</p>
+
+  </div>
+  <div class="topic-nav">
+    <a href="floating-point-arithmetic.html">
+      <div class="nav-dir">← Previous</div>
+      <div class="nav-title">Floating-Point Arithmetic Operations</div>
+    </a>
+    <a href="pipelining.html" class="next">
+      <div class="nav-dir">Next →</div>
+      <div class="nav-title">Pipelining</div>
+    </a>
+  </div>
+</div>
+<footer id="main-footer"></footer>
+<script type="module">
+  import { initNav } from '../../../js/nav.js';
+  import { initSidebar } from '../../../js/sidebar.js';
+  initNav(3);
+  initSidebar();
+</script>
+</body>
+</html>
