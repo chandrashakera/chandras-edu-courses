@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3030765874336294" crossorigin="anonymous"></script>
+  <title>RISC vs CISC Architecture — COA Unit 4 | CHANDRAS EDU</title>
+  <meta name="description" content="RISC vs CISC compared: characteristics, register windows and solved problems on instruction counts, CPU time, average CPI and fixed-length formats.">
+  <link rel="canonical" href="https://chandrashaker.com/courses/academic/coa/unit4/risc-vs-cisc.html">
+  <link rel="stylesheet" href="../../../css/style.css">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="CHANDRAS EDU">
+  <meta property="og:title" content="RISC vs CISC Architecture — COA Unit 4 | CHANDRAS EDU">
+  <meta property="og:description" content="RISC vs CISC compared: characteristics, register windows and solved problems on instruction counts, CPU time, average CPI and fixed-length formats.">
+  <meta property="og:url" content="https://chandrashaker.com/courses/academic/coa/unit4/risc-vs-cisc.html">
+  <meta property="og:image" content="https://chandrashaker.com/courses/images/og/coa-v7.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Computer Organization and Architecture — CHANDRAS EDU free course">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="RISC vs CISC Architecture — COA Unit 4 | CHANDRAS EDU">
+  <meta name="twitter:description" content="RISC vs CISC compared: characteristics, register windows and solved problems on instruction counts, CPU time, average CPI and fixed-length formats.">
+  <meta name="twitter:image" content="https://chandrashaker.com/courses/images/og/coa-v7.png">
+  <script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Courses","item":"https://chandrashaker.com/courses/"},{"@type":"ListItem","position":2,"name":"COA","item":"https://chandrashaker.com/courses/academic/coa/"},{"@type":"ListItem","position":3,"name":"Unit 4","item":"https://chandrashaker.com/courses/academic/coa/unit4/"},{"@type":"ListItem","position":4,"name":"RISC vs CISC Architecture"}]}
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LearningResource",
+  "name": "RISC vs CISC Architecture",
+  "description": "RISC vs CISC compared: characteristics, register windows and solved problems on instruction counts, CPU time, average CPI and fixed-length formats.",
+  "url": "https://chandrashaker.com/courses/academic/coa/unit4/risc-vs-cisc.html",
+  "image": "https://chandrashaker.com/courses/images/og/coa-v7.png",
+  "learningResourceType": "Lesson",
+  "educationalLevel": "Undergraduate",
+  "about": { "@type": "Thing", "name": "Computer Organization and Architecture" },
+  "isPartOf": { "@type": "Course", "name": "Computer Organization and Architecture", "provider": { "@type": "Organization", "name": "CHANDRAS EDU", "url": "https://chandrashaker.in" } },
+  "publisher": { "@type": "Organization", "name": "CHANDRAS EDU", "url": "https://chandrashaker.in" }
+}
+  </script>
+  <link rel="icon" href="/favicon.ico">
+  <style>
+    .fig-wrap{text-align:center;margin:1.5rem 0}
+    .fig-wrap img{max-width:100%;height:auto;border-radius:var(--radius)}
+    .fig-caption{font-size:.82rem;color:var(--text-3);margin-top:.4rem}
+    .key-point{background:var(--bg-2);border-left:4px solid var(--accent,#f59e0b);border-radius:var(--radius);padding:.7rem 1rem;margin:1rem 0;font-size:.92rem}
+  </style>
+</head>
+<body>
+<div id="main-nav"></div>
+<div class="page-narrow" role="main">
+  <nav class="breadcrumb">
+    <a href="../../../index.html">Courses</a><span class="sep">/</span>
+    <a href="../index.html">Computer Organization and Architecture</a><span class="sep">/</span>
+    <a href="index.html">Unit 4</a><span class="sep">/</span>
+    <span>Supplementary Topics</span><span class="sep">/</span>
+    <span class="cur">RISC vs CISC Architecture</span>
+  </nav>
+  <div style="background:var(--primary);border-radius:var(--radius-lg);padding:1.1rem 1.4rem;margin-bottom:1.5rem;color:#fff">
+    <div style="font-size:.75rem;opacity:.75;margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.05em">Supplementary — beyond the syllabus</div>
+    <h1 style="font-size:1.4rem;font-weight:700;color:#fff;margin-bottom:.5rem">RISC vs CISC Architecture</h1>
+    <div style="display:flex;gap:.75rem;flex-wrap:wrap">
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">⏱ 35 min read</span>
+      <span style="background:rgba(255,255,255,.15);padding:.2rem .65rem;border-radius:20px;font-size:.77rem">📌 Supplementary — beyond the syllabus</span>
+    </div>
+  </div>
+  <div class="lesson">
+    <p>Every processor makes one basic design choice: give programmers many powerful instructions, or give them a small set of simple instructions that run very fast. The first approach is called CISC (complex instruction set computer), the second RISC (reduced instruction set computer). This page compares the two, explains the overlapped register windows used in RISC designs, and works through the exam-style problems: instruction counts and memory references, CPU time, average CPI, register-file size and fixed-length instruction formats.</p>
+
+    <div class="box box-tip">
+    <p><strong>In simple terms</strong></p>
+    <p>A CISC instruction can do a lot in one step — for example, read two numbers from memory, add them and write the result back. A RISC instruction does one small thing, works only on registers, and finishes in about one clock cycle. RISC needs more instructions for the same job, but each one is simple enough to decode quickly, run on hardwired control and overlap in a pipeline.</p>
+    </div>
+
+    <h2>Why CISC Came First</h2>
+    <p>When memory was small and expensive, a program that used fewer instructions saved memory. Designers also wanted machine instructions to look like high-level language statements, so the instruction set kept growing. Microprogrammed control made this affordable: a new complex instruction only needed a new routine in control memory, not new hardware. The result was large instruction sets with many addressing modes.</p>
+    <p>Studies of compiled programs later showed that most of the execution time was spent on a small number of simple instructions — loads, stores, adds, compares and branches. The rarely used complex instructions still cost decoding hardware and control-memory space, and slowed down the common case. RISC designs keep the frequent operations and make them fast.</p>
+
+    <h2>Characteristics</h2>
+
+    <h3>CISC</h3>
+    <ul>
+    <li>A large number of instructions, some of them for special tasks that programs rarely use.</li>
+    <li>Many addressing modes.</li>
+    <li>Variable-length instruction formats.</li>
+    <li>Instructions that operate directly on operands in memory.</li>
+    <li>Usually a microprogrammed control unit.</li>
+    </ul>
+
+    <h3>RISC</h3>
+    <ul>
+    <li>Relatively few instructions and few addressing modes.</li>
+    <li>Memory is accessed only by load and store instructions; all other operations use CPU registers.</li>
+    <li>A fixed-length instruction format that is easy to decode.</li>
+    <li>Single-cycle execution for most instructions.</li>
+    <li>Hardwired rather than microprogrammed control.</li>
+    <li>A large number of registers (often organised as overlapped register windows), an efficient instruction pipeline, and a compiler that does more of the work.</li>
+    </ul>
+
+    <h2>RISC vs CISC: Comparison</h2>
+    <div style="overflow-x:auto">
+    <table>
+    <thead>
+    <tr><th>Feature</th><th>CISC</th><th>RISC</th></tr>
+    </thead>
+    <tbody>
+    <tr><td>Instruction set</td><td>Large, includes complex instructions</td><td>Small, simple instructions</td></tr>
+    <tr><td>Addressing modes</td><td>Many</td><td>Few (register, immediate, displacement, PC-relative)</td></tr>
+    <tr><td>Instruction length</td><td>Variable</td><td>Fixed (typically 32 bits)</td></tr>
+    <tr><td>Memory operands</td><td>Most instructions can use memory</td><td>Only LOAD and STORE</td></tr>
+    <tr><td>Cycles per instruction (CPI)</td><td>Several, varies widely</td><td>About 1 for most instructions</td></tr>
+    <tr><td>Control unit</td><td>Usually microprogrammed</td><td>Usually hardwired</td></tr>
+    <tr><td>Registers</td><td>Fewer</td><td>Many (register windows in some designs)</td></tr>
+    <tr><td>Instructions per program</td><td>Fewer</td><td>More</td></tr>
+    <tr><td>Code size</td><td>Usually smaller</td><td>Usually larger</td></tr>
+    <tr><td>Pipelining</td><td>Harder (variable length, memory operands)</td><td>Easier (uniform, one-cycle steps)</td></tr>
+    <tr><td>Work shifted to</td><td>Hardware / microcode</td><td>Compiler</td></tr>
+    <tr><td>Classic examples</td><td>DEC VAX, IBM System/370, Intel x86</td><td>Berkeley RISC I, Stanford MIPS, SPARC, ARM, RISC-V</td></tr>
+    </tbody>
+    </table>
+    </div>
+
+    <p><strong>Link to performance:</strong> CPU time = IC &times; CPI &times; T (instruction count &times; cycles per instruction &times; clock period). CISC lowers IC; RISC lowers CPI and usually allows a shorter T. Which one wins depends on the product of all three, as Problems 2 and 3 show.</p>
+
+    <h2>Overlapped Register Windows</h2>
+    <p>Procedure calls and returns are frequent in compiled programs, and each one normally saves registers to memory and passes parameters through memory. RISC I and its successors avoid most of this traffic with a large register file divided into overlapping <em>windows</em>. Only one window is active at a time. Each window has four parts:</p>
+    <ul>
+    <li><strong>Global registers (G):</strong> shared by all procedures.</li>
+    <li><strong>High overlapping registers (C):</strong> parameters received from the calling procedure.</li>
+    <li><strong>Local registers (L):</strong> used only by the active procedure.</li>
+    <li><strong>Low overlapping registers (C):</strong> parameters passed to the next procedure called.</li>
+    </ul>
+    <p>The low registers of the caller are the same physical registers as the high registers of the procedure it calls, so parameters pass without any data movement. A call moves the window pointer down one window; a return moves it back.</p>
+    <div class="box box-eg">
+    <pre>Window size (registers one procedure sees)
+      = L + 2C + G
+
+    Register file size (W windows)
+      = (L + C) × W + G</pre>
+    </div>
+    <p><strong>Note:</strong> the textbook's RISC I example uses G = 10, L = 10, C = 6 and W = 8: a window of 32 registers and a file of 138. The first RISC I chip fabricated in 1981 actually carried 78 registers; the 138-register file was built in its successor, RISC II.</p>
+
+    <h2>Solved Problems</h2>
+
+    <h3>Problem 1: The same statement on a CISC and a RISC machine</h3>
+    <p>Compute X = (A + B) &minus; C, where A, B, C and X are 32-bit words in memory.</p>
+    <p>CISC machine: memory-to-memory three-address instructions; each instruction is a 1-byte opcode plus a 2-byte address per memory operand. RISC machine: every instruction is 32 bits (4 bytes); only LOAD and STORE access memory. Find the number of instructions, the code size, the data memory references and the total memory traffic (instruction bytes + data bytes) for each.</p>
+    <div class="box box-eg">
+    <pre>CISC                    bytes  data refs
+    ADD  T, A, B            7      3 (2 reads, 1 write)
+    SUB  X, T, C            7      3
+    Total: 2 instructions   14     6
+
+    RISC                    bytes  data refs
+    LOAD  R1, A             4      1
+    LOAD  R2, B             4      1
+    LOAD  R3, C             4      1
+    ADD   R1, R1, R2        4      0
+    SUB   R1, R1, R3        4      0
+    STORE X, R1             4      1
+    Total: 6 instructions   24     4
+
+    Memory traffic (data word = 4 bytes)
+    CISC: 14 + 6 × 4 = 38 bytes
+    RISC: 24 + 4 × 4 = 40 bytes</pre>
+    </div>
+    <p><strong>Answer:</strong> CISC uses 2 instructions, 14 bytes of code and 6 data references; RISC uses 6 instructions, 24 bytes and 4 data references. CISC has smaller code, but it writes the temporary T to memory and reads it back; RISC keeps the intermediate result in R1. Total traffic is almost the same (38 vs 40 bytes) — the RISC advantage comes from simple, one-cycle instructions, not from fewer bytes.</p>
+
+    <h3>Problem 2: CPU time, MIPS and break-even CPI</h3>
+    <p>A program compiles to 50 million instructions on a CISC processor with an average CPI of 4.0 and a 2 GHz clock. On a RISC processor it compiles to 80 million instructions with an average CPI of 1.25 and a 2.5 GHz clock. (a) Find the CPU time on each and the speedup. (b) Find the MIPS rating of each. (c) What average CPI on the RISC processor would make the two equally fast?</p>
+    <div class="box box-eg">
+    <pre>(a) CPU time = IC × CPI / f
+    CISC: 50×10⁶ × 4.0  / (2×10⁹)   = 0.100 s
+    RISC: 80×10⁶ × 1.25 / (2.5×10⁹) = 0.040 s
+    Speedup = 0.100 / 0.040 = 2.5
+
+    (b) MIPS = f / (CPI × 10⁶)
+    CISC: 2000 / 4.0  =  500 MIPS
+    RISC: 2500 / 1.25 = 2000 MIPS   (ratio 4)
+
+    (c) 80×10⁶ × CPI / (2.5×10⁹) = 0.100
+        CPI = 0.100 × 2.5×10⁹ / 80×10⁶ = 3.125</pre>
+    </div>
+    <p><strong>Answer:</strong> (a) 0.100 s and 0.040 s; RISC is 2.5 times faster. (b) 500 and 2000 MIPS. The MIPS ratio (4) overstates the real speedup (2.5) because the two processors execute different instructions — compare CPU time, not MIPS. (c) Above an average CPI of 3.125 the RISC processor would lose its advantage, despite the faster clock.</p>
+
+    <h3>Problem 3: Average CPI from an instruction mix</h3>
+    <p>A RISC processor runs a program with this mix: ALU 50 % (CPI 1), load 20 % (CPI 2), store 10 % (CPI 1), branch 20 % (CPI 2). A CISC processor with the same clock needs only 60 % as many instructions for the program, with an average CPI of 3. (a) Find the average CPI of the RISC processor. (b) Which processor is faster, and by how much? (c) What CISC CPI would give equal performance?</p>
+    <div class="box box-eg">
+    <pre>(a) CPI(RISC) = 0.5×1 + 0.2×2 + 0.1×1 + 0.2×2
+                 = 0.5 + 0.4 + 0.1 + 0.4 = 1.4
+
+    (b) Same clock → compare IC × CPI
+        RISC: IC × 1.4       = 1.4 IC
+        CISC: 0.6 IC × 3     = 1.8 IC
+        RISC faster by 1.8 / 1.4 = 1.29
+
+    (c) 0.6 × CPI(CISC) = 1.4
+        CPI(CISC) = 1.4 / 0.6 = 2.33</pre>
+    </div>
+    <p><strong>Answer:</strong> (a) 1.4. (b) The RISC processor is about 1.29 times faster. (c) A CISC CPI of about 2.33 would make them equal. The CISC processor's 40 % saving in instruction count does not make up for its higher CPI.</p>
+
+    <h3>Problem 4: Register windows</h3>
+    <p>A RISC processor has 8 global registers, 8 local registers per window, 8 overlapping registers between adjacent windows, and 6 windows. Registers in each window are numbered R0&ndash;R7 global, R8&ndash;R15 low, R16&ndash;R23 local, R24&ndash;R31 high. (a) Find the window size and the total register file. (b) When procedure P calls procedure Q, where does P put two parameters, and where does Q find them? (c) How many registers does P save to memory for this call?</p>
+    <div class="box box-eg">
+    <pre>(a) Window size = L + 2C + G
+                   = 8 + 2×8 + 8 = 32
+        File size   = (L + C) × W + G
+                   = (8 + 8) × 6 + 8 = 104
+
+        Check: a window of 32 registers needs
+        5-bit register fields (2⁵ = 32).
+
+    (b) P writes the parameters into its low
+        registers, e.g. R8 and R9.
+        The call moves the window; the same
+        physical registers are now Q's high
+        registers R24 and R25.
+
+    (c) None — the overlap passes the parameters
+        and Q has its own local registers.</pre>
+    </div>
+    <p><strong>Answer:</strong> (a) 32 registers per window and 104 in the file. (b) P's R8&ndash;R9 become Q's R24&ndash;R25. (c) No registers are saved. Memory is needed only when calls nest deeper than the windows available: the oldest window is then saved to memory and restored on return.</p>
+
+    <h3>Problem 5: A fixed-length RISC instruction format</h3>
+    <p>A RISC processor has 32-bit instructions, 64 registers and a 7-bit opcode. (a) In the three-register format (opcode, Rd, Rs1, Rs2), how many bits are left unused? How many opcodes are possible? (b) In the register-immediate format (opcode, Rd, Rs1, immediate), how many bits does the immediate get, and what is its range as a 2's complement number? (c) A branch uses opcode + displacement only. What displacement range is possible?</p>
+    <div class="box box-eg">
+    <pre>Register field = log₂ 64 = 6 bits
+
+    (a) 7 + 6 + 6 + 6 = 25 bits used
+        Unused = 32 − 25 = 7 bits
+        Opcodes = 2⁷ = 128
+
+    (b) Immediate = 32 − 7 − 6 − 6 = 13 bits
+        Range = −2¹² … 2¹² − 1 = −4096 … +4095
+
+    (c) Displacement = 32 − 7 = 25 bits
+        Range = −2²⁴ … 2²⁴ − 1
+              = −16 777 216 … +16 777 215</pre>
+    </div>
+    <p><strong>Answer:</strong> (a) 7 unused bits, 128 opcodes. (b) 13 bits, &minus;4096 to +4095. (c) &minus;16 777 216 to +16 777 215 (in the machine's addressing unit). Because every field sits at the same bit position in every instruction, the control unit can read the register numbers while it is still decoding the opcode — one reason RISC instructions decode in a single short step.</p>
+
+    <h2>Practice Problems</h2>
+
+    <p><strong>Q1.</strong> For the machines of Problem 1, write X = A + B + C on each and find the instructions, code bytes and data references.</p>
+    <details><summary>Show answer</summary>
+    <p>CISC: ADD T, A, B; ADD X, T, C &rarr; <strong>2 instructions, 14 bytes, 6 data references</strong>. RISC: LOAD R1, A; LOAD R2, B; LOAD R3, C; ADD R1, R1, R2; ADD R1, R1, R3; STORE X, R1 &rarr; <strong>6 instructions, 24 bytes, 4 data references</strong>.</p>
+    </details>
+
+    <p><strong>Q2.</strong> A CISC processor runs a program in 30 million instructions at CPI 3.5 and 3 GHz. A RISC processor at 3 GHz needs 1.5 times as many instructions at CPI 1.2. Find both CPU times and the speedup.</p>
+    <details><summary>Show answer</summary>
+    <p>CISC: 30&times;10<sup>6</sup> &times; 3.5 / 3&times;10<sup>9</sup> = <strong>35 ms</strong>. RISC: 45&times;10<sup>6</sup> &times; 1.2 / 3&times;10<sup>9</sup> = <strong>18 ms</strong>. Speedup = 35 / 18 &asymp; <strong>1.94</strong>.</p>
+    </details>
+
+    <p><strong>Q3.</strong> A register file has 12 global registers, 12 local registers per window, 8 overlapping registers and 10 windows. Find the window size and the file size.</p>
+    <details><summary>Show answer</summary>
+    <p>Window = 12 + 2&times;8 + 12 = <strong>40</strong>. File = (12 + 8) &times; 10 + 12 = <strong>212</strong>.</p>
+    </details>
+
+    <p><strong>Q4.</strong> A 32-bit RISC instruction has a 6-bit opcode and addresses 32 registers. How many bits remain for the immediate in the opcode, Rd, Rs1, immediate format, and what is its unsigned range?</p>
+    <details><summary>Show answer</summary>
+    <p>Register fields are 5 bits: 32 &minus; 6 &minus; 5 &minus; 5 = <strong>16 bits</strong>; unsigned range <strong>0 to 65 535</strong>.</p>
+    </details>
+
+    <h2>RISC and CISC Today</h2>
+    <p>The line between the two is less sharp than in the 1980s. Intel x86 is a CISC instruction set, but since the P6 family Intel processors have split each x86 instruction into simple internal micro-operations and executed those on a pipelined, out-of-order core — a RISC-style engine behind a CISC decoder. ARM processors, used in most phones, and RISC-V, an open-standard instruction set maintained by RISC-V International, follow the RISC load/store approach. The exam answer stays the same: compare the instruction sets as defined, using the characteristics above.</p>
+
+    <h2>Common Pitfalls</h2>
+    <ul>
+    <li><strong>Saying RISC programs need fewer instructions.</strong> RISC needs more instructions; it wins on CPI and clock rate.</li>
+    <li><strong>Comparing MIPS across RISC and CISC.</strong> The instructions do different amounts of work; compare CPU time.</li>
+    <li><strong>Calling every RISC instruction single-cycle.</strong> Most are; loads, branches and multiplies can take longer, which is why the average CPI is above 1.</li>
+    <li><strong>Mixing up the register-window formulas.</strong> Window size is L + 2C + G; the file size is (L + C) &times; W + G — the overlap is counted once per window, the globals once in total.</li>
+    <li><strong>Linking RISC with microprogrammed control.</strong> RISC control is usually hardwired; microprogramming is typical of CISC.</li>
+    <li><strong>Assuming RISC has no addressing modes.</strong> It has few, not none — register, immediate and displacement (and PC-relative for branches).</li>
+    </ul>
+
+    <h2>Sources and Dates</h2>
+    <ul>
+    <li>M. Morris Mano, <em>Computer System Architecture</em>, 3rd ed., section 8-8 (CISC and RISC characteristics, overlapped register windows).</li>
+    <li>D. A. Patterson and C. H. S&eacute;quin, &ldquo;A VLSI RISC,&rdquo; <em>IEEE Computer</em>, 15(9), 1982 — RISC I has 31 instructions.</li>
+    <li>IEEE Milestone &ldquo;First RISC (Reduced Instruction-Set Computing) Microprocessor, 1980&ndash;1982&rdquo; (ETHW; dedicated 2015) — RISC I chip with 78 registers, RISC II with 138.</li>
+    <li>Intel, P6-family optimization documentation — x86 instructions decoded into micro-operations.</li>
+    <li>RISC-V International, Ratified Specifications (riscv.org) — RISC-V as an open-standard ISA.</li>
+    </ul>
+    <p><strong>Last checked:</strong> November 2026.</p>
+
+    <h2>Related Topics</h2>
+    <p><strong>Related syllabus topics:</strong> <a href="control-memory.html">Control Memory</a> &middot; <a href="instruction-formats.html">Instruction Formats</a> &middot; <a href="addressing-modes.html">Addressing Modes</a>.</p>
+    <p><strong>Previous supplementary page:</strong> <a href="cpu-performance-solved-problems.html">CPU Performance — Solved Problems</a> &middot; <strong>Next supplementary page:</strong> <a href="pipelining.html">Pipelining</a> — how the simple, fixed-length RISC instructions are overlapped.</p>
+
+  </div>
+  <div class="topic-nav">
+    <a href="cpu-performance-solved-problems.html">
+      <div class="nav-dir">← Previous</div>
+      <div class="nav-title">CPU Performance — Solved Problems</div>
+    </a>
+    <a href="pipelining.html" class="next">
+      <div class="nav-dir">Next →</div>
+      <div class="nav-title">Pipelining</div>
+    </a>
+  </div>
+</div>
+<footer id="main-footer"></footer>
+<script type="module">
+  import { initNav } from '../../../js/nav.js';
+  import { initSidebar } from '../../../js/sidebar.js';
+  initNav(3);
+  initSidebar();
+</script>
+</body>
+</html>

@@ -21,6 +21,7 @@ export const GROUPS = {
     // Supplementary topics: extra pages beyond the syllabus (no quiz, not required for the certificate) — see js/curriculum/supplementary.js
     'tg-supplementary': [
       { id:'cpu-performance-solved-problems', title:'CPU Performance — Solved Problems', desc:'Solved problems on CPU time, average CPI, MIPS and Amdahl’s law speedup limits.', time:'30 min', href:'cpu-performance-solved-problems.html', status:'active', supplementary:true, related:'instruction-formats' },
+      { id:'risc-vs-cisc', title:'RISC vs CISC Architecture', desc:'Characteristics, overlapped register windows, and solved problems on instruction counts, CPU time and average CPI.', time:'35 min', href:'risc-vs-cisc.html', status:'active', supplementary:true, related:'control-memory' },
       { id:'pipelining', title:'Pipelining', desc:'Pipeline segments, space-time diagram, speedup and throughput with solved problems, instruction pipelines and hazards.', time:'25 min', href:'pipelining.html', status:'active', supplementary:true, related:'general-register-organization' },
       { id:'arithmetic-solved-problems', title:'Computer Arithmetic — Solved Problems', desc:'Booth multiplication traces, restoring and non-restoring division, and floating-point add, subtract, multiply and divide.', time:'25 min', href:'arithmetic-solved-problems.html', status:'active', supplementary:true, related:'multiplication-algorithms' },
     ],
