@@ -99,7 +99,7 @@
       </div>
       <p style="font-size:.8rem;color:var(--text-2);margin-top:.4rem">Four-bit register: four D flip-flops sharing Clock, with an active-low Clear. Adapted from M. Morris Mano and Michael D. Ciletti, <em>Digital Design</em>, Fig. 6.1.</p>
     </div>
-    <p>On every active clock edge, the register captures whatever is on its data inputs and holds it until the next edge — a snapshot taken once per clock cycle. This is the exact circuit behind every register mentioned by name back in Unit 3's Register Transfer topics, just now shown down at the flip-flop level instead of as an abstract box.</p>
+    <p>On every active clock edge, the register captures whatever is on its data inputs and holds it until the next edge — a snapshot taken once per clock cycle. This is the exact circuit behind every register mentioned by name in Unit 3's Register Transfer topics, just now shown down at the flip-flop level instead of as an abstract box.</p>
 
     <h2 id="Parallel-Load">Register with Parallel Load</h2>
     <p>A plain register like the one above captures new data on <em>every</em> clock edge — often not what's wanted, since a CPU frequently needs a register to hold its value across several cycles while other work happens. Adding a <strong>LOAD</strong> control line, through a 2-to-1 MUX in front of each flip-flop's D input, fixes that: the MUX picks between the flip-flop's own Q (feed it back to itself, i.e. <em>hold</em>) and the new external data (<em>load</em>):</p>
