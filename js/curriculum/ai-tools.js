@@ -13,7 +13,7 @@ export const GROUPS = {
     { id:'your-prompt-collection', title:'Save Time: Your Own Prompt Collection', desc:'Build your own reusable prompt collection, about-me settings and project folders.', time:'30 min', href:'your-prompt-collection.html', status:'active' },
   ],
   'part-2': [
-    { id:'emails-circulars-meetings', title:'Emails, Circulars and Meetings', desc:'Draft emails, circulars and meeting minutes with AI, using your college’s own format.', time:'20 min', status:'coming' },
+    { id:'emails-circulars-meetings', title:'Emails, Circulars and Meetings', desc:'Draft emails, circulars and meeting minutes with AI, using your college’s own format.', time:'20 min', href:'emails-circulars-meetings.html', status:'active' },
     { id:'excel-sheets-with-ai', title:'Excel and Google Sheets with AI', desc:'Use AI to write formulas, clean data and build simple reports in Excel or Sheets.', time:'20 min', status:'coming' },
     { id:'documents-and-presentations', title:'Documents and Presentations', desc:'Draft reports and letters, and turn an outline into slides with AI tools.', time:'20 min', status:'coming' },
   ],
